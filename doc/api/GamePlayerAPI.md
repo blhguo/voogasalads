@@ -1,6 +1,6 @@
 #### Internal API
 
-
+```java
 /** 
  *	This interface represents the connection between the DataManager and Menu Classes so that DataManager will always contain the most updated menu data.
  *	Additionally, this will populate the Menu with the correct settings during initialization
@@ -23,9 +23,10 @@ public void updateViewData(); //this will update DataManager as ViewManager upda
 
 public void setHUD(); //this will set HUD to correct settings
 
-
+```
 #### External API
 
+```java
 /**
  *	This interface allows information from DataManager to be exported to save preferences and save the current game state.
  */
@@ -48,3 +49,4 @@ public void importGame(); // imports an entire game
 public void importPreferences(); // imports saved preferences for a game
 
 public void importGameState(); //imports saved Game State 
+```
