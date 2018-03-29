@@ -123,6 +123,7 @@ We intend to encapsulate all game data interactions within the backend, with ver
 * Data Manager will save the current state of the game to the file.
 
 8. MenuData Interface
+
 ```java
 /** 
  *	This interface represents the connection between the DataManager and Menu Classes so that DataManager will always contain the most updated menu data.
@@ -139,6 +140,7 @@ public void populateMenu(); //populates Menu with correct settings during initia
 * The MenuData interface represents the connection between DataManager and Menu Classes so that DataManager can always contain the most updated menu data. The menu will have many options such as replay, switch games, save/load, etc.
 
 9. GameData Interface
+
 ```java=
 /**
  *	This interface represents the connection between the DataManager and ViewManager Classes so that DataManager will always contain the most updated    
@@ -155,6 +157,7 @@ public void setHUD(); //this will set HUD to correct settings
 * This interface will represent the connection between DataManager and ViewManager Classes so that DataManager can always contain the most updated HUD Data.
 
 10. ExportData Interface
+
 ```java=
 /**
  *	This interface allows information from DataManager to be exported to save preferences and save the current game state.
@@ -170,6 +173,7 @@ public void exportPreferences(); //exports saved preferences
 * The ExportData interface allows information from DataManager to be exported to save preferences and save the current game state.
 
 11. ImportData Interface
+
 ```java=
 /**
  *	This interface allows for information from the saved data files to be read into the DataManager class. 
