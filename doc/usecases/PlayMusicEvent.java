@@ -6,6 +6,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+
 /**
  * 
  * @author GameEngine
@@ -29,6 +30,8 @@ public class PlayMusicEvent implements Event{
 	        ex.printStackTrace();
 	    }
 	}
+	
+	@Override
 	public void listen(){
 		boolean status = this.state.isReady();
 		if(status){
