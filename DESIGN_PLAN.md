@@ -84,6 +84,7 @@ The screen will be divided into two sections. The top section will be an HBox wi
 The User will be able to choose which keys on the keyboard will correlate with inputs for the game to be able to play the game in whichever way it is designed.
 
 In regards to erroneous situations (bad user input) we will display a descriptive message. For instance, if a player assigns two keys to a single input, the screen will say "You can only assign one key to one input". If a player tries to load an invalid file that is not a game file, the screen will display "This is an invalid file".
+![PlayerUI](PlayerUI.jpg "Player UI")
 
 
 ### Game Authoring Environment
@@ -103,15 +104,15 @@ We intend to encapsulate all game data interactions within the backend, with ver
 
 1. Keep track of games' high scores through successive runs of the program until the user clears it
 
-Game Player will take the highest marked score from the Game-Authoring Environment and display in the top right-hand corner. At the end of the game, the player's score will be compared with the high score, and if the player score is greater than the highest score, the highest score will be updated to reflect the player score.
+* Game Player will take the highest marked score from the Game-Authoring Environment and display in the top right-hand corner. At the end of the game, the player's score will be compared with the high score, and if the player score is greater than the highest score, the highest score will be updated to reflect the player score.
 
 2. HUD
 
-The ViewManager will be primarily responsible for this. It will take the desired status data by the specifications set by the Game Authoring Environment and display them in the bottom corners of the screen so it can be viewed by the player
+* The ViewManager will be primarily responsible for this. It will take the desired status data by the specifications set by the Game Authoring Environment and display them in the bottom corners of the screen so it can be viewed by the player
 
 3. Replay Game
 
-This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
+* This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
 
 4. Switch Game
 
