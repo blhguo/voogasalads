@@ -103,15 +103,15 @@ We intend to encapsulate all game data interactions within the backend, with ver
 
 1. Keep track of games' high scores through successive runs of the program until the user clears it
 
-* Game Player will take the highest marked score from the Game-Authoring Environment and display in the top right-hand corner. At the end of the game, the player's score will be compared with the high score, and if the player score is greater than the highest score, the highest score will be updated to reflect the player score.
+Game Player will take the highest marked score from the Game-Authoring Environment and display in the top right-hand corner. At the end of the game, the player's score will be compared with the high score, and if the player score is greater than the highest score, the highest score will be updated to reflect the player score.
 
 2. HUD
 
-* The ViewManager will be primarily responsible for this. It will take the desired status data by the specifications set by the Game Authoring Environment and display them in the bottom corners of the screen so it can be viewed by the player
+The ViewManager will be primarily responsible for this. It will take the desired status data by the specifications set by the Game Authoring Environment and display them in the bottom corners of the screen so it can be viewed by the player
 
 3. Replay Game
 
-* This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
+This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
 
 4. Switch Game
 
