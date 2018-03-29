@@ -117,13 +117,13 @@ We intend to encapsulate all game data interactions within the backend, with ver
 * This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would rely on the ButtonMaker, PullDownFactory, and Initializer.
 
 6. Key Preferences
-* A Key will be mapped to an input and saved in Game![]( )Data as a new preference.
+* A Key will be mapped to an input and saved in GameData as a new preference.
 
 7. Save Progress
 * Data Manager will save the current state of the game to the file.
 
 8. MenuData Interface
-```java=
+```java
 /** 
  *	This interface represents the connection between the DataManager and Menu Classes so that DataManager will always contain the most updated menu data.
  *	Additionally, this will populate the Menu with the correct settings during initialization
