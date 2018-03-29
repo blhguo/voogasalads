@@ -39,6 +39,11 @@ Game Data will be open. Graphical Authoring Environment and Game Player are clos
 6. PullDown Factory: PullDown Factory is a factory for a pull down menu for various options that will be used in the HBox menu
 7. Initializer: Initializer takes data from the authoring environment and visualizes it in an ideal way for the Game 
    Player.
+8. ImportData Interface: This interface allows for information from the saved data files to be read into the DataManager class. This interface also involves pulling in initial game information from Game Authoring Environment.
+9. ExportData Interface: This interface allows information from DataManager to be exported to save preferences and save the current game state.
+10. MenuData Interface: This interface represents the connection between the DataManager and Menu Classes so that DataManager will always contain the most updated menu data. Additionally, this will populate the Menu with the correct settings during initialization.
+11. ViewData Interface: This interface represents the connection between the DataManager and ViewManager Classes so that DataManager will always contain the most updated HUD data. 
+
 
 ### Game Engine
 
