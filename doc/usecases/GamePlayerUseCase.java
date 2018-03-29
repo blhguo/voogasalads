@@ -8,18 +8,22 @@
  * First, the Menu Data and View Data will be updated, and then the current preferences and state will be exported.
  */
 
-updateMenuData()
-updateViewData()
-exportPreferences()
-exportCurrentState()
+public void saveData(){
+    updateMenuData()
+    updateViewData()
+    exportPreferences()
+    exportCurrentState()
+    }
 
 /**
  * The methods below will be used to allow the player to restart the game from a saved point later on:
  * First, the current preferences and game state will be imported, and then the Menu will be populated with the correct setting and the HUD will be set.
  */
  
-importPreferences()
-importGameState()
-populateMenu()
-setHUD()
+public void loadData(){
+    importPreferences()
+    importGameState()
+    populateMenu()
+    setHUD()
+    }
 
