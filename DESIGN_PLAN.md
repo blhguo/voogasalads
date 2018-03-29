@@ -114,15 +114,19 @@ We intend to encapsulate all game data interactions within the backend, with ver
 * This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
 
 4. Switch Game
+
 * This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would use the ButtonMaker, PullDownFactory, Menu, and Data Manager. Initializer would initialize the specific data so that it can be pulled up 
 
 5. Game Selection
+
 * This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would rely on the ButtonMaker, PullDownFactory, and Initializer.
 
 6. Key Preferences
+
 * A Key will be mapped to an input and saved in GameData as a new preference.
 
 7. Save Progress
+
 * Data Manager will save the current state of the game to the file.
 
 8. MenuData Interface
