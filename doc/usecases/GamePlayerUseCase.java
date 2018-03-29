@@ -17,8 +17,9 @@ exportCurrentState()
  * The methods below will be used to allow the player to restart the game from a saved point later on:
  * First, the current preferences and game state will be imported, and then the Menu will be populated with the correct setting and the HUD will be set.
  */
-1. importPreferences()
-2. importGameState()
-3. populateMenu()
-4. setHUD()
+ 
+importPreferences()
+importGameState()
+populateMenu()
+setHUD()
 
