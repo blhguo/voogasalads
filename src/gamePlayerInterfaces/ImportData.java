@@ -1,17 +1,18 @@
 package gamePlayerInterfaces;
 
 /**
+ * @author Dana Park
  *  This interface allows for information from the saved data files to be read into the DataManager class. 
  *  This interface also involves pulling in initial game information from Game Authoring Environment
  */
 
 public interface ImportData{
 
-	public void importGame(); // imports an entire game 
+	public void importGame(); 
 
-	public void importPreferences(); // imports saved preferences for a game
+	public void importPreferences(); 
 
-	public void importGameState(); //imports saved Game State 
+	public void importGameState(); 
 	
 }
 
