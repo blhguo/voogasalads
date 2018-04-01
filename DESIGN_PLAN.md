@@ -39,6 +39,11 @@ Game Data will be open. Graphical Authoring Environment and Game Player are clos
 6. PullDown Factory: PullDown Factory is a factory for a pull down menu for various options that will be used in the HBox menu
 7. Initializer: Initializer takes data from the authoring environment and visualizes it in an ideal way for the Game 
    Player.
+8. ImportData Interface: This interface allows for information from the saved data files to be read into the DataManager class. This interface also involves pulling in initial game information from Game Authoring Environment.
+9. ExportData Interface: This interface allows information from DataManager to be exported to save preferences and save the current game state.
+10. MenuData Interface: This interface represents the connection between the DataManager and Menu Classes so that DataManager will always contain the most updated menu data. Additionally, this will populate the Menu with the correct settings during initialization.
+11. ViewData Interface: This interface represents the connection between the DataManager and ViewManager Classes so that DataManager will always contain the most updated HUD data. 
+
 
 ### Game Engine
 
@@ -89,11 +94,25 @@ In regards to erroneous situations (bad user input) we will display a descriptiv
 
 ### Game Authoring Environment
 
-We intend to build an authoring environment visually based off our included prototype. In the center of our screen, we intend to have a canvas, on which a user can view the currently selected level backdrop; drag-and-drop sprites; and identify sprite-specific interactions.  
+We intend to build an authoring environment visually based off our included prototype (/doc/VOOGA Prototype.mp4). In the center of our screen, we intend to have a canvas, on which a user can view the currently selected level backdrop; drag-and-drop sprites; and identify sprite-specific interactions.  
 
-At the sides of our screen, we plan to include menus that allow for more complicated game customization. Within these menus, a user will be able to see information about the game physics, the sprites active in the level, relationships between game objects, and the level goals. If a user wishes to modify any of this information, they will have the ability to -- when selected, a menu item in the left toolbar will cue its corresponding panel to appear in the panel at the right side of the screen. Each panel will contain options specific to its category. The intended menu/toolbar   
+At the sides of our screen, we plan to include menus that allow for more complicated game customization. Within these menus, a user will be able to see information about the game physics, the sprites active in the level, relationships between game objects, and the level goals. If a user wishes to modify any of this information, they will have the ability to -- when selected, a menu item in the left toolbar will cue its corresponding panel to appear in the panel at the right side of the screen. Each panel will contain options specific to its category. The intended menus and their functions are:  
+* Entity Creator
+    * Select sprite image
+    * Manage sprite sizing
+    * Add intrinsic sprite behavior (ability to run, jump, etc.) 
+    * Drag and drop sprite onto canvas
+* Actions and Events
+    * View all current in-game sprites
+    * Manage interactions between two or more sprites (build events, link sprites with these events)
+* Level Preferences
+    * Select background
+    * Determine win condition
+    * Add music
+* Storyboard
+    * View and reorder all created levels
+    * Adjust game settings (e.g. name game)
 
-In another tab, we plan to build an event-building environment. Within this space, a user will be able to define cause-and-effect relationships for their game through use of drag-and-drop blocks (similar to Scratch, or to Unity Vinoma).
 
 ### Game Data
 
@@ -103,32 +122,25 @@ We intend to encapsulate all game data interactions within the backend, with ver
 ### Game Player
 
 1. Keep track of games' high scores through successive runs of the program until the user clears it
-
-* Game Player will take the highest marked score from the Game-Authoring Environment and display in the top right-hand corner. At the end of the game, the player's score will be compared with the high score, and if the player score is greater than the highest score, the highest score will be updated to reflect the player score.
+Game Player will take the highest marked score from the Game-Authoring Environment and display in the top right-hand corner. At the end of the game, the player's score will be compared with the high score, and if the player score is greater than the highest score, the highest score will be updated to reflect the player score.
 
 2. HUD
-
-* The ViewManager will be primarily responsible for this. It will take the desired status data by the specifications set by the Game Authoring Environment and display them in the bottom corners of the screen so it can be viewed by the player
+The ViewManager will be primarily responsible for this. It will take the desired status data by the specifications set by the Game Authoring Environment and display them in the bottom corners of the screen so it can be viewed by the player
 
 3. Replay Game
-
-* This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
+This would be achieved by accessing the Menu HBox at the top of the screen, where the player can hit a button labeled Restart that will restart the game. This feature would rely on the ButtonMaker, Menu, and Initializer 
 
 4. Switch Game
-
-* This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would use the ButtonMaker, PullDownFactory, Menu, and Data Manager. Initializer would initialize the specific data so that it can be pulled up 
+This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would use the ButtonMaker, PullDownFactory, Menu, and Data Manager. Initializer would initialize the specific data so that it can be pulled up 
 
 5. Game Selection
-
-* This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would rely on the ButtonMaker, PullDownFactory, and Initializer.
+This would be achieved by accessing the Game tab on the Menu HBox which will be a drop down menu with a name, image, and description for each game that the player can select by clicking. This feature would rely on the ButtonMaker, PullDownFactory, and Initializer.
 
 6. Key Preferences
-
-* A Key will be mapped to an input and saved in GameData as a new preference.
+A Key will be mapped to an input and saved in GameData as a new preference.
 
 7. Save Progress
-
-* Data Manager will save the current state of the game to the file.
+Data Manager will save the current state of the game to the file.
 
 8. MenuData Interface
 

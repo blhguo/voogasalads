@@ -5,6 +5,8 @@
 
 public interface ViewData{
 
-public void updateViewData(); //this will update DataManager as ViewManager updates
+    public void updateViewData(); //this will update DataManager as ViewManager updates
 
-public void setHUD(); //this will set HUD to correct settings
+    public void setHUD(); //this will set HUD to correct settings
+    
+}

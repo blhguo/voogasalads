@@ -5,6 +5,8 @@
 
 public interface MenuData{
 
-public void updateMenuData(); // this will update DataManager so that it contains most updated menu data
+    public void updateMenuData(); // this will update DataManager so that it contains most updated menu data
 
-public void populateMenu(); //populates Menu with correct settings during initialization
+    public void populateMenu(); //populates Menu with correct settings during initialization
+    
+}
