@@ -1,11 +1,18 @@
 package gameplayer;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.Group;
+import java.awt.Panel;
+
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * 
@@ -13,45 +20,40 @@ import javafx.util.Duration;
  *
  */
 public class ViewManager {
+	private Menu menu;
+	private Stage gameStage;
+	private double sceneWidth = 600;
+	private double sceneHeight = 600;
+	private Paint backColor = Color.LIGHTBLUE;
+	private Rectangle view;
 	
-	public static final int FRAMES_PER_SECOND = 60;
-	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	private Stage stg;
-	private Scene myScene;
-	private Group root;
-	private Timeline animation;
-
-	
-	
-	public ViewManager() {
-		// TODO Auto-generated constructor stub
+	public ViewManager(Menu menu, Stage stage) {
+		this.menu = menu;
+		this.gameStage = stage;
+		setScene();
+		gameStage.setTitle("CALL US SALAD");
+		gameStage.show();
 	}
 	
-	public void start(Stage stage) {
-		
+	private void setScene() {
+		Pane pane = setObjects();
+		Scene scene = new Scene(pane,sceneWidth,sceneHeight,backColor);
+		gameStage.setScene(scene);
 	}
 	
-	private Scene setUpGame() {
-		return null;
-		
+	private Pane setObjects() {
+		HBox center = new HBox(20);
+		center.setAlignment(Pos.CENTER);
+		center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		VBox order = new VBox(10);
+		order.setAlignment(Pos.CENTER);
+		center.getChildren().add(order);
+		menu.addMenu(order);
+		view = new Rectangle(500,470);
+		view.setFill(Color.WHITE);
+		order.getChildren().add(view);
+		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		return center;
+		//TODO Populate these boxes with the menu and view
 	}
-	
-	private void animationFrame() {
-		
-			KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-					e -> step(SECOND_DELAY));
-			if(animation!=null) {
-				animation.stop();
-			}
-			animation = new Timeline();
-			animation.setCycleCount(Timeline.INDEFINITE);
-			animation.getKeyFrames().add(frame);
-			animation.play();
-		}
-	
-	public void step(double delay) {
-		
-	}
-
 }
