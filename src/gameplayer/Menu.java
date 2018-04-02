@@ -6,6 +6,8 @@ import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import java.util.ResourceBundle;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -28,6 +30,8 @@ public class Menu {
 	private KeyCode currentKey;
 	private Button currentPrefButton;
 	private String currentPrefString;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "gamePlayerResources/";
+	private ResourceBundle menuProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "menu_options");
 	
 	public Menu(DataManager data) {
 		pane = new HBox(20);
@@ -39,12 +43,14 @@ public class Menu {
 		
 		//Remove this later, just for example
 		for(int i=0;i<5;i++) {
-			pane.getChildren().add(new Button("button "+i));
+				pane.getChildren().add(new Button("button "+i));
 		}
+
 		keyPrefMenu = new ComboBox<HBox>();
 		pane.getChildren().add(keyPrefMenu);
 		
 		initKeyPrefMenu();
+
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
