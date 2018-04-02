@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Dana Park, Brandon Dalla Rosa
  *
  */
 public class ButtonMaker {
