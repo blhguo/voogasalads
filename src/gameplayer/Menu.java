@@ -7,8 +7,9 @@ import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Pos;
+import javafx.scene.control.ComboBox;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -19,19 +20,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Brandon Dalla Rosa, Dana Park
  *
  */
 public class Menu {
+	
 	private HBox pane;
+	private PulldownFactory pullDownFactory = new PulldownFactory();
 	private ComboBox<HBox> keyPrefMenu;
 	private DataManager dataManager;
 	private boolean isReading;
 	private KeyCode currentKey;
-	private Button currentPrefButton;
+	private Button currentPrefButton;	
 	private String currentPrefString;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "gamePlayerResources/";
 	private ResourceBundle menuProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "menu_options");
+
 	
 	public Menu(DataManager data) {
 		pane = new HBox(20);
@@ -41,10 +45,9 @@ public class Menu {
 		currentKey = KeyCode.ENTER;
 		currentPrefButton = new Button();
 		
-		//Remove this later, just for example
-		for(int i=0;i<5;i++) {
-				pane.getChildren().add(new Button("button "+i));
-		}
+		pane.getChildren().add(pullDownFactory.SpeedBox());
+		pane.getChildren().add(pullDownFactory.StatusBox());
+		pane.getChildren().add(pullDownFactory.SaveLoadBox());
 
 		keyPrefMenu = new ComboBox<HBox>();
 		pane.getChildren().add(keyPrefMenu);
