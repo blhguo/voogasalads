@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Brandon Dalla Rosa, Dana Park
  *
  */
 public class Menu {
