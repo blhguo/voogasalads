@@ -39,6 +39,7 @@ public class ViewManager {
 		Pane pane = setObjects();
 		Scene scene = new Scene(pane,sceneWidth,sceneHeight,backColor);
 		gameStage.setScene(scene);
+		scene.setOnKeyPressed(click->menu.checkForInput(click.getCode()));
 	}
 	
 	private Pane setObjects() {

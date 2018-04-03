@@ -16,9 +16,9 @@ public class Main extends Application{
 	 * Method called to initialize the Game Player
 	 */
 	public void start(Stage stage) {
-		this.menu = new Menu();
-		this.viewManager = new ViewManager(menu,stage);
 		this.dataManager = new DataManager();
+		this.menu = new Menu(dataManager);
+		this.viewManager = new ViewManager(menu,stage);
 		this.initializer = new Initializer();
 	}
 	/**
