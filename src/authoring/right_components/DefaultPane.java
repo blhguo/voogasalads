@@ -23,5 +23,4 @@ public class DefaultPane extends StackPane implements GUIComponent{
 	public Pane getView() {
 		return this;
 	}
-
 }

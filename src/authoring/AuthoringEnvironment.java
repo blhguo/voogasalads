@@ -13,6 +13,8 @@ import resources.keys.AuthRes;
 public class AuthoringEnvironment implements GUIBuilder, Listener {
 
 	private DefaultPane dp;
+	private NavigationPane np;
+	
 	private EntityComponent entity;
 	private EventComponent event;
 	private LevelComponent level;
@@ -24,10 +26,14 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 		//instantiate leftPane, rightPane, Canvas
 		
 		dp = new DefaultPane();
+		np = new NavigationPane();
+		
 		entity = new EntityComponent();
 		event = new EventComponent();
 		level = new LevelComponent();
 		story = new StoryboardComponent();
+		
+		np.addListener(this);
 	}
 	
 	@Override
@@ -37,6 +43,7 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 		//set leftPane
 		
 		update(""); //calls default setting for right pane
+		bp.setLeft(np);
 		Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		return scene;
 		
@@ -49,13 +56,13 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 	@Override
 	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
-			case "entity":
+			case "Entity Creator":
 			        bp.setRight(entity);
-			case "event": ;
+			case "Actions and Events": ;
 			        bp.setRight(event);;
-			case "level": ;
+			case "Level Preferences": ;
 			        bp.setRight(level);;
-			case "story": ;
+			case "Storyboard": ;
 			        bp.setRight(story);
 			default: 
 					bp.setRight(dp);
