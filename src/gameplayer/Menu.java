@@ -2,19 +2,11 @@ package gameplayer;
 
 import java.util.ArrayList;
 
-import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
-import javafx.scene.control.ComboBox;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -33,7 +25,6 @@ public class Menu {
 	private Button keyPrefButton;
 	private Stage keyPrefStage;
 	private DataManager dataManager;
-	private boolean isReading;
 	private KeyCode currentKey;
 	private Button currentPrefButton;	
 	private String currentPrefString;
@@ -45,7 +36,6 @@ public class Menu {
 		pane = new HBox(20);
 		pane.setAlignment(Pos.CENTER);
 		dataManager = data;
-		isReading = false;
 		currentKey = KeyCode.ENTER;
 		currentPrefButton = new Button();
 		pane.getChildren().add(pullDownFactory.SpeedBox());
