@@ -11,8 +11,10 @@ public class TestMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 //		BorderPane testBP = new BorderPane();
 //		Scene testScene = new Scene(testBP);
-		AuthoringEnvironment ae = new AuthoringEnvironment();
-		Scene testScene = ae.display();
+//		AuthoringEnvironment ae = new AuthoringEnvironment();
+//		Scene testScene = ae.display();
+		SplashScreen ss = new SplashScreen(primaryStage);
+		Scene testScene = ss.display();
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 	}
