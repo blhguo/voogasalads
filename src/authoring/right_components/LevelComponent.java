@@ -4,7 +4,7 @@ import authoring.GUIComponent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class EventPane extends StackPane implements GUIComponent {
+public class LevelComponent extends StackPane implements GUIComponent {
 
 	@Override
 	public Pane getView() {

@@ -1,6 +1,10 @@
 package authoring;
 
 import authoring.right_components.DefaultPane;
+import authoring.right_components.EntityComponent;
+import authoring.right_components.EventComponent;
+import authoring.right_components.LevelComponent;
+import authoring.right_components.StoryboardComponent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import observables.Listener;
@@ -9,12 +13,21 @@ import resources.keys.AuthRes;
 public class AuthoringEnvironment implements GUIBuilder, Listener {
 
 	private DefaultPane dp;
+	private EntityComponent entity;
+	private EventComponent event;
+	private LevelComponent level;
+	private StoryboardComponent story;
 	private BorderPane bp;
 	
+	
 	public AuthoringEnvironment(){
-		//instantiate leftPane, rightPane, Canvas,
-		//EntityComponent, EventComponent, LevelComponent, StoryBoard
+		//instantiate leftPane, rightPane, Canvas
+		
 		dp = new DefaultPane();
+		entity = new EntityComponent();
+		event = new EventComponent();
+		level = new LevelComponent();
+		story = new StoryboardComponent();
 	}
 	
 	@Override
@@ -34,18 +47,18 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 	}
 
 	@Override
-	public void update(String state) {
+	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
 			case "entity":
-			        break;
+			        bp.setRight(entity);
 			case "event": ;
-			        break;
+			        bp.setRight(event);;
 			case "level": ;
-			        break;
+			        bp.setRight(level);;
 			case "story": ;
-			        break;
-			default: bp.setRight(dp);
-					break;
+			        bp.setRight(story);
+			default: 
+					bp.setRight(dp);
 		}
 	}
 
