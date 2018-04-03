@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class ViewManager {
 	private Menu menu;
 	private Stage gameStage;
-	private double sceneWidth = 600;
+	private double sceneWidth = 800;
 	private double sceneHeight = 600;
 	private Paint backColor = Color.LIGHTBLUE;
 	private Rectangle view;
@@ -39,7 +39,6 @@ public class ViewManager {
 		Pane pane = setObjects();
 		Scene scene = new Scene(pane,sceneWidth,sceneHeight,backColor);
 		gameStage.setScene(scene);
-		scene.setOnKeyPressed(click->menu.checkForInput(click.getCode()));
 	}
 	
 	private Pane setObjects() {
@@ -50,11 +49,10 @@ public class ViewManager {
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
 		menu.addMenu(order);
-		view = new Rectangle(500,470);
+		view = new Rectangle(770,530);
 		view.setFill(Color.WHITE);
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
-		//TODO Populate these boxes with the menu and view
 	}
 }

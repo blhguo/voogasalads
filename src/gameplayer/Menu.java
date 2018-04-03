@@ -9,7 +9,7 @@ import javafx.beans.value.ObservableValue;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
-
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 /**
  * 
  * @author Brandon Dalla Rosa, Dana Park
@@ -27,7 +29,9 @@ public class Menu {
 	
 	private HBox pane;
 	private PulldownFactory pullDownFactory = new PulldownFactory();
-	private ComboBox<HBox> keyPrefMenu;
+	private VBox keyPrefMenu;
+	private Button keyPrefButton;
+	private Stage keyPrefStage;
 	private DataManager dataManager;
 	private boolean isReading;
 	private KeyCode currentKey;
@@ -44,16 +48,19 @@ public class Menu {
 		isReading = false;
 		currentKey = KeyCode.ENTER;
 		currentPrefButton = new Button();
-		
 		pane.getChildren().add(pullDownFactory.SpeedBox());
 		pane.getChildren().add(pullDownFactory.StatusBox());
 		pane.getChildren().add(pullDownFactory.SaveLoadBox());
-
-		keyPrefMenu = new ComboBox<HBox>();
-		pane.getChildren().add(keyPrefMenu);
-		
+		keyPrefMenu = new VBox(10);
+		keyPrefButton = new Button("Key Prefs");
+		keyPrefButton.setOnAction(click->{showPrefMenu();});
+		keyPrefButton.setPrefSize(160, 20);
+		pane.getChildren().add(keyPrefButton);
 		initKeyPrefMenu();
-
+		keyPrefStage = new Stage();
+		Scene scene = new Scene(keyPrefMenu);
+		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
+		keyPrefStage.setScene(scene);
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -64,12 +71,7 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initKeyPrefMenu() {
-		keyPrefMenu.setPromptText("Key Prefs");
-		keyPrefMenu.setOnHidden(click->{
-			currentPrefButton = new Button();
-			});		
 		ArrayList<String> inputs = (ArrayList<String>) dataManager.getInputCommands();
 		for(String s : inputs) {
 			HBox toAdd = new HBox(10);
@@ -79,21 +81,15 @@ public class Menu {
 			button.setOnAction(click->{setPref(button,s);});
 			toAdd.getChildren().add(label);
 			toAdd.getChildren().add(button);
-			keyPrefMenu.getItems().add(toAdd);
+			keyPrefMenu.getChildren().add(toAdd);
 		}
-		
-		keyPrefMenu.setSkin( new ComboBoxListViewSkin( keyPrefMenu )
-		{
-		    @Override
-		    protected boolean isHideOnClickEnabled()
-		    {
-		        return false;
-		    }
-		} );
 	}
 	private void setPref(Button button,  String string) {
 		currentPrefButton = button;
 		currentPrefString = string;
+	}
+	private void showPrefMenu() {
+		keyPrefStage.show();
 	}
 	
 	public void checkForInput(KeyCode code) {
