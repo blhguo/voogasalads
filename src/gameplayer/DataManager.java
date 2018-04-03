@@ -26,7 +26,6 @@ public class DataManager {
 		for(int i=0;i<testInputs.length;i++) {
 			gameInputs.add(testInputs[i]);
 		}
-		
 		initializeInputs();
 	}
 	/**
@@ -37,6 +36,7 @@ public class DataManager {
 	 */
 	public void setKey(String input,KeyCode key) {
 		keyPrefs.put(key, input);
+		System.out.print(keyPrefs.size());
 	}
 	/**
 	 * Method called to get the input for a given key during gameplay.

@@ -30,6 +30,7 @@ public class PulldownFactory {
 		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
 		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
 				getResources(speedProperties, "SlowDownCommand"));
+		speedBox.setPrefSize(160, 20);
 		return speedBox;
 	}
 	
@@ -38,6 +39,7 @@ public class PulldownFactory {
 		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
 		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"), getResources(statusProperties, "PlayGameCommand"),
 				getResources(statusProperties, "ReplayGameCommand"));
+		statusBox.setPrefSize(160, 20);
 		return statusBox;
 	}
 	
@@ -45,6 +47,7 @@ public class PulldownFactory {
 		saveLoadBox = new ComboBox<String>();
 		saveLoadBox.setValue(getResources(saveLoadProperties, "InitialCommand"));
 		saveLoadBox.getItems().addAll(getResources(saveLoadProperties, "SaveCommand"), getResources(saveLoadProperties, "LoadCommand"));
+		saveLoadBox.setPrefSize(160, 20);
 		return saveLoadBox;
 	}
 	
