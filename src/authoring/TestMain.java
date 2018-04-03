@@ -9,8 +9,10 @@ public class TestMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BorderPane testBP = new BorderPane();
-		Scene testScene = new Scene(testBP);
+//		BorderPane testBP = new BorderPane();
+//		Scene testScene = new Scene(testBP);
+		AuthoringEnvironment ae = new AuthoringEnvironment();
+		Scene testScene = ae.display();
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 	}
