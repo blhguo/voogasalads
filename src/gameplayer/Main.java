@@ -19,7 +19,7 @@ public class Main extends Application{
 		this.dataManager = new DataManager();
 		this.menu = new Menu(dataManager);
 		this.viewManager = new ViewManager(menu,stage);
-		this.initializer = new Initializer();
+		this.initializer = new Initializer(this.viewManager);
 	}
 	/**
 	 * Method called by JavaFX to launch the program.

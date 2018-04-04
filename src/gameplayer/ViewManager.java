@@ -1,7 +1,7 @@
 package gameplayer;
 
 import java.awt.Panel;
-
+import javafx.scene.Node;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -54,5 +54,9 @@ public class ViewManager {
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
+	}
+	
+	public Rectangle getNode() {
+		return view;
 	}
 }
