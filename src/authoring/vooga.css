@@ -22,3 +22,9 @@
 .button {
     -fx-cursor: hand;
 }
+
+.pane-title {
+    -fx-font: 20px helvetica, sans-serif;
+    -fx-fill: #b3b3b3;
+    -fx-text-fill: white;
+}

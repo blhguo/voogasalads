@@ -1,4 +1,4 @@
-package authoring.right_components;
+package authoring.utilities;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
