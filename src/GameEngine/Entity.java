@@ -1,4 +1,4 @@
-package voogasalad_callussalad;
+package GameEngine;
 
 import java.util.HashMap;
 import java.util.Map;

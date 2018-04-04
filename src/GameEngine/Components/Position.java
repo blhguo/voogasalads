@@ -1,4 +1,6 @@
-package voogasalad_callussalad;
+package GameEngine.Components;
+
+import GameEngine.Component;
 
 public class Position implements Component {
 	
