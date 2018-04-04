@@ -16,11 +16,28 @@ public class Entity {
 		myComponents.put(component.getClass(), component);
 	}
 	
+	// to be used not by front-end, but by other classes
+	// seen here: https://gfycat.com/gifs/detail/directornatecapeghostfrog
 	public void removeComponent(Component component) {
 		myComponents.remove(component.getClass());
 	}
 	
 	public Component getComponent(Class<Component> clazz) {
 		return myComponents.get(clazz);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean hasAll(Class<Component>... args) {
+		if (args.length != myComponents.size()) {
+			return false;
+		}
+		
+		for (Class<Component> c : args) {
+			// need to figure out the whole interface reflection stuff...not sure this is riht
+			if (!myComponents.containsKey(c)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
