@@ -11,6 +11,7 @@ public class Movement extends System {
 	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> POSITION = Position.class;
 	private static final double ONE_HALF = 0.5;
+	private static final double TWO = 2;
 	
 	public Movement(Engine engine) {
 		super(engine);
@@ -27,6 +28,6 @@ public class Movement extends System {
 	}
 	
 	private double calcPos(double pos, double time, double vel, double accel) {
-		return pos + time * vel + ONE_HALF * accel * Math.pow(time, 2);
+		return pos + time * vel + ONE_HALF * accel * Math.pow(time, TWO);
 	}
 }
