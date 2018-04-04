@@ -1,21 +1,36 @@
 .title {
-	-fx-font: 100px helvetica, sans-serif;
+	-fx-font-family: segoeui;
+	-fx-font-size: 100px;
 	-fx-fill: white;
+	-fx-font-weight: lighter;
+}
+
+.title2 {
+	-fx-font-family: segoeui;
+	-fx-font-size: 24px;
+	-fx-font-weight: lighter;
+	-fx-fill: rgba(255, 255, 255, 0.7);
 }
 
 .button-label {
-	-fx-font: 14px helvetica, sans-serif;
+	-fx-font-family: segoeui;
+	-fx-font-size: 14px;
 	-fx-fill: white;
 }
 
 .button-sublabel {
-	-fx-font: 14px helvetica, sans-serif;
+	-fx-font-family:segoeui;
+	-fx-font-size: 14px;
 	-fx-fill: #b3b3b3;
 }
 
 .button-splash {
 	-fx-background-radius: 50%;
-	-fx-background-color: #808080;
+	-fx-background-color: rgba(128, 128, 128, 0.7);
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
+}
+
+.chooser-back {
+	-fx-fill: rgba(0, 0, 0, 0.5);
 }
