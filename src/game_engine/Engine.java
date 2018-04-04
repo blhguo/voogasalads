@@ -1,4 +1,4 @@
-package GameEngine;
+package game_engine;
 
 import java.util.ArrayList;
 import java.util.List;
