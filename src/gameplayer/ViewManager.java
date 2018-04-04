@@ -25,7 +25,7 @@ public class ViewManager {
 	private double sceneWidth = 800;
 	private double sceneHeight = 600;
 	private Paint backColor = Color.LIGHTBLUE;
-	private Rectangle view;
+	private Pane view;
 	
 	public ViewManager(Menu menu, Stage stage) {
 		this.menu = menu;
@@ -49,8 +49,9 @@ public class ViewManager {
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
 		menu.addMenu(order);
-		view = new Rectangle(770,530);
-		view.setFill(Color.WHITE);
+		view = new Pane();
+		view.setPrefSize(770, 530);
+		view.setBackground(new Background(new BackgroundFill(Color.WHITE,null,null)));
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
