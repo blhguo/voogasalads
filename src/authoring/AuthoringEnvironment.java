@@ -1,6 +1,5 @@
 package authoring;
 
-import authoring.right_components.DefaultPane;
 import authoring.right_components.EntityComponent;
 import authoring.right_components.EventComponent;
 import authoring.right_components.LevelComponent;
@@ -12,7 +11,6 @@ import resources.keys.AuthRes;
 
 public class AuthoringEnvironment implements GUIBuilder, Listener {
 
-	private DefaultPane dp;
 	private NavigationPane np;
 	
 	private EntityComponent entity;
@@ -24,15 +22,13 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 	
 	public AuthoringEnvironment(){
 		//instantiate leftPane, rightPane, Canvas
-		
-		dp = new DefaultPane();
-		np = new NavigationPane();
-		
+				
 		entity = new EntityComponent();
 		event = new EventComponent();
 		level = new LevelComponent();
 		story = new StoryboardComponent();
 		
+		np = new NavigationPane();
 		np.addListener(this);
 	}
 	
@@ -57,15 +53,21 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
 			case "Entity Creator":
-			        bp.setRight(entity);
-			case "Actions and Events": ;
-			        bp.setRight(event);;
+			        bp.setRight(entity.getView());
+			        break;
+			case "Actions and Events":
+					System.out.println("actions clicked");
+					bp.setRight(null);
+			        bp.setRight(event.getView());
+			        break;
 			case "Level Preferences": ;
-			        bp.setRight(level);;
+			        bp.setRight(level.getView());
+			        break;
 			case "Storyboard": ;
-			        bp.setRight(story);
+			        bp.setRight(story.getView());
+			        break;
 			default: 
-					bp.setRight(dp);
+					break;
 		}
 	}
 
