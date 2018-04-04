@@ -21,7 +21,7 @@ public class Entity {
 		myComponents.remove(component.getClass());
 	}
 	
-	public Component getComponent(Class<?> clazz) {
+	public Component getComponent(Class<? extends Component> clazz) {
 		return myComponents.get(clazz);
 	}
 	

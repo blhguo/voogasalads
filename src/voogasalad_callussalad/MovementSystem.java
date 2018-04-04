@@ -2,7 +2,7 @@ package voogasalad_callussalad;
 
 public class MovementSystem extends System {
 	private static final Class<Physics> PHYSICS = Physics.class;
-	private static final Class<?> POSITION = Position.class;
+	private static final Class<? extends Component> POSITION = Position.class;
 	private static final double ONE_HALF = 0.5;
 	
 	public MovementSystem(Engine engine) {
