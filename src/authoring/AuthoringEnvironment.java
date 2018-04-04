@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import observables.Listener;
 import resources.keys.AuthRes;
 
-public class AuthoringEnvironment implements GUIBuilder, Listener {
+public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private NavigationPane np;
 	
@@ -36,14 +36,16 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 	@Override
 	public Scene display() {
 		bp = new BorderPane();
+		Scene scene = initScene(bp);
 		
 		//set leftPane
 		
 		update(""); //calls default setting for right pane
 		bp.setLeft(np);
-		bp.setCenter(canvas.getView());
-		Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
+		//bp.setCenter(canvas.getView());
+		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
+		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		return scene;
 		
 	}
