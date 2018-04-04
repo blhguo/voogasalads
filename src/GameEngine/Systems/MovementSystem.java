@@ -3,6 +3,7 @@ package GameEngine.Systems;
 import GameEngine.Component;
 import GameEngine.Entity;
 import GameEngine.System;
+import GameEngine.Components.Physics;
 import GameEngine.Components.Position;
 
 public class MovementSystem extends System {
