@@ -21,15 +21,11 @@ public class Entity {
 		myComponents.remove(component.getClass());
 	}
 	
-	public Component getComponent(Class<?> clazz) {
+	public Component getComponent(Class<? extends Component> clazz) {
 		return myComponents.get(clazz);
 	}
 	
 	public boolean hasAll(Class<?>... args) {
-		if (args.length != myComponents.size()) {
-			return false;
-		}
-		
 		for (Class<?> c : args) {
 			// need to figure out the whole interface reflection stuff...not sure this is riht
 			if (!myComponents.containsKey(c)) {
