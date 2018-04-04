@@ -18,6 +18,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private LevelComponent level;
 	private StoryboardComponent story;
 	private BorderPane bp;
+	private Canvas canvas;
 	
 	
 	public AuthoringEnvironment(){
@@ -27,7 +28,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		event = new EventComponent();
 		level = new LevelComponent();
 		story = new StoryboardComponent();
-		
+		canvas = new Canvas();
 		np = new NavigationPane();
 		np.addListener(this);
 	}
@@ -41,7 +42,9 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		
 		update(""); //calls default setting for right pane
 		bp.setLeft(np);
-		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
+		bp.setCenter(canvas.getView());
+		Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
+		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
 		return scene;
 		
 	}
@@ -57,8 +60,6 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 			        bp.setRight(entity.getView());
 			        break;
 			case "Actions and Events":
-					System.out.println("actions clicked");
-					bp.setRight(null);
 			        bp.setRight(event.getView());
 			        break;
 			case "Level Preferences": ;

@@ -2,17 +2,12 @@ package authoring;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class TestMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-//		BorderPane testBP = new BorderPane();
-//		Scene testScene = new Scene(testBP);
-//		AuthoringEnvironment ae = new AuthoringEnvironment();
-//		Scene testScene = ae.display();
 		SplashScreen ss = new SplashScreen(primaryStage);
 		Scene testScene = ss.display();
 		primaryStage.setScene(testScene);
