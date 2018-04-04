@@ -9,9 +9,10 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
 
-public abstract class GUIGridPaneSuper implements GUIBuilder {
+public abstract class GUIGridPaneSuper extends GUIBuilder {
 
 	@Override
 	public Scene display() {
@@ -20,14 +21,10 @@ public abstract class GUIGridPaneSuper implements GUIBuilder {
 		gridpane.setVgap(AuthRes.getInt("Padding"));
 		gridpane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		
-		Scene scene = new Scene(gridpane, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
-		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
-		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		gridpane.setBackground(new Background(back));
+		Scene myScene = initScene(gridpane);
 		
 		finishScene(gridpane);
-		return scene;
+		return myScene;
 	}
 	
 	public abstract void finishScene(GridPane gridpane);

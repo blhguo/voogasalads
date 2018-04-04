@@ -28,5 +28,7 @@ public class GameChooserScreen extends GUIGridPaneSuper {
 		gridpane.add(rect, 20, 13);
 		
 	}
+	
+	//class also needs to load saved games to be edited/played - each game needs thumbnail
 
 }
