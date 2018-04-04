@@ -1,12 +1,11 @@
 package voogasalad_callussalad;
 
-import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Entity {
 	
-	private Map<Class<? extends Component>, Component> myComponents;
+	private Map<Class<?>, Component> myComponents;
 	
 	public Entity() {
 		myComponents = new HashMap<>();
@@ -22,17 +21,16 @@ public class Entity {
 		myComponents.remove(component.getClass());
 	}
 	
-	public Component getComponent(Class<Component> clazz) {
+	public Component getComponent(Class<?> clazz) {
 		return myComponents.get(clazz);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public boolean hasAll(Class<Component>... args) {
+	public boolean hasAll(Class<?>... args) {
 		if (args.length != myComponents.size()) {
 			return false;
 		}
 		
-		for (Class<Component> c : args) {
+		for (Class<?> c : args) {
 			// need to figure out the whole interface reflection stuff...not sure this is riht
 			if (!myComponents.containsKey(c)) {
 				return false;

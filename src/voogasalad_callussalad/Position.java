@@ -1,6 +1,6 @@
 package voogasalad_callussalad;
 
-public class Position implements Component {
+public class Position extends Component {
 	
 	private double myXPos;
 	private double myYPos;
