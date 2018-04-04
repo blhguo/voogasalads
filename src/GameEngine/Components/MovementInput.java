@@ -1,6 +1,6 @@
 package GameEngine.Components;
 
-import GameEngine.Component;
+import game_engine.Component;
 import javafx.scene.input.KeyCode;
 
 public class MovementInput implements Component{
