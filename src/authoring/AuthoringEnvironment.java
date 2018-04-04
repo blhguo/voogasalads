@@ -43,8 +43,6 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		update(""); //calls default setting for right pane
 		bp.setLeft(np);
 		bp.setCenter(canvas.getView());
-		Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
-		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
 		return scene;
 		
 	}
