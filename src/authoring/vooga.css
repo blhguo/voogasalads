@@ -1,0 +1,30 @@
+.title {
+	-fx-font: 100px helvetica, sans-serif;
+	-fx-fill: white;
+}
+
+.button-label {
+	-fx-font: 14px helvetica, sans-serif;
+	-fx-fill: white;
+}
+
+.button-sublabel {
+	-fx-font: 14px helvetica, sans-serif;
+	-fx-fill: #b3b3b3;
+}
+
+.button-splash {
+	-fx-background-radius: 50%;
+	-fx-background-color: #808080;
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
+}
+.button {
+    -fx-cursor: hand;
+}
+
+.pane-title {
+    -fx-font: 20px helvetica, sans-serif;
+    -fx-fill: #b3b3b3;
+    -fx-text-fill: white;
+}
