@@ -34,4 +34,29 @@ public class ImageBuilder {
         ImageView view = new ImageView(image);
         return view;
     }
+
+    /**
+     *
+     * @param view  The ImageView to be resized
+     * @param width The desired new width
+     * @param height The desired new height
+     * @return The newly sized ImageView
+     */
+    public static ImageView resize(ImageView view, int width, int height) {
+        view.setFitHeight(height);
+        view.setFitWidth(width);
+        return view;
+    }
+
+    /**
+     *
+     * @param view ImageView to be resized
+     * @param size New size (Used for both height and width)
+     * @return the resized ImageView
+     */
+    public static ImageView resize(ImageView view, int size) {
+        view.setFitHeight(size);
+        view.setFitWidth(size);
+        return view;
+    }
 }
