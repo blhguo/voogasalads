@@ -1,5 +1,9 @@
 package authoring;
 
+import java.io.File;
+import java.net.URL;
+
+import authoring.utilities.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,7 +40,6 @@ public class SplashScreen extends GUIGridPaneSuper{
 			myStage.setScene(ae.display());
 			myStage.show();
 		});
-		
 		Button loadButton = new Button("+");
 		loadButton.setOnAction(e -> {
 			GameChooserScreen gc = new GameChooserScreen(myStage);
@@ -51,30 +54,13 @@ public class SplashScreen extends GUIGridPaneSuper{
 			myStage.show();
 		});
 		
-		HBox createHB = makeHBox("Create New Level", "Authoring Environment", createButton);
-		HBox loadHB = makeHBox("Load Game for Editing", "Authoring Environment", loadButton);
-		HBox playHB = makeHBox("Load Game for Play", "Game Player", playButton);
+		HBox createHB = ButtonFactory.makeHBox("Create New Level", "Authoring Environment", createButton);
+		HBox loadHB = ButtonFactory.makeHBox("Load Game for Editing", "Authoring Environment", loadButton);
+		HBox playHB = ButtonFactory.makeHBox("Load Game for Play", "Game Player", playButton);
 		myVBox.getChildren().addAll(createHB, loadHB, playHB);
 		return myVBox;
 	}
 	
-	private HBox makeHBox(String title, String subtitle, Button button){
-		button.getStyleClass().add("button-splash");
-		
-		VBox vb = new VBox(AuthRes.getInt("Padding"));
-		vb.setMaxHeight(30);
-		Text label = new Text(title);
-		label.getStyleClass().add("button-label");
-		Text subLabel = new Text(subtitle);
-		subLabel.getStyleClass().add("button-sublabel");
-		vb.getChildren().addAll(label, subLabel);
-		
-		HBox hb = new HBox(AuthRes.getInt("HBPadding"));
-		hb.setAlignment(Pos.CENTER_LEFT);
-		hb.getChildren().addAll(button, vb);
-		return hb;
-	}
-
 	@Override
 	public void finishScene(GridPane gridpane) {
 		Text title = new Text(AuthRes.getString("SplashTitle"));
