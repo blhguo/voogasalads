@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import observables.Listener;
 import resources.keys.AuthRes;
 
-public class AuthoringEnvironment implements GUIBuilder, Listener {
+public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private NavigationPane np;
 	
@@ -36,6 +36,7 @@ public class AuthoringEnvironment implements GUIBuilder, Listener {
 	@Override
 	public Scene display() {
 		bp = new BorderPane();
+		Scene scene = initScene(bp);
 		
 		//set leftPane
 		
