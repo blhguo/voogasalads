@@ -1,22 +1,24 @@
 package GameEngine.Systems;
 
 import GameEngine.Component;
+import GameEngine.Engine;
 import GameEngine.Entity;
 import GameEngine.System;
 import GameEngine.Components.Physics;
 import GameEngine.Components.Position;
 
-public class MovementSystem extends System {
-	private static final Class<Physics> PHYSICS = Physics.class;
+public class Movement extends System {
+	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> POSITION = Position.class;
 	private static final double ONE_HALF = 0.5;
 	
-	public MovementSystem(Engine engine) {
+	public Movement(Engine engine) {
 		super(engine);
 	}
 
-	public void act(double elapsedTime, Engine engine) {
-		for (Entity e : getEngine().getEntitiesWith(PHYSICS, POSITION)) {
+	@SuppressWarnings("unchecked")
+	public void act(double elapsedTime) {
+		for (Entity e : getEngine().getEntitiesContaining(PHYSICS, POSITION)) {
 			Physics physics = (Physics) e.getComponent(PHYSICS);
 			Position position = (Position) e.getComponent(POSITION);
 			position.setX(calcPos(position.getX(), elapsedTime, physics.getXVel(), physics.getAccel()));

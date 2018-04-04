@@ -1,4 +1,4 @@
-package voogasalad_callussalad;
+package GameEngine;
 
 import java.util.ArrayList;
 import java.util.List;
