@@ -11,5 +11,7 @@ public abstract class System {
 	protected Engine getEngine() {
 		return myEngine;
 	}
+	
+	public abstract void act(double elapsedTime);
 
 }
