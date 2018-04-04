@@ -1,4 +1,9 @@
-package voogasalad_callussalad;
+package GameEngine.Systems;
+
+import GameEngine.Component;
+import GameEngine.Entity;
+import GameEngine.System;
+import GameEngine.Components.Position;
 
 public class MovementSystem extends System {
 	private static final Class<Physics> PHYSICS = Physics.class;
