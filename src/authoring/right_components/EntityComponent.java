@@ -29,7 +29,8 @@ public class EntityComponent implements GUIComponent {
 	@Override
 	public Pane getView() {
         VBox box = getVBox();
-        setBackground(box);
+        //setBackground(box);
+        box.getStyleClass().add("pane-back");
         box.getChildren().add(getTitle());
         box.getChildren().add(getSeparator());
 		box.getChildren().add(getStack());
@@ -46,9 +47,9 @@ public class EntityComponent implements GUIComponent {
         return box;
     }
     private void setBackground(VBox box){
-        BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        box.setBackground(new Background(back));
+//        BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT,
+//                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+//        box.setBackground(new Background(back));
     }
     private Node getTitle() {
         Label ret = new Label("Entity Creator");

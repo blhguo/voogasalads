@@ -11,6 +11,7 @@ public class Canvas implements GUIComponent{
 		BackgroundImage back = new BackgroundImage(new Image("background1.jpg"), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		pane.setBackground(new Background(back));
+		pane.getStyleClass().add("canvas");
 		return pane;
 	}
 }
