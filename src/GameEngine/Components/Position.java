@@ -20,4 +20,11 @@ public class Position implements Component {
 		return myYPos;
 	}
 	
+	public void setX(double x){
+		myXPos = x;
+	}
+	
+	public void setY(double y){
+		myYPos = y;
+	}
 }
