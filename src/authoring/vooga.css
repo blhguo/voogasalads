@@ -1,12 +1,12 @@
 .title {
-	-fx-font-family: segoeui;
+	-fx-font-family: segoeuil;
 	-fx-font-size: 100px;
 	-fx-fill: white;
 	-fx-font-weight: lighter;
 }
 
 .title2 {
-	-fx-font-family: segoeui;
+	-fx-font-family: segoeuil;
 	-fx-font-size: 24px;
 	-fx-font-weight: lighter;
 	-fx-fill: rgba(255, 255, 255, 0.7);
@@ -33,4 +33,15 @@
 
 .chooser-back {
 	-fx-fill: rgba(0, 0, 0, 0.5);
+}
+
+.button-nav {
+	-fx-background-color: rgba(0, 0, 0, 0);
+	-fx-text-fill: white;
+	-fx-font-size: 18px;
+	-fx-font-family: segoeuil;
+}
+
+.pane-back {
+	-fx-background-color: rgba(0, 0, 0, 0.5);
 }
