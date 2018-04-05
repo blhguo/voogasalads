@@ -8,7 +8,6 @@ import GameEngine.Components.Physics;
 import GameEngine.Components.Position;
 
 public class Movement extends System {
-	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> POSITION = Position.class;
 	private static final double ONE_HALF = 0.5;
 	private static final double TWO = 2;
@@ -23,7 +22,7 @@ public class Movement extends System {
 			Physics physics = (Physics) e.getComponent(PHYSICS);
 			Position position = (Position) e.getComponent(POSITION);
 			position.setX(calcPos(position.getX(), elapsedTime, physics.getXVel(), physics.getAccel()));
-			position.setX(calcPos(position.getY(), elapsedTime, physics.getYVel(), physics.getAccel()));
+			position.setY(calcPos(position.getY(), elapsedTime, physics.getYVel(), physics.getAccel()));
 		}
 	}
 	
