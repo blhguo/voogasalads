@@ -1,5 +1,7 @@
 package game_engine;
 
+import java.util.List;
+
 public interface EntityInterface {
 	
 	/**
@@ -28,6 +30,5 @@ public interface EntityInterface {
 	 * @param args
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	boolean hasAll(Class<? extends Component>... args);
+	boolean hasAll(List<Class<? extends Component>> args);
 }

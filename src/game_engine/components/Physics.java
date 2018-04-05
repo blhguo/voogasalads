@@ -3,8 +3,8 @@ package game_engine.components;
 import game_engine.Component;
 
 public class Physics implements Component{
-	private double myXVelocity;
-	private double myYVelocity;
+	private double myXVel;
+	private double myYVel;
 	private double myAcceleration;
 	
 	/**
@@ -14,8 +14,8 @@ public class Physics implements Component{
 	 * @param a
 	 */
 	public Physics(double xVel, double yVel, double a){
-		myXVelocity = xVel;
-		myYVelocity = yVel;
+		myXVel = xVel;
+		myYVel = yVel;
 		myAcceleration = a;
 	}
 	
@@ -24,7 +24,7 @@ public class Physics implements Component{
 	 * @return myXVelocity
 	 */
 	public double getXVel(){
-		return myXVelocity;
+		return myXVel;
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class Physics implements Component{
 	 * @return myYVelocity
 	 */
 	public double getYVel(){
-		return myYVelocity;
+		return myYVel;
 	}
 	
 	/**
@@ -41,6 +41,14 @@ public class Physics implements Component{
 	 */
 	public double getAccel(){
 		return myAcceleration;
+	}
+	
+	public void setXVel(double xVel) {
+		myXVel = xVel;
+	}
+	
+	public void setYVel(double yVel) {
+		myYVel = yVel;
 	}
 	
 }
