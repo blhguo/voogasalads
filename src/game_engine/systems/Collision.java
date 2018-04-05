@@ -1,5 +1,6 @@
 package game_engine.systems;
 
+import java.util.Arrays;
 import java.util.List;
 
 import game_engine.Component;
@@ -21,7 +22,8 @@ public class Collision extends System{
 
 	@Override
 	public void act(double elapsedTime) {
-		List<Entity> entities = getEngine().getEntitiesContaining(PHYSICS, POSITION, COLLIDABLE);
+		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION, COLLIDABLE);
+		List<Entity> entities = getEngine().getEntitiesContaining(args);
 		for (Entity e : entities) {
 			for(Entity collidedWith: entities){
 				if(collidedWith == e) continue;

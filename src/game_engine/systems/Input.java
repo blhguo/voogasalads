@@ -30,7 +30,7 @@ public class Input extends System {
 				double delta = horizontal(vector, physics);
 				position.setX(position.getX() + delta);
 				
-//				also need to manage "jump" on up vector
+				handleJump(vector, position, physics);
 			}
 		}
 	}
@@ -43,5 +43,11 @@ public class Input extends System {
 			delta = physics.getYVel();
 		}
 		return delta;
+	}
+	
+//	also need to manage "jump" on up vector...are threads the right call here without 
+//	a physics engine? Hard to tell until we can test with Game Player
+	private void handleJump(Vector vector, Position position, Physics physics) {
+		
 	}
 }
