@@ -1,4 +1,4 @@
-package GameEngine.Components;
+package game_engine.components;
 
 import game_engine.Component;
 import javafx.scene.input.KeyCode;
