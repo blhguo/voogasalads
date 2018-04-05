@@ -30,6 +30,7 @@
 	-fx-text-fill: white;
 	-fx-font-size: 20px;
 }
+
 .button {
     -fx-cursor: hand;
 }
@@ -53,4 +54,8 @@
 
 .pane-back {
 	-fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.canvas {
+	-fx-border-insets: 50px;
 }

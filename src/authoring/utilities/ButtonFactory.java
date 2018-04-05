@@ -70,6 +70,15 @@ public class ButtonFactory {
 		retButton.setOnAction(handler);
 		return retButton;
 	}
+
+	/**
+	 *  Creates a new button with the specified characters
+	 * @param s String
+	 * @param iv ImageView
+	 * @param handler Desired button action
+	 * @param styleclass Style sheet to be used
+	 * @return the button
+	 */
 	public static Button makeButton(String s, ImageView iv,
 	                                EventHandler<ActionEvent> handler, String styleclass){
 		Button retButton = new Button(s, iv);
