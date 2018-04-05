@@ -40,7 +40,7 @@ public class Input extends System {
 		if (vector.getX() > 0) {
 			delta = physics.getXVel();
 		} else if (vector.getX() < 0){
-			delta = physics.getYVel();
+			delta = physics.getXVel();
 		}
 		return delta;
 	}
