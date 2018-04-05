@@ -1,5 +1,8 @@
 package game_engine.systems;
 
+import java.util.Arrays;
+import java.util.List;
+
 import game_engine.Component;
 
 import game_engine.Engine;
@@ -18,9 +21,9 @@ public class Movement extends System {
 		super(engine);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void act(double elapsedTime) {
-		for (Entity e : getEngine().getEntitiesContaining(PHYSICS, POSITION)) {
+		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION);
+		for (Entity e : getEngine().getEntitiesContaining(args)) {
 			Physics physics = (Physics) e.getComponent(PHYSICS);
 			Position position = (Position) e.getComponent(POSITION);
 			position.setX(calcPos(position.getX(), elapsedTime, physics.getXVel(), physics.getAccel()));

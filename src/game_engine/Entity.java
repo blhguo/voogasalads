@@ -1,9 +1,10 @@
 package game_engine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class Entity implements EntityInterface{
+public class Entity implements EntityInterface {
 	
 	private Map<Class<? extends Component>, Component> myComponents;
 	
@@ -28,12 +29,9 @@ public class Entity implements EntityInterface{
 		return myComponents.get(clazz);
 	}
 	
-	//surpressed warnings about <? extends Component>
 	@Override
-	@SuppressWarnings("unchecked") 
-	public boolean hasAll(Class<? extends Component>... args) {
+	public boolean hasAll(List<Class<? extends Component>> args) {
 		for (Class<? extends Component> c : args) {
-			// need to figure out the whole interface reflection stuff...not sure this is riht
 			if (!myComponents.containsKey(c)) {
 				return false;
 			}
