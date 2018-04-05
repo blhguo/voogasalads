@@ -29,3 +29,11 @@
 
 * Elizabeth: They prioritized standardizing communication between all 4 branches, and having an API is a nice way to be transparent about communication.
 * Dana: Our API makes communication with Data super easy and also allows for easy updating of Player information.
+
+#### Discuss the use cases/issues that you are responsible for: are they descriptive, appropriate, reasonably sized?
+
+#### Estimate how long you think each will take and why. What, if anything, makes estimating these tasks uncertain?
+
+#### What feature/design problem are you most excited to work on?
+
+#### What major feature do you plan to implement this weekend?
