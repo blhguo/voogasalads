@@ -3,6 +3,8 @@ package authoring;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import authoring.utilities.ButtonFactory;
+import authoring.utilities.ImageBuilder;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,11 +49,9 @@ public class NavigationPane extends StackPane implements Subject, GUIComponent {
 			String s = menuTitles.get(i);
 			ImageView iv = new ImageView(new Image(AuthRes.getString(icons.get(i))));
 			//will be done by image editing class
-			iv.setFitHeight(20);
-			iv.setFitWidth(20);
-			Button b = new Button(s, iv);
-			b.getStyleClass().add("button-nav");
-			b.setOnAction(e -> np.notifyListeners(s));
+			iv = ImageBuilder.resize(iv, 20, 20);
+			Button b = ButtonFactory.makeButton(s, iv, e -> np.notifyListeners(s),
+					"button-nav");
 			navOptions.getChildren().add(b);
 		}
 		this.getChildren().add(navOptions);		
