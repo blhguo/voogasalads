@@ -1,4 +1,4 @@
-package GameEngine;
+package game_engine;
 
 public abstract class Vector {
 	

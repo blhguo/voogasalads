@@ -1,6 +1,6 @@
-package GameEngine.Components;
+package game_engine.components;
 
-import GameEngine.Component;
+import game_engine.Component;
 
 public class Position implements Component {
 	

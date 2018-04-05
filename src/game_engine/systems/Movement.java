@@ -1,11 +1,12 @@
-package GameEngine.Systems;
+package game_engine.systems;
 
-import GameEngine.Component;
-import GameEngine.Engine;
-import GameEngine.Entity;
-import GameEngine.System;
-import GameEngine.Components.Physics;
-import GameEngine.Components.Position;
+import game_engine.Component;
+
+import game_engine.Engine;
+import game_engine.System;
+import game_engine.Entity;
+import game_engine.components.Physics;
+import game_engine.components.Position;
 
 public class Movement extends System {
 	private static final Class<? extends Component> POSITION = Position.class;
