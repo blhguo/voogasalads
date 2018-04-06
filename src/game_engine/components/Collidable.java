@@ -1,17 +1,15 @@
 package game_engine.components;
 
-import java.util.Map;
+import java.util.List;
 
 import game_engine.Component;
 
 public class Collidable implements Component {
 	
-	private static final String ARG_ONE = "Collidable";
-	
 	private boolean myCollidable;
 	
-	public Collidable(Map<String, String> args) {
-		myCollidable = Boolean.parseBoolean(args.get(ARG_ONE));
+	public Collidable(List<String> args) {
+		myCollidable = Boolean.parseBoolean(args.get(0));
 	}
 	
 	public boolean getPassable() {

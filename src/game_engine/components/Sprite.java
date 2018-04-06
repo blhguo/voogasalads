@@ -1,5 +1,7 @@
 package game_engine.components;
 
+import java.util.List;
+
 import game_engine.Component;
 
 public class Sprite implements Component{
@@ -7,9 +9,9 @@ public class Sprite implements Component{
 	private String myFileName;
 	private boolean isVisible;
 	
-	public Sprite(String fileName) {
-		myFileName = fileName;
-		isVisible = true;
+	public Sprite(List<String> args) {
+		myFileName = args.get(0);
+		isVisible = Boolean.parseBoolean(args.get(1));
 	}
 	
 	public String getFileName() {
@@ -21,7 +23,7 @@ public class Sprite implements Component{
 	}
 	
 	public boolean isVisible() {
-		return isVisible();
+		return isVisible;
 	}
 	
 	public void setVisible() {

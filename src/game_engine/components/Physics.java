@@ -1,15 +1,11 @@
 package game_engine.components;
 
-import java.util.Map;
+import java.util.List;
 
 import game_engine.Component;
 
 public class Physics implements Component{
-	
-	private static final String ARG_ONE = "xVel";
-	private static final String ARG_TWO = "yVel";
-	private static final String ARG_THREE = "Acceleration";
-	
+
 	private double myXVel;
 	private double myYVel;
 	private double myAcceleration;
@@ -20,10 +16,10 @@ public class Physics implements Component{
 	 * @param yVel
 	 * @param a
 	 */
-	public Physics(Map<String, String> args) {
-		myXVel = Double.parseDouble(args.get(ARG_ONE));
-		myYVel = Double.parseDouble(args.get(ARG_TWO));
-		myAcceleration = Double.parseDouble(args.get(ARG_THREE));
+	public Physics(List<String> args) {
+		myXVel = Double.parseDouble(args.get(0));
+		myYVel = Double.parseDouble(args.get(1));
+		myAcceleration = Double.parseDouble(args.get(2));
 	}
 	
 	/**

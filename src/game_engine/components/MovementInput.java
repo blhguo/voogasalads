@@ -1,12 +1,15 @@
 package game_engine.components;
 
+import java.util.List;
+
 import game_engine.Component;
+import javafx.scene.input.KeyCode;
 
 public class MovementInput implements Component {
-	private String myLeft;
-	private String myRight;
-	private String myUp;
-	private String myDown;
+	private KeyCode myLeft;
+	private KeyCode myRight;
+	private KeyCode myUp;
+	private KeyCode myDown;
 	
 	/**
 	 * Creates a new instance of MovementInput with specified key input codes
@@ -15,26 +18,26 @@ public class MovementInput implements Component {
 	 * @param up
 	 * @param down
 	 */
-	public MovementInput(String left, String right, String up, String down) {
-		myLeft = left;
-		myRight = right;
-		myUp = up;
-		myDown = down;
+	public MovementInput(List<String> args) {
+		myLeft = KeyCode.valueOf(args.get(0));
+		myRight = KeyCode.valueOf(args.get(1));
+		myUp = KeyCode.valueOf(args.get(2));
+		myDown = KeyCode.valueOf(args.get(3));
 	}
 	
-	public String getLeft() {
+	public KeyCode getLeft() {
 		return myLeft;
 	}
 	
-	public String getRight() {
+	public KeyCode getRight() {
 		return myRight;
 	}
 	
-	public String getUp() {
+	public KeyCode getUp() {
 		return myUp;
 	}
 	
-	public String getDown() {
+	public KeyCode getDown() {
 		return myDown;
 	}
 }
