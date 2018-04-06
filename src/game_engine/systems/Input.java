@@ -10,11 +10,14 @@ import game_engine.System;
 import game_engine.Vector;
 import game_engine.components.Physics;
 import game_engine.components.Position;
+import game_engine.components.MovementInput;
+
 
 public class Input extends System {
 	
 	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> POSITION = Position.class;
+	private static final Class<? extends Component> MOVEMENT_INPUT = MovementInput.class;
 
 	public Input(Engine engine) {
 		super(engine);
@@ -22,8 +25,10 @@ public class Input extends System {
 
 	@Override
 	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION);
+		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION, MOVEMENT_INPUT);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
+			
+			
 			for (Vector vector : getEngine().getInput()) {
 				Physics physics = (Physics) entity.getComponent(PHYSICS);
 				Position position = (Position) entity.getComponent(POSITION);

@@ -13,8 +13,7 @@ import game_engine.components.Position;
 
 public class Movement extends System {
 	private static final Class<? extends Component> POSITION = Position.class;
-	private static final Class<? extends Component> PHYSICS= Physics.class;
-
+	private static final Class<? extends Component> PHYSICS = Physics.class;
 
 	public Movement(Engine engine) {
 		super(engine);
