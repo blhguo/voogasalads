@@ -7,10 +7,10 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class Engine {
-
+	
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<System> mySystems = new ArrayList<>();
-	private Queue<Vector> myInput = new LinkedList<>();
+	private Queue<Input> myInputs = new LinkedList<>();
 	
 	public void update(double elapsedTime) {
 		for (System system : mySystems) {
@@ -22,11 +22,11 @@ public class Engine {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
 	
-	public void receiveInput(Vector vector) {
-		myInput.add(vector);
+	public void receiveInput(Input input) {
+		myInputs.add(input);
 	}
 	
-	public Queue<Vector> getInput() {
-		return myInput;
+	public Queue<Input> getInput() {
+		return myInputs;
 	}
 }

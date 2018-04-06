@@ -1,6 +1,6 @@
 package game_engine;
 
-public abstract class Vector {
+public class Vector {
 	
 	private double myX;
 	private double myY;
