@@ -1,15 +1,20 @@
 package game_engine.components;
 
+import java.util.Map;
+
 import game_engine.Component;
 
 public class Position implements Component {
 	
+	private static final String ARG_ONE = "xPos";
+	private static final String ARG_TWO = "yPos";
+	
 	private double myXPos;
 	private double myYPos;
 	
-	public Position(double xPos, double yPos) {
-		myXPos = xPos;
-		myYPos = yPos;
+	public Position(Map<String, String> args) {
+		myXPos = Double.parseDouble(args.get(ARG_ONE));
+		myYPos = Double.parseDouble(args.get(ARG_TWO));
 	}
 	
 	public double getX() {
