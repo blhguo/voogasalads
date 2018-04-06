@@ -2,15 +2,18 @@ package game_engine.components;
 
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import game_engine.Component;
 import game_engine.Vector;
-import javafx.scene.input.KeyCode;
 
 public class MovementInput implements Component{
-	private Vector myLeft;
-	private Vector myRight;
-	private Vector myUp;
-	private Vector myDown;
+	private static final Vector LEFT = new Vector(-1,0);
+	private static final Vector RIGHT = new Vector(1,0);
+	private static final Vector UP = new Vector(0,1);
+	private static final Vector DOWN = new Vector(0,1);
+	private Map<String, Vector> myDirections;
 	
 	/**
 	 * Creates a new instance of MovementInput with specified key input codes
@@ -19,26 +22,31 @@ public class MovementInput implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public MovementInput(Vector left, Vector right, Vector up, Vector down){
-		myLeft = left;
-		myRight = right;
-		myUp = up;
-		myDown = down;
+	public MovementInput(String left, String right, String up, String down){
+		myDirections = new HashMap<>();
+		myDirections.put(left, LEFT);
+		myDirections.put(right, RIGHT);
+		myDirections.put(up, UP);
+		myDirections.put(down, DOWN);
 	}
 	
-	public Vector getLeft(){
-		return myLeft;
+	public void setLeft(String left){
+		myDirections.put(left, LEFT);
 	}
 	
-	public Vector getRight(){
-		return myRight;
+	public void setRight(String right){
+		myDirections.put(right, RIGHT);
 	}
 	
-	public Vector getUp(){
-		return myUp;
+	public void setUp(String up){
+		myDirections.put(up, UP);
 	}
 	
-	public Vector getDown(){
-		return myDown;
+	public void setDown(String down){
+		myDirections.put(down, DOWN);
+	}
+	
+	public Vector getDirection(String dir){
+		return myDirections.get(dir);
 	}
 }
