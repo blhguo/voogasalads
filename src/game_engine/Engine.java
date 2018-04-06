@@ -7,7 +7,7 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class Engine {
-	
+
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<System> mySystems = new ArrayList<>();
 	private Queue<Vector> myInput = new LinkedList<>();
