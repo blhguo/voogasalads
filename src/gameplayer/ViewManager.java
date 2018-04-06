@@ -1,7 +1,5 @@
 package gameplayer;
 
-import java.awt.Panel;
-import javafx.scene.Node;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -11,7 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -57,7 +54,7 @@ public class ViewManager {
 		return center;
 	}
 	
-	public Rectangle getNode() {
+	public Pane getNode() {
 		return view;
 	}
 }

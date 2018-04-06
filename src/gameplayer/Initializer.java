@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Dana Park, Brandon Dalla Rosa
  *
  */
 public class Initializer {
@@ -21,10 +21,6 @@ public class Initializer {
 	public void instantiate() {
 		for (Node gameNode : entityList) {
 			vManager.getNode().getChildren().add(gameNode);
-			
+			}
 		}
-			
-		
-	}
-
 }
