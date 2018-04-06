@@ -1,7 +1,5 @@
 package gameplayer;
 
-import java.awt.Panel;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -11,7 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -55,5 +52,9 @@ public class ViewManager {
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
+	}
+	
+	public Pane getNode() {
+		return view;
 	}
 }
