@@ -28,7 +28,7 @@ public class KeyboardSystem extends GameSystem{
 			for (Input input : getEngine().getInput()) {
 				Physics physics = (Physics) entity.getComponent(PHYSICS);
 				KeyboardMovementInput keyboardInput = (KeyboardMovementInput) entity.getComponent(KEYBOARD_MOVE_INPUT);
-				Vector direction = keyboardInput.getDirection(input.getInput());
+				Vector direction = keyboardInput.getDirection(null);
 				physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
 				
 				// If I'm jumping and on the ground, set y-velocity = max
