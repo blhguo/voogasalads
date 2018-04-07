@@ -28,11 +28,21 @@ public abstract class CollisionSystem extends GameSystem {
 	 */
 	protected abstract boolean intersect(Entity e1, Entity e2);
 	
+	/**
+	 * 
+	 * @param e1
+	 * @param e2
+	 */
 	protected void addCollided(Entity e1, Entity e2) {
 		addCollidedHelper(e1, e2);
 		addCollidedHelper(e2, e1);
 	}
 	
+	/**
+	 * 
+	 * @param e1
+	 * @param e2
+	 */
 	private void addCollidedHelper(Entity e1, Entity e2) {
 		CollidedComponent c1 = (CollidedComponent) e1.getComponent(CollidedComponent.class);
 		if(c1!=null) {
