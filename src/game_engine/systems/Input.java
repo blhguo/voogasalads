@@ -7,12 +7,12 @@ import java.util.List;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.System;
+import game_engine.GameSystem;
 import game_engine.Vector;
 import game_engine.components.Physics;
 import game_engine.components.Position;
 
-public class Input extends System {
+public class Input extends GameSystem {
 	
 	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> POSITION = Position.class;

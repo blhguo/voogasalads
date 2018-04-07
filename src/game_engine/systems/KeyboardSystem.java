@@ -10,10 +10,10 @@ import game_engine.Vector;
 import game_engine.components.KeyboardMovementInput;
 import game_engine.components.Physics;
 
-import game_engine.System;
+import game_engine.GameSystem;
 import game_engine.Input;
 
-public class KeyboardSystem extends System{
+public class KeyboardSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInput.class;
 
