@@ -1,22 +1,36 @@
 package game_engine.components;
 
-import java.util.List;
-
 import game_engine.Component;
 
-public class CollidableComponent implements Component {
+/**
+ * @author: Jeremy Chen & Ben Hubsch
+ *
+ * Component that contains three fields important for collision logic:
+ *
+ *
+ */
+public class CollidableComponent implements Component{
+
+	private boolean myIntersectable;
+	private boolean myPassable;
+	private int myPushable;
+
+	private boolean collided;
+	private ECollisionSide collisionSide;
 	
-	private boolean myCollidable;
-	
-	public CollidableComponent(List<String> args) {
-		myCollidable = Boolean.parseBoolean(args.get(0));
+	public CollidableComponent(boolean intersectable, boolean passable, int pushable){
+		myIntersectable = intersectable;
+		myPassable = passable;
+		myPushable = pushable;
+
+		collided = false;
 	}
 	
-	public boolean getPassable() {
-		return myCollidable;
+	public boolean getPassable(){
+		return myPassable;
 	}
 	
-	public void setPassible(boolean passable) {
-		myCollidable = passable;
+	public void setPassible(boolean passable){
+		myPassable = passable;
 	}
 }

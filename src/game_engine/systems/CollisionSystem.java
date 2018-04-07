@@ -1,38 +1,61 @@
 package game_engine.systems;
 
-import java.util.Arrays;
-import java.util.List;
-
-import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.components.CollidableComponent;
-import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
+import game_engine.components.SpriteComponent;
 
-public class CollisionSystem extends GameSystem{
-	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
-	private static final Class<? extends Component> POSITION = PositionComponent.class;
-	private static final Class<? extends Component> COLLIDABLE = CollidableComponent.class;
-	
+import java.util.ArrayList;
+import java.util.Collections;
+
+/**
+ * @author Jeremy Chen
+ * Interface for Systems that contain logic for collisions
+ */
+public abstract class CollisionSystem extends GameSystem {
+
 	public CollisionSystem(Engine engine) {
 		super(engine);
 	}
 
-	@Override
-	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION, COLLIDABLE);
-		List<Entity> entities = getEngine().getEntitiesContaining(args);
-		for (Entity e : entities) {
-			for(Entity collidedWith: entities){
-				if(collidedWith == e) continue;
-				PhysicsComponent physics = (PhysicsComponent) e.getComponent(PHYSICS);
-				PositionComponent position = (PositionComponent) e.getComponent(POSITION);
-				CollidableComponent collidable = (CollidableComponent) e.getComponent(COLLIDABLE);
-				//TODO: check if collided and then perform action based off of collision
+	/**
+	 *
+	 * @param e1
+	 * @param e2
+	 * @return
+	 */
+	protected abstract boolean intersect(Entity e1, Entity e2);
+
+	/**
+	 *  Helper method that gets extrema of a sprite (min/max x & y coordinates), used for creating
+	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
+	 * @param e
+	 * @return
+	 */
+	protected double[] getExtrema(Entity e){
+		PositionComponent p = (PositionComponent) e.getComponent(PositionComponent.class);
+		SpriteComponent s = (SpriteComponent) e.getComponent(SpriteComponent.class);
+
+		double angle = Math.toRadians(s.getAngle());
+		double width = s.getWidth();
+		double height = s.getHeight();
+		double centerX = p.getX();
+		double centerY = p.getY();
+
+		ArrayList<Double> xCoords = new ArrayList<Double>();
+		ArrayList<Double> yCoords = new ArrayList<Double>();
+
+		for(int i = -1; i <=1; i+=2){
+			for(int j = -1; j<=1; j+=2){
+				double origX = i*width + centerX;
+				double origY = j*height + centerY;
+				double transformedX = centerX+(origX-centerX)*Math.cos(angle)+(origY-centerY)*Math.sin(angle);
+				double transformedY = centerY-(origX-centerX)*Math.sin(angle)+(origY-centerY)*Math.cos(angle);
+				xCoords.add(transformedX);
+				yCoords.add(transformedY);
 			}
 		}
+		return new double[]{Collections.min(xCoords), Collections.max(xCoords), Collections.min(yCoords), Collections.max(yCoords)};
 	}
-	
 }
