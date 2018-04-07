@@ -5,7 +5,7 @@ import java.util.Arrays;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import game_engine.EntityFactory;
-import game_engine.components.Position;
+import game_engine.components.PositionComponent;
 
 public class Test {
 	public static void main(String[] args) {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import game_engine.Component;
 
-public class Physics implements Component{
+public class PhysicsComponent implements Component{
 
 	private double myMaxXVel;
 	private double myMaxYVel;
@@ -18,7 +18,7 @@ public class Physics implements Component{
 	 * @param yVel
 	 * @param a
 	 */
-	public Physics(List<String> args) {
+	public PhysicsComponent(List<String> args) {
 		myMaxXVel = Double.parseDouble(args.get(0));
 		myMaxYVel = Double.parseDouble(args.get(1));
 		myCurrXVel = myMaxXVel;

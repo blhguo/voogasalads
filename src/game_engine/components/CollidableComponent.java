@@ -4,11 +4,11 @@ import java.util.List;
 
 import game_engine.Component;
 
-public class Collidable implements Component {
+public class CollidableComponent implements Component {
 	
 	private boolean myCollidable;
 	
-	public Collidable(List<String> args) {
+	public CollidableComponent(List<String> args) {
 		myCollidable = Boolean.parseBoolean(args.get(0));
 	}
 	

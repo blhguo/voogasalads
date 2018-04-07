@@ -8,13 +8,13 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.GameSystem;
 import game_engine.Entity;
-import game_engine.components.Physics;
-import game_engine.components.Position;
+import game_engine.components.PhysicsComponent;
+import game_engine.components.PositionComponent;
 
-public class Movement extends GameSystem {
-	private static final Class<? extends Component> POSITION = Position.class;
-	private static final Class<? extends Component> PHYSICS = Physics.class;
-	public Movement(Engine engine) {
+public class MovementSystem extends GameSystem {
+	private static final Class<? extends Component> POSITION = PositionComponent.class;
+	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
+	public MovementSystem(Engine engine) {
 		super(engine);
 	}
 
@@ -23,8 +23,8 @@ public class Movement extends GameSystem {
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION);
 		for (Entity e : getEngine().getEntitiesContaining(args)) {
-			Physics physics = (Physics) e.getComponent(PHYSICS);
-			Position position = (Position) e.getComponent(POSITION);
+			PhysicsComponent physics = (PhysicsComponent) e.getComponent(PHYSICS);
+			PositionComponent position = (PositionComponent) e.getComponent(POSITION);
 			position.setX(position.getX() + physics.getCurrXVel() * elapsedTime);
 			position.setY(position.getY() + physics.getCurrYVel() * elapsedTime);
 			physics.setCurrYVel(physics.getCurrYVel() + physics.getAccel() * elapsedTime);

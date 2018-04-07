@@ -4,12 +4,12 @@ import java.util.List;
 
 import game_engine.Component;
 
-public class Sprite implements Component{
+public class SpriteComponent implements Component{
 	
 	private String myFileName;
 	private boolean isVisible;
 	
-	public Sprite(List<String> args) {
+	public SpriteComponent(List<String> args) {
 		myFileName = args.get(0);
 		isVisible = Boolean.parseBoolean(args.get(1));
 	}
