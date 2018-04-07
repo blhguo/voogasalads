@@ -29,7 +29,7 @@ public class CollidableComponent implements Component{
 		myPassable = passable;
 	}
 	
-	public boolean getIntersectable()){
+	public boolean getIntersectable(){
 		return myIntersectable;
 	}
 	

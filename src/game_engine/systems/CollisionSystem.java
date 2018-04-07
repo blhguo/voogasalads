@@ -3,6 +3,7 @@ package game_engine.systems;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
+import game_engine.components.CollidedComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
 
@@ -26,7 +27,24 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @return
 	 */
 	protected abstract boolean intersect(Entity e1, Entity e2);
-
+	
+	protected void addCollided(Entity e1, Entity e2) {
+		addCollidedHelper(e1, e2);
+		addCollidedHelper(e2, e1);
+	}
+	
+	private void addCollidedHelper(Entity e1, Entity e2) {
+		CollidedComponent c1 = (CollidedComponent) e1.getComponent(CollidedComponent.class);
+		if(c1!=null) {
+			c1.addCollidedWith(e2);
+		}
+		else {
+			c1 = new CollidedComponent();
+			c1.addCollidedWith(e2);
+			e1.addComponent(c1);
+		}
+	}
+	
 	/**
 	 *  Helper method that gets extrema of a sprite (min/max x & y coordinates), used for creating
 	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]

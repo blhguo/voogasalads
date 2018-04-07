@@ -49,11 +49,7 @@ public class CollisionBroadSystem extends CollisionSystem {
         	for(int j = i + 1; j<collideableEntities.size(); j ++) {
         		Entity e1 = collideableEntities.get(i);
         		Entity e2 = collideableEntities.get(j);
-        		if(intersect(e1, e2)) {
-//        			possibleCollisions.add(new Pair<Entity, Entity>(e1, e2));
-        			e1.addComponent(new CollidedComponent());
-        			e2.addComponent(new CollidedComponent());
-        		}
+        		addCollided(e1, e2);
         	}
         }
     }
