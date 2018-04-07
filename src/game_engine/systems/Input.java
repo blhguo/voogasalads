@@ -27,8 +27,11 @@ public class Input extends System {
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION, MOVEMENT_INPUT);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
+			Physics physics = (Physics) entity.getComponent(PHYSICS);
+			Position position = (Position) entity.getComponent(POSITION);
+			MovementInput movementInput = (MovementInput) entity.getComponent(MOVEMENT_INPUT);
 			
-			
+			/*
 			for (Vector vector : getEngine().getInput()) {
 				Physics physics = (Physics) entity.getComponent(PHYSICS);
 				Position position = (Position) entity.getComponent(POSITION);
@@ -36,7 +39,7 @@ public class Input extends System {
 				position.setX(position.getX() + delta);
 				
 				handleJump(vector, position, physics);
-			}
+			}*/
 		}
 	}
 	
