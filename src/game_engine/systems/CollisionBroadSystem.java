@@ -4,10 +4,14 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.CollidableComponent;
+import game_engine.components.CollidedComponent;
 import game_engine.components.HitboxComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
+import javafx.util.Pair;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +23,13 @@ public class CollisionBroadSystem extends CollisionSystem {
     private static final Class<? extends Component> POSITION = PositionComponent.class;
     private static final Class<? extends Component> COLLIDABLE = CollidableComponent.class;
     private static final Class<? extends Component> HITBOX = HitboxComponent.class;
+    
+    private static final List<Class<? extends Component>> TARGET_COMPONENTS = Collections.unmodifiableList(
+    		new ArrayList<Class<? extends Component>>() {{ 
+    			add(PHYSICS);
+    			add(POSITION);
+    			add(COLLIDABLE);
+    		}});
 
     /**
      *
@@ -30,7 +41,21 @@ public class CollisionBroadSystem extends CollisionSystem {
 
     @Override
     public void act(double elapsedTime){
-        List<Entity> collideableEntities = getEngine().getEntitiesContaining(PHYSICS, POSITION, COLLIDABLE);
+        List<Entity> collideableEntities = getEngine().getEntitiesContaining(TARGET_COMPONENTS);
+        // CLEANUP
+        collideableEntities.forEach( (entity) -> entity.removeComponent(CollidedComponent.class));
+//        List<Pair> possibleCollisions = new ArrayList<Pair>();
+        for(int i = 0; i < collideableEntities.size()-1; i ++) {
+        	for(int j = i + 1; j<collideableEntities.size(); j ++) {
+        		Entity e1 = collideableEntities.get(i);
+        		Entity e2 = collideableEntities.get(j);
+        		if(intersect(e1, e2)) {
+//        			possibleCollisions.add(new Pair<Entity, Entity>(e1, e2));
+        			e1.addComponent(new CollidedComponent());
+        			e2.addComponent(new CollidedComponent());
+        		}
+        	}
+        }
     }
 
     /**

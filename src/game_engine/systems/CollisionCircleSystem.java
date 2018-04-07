@@ -14,4 +14,10 @@ public class CollisionCircleSystem extends CollisionNarrowSystem {
     protected boolean intersect(Entity e1, Entity e2){
         return false;
     }
+
+	@Override
+	public void act(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 }
