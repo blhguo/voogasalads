@@ -6,12 +6,12 @@ import java.util.List;
 import game_engine.Component;
 
 import game_engine.Engine;
-import game_engine.System;
+import game_engine.GameSystem;
 import game_engine.Entity;
 import game_engine.components.Physics;
 import game_engine.components.Position;
 
-public class Movement extends System {
+public class Movement extends GameSystem {
 	private static final Class<? extends Component> POSITION = Position.class;
 	private static final Class<? extends Component> PHYSICS = Physics.class;
 
@@ -20,14 +20,15 @@ public class Movement extends System {
 	}
 
 	// https://gamedev.stackexchange.com/questions/29617/how-to-make-a-character-jump
+	// http://jsfiddle.net/LyM87/3267/
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, POSITION);
 		for (Entity e : getEngine().getEntitiesContaining(args)) {
 			Physics physics = (Physics) e.getComponent(PHYSICS);
 			Position position = (Position) e.getComponent(POSITION);
-			position.setX(position.getX() + physics.getXVel() * elapsedTime);
-			position.setY(position.getY() + physics.getYVel() * elapsedTime);
-			physics.setYVel(physics.getYVel() + physics.getAccel() * elapsedTime);
+			position.setX(position.getX() + physics.getCurrXVel() * elapsedTime);
+			position.setY(position.getY() + physics.getCurrYVel() * elapsedTime);
+			physics.setCurrYVel(physics.getCurrYVel() + physics.getAccel() * elapsedTime);
 		}
 	}
 }

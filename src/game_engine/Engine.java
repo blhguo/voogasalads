@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 public class Engine {
 	
 	private List<Entity> myEntities = new ArrayList<>();
-	private List<System> mySystems = new ArrayList<>();
+	private List<GameSystem> mySystems = new ArrayList<>();
 	private Queue<Input> myInputs = new LinkedList<>();
 	
 	public void update(double elapsedTime) {
-		for (System system : mySystems) {
+		for (GameSystem system : mySystems) {
 			system.act(elapsedTime);
 		}
 	}
