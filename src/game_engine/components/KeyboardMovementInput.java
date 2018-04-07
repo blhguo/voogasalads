@@ -8,11 +8,13 @@ import java.util.Map;
 import game_engine.Component;
 import game_engine.Vector;
 
-public class MovementInput implements Component{
+public class KeyboardMovementInput implements Component{
 	private static final Vector LEFT = new Vector(-1,0);
 	private static final Vector RIGHT = new Vector(1,0);
 	private static final Vector UP = new Vector(0,1);
 	private static final Vector DOWN = new Vector(0,1);
+	private double myMovementOffset;
+	
 	private Map<String, Vector> myDirections;
 	
 	/**
@@ -22,12 +24,13 @@ public class MovementInput implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public MovementInput(String left, String right, String up, String down){
+	public KeyboardMovementInput(String left, String right, String up, String down, double offset){
 		myDirections = new HashMap<>();
 		myDirections.put(left, LEFT);
 		myDirections.put(right, RIGHT);
 		myDirections.put(up, UP);
 		myDirections.put(down, DOWN);
+		myMovementOffset = offset;
 	}
 	
 	public void setLeft(String left){
@@ -47,6 +50,13 @@ public class MovementInput implements Component{
 	}
 	
 	public Vector getDirection(String dir){
+		if(myDirections.containsKey(dir)){
+			return new Vector(0,0);
+		}
 		return myDirections.get(dir);
+	}
+	
+	public double getOffset(){
+		return myMovementOffset;
 	}
 }
