@@ -7,7 +7,7 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
-import game_engine.components.KeyboardMovementInput;
+import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.PhysicsComponent;
 
 import game_engine.GameSystem;
@@ -15,7 +15,7 @@ import game_engine.Input;
 
 public class KeyboardSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
-	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInput.class;
+	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInputComponent.class;
 
 	public KeyboardSystem(Engine engine) {
 		super(engine);
@@ -27,8 +27,8 @@ public class KeyboardSystem extends GameSystem{
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
 			for (Input input : getEngine().getInput()) {
 				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
-				KeyboardMovementInput keyboardInput = (KeyboardMovementInput) entity.getComponent(KEYBOARD_MOVE_INPUT);
-				Vector direction = keyboardInput.getDirection(input.getInput());
+				KeyboardMovementInputComponent keyboardInput = (KeyboardMovementInputComponent) entity.getComponent(KEYBOARD_MOVE_INPUT);
+				Vector direction = keyboardInput.getDirection(null);
 				physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
 				
 				// If I'm jumping and on the ground, set y-velocity = max
