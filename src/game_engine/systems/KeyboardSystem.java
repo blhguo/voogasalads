@@ -10,10 +10,10 @@ import game_engine.Vector;
 import game_engine.components.KeyboardMovementInput;
 import game_engine.components.Physics;
 
-import game_engine.System;
+import game_engine.GameSystem;
 import game_engine.Input;
 
-public class KeyboardSystem extends System{
+public class KeyboardSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = Physics.class;
 	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInput.class;
 
@@ -29,8 +29,12 @@ public class KeyboardSystem extends System{
 				Physics physics = (Physics) entity.getComponent(PHYSICS);
 				KeyboardMovementInput keyboardInput = (KeyboardMovementInput) entity.getComponent(KEYBOARD_MOVE_INPUT);
 				Vector direction = keyboardInput.getDirection(input.getInput());
-				physics.setXVel(direction.getX() * keyboardInput.getOffset());
-				physics.setYVel(direction.getY() * keyboardInput.getOffset());
+				physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
+				
+				// If I'm jumping and on the ground, set y-velocity = max
+				if (direction.getY() == 1 /* && I am on the ground */) {
+					physics.setCurrYVel(physics.getMaxYVel());
+				}
 			}
 		}
 	}

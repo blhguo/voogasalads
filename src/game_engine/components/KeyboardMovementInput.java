@@ -13,7 +13,6 @@ public class KeyboardMovementInput implements Component{
 	private static final Vector RIGHT = new Vector(1,0);
 	private static final Vector UP = new Vector(0,1);
 	private static final Vector DOWN = new Vector(0,1);
-	private double myMovementOffset;
 	
 	private Map<String, Vector> myDirections;
 	
@@ -24,13 +23,12 @@ public class KeyboardMovementInput implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public KeyboardMovementInput(String left, String right, String up, String down, double offset){
+	public KeyboardMovementInput(String left, String right, String up, String down){
 		myDirections = new HashMap<>();
 		myDirections.put(left, LEFT);
 		myDirections.put(right, RIGHT);
 		myDirections.put(up, UP);
 		myDirections.put(down, DOWN);
-		myMovementOffset = offset;
 	}
 	
 	public void setLeft(String left){
@@ -54,9 +52,5 @@ public class KeyboardMovementInput implements Component{
 			return new Vector(0,0);
 		}
 		return myDirections.get(dir);
-	}
-	
-	public double getOffset(){
-		return myMovementOffset;
 	}
 }
