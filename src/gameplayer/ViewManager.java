@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 public class ViewManager {
 	private Menu menu;
 	private Stage gameStage;
-	private double sceneWidth = 1100;
+	private double sceneWidth = 1200;
 	private double sceneHeight = 900;
 	private Paint backColor = Color.BLACK;
 	private Pane view;

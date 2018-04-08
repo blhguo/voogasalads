@@ -6,7 +6,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -59,6 +65,9 @@ public class Menu {
 	}
 	private void makeKeyPrefMenu() {
 		keyPrefMenu = new VBox(25);
+		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		keyPrefMenu.setBackground(new Background(back));
 		keyPrefButton = new Button("Key Prefs");
 		keyPrefButton.setOnAction(click->{showPrefMenu();});
 		keyPrefButton.setPrefSize(160, 20);
@@ -70,8 +79,7 @@ public class Menu {
 		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
 		keyPrefStage.setScene(scene);
-		keyPrefMenu.getStyleClass().add("pane-back");
-		
+				
 	}
 	private void makeGameSelectionMenu() {
 		gameSelectionButton = new Button("Game Selection");
