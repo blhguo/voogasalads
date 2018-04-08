@@ -7,8 +7,8 @@
 
 .text-keypref {
     -fx-font-family: segoeuil;
-    -fx-font-size: 50px;
-    -fx-text-fill: black;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
     
 }
 .title2 {
