@@ -11,14 +11,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import resources.keys.AuthRes;
 
 public class EntityComponent extends BaseComponent {
 
 
 	@Override
 	public Pane getView() {
-        VBox box = buildBasicView("Entity Creator");        
-		box.getChildren().add(getStack());
+        VBox box = buildBasicView(AuthRes.getString("EntityTitle"));        
+		box.getChildren().add(getStack()); //change when we add image addition functionality
 		//What's the purpose of the .collect function?
 		getButtonArray().stream().map((button) -> box.getChildren().add(button)).collect(Collectors.toList());
 	    return box;
@@ -35,7 +36,6 @@ public class EntityComponent extends BaseComponent {
 		ArrayList<HBox> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("New Sprite", "Upload a New Image"));
 		list.add(ButtonFactory.makeHBox("Add Behavior", "Attach an Event to this Entity"));
-
 
 		return list;
 	}
