@@ -50,6 +50,13 @@
     -fx-font-family: segoeui;
 }
 
+.combo-box .text-field {
+    -fx-prompt-text-fill: rgba(255, 0, 0, 0.5) ;
+}
+.combo-box .text-field:focused {
+    -fx-prompt-text-fill: white ;
+}
+
 .button-label {
 	-fx-font-family: segoeui;
 	-fx-font-size: 14px;
