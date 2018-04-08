@@ -6,6 +6,7 @@ import java.util.List;
 import authoring.GUIComponent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
@@ -40,8 +41,8 @@ public class BaseComponent implements GUIComponent {
 		masterBox.getChildren().add(newSeparator());
 	}
 
-	public List<HBox> getButtonArray() {
-		ArrayList<HBox> list = new ArrayList<>();
+	public List<Node> getButtonArray() {
+		List<Node> list = new ArrayList<>();
 		return list;
 	}
 	

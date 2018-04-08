@@ -1,4 +1,4 @@
-package authoring;
+package authoring.component_menus;
 
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
@@ -13,12 +13,15 @@ public class CollidableMenu extends CheckBox implements ComponentMenu {
 		this.setSelected(true);
 
 	}
+	@Override
 	public Component makeComponent() {
 		return new Collidable(this.isSelected());
 	}
+	@Override
 	public Node getNode(){
 		return ButtonFactory.makeHBox("Check to make collidable","", this);
 	}
+	@Override
 	public TitledPane getTitledPane(){
 		return new TitledPane("Collidable", this.getNode());
 	}
