@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import authoring.EntityController;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
 import authoring.right_components.BaseComponent;
@@ -18,7 +19,7 @@ import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
 public class EntityComponent extends BaseComponent {
-
+	private EntityController controller;
 	private List<ComponentMenu> menuList;
 	public EntityComponent(){
 		menuList = new ArrayList<>();
@@ -66,4 +67,7 @@ public class EntityComponent extends BaseComponent {
 		return accordion;
 	}
 
+	public void setController(EntityController controller) {
+		this.controller = controller;
+	}
 }
