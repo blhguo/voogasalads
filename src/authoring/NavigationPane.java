@@ -81,9 +81,7 @@ public class NavigationPane extends GridPane implements Subject, GUIComponent {
 
 	@Override
 	public Pane getView() {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
-	
-	
+		
 }
