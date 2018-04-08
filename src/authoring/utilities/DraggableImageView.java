@@ -19,11 +19,8 @@ public class DraggableImageView extends ImageView {
 		this.setOnMousePressed(e -> {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
-			//System.out.println("HEY HEY HEY");
 		});
 		this.setOnMouseDragged(event -> {
-			double deltaX = event.getSceneX() - mouseX ;
-			double deltaY = event.getSceneY() - mouseY ;
 			mouseX = event.getSceneX();
 			mouseY = event.getSceneY();
 			this.setX(event.getSceneX());
