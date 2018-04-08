@@ -3,6 +3,8 @@ package game_engine.components;
 import java.util.List;
 
 import game_engine.Component;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Sprite implements Component{
 	
@@ -33,6 +35,7 @@ public class Sprite implements Component{
 	public void setInvisible() {
 		isVisible = false;
 	}
+	
 	
 
 }
