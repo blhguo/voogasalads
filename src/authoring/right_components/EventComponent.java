@@ -34,6 +34,7 @@ public class EventComponent extends BaseComponent {
 		tp.setExpanded(false);
 		tp.setText("View Current Relationships");
 		tp.setContent(new ListView<String>());
+		tp.getStyleClass().add("titled-pane > .title");
 		return tp;
 	}
 }

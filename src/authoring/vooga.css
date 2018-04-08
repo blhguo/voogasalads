@@ -1,11 +1,3 @@
-.canvas {
-	-fx-border-insets: 50px;
-}
-
-.chooser-back {
-	-fx-fill: rgba(0, 0, 0, 0.5);
-}
-
 .button {
     -fx-cursor: hand;
 }
@@ -36,20 +28,23 @@
 	-fx-fill: #b3b3b3;
 }
 
-.pane-title {
-    -fx-font: 20px segoeuil;
-    -fx-fill: #b3b3b3;
-    -fx-text-fill: white;
+.canvas {
+	-fx-border-insets: 50px;
 }
 
-
-
-
+.chooser-back {
+	-fx-fill: rgba(0, 0, 0, 0.5);
+}
 
 .pane-back {
 	-fx-background-color: rgba(0, 0, 0, 0.5);
 }
 
+.pane-title {
+    -fx-font: 20px segoeuil;
+    -fx-fill: #b3b3b3;
+    -fx-text-fill: white;
+}
 
 .title {
 	-fx-font-family: segoeuil;
@@ -69,5 +64,10 @@
 	-fx-font-size: 14px;
 	-fx-font-family: segoeuil;
 	-fx-text-fill: white;
-	-fx-background-color: rgba(0,0,0,0.5);
+	-fx-background-color: rgba(0,0,0,0);
+}
+
+.titled-pane > *.content {
+	-fx-background-color: rgba(0, 0, 0, 0.5);
+	-fx-stroke: rgba(0,0,0,0.5);
 }
