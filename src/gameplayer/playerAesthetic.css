@@ -25,6 +25,7 @@
 .combo-box-base{
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-font-family: segoeuil;
+    -fx-fill: white;
 }
 
  .combo-box > .list-cell{
