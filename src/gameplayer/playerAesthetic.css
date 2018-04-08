@@ -12,6 +12,17 @@
 	-fx-fill: rgba(255, 255, 255, 0.7);
 }
 
+.combo-box
+ {
+  -fx-font-family: segoeui;
+  -fx-font-size: 14px;
+  -fx-min-width: 128;
+  -fx-min-height: 48;
+  -fx-text-fill: white;
+  -fx-background-color: rgba(0, 0, 0, 0.5);
+
+ }
+
 .button-label {
 	-fx-font-family: segoeui;
 	-fx-font-size: 14px;
