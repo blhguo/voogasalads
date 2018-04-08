@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Brandon Dalla Rosa, Dana Park
  *
  */
 public class ViewManager {
@@ -58,10 +58,18 @@ public class ViewManager {
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(770, 530);
-		view.setBackground(new Background(new BackgroundFill(Color.WHITE,null,null)));
+		BackgroundImage game = new BackgroundImage(new Image("background1.jpg"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		view.setBackground(new Background(game));
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
+	}
+	
+	public void showGameSelectionMenu() {
+		GameChooserScreen gc = new GameChooserScreen(gameStage);
+		gameStage.setScene(gc.display());
+		gameStage.show();
 	}
 	
 	public Pane getNode() {
