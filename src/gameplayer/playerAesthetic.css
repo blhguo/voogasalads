@@ -25,12 +25,14 @@
   -fx-min-width: 128;
   -fx-min-height: 48;
   -fx-text-fill: white;
+  -fx-prompt-text-fill: white;
   -fx-background-color: rgba(0, 0, 0, 0.5);
 
  }
 .combo-box-base{
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-font-family: segoeuil;
+    -fx-prompt-text-fill: white;
     -fx-fill: white;
 }
 
