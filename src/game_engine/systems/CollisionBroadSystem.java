@@ -29,6 +29,7 @@ public class CollisionBroadSystem extends CollisionSystem {
     			add(PHYSICS);
     			add(POSITION);
     			add(COLLIDABLE);
+    			add(HITBOX);
     		}});
 
     /**
@@ -39,6 +40,11 @@ public class CollisionBroadSystem extends CollisionSystem {
         super(engine);
     }
 
+
+    /**
+     *  TODO NEEDS TO ACCOUNT FOR ELAPSED TIME
+     * @param elapsedTime
+     */
     @Override
     public void act(double elapsedTime){
         List<Entity> collideableEntities = getEngine().getEntitiesContaining(TARGET_COMPONENTS);

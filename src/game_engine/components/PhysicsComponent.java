@@ -2,21 +2,21 @@ package game_engine.components;
 
 import game_engine.Component;
 
+import java.util.List;
+
 public class PhysicsComponent implements Component{
 	private double myXVelocity;
 	private double myYVelocity;
 	private double myAcceleration;
-	
+
 	/**
-	 * creates a new instance of the PhysicsComponent component
-	 * @param xVel
-	 * @param yVel
-	 * @param a
+	 *
+	 * @param args
 	 */
-	public PhysicsComponent(double xVel, double yVel, double a){
-		myXVelocity = xVel;
-		myYVelocity = yVel;
-		myAcceleration = a;
+	public PhysicsComponent(List<String> args){
+		myXVelocity = Double.parseDouble(args.get(0));
+		myYVelocity = Double.parseDouble(args.get(1));
+		myAcceleration = Double.parseDouble(args.get(2));
 	}
 	
 	/**
