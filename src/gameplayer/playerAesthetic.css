@@ -1,3 +1,4 @@
+
 .title {
 	-fx-font-family: segoeuil;
 	-fx-font-size: 100px;
@@ -5,6 +6,12 @@
 	-fx-font-weight: lighter;
 }
 
+.text-keypref {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    
+}
 .title2 {
 	-fx-font-family: segoeuil;
 	-fx-font-size: 24px;
