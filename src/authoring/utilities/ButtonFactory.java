@@ -28,9 +28,14 @@ public class ButtonFactory {
 		vb.setMaxHeight(30);
 		Text label = new Text(title);
 		label.getStyleClass().add("button-label");
-		Text subLabel = new Text(subtitle);
-		subLabel.getStyleClass().add("button-sublabel");
-		vb.getChildren().addAll(label, subLabel);
+		vb.getChildren().add(label);
+		vb.setAlignment(Pos.CENTER_LEFT);
+		
+		if(subtitle!=null) {
+			Text subLabel = new Text(subtitle);
+			subLabel.getStyleClass().add("button-sublabel");
+			vb.getChildren().add(subLabel);
+		}
 
 		HBox hb = new HBox(AuthRes.getInt("HBPadding"));
 		hb.setAlignment(Pos.CENTER_LEFT);

@@ -1,20 +1,39 @@
 package authoring.right_components;
 
-import authoring.GUIComponent;
-import javafx.scene.control.Button;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import authoring.utilities.ButtonFactory;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import resources.keys.AuthRes;
 
-public class EventComponent extends StackPane implements GUIComponent {
-
-	public EventComponent() {
-		this.getChildren().add(new Button("event"));
-		this.setWidth(Double.MAX_VALUE);
-		this.setStyle("-fx-background-color: rgba(50, 50, 50, 1);");
-	}
+public class EventComponent extends BaseComponent {
+	
 	@Override
 	public Pane getView() {
-		// TODO Auto-generated method stub
-		return this;
+		VBox box = buildBasicView(AuthRes.getString("EventTitle"));
+		getButtonArray().stream().map((button) -> box.getChildren().add(button)).collect(Collectors.toList());
+		box.getChildren().addAll(newSeparator(), RelationshipView());
+		return box;
+	}
+	
+	@Override 
+	public List<HBox> getButtonArray(){
+		ArrayList<HBox> list = new ArrayList<>();
+		list.add(ButtonFactory.makeHBox("Add Relationship", null));
+		return list;
+	}
+	
+	private TitledPane RelationshipView() {
+		TitledPane tp = new TitledPane();
+		tp.setExpanded(false);
+		tp.setText("View Current Relationships");
+		tp.setContent(new ListView<String>());
+		return tp;
 	}
 }
