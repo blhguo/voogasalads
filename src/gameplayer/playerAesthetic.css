@@ -80,6 +80,13 @@
 	-fx-font-family: segoeuil;
 }
 
+.button-keypref {
+	-fx-fill: rgba(0, 0, 0, 0.5);
+	-fx-text-fill: white;
+	-fx-font-size: 14px;
+	-fx-font-family: segoeuil;
+}
+
 .pane-back {
 	-fx-background-color: rgba(0, 0, 0, 0.5);
 }
