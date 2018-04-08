@@ -41,7 +41,8 @@ public class ViewManager {
 	private Pane setObjects() {
 		HBox center = new HBox(20);
 		center.setAlignment(Pos.CENTER);
-		center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		center.getStyleClass().add("hbox");
+		//center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		VBox order = new VBox(10);
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
