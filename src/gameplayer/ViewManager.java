@@ -1,9 +1,15 @@
 package gameplayer;
 
+import authoring.GameChooserScreen;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,9 +25,9 @@ import javafx.stage.Stage;
 public class ViewManager {
 	private Menu menu;
 	private Stage gameStage;
-	private double sceneWidth = 800;
-	private double sceneHeight = 600;
-	private Paint backColor = Color.LIGHTBLUE;
+	private double sceneWidth = 1100;
+	private double sceneHeight = 900;
+	private Paint backColor = Color.BLACK;
 	private Pane view;
 	
 	public ViewManager(Menu menu, Stage stage) {
@@ -34,16 +40,19 @@ public class ViewManager {
 	
 	private void setScene() {
 		Pane pane = setObjects();
-		Scene scene = new Scene(pane,sceneWidth,sceneHeight,backColor);
+		Scene scene = new Scene(pane,sceneWidth,sceneHeight);
+		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		gameStage.setScene(scene);
 	}
 	
 	private Pane setObjects() {
-		HBox center = new HBox(20);
+		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
-		center.getStyleClass().add("hbox");
-		//center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
-		VBox order = new VBox(10);
+		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		center.setBackground(new Background(back));
+		VBox order = new VBox(20);
+		order.getStyleClass().add("pane-back");
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
 		menu.addMenu(order);
