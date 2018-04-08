@@ -1,17 +1,14 @@
 package game_engine.components;
-
-import java.util.List;
-
 import game_engine.Component;
 
-public class Position implements Component {
+public class PositionComponent implements Component {
 	
 	private double myXPos;
 	private double myYPos;
 	
-	public Position(List<String> args) {
-		myXPos = Double.parseDouble(args.get(0));
-		myYPos = Double.parseDouble(args.get(1));
+	public PositionComponent(double xPos, double yPos) {
+		myXPos = xPos;
+		myYPos = yPos;
 	}
 	
 	public double getX() {

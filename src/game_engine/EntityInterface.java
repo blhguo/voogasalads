@@ -15,7 +15,7 @@ public interface EntityInterface {
 	 * To be used not by front-end, but by other classes
 	 * @param component
 	 */
-	void removeComponent(Component component);
+	void removeComponent(Class<? extends Component> clazz);
 	
 	/**
 	 * Gets a Component based on Component class

@@ -20,8 +20,8 @@ public class Entity implements EntityInterface {
 	// to be used not by front-end, but by other classes
 	// seen here: https://gfycat.com/gifs/detail/directornatecapeghostfrog
 	@Override
-	public void removeComponent(Component component) {
-		myComponents.remove(component.getClass());
+	public void removeComponent(Class<? extends Component> clazz) {
+		myComponents.remove(clazz);
 	}
 	
 	@Override

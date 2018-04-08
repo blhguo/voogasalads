@@ -7,15 +7,15 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
-import game_engine.components.KeyboardMovementInput;
-import game_engine.components.Physics;
+import game_engine.components.KeyboardMovementInputComponent;
+import game_engine.components.PhysicsComponent;
 
 import game_engine.GameSystem;
 import game_engine.Input;
 
 public class KeyboardSystem extends GameSystem{
-	private static final Class<? extends Component> PHYSICS = Physics.class;
-	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInput.class;
+	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
+	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInputComponent.class;
 
 	public KeyboardSystem(Engine engine) {
 		super(engine);
@@ -26,15 +26,15 @@ public class KeyboardSystem extends GameSystem{
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_MOVE_INPUT);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
 			for (Input input : getEngine().getInput()) {
-				Physics physics = (Physics) entity.getComponent(PHYSICS);
-				KeyboardMovementInput keyboardInput = (KeyboardMovementInput) entity.getComponent(KEYBOARD_MOVE_INPUT);
-				Vector direction = keyboardInput.getDirection(input.getInput());
-				physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
+				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
+				KeyboardMovementInputComponent keyboardInput = (KeyboardMovementInputComponent) entity.getComponent(KEYBOARD_MOVE_INPUT);
+				Vector direction = keyboardInput.getDirection(null);
+				physics.setXVel(direction.getX() * physics.getXVel());
 				
 				// If I'm jumping and on the ground, set y-velocity = max
-				if (direction.getY() == 1 /* && I am on the ground */) {
-					physics.setCurrYVel(physics.getMaxYVel());
-				}
+//				if (direction.getY() == 1 /* && I am on the ground */) {
+//					physics.setYVel(physics.getYVel());
+//				}
 			}
 		}
 	}

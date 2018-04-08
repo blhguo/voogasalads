@@ -7,14 +7,15 @@ import java.util.Map;
 
 import game_engine.Component;
 import game_engine.Vector;
+import javafx.scene.input.KeyCode;
 
-public class KeyboardMovementInput implements Component{
+public class KeyboardMovementInputComponent implements Component{
 	private static final Vector LEFT = new Vector(-1,0);
 	private static final Vector RIGHT = new Vector(1,0);
 	private static final Vector UP = new Vector(0,1);
 	private static final Vector DOWN = new Vector(0,1);
 	
-	private Map<String, Vector> myDirections;
+	private Map<KeyCode, Vector> myDirections;
 	
 	/**
 	 * Creates a new instance of MovementInput with specified key input codes
@@ -23,7 +24,7 @@ public class KeyboardMovementInput implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public KeyboardMovementInput(String left, String right, String up, String down){
+	public KeyboardMovementInputComponent(KeyCode left, KeyCode right, KeyCode up, KeyCode down){
 		myDirections = new HashMap<>();
 		myDirections.put(left, LEFT);
 		myDirections.put(right, RIGHT);
@@ -31,24 +32,25 @@ public class KeyboardMovementInput implements Component{
 		myDirections.put(down, DOWN);
 	}
 	
-	public void setLeft(String left){
+	public void setLeft(KeyCode left){
 		myDirections.put(left, LEFT);
 	}
 	
-	public void setRight(String right){
+	public void setRight(KeyCode right){
 		myDirections.put(right, RIGHT);
 	}
 	
-	public void setUp(String up){
+	public void setUp(KeyCode up){
 		myDirections.put(up, UP);
 	}
 	
-	public void setDown(String down){
+	public void setDown(KeyCode down){
 		myDirections.put(down, DOWN);
 	}
 	
-	public Vector getDirection(String dir){
+	public Vector getDirection(KeyCode dir){
 		if(myDirections.containsKey(dir)){
+			System.out.println("KEY WAS PRESSED!");
 			return new Vector(0,0);
 		}
 		return myDirections.get(dir);

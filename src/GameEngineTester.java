@@ -3,6 +3,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import game_engine.Entity;
+import game_engine.Vector;
+import game_engine.components.KeyboardMovementInputComponent;
+import game_engine.components.MovementInputComponent;
 import game_engine.components.Sprite;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -64,13 +68,13 @@ public class GameEngineTester extends Application{
 		
 		
 		//TESTS BELOW
-		testSprite();
+		testSpriteAndMovement(scene);
 		
 		
 		return scene;
 	}
 	
-	private void testSprite() {
+	private void testSpriteAndMovement(Scene scene) {
 		//TEST SPRITES
 		Entity myEntity = new Entity(); // Create entity
 		
@@ -84,12 +88,25 @@ public class GameEngineTester extends Application{
 		
 		spriteMap.put(myEntity, spriteComponent.getFileName());
 		
+		//Use Imageview to display sprite
 		ImageView myEntityImage = new ImageView();
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity)));
 		myEntityImage.setImage(image);
 		myEntityImage.setFitWidth(40);
 		myEntityImage.setFitHeight(40);
 		myRoot.getChildren().add(myEntityImage);
+		
+		//Movement Input Componenet		
+		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN);
+		myEntity.addComponent(keyboardInputComponent);
+		scene.setOnKeyPressed(e -> {
+			Vector direction = keyboardInputComponent.getDirection(e.getCode());
+			
+			//EDIT HERE
+			myEntity.getComponent()
+			physics.setXVel(direction.getX() * physics.getXVel());
+		});		
+		
 	}
 	
 	private void step (double elapsedTime) {

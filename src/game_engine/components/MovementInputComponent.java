@@ -5,7 +5,7 @@ import java.util.List;
 import game_engine.Component;
 import javafx.scene.input.KeyCode;
 
-public class MovementInput implements Component {
+public class MovementInputComponent implements Component {
 	private KeyCode myLeft;
 	private KeyCode myRight;
 	private KeyCode myUp;
@@ -18,7 +18,7 @@ public class MovementInput implements Component {
 	 * @param up
 	 * @param down
 	 */
-	public MovementInput(List<String> args) {
+	public MovementInputComponent(List<String> args) {
 		myLeft = KeyCode.valueOf(args.get(0));
 		myRight = KeyCode.valueOf(args.get(1));
 		myUp = KeyCode.valueOf(args.get(2));
