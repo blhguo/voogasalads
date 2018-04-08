@@ -87,14 +87,14 @@
 }
 
 .button-keypref {
-	-fx-background-color: rgba(0, 0, 0, 0.5);
+	-fx-background-color: rgba(0, 0, 0, 80);
 	-fx-text-fill: white;
 	-fx-font-size: 14px;
 	-fx-font-family: segoeuil;
 }
 
 .pane-back {
-	-fx-background-color: rgba(0, 0, 0, 80);
+	-fx-background-color: rgba(0, 0, 0, 0.5);
 }
 
 .canvas {
