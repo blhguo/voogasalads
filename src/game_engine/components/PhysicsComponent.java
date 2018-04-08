@@ -2,25 +2,25 @@ package game_engine.components;
 
 import game_engine.Component;
 
-public class Physics implements Component{
+public class PhysicsComponent implements Component{
 	private double myXVelocity;
 	private double myYVelocity;
 	private double myAcceleration;
 	
 	/**
-	 * creates a new instance of the Physics component
+	 * creates a new instance of the PhysicsComponent component
 	 * @param xVel
 	 * @param yVel
 	 * @param a
 	 */
-	public Physics(double xVel, double yVel, double a){
+	public PhysicsComponent(double xVel, double yVel, double a){
 		myXVelocity = xVel;
 		myYVelocity = yVel;
 		myAcceleration = a;
 	}
 	
 	/**
-	 * returns the x velocity of this Physics component
+	 * returns the x velocity of this PhysicsComponent component
 	 * @return myXVelocity
 	 */
 	public double getXVel(){
@@ -28,7 +28,7 @@ public class Physics implements Component{
 	}
 	
 	/**
-	 * returns the y velocity of this Physics component
+	 * returns the y velocity of this PhysicsComponent component
 	 * @return myYVelocity
 	 */
 	public double getYVel(){

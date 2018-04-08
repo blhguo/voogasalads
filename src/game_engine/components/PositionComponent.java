@@ -1,12 +1,12 @@
 package game_engine.components;
 import game_engine.Component;
 
-public class Position implements Component {
+public class PositionComponent implements Component {
 	
 	private double myXPos;
 	private double myYPos;
 	
-	public Position(double xPos, double yPos) {
+	public PositionComponent(double xPos, double yPos) {
 		myXPos = xPos;
 		myYPos = yPos;
 	}
