@@ -51,10 +51,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		return scene;
 		
 	}
-	
-	private void dragAndDrop(){
-		
-	}
+//	
+//	private void dragAndDrop(){
+//		
+//	}
 
 	@Override
 	public void update(String state) { //more concise/less repetitive way to write this?

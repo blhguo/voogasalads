@@ -32,6 +32,7 @@ public class EntityComponent extends BaseComponent {
 		return pane;
 	}
 
+	@Override
 	public List<HBox> getButtonArray() {
 		ArrayList<HBox> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("New Sprite", "Upload a New Image"));
