@@ -2,10 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
 import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.MovementInputComponent;
+import game_engine.components.PhysicsComponent;
 import game_engine.components.Sprite;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -32,16 +34,19 @@ public class GameEngineTester extends Application{
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 600;
 
+	private Engine myEngine;
+	private Entity myEntity;
 	
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		myStage = stage;
-		
 		myScene = setStage(WIDTH, HEIGHT, Color.AZURE); // include this in an initialize function
 		myStage.setScene(myScene);
         myStage.setTitle(TITLE);
 
+        myEngine = new Engine();
+        myEntity = new Entity();
         myStage.show();
 
 		KeyFrame frame = new KeyFrame(Duration.millis(1000/60),
@@ -68,16 +73,15 @@ public class GameEngineTester extends Application{
 		
 		
 		//TESTS BELOW
-		testSpriteAndMovement(scene);
+		testSprite();
+		testMovement();
 		
 		
 		return scene;
 	}
 	
-	private void testSpriteAndMovement(Scene scene) {
-		//TEST SPRITES
-		Entity myEntity = new Entity(); // Create entity
-		
+	private void testSprite() {
+		//TEST SPRITES		
 		Map<Entity, String> spriteMap = new HashMap<>(); //Simulate authoring env. map of Entity to Sprite filename
 		
 		ArrayList<String> spriteArgs = new ArrayList<>();
@@ -94,19 +98,24 @@ public class GameEngineTester extends Application{
 		myEntityImage.setImage(image);
 		myEntityImage.setFitWidth(40);
 		myEntityImage.setFitHeight(40);
-		myRoot.getChildren().add(myEntityImage);
-		
+		myRoot.getChildren().add(myEntityImage);	
+	}
+	
+	
+	private void testMovement() {
 		//Movement Input Componenet		
-		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN);
+		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(KeyCode.LEFT, KeyCode.RIGHT);
 		myEntity.addComponent(keyboardInputComponent);
-		scene.setOnKeyPressed(e -> {
+		
+		//Physics Component
+		PhysicsComponent physicsComponent = new PhysicsComponent();
+		myScene.setOnKeyPressed(e -> {
 			Vector direction = keyboardInputComponent.getDirection(e.getCode());
 			
 			//EDIT HERE
 			myEntity.getComponent()
 			physics.setXVel(direction.getX() * physics.getXVel());
-		});		
-		
+		});	
 	}
 	
 	private void step (double elapsedTime) {
