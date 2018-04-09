@@ -28,7 +28,7 @@ public class Engine {
 		myInputs.add(input);
 	}
 	
-	public Queue<InputEvent> getInput() {
+	public Queue<InputEvent> getInputQueue() {
 		return myInputs;
 	}
 
