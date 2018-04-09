@@ -1,17 +1,41 @@
 package authoring;
 
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import game_engine.Entity;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
-public class Canvas implements GUIComponent{
+import java.util.Map;
 
-	public Pane getView(){
+public class Canvas implements GUINode {
+	private int size;
+	private StackPane pane;
+	private VBox box;
+	private EntityController controller;
+	public Canvas(int size){
+		this.size = size;
+	}
+	public VBox getView(){
+		box = new VBox();
 		StackPane pane = new StackPane();
-		BackgroundImage back = new BackgroundImage(new Image("background1.jpg"), BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		pane.setBackground(new Background(back));
-		pane.getStyleClass().add("canvas");
-		return pane;
+		//box.getChildren().add(pane);
+		Rectangle rect = new Rectangle(size, size);
+		rect.setStyle("-fx-background-color: rgba(0,0,0.5)");
+		box.getChildren().add(rect);
+		//pane.setPadding(new Insets(20, 20, 20, 20));
+		return box;
+	}
+	public void update(Map<ImageView, Entity> map){
+		box.getChildren().clear();
+		for (ImageView view : map.keySet()){
+			box.getChildren().add(view);
+			view.toFront();
+		}
+	}
+
+	public void setController(EntityController controller) {
+		this.controller = controller;
 	}
 }

@@ -1,0 +1,29 @@
+package game_engine.components;
+import game_engine.Component;
+
+public class Position implements Component {
+	
+	private double myXPos;
+	private double myYPos;
+	
+	public Position(double xPos, double yPos) {
+		myXPos = xPos;
+		myYPos = yPos;
+	}
+	
+	public double getX() {
+		return myXPos;
+	}
+	
+	public double getY() {
+		return myYPos;
+	}
+	
+	public void setX(double x){
+		myXPos = x;
+	}
+	
+	public void setY(double y){
+		myYPos = y;
+	}
+}

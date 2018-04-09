@@ -1,7 +1,5 @@
 package gameplayer;
 
-import java.awt.Panel;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -11,7 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -22,10 +19,10 @@ import javafx.stage.Stage;
 public class ViewManager {
 	private Menu menu;
 	private Stage gameStage;
-	private double sceneWidth = 600;
+	private double sceneWidth = 800;
 	private double sceneHeight = 600;
 	private Paint backColor = Color.LIGHTBLUE;
-	private Rectangle view;
+	private Pane view;
 	
 	public ViewManager(Menu menu, Stage stage) {
 		this.menu = menu;
@@ -44,16 +41,21 @@ public class ViewManager {
 	private Pane setObjects() {
 		HBox center = new HBox(20);
 		center.setAlignment(Pos.CENTER);
-		center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		center.getStyleClass().add("hbox");
+		//center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		VBox order = new VBox(10);
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
 		menu.addMenu(order);
-		view = new Rectangle(500,470);
-		view.setFill(Color.WHITE);
+		view = new Pane();
+		view.setPrefSize(770, 530);
+		view.setBackground(new Background(new BackgroundFill(Color.WHITE,null,null)));
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
-		//TODO Populate these boxes with the menu and view
+	}
+	
+	public Pane getNode() {
+		return view;
 	}
 }
