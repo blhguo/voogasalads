@@ -2,6 +2,8 @@ package game_engine.components;
 
 import game_engine.Component;
 
+import java.util.List;
+
 /**
  * @author: Jeremy Chen
  *
@@ -14,11 +16,11 @@ public class CollidableComponent implements Component{
 	private boolean myIntersectable;
 	private boolean myPassable;
 	private int myPushable;
-	
-	public CollidableComponent(boolean intersectable, boolean passable, int pushable){
-		myIntersectable = intersectable;
-		myPassable = passable;
-		myPushable = pushable;
+
+	public CollidableComponent(List<String> args){
+		myIntersectable = Boolean.parseBoolean(args.get(0));
+		myPassable = Boolean.parseBoolean(args.get(1));
+		myPushable = Integer.parseInt(args.get(2));
 	}
 	
 	public boolean getPassable(){

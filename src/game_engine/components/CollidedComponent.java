@@ -11,6 +11,10 @@ public class CollidedComponent implements Component{
     private ECollisionSide collisionSide;
     private List<Entity> collidedWith;
 
+    public CollidedComponent(List<String> args){
+        this();
+    }
+
     public CollidedComponent(){
         collided = true;
         collidedWith = new ArrayList<Entity>();
