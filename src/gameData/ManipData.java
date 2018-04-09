@@ -105,7 +105,7 @@ public class ManipData {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         String filePath = file.getAbsolutePath();
-        String fileType = filePath.substring(filePath.length()-FILE_EXTENSION); //these lines dont seem to be used maybe possibly?
+        String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
         //maybe a func to check that the file is an xml extension
         try {
         	dBuilder = dbFactory.newDocumentBuilder();
