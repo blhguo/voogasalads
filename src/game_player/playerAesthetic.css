@@ -127,8 +127,8 @@
 .slider .thumb {
     -fx-background-image :url(https://www298.lunapic.com/editor/working/152324372928360348-bt-1?);   
     -fx-padding: 64;
-    -fx-pref-height: 30;
-    -fx-pref-width: 30;
+    -fx-pref-height: 24;
+    -fx-pref-width: 24;
 }
 
 .slider .fill:hover {
