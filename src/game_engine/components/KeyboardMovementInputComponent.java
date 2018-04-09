@@ -39,6 +39,7 @@ public class KeyboardMovementInputComponent implements Component{
 	
 	public Vector getDirection(KeyCode dir){
 		if(myDirections.containsKey(dir)){
+			System.out.println("KEY WAS PRESSED!");
 			return new Vector(0,0);
 		}
 		return myDirections.get(dir);

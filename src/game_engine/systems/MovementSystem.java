@@ -14,6 +14,7 @@ import game_engine.components.PositionComponent;
 public class MovementSystem extends GameSystem {
 	private static final Class<? extends Component> POSITION = PositionComponent.class;
 	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
+
 	public MovementSystem(Engine engine) {
 		super(engine);
 	}
@@ -25,9 +26,10 @@ public class MovementSystem extends GameSystem {
 		for (Entity e : getEngine().getEntitiesContaining(args)) {
 			PhysicsComponent physics = (PhysicsComponent) e.getComponent(PHYSICS);
 			PositionComponent position = (PositionComponent) e.getComponent(POSITION);
-			position.setX(position.getX() + physics.getCurrXVel() * elapsedTime);
-			position.setY(position.getY() + physics.getCurrYVel() * elapsedTime);
-			physics.setCurrYVel(physics.getCurrYVel() + physics.getAccel() * elapsedTime);
+			position.setX(position.getX() + physics.getXVel() * elapsedTime);
+			position.setY(position.getY() + physics.getYVel() * elapsedTime);
+		
+			physics.setYVel(physics.getYVel() + physics.getAccel() * elapsedTime);
 		}
 	}
 }
