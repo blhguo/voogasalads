@@ -8,11 +8,11 @@ import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import javafx.geometry.Insets;
+import authoring.right_components.BasePane;
+import authoring.right_components.EntityComponent.EntityPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import observables.Listener;
 import resources.keys.AuthRes;
 
