@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import authoring.GameChooserScreen;
 import javafx.geometry.Pos;

@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import java.util.ArrayList;
 import java.util.HashMap;

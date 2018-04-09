@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import javafx.stage.Stage;
 import javafx.application.Application;
@@ -12,6 +12,8 @@ public class Main extends Application{
 	Menu menu;
 	DataManager dataManager;
 	Initializer initializer;
+	
+	
 	
 	/**
 	 * Method called to initialize the Game Player
