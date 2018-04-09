@@ -42,7 +42,7 @@ public class ManipData {
 		this.levellist = new ArrayList<Level>();
 	}
 	
-	private void SaveLevel(Level input, int levelnum) {
+	private void saveLevel(Level input, int levelnum) {
 		System.out.println("Beginning of serialization");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(input);
@@ -57,7 +57,7 @@ public class ManipData {
 		}
 	}
 	
-	public void SaveData(List<Level> levels) {
+	public void saveData(List<Level> levels) {
 		int counter = 0;
 		try {
 			//this writes only one file
@@ -67,7 +67,7 @@ public class ManipData {
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
 				fos.write(("<num>"+Integer.toString(levels.size())+"</num>").getBytes("UTF-8"));
 				for(Level l: levels) {
-					SaveLevel(l, counter);
+					saveLevel(l, counter);
 					counter++;
 				}
 	        } catch (UnsupportedEncodingException e) {
@@ -91,7 +91,7 @@ public class ManipData {
 	    }
 	}
 	
-	public ArrayList<Level> LoadData(File load) {
+	public ArrayList<Level> loadData(File load) {
 		try {
 			openFile(load);
 		} catch (ParserConfigurationException e) {
