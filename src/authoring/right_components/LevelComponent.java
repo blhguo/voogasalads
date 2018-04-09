@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import authoring.utilities.ButtonFactory;
-import javafx.scene.layout.HBox;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
@@ -20,8 +20,8 @@ public class LevelComponent extends BaseComponent {
 	}
 	
 	@Override
-	public List<HBox> getButtonArray(){
-		ArrayList<HBox> list = new ArrayList<>();
+	public List<Node> getButtonArray(){
+		ArrayList<Node> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("Select Background", null));
 		list.add(ButtonFactory.makeHBox("Add Music", null));
 		list.add(ButtonFactory.makeHBox("Build Win Condition", null));
