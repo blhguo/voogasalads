@@ -3,6 +3,7 @@ package game_engine.components;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import game_engine.Component;
@@ -22,10 +23,10 @@ public class KeyboardMovementInputComponent implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public KeyboardMovementInputComponent(KeyCode left, KeyCode right){
+	public KeyboardMovementInputComponent(List<String> args){
 		myDirections = new HashMap<>();
-		myDirections.put(left, LEFT);
-		myDirections.put(right, RIGHT);
+		myDirections.put(KeyCode.valueOf(args.get(0)), LEFT);
+		myDirections.put(KeyCode.valueOf(args.get(1)), RIGHT);
 	}
 	
 	public void setLeft(KeyCode left){
@@ -38,6 +39,7 @@ public class KeyboardMovementInputComponent implements Component{
 	
 	public Vector getDirection(KeyCode dir){
 		if(myDirections.containsKey(dir)){
+			System.out.println("KEY WAS PRESSED!");
 			return new Vector(0,0);
 		}
 		return myDirections.get(dir);
