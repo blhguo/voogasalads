@@ -4,10 +4,6 @@ import java.util.List;
 
 import game_engine.Component;
 
-import java.util.List;
-
-import game_engine.Component;
-
 public class PhysicsComponent implements Component{
 
 	private double myMaxXVel;
@@ -46,16 +42,12 @@ public class PhysicsComponent implements Component{
 		return myMaxYVel;
 	}
 	
-	public double getCurrXVel() {
-		return myCurrXVel;
-	}
-	
 	public double getCurrYVel() {
 		return myCurrYVel;
 	}
 
-	public double getCurrYVel() {
-		return myCurrYVel;
+	public double getCurrXVel() {
+		return myCurrXVel;
 	}
 
 	/**

@@ -1,7 +1,6 @@
 package game_engine.components;
 
 import game_engine.Component;
-import javafx.scene.input.KeyCode;
 
 public class JumpComponent implements Component{
 	private boolean myOnGround;

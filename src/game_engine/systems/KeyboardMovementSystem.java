@@ -31,16 +31,13 @@ public class KeyboardMovementSystem extends GameSystem{
 				//TODO:make use of input to extract keycode once Ben is done with input
 				//obviously don't want to input null in the param
 				Vector direction = keyboardInput.getDirection(null);
-<<<<<<< HEAD:src/game_engine/systems/KeyboardSystem.java
-				physics.setXVel(direction.getX() * physics.getXVel());
+				physics.setCurrXVel(direction.getX() * physics.getCurrXVel());
 				
 				// If I'm jumping and on the ground, set y-velocity = max
 //				if (direction.getY() == 1 /* && I am on the ground */) {
 //					physics.setYVel(physics.getYVel());
 //				}
-=======
 				physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
->>>>>>> abfd289a283457773a49522f3a8fb8b4c0e449e5:src/game_engine/systems/KeyboardMovementSystem.java
 			}
 		}
 	}
