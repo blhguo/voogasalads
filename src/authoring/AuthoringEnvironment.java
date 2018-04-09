@@ -6,6 +6,11 @@ import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import javafx.geometry.Insets;
+import authoring.right_components.BaseComponent;
+import authoring.right_components.EntityComponent.EntityComponent;
+import authoring.right_components.EventComponent;
+import authoring.right_components.LevelComponent;
+import authoring.right_components.StoryboardComponent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -24,11 +29,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private NavigationPane np;
 	
-	private BasePane base;
-	private EntityPane entity;
-	private EventPane event;
-	private LevelPane level;
-	private StoryBoardPane story;
+	private BaseComponent base;
+	private EntityComponent entity;
+	private EventComponent event;
+	private LevelComponent level;
+	private StoryboardComponent story;
 	private BorderPane bp;
 	private Canvas canvas;
 	
@@ -36,11 +41,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public AuthoringEnvironment(){
 		//instantiate leftPane, rightPane, Canvas
 			
-		base = new BasePane();
-		entity = new EntityPane();
-		event = new EventPane();
-		level = new LevelPane();
-		story = new StoryBoardPane();
+		base = new BaseComponent();
+		entity = new EntityComponent();
+		event = new EventComponent();
+		level = new LevelComponent();
+		story = new StoryboardComponent();
 		canvas = new Canvas(AuthRes.getInt("canvassize"));
 		EntityController controller = new EntityController(entity, canvas);
 		canvas.setController(controller);

@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Map;
 
-public class Canvas implements GUINode {
+public class Canvas implements GUIComponent{
 	private int size;
 	private Pane pane;
 	private VBox box;
@@ -33,6 +33,7 @@ public class Canvas implements GUINode {
 		//pane.setPadding(new Insets(20, 20, 20, 20));
 		pane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
+
 	}
 	public void update(Map<ImageView, Entity> map){
 		pane.getChildren().clear();
