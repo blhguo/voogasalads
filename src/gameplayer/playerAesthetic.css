@@ -114,7 +114,7 @@
 
 .slider {
   -fx-border-color: white;
-  -fx-border-style: dashed;
+  -fx-border-style: solid;
   -fx-border-width: 2;
 
     
