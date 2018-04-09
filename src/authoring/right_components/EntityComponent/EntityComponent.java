@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import authoring.EntityController;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
-import authoring.right_components.BasePane;
+import authoring.right_components.BaseComponent;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
 import javafx.scene.Node;
@@ -18,10 +18,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
-public class EntityPane extends BasePane {
+public class EntityComponent extends BaseComponent {
 	private EntityController controller;
 	private List<ComponentMenu> menuList;
-	public EntityPane(){
+	public EntityComponent(){
 		menuList = new ArrayList<>();
 	}
 

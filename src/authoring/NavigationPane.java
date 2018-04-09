@@ -16,7 +16,7 @@ import observables.Subject;
 import resources.keys.AuthRes;
 
 //Left Pane
-public class NavigationPane extends GridPane implements Subject, GUINode {
+public class NavigationPane extends GridPane implements Subject, GUIComponent {
 
 	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));

@@ -6,7 +6,7 @@ import javafx.scene.control.TitledPane;
 
 /**
  * This interface defines the various kinds of Component Menus which will be elements
- * of the EntityPane menu in the Authoring Environment
+ * of the EntityComponent menu in the Authoring Environment
  * Examples of classes which implement this interface might include
  * CollisionMenu, InteractionMenu, etc.
  */
