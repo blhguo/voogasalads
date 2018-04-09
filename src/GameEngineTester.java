@@ -6,9 +6,8 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
 import game_engine.components.KeyboardMovementInputComponent;
-import game_engine.components.MovementInputComponent;
 import game_engine.components.PhysicsComponent;
-import game_engine.components.Sprite;
+import game_engine.components.SpriteComponent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -113,8 +112,8 @@ public class GameEngineTester extends Application{
 			Vector direction = keyboardInputComponent.getDirection(e.getCode());
 			
 			//EDIT HERE
-			myEntity.getComponent()
-			physics.setXVel(direction.getX() * physics.getXVel());
+			myEntity.getComponent();
+			physics.setCurrXVel(direction.getX() * physics.getCurrXVel());
 		});	
 	}
 	
