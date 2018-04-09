@@ -18,10 +18,9 @@
 
 package game_engine.components;
 
-import game_engine.Component;
-import javafx.util.Pair;
-
 import java.util.List;
+
+import game_engine.Component;
 
 /**
  * @author: Jeremy Chen

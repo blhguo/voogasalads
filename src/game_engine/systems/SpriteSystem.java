@@ -7,18 +7,12 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Input;
-import game_engine.Vector;
-import game_engine.components.KeyboardMovementInput;
-import game_engine.components.Physics;
-import game_engine.components.Sprite;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import game_engine.components.SpriteComponent;
 
 
 public class SpriteSystem extends GameSystem{
 	
-	private static final Class<? extends Component> SPRITE = Sprite.class;
+	private static final Class<? extends Component> SPRITE = SpriteComponent.class;
 
 	
 	public SpriteSystem(Engine engine) {
@@ -29,7 +23,7 @@ public class SpriteSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(SPRITE);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			Sprite sprite = (Sprite) entity.getComponent(SPRITE);
+			SpriteComponent sprite = (SpriteComponent) entity.getComponent(SPRITE);
 			sprite.show();
 		}
 		

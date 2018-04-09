@@ -1,7 +1,6 @@
 package game_engine.systems;
 
 import java.util.Arrays;
-
 import java.util.List;
 
 import game_engine.Component;
@@ -10,11 +9,9 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.Input;
 import game_engine.Vector;
-import game_engine.components.KeyboardMovementInputComponent;
-import game_engine.components.PhysicsComponent;
-import game_engine.components.KeyboardJumpInputComponent;
-import game_engine.components.CollidedComponent;
 import game_engine.components.JumpComponent;
+import game_engine.components.KeyboardJumpInputComponent;
+import game_engine.components.PhysicsComponent;
 
 public class KeyboardJumpSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
