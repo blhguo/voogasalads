@@ -156,8 +156,8 @@ public class Menu {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
 		volumeSlider = new Slider();
-		volumeLabel = new Label("Change Volume");
-		brightnessLabel = new Label("Change Brightness");
+		volumeLabel = new Label("Change Volume:");
+		brightnessLabel = new Label("Change Brightness:");
 		volumeLabel.getStyleClass().add("button-nav");
 		brightnessLabel.getStyleClass().add("button-nav");
 

@@ -13,6 +13,8 @@ public class Main extends Application{
 	DataManager dataManager;
 	Initializer initializer;
 	
+	
+	
 	/**
 	 * Method called to initialize the Game Player
 	 */

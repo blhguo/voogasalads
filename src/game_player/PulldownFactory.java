@@ -28,8 +28,6 @@ public class PulldownFactory {
 	protected ComboBox<String> SpeedBox () {
 		speedBox = new ComboBox<String>();
 		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
-	    speedBox.getStyleClass().add("combo-box");
-
 		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
 				getResources(speedProperties, "SlowDownCommand"));
 		speedBox.setPrefSize(160, 20);
