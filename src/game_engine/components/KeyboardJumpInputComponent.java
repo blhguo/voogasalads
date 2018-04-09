@@ -1,5 +1,7 @@
 package game_engine.components;
 
+import java.util.List;
+
 import game_engine.Component;
 import game_engine.Vector;
 import javafx.scene.input.KeyCode;
@@ -14,8 +16,8 @@ public class KeyboardJumpInputComponent implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public KeyboardJumpInputComponent(KeyCode up){
-		myUp = up;
+	public KeyboardJumpInputComponent(List<String> args){
+		myUp = KeyCode.valueOf(args.get(0));
 	}
 	
 	public void setUp(KeyCode up){
