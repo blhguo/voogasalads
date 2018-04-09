@@ -124,6 +124,11 @@
  -fx-padding: 0.333333em; 
 }
 
+.slider .thumb {
+    -fx-background-image :url("http://icons.iconarchive.com/icons/double-j-design/diagram-free/128/piggy-bank-icon.png");   
+    -fx-padding: 64;
+}
+
 .slider .fill:hover {
  -fx-background-color: #219297;
 }
