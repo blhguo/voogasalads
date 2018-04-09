@@ -29,4 +29,14 @@ public class Engine {
 	public Queue<Input> getInput() {
 		return myInputs;
 	}
+
+	public void addEntity(Entity e){
+		myEntities.add(e);
+	}
+
+	public void addEntities(List<Entity> es){
+		for(Entity e: es){
+			myEntities.add(e);
+		}
+	}
 }

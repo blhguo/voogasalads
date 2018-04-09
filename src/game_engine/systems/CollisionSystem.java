@@ -65,14 +65,17 @@ public abstract class CollisionSystem extends GameSystem {
 	protected double[] getExtrema(Entity e){
 		PositionComponent p = (PositionComponent) e.getComponent(PositionComponent.class);
 		HitboxComponent h = (HitboxComponent) e.getComponent(HitboxComponent.class);
-		// TODO: REPLACE W/ HITBOX COMPONENT
-		//	SpriteComponent s = (SpriteComponent) e.getComponent(SpriteComponent.class);
 
 		double angle = Math.toRadians(p.getAngle());
+		System.out.println(p.getAngle());
 		double width = h.getWidth();
 		double height = h.getHeight();
 		double centerX = p.getX() + h.getXOffset();
 		double centerY = p.getY() + h.getYOffset();
+
+		if(p.getAngle()%90 == 0){
+			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};
+		}
 
 		ArrayList<Double> xCoords = new ArrayList<Double>();
 		ArrayList<Double> yCoords = new ArrayList<Double>();
@@ -81,12 +84,17 @@ public abstract class CollisionSystem extends GameSystem {
 			for(int j = -1; j<=1; j+=2){
 				double origX = i*width + centerX;
 				double origY = j*height + centerY;
+
 				double transformedX = centerX+(origX-centerX)*Math.cos(angle)+(origY-centerY)*Math.sin(angle);
 				double transformedY = centerY-(origX-centerX)*Math.sin(angle)+(origY-centerY)*Math.cos(angle);
 				xCoords.add(transformedX);
 				yCoords.add(transformedY);
 			}
 		}
+//		System.out.println("min x: " + Collections.min(xCoords));
+//		System.out.println("max x: " + Collections.max(xCoords));
+//		System.out.println("min y: " + Collections.min(yCoords));
+//		System.out.println("max y: " + Collections.max(yCoords));
 		return new double[]{Collections.min(xCoords), Collections.max(xCoords), Collections.min(yCoords), Collections.max(yCoords)};
 	}
 }

@@ -3,6 +3,9 @@ import game_engine.Component;
 
 import java.util.List;
 
+/**
+ * @author: Jeremy Chen
+ */
 public class PositionComponent implements Component {
 	
 	private double myXPos;
@@ -34,5 +37,9 @@ public class PositionComponent implements Component {
 
 	public double getAngle() {
 		return myAngle;
+	}
+
+	public void setAngle(double angle){
+		myAngle = angle;
 	}
 }
