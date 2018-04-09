@@ -111,6 +111,14 @@
 .canvas {
 	-fx-border-insets: 50px;
 }
+
+.slider {
+  -fx-border-color: white;
+  -fx-border-style: dashed;
+  -fx-border-width: 2;
+
+    
+}
 .slider .fill {
  -fx-background-color: #00828b;
  -fx-padding: 0.333333em; 
