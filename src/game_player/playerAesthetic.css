@@ -127,6 +127,8 @@
 .slider .thumb {
     -fx-background-image :url(https://users.cs.duke.edu/~rcd/images/rcd.jpg);   
     -fx-padding: 64;
+    -fx-pref-height: 28;
+    -fx-pref-width: 28;
 }
 
 .slider .fill:hover {
