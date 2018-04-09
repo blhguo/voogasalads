@@ -1,6 +1,6 @@
 package authoring;
 
-import authoring.right_components.EntityComponent.EntityComponent;
+import authoring.right_components.EntityComponent.EntityPane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
 import game_engine.Entity;
@@ -12,16 +12,14 @@ import java.util.Map;
 
 public class EntityController {
 	Map<ImageView, Entity> map;
-	private EntityComponent entityComponent;
+	private EntityPane entityComponent;
 	private Canvas canvas;
 	private ImageView view;
-	public EntityController(EntityComponent component, Canvas c){
+	public EntityController(EntityPane component, Canvas c){
 		entityComponent = component;
 		canvas = c;
 		map = new HashMap<>();
 		view = ImageBuilder.getImageView("jen.png", 200,200);
-		view.setX(view.getX() + 200);
-		view.setY(view.getY() + 400);
 		map.put(view, new Entity());
 	}
 	public void add(Entity entity){
