@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import java.util.ResourceBundle;
 
