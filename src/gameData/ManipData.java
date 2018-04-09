@@ -91,14 +91,14 @@ public class ManipData {
 	    }
 	}
 	
-	public void LoadData(File load) {
-		File f = load;
+	public ArrayList<Level> LoadData(File load) {
 		try {
-			openFile(f);
+			openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO
 		}
+		return loadLevels();
 	}
 	
 	private void openFile(File file) throws ParserConfigurationException{
@@ -108,7 +108,7 @@ public class ManipData {
         String fileType = filePath.substring(filePath.length()-FILE_EXTENSION); //these lines dont seem to be used maybe possibly?
         //maybe a func to check that the file is an xml extension
         try {
-        		dBuilder = dbFactory.newDocumentBuilder();
+        	dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
 			try {
 				doc = dBuilder.parse(file);
@@ -126,7 +126,7 @@ public class ManipData {
         }
 	}
 	
-	public ArrayList<Level> loadLevels(){
+	private ArrayList<Level> loadLevels(){
 		return levellist;
 	}
 	
