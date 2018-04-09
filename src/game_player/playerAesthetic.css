@@ -125,7 +125,7 @@
 }
 
 .slider .thumb {
-    -fx-background-image :url("http://icons.iconarchive.com/icons/double-j-design/diagram-free/128/piggy-bank-icon.png");   
+    -fx-background-image :url(https://users.cs.duke.edu/~rcd/images/rcd.jpg);   
     -fx-padding: 64;
 }
 
