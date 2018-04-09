@@ -22,6 +22,8 @@ public class CollisionTest extends Application {
     private Entity e1;
     private Entity e2;
 
+    private Engine e;
+
     private Rectangle r1;
     private Rectangle r2;
 
@@ -30,8 +32,8 @@ public class CollisionTest extends Application {
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
     private static final String TITLE = "Collision Tester";
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT= 1000;
+    private static final int WIDTH = 1600;
+    private static final int HEIGHT= 800;
     private static final Paint BACKGROUND = Color.rgb(36, 36, 36);
 
     private Group root;
@@ -57,6 +59,13 @@ public class CollisionTest extends Application {
         }
         else if (code == KeyCode.DOWN){
             pos.setY(pos.getY()+5);
+        }
+        else if (code == KeyCode.Q){
+            pos.setAngle(pos.getAngle()+1);
+        }
+        else if (code == KeyCode.E){
+            pos.setAngle(pos.getAngle()-1);
+            System.out.println(pos.getAngle());
         }
     }
 
@@ -85,7 +94,8 @@ public class CollisionTest extends Application {
     }
 
     private void setup(){
-        colSys = new CollisionBroadSystem(new Engine());
+        e = new Engine();
+        colSys = new CollisionBroadSystem(e);
         root = new Group();
         myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
         myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
@@ -99,13 +109,15 @@ public class CollisionTest extends Application {
         double x = pos.getX() - r1.getWidth()/2;
         double y = pos.getY() - r1.getHeight()/2;
 
+        double theta = pos.getAngle();
+
         r1.setX(x);
         r1.setY(y);
+        r1.setRotate(theta);
     }
 
     private void updateRectColor(){
         if(e1.getComponent(CollidedComponent.class)!=null){
-            System.out.println("COLLIDING");
             r1.setFill(Color.BLUE);
         }
         else{
@@ -123,16 +135,18 @@ public class CollisionTest extends Application {
             phys.add("0");
 
         ArrayList<String> pos1 = new ArrayList<String>();
-        pos1.add("1000");
-        pos1.add("500");
+        pos1.add("250");
+        pos1.add("250");
+        pos1.add("0");
 
         ArrayList<String> pos2 = new ArrayList<String>();
-        pos2.add("850");
-        pos2.add("500");
+        pos2.add("1000");
+        pos2.add("750");
+        pos2.add("0");
 
         ArrayList<String> hb1 = new ArrayList<String>();
-        hb1.add("350");
-        hb1.add("350");
+        hb1.add("500");
+        hb1.add("500");
         hb1.add("0");
         hb1.add("0");
 
@@ -152,6 +166,9 @@ public class CollisionTest extends Application {
         e2.addComponent(new PositionComponent(pos2));
         e2.addComponent(new HitboxComponent(hb1));
         e2.addComponent(new CollidableComponent(cc));
+
+        e.addEntity(e1);
+        e.addEntity(e2);
     }
 
     private void initRects(){
@@ -163,6 +180,9 @@ public class CollisionTest extends Application {
 
         r1 = new Rectangle(pos1.getX() - hb1.getWidth()/2, pos1.getY() - hb1.getHeight()/2, hb1.getWidth(), hb1.getHeight());
         r2 = new Rectangle(pos2.getX() - hb2.getWidth()/2, pos2.getY() - hb2.getHeight()/2, hb2.getWidth(), hb2.getHeight());
+
+        root.getChildren().add(r1);
+        root.getChildren().add(r2);
     }
 
     /**
