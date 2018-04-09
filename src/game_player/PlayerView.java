@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
