@@ -1,13 +1,15 @@
 package game_engine.components;
 
+import java.util.List;
+
 import game_engine.Component;
 
 public class JumpComponent implements Component{
 	private boolean myOnGround;
 	private int myJumpsAllowed;
-	public JumpComponent(boolean onGround, int jumpsAllowed){
-		myOnGround = onGround;
-		myJumpsAllowed = jumpsAllowed;
+	public JumpComponent(List<String> args){
+		myOnGround = Boolean.parseBoolean(args.get(0));
+		myJumpsAllowed = Integer.parseInt(args.get(1));
 	}
 	public void setOnGround(boolean onGround){
 		myOnGround = onGround;
