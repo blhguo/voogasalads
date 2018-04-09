@@ -5,8 +5,10 @@ import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import observables.Listener;
@@ -56,7 +58,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		
 		update(""); //calls default setting for right pane
 		bp.setLeft(np);
-		bp.setCenter(canvas.getView());
+		Pane canvasView = canvas.getView();
+		//bp.setMargin(canvas.getView(), new Insets(AuthRes.getInt("Margin")));
+		bp.setCenter(canvasView);
+		bp.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
 		//bp.setTop(new Rectangle(1200, 50, Color.GRAY));
 		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
