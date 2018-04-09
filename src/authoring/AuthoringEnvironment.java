@@ -1,5 +1,7 @@
 package authoring;
 
+import authoring.controllers.EntityController;
+import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EventPane;
@@ -43,8 +45,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story = new StoryBoardPane();
 		canvas = new Canvas(AuthRes.getInt("canvassize"));
 		EntityController controller = new EntityController(entity, canvas);
+		PaneController pcontroller = new PaneController(level, canvas);
 		canvas.setController(controller);
 		entity.setController(controller);
+		level.setController(pcontroller);
 		np = new NavigationPane();
 		np.addListener(this);
 	}

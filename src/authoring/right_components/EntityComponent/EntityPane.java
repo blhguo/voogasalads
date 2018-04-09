@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import authoring.EntityController;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
+import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;

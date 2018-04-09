@@ -1,15 +1,15 @@
-package authoring;
+package authoring.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-public class LevelCreator {
+public class LevelController {
 
 	ArrayList<Level> currentLevels;			//where to create Level class?
 											//delete import stmt for logging.Level once class is created
 	
-	public LevelCreator() {
+	public LevelController() {
 		currentLevels = new ArrayList<Level>();
 	}
 	

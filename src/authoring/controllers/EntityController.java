@@ -1,5 +1,6 @@
-package authoring;
+package authoring.controllers;
 
+import authoring.Canvas;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
