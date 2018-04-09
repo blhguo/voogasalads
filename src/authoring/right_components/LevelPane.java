@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
-public class LevelComponent extends BaseComponent {
+public class LevelPane extends BasePane {
 
 	@Override
 	public Pane getView() {

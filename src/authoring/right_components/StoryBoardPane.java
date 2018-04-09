@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
-public class StoryboardComponent extends BaseComponent {
+public class StoryBoardPane extends BasePane {
 
 	@Override
 	public Pane getView() {
