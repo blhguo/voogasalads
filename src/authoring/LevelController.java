@@ -2,14 +2,14 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
-public class LevelCreator {
+import game_engine.Level;
 
-	ArrayList<Level> currentLevels;			//where to create Level class?
-											//delete import stmt for logging.Level once class is created
+public class LevelController {
+
+	ArrayList<Level> currentLevels;	
 	
-	public LevelCreator() {
+	public LevelController() {
 		currentLevels = new ArrayList<Level>();
 	}
 	
@@ -19,5 +19,9 @@ public class LevelCreator {
 	
 	public List<Level> getLevels() {
 		return currentLevels;
+	}
+	
+	public void saveGame() {
+		
 	}
 }
