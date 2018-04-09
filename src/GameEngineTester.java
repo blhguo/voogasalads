@@ -10,7 +10,7 @@ import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
-import game_engine.systems.KeyboardMovementSystem;
+import game_engine.systems.KeyboardMoveRightSystem;
 import game_engine.systems.MovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -42,7 +42,7 @@ public class GameEngineTester extends Application{
 
 	private Engine myEngine;
 	private MovementSystem movementSystem;
-	private KeyboardMovementSystem keyboardSystem;
+	private KeyboardMoveRightSystem keyboardSystem;
 	private Entity myEntity;
 	private ImageView myEntityImage;
 
@@ -142,7 +142,7 @@ public class GameEngineTester extends Application{
 			
 		//Create Systems
 		movementSystem = new MovementSystem(myEngine);
-		keyboardSystem = new KeyboardMovementSystem(myEngine);
+		keyboardSystem = new KeyboardMoveRightSystem(myEngine);
 		
 //	
 //		PhysicsComponent physicsComponent = new PhysicsComponent(null);

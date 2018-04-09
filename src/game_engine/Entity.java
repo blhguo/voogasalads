@@ -38,4 +38,14 @@ public class Entity implements EntityInterface {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean hasAny(List<Class<? extends Component>> args){
+		for (Class<? extends Component> c : args) {
+			if (myComponents.containsKey(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

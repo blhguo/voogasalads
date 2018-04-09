@@ -30,16 +30,17 @@ public class KeyboardJumpSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP, POSITION);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			for(InputEvent input : getEngine().getInput()){
-				KeyEvent key = (KeyEvent) getEngine().getInput().poll();
+			for(InputEvent input : getEngine().getInputQueue()){
+				KeyEvent key = (KeyEvent) getEngine().getInputQueue().poll();
 				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
-				PositionComponent pos = (PositionComponent) entity.getComponent(POSITION);				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
+				PositionComponent pos = (PositionComponent) entity.getComponent(POSITION);				
+				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 				JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
-				Vector direction = jumpInput.getDirection(key.getCode()); //TODO:figure out how inputs are passed. should be keycode, but currently is string from getInput()
-				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
+				if (jumpInput.correctKey(key.getCode()) && jump.getOnGround() && jump.getJumpsAllowed() != 0){
+					Vector direction = jumpInput.getDirection();
 					pos.setY(pos.getY() + physics.getMaxYVel() * direction.getY() * elapsedTime);
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
-					getEngine().getInput().remove(input);
+					getEngine().getInputQueue().remove(input);
 				}
 			}
 		}

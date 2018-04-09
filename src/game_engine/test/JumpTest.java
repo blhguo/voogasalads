@@ -18,7 +18,7 @@ import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
 import game_engine.systems.CollisionBroadSystem;
 import game_engine.systems.KeyboardJumpSystem;
-import game_engine.systems.KeyboardMovementSystem;
+import game_engine.systems.KeyboardMoveRightSystem;
 import game_engine.systems.MovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

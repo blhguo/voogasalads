@@ -24,6 +24,10 @@ public class Engine {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
 	
+	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component>> args){
+		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
+	}
+	
 	public void receiveInput(InputEvent input) {
 		myInputs.add(input);
 	}
