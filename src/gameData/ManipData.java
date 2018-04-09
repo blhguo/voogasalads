@@ -39,7 +39,7 @@ public class ManipData {
 	}
 	
 	private void SaveLevel(Level input, int levelnum) {
-		System.out.println("Beginning of serialization");//println includes new line ya sily
+		System.out.println("Beginning of serialization");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(input);
 			//writes each data object inside a unique data tag
