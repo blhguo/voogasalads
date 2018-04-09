@@ -3,17 +3,16 @@ package authoring.right_components;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.GUIComponent;
+import authoring.GUINode;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class BaseComponent implements GUIComponent {
+public class BasePane implements GUINode {
 
 	protected int SIZE = 310;
 

@@ -1,10 +1,10 @@
 package authoring;
 
-import authoring.right_components.BaseComponent;
-import authoring.right_components.EntityComponent.EntityComponent;
-import authoring.right_components.EventComponent;
-import authoring.right_components.LevelComponent;
-import authoring.right_components.StoryboardComponent;
+import authoring.right_components.BasePane;
+import authoring.right_components.EntityComponent.EntityPane;
+import authoring.right_components.EventPane;
+import authoring.right_components.LevelPane;
+import authoring.right_components.StoryBoardPane;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -22,11 +22,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private NavigationPane np;
 	
-	private BaseComponent base;
-	private EntityComponent entity;
-	private EventComponent event;
-	private LevelComponent level;
-	private StoryboardComponent story;
+	private BasePane base;
+	private EntityPane entity;
+	private EventPane event;
+	private LevelPane level;
+	private StoryBoardPane story;
 	private BorderPane bp;
 	private Canvas canvas;
 	
@@ -34,11 +34,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public AuthoringEnvironment(){
 		//instantiate leftPane, rightPane, Canvas
 			
-		base = new BaseComponent();
-		entity = new EntityComponent();
-		event = new EventComponent();
-		level = new LevelComponent();
-		story = new StoryboardComponent();
+		base = new BasePane();
+		entity = new EntityPane();
+		event = new EventPane();
+		level = new LevelPane();
+		story = new StoryBoardPane();
 		canvas = new Canvas(AuthRes.getInt("canvassize"));
 		EntityController controller = new EntityController(entity, canvas);
 		canvas.setController(controller);
@@ -57,7 +57,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		update(""); //calls default setting for right pane
 		bp.setLeft(np);
 		bp.setCenter(canvas.getView());
-		bp.setTop(new Rectangle(1200, 50, Color.GRAY));
+		//bp.setTop(new Rectangle(1200, 50, Color.GRAY));
 		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
 		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
