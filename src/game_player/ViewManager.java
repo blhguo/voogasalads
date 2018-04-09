@@ -1,9 +1,15 @@
 package game_player;
 
+import authoring.GameChooserScreen;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -13,15 +19,15 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Brandon Dalla Rosa, Dana Park
  *
  */
 public class ViewManager {
 	private Menu menu;
 	private Stage gameStage;
-	private double sceneWidth = 800;
-	private double sceneHeight = 600;
-	private Paint backColor = Color.LIGHTBLUE;
+	private double sceneWidth = 1200;
+	private double sceneHeight = 900;
+	private Paint backColor = Color.BLACK;
 	private Pane view;
 	
 	public ViewManager(Menu menu, Stage stage) {
@@ -34,25 +40,36 @@ public class ViewManager {
 	
 	private void setScene() {
 		Pane pane = setObjects();
-		Scene scene = new Scene(pane,sceneWidth,sceneHeight,backColor);
+		Scene scene = new Scene(pane,sceneWidth,sceneHeight);
+		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		gameStage.setScene(scene);
 	}
 	
 	private Pane setObjects() {
-		HBox center = new HBox(20);
+		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
-		center.getStyleClass().add("hbox");
-		//center.setBackground(new Background(new BackgroundFill(backColor,null,null)));
-		VBox order = new VBox(10);
+		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		center.setBackground(new Background(back));
+		VBox order = new VBox(20);
+		order.getStyleClass().add("pane-back");
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(770, 530);
-		view.setBackground(new Background(new BackgroundFill(Color.WHITE,null,null)));
+		BackgroundImage game = new BackgroundImage(new Image("background1.jpg"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		view.setBackground(new Background(game));
 		order.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
+	}
+	
+	public void showGameSelectionMenu() {
+		GameChooserScreen gc = new GameChooserScreen(gameStage);
+		gameStage.setScene(gc.display());
+		gameStage.show();
 	}
 	
 	public Pane getNode() {
