@@ -48,6 +48,7 @@ public class EntityComponent extends BaseComponent {
 		list.add(makeMenuList());
 		list.add(ButtonFactory.makeHBox("Print component", "",
 				ButtonFactory.makeButton(event -> printComponents())));
+		list.add(controller.getButton());
 		return list;
 	}
 

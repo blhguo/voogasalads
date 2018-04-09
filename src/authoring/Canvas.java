@@ -28,6 +28,7 @@ public class Canvas implements GUIComponent{
 		return box;
 	}
 	public void update(Map<ImageView, Entity> map){
+		box.getChildren().clear();
 		for (ImageView view : map.keySet()){
 			box.getChildren().add(view);
 		}

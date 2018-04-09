@@ -19,7 +19,9 @@ public class EntityController {
 		entityComponent = component;
 		canvas = c;
 		map = new HashMap<>();
-		view = ImageBuilder.getImageView("jen.png", 20,20);
+		view = ImageBuilder.getImageView("jen.png", 200,200);
+		view.setX(view.getX() + 200);
+		view.setY(view.getY() + 400);
 		map.put(view, new Entity());
 	}
 	public void add(Entity entity){
