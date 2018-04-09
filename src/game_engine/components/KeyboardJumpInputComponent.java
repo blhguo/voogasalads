@@ -25,7 +25,7 @@ public class KeyboardJumpInputComponent implements Component{
 	}
 	
 	public Vector getDirection(KeyCode up){
-		if(up.compareTo(myUp) == 0){
+		if(up.compareTo(myUp) != 0){
 			return new Vector(0,0);
 		}
 		return UP;
