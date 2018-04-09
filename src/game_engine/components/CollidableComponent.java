@@ -20,7 +20,7 @@ public class CollidableComponent implements Component{
 	public CollidableComponent(List<String> args){
 		myIntersectable = Boolean.parseBoolean(args.get(0));
 		myPassable = Boolean.parseBoolean(args.get(1));
-		myPushable = Integer.parseInt(args.get(2));
+		myPushable = (int) Double.parseDouble(args.get(2));
 	}
 	
 	public boolean getPassable(){
