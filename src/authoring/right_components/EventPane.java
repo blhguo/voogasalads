@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
-public class EventComponent extends BaseComponent {
+public class EventPane extends BasePane {
 	
 	@Override
 	public Pane getView() {

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import authoring.EntityController;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
-import authoring.right_components.BaseComponent;
+import authoring.right_components.BasePane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
 import game_engine.ComponentFactory;
@@ -21,7 +21,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
-public class EntityComponent extends BaseComponent {
+public class EntityPane extends BasePane {
 	private EntityController controller;
 	private List<ComponentMenu> menuList;
 	private Accordion accordion;

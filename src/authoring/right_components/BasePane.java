@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class BaseComponent implements GUIComponent {
+public class BasePane implements GUIComponent {
 
 	protected int SIZE = 310;
 

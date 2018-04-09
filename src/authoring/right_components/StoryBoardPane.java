@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import authoring.utilities.ButtonFactory;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
@@ -12,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
-public class StoryboardComponent extends BaseComponent {
+public class StoryBoardPane extends BasePane {
 
 	@Override
 	public Pane getView() {
@@ -23,8 +24,8 @@ public class StoryboardComponent extends BaseComponent {
 	}
 
 	@Override 
-	public List<HBox> getButtonArray(){
-		ArrayList<HBox> list = new ArrayList<>();
+	public List<Node> getButtonArray(){
+		ArrayList<Node> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("Change Game Name", null));
 		return list;
 	}
