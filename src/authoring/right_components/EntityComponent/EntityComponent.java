@@ -1,23 +1,25 @@
 package authoring.right_components.EntityComponent;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import authoring.ComponentMenu;
-import authoring.ComponentMenuFactory;
+import authoring.EntityController;
+import authoring.component_menus.ComponentMenu;
+import authoring.component_menus.ComponentMenuFactory;
 import authoring.right_components.BaseComponent;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Accordion;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import resources.keys.AuthRes;
 
 public class EntityComponent extends BaseComponent {
-
+	private EntityController controller;
 	private List<ComponentMenu> menuList;
 	public EntityComponent(){
 		menuList = new ArrayList<>();
@@ -43,9 +45,10 @@ public class EntityComponent extends BaseComponent {
 		ArrayList<Node> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("New Sprite", "Upload a New Image"));
 		//list.add(ButtonFactory.makeHBox("Add Behavior", "Attach an Event to this Entity"));
-		list.addAll(makeMenuList());
+		list.add(makeMenuList());
 		list.add(ButtonFactory.makeHBox("Print component", "",
 				ButtonFactory.makeButton(event -> printComponents())));
+		list.add(controller.getButton());
 		return list;
 	}
 
@@ -53,11 +56,19 @@ public class EntityComponent extends BaseComponent {
 		menuList.stream().forEach(x -> System.out.println(x.makeComponent()));
 	}
 
-	private Collection<? extends Node> makeMenuList() {
-		menuList.add(new ComponentMenuFactory().newComponentMenu("Collidable"));
-		List<Node> list;
-		list = menuList.stream().map(x -> x.getNode()).collect(Collectors.toList());
-		return list;
+	private Accordion makeMenuList() {
+		ComponentMenuFactory factory = new ComponentMenuFactory();
+		List<String> typelist = Arrays.asList(AuthRes.getString("Types").split(","));
+		//typelist.stream().forEach(s -> System.out.println(s));
+		menuList.addAll(typelist.stream().map
+				(string -> factory.newComponentMenu(string.trim())).collect(Collectors.toList()));
+		Accordion accordion = new Accordion();
+		accordion.getPanes().addAll(
+				menuList.stream().map(x -> x.getTitledPane()).collect(Collectors.toList()));
+		return accordion;
 	}
 
+	public void setController(EntityController controller) {
+		this.controller = controller;
+	}
 }

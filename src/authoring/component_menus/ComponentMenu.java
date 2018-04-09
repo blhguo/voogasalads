@@ -1,4 +1,4 @@
-package authoring;
+package authoring.component_menus;
 
 import game_engine.Component;
 import javafx.scene.Node;
