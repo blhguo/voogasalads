@@ -12,11 +12,15 @@ import game_engine.Vector;
 import game_engine.components.JumpComponent;
 import game_engine.components.KeyboardJumpInputComponent;
 import game_engine.components.PhysicsComponent;
+import game_engine.components.PositionComponent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
 
 public class KeyboardJumpSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
 	private static final Class<? extends Component> KEYBOARD_JUMP_INPUT = KeyboardJumpInputComponent.class;
 	private static final Class<? extends Component> JUMP = JumpComponent.class;
+	private static final Class<? extends Component> POSITION = PositionComponent.class;
 	
 	public KeyboardJumpSystem(Engine engine) {
 		super(engine);
@@ -24,18 +28,18 @@ public class KeyboardJumpSystem extends GameSystem{
 
 	@Override
 	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP);
+		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP, POSITION);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			for (Input input : getEngine().getInput()) {
+			for(InputEvent input : getEngine().getInput()){
+				KeyEvent key = (KeyEvent) getEngine().getInput().poll();
 				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
-				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
+				PositionComponent pos = (PositionComponent) entity.getComponent(POSITION);				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 				JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
-				
-				Vector direction = jumpInput.getDirection(null); //TODO:figure out how inputs are passed. should be keycode, but currently is string from getInput()
-				if (jump.getOnGround() && jump.getJumpsAllowed() != 0){
-					//TODO: this won't always work, maybe include a conditional of valid code because an invalid
-					//code will result in us setting the current y vel to 0...talk with members
-					physics.setCurrYVel(physics.getMaxYVel()* direction.getY());
+				Vector direction = jumpInput.getDirection(key.getCode()); //TODO:figure out how inputs are passed. should be keycode, but currently is string from getInput()
+				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
+					pos.setY(pos.getY() + physics.getMaxYVel() * direction.getY() * elapsedTime);
+					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
+					getEngine().getInput().remove(input);
 				}
 			}
 		}

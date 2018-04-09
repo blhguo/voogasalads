@@ -7,7 +7,6 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
 import game_engine.components.KeyboardMovementInputComponent;
-import game_engine.components.MovementInputComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
