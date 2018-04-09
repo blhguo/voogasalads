@@ -4,6 +4,8 @@ import java.util.List;
 
 import game_engine.Component;
 
+import java.util.List;
+
 public class PhysicsComponent implements Component{
 
 	private double myMaxXVel;
@@ -11,7 +13,7 @@ public class PhysicsComponent implements Component{
 	private double myCurrXVel;
 	private double myCurrYVel;
 	private double myAcceleration;
-	
+
 	/**
 	 * creates a new instance of the Physics component
 	 * @param xVel
