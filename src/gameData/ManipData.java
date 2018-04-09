@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,6 +30,8 @@ public class ManipData {
 	private XStream deserializer;
 	private String xml;
 	private FileOutputStream fos;
+	private ArrayList<Level> levellist;
+
 	//constructor
 	public ManipData() {
 		//given a list of levels
@@ -36,6 +39,7 @@ public class ManipData {
 		this.deserializer = new XStream(new DomDriver());
 		this.xml = "";
 		this.fos = null;
+		this.levellist = new ArrayList<Level>();
 	}
 	
 	private void SaveLevel(Level input, int levelnum) {
@@ -49,7 +53,7 @@ public class ManipData {
 	        fos.write(("</data"+Integer.toString(levelnum)+">").getBytes("UTF-8"));
 	        }
 		catch (Exception e){
-			System.out.println("Something broke");
+			System.out.println("Something broke"); //TODO
 		}
 	}
 	
@@ -81,12 +85,11 @@ public class ManipData {
 	            try{
 	                fos.close();
 	            }catch (IOException e) {
-	                e.printStackTrace();
+	                e.printStackTrace(); //TODO
 	            }
 	        }
 	    }
 	}
-	private List<Level> levellist;
 	
 	public void LoadData(File load) {
 		File f = load;
@@ -94,7 +97,7 @@ public class ManipData {
 			openFile(f);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); //TODO
 		}
 	}
 	
@@ -116,14 +119,14 @@ public class ManipData {
 					levellist.add(temp);
 				}
 			} catch (SAXException e) {
-				return;
+				return; //TODO
 			}
         } catch (IOException e) {
-        		return;
+        		return; //TODO
         }
 	}
 	
-	public List<Level> loadLevels(){
+	public ArrayList<Level> loadLevels(){
 		return levellist;
 	}
 	
