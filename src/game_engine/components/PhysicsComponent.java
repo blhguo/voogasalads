@@ -46,8 +46,8 @@ public class PhysicsComponent implements Component{
 		return myCurrXVel;
 	}
 
-	public double getCurrXVel() {
-		return myCurrXVel;
+	public double getCurrYVel() {
+		return myCurrYVel;
 	}
 
 	/**

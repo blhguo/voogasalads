@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 public class ComponentFactory {
 
 	private static final String COMPONENT_BUNDLE = "Component";
-	private static final String C0MPONENT_DELIM  = "|";
+	private static final String COMPONENT_DELIM  = "|";
 	private static final String ATTRIBUTE_DELIM  = ",";
 
 	private ResourceBundle myComponents;
@@ -29,7 +29,7 @@ public class ComponentFactory {
 	public Iterable<VBox> getComponent() {
 		List<VBox> components = new ArrayList<>();
 		for (String component : myComponents.keySet()) {
-			String[] attributes = myComponents.getString(component).split(C0MPONENT_DELIM);
+			String[] attributes = myComponents.getString(component).split(COMPONENT_DELIM);
 			for (String attr : attributes) {
 				String[] attrSplit = attr.split(ATTRIBUTE_DELIM);
 			}
@@ -42,7 +42,7 @@ public class ComponentFactory {
 		try {
 			System.out.println("key: " + key);
 			System.out.println("component: " + myComponents.getString(key));
-			Class<?> clazz = Class.forName(myComponents.getString(key));
+			Class<?> clazz = Class.forName(myComponents.getString(key) + "Component");
 			System.out.println("clazz: " + clazz);
 			Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] { List.class });
 			return (Component) ctor.newInstance(args);
