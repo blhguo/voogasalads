@@ -42,8 +42,8 @@ public class PhysicsComponent implements Component{
 		return myMaxYVel;
 	}
 	
-	public double getCurrYVel() {
-		return myCurrYVel;
+	public double getCurrXVel() {
+		return myCurrXVel;
 	}
 
 	public double getCurrXVel() {
