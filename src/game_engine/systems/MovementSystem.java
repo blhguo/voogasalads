@@ -26,10 +26,14 @@ public class MovementSystem extends GameSystem {
 		for (Entity e : getEngine().getEntitiesContaining(args)) {
 			PhysicsComponent physics = (PhysicsComponent) e.getComponent(PHYSICS);
 			PositionComponent position = (PositionComponent) e.getComponent(POSITION);
+
+			
 			position.setX(position.getX() + physics.getCurrXVel() * elapsedTime);
 			position.setY(position.getY() + physics.getCurrYVel() * elapsedTime);
 		
-			physics.setCurrYVel(physics.getCurrYVel() + physics.getAccel() * elapsedTime);
+			//physics.setCurrXVel(physics.getCurrXVel() + physics.getAccel() * elapsedTime);
+			//physics.setCurrYVel(physics.getCurrYVel() + physics.getAccel() * elapsedTime);
+
 		}
 	}
 }

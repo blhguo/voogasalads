@@ -88,7 +88,7 @@ public class CollisionTest extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-        colSys.act(5);
+        colSys.act(elapsedTime);
         updateRectPos();
         updateRectColor();
     }
