@@ -12,8 +12,6 @@ import javafx.scene.input.KeyCode;
 public class KeyboardMovementInputComponent implements Component{
 	private static final Vector LEFT = new Vector(-1,0);
 	private static final Vector RIGHT = new Vector(1,0);
-	private static final Vector UP = new Vector(0,1);
-	private static final Vector DOWN = new Vector(0,1);
 	
 	private Map<KeyCode, Vector> myDirections;
 	
@@ -24,12 +22,10 @@ public class KeyboardMovementInputComponent implements Component{
 	 * @param up
 	 * @param down
 	 */
-	public KeyboardMovementInputComponent(KeyCode left, KeyCode right, KeyCode up, KeyCode down){
+	public KeyboardMovementInputComponent(KeyCode left, KeyCode right){
 		myDirections = new HashMap<>();
 		myDirections.put(left, LEFT);
 		myDirections.put(right, RIGHT);
-		myDirections.put(up, UP);
-		myDirections.put(down, DOWN);
 	}
 	
 	public void setLeft(KeyCode left){
@@ -38,14 +34,6 @@ public class KeyboardMovementInputComponent implements Component{
 	
 	public void setRight(KeyCode right){
 		myDirections.put(right, RIGHT);
-	}
-	
-	public void setUp(KeyCode up){
-		myDirections.put(up, UP);
-	}
-	
-	public void setDown(KeyCode down){
-		myDirections.put(down, DOWN);
 	}
 	
 	public Vector getDirection(KeyCode dir){
