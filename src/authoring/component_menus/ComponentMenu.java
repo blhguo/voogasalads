@@ -1,8 +1,17 @@
 package authoring.component_menus;
 
 import game_engine.Component;
+import game_engine.ComponentFactory;
+import game_engine.components.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * This interface defines the various kinds of Component Menus which will be elements
@@ -11,14 +20,34 @@ import javafx.scene.control.TitledPane;
  * CollisionMenu, InteractionMenu, etc.
  */
 
-public interface ComponentMenu{
-	/**
-	 *  Creates a new Entity Component using user input from the various involved menus, etc.
-	 * @return the newly created Entity Component, to be added to some entity
-	 */
-	Component makeComponent();
+public class ComponentMenu extends VBox{
+	private static final String COMPONENT_BUNDLE = "Component";
+	private static final String COMPONENT_DELIM  = ";";
+	private static final String ATTRIBUTE_DELIM  = ",";
 
-	Node getNode();
+	private ResourceBundle myComponents;
+	private List<MenuElement> elements;
+	private String myType;
+	public ComponentMenu(String type){
+		myComponents = ResourceBundle.getBundle(COMPONENT_BUNDLE);
+		myType = type;
+		elements = new ArrayList<>();
+	}
+	public void addMenuElement(MenuElement element){
+		elements.add(element);
+		this.getChildren().add(element.getView());
+	}
+	public List<String> getComponentList(){
+		List<String> list = new ArrayList<String>();
+		elements.stream().forEach(e -> list.add(e.getValue()));
+		return list;
+	}
 
-	TitledPane getTitledPane();
+	public String getType() {
+		return myType;
+	}
+
+	public TitledPane getTitledPane() {
+		return new TitledPane(myType, this);
+	}
 }

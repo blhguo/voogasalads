@@ -35,9 +35,9 @@ public class Canvas implements GUINode {
 		return pane;
 	}
 	public void update(Map<ImageView, Entity> map){
-		box.getChildren().clear();
+		pane.getChildren().clear();
 		for (ImageView view : map.keySet()){
-			box.getChildren().add(view);
+			pane.getChildren().add(view);
 			view.toFront();
 		}
 	}

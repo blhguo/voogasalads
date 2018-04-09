@@ -1,5 +1,7 @@
 package game_engine;
 
+import java.util.List;
+
 public interface EntityInterface {
 	
 	/**
@@ -13,7 +15,7 @@ public interface EntityInterface {
 	 * To be used not by front-end, but by other classes
 	 * @param component
 	 */
-	void removeComponent(Component component);
+	void removeComponent(Class<? extends Component> clazz);
 	
 	/**
 	 * Gets a Component based on Component class
@@ -28,6 +30,5 @@ public interface EntityInterface {
 	 * @param args
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	boolean hasAll(Class<? extends Component>... args);
+	boolean hasAll(List<Class<? extends Component>> args);
 }

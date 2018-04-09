@@ -11,6 +11,9 @@ import authoring.component_menus.ComponentMenuFactory;
 import authoring.right_components.BasePane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
+import game_engine.ComponentFactory;
+import game_engine.Entity;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.layout.Pane;
@@ -21,16 +24,20 @@ import resources.keys.AuthRes;
 public class EntityPane extends BasePane {
 	private EntityController controller;
 	private List<ComponentMenu> menuList;
+	private Accordion accordion;
+	private Group root;
 	public EntityPane(){
-		menuList = new ArrayList<>();
+		menuList = makeMenuList();
+		accordion = makeMenuView();
+
 	}
 
 	@Override
 	public Pane getView() {
-        VBox box = buildBasicView("Entity Creator");        
+        VBox box = buildBasicView("Entity Creator");
 		box.getChildren().add(getStack());
-		//What's the purpose of the .collect function?
-		getButtonArray().stream().map((button) -> box.getChildren().add(button)).collect(Collectors.toList());
+		box.getChildren().addAll(getButtonArray());
+
 	    return box;
 	}
 	
@@ -42,30 +49,28 @@ public class EntityPane extends BasePane {
 	}
 
 	public List<Node> getButtonArray() {
-		ArrayList<Node> list = new ArrayList<>();
-		list.add(ButtonFactory.makeHBox("New Sprite", "Upload a New Image"));
-		//list.add(ButtonFactory.makeHBox("Add Behavior", "Attach an Event to this Entity"));
-		list.add(makeMenuList());
-		list.add(ButtonFactory.makeHBox("Print component", "",
-				ButtonFactory.makeButton(event -> printComponents())));
+		List<Node> list = new ArrayList<>();
+		list.add(accordion);
 		list.add(controller.getButton());
 		return list;
 	}
 
-	private void printComponents() {
-		menuList.stream().forEach(x -> System.out.println(x.makeComponent()));
+	private List<ComponentMenu> makeMenuList(){
+		List<ComponentMenu> list;
+		list = new ComponentMenuFactory().getMenus();
+		return list;
 	}
-
-	private Accordion makeMenuList() {
-		ComponentMenuFactory factory = new ComponentMenuFactory();
-		List<String> typelist = Arrays.asList(AuthRes.getString("Types").split(","));
-		//typelist.stream().forEach(s -> System.out.println(s));
-		menuList.addAll(typelist.stream().map
-				(string -> factory.newComponentMenu(string.trim())).collect(Collectors.toList()));
-		Accordion accordion = new Accordion();
-		accordion.getPanes().addAll(
+	private Accordion makeMenuView() {
+		Accordion acc = new Accordion();
+		acc.getPanes().addAll(
 				menuList.stream().map(x -> x.getTitledPane()).collect(Collectors.toList()));
-		return accordion;
+		return acc;
+	}
+	public Entity getEntity(){
+		Entity e = new Entity();
+		menuList.stream().forEach(menu -> new ComponentFactory().addComponent(
+				e, menu.getType(), menu.getComponentList()));
+		return e;
 	}
 
 	public void setController(EntityController controller) {

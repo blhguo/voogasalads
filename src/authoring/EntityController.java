@@ -29,7 +29,11 @@ public class EntityController {
 		return map;
 	}
 	public Button getButton(){
-		return ButtonFactory.makeButton(e -> canvas.update(map));
+		return ButtonFactory.makeButton(e -> newEntity());
+	}
+	private void newEntity(){
+		this.add(entityComponent.getEntity());
+		canvas.update(map);
 	}
 
 }
