@@ -3,6 +3,7 @@ package authoring.utilities;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -13,14 +14,15 @@ import resources.keys.AuthRes;
 public class ButtonFactory {
 
 	/**
-	 * Creates a new Hbox with a button on the left side, a title on the right, and a subtitle beneath
+	 * Creates a new Hbox with a node on the left side, a title on the right, and a subtitle beneath
 	 * @param title Desired title
 	 * @param subtitle Desired subtitle
-	 * @param button The button to be included
+	 * @param node The node to be included
 	 * @return the HBox
 	 */
-	public static HBox makeHBox(String title, String subtitle, Button button){
-		button.getStyleClass().add("button-splash");
+	public static HBox makeHBox(String title, String subtitle, Node node){
+		if (node instanceof Button)
+			node.getStyleClass().add("button-splash");
 
 		VBox vb = new VBox(AuthRes.getInt("Padding"));
 		vb.setMaxHeight(30);
@@ -37,7 +39,7 @@ public class ButtonFactory {
 
 		HBox hb = new HBox(AuthRes.getInt("HBPadding"));
 		hb.setAlignment(Pos.CENTER_LEFT);
-		hb.getChildren().addAll(button, vb);
+		hb.getChildren().addAll(node, vb);
 		return hb;
 	}
 
@@ -58,7 +60,7 @@ public class ButtonFactory {
 	 * @return the button
 	 */
 	public static Button makeButton(EventHandler<ActionEvent> handler){
-		Button retButton = new Button();
+		Button retButton = new Button("+");
 		retButton.setOnAction(handler);
 		return retButton;
 	}

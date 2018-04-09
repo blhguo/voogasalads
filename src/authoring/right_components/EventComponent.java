@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import authoring.utilities.ButtonFactory;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
@@ -23,8 +24,8 @@ public class EventComponent extends BaseComponent {
 	}
 	
 	@Override 
-	public List<HBox> getButtonArray(){
-		ArrayList<HBox> list = new ArrayList<>();
+	public List<Node> getButtonArray(){
+		List<Node> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("Add Relationship", null));
 		return list;
 	}
