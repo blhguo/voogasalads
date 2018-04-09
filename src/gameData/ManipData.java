@@ -98,7 +98,7 @@ public class ManipData {
 		}
 	}
 	
-	public void openFile(File file) throws ParserConfigurationException{
+	private void openFile(File file) throws ParserConfigurationException{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         String filePath = file.getAbsolutePath();
