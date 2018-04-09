@@ -1,6 +1,9 @@
 package authoring.right_components;
 
-import authoring.GUIComponent;
+import java.util.ArrayList;
+import java.util.List;
+
+import authoring.GUINode;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -9,7 +12,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class BaseComponent implements GUIComponent {
+public class BasePane implements GUINode {
 
 	protected int SIZE = 310;
 
@@ -34,11 +37,19 @@ public class BaseComponent implements GUIComponent {
         Label paneTitle = new Label(title);
         paneTitle.getStyleClass().add("pane-title");
 		masterBox.getChildren().add(paneTitle);
-		
-		Separator belowTitle = new Separator();
-		belowTitle.setHalignment(HPos.CENTER);
-		belowTitle.setPrefWidth(SIZE * 2.0/3);
-		masterBox.getChildren().add(belowTitle);
+		masterBox.getChildren().add(newSeparator());
+	}
+
+	public List<Node> getButtonArray() {
+		List<Node> list = new ArrayList<>();
+		return list;
+	}
+	
+	public Separator newSeparator() {
+		Separator line = new Separator();
+		line.setHalignment(HPos.CENTER);
+		line.setPrefWidth(SIZE * 2.0/3);
+		return line;
 	}
 
 }

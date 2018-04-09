@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 public class Engine {
 	
-	private List<Entity> myEntities = new ArrayList<>();
-	private List<System> mySystems = new ArrayList<>();
+	protected List<Entity> myEntities = new ArrayList<>();
+	protected List<System> mySystems = new ArrayList<>();
 	
 	public void update(double elapsedTime) {
 		for (System system : mySystems) {
