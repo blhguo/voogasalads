@@ -1,6 +1,16 @@
 package game_engine;
-import game_engine.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface Level {
-    public Entity getEntity(String id);
+public class Level {
+	
+	private List<Entity> myLevel = new ArrayList<>();
+	
+    public void addEntity(Entity e) {
+    		myLevel.add(e);
+    }
+    
+    public Iterable<Entity> getEntities() {
+    	return () -> myLevel.iterator();
+    }
 }
