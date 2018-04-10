@@ -34,8 +34,6 @@ public class PlayerView {
 		//engine.update();
 		updateGame();
 		handleUI();
-		
-		
 	}
 	
 	//testing code
