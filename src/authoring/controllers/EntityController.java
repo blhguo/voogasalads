@@ -31,6 +31,7 @@ public class EntityController {
 		iv.setX(pos.getX());
 		iv.setY(pos.getY());
 		map.put(iv, entity);
+		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 	}
 	public Map<ImageView, Entity> getMap(){
 		return map;
