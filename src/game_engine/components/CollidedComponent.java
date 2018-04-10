@@ -6,33 +6,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CollidedComponent implements Component{
-    private boolean collided;
-    private ECollisionSide collisionSide;
-    private List<Entity> collidedWith;
-
-    public CollidedComponent(List<String> args){
-        this();
-    }
+public abstract class CollidedComponent implements Component{
+    private List<Entity> others;
 
     public CollidedComponent(){
-        collided = true;
-        collidedWith = new ArrayList<Entity>();
-    }
-    
-    public void addCollidedWith(Entity e2) {
-    	collidedWith.add(e2);
+        others = new ArrayList<Entity>();
     }
 
-    public ECollisionSide getCollisionSide(){
-        return collisionSide;
-    }
-    
-    public void setCollisionSide(ECollisionSide cs) {
-    	collisionSide = cs;
+    public CollidedComponent(Entity e){
+        this();
+        addEntity(e);
     }
 
-    public boolean getCollided(){
-        return collided;
+    public CollidedComponent(List<Entity> es){
+        this();
+        addEntities(es);
+    }
+
+    public void addEntity(Entity e){
+        if(!others.contains(e)) {
+            others.add(e);
+        }
+    }
+
+    public void addEntities(List<Entity> es){
+        for(Entity e: es){
+            addEntity(e);
+        }
+    }
+
+    public List<Entity> getEntities(){
+        return others;
     }
 }
