@@ -18,6 +18,8 @@ public class KeyboardMovementSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
 	private static final Class<? extends Component> POSITION = PositionComponent.class;
 	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInputComponent.class;
+	
+	private static final double OFFSET_DX = 10;
 
 	public KeyboardMovementSystem(Engine engine) {
 		super(engine);
@@ -31,20 +33,13 @@ public class KeyboardMovementSystem extends GameSystem{
 				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
 				PositionComponent position = (PositionComponent) entity.getComponent(POSITION);
 				KeyboardMovementInputComponent keyboardInput = (KeyboardMovementInputComponent) entity.getComponent(KEYBOARD_MOVE_INPUT);
-
 				KeyEvent keyInput = (KeyEvent) input;
 				Vector direction = keyboardInput.getDirection(keyInput.getCode());
-				position.setX(position.getX() + physics.getMaxXVel() * direction.getX());
-				
-				physics.setCurrXVel(direction.getX() * physics.getCurrXVel());
-				getEngine().getInput().remove(input);
-
-				
-//				// If I'm jumping and on the ground, set y-velocity = max
-//				if (direction.getY() == 1 /* && I am on the ground */) {
-//					physics.setCurrYVel(physics.getMaxYVel());
-//				}
-				//physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
+				if (direction.getX() != 0) {
+					position.setX(position.getX() + OFFSET_DX * direction.getX());
+					physics.setCurrXVel(direction.getX() * physics.getCurrXVel());
+					getEngine().getInput().remove(input);
+				}
 			}
 		}
 	}
