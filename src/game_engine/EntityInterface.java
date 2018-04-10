@@ -31,4 +31,6 @@ public interface EntityInterface {
 	 * @return
 	 */
 	boolean hasAll(List<Class<? extends Component>> args);
+
+	boolean hasAny(List<Class<? extends Component>> args);
 }
