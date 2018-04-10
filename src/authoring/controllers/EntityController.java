@@ -5,9 +5,12 @@ import authoring.right_components.EntityComponent.EntityPane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
 import game_engine.Entity;
+import game_engine.components.PositionComponent;
+import game_engine.components.SpriteComponent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
+import javax.swing.text.Position;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,13 +23,15 @@ public class EntityController {
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
-		view = ImageBuilder.getImageView("jen.png", 200,200);
-		view.setX(view.getX() + 200);
-		view.setY(view.getY() + 400);
-		map.put(view, new Entity());
 	}
 	public void add(Entity entity){
-		map.put(view, entity);
+		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
+		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
+		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
+		iv.setX(pos.getX());
+		iv.setY(pos.getY());
+		map.put(iv, entity);
+		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 	}
 	public Map<ImageView, Entity> getMap(){
 		return map;

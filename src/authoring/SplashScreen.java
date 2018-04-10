@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
@@ -16,7 +15,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 	
 	public SplashScreen(Stage stage){
 		myStage = stage;
-		Font myFont = Font.loadFont(getClass().getResourceAsStream("resources/Segoe fonts v1710/segoeuil.ttf"), 10);
+//		Font myFont = Font.loadFont(getClass().getResourceAsStream("resources/Segoe fonts v1710/segoeuil.ttf"), 10);
 	}
 	
 	private VBox makeVBox(){
