@@ -30,9 +30,12 @@ public class ViewManager {
 	private Paint backColor = Color.BLACK;
 	private Pane view;
 	private Scene gameScene;
+	private PulldownFactory pullDownFactory;
 	
-	public ViewManager(Menu menu, Stage stage) {
+	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
 		this.menu = menu;
+		this.pullDownFactory = pdf;
+		pullDownFactory.setViewManager(this);
 		this.gameStage = stage;
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
