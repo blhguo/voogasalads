@@ -36,7 +36,7 @@ public class KeyboardJumpSystem extends GameSystem{
 				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
 					physics.setCurrYVel(physics.getMaxYVel());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
-					getEngine().getInputQueue().remove(input);
+					getEngine().getInput().remove(input);
 				}
 			}
 		}

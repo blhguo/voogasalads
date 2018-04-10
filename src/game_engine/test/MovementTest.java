@@ -1,4 +1,5 @@
 package game_engine.test;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -6,7 +7,6 @@ import java.util.Map;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Vector;
 import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
