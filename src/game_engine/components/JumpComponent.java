@@ -7,10 +7,13 @@ import game_engine.Component;
 public class JumpComponent implements Component{
 	private boolean myOnGround;
 	private int myJumpsAllowed;
+	private int myDefaultJumpsAllowed;
 	private double myJumpVelocity;
+	
 	public JumpComponent(List<String> args){
 		myOnGround = Boolean.parseBoolean(args.get(0));
 		myJumpsAllowed = Integer.parseInt(args.get(1));
+		myDefaultJumpsAllowed = myJumpsAllowed;
 		myJumpVelocity = Double.parseDouble(args.get(2));
 	}
 	public void setOnGround(boolean onGround){
@@ -35,5 +38,9 @@ public class JumpComponent implements Component{
 	
 	public double getJumpVelocity(){
 		return myJumpVelocity;
+	}
+	
+	public int getDefaultJumpsAllowed(){
+		return myDefaultJumpsAllowed;
 	}
 }

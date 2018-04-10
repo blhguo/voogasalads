@@ -155,17 +155,17 @@ public class CollisionTest extends Application {
         cc.add("true");
         cc.add("0");
 
-        e1 = new Entity();
-        e1.addComponent(new PhysicsComponent(phys));
-        e1.addComponent(new PositionComponent(pos1));
-        e1.addComponent(new HitboxComponent(hb1));
-        e1.addComponent(new CollidableComponent(cc));
-
-        e2 = new Entity();
-        e2.addComponent(new PhysicsComponent(phys));
-        e2.addComponent(new PositionComponent(pos2));
-        e2.addComponent(new HitboxComponent(hb1));
-        e2.addComponent(new CollidableComponent(cc));
+//        e1 = new Entity();
+//        e1.addComponent(new PhysicsComponent(phys));
+//        e1.addComponent(new PositionComponent(pos1));
+//        e1.addComponent(new HitboxComponent(hb1));
+//        e1.addComponent(new CollidableComponent(cc));
+//
+//        e2 = new Entity();
+//        e2.addComponent(new PhysicsComponent(phys));
+//        e2.addComponent(new PositionComponent(pos2));
+//        e2.addComponent(new HitboxComponent(hb1));
+//        e2.addComponent(new CollidableComponent(cc));
 
         e.addEntity(e1);
         e.addEntity(e2);
