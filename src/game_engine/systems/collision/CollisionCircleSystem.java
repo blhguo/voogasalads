@@ -1,7 +1,6 @@
-package game_engine.systems;
+package game_engine.systems.collision;
 
 import game_engine.Engine;
-import game_engine.Entity;
 
 public class CollisionCircleSystem extends CollisionNarrowSystem {
 
@@ -10,10 +9,10 @@ public class CollisionCircleSystem extends CollisionNarrowSystem {
         super(engine);
     }
 
-    @Override
-    protected boolean intersect(Entity e1, Entity e2){
-        return false;
-    }
+//    @Override
+//    protected void intersect(Entity e1, Entity e2){
+//
+//    }
 
 	@Override
 	public void act(double elapsedTime) {
