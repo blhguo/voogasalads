@@ -40,7 +40,7 @@ public class ManipData {
 	private XStream deserializer;
 	private String xml;
 	private FileOutputStream fos;
-	private ArrayList<Abs> levellist;
+	private ArrayList<Level> levellist;
 
 	//constructor
 	public ManipData() {
@@ -49,10 +49,10 @@ public class ManipData {
 		this.deserializer = new XStream(new DomDriver());
 		this.xml = "";
 		this.fos = null;
-		this.levellist = new ArrayList<Abs>();
+		this.levellist = new ArrayList<Level>();
 	}
 	
-	private void saveLevel(Abs input, int levelnum) {
+	private void saveLevel(Level input, int levelnum) {
 		System.out.println("Beginning of serialization");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(input);
@@ -66,7 +66,7 @@ public class ManipData {
 		}
 	}
 	
-	public void saveData(List<Abs> levels) {
+	public void saveData(List<Level> levels) {
 		int counter = 0;
 		try {
 			//this writes only one file
@@ -76,7 +76,7 @@ public class ManipData {
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
 				String nums = Integer.toString(levels.size());
 				fos.write(("<higher "+"info='"+nums+"'>").getBytes("UTF-8"));
-				for(Abs l: levels) {
+				for(Level l: levels) {
 					saveLevel(l, counter);
 					counter++;
 				} 
@@ -103,7 +103,7 @@ public class ManipData {
 	    }
 	}
 	
-	public ArrayList<Abs> loadData(File load) {
+	public ArrayList<Level> loadData(File load) {
 		try {
 			openFile(load);
 		} catch (ParserConfigurationException e) {
@@ -138,7 +138,7 @@ public class ManipData {
 
 					String s = nodeToString(eElement.getElementsByTagName("data"+Integer.toString(i)).item(0).getFirstChild());
 					System.out.println(s);
-					Abs lilGuy = (Abs) deserializer.fromXML(s);
+					Level lilGuy = (Level) deserializer.fromXML(s);
 					System.out.println(lilGuy);
 					levellist.add(lilGuy);
 				}
@@ -168,7 +168,7 @@ public class ManipData {
 		return sw.toString();
 	}
 	
-	private ArrayList<Abs> loadLevels(){
+	private ArrayList<Level> loadLevels(){
 		return levellist;
 	}
 	
