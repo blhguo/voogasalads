@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.collision;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -8,9 +8,9 @@ import java.util.Collections;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.components.CollidedComponent;
-import game_engine.components.HitboxComponent;
 import game_engine.components.PositionComponent;
+import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.hitbox.HitboxComponent;
 
 /**
  * @author Jeremy Chen

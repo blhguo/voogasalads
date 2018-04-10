@@ -1,23 +1,29 @@
 package game_engine.test;
+import java.util.ArrayList;
+
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.*;
+import game_engine.components.PositionComponent;
+import game_engine.components.collision.CollidableComponent;
+import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.hitbox.HitboxComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
-import game_engine.systems.*;
+import game_engine.systems.MovementSystem;
+import game_engine.systems.collision.CollisionBroadSystem;
+import game_engine.systems.collision.CollisionResponseSystem;
+import game_engine.systems.keyboard.KeyboardJumpSystem;
+import game_engine.systems.keyboard.KeyboardMovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
 
 public class CollisionTest extends Application {
 

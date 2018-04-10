@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.keyboard;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +9,7 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.Vector;
 import game_engine.components.JumpComponent;
-import game_engine.components.KeyboardJumpInputComponent;
+import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.physics.YPhysicsComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
@@ -29,20 +29,20 @@ public class KeyboardJumpSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(VERTICAL_PHYSICS, KEYBOARD_JUMP_INPUT, JUMP);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
+			YPhysicsComponent physics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);		
+			KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
+			JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
 			for(InputEvent input : getEngine().getInput()){
 				if (!input.getEventType().getName().equals(KEY_PRESSED)) {
 					continue;
 				}
-				KeyEvent key = (KeyEvent) getEngine().getInput().peek();
-				YPhysicsComponent physics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);		
-				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
-				JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
+				KeyEvent key = (KeyEvent) getEngine().getInput().get(0);
 				Vector direction = jumpInput.getDirection(key.getCode());
 				if (direction.getY() == 1 && jump.getJumpsAllowed() != 0){
 					physics.setCurrVel(jump.getJumpVelocity());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
 					// should fix this to be more active and not give up data
-					getEngine().getInput().remove(input);
+					//getEngine().getInput().remove(input);
 				}
 			}
 		}
