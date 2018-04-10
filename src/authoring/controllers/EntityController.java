@@ -23,6 +23,8 @@ public class EntityController {
 	private EntityPane entityPane;
 	private Canvas canvas;
 	private ImageView view;
+	private LevelController lcontroller;
+	
 	public EntityController(EntityPane pane, Canvas c){
 		entityPane = pane;
 		canvas = c;
@@ -43,6 +45,7 @@ public class EntityController {
 		entityList.add(entity);
 		System.out.println("Number of Entities: " + map.keySet().size());
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
+		lcontroller.getActiveLevel().addEntity(entity);
 	}
 	public ImageView getSprite(){
 		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
@@ -62,6 +65,10 @@ public class EntityController {
 	public void UpdateMenus(ImageView iv){
 		toggleStyle(iv);
 		entityPane.updateMenus(map.get(iv));
+	}
+	
+	public void setLevelController(LevelController lc){
+		lcontroller = lc;
 	}
 
 	private void toggleStyle(ImageView iv) {

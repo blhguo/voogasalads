@@ -1,22 +1,4 @@
-//package game_engine.components;
-//
-//import game_engine.Component;
-//import javafx.util.Pair;
-//
-//public interface HitboxComponent extends Component {
-//    /**
-//     * Returns how much center of hitbox is offset from center of sprite
-//     * @return
-//     */
-//    public double getXOffset();
-//    public double getYOffset();
-//    public double getWidth();
-//    public double getHeight();
-//}
-
-// TODO: TEMP FIX FOR NOW, WILL FIX LATERS
-
-package game_engine.components;
+package game_engine.components.collision.hitbox;
 
 import java.util.List;
 
