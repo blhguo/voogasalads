@@ -71,13 +71,14 @@ public class PulldownFactory {
 	}
 	 private void handleSave() {
 		 ManipData turd = new ManipData();
-		 turd.saveData(levels);
+		 turd.saveData(dataManager.getGameLevels());
 	 }
 	 
 	 private void handleLoad() {
 		 ManipData turd = new ManipData();
 		 File file = getFile();
 		 levels = turd.loadData(file);
+		 dataManager.setGameLevels(levels);
 	 }
 	 
 	 private File getFile() {
