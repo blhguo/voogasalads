@@ -102,7 +102,7 @@ public class JumpTest extends Application {
 
 		ArrayList<String> jump = new ArrayList<String>();
 		jump.add("true");
-		jump.add("2");
+		jump.add("-1");
 
 		ArrayList<String> jumpInput = new ArrayList<String>();
 		jumpInput.add(KeyCode.UP.toString());

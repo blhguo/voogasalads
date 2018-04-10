@@ -11,7 +11,6 @@ import game_engine.Vector;
 import game_engine.components.JumpComponent;
 import game_engine.components.KeyboardJumpInputComponent;
 import game_engine.components.PhysicsComponent;
-import game_engine.components.PositionComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 
@@ -19,7 +18,6 @@ public class KeyboardJumpSystem extends GameSystem{
 	private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
 	private static final Class<? extends Component> KEYBOARD_JUMP_INPUT = KeyboardJumpInputComponent.class;
 	private static final Class<? extends Component> JUMP = JumpComponent.class;
-	private static final Class<? extends Component> POSITION = PositionComponent.class;
 	
 	public KeyboardJumpSystem(Engine engine) {
 		super(engine);
