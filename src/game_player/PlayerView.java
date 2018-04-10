@@ -2,7 +2,6 @@ package game_player;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 /**
  * 
@@ -17,7 +16,12 @@ public class PlayerView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 2.0;
 	private static final double HALF_RATE = 0.5;
-	private PulldownFactory pullDownFactory = new PulldownFactory();
+	private PulldownFactory pullDownFactory;
+	
+	public PlayerView(PulldownFactory pdf) {
+		pullDownFactory = pdf;
+		animationFrame();
+	}
 
 	
 	
@@ -34,8 +38,6 @@ public class PlayerView {
 		//engine.update();
 		updateGame();
 		handleUI();
-		
-		
 	}
 	
 	//testing code

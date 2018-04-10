@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 public class Menu {
 	
 	private HBox pane;
-	private PulldownFactory pullDownFactory = new PulldownFactory();
+	private PulldownFactory pullDownFactory;
 	private VBox keyPrefMenu;
 	private VBox settingsMenu;
 	private Button keyPrefButton;
@@ -46,12 +46,13 @@ public class Menu {
 	private Button currentPrefButton;	
 	private String currentPrefString;
 	
-	public Menu(DataManager data) {
+	public Menu(DataManager data, PulldownFactory pdf) {
 		pane = new HBox(20);
 		pane.setAlignment(Pos.CENTER);
 		dataManager = data;
 		currentKey = KeyCode.ENTER;
 		currentPrefButton = new Button();
+		pullDownFactory = pdf;
 		makePullDownMenus();
 		makeKeyPrefMenu();
 		makeGameSelectionMenu();
@@ -160,6 +161,7 @@ public class Menu {
 	}
 	
 	public void showGameSelectionMenu() {
+		//TODO Make this choose game to play, not edit
 		gameSelectionStage = new Stage();
 		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
 		gameSelectionStage.setScene(gc.display());

@@ -29,9 +29,13 @@ public class ViewManager {
 	private double sceneHeight = 900;
 	private Paint backColor = Color.BLACK;
 	private Pane view;
+	private Scene gameScene;
+	private PulldownFactory pullDownFactory;
 	
-	public ViewManager(Menu menu, Stage stage) {
+	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
 		this.menu = menu;
+		this.pullDownFactory = pdf;
+		pullDownFactory.setViewManager(this);
 		this.gameStage = stage;
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
@@ -40,9 +44,13 @@ public class ViewManager {
 	
 	private void setScene() {
 		Pane pane = setObjects();
-		Scene scene = new Scene(pane,sceneWidth,sceneHeight);
-		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
-		gameStage.setScene(scene);
+		gameScene = new Scene(pane,sceneWidth,sceneHeight);
+		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		gameStage.setScene(gameScene);
+	}
+	
+	public Scene getScene() {
+		return gameScene;
 	}
 	
 	private Pane setObjects() {
@@ -58,7 +66,7 @@ public class ViewManager {
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(770, 530);
-		BackgroundImage game = new BackgroundImage(new Image("background1.jpg"), BackgroundRepeat.NO_REPEAT, 
+		BackgroundImage game = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
 		order.getChildren().add(view);

@@ -28,9 +28,11 @@ public class PulldownFactory {
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
 	private List<Level> levels = new ArrayList<Level>();
+	private DataManager dataManager;
+	private ViewManager viewManager;
 
-	public PulldownFactory() {
-		// TODO Auto-generated constructor stub
+	public PulldownFactory(DataManager dat) {
+		dataManager = dat;
 	}
 	
 	protected ComboBox<String> SpeedBox () {
@@ -70,13 +72,20 @@ public class PulldownFactory {
 	}
 	 private void handleSave() {
 		 ManipData turd = new ManipData();
-		 turd.saveData(levels);
+		 turd.saveData(dataManager.getGameLevels());
 	 }
 	 
 	 private void handleLoad() {
 		 ManipData turd = new ManipData();
 		 File file = getFile();
 		 levels = turd.loadData(file);
+		 dataManager.setGameLevels(levels);
+		 Initializer initializer = new Initializer(viewManager);
+		 initializer.instantiate(levels);
+	 }
+	 
+	 public void setViewManager(ViewManager vm) {
+		 viewManager = vm;
 	 }
 	 
 	 private File getFile() {

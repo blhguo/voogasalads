@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import java.util.*;
 
+import game_engine.Level;
+
 /**
  * 
  * @author Dana Park, Brandon Dalla Rosa
@@ -12,15 +14,14 @@ import java.util.*;
 public class Initializer {
 	
 	private ViewManager vManager;
-	private ArrayList<Node> entityList;
 	
 	public Initializer(ViewManager viewManager) {
 		vManager = viewManager;
 	}
 	
-	public void instantiate() {
-		for (Node gameNode : entityList) {
-			vManager.getNode().getChildren().add(gameNode);
+	public void instantiate(List<Level> levels) {
+		for (Level l : levels) {
+			//SOMEHOW INSTANTIATE CURRENT ENTITIES
 			}
 		}
 }
