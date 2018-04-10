@@ -34,6 +34,11 @@ public class ImageBuilder {
         ImageView view = new DraggableImageView(image);
         return view;
     }
+    public static DraggableImageView getDraggableImageView(String path, int width, int height){
+        Image image = new Image(path, width, height, false, true);
+        DraggableImageView view = new DraggableImageView(image);
+        return view;
+    }
 
     /**
      *

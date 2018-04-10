@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
+import authoring.component_menus.ImageMenu;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
+import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import javafx.scene.Group;
@@ -26,6 +28,7 @@ public class EntityPane extends BasePane {
 	private List<ComponentMenu> menuList;
 	private Accordion accordion;
 	private Group root;
+	private StackPane pane;
 	public EntityPane(){
 		menuList = makeMenuList();
 		accordion = makeMenuView();
@@ -42,8 +45,8 @@ public class EntityPane extends BasePane {
 	
 
 	public Node getStack() {
-		StackPane pane = new StackPane();
-		pane.getChildren().add(ImageBuilder.getImageView("jen.png", 200, 200));
+		pane = new StackPane();
+		pane.getChildren().add(controller.getSprite());
 		return pane;
 	}
 
@@ -61,6 +64,7 @@ public class EntityPane extends BasePane {
 	}
 	private Accordion makeMenuView() {
 		Accordion acc = new Accordion();
+		//acc.getPanes().add(new ImageMenu().getTitledPane());
 		acc.getPanes().addAll(
 				menuList.stream().map(x -> x.getTitledPane()).collect(Collectors.toList()));
 		return acc;
@@ -77,5 +81,14 @@ public class EntityPane extends BasePane {
 
 	public void setController(EntityController controller) {
 		this.controller = controller;
+	}
+
+	public void updateMenus(Entity entity) {
+		accordion.getPanes().clear();
+		for (Component comp : entity.getComponents()){
+			accordion.getPanes().add(new ComponentMenuFactory().newComponentMenu(
+					comp.getValues().split(";"), comp.getName()).getTitledPane());
+		}
+		//System.out.println("Hit");
 	}
 }

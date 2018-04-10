@@ -5,9 +5,6 @@ import java.util.List;
 import game_engine.Component;
 
 public class PhysicsComponent implements Component{
-
-	private double myMaxXVel;
-	private double myMaxYVel;
 	private double myCurrXVel;
 	private double myCurrYVel;
 	private double myAcceleration;
@@ -19,27 +16,9 @@ public class PhysicsComponent implements Component{
 	 * @param a
 	 */
 	public PhysicsComponent(List<String> args) {
-		myMaxXVel = Double.parseDouble(args.get(0));
-		myMaxYVel = Double.parseDouble(args.get(1));
-		myCurrXVel = myMaxXVel;
-		myCurrYVel = myMaxYVel;
+		myCurrXVel = Double.parseDouble(args.get(0));
+		myCurrYVel = Double.parseDouble(args.get(1));
 		myAcceleration = Double.parseDouble(args.get(2));
-	}
-
-	/**
-	 * returns the x velocity of this Physics component
-	 * @return myXVelocity
-	 */
-	public double getMaxXVel() {
-		return myMaxXVel;
-	}
-
-	/**
-	 * returns the y velocity of this Physics component
-	 * @return myYVelocity
-	 */
-	public double getMaxYVel() {
-		return myMaxYVel;
 	}
 	
 	public double getCurrXVel() {
@@ -65,5 +44,14 @@ public class PhysicsComponent implements Component{
 	public void setCurrXVel(double xVel) {
 		myCurrXVel = xVel;
 	}
-	
+
+	@Override
+	public String getValues() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return "Physics";
+	}
 }
