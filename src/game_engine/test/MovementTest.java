@@ -7,6 +7,8 @@ import java.util.Map;
 
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.components.JumpComponent;
+import game_engine.components.KeyboardJumpInputComponent;
 import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
@@ -106,9 +108,11 @@ public class MovementTest extends Application{
 
 		List<String> spriteArgs = new ArrayList<>();
 		spriteArgs.add("turtle.GIF");
-		spriteArgs.add("true");
+		spriteArgs.add("true"); //is visible
 		spriteArgs.add("40");
 		spriteArgs.add("40");
+		spriteArgs.add("0"); //angle
+		
 		SpriteComponent spriteComponent = new SpriteComponent(spriteArgs); //Create sprite
 		myEntity.addComponent(spriteComponent); //Add sprite component to entity
 
@@ -135,7 +139,7 @@ public class MovementTest extends Application{
 		//Physics Component
 		List<String> physicsArgs = new ArrayList<>();
 		physicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-		physicsArgs.add("-500"); //Y velocity
+		physicsArgs.add("0"); //Y velocity
 		physicsArgs.add(GRAVITY); //acceleration
 		PhysicsComponent physicsComponent = new PhysicsComponent(physicsArgs);
 		physicsComponent.setCurrXVel(0);
@@ -153,6 +157,8 @@ public class MovementTest extends Application{
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
 		jumpArgs.add("-1"); //number of jumps
+		jumpArgs.add("-500");
+		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
 		
