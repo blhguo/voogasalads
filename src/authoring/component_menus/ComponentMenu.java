@@ -2,7 +2,7 @@ package authoring.component_menus;
 
 import game_engine.Component;
 import game_engine.ComponentFactory;
-import game_engine.components.CollidableComponent;
+//import game_engine.components.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
