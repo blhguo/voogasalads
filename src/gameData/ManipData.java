@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,17 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.thoughtworks.xstream.XStream;
@@ -30,7 +40,7 @@ public class ManipData {
 	private XStream deserializer;
 	private String xml;
 	private FileOutputStream fos;
-	private ArrayList<Level> levellist;
+	private ArrayList<Abs> levellist;
 
 	//constructor
 	public ManipData() {
@@ -39,17 +49,16 @@ public class ManipData {
 		this.deserializer = new XStream(new DomDriver());
 		this.xml = "";
 		this.fos = null;
-		this.levellist = new ArrayList<Level>();
+		this.levellist = new ArrayList<Abs>();
 	}
 	
-	private void saveLevel(Level input, int levelnum) {
+	private void saveLevel(Abs input, int levelnum) {
 		System.out.println("Beginning of serialization");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(input);
 			//writes each data object inside a unique data tag
 	        fos.write(("<data"+Integer.toString(levelnum)+">").getBytes("UTF-8"));
-	        byte[] bytes = xml.getBytes("UTF-8");
-	        fos.write(bytes);
+	        fos.write(xml.getBytes("UTF-8"));
 	        fos.write(("</data"+Integer.toString(levelnum)+">").getBytes("UTF-8"));
 	        }
 		catch (Exception e){
@@ -57,7 +66,7 @@ public class ManipData {
 		}
 	}
 	
-	public void saveData(List<Level> levels) {
+	public void saveData(List<Abs> levels) {
 		int counter = 0;
 		try {
 			//this writes only one file
@@ -65,11 +74,14 @@ public class ManipData {
 	        try {
 	        	//writes xml header and then the number of data objects inside
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
-				fos.write(("<num>"+Integer.toString(levels.size())+"</num>").getBytes("UTF-8"));
-				for(Level l: levels) {
+				String nums = Integer.toString(levels.size());
+				fos.write(("<higher "+"info='"+nums+"'>").getBytes("UTF-8"));
+				for(Abs l: levels) {
 					saveLevel(l, counter);
 					counter++;
-				}
+				} 
+				fos.write("</higher>".getBytes("UTF-8"));
+
 	        } catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -91,7 +103,7 @@ public class ManipData {
 	    }
 	}
 	
-	public ArrayList<Level> loadData(File load) {
+	public ArrayList<Abs> loadData(File load) {
 		try {
 			openFile(load);
 		} catch (ParserConfigurationException e) {
@@ -102,31 +114,61 @@ public class ManipData {
 	}
 	
 	private void openFile(File file) throws ParserConfigurationException{
+		System.out.println(file);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         String filePath = file.getAbsolutePath();
         String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+        if (!fileType.equals(".xml")) {
+        	System.out.println("You dun goofed");
+        };
         //maybe a func to check that the file is an xml extension
         try {
         	dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
 			try {
 				doc = dBuilder.parse(file);
+
 				doc.getDocumentElement().normalize();
-				int nums = Integer.parseInt(doc.getElementsByTagName("num").item(0).getTextContent());
-				for (int i=0;i<nums;i++) {
-					Level temp = (Level) deserializer.fromXML((Reader) doc.getElementsByTagName("<data"+Integer.toString(i)+">"));
-					levellist.add(temp);
+				NodeList nList = doc.getElementsByTagName("higher");
+				Node nNode = nList.item(0);
+				Element eElement = (Element) nNode;
+				int nums = Integer.parseInt(eElement.getAttribute("info"));
+				for(int i=0;i<nums;i++) {
+
+					String s = nodeToString(eElement.getElementsByTagName("data"+Integer.toString(i)).item(0).getFirstChild());
+					System.out.println(s);
+					Abs lilGuy = (Abs) deserializer.fromXML(s);
+					System.out.println(lilGuy);
+					levellist.add(lilGuy);
 				}
+				System.out.println(levellist);
+				
 			} catch (SAXException e) {
+				System.out.println("here1");
 				return; //TODO
 			}
         } catch (IOException e) {
+			System.out.println("here2");
+
         		return; //TODO
         }
 	}
 	
-	private ArrayList<Level> loadLevels(){
+	private String nodeToString(Node node) {
+		StringWriter sw = new StringWriter();
+		try {
+			Transformer t = TransformerFactory.newInstance().newTransformer();
+			t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			t.setOutputProperty(OutputKeys.INDENT, "yes");
+			t.transform(new DOMSource(node), new StreamResult(sw));
+		} catch (TransformerException te) {
+			System.out.println("exception");
+		}
+		return sw.toString();
+	}
+	
+	private ArrayList<Abs> loadLevels(){
 		return levellist;
 	}
 	
