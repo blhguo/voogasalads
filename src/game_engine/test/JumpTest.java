@@ -4,12 +4,9 @@ import java.util.ArrayList;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.JumpComponent;
-import game_engine.components.KeyboardJumpInputComponent;
-import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
-import game_engine.systems.KeyboardJumpSystem;
 import game_engine.systems.MovementSystem;
+import game_engine.systems.keyboard.KeyboardJumpSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -79,7 +76,7 @@ public class JumpTest extends Application {
 		myScene.setOnKeyPressed(e -> engine.receiveInput(e));
 
 		buildEntities();
-		initRects();
+//		initRects();
 	}
 
 	private void updateRectPos() {
@@ -110,21 +107,21 @@ public class JumpTest extends Application {
 		ArrayList<String> jumpInput = new ArrayList<String>();
 		jumpInput.add(KeyCode.UP.toString());
 
-		entity = new Entity();
-		entity.addComponent(new PhysicsComponent(phys));
-		entity.addComponent(new PositionComponent(pos));
-		entity.addComponent(new JumpComponent(jump));
-		entity.addComponent(new KeyboardJumpInputComponent(jumpInput));
+//		entity = new Entity();
+//		entity.addComponent(new PhysicsComponent(phys));
+//		entity.addComponent(new PositionComponent(pos));
+//		entity.addComponent(new JumpComponent(jump));
+//		entity.addComponent(new KeyboardJumpInputComponent(jumpInput));
 
 		engine.addEntity(entity);
 	}
 
-	private void initRects() {
-		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
-		PhysicsComponent phys = (PhysicsComponent) entity.getComponent(PhysicsComponent.class);
-		rect = new Rectangle(pos.getX(), pos.getY(), 100, 100);
-		root.getChildren().add(rect);
-	}
+//	private void initRects() {
+//		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
+//		PhysicsComponent phys = (PhysicsComponent) entity.getComponent(PhysicsComponent.class);
+//		rect = new Rectangle(pos.getX(), pos.getY(), 100, 100);
+//		root.getChildren().add(rect);
+//	}
 
 	/**
 	 * Starts the program

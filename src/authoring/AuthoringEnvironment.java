@@ -57,7 +57,9 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		canvas.setController(controller);
 		entity.setController(controller);
 		level.setController(pcontroller);
-		
+		level.setLevelController(lcontroller);
+		controller.setLevelController(lcontroller);
+		np = new NavigationPane();
 		np.addListener(this);
 	}
 	

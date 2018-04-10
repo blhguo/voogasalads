@@ -67,8 +67,12 @@
 .titled-pane > .title {
 	-fx-font-size: 14px;
 	-fx-font-family: segoeuil;
-	-fx-text-fill: white;
+	/*-fx-text-fill: white;*/
 	-fx-background-color: rgba(0,0,0,0);
+}
+
+.titled-pane > .title > .text{
+	-fx-fill: white;
 }
 
 .titled-pane > *.content {
@@ -76,7 +80,6 @@
 	-fx-stroke: rgba(0,0,0,0.5);
 }
 
-.toolbar {
-	-fx-background-color: rgb(0, 0, 0, 0);
-	-fx-text-fill: white;
+.titled-pane > .title > .arrow-button{
+	-fx-fill: white;
 }
