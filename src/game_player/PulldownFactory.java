@@ -28,9 +28,10 @@ public class PulldownFactory {
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
 	private List<Level> levels = new ArrayList<Level>();
+	private DataManager dataManager;
 
-	public PulldownFactory() {
-		// TODO Auto-generated constructor stub
+	public PulldownFactory(DataManager dat) {
+		dataManager = dat;
 	}
 	
 	protected ComboBox<String> SpeedBox () {

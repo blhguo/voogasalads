@@ -2,12 +2,13 @@ package game_player;
 
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.scene.Scene;
 /**
  * 
  * @author Brandon Dalla Rosa
  *
  */
-public class Main extends Application{
+public class PlayerMain extends Application{
 	ViewManager viewManager;
 	Menu menu;
 	DataManager dataManager;
@@ -24,6 +25,10 @@ public class Main extends Application{
 		this.menu = new Menu(dataManager);
 		this.viewManager = new ViewManager(menu,stage);
 		this.initializer = new Initializer(this.viewManager);
+	}
+	
+	public Scene getScene() {
+		return viewManager.getScene();
 	}
 	/**
 	 * Method called by JavaFX to launch the program.
