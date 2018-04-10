@@ -22,7 +22,9 @@ public class LevelPane extends BasePane {
 	@Override
 	public Pane getView() {
 		VBox box = buildBasicView(AuthRes.getString("LevelTitle"));
-		getButtonArray().stream().map((button) -> box.getChildren().add(button));
+		//getButtonArray().stream().forEach(button -> box.getChildren().add(button));
+		//getButtonArray().stream().map(button -> box.getChildren().add(button)).collect(Collectors.toList());
+		box.getChildren().addAll(getButtonArray());
 		return box;
 	}
 
