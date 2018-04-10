@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
+import javafx.scene.input.InputEvent;
+
 public class Engine {
 	
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<GameSystem> mySystems = new ArrayList<>();
-	private Queue<Input> myInputs = new LinkedList<>();
+	private Queue<InputEvent> myInputs = new LinkedList<>();
 	
 	public void update(double elapsedTime) {
 		for (GameSystem system : mySystems) {
@@ -26,11 +28,11 @@ public class Engine {
 		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
 	
-	public void receiveInput(Input input) {
+	public void receiveInput(InputEvent input) {
 		myInputs.add(input);
 	}
 	
-	public Queue<Input> getInput() {
+	public Queue<InputEvent> getInput() {
 		return myInputs;
 	}
 

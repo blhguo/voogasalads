@@ -5,6 +5,8 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.*;
+import game_engine.components.physics.XPhysicsComponent;
+import game_engine.components.physics.YPhysicsComponent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,14 +39,15 @@ public class CollisionResponseSystem extends GameSystem{
     public void act(double elapsedTime) {
         List<Entity> collidedEntities = getEngine().getEntitiesContainingAny(TARGET_COMPONENTS);
         for (Entity e: collidedEntities){
-            PhysicsComponent p = (PhysicsComponent) e.getComponent(PhysicsComponent.class);
-            if((e.getComponent(LEFT) != null && p.getCurrXVel()<0) ||
-                    (e.getComponent(RIGHT) != null && p.getCurrXVel() > 0)){
-                p.setCurrXVel(0.0);
+            XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
+            YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
+            if(xp!=null && (e.getComponent(LEFT) != null && xp.getCurrVel()<0) ||
+                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0)){
+                xp.setCurrVel(0.0);
             }
-            if(e.getComponent(BOTTOM) != null && p.getCurrYVel()<0 ||
-                    (e.getComponent(TOP) != null && p.getCurrYVel() > 0)){
-                p.setCurrYVel(0.0);
+            if(yp!=null && (e.getComponent(BOTTOM) != null && yp.getCurrVel()<0) ||
+                    (e.getComponent(TOP) != null && yp.getCurrVel() > 0)){
+                yp.setCurrVel(0.0);
             }
         }
     }

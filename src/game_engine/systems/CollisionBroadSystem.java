@@ -1,9 +1,15 @@
 package game_engine.systems;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.*;
+import game_engine.components.physics.XPhysicsComponent;
+import game_engine.components.physics.YPhysicsComponent;
 import javafx.geometry.Point2D;
 import javafx.util.Pair;
 
@@ -17,14 +23,16 @@ import java.util.List;
  * Broad-phase collision checking. Uses AABB (axiss-aligned bounding boxes) to filter list of all entities down to pairs of entities that may be colliding
  */
 public class CollisionBroadSystem extends CollisionSystem {
-    private static final Class<? extends Component> PHYSICS = PhysicsComponent.class;
+    private static final Class<? extends Component> XPHYSICS = XPhysicsComponent.class;
+    private static final Class<? extends Component> YPHYSICS = YPhysicsComponent.class;
     private static final Class<? extends Component> POSITION = PositionComponent.class;
     private static final Class<? extends Component> COLLIDABLE = CollidableComponent.class;
     private static final Class<? extends Component> HITBOX = HitboxComponent.class;
     
     private static final List<Class<? extends Component>> TARGET_COMPONENTS = Collections.unmodifiableList(
     		new ArrayList<Class<? extends Component>>() {{ 
-    			add(PHYSICS);
+    			add(XPHYSICS);
+    			add(YPHYSICS);
     			add(POSITION);
     			add(COLLIDABLE);
     			add(HITBOX);
