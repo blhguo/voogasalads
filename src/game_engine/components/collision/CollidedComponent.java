@@ -1,10 +1,10 @@
-package game_engine.components;
+package game_engine.components.collision;
+
 import game_engine.Component;
 import game_engine.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public abstract class CollidedComponent implements Component{
     private List<Entity> others;

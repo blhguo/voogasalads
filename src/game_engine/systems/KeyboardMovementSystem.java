@@ -8,7 +8,7 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.Vector;
-import game_engine.components.KeyboardMovementInputComponent;
+import game_engine.components.keyboard.KeyboardMovementInputComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
@@ -36,7 +36,7 @@ public class KeyboardMovementSystem extends GameSystem{
 				if (direction.getX() != 0) {
 					horizontal.setCurrVel(direction.getX() * horizontal.getCurrVel());
 				}
-				
+				System.out.println(direction.getX() + " " + direction.getY());
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
 					horizontal.setCurrVel(direction.getX() * horizontal.getDefaultVel());
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {

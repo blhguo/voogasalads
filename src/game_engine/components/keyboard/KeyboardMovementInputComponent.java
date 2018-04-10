@@ -1,4 +1,4 @@
-package game_engine.components;
+package game_engine.components.keyboard;
 
 
 

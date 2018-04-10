@@ -1,7 +1,6 @@
 package game_engine.systems;
 
 import game_engine.Engine;
-import game_engine.Entity;
 
 public class CollisionCircleSystem extends CollisionNarrowSystem {
 

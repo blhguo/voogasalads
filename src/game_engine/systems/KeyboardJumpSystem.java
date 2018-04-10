@@ -9,7 +9,7 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.Vector;
 import game_engine.components.JumpComponent;
-import game_engine.components.KeyboardJumpInputComponent;
+import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.physics.YPhysicsComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;

@@ -1,16 +1,19 @@
 package game_engine.systems;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.components.*;
+import game_engine.components.collision.edge_collided.BottomCollidedComponent;
+import game_engine.components.collision.edge_collided.LeftCollidedComponent;
+import game_engine.components.collision.edge_collided.RightCollidedComponent;
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author: Jeremy Chen

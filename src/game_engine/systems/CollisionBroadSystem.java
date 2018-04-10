@@ -7,16 +7,16 @@ import java.util.List;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.*;
+import game_engine.components.PositionComponent;
+import game_engine.components.collision.CollidableComponent;
+import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.edge_collided.BottomCollidedComponent;
+import game_engine.components.collision.edge_collided.LeftCollidedComponent;
+import game_engine.components.collision.edge_collided.RightCollidedComponent;
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
+import game_engine.components.collision.hitbox.HitboxComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
-import javafx.geometry.Point2D;
-import javafx.util.Pair;
-
-import javax.swing.text.Position;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author: Jeremy Chen
