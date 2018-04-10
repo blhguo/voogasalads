@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.collision;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

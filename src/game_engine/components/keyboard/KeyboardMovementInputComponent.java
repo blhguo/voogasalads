@@ -10,7 +10,7 @@ import game_engine.Component;
 import game_engine.Vector;
 import javafx.scene.input.KeyCode;
 
-public class KeyboardMovementInputComponent implements Component{
+public class KeyboardMovementInputComponent implements Component {
 	private static final Vector LEFT = new Vector(-1,0);
 	private static final Vector RIGHT = new Vector(1,0);
 	
