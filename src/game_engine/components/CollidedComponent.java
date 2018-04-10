@@ -35,4 +35,14 @@ public class CollidedComponent implements Component{
     public boolean getCollided(){
         return collided;
     }
+
+    @Override
+    public String getValues() {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return "Collided";
+    }
 }

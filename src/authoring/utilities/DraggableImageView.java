@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * improved form of imageview, allows for dragging
@@ -25,6 +26,7 @@ public class DraggableImageView extends ImageView {
 		this.setOnMousePressed(e -> {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
+			//this.setClick(ev -> System.out.println(ev));
 		});
 		this.setOnMouseDragged(event -> {
 			double deltaX = event.getSceneX() - mouseX ;
@@ -38,6 +40,9 @@ public class DraggableImageView extends ImageView {
 	}
 	public void addHandler(EventHandler<MouseDragEvent> eventHandler){
 		this.setOnMouseDragReleased(eventHandler);
+	}
+	public void setClick(EventHandler<MouseEvent> e){
+		this.setOnMouseClicked(e);
 	}
 }
 
