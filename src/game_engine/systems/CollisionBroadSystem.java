@@ -3,13 +3,11 @@ package game_engine.systems;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.CollidableComponent;
-import game_engine.components.CollidedComponent;
-import game_engine.components.HitboxComponent;
-import game_engine.components.PhysicsComponent;
-import game_engine.components.PositionComponent;
+import game_engine.components.*;
+import javafx.geometry.Point2D;
 import javafx.util.Pair;
 
+import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,14 +50,13 @@ public class CollisionBroadSystem extends CollisionSystem {
         collideableEntities.forEach( (entity) -> entity.removeComponent(CollidedComponent.class));
 //        List<Pair> possibleCollisions = new ArrayList<Pair>();
         for(int i = 0; i < collideableEntities.size()-1; i ++) {
-        	for(int j = i + 1; j<collideableEntities.size(); j ++) {
-        		Entity e1 = collideableEntities.get(i);
-        		Entity e2 = collideableEntities.get(j);
-        		if(intersect(e1, e2)) {
-        			addCollided(e1, e2);
-        		}
-        	}
+            for(int j = i + 1; j<collideableEntities.size(); j ++) {
+                Entity e1 = collideableEntities.get(i);
+                Entity e2 = collideableEntities.get(j);
+                checkIntersect(e1, e2);
+            }
         }
+
     }
 
     /**
@@ -69,15 +66,118 @@ public class CollisionBroadSystem extends CollisionSystem {
      * @return
      */
     @Override
-    protected boolean intersect(Entity e1, Entity e2){
+    protected void checkIntersect(Entity e1, Entity e2){
         double[] aabb1 = getExtrema(e1);
         double[] aabb2 = getExtrema(e2);
 
-        // need to add dx dy compensation
+        // TODO: need to add dx dy compensation
 
         boolean xOverlap = Math.max(aabb1[0], aabb2[0]) <= Math.min(aabb1[1], aabb2[1]);
         boolean yOverlap = Math.max(aabb1[2], aabb2[2]) <= Math.min(aabb1[3], aabb2[3]);
 
-        return xOverlap && yOverlap;
+        if(xOverlap && yOverlap){
+            double xMin1 = aabb1[0];
+            double xMin2 = aabb2[0];
+
+            double xMax1 = aabb1[1];
+            double xMax2 = aabb2[1];
+
+            double yMin1 = aabb1[2];
+            double yMin2 = aabb2[2];
+
+            double yMax1 = aabb1[3];
+            double yMax2 = aabb2[3];
+
+            boolean right = xMin2 <= xMax1 && xMax2 >= xMax1;
+            boolean left = xMin2 <= xMin1 && xMax2 >= xMin1;
+            boolean rlSmall = yMax2 <= yMax1 && yMin2 >= yMin1;
+            boolean rlBig = yMax2 >= yMax1 && yMin2 <= yMin1;
+
+            boolean top = yMax2 >= yMin1 && yMin2 <= yMin1;
+            boolean bottom = yMax2 >= yMax1 && yMin2 <= yMax1;
+            boolean tbBig = xMin2 <= xMin1 && xMax2 >= xMax1;
+            boolean tbSmall = xMin2 >= xMin1 && xMax2 <= xMax1;
+
+            // TODO: FIX CORNER CASES
+
+            Class collidedToAdd;
+            if(right && (rlSmall || rlBig)) {
+                System.out.println("RIGHT");
+                collidedToAdd = RightCollidedComponent.class;
+            }
+            else if(left && (rlSmall || rlBig)) {
+                System.out.println("LEFT");
+                collidedToAdd = LeftCollidedComponent.class;
+            }
+            else if(bottom && (tbSmall || tbBig)){
+                System.out.println("BOTTOM");
+                collidedToAdd = BottomCollidedComponent.class;
+            }
+            else if(top && (tbSmall || tbBig)){
+                System.out.println("TOP");
+                collidedToAdd = TopCollidedComponent.class;
+            }
+            else if(bottom && left) {
+                double dx = Math.abs(xMax2 - xMin1);
+                double dy = Math.abs(yMax2 - yMin1);
+                if(dx>dy){
+                    System.out.println("BOTTOM");
+                    collidedToAdd = BottomCollidedComponent.class;
+                }
+                else if(dy>dx){
+                    System.out.println("LEFT");
+                    collidedToAdd = LeftCollidedComponent.class;
+                }
+                else{
+                    System.out.println("BOTTOM LEFT");
+                }
+            }
+            else if(bottom & right){
+                double dx = Math.abs(xMax1 - xMin2);
+                double dy = Math.abs(yMax2 - yMin1);
+                if(dx>dy){
+                    System.out.println("BOTTOM");
+                    collidedToAdd = BottomCollidedComponent.class;
+                }
+                else if(dx<dy){
+                    System.out.println("RIGHT");
+                    collidedToAdd = RightCollidedComponent.class;
+                }
+                else{
+                    System.out.println("BOTTOM RIGHT");
+                }
+            }
+            else if(top && left){
+                double dx = xMin1 - xMin2;
+                double dy = yMax2 - yMax1;
+                if(dx>dy){
+                    System.out.println("TOP");
+                    collidedToAdd = TopCollidedComponent.class;
+                }
+                else if(dy>dx){
+                    System.out.println("LEFT");
+                    collidedToAdd = LeftCollidedComponent.class;
+                }
+                else{
+                    System.out.println("TOP LEFT");
+                }
+            }
+            else if(top && right) {
+                System.out.println("TOP RIGHT");
+                double dx = yMax2 - yMax1;
+                double dy = yMax2 - yMax1;
+                if(dx>dy){
+                    System.out.println("TOP");
+                    collidedToAdd = TopCollidedComponent.class;
+                }
+                else if(dy>dx){
+                    System.out.println("right");
+                    collidedToAdd = RightCollidedComponent.class;
+                }
+                else{
+                    System.out.println("TOP Right");
+                }
+            }
+        }
     }
 }

@@ -65,7 +65,7 @@ public class CollisionTest extends Application {
         }
         else if (code == KeyCode.E){
             pos.setAngle(pos.getAngle()-1);
-            System.out.println(pos.getAngle());
+//            System.out.println(pos.getAngle());
         }
     }
 
@@ -144,9 +144,15 @@ public class CollisionTest extends Application {
         pos2.add("750");
         pos2.add("0");
 
+        ArrayList<String> hb2 = new ArrayList<String>();
+        hb2.add("500");
+        hb2.add("500");
+        hb2.add("0");
+        hb2.add("0");
+
         ArrayList<String> hb1 = new ArrayList<String>();
-        hb1.add("500");
-        hb1.add("500");
+        hb1.add("50");
+        hb1.add("50");
         hb1.add("0");
         hb1.add("0");
 
@@ -164,7 +170,7 @@ public class CollisionTest extends Application {
         e2 = new Entity();
         e2.addComponent(new PhysicsComponent(phys));
         e2.addComponent(new PositionComponent(pos2));
-        e2.addComponent(new HitboxComponent(hb1));
+        e2.addComponent(new HitboxComponent(hb2));
         e2.addComponent(new CollidableComponent(cc));
 
         e.addEntity(e1);

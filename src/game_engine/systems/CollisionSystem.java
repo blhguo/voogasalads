@@ -1,5 +1,7 @@
 package game_engine.systems;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -26,34 +28,34 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @param e2
 	 * @return
 	 */
-	protected abstract boolean intersect(Entity e1, Entity e2);
+	protected abstract void checkIntersect(Entity e1, Entity e2);
 	
-	/**
-	 * 
-	 * @param e1
-	 * @param e2
-	 */
-	protected void addCollided(Entity e1, Entity e2) {
-		addCollidedHelper(e1, e2);
-		addCollidedHelper(e2, e1);
-	}
+//	/**
+//	 *
+//	 * @param e1
+//	 * @param e2
+//	 */
+//	protected void addCollided(Entity e1, Entity e2) {
+//		addCollidedHelper(e1, e2);
+//		addCollidedHelper(e2, e1);
+//	}
 	
-	/**
-	 * 
-	 * @param e1
-	 * @param e2
-	 */
-	private void addCollidedHelper(Entity e1, Entity e2) {
-		CollidedComponent c1 = (CollidedComponent) e1.getComponent(CollidedComponent.class);
-		if(c1!=null) {
-			c1.addCollidedWith(e2);
-		}
-		else {
-			c1 = new CollidedComponent();
-			c1.addCollidedWith(e2);
-			e1.addComponent(c1);
-		}
-	}
+//	/**
+//	 *
+//	 * @param e1
+//	 * @param e2
+//	 */
+//	private void addCollidedHelper(Entity e1, Entity e2) {
+//		CollidedComponent c1 = (CollidedComponent) e1.getComponent(CollidedComponent.class);
+//		if(c1!=null) {
+//			c1.addCollidedWith(e2);
+//		}
+//		else {
+//			c1 = new CollidedComponent();
+//			c1.addCollidedWith(e2);
+//			e1.addComponent(c1);
+//		}
+//	}
 	
 	/**
 	 *  Helper method that gets extrema of a sprite (min/max x & y coordinates), used for creating
@@ -66,7 +68,7 @@ public abstract class CollisionSystem extends GameSystem {
 		HitboxComponent h = (HitboxComponent) e.getComponent(HitboxComponent.class);
 
 		double angle = Math.toRadians(p.getAngle());
-		System.out.println(p.getAngle());
+//		System.out.println(p.getAngle());
 		double width = h.getWidth();
 		double height = h.getHeight();
 		double centerX = p.getX() + h.getXOffset();
@@ -90,10 +92,21 @@ public abstract class CollisionSystem extends GameSystem {
 				yCoords.add(transformedY);
 			}
 		}
-//		System.out.println("min x: " + Collections.min(xCoords));
-//		System.out.println("max x: " + Collections.max(xCoords));
-//		System.out.println("min y: " + Collections.min(yCoords));
-//		System.out.println("max y: " + Collections.max(yCoords));
 		return new double[]{Collections.min(xCoords), Collections.max(xCoords), Collections.min(yCoords), Collections.max(yCoords)};
 	}
+
+    protected void addCollided(Entity e1, Entity e2, Class colSide){
+	    CollidedComponent colComp = (CollidedComponent) e1.getComponent(colSide);
+        if(colComp == null) {
+            try {
+                Constructor<?> colCon = colSide.getConstructor();
+                colComp = (CollidedComponent) colCon.newInstance();
+                e1.addComponent(colComp);
+            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+                // TODO: temp err
+                System.out.println("temp err msg");
+            }
+        }
+        colComp.addEntity(e2);
+    }
 }
