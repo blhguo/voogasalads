@@ -7,7 +7,6 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Input;
 import game_engine.Vector;
 import game_engine.components.JumpComponent;
 import game_engine.components.KeyboardJumpInputComponent;
@@ -31,13 +30,15 @@ public class KeyboardJumpSystem extends GameSystem{
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP, POSITION);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
 			for(InputEvent input : getEngine().getInput()){
-				KeyEvent key = (KeyEvent) getEngine().getInput().poll();
+				KeyEvent key = (KeyEvent) getEngine().getInput().peek();
 				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
-				PositionComponent pos = (PositionComponent) entity.getComponent(POSITION);				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
+				PositionComponent pos = (PositionComponent) entity.getComponent(POSITION);				
+				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 				JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
-				Vector direction = jumpInput.getDirection(key.getCode()); //TODO:figure out how inputs are passed. should be keycode, but currently is string from getInput()
+				Vector direction = jumpInput.getDirection(key.getCode());
 				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
-					pos.setY(pos.getY() + physics.getMaxYVel() * direction.getY() * elapsedTime);
+//					pos.setY(pos.getY() + physics.getMaxYVel() * direction.getY() * elapsedTime);
+					physics.setCurrYVel(physics.getMaxYVel());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
 					getEngine().getInput().remove(input);
 				}

@@ -1,5 +1,9 @@
 package game_engine.systems;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
@@ -8,11 +12,6 @@ import game_engine.components.CollidedComponent;
 import game_engine.components.HitboxComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
-import javafx.util.Pair;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author: Jeremy Chen

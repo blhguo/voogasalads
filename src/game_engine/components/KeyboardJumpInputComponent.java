@@ -28,6 +28,7 @@ public class KeyboardJumpInputComponent implements Component{
 		if(up.compareTo(myUp) != 0){
 			return new Vector(0,0);
 		}
+		//This is a test for mergine
 		return UP;
 	}
 }
