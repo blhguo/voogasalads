@@ -35,7 +35,6 @@ public class KeyboardMovementSystem extends GameSystem{
 				Vector direction = keyboardInput.getDirection(keyInput.getCode());
 				if (direction.getX() != 0) {
 					horizontal.setCurrVel(direction.getX() * horizontal.getCurrVel());
-					getEngine().getInput().remove(input);
 				}
 				
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
