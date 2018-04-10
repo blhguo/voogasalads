@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 public class Menu {
 	
 	private HBox pane;
-	private PulldownFactory pullDownFactory = new PulldownFactory();
+	private PulldownFactory pullDownFactory;
 	private VBox keyPrefMenu;
 	private VBox settingsMenu;
 	private Button keyPrefButton;
@@ -52,6 +52,7 @@ public class Menu {
 		dataManager = data;
 		currentKey = KeyCode.ENTER;
 		currentPrefButton = new Button();
+		pullDownFactory = new PulldownFactory(data);
 		makePullDownMenus();
 		makeKeyPrefMenu();
 		makeGameSelectionMenu();

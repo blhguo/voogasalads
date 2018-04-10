@@ -29,6 +29,7 @@ public class ViewManager {
 	private double sceneHeight = 900;
 	private Paint backColor = Color.BLACK;
 	private Pane view;
+	private Scene gameScene;
 	
 	public ViewManager(Menu menu, Stage stage) {
 		this.menu = menu;
@@ -40,9 +41,13 @@ public class ViewManager {
 	
 	private void setScene() {
 		Pane pane = setObjects();
-		Scene scene = new Scene(pane,sceneWidth,sceneHeight);
-		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
-		gameStage.setScene(scene);
+		gameScene = new Scene(pane,sceneWidth,sceneHeight);
+		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		gameStage.setScene(gameScene);
+	}
+	
+	public Scene getScene() {
+		return gameScene;
 	}
 	
 	private Pane setObjects() {
