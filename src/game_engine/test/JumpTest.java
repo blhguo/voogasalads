@@ -92,8 +92,8 @@ public class JumpTest extends Application {
 
 		ArrayList<String> phys = new ArrayList<String>();
 		phys.add("0");
-		phys.add("-100");
-		phys.add("30");
+		phys.add("-500");
+		phys.add("300");
 
 		ArrayList<String> pos = new ArrayList<String>();
 		pos.add("250");
