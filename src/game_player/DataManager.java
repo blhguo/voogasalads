@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import game_engine.Level;
-import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 
 /**
