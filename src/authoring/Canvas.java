@@ -43,9 +43,11 @@ public class Canvas implements GUINode {
 	public void update(Map<ImageView, Entity> map){
 		pane.getChildren().clear();
 		for (ImageView view : map.keySet()){
+			System.out.println("Current view");
 			pane.getChildren().add(view);
 			view.toFront();
 		}
+		System.out.println("Canvas updated");
 	}
 	
 	public void updateBackground(Image im){

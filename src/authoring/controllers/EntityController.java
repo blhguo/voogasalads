@@ -35,11 +35,15 @@ public class EntityController {
 		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
-		iv.setX(pos.getX());
-		iv.setY(pos.getY());
+		iv.setX(pos.getX() + 325);
+		iv.setY(325 - pos.getY());
+		System.out.println("New Enitity imageview xPos:" + pos.getX());
+		System.out.println("New Enitity imageview yPos:" + pos.getY());
+
 		map.put(iv, entity);
 		iv.setOnMouseClicked(e -> UpdateMenus(iv));
 		entityList.add(entity);
+		System.out.println("Number of Entities: " + map.keySet().size());
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 		lcontroller.getActiveLevel().addEntity(entity);
 	}
@@ -59,12 +63,20 @@ public class EntityController {
 		canvas.update(map);
 	}
 	public void UpdateMenus(ImageView iv){
-		System.out.println("Hit EntityController");
+		toggleStyle(iv);
 		entityPane.updateMenus(map.get(iv));
 	}
 	
 	public void setLevelController(LevelController lc){
 		lcontroller = lc;
+	}
+
+	private void toggleStyle(ImageView iv) {
+		resetImageViews();
+		iv.setStyle("-fx-opacity: .5;");
+	}
+	public void resetImageViews(){
+		map.keySet().stream().forEach(image -> image.setStyle(""));
 	}
 
 }
