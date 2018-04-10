@@ -1,23 +1,24 @@
 package authoring.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
+
+import game_engine.Level;
+
 
 public class LevelController {
 
-	ArrayList<Level> currentLevels;			//where to create Level class?
-											//delete import stmt for logging.Level once class is created
+	ArrayList<Level> currentLevels;			
 	
 	public LevelController() {
 		currentLevels = new ArrayList<Level>();
+		//manipData = new ManipData();
 	}
 	
 	public void addLevel(Level l) {
 		currentLevels.add(l);
 	}
 	
-	public List<Level> getLevels() {
-		return currentLevels;
+	public void saveGame() {
+		//manipData.saveData(currentLevels) //or .saveData(currentLevels, currentAttributes)
 	}
 }

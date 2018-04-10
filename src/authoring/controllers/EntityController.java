@@ -13,14 +13,16 @@ import java.util.Map;
 
 public class EntityController {
 	Map<ImageView, Entity> map;
-	private EntityPane entityComponent;
+	private EntityPane entityPane;
 	private Canvas canvas;
 	private ImageView view;
-	public EntityController(EntityPane component, Canvas c){
-		entityComponent = component;
+	public EntityController(EntityPane pane, Canvas c){
+		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
 		view = ImageBuilder.getImageView("jen.png", 200,200);
+		view.setX(view.getX() + 200);
+		view.setY(view.getY() + 400);
 		map.put(view, new Entity());
 	}
 	public void add(Entity entity){
@@ -30,7 +32,11 @@ public class EntityController {
 		return map;
 	}
 	public Button getButton(){
-		return ButtonFactory.makeButton(e -> canvas.update(map));
+		return ButtonFactory.makeButton(e -> newEntity());
+	}
+	private void newEntity(){
+		this.add(entityPane.getEntity());
+		canvas.update(map);
 	}
 
 }

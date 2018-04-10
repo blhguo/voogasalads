@@ -20,10 +20,12 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Map;
 
+
 import authoring.controllers.EntityController;
 
 public class Canvas implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
+
 	private Pane pane;
 	private EntityController controller;
 	
@@ -36,6 +38,7 @@ public class Canvas implements GUINode {
 		pane = new Pane();
 		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 		return pane;
+
 	}
 	public void update(Map<ImageView, Entity> map){
 		pane.getChildren().clear();
