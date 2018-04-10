@@ -1,7 +1,6 @@
 package game_engine;
 
 import java.util.List;
-import java.util.Map;
 
 public interface EntityInterface {
 	
@@ -33,9 +32,16 @@ public interface EntityInterface {
 	 */
 	boolean hasAll(List<Class<? extends Component>> args);
 	
+
 	/**
-	 * returns all components of an entity
+	 * Returns true if it has any one of the components
+	 * @param args
+	 * @return
+	 */
+	boolean hasAny(List<Class<? extends Component>> args);
+	
+	/** returns all components of an entity
 	 * @return Map
 	 */
-	Map<Class<? extends Component>, Component> getComponents();
+	List<Component> getComponents();
 }

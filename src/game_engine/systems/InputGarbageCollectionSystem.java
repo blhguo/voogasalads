@@ -1,6 +1,6 @@
 package game_engine.systems;
 
-import java.util.Queue;
+import java.util.List;
 
 import game_engine.Engine;
 import game_engine.GameSystem;
@@ -14,7 +14,7 @@ public class InputGarbageCollectionSystem extends GameSystem{
 
 	@Override
 	public void act(double elapsedTime) {
-		Queue<InputEvent> inputs = getEngine().getInput();
+		List<InputEvent> inputs = getEngine().getInput();
 		inputs.clear();
 	}
 

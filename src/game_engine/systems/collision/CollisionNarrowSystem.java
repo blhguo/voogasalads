@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.collision;
 
 import game_engine.Engine;
 import game_engine.Entity;
@@ -14,8 +14,8 @@ public abstract class CollisionNarrowSystem extends CollisionSystem {
     }
 
     @Override
-    protected boolean intersect(Entity e1, Entity e2){
-        return false;
+    protected void checkIntersect(Entity e1, Entity e2){
+
     }
 
 }
