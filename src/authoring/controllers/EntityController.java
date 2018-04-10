@@ -36,7 +36,7 @@ public class EntityController {
 		iv.setX(pos.getX());
 		iv.setY(pos.getY());
 		map.put(iv, entity);
-		iv.setClick(e -> UpdateMenus(iv));
+		iv.setOnMouseClicked(e -> UpdateMenus(iv));
 		entityList.add(entity);
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 	}

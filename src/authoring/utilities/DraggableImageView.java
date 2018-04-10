@@ -1,6 +1,8 @@
 package authoring.utilities;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
@@ -17,10 +19,10 @@ import javafx.scene.layout.Pane;
 public class DraggableImageView extends ImageView {
 	private double mouseX;
 	private double mouseY;
-	private double minX;
-	private double maxX;
-	private double minY;
-	private double maxY;
+	private double minX = 0;
+	private double maxX = 610;
+	private double minY = 0;
+	private double maxY = 740;
 	/**
 	 * makes a draggable image with given image
 	 * @param image
@@ -54,10 +56,16 @@ public class DraggableImageView extends ImageView {
 	}
 	
 	public void setBounds(Pane p){
-		minX = p.getLayoutX();
-		minY = p.getLayoutY();
-		maxX = p.getLayoutX() + p.getWidth();
-		maxY = p.getLayoutY() + p.getHeight();
+		//Bounds boundsInScene = p.localToScene(p.getBoundsInLocal());
+		//System.out.println(boundsInScene.getMinX());
+		//Point2D point = p.localToScene(p.getLayoutX(), p.getLayoutY());
+		//System.out.println(point.getX());
+//		minX = p.getLayoutX();
+//		//System.out.println(minX);
+//		minY = p.getLayoutY();
+//		maxX = p.getLayoutX() + p.getWidth();
+//		maxY = p.getLayoutY() + p.getHeight();
+		//System.out.println(p.getWidth());
 	}
 	
 	private void setXPos(double pos, double minLimit, double maxLimit){
