@@ -113,7 +113,7 @@ public class MovementTest extends Application{
 		Map<Entity, String> spriteMap = new HashMap<>(); //Simulate authoring env. map of Entity to Sprite filename
 
 		List<String> spriteArgs = new ArrayList<>();
-		spriteArgs.add("turtle.GIF");
+		spriteArgs.add("Mario.GIF");
 		spriteArgs.add("true"); //is visible
 		spriteArgs.add("40");
 		spriteArgs.add("40");

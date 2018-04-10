@@ -30,6 +30,11 @@ public class Entity implements EntityInterface {
 	}
 	
 	@Override
+	public Map<Class<? extends Component>, Component> getComponents(){
+		return myComponents;
+	}
+	
+	@Override
 	public boolean hasAll(List<Class<? extends Component>> args) {
 		for (Class<? extends Component> c : args) {
 			if (!myComponents.containsKey(c)) {
@@ -38,4 +43,5 @@ public class Entity implements EntityInterface {
 		}
 		return true;
 	}
+	
 }
