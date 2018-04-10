@@ -7,10 +7,13 @@ import java.util.Map;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
+import game_engine.components.JumpComponent;
+import game_engine.components.KeyboardJumpInputComponent;
 import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
+import game_engine.systems.KeyboardJumpSystem;
 import game_engine.systems.KeyboardMovementSystem;
 import game_engine.systems.MovementSystem;
 import javafx.animation.KeyFrame;
@@ -33,6 +36,8 @@ public class MovementTest extends Application{
 	private Group myRoot;
 	private Scene myScene;
 	
+	private static final String GRAVITY = "1200";
+
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -44,17 +49,14 @@ public class MovementTest extends Application{
 	private Engine myEngine;
 	private MovementSystem movementSystem;
 	private KeyboardMovementSystem keyboardSystem;
+	private KeyboardJumpSystem keyboardJumpSystem;
+
 	private Entity myEntity;
 	private ImageView myEntityImage;
 
 
 	@Override
-	public void start(Stage stage) throws Exception {
-		
-		myEngine = new Engine();
-		myEntity = new Entity();
-		myEngine.addEntity(myEntity);
-		
+	public void start(Stage stage) throws Exception {		
 		myStage = stage;
 		myScene = setStage(WIDTH, HEIGHT, Color.AZURE); // include this in an initialize function
 		myStage.setScene(myScene);
@@ -78,13 +80,21 @@ public class MovementTest extends Application{
 	 * @return
 	 */
 	private Scene setStage(int width, int height, Paint background) {
+		myEngine = new Engine();
+		
+		//Create Systems
+		movementSystem = new MovementSystem(myEngine);
+		keyboardSystem = new KeyboardMovementSystem(myEngine);
+		keyboardJumpSystem = new KeyboardJumpSystem(myEngine);
+
+		//Create one entity
+		myEntity = new Entity();
+		myEngine.addEntity(myEntity);
+		
 		myRoot = new Group();
 		Scene scene = new Scene(myRoot, width, height, background);
-		myRoot.getChildren().add(new Text(75, 200, "THIS IS A TEST"));
-		
 		scene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 
-		//TESTS BELOW
 		initialSprite();
 		initialMovement();
 
@@ -126,9 +136,9 @@ public class MovementTest extends Application{
 		
 		//Physics Component
 		List<String> physicsArgs = new ArrayList<>();
-		physicsArgs.add("10"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-		physicsArgs.add("0"); //Y velocity
-		physicsArgs.add("0"); //acceleration
+		physicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		physicsArgs.add("-500"); //Y velocity
+		physicsArgs.add(GRAVITY); //acceleration
 		PhysicsComponent physicsComponent = new PhysicsComponent(physicsArgs);
 		physicsComponent.setCurrXVel(0);
 		myEntity.addComponent(physicsComponent);
@@ -140,17 +150,29 @@ public class MovementTest extends Application{
 		positionArgs.add("0"); //acceleration
 		PositionComponent positionComponent = new PositionComponent(positionArgs);
 		myEntity.addComponent(positionComponent);
-			
-		//Create Systems
-		movementSystem = new MovementSystem(myEngine);
-		keyboardSystem = new KeyboardMovementSystem(myEngine);
-	
+		
+		//Jump Component
+		List<String> jumpArgs = new ArrayList<String>();
+		jumpArgs.add("true");
+		jumpArgs.add("-1"); //number of jumps
+		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
+		myEntity.addComponent(jumpComponent);
+		
+		//Jump Input Component
+		ArrayList<String> jumpInputArgs = new ArrayList<String>();
+		jumpInputArgs.add(KeyCode.UP.toString()); // Press UP for jump
+		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
+		myEntity.addComponent(keyboardJumpInputComponent );
+
 }
 	
 	
 	private void step (double elapsedTime) {
+		keyboardJumpSystem.act(elapsedTime); //update jump
 		keyboardSystem.act(elapsedTime); //update position
 		movementSystem.act(elapsedTime); //update position
+
+
 
 		//update the sprite
 		PositionComponent myEntityPosition = (PositionComponent) myEntity.getComponent(PositionComponent.class);

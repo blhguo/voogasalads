@@ -29,6 +29,8 @@ public class JumpTest extends Application {
 
 	private Rectangle rect;
 
+	private static final String GRAVITY = "1200";
+	
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -93,7 +95,7 @@ public class JumpTest extends Application {
 		ArrayList<String> phys = new ArrayList<String>();
 		phys.add("0");
 		phys.add("-500");
-		phys.add("300");
+		phys.add(GRAVITY); // acceleration
 
 		ArrayList<String> pos = new ArrayList<String>();
 		pos.add("250");
@@ -102,7 +104,7 @@ public class JumpTest extends Application {
 
 		ArrayList<String> jump = new ArrayList<String>();
 		jump.add("true");
-		jump.add("2");
+		jump.add("-1"); //number of jumps
 
 		ArrayList<String> jumpInput = new ArrayList<String>();
 		jumpInput.add(KeyCode.UP.toString());
