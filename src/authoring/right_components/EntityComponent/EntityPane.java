@@ -85,10 +85,10 @@ public class EntityPane extends BasePane {
 
 	public void updateMenus(Entity entity) {
 		accordion.getPanes().clear();
-		for (Component comp : entity.getComponents()){
-			accordion.getPanes().add(new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName()).getTitledPane());
-		}
+//		for (Component comp : entity.getComponents()){
+//			accordion.getPanes().add(new ComponentMenuFactory().newComponentMenu(
+//					comp.getValues().split(";"), comp.getName()).getTitledPane());
+//		}
 		//System.out.println("Hit");
 	}
 }
