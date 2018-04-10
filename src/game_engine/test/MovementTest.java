@@ -10,9 +10,10 @@ import game_engine.Entity;
 import game_engine.components.JumpComponent;
 import game_engine.components.KeyboardJumpInputComponent;
 import game_engine.components.KeyboardMovementInputComponent;
-import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
+import game_engine.components.physics.XPhysicsComponent;
+import game_engine.components.physics.YPhysicsComponent;
 import game_engine.systems.KeyboardJumpSystem;
 import game_engine.systems.KeyboardMovementSystem;
 import game_engine.systems.MovementSystem;
@@ -26,7 +27,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -35,12 +35,12 @@ public class MovementTest extends Application{
 	private Stage myStage;
 	private Group myRoot;
 	private Scene myScene;
-	
-	private static final String GRAVITY = "1200";
+
+	private static final String GRAVITY = "0";
 
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
 	private static final String TITLE = "Game Engine Test";
 	private static final int WIDTH = 600;
@@ -48,7 +48,7 @@ public class MovementTest extends Application{
 
 	private Engine myEngine;
 	private MovementSystem movementSystem;
-	private KeyboardMovementSystem keyboardSystem;
+	private KeyboardMovementSystem keyboardMovementSystem;
 	private KeyboardJumpSystem keyboardJumpSystem;
 
 	private Entity myEntity;
@@ -62,13 +62,13 @@ public class MovementTest extends Application{
 		myStage.setScene(myScene);
 		myStage.setTitle(TITLE);
 		myStage.show();
-		
+
 		// attach "game loop" to timeline to play it
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();		
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();		
 	}
 
 	/**
@@ -81,19 +81,20 @@ public class MovementTest extends Application{
 	 */
 	private Scene setStage(int width, int height, Paint background) {
 		myEngine = new Engine();
-		
+
 		//Create Systems
 		movementSystem = new MovementSystem(myEngine);
-		keyboardSystem = new KeyboardMovementSystem(myEngine);
+		keyboardMovementSystem = new KeyboardMovementSystem(myEngine);
 		keyboardJumpSystem = new KeyboardJumpSystem(myEngine);
 
 		//Create one entity
 		myEntity = new Entity();
 		myEngine.addEntity(myEntity);
-		
+
 		myRoot = new Group();
 		Scene scene = new Scene(myRoot, width, height, background);
 		scene.setOnKeyPressed(e -> myEngine.receiveInput(e));
+		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 
 		initialSprite();
 		initialMovement();
@@ -112,7 +113,7 @@ public class MovementTest extends Application{
 		spriteArgs.add("40");
 		spriteArgs.add("40");
 		spriteArgs.add("0"); //angle
-		
+
 		SpriteComponent spriteComponent = new SpriteComponent(spriteArgs); //Create sprite
 		myEntity.addComponent(spriteComponent); //Add sprite component to entity
 
@@ -134,25 +135,30 @@ public class MovementTest extends Application{
 		keyboardMovementInputArgs.add(KeyCode.RIGHT.toString());
 		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(keyboardMovementInputArgs);
 		myEntity.addComponent(keyboardInputComponent);
-	
-		
+
+
 		//Physics Component
-		List<String> physicsArgs = new ArrayList<>();
-		physicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-		physicsArgs.add("0"); //Y velocity
-		physicsArgs.add(GRAVITY); //acceleration
-		PhysicsComponent physicsComponent = new PhysicsComponent(physicsArgs);
-		physicsComponent.setCurrXVel(0);
-		myEntity.addComponent(physicsComponent);
-		
+		List<String> yPhysicsArgs = new ArrayList<>();
+		yPhysicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		yPhysicsArgs.add(GRAVITY); //acceleration
+		YPhysicsComponent xPhysicsComponent = new YPhysicsComponent(yPhysicsArgs);
+		myEntity.addComponent(xPhysicsComponent);
+
+		List<String> xPhysicsArgs = new ArrayList<>();
+		xPhysicsArgs.add("400"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		xPhysicsArgs.add("0"); //acceleration
+		XPhysicsComponent yPhysicsComponent = new XPhysicsComponent(xPhysicsArgs);
+		yPhysicsComponent.setCurrVel(0);
+		myEntity.addComponent(yPhysicsComponent);
+
 		//Position Component
 		List<String> positionArgs = new ArrayList<>();
 		positionArgs.add("100"); //X position
 		positionArgs.add("100"); //Y 
-		positionArgs.add("0"); //acceleration
+		positionArgs.add("100"); //angle
 		PositionComponent positionComponent = new PositionComponent(positionArgs);
 		myEntity.addComponent(positionComponent);
-		
+
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
@@ -161,32 +167,31 @@ public class MovementTest extends Application{
 		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
-		
+
 		//Jump Input Component
 		ArrayList<String> jumpInputArgs = new ArrayList<String>();
 		jumpInputArgs.add(KeyCode.UP.toString()); // Press UP for jump
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
-		myEntity.addComponent(keyboardJumpInputComponent );
+		myEntity.addComponent(keyboardJumpInputComponent);
 
-}
-	
-	
+	}
+
+
 	private void step (double elapsedTime) {
 		keyboardJumpSystem.act(elapsedTime); //update jump
-		keyboardSystem.act(elapsedTime); //update position
+		keyboardMovementSystem.act(elapsedTime); //update position
 		movementSystem.act(elapsedTime); //update position
-
-
 
 		//update the sprite
 		PositionComponent myEntityPosition = (PositionComponent) myEntity.getComponent(PositionComponent.class);
-		PhysicsComponent myEntityPhysics = (PhysicsComponent) myEntity.getComponent(PhysicsComponent.class);
-		myEntityImage.setX(myEntityPosition.getX() + myEntityPhysics.getCurrXVel() * elapsedTime);
-		myEntityImage.setY(myEntityPosition.getY() + myEntityPhysics.getCurrYVel() * elapsedTime);
+		XPhysicsComponent myEntityXPhysics = (XPhysicsComponent) myEntity.getComponent(XPhysicsComponent.class);
+		YPhysicsComponent myEntityYPhysics = (YPhysicsComponent) myEntity.getComponent(YPhysicsComponent.class);
 
+		myEntityImage.setX(myEntityPosition.getX() + myEntityXPhysics.getCurrVel() * elapsedTime);
+		myEntityImage.setY(myEntityPosition.getY() + myEntityYPhysics.getCurrVel() * elapsedTime);
 
 	}
-	
+
 	/**
 	 * The main function to be called.
 	 * 
@@ -195,8 +200,5 @@ public class MovementTest extends Application{
 	public static void main (String[] args) {
 		launch(args);
 	}
-
-
-
 
 }
