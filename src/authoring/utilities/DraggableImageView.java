@@ -33,6 +33,7 @@ public class DraggableImageView extends ImageView {
 			mouseY = event.getSceneY();
 			this.setX(this.getX() + deltaX);
 			this.setY(this.getY() + deltaY);
+			this.toFront();
 		});
 	}
 	public void addHandler(EventHandler<MouseDragEvent> eventHandler){
