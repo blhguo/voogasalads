@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
@@ -29,10 +30,17 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory = new PulldownFactory();
 	private VBox keyPrefMenu;
+	private VBox settingsMenu;
 	private Button keyPrefButton;
 	private Button gameSelectionButton;
+	private Button settingsButton;
 	private Stage keyPrefStage;
 	private Stage gameSelectionStage;
+	private Stage settingsStage;
+	private Slider volumeSlider;
+	private Slider brightnessSlider;
+	private Label volumeLabel;
+	private Label brightnessLabel;
 	private DataManager dataManager;
 	private KeyCode currentKey;
 	private Button currentPrefButton;	
@@ -47,6 +55,8 @@ public class Menu {
 		makePullDownMenus();
 		makeKeyPrefMenu();
 		makeGameSelectionMenu();
+		makeSettingsMenu();
+		makeSettingsStage();
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -58,6 +68,7 @@ public class Menu {
 	}
 	
 	private void makePullDownMenus() {
+		
 		pane.getChildren().add(pullDownFactory.SpeedBox());
 		pane.getChildren().add(pullDownFactory.StatusBox());
 		pane.getChildren().add(pullDownFactory.SaveLoadBox());
@@ -87,6 +98,38 @@ public class Menu {
 		gameSelectionButton.setOnAction(click->{showGameSelectionMenu();});
 		pane.getChildren().add(gameSelectionButton);
 		
+	}
+	
+	private void makeSettingsMenu() {
+		settingsButton = new Button("Settings");
+		settingsButton.getStyleClass().add("button-nav");
+		settingsButton.setOnAction(click->{showSettingsMenu();});
+		pane.getChildren().add(settingsButton);
+		settingsMenu = new VBox(50);
+		settingsMenu.setPrefWidth(300);
+
+		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		settingsMenu.setBackground(new Background(back));
+		settingsButton.setOnAction(click->{showSettingsMenu();});	
+	}
+	private void makeSettingsStage() {
+		settingsStage = new Stage();
+		Scene scene = new Scene(settingsMenu);
+		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		brightnessSlider = new Slider();
+		brightnessSlider.getStyleClass().add("slider");
+		volumeSlider = new Slider();
+		volumeLabel = new Label("Change Volume:");
+		brightnessLabel = new Label("Change Brightness:");
+		volumeLabel.getStyleClass().add("button-nav");
+		brightnessLabel.getStyleClass().add("button-nav");
+
+		settingsMenu.getChildren().add(brightnessLabel);
+		settingsMenu.getChildren().add(brightnessSlider);
+		settingsMenu.getChildren().add(volumeLabel);
+		settingsMenu.getChildren().add(volumeSlider);
+		settingsStage.setScene(scene);
 	}
 	
 
@@ -123,6 +166,10 @@ public class Menu {
 		gameSelectionStage.show();
 	}
 	
+	public void showSettingsMenu() {
+		settingsStage.show();
+		
+	}
 	public void checkForInput(KeyCode code) {
 		currentKey = code;
 		currentPrefButton.getStyleClass().add("button-keypref");
