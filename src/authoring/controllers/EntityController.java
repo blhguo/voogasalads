@@ -23,13 +23,9 @@ public class EntityController {
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
-		view = ImageBuilder.getImageView("jen.png", 200,200);
-		view.setX(view.getX() + 200);
-		view.setY(view.getY() + 400);
-		map.put(view, new Entity());
 	}
 	public void add(Entity entity){
-		SpriteComponent comp = (SpriteComponent) entity.getComponent(new SpriteComponent().getClass());
+		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
 		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
 		iv.setX(pos.getX());
