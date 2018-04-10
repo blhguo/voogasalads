@@ -36,7 +36,8 @@ public class MovementTest extends Application{
 	private Group myRoot;
 	private Scene myScene;
 	
-	private static final String GRAVITY = "1200";
+	private static final String GRAVITY = "1000"; //effects of gravity
+	private static final String JUMP_VELOCITY = "-500"; //effects of how high you jump
 
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -138,7 +139,7 @@ public class MovementTest extends Application{
 		
 		//Physics Component
 		List<String> physicsArgs = new ArrayList<>();
-		physicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		physicsArgs.add("0"); //X velocity
 		physicsArgs.add("0"); //Y velocity
 		physicsArgs.add(GRAVITY); //acceleration
 		PhysicsComponent physicsComponent = new PhysicsComponent(physicsArgs);
@@ -149,15 +150,15 @@ public class MovementTest extends Application{
 		List<String> positionArgs = new ArrayList<>();
 		positionArgs.add("100"); //X position
 		positionArgs.add("100"); //Y 
-		positionArgs.add("0"); //acceleration
+		positionArgs.add("0"); // angle
 		PositionComponent positionComponent = new PositionComponent(positionArgs);
 		myEntity.addComponent(positionComponent);
 		
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
-		jumpArgs.add("-1"); //number of jumps
-		jumpArgs.add("-500");
+		jumpArgs.add("6900"); //number of jumps
+		jumpArgs.add(JUMP_VELOCITY); //
 		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
@@ -176,13 +177,19 @@ public class MovementTest extends Application{
 		keyboardSystem.act(elapsedTime); //update position
 		movementSystem.act(elapsedTime); //update position
 
-
-
 		//update the sprite
 		PositionComponent myEntityPosition = (PositionComponent) myEntity.getComponent(PositionComponent.class);
 		PhysicsComponent myEntityPhysics = (PhysicsComponent) myEntity.getComponent(PhysicsComponent.class);
+		JumpComponent myEntityJump = (JumpComponent) myEntity.getComponent(JumpComponent.class);
+
 		myEntityImage.setX(myEntityPosition.getX() + myEntityPhysics.getCurrXVel() * elapsedTime);
 		myEntityImage.setY(myEntityPosition.getY() + myEntityPhysics.getCurrYVel() * elapsedTime);
+		
+		//HARDCODE COLLISION
+		if (myEntityImage.getBoundsInLocal().getMaxY() >= HEIGHT) {
+			myEntityPosition.setY(HEIGHT-myEntityImage.getFitHeight());
+			myEntityImage.setY(myEntityPosition.getY());
+		}
 
 
 	}
