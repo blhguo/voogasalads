@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
+import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -22,6 +23,8 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
+	private ButtonFactory buttonFactory;
+	private LevelController lcontroller;
 	
 	public NavigationPane() {
 		this.getStyleClass().add("pane-back");
@@ -29,6 +32,7 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 		this.setVgap(AuthRes.getInt("Padding"));
 		this.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
+		buttonFactory = new ButtonFactory();
 	}
 
 	@Override
@@ -63,8 +67,22 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 		
 		VBox prefButtons = new VBox(AuthRes.getInt("NavPadding"));
 		for (int i = 0; i < prefTitles.size(); i++){
-			Button b = makeButton(prefTitles.get(i), AuthRes.getString(prefIcons.get(i)));
+			ImageView iv = new ImageView(new Image(AuthRes.getString(prefIcons.get(i))));
+			iv = ImageBuilder.resize(iv, 20);
+			Button b;
+			if (i == 1){
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
+					lcontroller.saveGame();
+				}, "button-nav");
+			}
+			else{
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
+					//new PlayerMain();
+				}, "button-nav");
+				
+			}
 			prefButtons.getChildren().add(b);
+			
 		}
 		this.add(prefButtons, 0, 85);
 	}
@@ -82,6 +100,10 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 	@Override
 	public Pane getView() {
 		return this;
+	}
+	
+	public void setController(LevelController lc){
+		lcontroller = lc;
 	}
 		
 }

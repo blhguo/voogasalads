@@ -1,8 +1,15 @@
 package game_player;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import gameData.ManipData;
+import game_engine.Level;
 import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -20,9 +27,11 @@ public class PulldownFactory {
 	private ComboBox<String> speedBox;
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
+	private List<Level> levels = new ArrayList<Level>();
+	private DataManager dataManager;
 
-	public PulldownFactory() {
-		// TODO Auto-generated constructor stub
+	public PulldownFactory(DataManager dat) {
+		dataManager = dat;
 	}
 	
 	protected ComboBox<String> SpeedBox () {
@@ -48,9 +57,34 @@ public class PulldownFactory {
 		saveLoadBox.setValue(getResources(saveLoadProperties, "InitialCommand"));
 		saveLoadBox.getItems().addAll(getResources(saveLoadProperties, "SaveCommand"), getResources(saveLoadProperties, "LoadCommand"));
 		saveLoadBox.setPrefSize(160, 20);
+		saveLoadBox.setOnAction(click->{checkSomething();});
 		return saveLoadBox;
 	}
 	
+	private void checkSomething() {
+		if(saveLoadBox.getValue().equals("Save")) {
+			handleSave();
+		}
+		else if(saveLoadBox.getValue().equals("Load")) {
+			handleLoad();
+		}
+	}
+	 private void handleSave() {
+		 ManipData turd = new ManipData();
+		 turd.saveData(levels);
+	 }
+	 
+	 private void handleLoad() {
+		 ManipData turd = new ManipData();
+		 File file = getFile();
+		 levels = turd.loadData(file);
+	 }
+	 
+	 private File getFile() {
+		 FileChooser fileChooser = new FileChooser();
+		 File file = fileChooser.showOpenDialog(new Stage());
+		 return file;
+	 }
 	
 	protected String getResources(ResourceBundle bundle, String string) {
 		return bundle.getString(string);
