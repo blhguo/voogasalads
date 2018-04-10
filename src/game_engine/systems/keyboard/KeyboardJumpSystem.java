@@ -42,7 +42,7 @@ public class KeyboardJumpSystem extends GameSystem{
 					physics.setCurrVel(jump.getJumpVelocity());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
 					// should fix this to be more active and not give up data
-					getEngine().getInput().remove(input);
+					//getEngine().getInput().remove(input);
 				}
 			}
 		}
