@@ -2,9 +2,10 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import authoring.controllers.LevelController;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
-import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -17,22 +18,19 @@ import observables.Subject;
 import resources.keys.AuthRes;
 
 //Left Pane
-public class NavigationPane extends GridPane implements Subject, GUINode {
+public class NavigationPane extends Pane implements Subject, GUINode {
 
 	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
-	private ButtonFactory buttonFactory;
 	private LevelController lcontroller;
 	
 	public NavigationPane() {
 		this.getStyleClass().add("pane-back");
-		this.setHgap(AuthRes.getInt("Padding"));
-		this.setVgap(AuthRes.getInt("Padding"));
+
 		this.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
-		buttonFactory = new ButtonFactory();
 	}
 
 	@Override
@@ -56,14 +54,12 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 		Subject np = this;
 		for(int i = 0; i < menuTitles.size(); i++) {
 			String s = menuTitles.get(i);
-			ImageView iv = new ImageView(new Image(AuthRes.getString(compIcons.get(i))));
-			//will be done by image editing class
-			iv = ImageBuilder.resize(iv, 20, 20);
+			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(compIcons.get(i)))), 20, 20);
 			Button b = ButtonFactory.makeButton(s, iv, e -> np.notifyListeners(s),
 					"button-nav");
 			navOptions.getChildren().add(b);
 		}
-		this.add(navOptions, 0, 20);	
+		navOptions.setLayoutY(AuthRes.getInt("EnvironmentY")/10);
 		
 		VBox prefButtons = new VBox(AuthRes.getInt("NavPadding"));
 		for (int i = 0; i < prefTitles.size(); i++){
@@ -84,17 +80,8 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 			prefButtons.getChildren().add(b);
 			
 		}
-		this.add(prefButtons, 0, 85);
-	}
-	
-	private Button makeButton(String label, String ivPath){
-		// from image editing class
-		ImageView iv = new ImageView(new Image(ivPath));
-		iv.setFitHeight(20);
-		iv.setFitWidth(20);
-		Button b = new Button(label, iv);
-		b.getStyleClass().add("button-nav");
-		return b;
+		prefButtons.setLayoutY(AuthRes.getInt("EnvironmentY")*4/5);
+		this.getChildren().addAll(navOptions, prefButtons);
 	}
 
 	@Override
