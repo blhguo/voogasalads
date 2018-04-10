@@ -58,7 +58,7 @@ public class ViewManager {
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(770, 530);
-		BackgroundImage game = new BackgroundImage(new Image("background1.jpg"), BackgroundRepeat.NO_REPEAT, 
+		BackgroundImage game = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
 		order.getChildren().add(view);
