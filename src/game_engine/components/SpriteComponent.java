@@ -17,6 +17,12 @@ public class SpriteComponent implements Component{
         myWidth = Double.parseDouble(args.get(2));
         myHeight = Double.parseDouble(args.get(3));
     }
+    public SpriteComponent(){
+        myFileName = "default.jpg";
+        isVisible = true;
+        myWidth = 20;
+        myHeight = 20;
+    }
 
     public String getFileName() {
         return myFileName;
