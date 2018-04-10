@@ -66,13 +66,13 @@ public class EntityPane extends BasePane {
 		return acc;
 	}
 	public Entity getEntity(){
-		Entity e = new Entity();
-		menuList.stream().forEach(menu -> System.out.println(menu + " : " + menu.getType() + " : "
-		+ menu.getComponentList().size()));
+		Entity entity = new Entity();
+//		menuList.stream().forEach(menu -> System.out.println(menu + " : " + menu.getType() + " : "
+//		+ menu.getComponentList().size()));
 		for(ComponentMenu menu : menuList){
-			new ComponentFactory().addComponent(e, menu.getType(), menu.getComponentList());
+			new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
 		}
-		return e;
+		return entity;
 	}
 
 	public void setController(EntityController controller) {
