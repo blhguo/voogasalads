@@ -39,9 +39,6 @@ public class KeyboardMovementSystem extends GameSystem{
 				}
 				
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
-					System.out.println("here!: " + input.getEventType().getName());
-					System.out.println("default!: " + horizontal.getDefaultVel());
-					System.out.println("dir!: " + horizontal.getDefaultVel());
 					horizontal.setCurrVel(direction.getX() * horizontal.getDefaultVel());
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {
 					horizontal.setCurrVel(0);

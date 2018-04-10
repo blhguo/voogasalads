@@ -14,6 +14,7 @@ import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
+import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.KeyboardJumpSystem;
 import game_engine.systems.KeyboardMovementSystem;
 import game_engine.systems.MovementSystem;
@@ -35,8 +36,9 @@ public class MovementTest extends Application{
 	private Stage myStage;
 	private Group myRoot;
 	private Scene myScene;
-
-	private static final String GRAVITY = "0";
+	
+	private static final String GRAVITY = "1000"; //effects of gravity
+	private static final String JUMP_VELOCITY = "-500"; //effects of how high you jump
 
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -50,6 +52,7 @@ public class MovementTest extends Application{
 	private MovementSystem movementSystem;
 	private KeyboardMovementSystem keyboardMovementSystem;
 	private KeyboardJumpSystem keyboardJumpSystem;
+	private InputGarbageCollectionSystem inputGarbageCollectionSystem;
 
 	private Entity myEntity;
 	private ImageView myEntityImage;
@@ -86,6 +89,8 @@ public class MovementTest extends Application{
 		movementSystem = new MovementSystem(myEngine);
 		keyboardMovementSystem = new KeyboardMovementSystem(myEngine);
 		keyboardJumpSystem = new KeyboardJumpSystem(myEngine);
+		inputGarbageCollectionSystem = new InputGarbageCollectionSystem(myEngine);
+		
 
 		//Create one entity
 		myEntity = new Entity();
@@ -162,8 +167,8 @@ public class MovementTest extends Application{
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
-		jumpArgs.add("-1"); //number of jumps
-		jumpArgs.add("-500");
+		jumpArgs.add("2"); //number of jumps
+		jumpArgs.add(JUMP_VELOCITY); //
 		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
@@ -181,14 +186,27 @@ public class MovementTest extends Application{
 		keyboardJumpSystem.act(elapsedTime); //update jump
 		keyboardMovementSystem.act(elapsedTime); //update position
 		movementSystem.act(elapsedTime); //update position
+		inputGarbageCollectionSystem.act(elapsedTime);
 
 		//update the sprite
 		PositionComponent myEntityPosition = (PositionComponent) myEntity.getComponent(PositionComponent.class);
-		XPhysicsComponent myEntityXPhysics = (XPhysicsComponent) myEntity.getComponent(XPhysicsComponent.class);
-		YPhysicsComponent myEntityYPhysics = (YPhysicsComponent) myEntity.getComponent(YPhysicsComponent.class);
+		XPhysicsComponent myXEntityPhysics = (XPhysicsComponent) myEntity.getComponent(XPhysicsComponent.class);
+		YPhysicsComponent myYEntityPhysics = (YPhysicsComponent) myEntity.getComponent(YPhysicsComponent.class);
+		JumpComponent myEntityJump = (JumpComponent) myEntity.getComponent(JumpComponent.class);
 
-		myEntityImage.setX(myEntityPosition.getX() + myEntityXPhysics.getCurrVel() * elapsedTime);
-		myEntityImage.setY(myEntityPosition.getY() + myEntityYPhysics.getCurrVel() * elapsedTime);
+		myEntityImage.setX(myEntityPosition.getX() + myXEntityPhysics.getCurrVel() * elapsedTime);
+		myEntityImage.setY(myEntityPosition.getY() + myYEntityPhysics.getCurrVel() * elapsedTime);
+		
+		//HARDCODE COLLISION
+		if (myEntityImage.getBoundsInLocal().getMaxY() >= HEIGHT) {
+			myEntityPosition.setY(HEIGHT-myEntityImage.getFitHeight());
+			myEntityImage.setY(myEntityPosition.getY());
+			myEntityJump.setOnGround(true);
+			myEntityJump.setJumpsAllowed(myEntityJump.getDefaultJumpsAllowed());
+		}
+		else{
+			myEntityJump.setOnGround(false);
+		}
 
 	}
 

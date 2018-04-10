@@ -19,6 +19,7 @@ public class KeyboardJumpSystem extends GameSystem{
 	private static final Class<? extends Component> VERTICAL_PHYSICS = YPhysicsComponent.class;
 	private static final Class<? extends Component> KEYBOARD_JUMP_INPUT = KeyboardJumpInputComponent.class;
 	private static final Class<? extends Component> JUMP = JumpComponent.class;
+	private static final String KEY_PRESSED = "KEY_PRESSED";
 	
 	public KeyboardJumpSystem(Engine engine) {
 		super(engine);
@@ -29,12 +30,15 @@ public class KeyboardJumpSystem extends GameSystem{
 		List<Class<? extends Component>> args = Arrays.asList(VERTICAL_PHYSICS, KEYBOARD_JUMP_INPUT, JUMP);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
 			for(InputEvent input : getEngine().getInput()){
+				if (!input.getEventType().getName().equals(KEY_PRESSED)) {
+					continue;
+				}
 				KeyEvent key = (KeyEvent) getEngine().getInput().peek();
 				YPhysicsComponent physics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);		
 				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 				JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
 				Vector direction = jumpInput.getDirection(key.getCode());
-				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
+				if (direction.getY() == 1 && jump.getJumpsAllowed() != 0){
 					physics.setCurrVel(jump.getJumpVelocity());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
 					// should fix this to be more active and not give up data
