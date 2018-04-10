@@ -40,10 +40,10 @@ public class KeyboardMovementSystem extends GameSystem{
 				getEngine().getInput().remove(input);
 				physics.setCurrXVel(direction.getX() * physics.getCurrXVel());
 				
-				// If I'm jumping and on the ground, set y-velocity = max
-				if (direction.getY() == 1 /* && I am on the ground */) {
-					physics.setCurrYVel(physics.getCurrYVel());
-				}
+//				// If I'm jumping and on the ground, set y-velocity = max
+//				if (direction.getY() == 1 /* && I am on the ground */) {
+//					physics.setCurrYVel(physics.getMaxYVel());
+//				}
 				physics.setCurrXVel(direction.getX() * physics.getMaxXVel());
 			}
 		}
