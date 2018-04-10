@@ -1,6 +1,7 @@
 package authoring;
 
 import authoring.controllers.EntityController;
+import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
 import authoring.right_components.EntityComponent.EntityPane;

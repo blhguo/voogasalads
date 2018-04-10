@@ -2,9 +2,10 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import authoring.controllers.LevelController;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
-import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
