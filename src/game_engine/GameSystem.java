@@ -1,10 +1,10 @@
 package game_engine;
 
-public abstract class System {
+public abstract class GameSystem {
 	
 	protected Engine myEngine;
 	
-	public System(Engine engine) {
+	public GameSystem(Engine engine) {
 		myEngine = engine;
 	}
 	
