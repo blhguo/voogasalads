@@ -1,26 +1,20 @@
 package authoring;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.List;
 
-import game_engine.Level;
-
-public class LevelController {
-
-	ArrayList<Level> currentLevels;	
-=======
-
+import gameData.ManipData;
 import game_engine.Level;
 
 
 public class LevelController {
 
-	ArrayList<Level> currentLevels;			
->>>>>>> chestAbs
+	private ArrayList<Level> currentLevels;	
+	private ManipData data;
 	
 	public LevelController() {
 		currentLevels = new ArrayList<Level>();
+		data = new ManipData();
 	}
 	
 	public void addLevel(Level l) {
@@ -29,5 +23,9 @@ public class LevelController {
 	
 	public List<Level> getLevels() {
 		return currentLevels;
+	}
+	
+	public void saveGame(){
+		data.saveData(currentLevels);
 	}
 }
