@@ -29,8 +29,8 @@ public class KeyboardJumpSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP, POSITION);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			for(InputEvent input : getEngine().getInputQueue()){
-				KeyEvent key = (KeyEvent) getEngine().getInputQueue().peek();
+			for(InputEvent input : getEngine().getInput()){
+				KeyEvent key = (KeyEvent) getEngine().getInput().peek();
 				PhysicsComponent physics = (PhysicsComponent) entity.getComponent(PHYSICS);
 				PositionComponent pos = (PositionComponent) entity.getComponent(POSITION);				
 				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
@@ -39,7 +39,7 @@ public class KeyboardJumpSystem extends GameSystem{
 				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
 					pos.setY(pos.getY() + physics.getMaxYVel() * direction.getY() * elapsedTime);
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
-					getEngine().getInputQueue().remove(input);
+					getEngine().getInput().remove(input);
 				}
 			}
 		}
