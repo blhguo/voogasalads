@@ -56,6 +56,7 @@ public class Menu {
 		makeKeyPrefMenu();
 		makeGameSelectionMenu();
 		makeSettingsMenu();
+		makeSettingsStage();
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -110,9 +111,25 @@ public class Menu {
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		settingsMenu.setBackground(new Background(back));
-		settingsButton.setOnAction(click->{showSettingsMenu();});
+		settingsButton.setOnAction(click->{showSettingsMenu();});	
+	}
+	private void makeSettingsStage() {
+		settingsStage = new Stage();
+		Scene scene = new Scene(settingsMenu);
+		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		brightnessSlider = new Slider();
+		brightnessSlider.getStyleClass().add("slider");
+		volumeSlider = new Slider();
+		volumeLabel = new Label("Change Volume:");
+		brightnessLabel = new Label("Change Brightness:");
+		volumeLabel.getStyleClass().add("button-nav");
+		brightnessLabel.getStyleClass().add("button-nav");
 
-		
+		settingsMenu.getChildren().add(brightnessLabel);
+		settingsMenu.getChildren().add(brightnessSlider);
+		settingsMenu.getChildren().add(volumeLabel);
+		settingsMenu.getChildren().add(volumeSlider);
+		settingsStage.setScene(scene);
 	}
 	
 
@@ -150,24 +167,6 @@ public class Menu {
 	}
 	
 	public void showSettingsMenu() {
-		settingsStage = new Stage();
-		Scene scene = new Scene(settingsMenu);
-		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
-		brightnessSlider = new Slider();
-		brightnessSlider.getStyleClass().add("slider");
-		volumeSlider = new Slider();
-		volumeLabel = new Label("Change Volume:");
-		brightnessLabel = new Label("Change Brightness:");
-		volumeLabel.getStyleClass().add("button-nav");
-		brightnessLabel.getStyleClass().add("button-nav");
-
-		settingsMenu.getChildren().add(brightnessLabel);
-		settingsMenu.getChildren().add(brightnessSlider);
-		settingsMenu.getChildren().add(volumeLabel);
-		settingsMenu.getChildren().add(volumeSlider);
-
-
-		settingsStage.setScene(scene);
 		settingsStage.show();
 		
 	}
