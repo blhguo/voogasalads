@@ -13,6 +13,7 @@ import game_engine.components.KeyboardMovementInputComponent;
 import game_engine.components.PhysicsComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
+import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.KeyboardJumpSystem;
 import game_engine.systems.KeyboardMovementSystem;
 import game_engine.systems.MovementSystem;
@@ -51,6 +52,7 @@ public class MovementTest extends Application{
 	private MovementSystem movementSystem;
 	private KeyboardMovementSystem keyboardSystem;
 	private KeyboardJumpSystem keyboardJumpSystem;
+	private InputGarbageCollectionSystem inputGarbageCollectionSystem;
 
 	private Entity myEntity;
 	private ImageView myEntityImage;
@@ -87,6 +89,8 @@ public class MovementTest extends Application{
 		movementSystem = new MovementSystem(myEngine);
 		keyboardSystem = new KeyboardMovementSystem(myEngine);
 		keyboardJumpSystem = new KeyboardJumpSystem(myEngine);
+		inputGarbageCollectionSystem = new InputGarbageCollectionSystem(myEngine);
+		
 
 		//Create one entity
 		myEntity = new Entity();
@@ -176,6 +180,7 @@ public class MovementTest extends Application{
 		keyboardJumpSystem.act(elapsedTime); //update jump
 		keyboardSystem.act(elapsedTime); //update position
 		movementSystem.act(elapsedTime); //update position
+		inputGarbageCollectionSystem.act(elapsedTime);
 
 		//update the sprite
 		PositionComponent myEntityPosition = (PositionComponent) myEntity.getComponent(PositionComponent.class);
@@ -189,6 +194,10 @@ public class MovementTest extends Application{
 		if (myEntityImage.getBoundsInLocal().getMaxY() >= HEIGHT) {
 			myEntityPosition.setY(HEIGHT-myEntityImage.getFitHeight());
 			myEntityImage.setY(myEntityPosition.getY());
+			myEntityJump.setOnGround(true);
+		}
+		else{
+			myEntityJump.setOnGround(false);
 		}
 
 
