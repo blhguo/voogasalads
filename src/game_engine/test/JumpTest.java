@@ -92,8 +92,8 @@ public class JumpTest extends Application {
 
 		ArrayList<String> phys = new ArrayList<String>();
 		phys.add("0");
-		phys.add("-500");
-		phys.add("300");
+		phys.add("0");
+		phys.add("1200");
 
 		ArrayList<String> pos = new ArrayList<String>();
 		pos.add("250");
@@ -102,7 +102,8 @@ public class JumpTest extends Application {
 
 		ArrayList<String> jump = new ArrayList<String>();
 		jump.add("true");
-		jump.add("-1");
+		jump.add("20");
+		jump.add("-500");
 
 		ArrayList<String> jumpInput = new ArrayList<String>();
 		jumpInput.add(KeyCode.UP.toString());
@@ -119,7 +120,6 @@ public class JumpTest extends Application {
 	private void initRects() {
 		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
 		PhysicsComponent phys = (PhysicsComponent) entity.getComponent(PhysicsComponent.class);
-		phys.setCurrYVel(0);
 		rect = new Rectangle(pos.getX(), pos.getY(), 100, 100);
 		root.getChildren().add(rect);
 	}
