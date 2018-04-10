@@ -3,6 +3,7 @@ package game_engine;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Entity implements EntityInterface {
 	
@@ -37,5 +38,8 @@ public class Entity implements EntityInterface {
 			}
 		}
 		return true;
+	}
+	public List<Component> getComponents(){
+		return myComponents.keySet().stream().map(comp -> myComponents.get(comp)).collect(Collectors.toList());
 	}
 }
