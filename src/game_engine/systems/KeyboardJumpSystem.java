@@ -27,7 +27,7 @@ public class KeyboardJumpSystem extends GameSystem{
 
 	@Override
 	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP, POSITION);
+		List<Class<? extends Component>> args = Arrays.asList(PHYSICS, KEYBOARD_JUMP_INPUT, JUMP);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
 			for(InputEvent input : getEngine().getInput()){
 				KeyEvent key = (KeyEvent) getEngine().getInput().peek();
