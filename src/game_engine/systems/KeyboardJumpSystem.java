@@ -33,7 +33,7 @@ public class KeyboardJumpSystem extends GameSystem{
 				KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 				JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
 				Vector direction = jumpInput.getDirection(key.getCode());
-				if (direction.getY() == 1 && jump.getOnGround() && jump.getJumpsAllowed() != 0){
+				if (direction.getY() == 1 && jump.getJumpsAllowed() != 0){
 					System.out.println(input.getEventType().getName());
 					physics.setCurrYVel(jump.getJumpVelocity());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);

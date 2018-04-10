@@ -161,7 +161,7 @@ public class MovementTest extends Application{
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
-		jumpArgs.add("6900"); //number of jumps
+		jumpArgs.add("2"); //number of jumps
 		jumpArgs.add(JUMP_VELOCITY); //
 		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
@@ -195,6 +195,7 @@ public class MovementTest extends Application{
 			myEntityPosition.setY(HEIGHT-myEntityImage.getFitHeight());
 			myEntityImage.setY(myEntityPosition.getY());
 			myEntityJump.setOnGround(true);
+			myEntityJump.setJumpsAllowed(myEntityJump.getDefaultJumpsAllowed());
 		}
 		else{
 			myEntityJump.setOnGround(false);
