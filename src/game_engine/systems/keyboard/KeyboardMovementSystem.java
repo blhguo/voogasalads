@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.keyboard;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,7 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.Vector;
-import game_engine.components.KeyboardMovementInputComponent;
+import game_engine.components.keyboard.KeyboardMovementInputComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
@@ -28,16 +28,16 @@ public class KeyboardMovementSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(HORIZONTAL_PHYSICS, KEYBOARD_MOVE_INPUT);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
+			XPhysicsComponent horizontal = (XPhysicsComponent) entity.getComponent(HORIZONTAL_PHYSICS);
+			KeyboardMovementInputComponent keyboardInput = (KeyboardMovementInputComponent) entity.getComponent(KEYBOARD_MOVE_INPUT);
 			for (InputEvent input : getEngine().getInput()) {
-				XPhysicsComponent horizontal = (XPhysicsComponent) entity.getComponent(HORIZONTAL_PHYSICS);
-				KeyboardMovementInputComponent keyboardInput = (KeyboardMovementInputComponent) entity.getComponent(KEYBOARD_MOVE_INPUT);
 				KeyEvent keyInput = (KeyEvent) input;
 				Vector direction = keyboardInput.getDirection(keyInput.getCode());
 				if (direction.getX() != 0) {
 					horizontal.setCurrVel(direction.getX() * horizontal.getCurrVel());
 				}
 				
-				if (input.getEventType().getName().equals(KEY_PRESSED)) {
+				if (input.getEventType().getName().equals(KEY_PRESSED) && direction.getX() != 0) {
 					horizontal.setCurrVel(direction.getX() * horizontal.getDefaultVel());
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {
 					horizontal.setCurrVel(0);
