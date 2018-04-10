@@ -66,6 +66,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		Pane canvasView = canvas.getView();
 		//bp.setMargin(canvas.getView(), new Insets(AuthRes.getInt("Margin")));
 		bp.setCenter(canvasView);
+		Pane center = (Pane) bp.getCenter();
+		System.out.println(center.getWidth());
 		bp.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
 		//bp.setTop(new Rectangle(1200, 50, Color.GRAY));
 		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
