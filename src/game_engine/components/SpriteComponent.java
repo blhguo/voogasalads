@@ -10,6 +10,7 @@ public class SpriteComponent implements Component{
     private boolean isVisible;
     private double myHeight;
     private double myWidth;
+    private double myAngle;
 
     public SpriteComponent(List<String> args) {
         myFileName = args.get(0);
