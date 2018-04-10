@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Level;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 
@@ -16,7 +17,7 @@ import javafx.scene.input.KeyCode;
 public class DataManager {
 	private Map<KeyCode,String> keyPrefs;
 	private List<String> gameInputs;
-	private Node activeSceneRoot;
+	private List<Level> gameLevels;
 	
 	public DataManager() {
 		keyPrefs = new HashMap<KeyCode,String>();
@@ -36,7 +37,6 @@ public class DataManager {
 	 */
 	public void setKey(String input,KeyCode key) {
 		keyPrefs.put(key, input);
-		System.out.print(keyPrefs.size());
 	}
 	/**
 	 * Method called to get the input for a given key during gameplay.
@@ -61,8 +61,8 @@ public class DataManager {
 	 * 
 	 * @param node
 	 */
-	public void setNode(Node node) {
-		activeSceneRoot = node;
+	public void setGameLevels(List<Level> lev) {
+		gameLevels = lev;
 	}
 	
 	public List<String> getInputCommands(){
