@@ -1,3 +1,4 @@
+package game_engine.test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class GameEngineTester extends Application{
+public class MovementTest extends Application{
 
 	private Stage myStage;
 	private Group myRoot;
@@ -143,16 +144,6 @@ public class GameEngineTester extends Application{
 		//Create Systems
 		movementSystem = new MovementSystem(myEngine);
 		keyboardSystem = new KeyboardMovementSystem(myEngine);
-		
-//	
-//		PhysicsComponent physicsComponent = new PhysicsComponent(null);
-//		myScene.setOnKeyPressed(e -> {
-//			Vector direction = keyboardInputComponent.getDirection(e.getCode());
-//	
-//			//EDIT HERE
-//			myEntity.getComponent()
-//			physics.setXVel(direction.getX() * physics.getXVel());
-//		});	
 	
 }
 	
