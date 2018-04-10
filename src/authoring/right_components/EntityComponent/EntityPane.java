@@ -34,9 +34,11 @@ public class EntityPane extends BasePane {
 	private StackPane pane;
 	private VBox box;
 	public EntityPane(){
-		ogmenuList = new ArrayList<>();
+
 		menuList = makeMenuList();
-		menuList.stream().forEach(e -> ogmenuList.add(e));
+		ogmenuList = new ArrayList<>(menuList);
+//		menuList.stream().forEach(e -> System.out.println(e));
+//		ogmenuList.stream().forEach(e -> System.out.println(e));
 		accordion = makeMenuView();
 	}
 
@@ -64,10 +66,11 @@ public class EntityPane extends BasePane {
 	}
 
 	private void resetAccordion() {
-		Collections.copy(menuList, ogmenuList);
+		menuList = makeMenuList();
 		accordion = makeMenuView();
 		box.getChildren().remove(box.getChildren().size() - 1);
 		box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		controller.resetImageViews();
 	}
 
 
@@ -87,6 +90,7 @@ public class EntityPane extends BasePane {
 		Entity entity = new Entity();
 //		menuList.stream().forEach(menu -> System.out.println(menu + " : " + menu.getType() + " : "
 //		+ menu.getComponentList().size()));
+		System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
 			new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
 		}
@@ -104,10 +108,13 @@ public class EntityPane extends BasePane {
 		for (Component comp : entity.getComponents()){
 			menuList.add(new ComponentMenuFactory().newComponentMenu(
 					comp.getValues().split(";"), comp.getName()));
-			accordion.getPanes().add(new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName()).getTitledPane());
+			accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
 		}
+//		menuList.stream().forEach(e -> System.out.println(e));
+//		ogmenuList.stream().forEach(e -> System.out.println(e));
+
 		box.getChildren().remove(box.getChildren().size() - 1);
+
 		Button reset = ButtonFactory.makeButton(e -> resetAccordion());
 		box.getChildren().add((ButtonFactory.makeHBox("Go back to new Entity Creation",
 				"Displaying current entity", reset)));
