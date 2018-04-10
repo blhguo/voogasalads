@@ -1,6 +1,7 @@
 package authoring;
 
 import game_engine.Entity;
+import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -25,6 +26,7 @@ public class Canvas implements GUINode {
 		rect.setStyle("-fx-background-color: rgba(0,0,0.5)");
 		box.getChildren().add(rect);
 		//pane.setPadding(new Insets(20, 20, 20, 20));
+		box.setAlignment(Pos.CENTER);
 		return box;
 	}
 	public void update(Map<ImageView, Entity> map){

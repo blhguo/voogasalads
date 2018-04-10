@@ -20,8 +20,8 @@ public class NavigationPane extends GridPane implements Subject, GUINode {
 
 	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
-	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game", "Settings"));
-	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save", "settings"));
+	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
+	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
 	
 	public NavigationPane() {
 		this.getStyleClass().add("pane-back");

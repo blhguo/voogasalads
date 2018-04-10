@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import static org.junit.Assert.assertEquals;
 
