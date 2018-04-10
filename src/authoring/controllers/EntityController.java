@@ -36,7 +36,7 @@ public class EntityController {
 		iv.setX(pos.getX());
 		iv.setY(pos.getY());
 		map.put(iv, entity);
-		iv.setClick(e -> UpdateMenus(iv));
+		iv.setOnMouseClicked(e -> UpdateMenus(iv));
 		entityList.add(entity);
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 	}
@@ -56,7 +56,7 @@ public class EntityController {
 		canvas.update(map);
 	}
 	public void UpdateMenus(ImageView iv){
-		System.out.println("Hit EntityController");
+		//System.out.println("Hit EntityController");
 		entityPane.updateMenus(map.get(iv));
 	}
 

@@ -41,8 +41,5 @@ public class DraggableImageView extends ImageView {
 	public void addHandler(EventHandler<MouseDragEvent> eventHandler){
 		this.setOnMouseDragReleased(eventHandler);
 	}
-	public void setClick(EventHandler<MouseEvent> e){
-		this.setOnMouseClicked(e);
-	}
 }
 
