@@ -17,7 +17,11 @@ public class PlayerView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 2.0;
 	private static final double HALF_RATE = 0.5;
-	private PulldownFactory pullDownFactory = new PulldownFactory();
+	private PulldownFactory pullDownFactory;
+	
+	public PlayerView(PulldownFactory pdf) {
+		pullDownFactory = pdf;
+	}
 
 	
 	
