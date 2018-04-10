@@ -2,8 +2,12 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import authoring.controllers.LevelController;
+import authoring.controllers.PaneController;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
+import game_engine.Level;
 import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
