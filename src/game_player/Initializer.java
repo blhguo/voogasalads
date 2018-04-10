@@ -1,4 +1,4 @@
-package gameplayer;
+package game_player;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
