@@ -46,6 +46,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		canvas = new Canvas(AuthRes.getInt("canvassize"));
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
+		LevelController lcontroller = new LevelController();
 		canvas.setController(controller);
 		entity.setController(controller);
 		level.setController(pcontroller);
