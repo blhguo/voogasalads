@@ -10,10 +10,10 @@ public class CollisionCircleSystem extends CollisionNarrowSystem {
         super(engine);
     }
 
-    @Override
-    protected boolean intersect(Entity e1, Entity e2){
-        return false;
-    }
+//    @Override
+//    protected void intersect(Entity e1, Entity e2){
+//
+//    }
 
 	@Override
 	public void act(double elapsedTime) {

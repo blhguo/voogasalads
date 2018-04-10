@@ -2,7 +2,9 @@ package game_engine.test;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.*;
-import game_engine.systems.CollisionBroadSystem;
+import game_engine.components.physics.XPhysicsComponent;
+import game_engine.components.physics.YPhysicsComponent;
+import game_engine.systems.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -40,34 +42,38 @@ public class CollisionTest extends Application {
     private Scene myScene;
 
     private CollisionBroadSystem colSys;
+    private MovementSystem movementSys;
+    private KeyboardJumpSystem keyboardJumpSys;
+    private KeyboardMovementSystem keyboardMovementSys;
+    private CollisionResponseSystem colResponseSys;
 
-    /**
-     * What to do each time a key is pressed
-     * Handles cheat keys and paddle controls
-     * @param code
-     */
-    private void handleKeyInput(KeyCode code) {
-        PositionComponent pos = (PositionComponent) e1.getComponent(PositionComponent.class);
-        if(code == KeyCode.RIGHT){
-           pos.setX(pos.getX()+5);
-        }
-        else if (code == KeyCode.LEFT){
-            pos.setX(pos.getX()-5);
-        }
-        else if (code == KeyCode.UP){
-            pos.setY(pos.getY()-5);
-        }
-        else if (code == KeyCode.DOWN){
-            pos.setY(pos.getY()+5);
-        }
-        else if (code == KeyCode.Q){
-            pos.setAngle(pos.getAngle()+1);
-        }
-        else if (code == KeyCode.E){
-            pos.setAngle(pos.getAngle()-1);
-            System.out.println(pos.getAngle());
-        }
-    }
+//    /**
+//     * What to do each time a key is pressed
+//     * Handles cheat keys and paddle controls
+//     * @param code
+//     */
+//    private void handleKeyInput(KeyCode code) {
+////        PositionComponent pos = (PositionComponent) e1.getComponent(PositionComponent.class);
+////        if(code == KeyCode.RIGHT){
+////           pos.setX(pos.getX()+5);
+////        }
+////        else if (code == KeyCode.LEFT){
+////            pos.setX(pos.getX()-5);
+////        }
+////        else if (code == KeyCode.UP){
+////            pos.setY(pos.getY()-5);
+////        }
+////        else if (code == KeyCode.DOWN){
+////            pos.setY(pos.getY()+5);
+////        }
+////        else if (code == KeyCode.Q){
+////            pos.setAngle(pos.getAngle()+1);
+////        }
+////        else if (code == KeyCode.E){
+////            pos.setAngle(pos.getAngle()-1);
+//////            System.out.println(pos.getAngle());
+////        }
+//    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -89,6 +95,11 @@ public class CollisionTest extends Application {
      */
     private void step(double elapsedTime) {
         colSys.act(elapsedTime);
+//        keyboardJumpSys.act(elapsedTime); //update jump
+//        keyboardMovementSys.act(elapsedTime); //update position
+//        movementSys.act(elapsedTime); //update position
+
+//        inputGarbageCollectionSys.act(elapsedTime);
         updateRectPos();
         updateRectColor();
     }
@@ -96,9 +107,13 @@ public class CollisionTest extends Application {
     private void setup(){
         e = new Engine();
         colSys = new CollisionBroadSystem(e);
+        keyboardJumpSys = new KeyboardJumpSystem(e);
+        keyboardMovementSys = new KeyboardMovementSystem(e);
+        movementSys = new MovementSystem(e);
+        colResponseSys = new CollisionResponseSystem(e);
         root = new Group();
         myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
-        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+//        myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 
         buildEntities();
         initRects();
@@ -131,7 +146,7 @@ public class CollisionTest extends Application {
 
 
         ArrayList<String> phys =new ArrayList<String>();
-        for(int i = 0; i < 3; i ++)
+        for(int i = 0; i < 2; i ++)
             phys.add("0");
 
         ArrayList<String> pos1 = new ArrayList<String>();
@@ -141,12 +156,18 @@ public class CollisionTest extends Application {
 
         ArrayList<String> pos2 = new ArrayList<String>();
         pos2.add("1000");
-        pos2.add("750");
+        pos2.add("0");
         pos2.add("0");
 
+        ArrayList<String> hb2 = new ArrayList<String>();
+        hb2.add("500");
+        hb2.add("500");
+        hb2.add("0");
+        hb2.add("0");
+
         ArrayList<String> hb1 = new ArrayList<String>();
-        hb1.add("500");
-        hb1.add("500");
+        hb1.add("50");
+        hb1.add("50");
         hb1.add("0");
         hb1.add("0");
 
@@ -155,17 +176,19 @@ public class CollisionTest extends Application {
         cc.add("true");
         cc.add("0");
 
-//        e1 = new Entity();
-//        e1.addComponent(new PhysicsComponent(phys));
-//        e1.addComponent(new PositionComponent(pos1));
-//        e1.addComponent(new HitboxComponent(hb1));
-//        e1.addComponent(new CollidableComponent(cc));
-//
-//        e2 = new Entity();
-//        e2.addComponent(new PhysicsComponent(phys));
-//        e2.addComponent(new PositionComponent(pos2));
-//        e2.addComponent(new HitboxComponent(hb1));
-//        e2.addComponent(new CollidableComponent(cc));
+        e1 = new Entity();
+        e1.addComponent(new XPhysicsComponent(phys));
+        e1.addComponent(new YPhysicsComponent(phys));
+        e1.addComponent(new PositionComponent(pos1));
+        e1.addComponent(new HitboxComponent(hb1));
+        e1.addComponent(new CollidableComponent(cc));
+
+        e2 = new Entity();
+        e2.addComponent(new XPhysicsComponent(phys));
+        e2.addComponent(new YPhysicsComponent(phys));
+        e2.addComponent(new PositionComponent(pos2));
+        e2.addComponent(new HitboxComponent(hb2));
+        e2.addComponent(new CollidableComponent(cc));
 
         e.addEntity(e1);
         e.addEntity(e2);
