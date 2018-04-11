@@ -66,10 +66,13 @@ public class EntityPane extends BasePane {
 	}
 
 	private void resetAccordion() {
+		box.getChildren().remove(accordion);
 		menuList = makeMenuList();
 		accordion = makeMenuView();
 		box.getChildren().remove(box.getChildren().size() - 1);
+		box.getChildren().add(accordion);
 		box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		box.getChildren().stream().forEach(e -> System.out.println(e));
 		controller.resetImageViews();
 	}
 
@@ -77,13 +80,17 @@ public class EntityPane extends BasePane {
 	private List<ComponentMenu> makeMenuList(){
 		List<ComponentMenu> list;
 		list = new ComponentMenuFactory().getMenus();
+		//list.stream().forEach(e -> e.getComponentList().stream().forEach(ev -> System.out.println(ev)));
 		return list;
 	}
 	private Accordion makeMenuView() {
 		Accordion acc = new Accordion();
 		//acc.getPanes().add(new ImageMenu().getTitledPane());
-		acc.getPanes().addAll(
-				menuList.stream().map(x -> x.getTitledPane()).collect(Collectors.toList()));
+		//menuList.stream().forEach(e -> e.getComponentList().stream().forEach(ev -> System.out.println(ev)));
+		for (ComponentMenu menu : menuList){
+			acc.getPanes().add(menu.getTitledPane());
+		}
+		//acc.getPanes().stream().forEach(e -> System.out.println(e));
 		return acc;
 	}
 	public Entity getEntity(){
@@ -116,7 +123,7 @@ public class EntityPane extends BasePane {
 		box.getChildren().remove(box.getChildren().size() - 1);
 
 		Button reset = ButtonFactory.makeButton(e -> resetAccordion());
-		box.getChildren().add((ButtonFactory.makeHBox("Go back to new Entity Creation",
+		box.getChildren().add((ButtonFactory.makeHBox("Back to new Entity Creation",
 				"Displaying current entity", reset)));
 		//box.getChildren().remove(accordion);
 		//System.out.println("Hit");
