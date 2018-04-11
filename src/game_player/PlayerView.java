@@ -1,6 +1,7 @@
 package game_player;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +68,7 @@ public class PlayerView {
 		scene.setOnKeyPressed(e -> {
 			
 		myEngine.receiveInput(e);
-		System.out.println("yoyoyoyoyo");});
+		});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 		
 		subScene.setOnKeyPressed(e -> {
