@@ -43,4 +43,14 @@ public class KeyboardMovementInputComponent implements Component {
 		}
 		return myDirections.get(dir);
 	}
+
+	@Override
+	public String getValues() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return "Keyboard Movement Input";
+	}
 }

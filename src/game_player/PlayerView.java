@@ -18,7 +18,9 @@ import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -39,26 +41,30 @@ public class PlayerView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 2.0;
 	private static final double HALF_RATE = 0.5;
+	private static final double SCENE_SIZE = 500;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
 
 	private Map<ImageView, Entity> spriteMap;
 	private Stage myStage;
 	private Group root;
+	private Camera cam;
 
-	public PlayerView(PulldownFactory pdf, Engine engine, Stage stage) {
+	public PlayerView(PulldownFactory pdf, Engine engine) {
 		pullDownFactory = pdf;
 		myEngine = engine;
-		myStage = stage;
+		myStage = new Stage();
 		root = new Group();
 		instantiate(null);
 		animationFrame();
 	}
 
 	public void instantiate(List<Level> levels) {
-		Scene scene = new Scene(root, 500, 500);
+		Scene scene = new Scene(root, SCENE_SIZE, SCENE_SIZE);
 		scene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		cam = new ParallelCamera();
+		scene.setCamera(cam);
 		myStage.setScene(scene);
 		//		for(Entity e: levels.get(0).getEntities()){
 		//			myEngine.addEntity(e);
@@ -106,6 +112,10 @@ public class PlayerView {
 			imageView.setY(position.getY() - sprite.getHeight()/2);
 			imageView.setRotate(sprite.getAngle()); //TODO: figure out logistics of rotate
 		}
+		List<Entity> entity = myEngine.getEntitiesContaining(Arrays.asList(KeyboardMovementInputComponent.class));
+		PositionComponent position = (PositionComponent) entity.get(0).getComponent(PositionComponent.class);
+		cam.setLayoutX(position.getX()-SCENE_SIZE/2);
+		cam.setLayoutY(position.getY()-SCENE_SIZE/2);
 	}
 
 	//testing code
