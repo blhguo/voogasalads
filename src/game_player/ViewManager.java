@@ -59,7 +59,6 @@ public class ViewManager {
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		gameStage.setScene(gameScene);
-		//ParallelCamera cam = new ParallelCamera();
 	}
 
 	public Scene getScene() {
