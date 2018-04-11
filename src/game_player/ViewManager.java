@@ -1,5 +1,7 @@
 package game_player;
 
+import java.io.File;
+
 import authoring.GameChooserScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,7 +39,9 @@ public class ViewManager {
 	private Pane view;
 	private Scene gameScene;
 	private PulldownFactory pullDownFactory;
-	protected ImageView gameImageView;
+	private ImageView gameImageView;
+	private Image gameBackground;
+	private BackgroundImage game;
 	private ColorAdjust colorAdjust = new ColorAdjust();
 	
 	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
@@ -55,7 +59,7 @@ public class ViewManager {
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
-		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		gameScene.getStylesheets().add(getClass().getResource("aesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
 	
@@ -67,7 +71,7 @@ public class ViewManager {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
 		
-		Image gameBackground = new Image("mountain.png");
+		gameBackground = new Image("mountain.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
 
@@ -81,7 +85,7 @@ public class ViewManager {
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(770, 530);
-		BackgroundImage game = new BackgroundImage(gameBackground, BackgroundRepeat.NO_REPEAT, 
+		game = new BackgroundImage(gameBackground, BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
 		order.getChildren().add(view);
@@ -105,9 +109,12 @@ public class ViewManager {
 	public void changeVolume() {
 		this.menu.getVolumeSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				Media volume = new Media("put.mp3");
-				MediaPlayer mediaPlayer = new MediaPlayer(volume);
+				String path = "/resources/baby.mp3";
+				Media media = new Media(new File(path).toURI().toString());
+
+				MediaPlayer mediaPlayer = new MediaPlayer(media);
 				mediaPlayer.setVolume((double) new_val);
+				mediaPlayer.play();
 
 			}
 		});
