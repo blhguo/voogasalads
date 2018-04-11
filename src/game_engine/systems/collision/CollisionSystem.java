@@ -70,7 +70,6 @@ public abstract class CollisionSystem extends GameSystem {
 		HitboxComponent h = (HitboxComponent) e.getComponent(HitboxComponent.class);
 
 		double angle = Math.toRadians(p.getAngle());
-//		System.out.println(p.getAngle());
 		double width = h.getWidth();
 		double height = h.getHeight();
 		double centerX = p.getX() + h.getXOffset();
@@ -83,17 +82,15 @@ public abstract class CollisionSystem extends GameSystem {
 			centerX += xp.getCurrVel()*elapsedTime;
 		}
 		if(yp!=null) {
-			System.out.println(yp.getCurrVel());
 			centerY += yp.getCurrVel()*elapsedTime;
 		}
-
 		if(p.getAngle()%90 == 0){
 			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};
 		}
-
+		
+		// TODO: fixed rotation/transformed coordinates
 		ArrayList<Double> xCoords = new ArrayList<Double>();
 		ArrayList<Double> yCoords = new ArrayList<Double>();
-
 		for(int i = -1; i <=1; i+=2){
 			for(int j = -1; j<=1; j+=2){
 				double origX = i*width + centerX;

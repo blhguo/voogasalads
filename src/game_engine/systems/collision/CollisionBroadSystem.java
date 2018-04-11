@@ -101,8 +101,8 @@ public class CollisionBroadSystem extends CollisionSystem {
             double yMax1 = aabb1[3];
             double yMax2 = aabb2[3];
 
-            boolean right = xMin2 <= xMax1 && xMax2 >= xMax1;
-            boolean left = xMin2 <= xMin1 && xMax2 >= xMin1;
+            boolean left = xMin2 <= xMax1 && xMax2 >= xMax1;
+            boolean right = xMin2 <= xMin1 && xMax2 >= xMin1;
             boolean rlSmall = yMax2 <= yMax1 && yMin2 >= yMin1;
             boolean rlBig = yMax2 >= yMax1 && yMin2 <= yMin1;
 
@@ -149,6 +149,8 @@ public class CollisionBroadSystem extends CollisionSystem {
                 }
                 else{
                     System.out.println("BOTTOM LEFT");
+                    e1.addComponent(b);
+                    collidedToAdd = l;
                 }
             }
             else if(bottom & right){
@@ -164,6 +166,8 @@ public class CollisionBroadSystem extends CollisionSystem {
                 }
                 else{
                     System.out.println("BOTTOM RIGHT");
+                    e1.addComponent(b);
+                    collidedToAdd = r;
                 }
             }
             else if(top && left){
@@ -179,6 +183,8 @@ public class CollisionBroadSystem extends CollisionSystem {
                 }
                 else{
                     System.out.println("TOP LEFT");
+                    e1.addComponent(t);
+                    collidedToAdd = l;
                 }
             }
             else if(top && right) {
@@ -194,11 +200,13 @@ public class CollisionBroadSystem extends CollisionSystem {
                     collidedToAdd = r;
                 }
                 else{
-                    System.out.println("TOP Right");
+                	System.out.println("top right");
+                    e1.addComponent(t);
+                    collidedToAdd = r;
                 }
             }
-            e1.addComponent(collidedToAdd);
-            
+            if(collidedToAdd!=null)
+            	e1.addComponent(collidedToAdd);
         }
     }
 }
