@@ -62,7 +62,6 @@ public class SpriteComponent implements Component{
     public void setAngle(double angle) {
         myAngle = angle;
     }
-
     public String getName(){
         return "Sprite";
     }
@@ -72,4 +71,5 @@ public class SpriteComponent implements Component{
                 ";Width,d," + getWidth() + ";Height,d," + getHeight() +
                 ";Angle,d," + getAngle();
     }
+
 }

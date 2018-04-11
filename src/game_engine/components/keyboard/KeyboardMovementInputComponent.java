@@ -43,4 +43,13 @@ public class KeyboardMovementInputComponent implements Component {
 		}
 		return myDirections.get(dir);
 	}
+	
+	public String getValues() {
+		String vals = "Left,s,Left;Right,s,Right";
+        return vals;
+	}
+	
+	public String getName() {
+		return "KeyboardMovementInput";
+	}
 }
