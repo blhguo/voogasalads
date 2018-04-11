@@ -59,7 +59,7 @@ public class ViewManager {
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
-		gameScene.getStylesheets().add(getClass().getResource("aesthetic.css").toString());
+		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
 	
