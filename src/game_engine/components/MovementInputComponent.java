@@ -40,14 +40,4 @@ public class MovementInputComponent implements Component {
 	public KeyCode getDown() {
 		return myDown;
 	}
-
-	@Override
-	public String getValues() {
-		return null;
-	}
-
-	@Override
-	public String getName() {
-		return "Movement Input";
-	}
 }

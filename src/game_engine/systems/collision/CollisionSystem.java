@@ -11,6 +11,8 @@ import game_engine.GameSystem;
 import game_engine.components.PositionComponent;
 import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.hitbox.HitboxComponent;
+import game_engine.components.physics.XPhysicsComponent;
+import game_engine.components.physics.YPhysicsComponent;
 
 /**
  * @author Jeremy Chen
@@ -28,7 +30,7 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @param e2
 	 * @return
 	 */
-	protected abstract void checkIntersect(Entity e1, Entity e2);
+	protected abstract void checkIntersect(Entity e1, Entity e2, double elapsedTime);
 	
 //	/**
 //	 *
@@ -63,24 +65,32 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @param e
 	 * @return
 	 */
-	protected double[] getExtrema(Entity e){
+	protected double[] getExtrema(Entity e, double elapsedTime){
 		PositionComponent p = (PositionComponent) e.getComponent(PositionComponent.class);
 		HitboxComponent h = (HitboxComponent) e.getComponent(HitboxComponent.class);
 
 		double angle = Math.toRadians(p.getAngle());
-//		System.out.println(p.getAngle());
 		double width = h.getWidth();
 		double height = h.getHeight();
 		double centerX = p.getX() + h.getXOffset();
 		double centerY = p.getY() + h.getYOffset();
-
+		
+		XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
+		YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
+		
+		if(xp!=null) {
+			centerX += xp.getCurrVel()*elapsedTime;
+		}
+		if(yp!=null) {
+			centerY += yp.getCurrVel()*elapsedTime;
+		}
 		if(p.getAngle()%90 == 0){
 			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};
 		}
-
+		
+		// TODO: fixed rotation/transformed coordinates
 		ArrayList<Double> xCoords = new ArrayList<Double>();
 		ArrayList<Double> yCoords = new ArrayList<Double>();
-
 		for(int i = -1; i <=1; i+=2){
 			for(int j = -1; j<=1; j+=2){
 				double origX = i*width + centerX;

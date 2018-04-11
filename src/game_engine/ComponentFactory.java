@@ -39,16 +39,14 @@ public class ComponentFactory {
 	}
 
 	private Component createComponent(String key, List<String> args) {
-		System.out.println("   Component: " + key);
-		//System.out.println("key: " + key);
-		//System.out.println("component: " + myComponents.getString(key));
 		try {
+			System.out.println("key: " + key);
+			System.out.println("component: " + myComponents.getString(key));
 			Class<?> clazz = Class.forName(myComponents.getString(key) + "Component");
-			//System.out.println("clazz: " + clazz);
+			System.out.println("clazz: " + clazz);
 			Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] { List.class });
 			return (Component) ctor.newInstance(args);
 		} catch (Exception e) {
-			System.out.println(e.getCause());
 			throw new ComponentNotFoundException("Component not found.");
 		}
 	}
