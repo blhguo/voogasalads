@@ -4,6 +4,8 @@ import authoring.GameChooserScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -57,6 +59,7 @@ public class ViewManager {
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		gameStage.setScene(gameScene);
+		//ParallelCamera cam = new ParallelCamera();
 	}
 	
 	public Scene getScene() {
