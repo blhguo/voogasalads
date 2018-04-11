@@ -31,4 +31,17 @@ public interface EntityInterface {
 	 * @return
 	 */
 	boolean hasAll(List<Class<? extends Component>> args);
+	
+
+	/**
+	 * Returns true if it has any one of the components
+	 * @param args
+	 * @return
+	 */
+	boolean hasAny(List<Class<? extends Component>> args);
+	
+	/** returns all components of an entity
+	 * @return Map
+	 */
+	List<Component> getComponents();
 }

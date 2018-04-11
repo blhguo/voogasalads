@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import authoring.utilities.ButtonFactory;
+import game_engine.Level;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -18,12 +20,11 @@ import resources.keys.AuthRes;
 public class LevelPane extends BasePane {
 	
 	private PaneController controller;
+	private LevelController lcontroller;
 
 	@Override
 	public Pane getView() {
 		VBox box = buildBasicView(AuthRes.getString("LevelTitle"));
-		//getButtonArray().stream().forEach(button -> box.getChildren().add(button));
-		//getButtonArray().stream().map(button -> box.getChildren().add(button)).collect(Collectors.toList());
 		box.getChildren().addAll(getButtonArray());
 		return box;
 	}
@@ -45,4 +46,11 @@ public class LevelPane extends BasePane {
 	public void setController(PaneController pc){
 		controller = pc;
 	}
+	
+	public void setLevelController(LevelController lc){
+		lcontroller = lc;
+	}
+	
+	//eventually we will need to have some button similar to entity
+	//pane where when clicked it initializes a new level
 }

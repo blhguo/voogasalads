@@ -7,11 +7,12 @@ import game_engine.Component;
 public class JumpComponent implements Component{
 	private boolean myOnGround;
 	private int myJumpsAllowed;
-	private double myJumpVelocity;
+	private int myDefaultJumpsAllowed;
+	
 	public JumpComponent(List<String> args){
 		myOnGround = Boolean.parseBoolean(args.get(0));
 		myJumpsAllowed = Integer.parseInt(args.get(1));
-		myJumpVelocity = Double.parseDouble(args.get(2));
+		myDefaultJumpsAllowed = myJumpsAllowed;
 	}
 	public void setOnGround(boolean onGround){
 		myOnGround = onGround;
@@ -19,10 +20,6 @@ public class JumpComponent implements Component{
 	
 	public void setJumpsAllowed(int jumpsAllowed){
 		myJumpsAllowed = jumpsAllowed;
-	}
-	
-	public void setJumpVelocity(double velocity){
-		myJumpVelocity = velocity;
 	}
 	
 	public boolean getOnGround(){
@@ -33,17 +30,7 @@ public class JumpComponent implements Component{
 		return myJumpsAllowed;
 	}
 	
-	public double getJumpVelocity(){
-		return myJumpVelocity;
-	}
-
-	@Override
-	public String getValues() {
-		return null;
-	}
-
-	@Override
-	public String getName() {
-		return "Jump";
+	public int getDefaultJumpsAllowed(){
+		return myDefaultJumpsAllowed;
 	}
 }
