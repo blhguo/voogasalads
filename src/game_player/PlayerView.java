@@ -22,6 +22,7 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,26 +50,38 @@ public class PlayerView {
 	private Stage myStage;
 	private Group root;
 	private Camera cam;
-
-	public PlayerView(PulldownFactory pdf, Engine engine) {
+	private ViewManager viewManager;
+	private SubScene subScene;
+	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
 		pullDownFactory = pdf;
 		myEngine = engine;
-		myStage = new Stage();
-		root = new Group();
+		viewManager=view;
 		instantiate(null);
 		animationFrame();
 	}
 
 	public void instantiate(List<Level> levels) {
-		Scene scene = new Scene(root, SCENE_SIZE, SCENE_SIZE);
-		scene.setOnKeyPressed(e -> myEngine.receiveInput(e));
+		Scene scene = viewManager.getScene();
+		subScene= viewManager.getSubScene();
+		root = viewManager.getSubRoot();
+		scene.setOnKeyPressed(e -> {
+			
+		myEngine.receiveInput(e);
+		System.out.println("yoyoyoyoyo");});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		
+		subScene.setOnKeyPressed(e -> {
+			
+			myEngine.receiveInput(e);
+			System.out.println("subscene");});
+			subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		
 		cam = new ParallelCamera();
-		scene.setCamera(cam);
-		myStage.setScene(scene);
+		subScene.setCamera(cam);
 		//		for(Entity e: levels.get(0).getEntities()){
 		//			myEngine.addEntity(e);
 		//		}
+		
 		testingStuffInitializeEntity();
 
 		spriteMap = new HashMap<ImageView, Entity>();
@@ -85,8 +98,11 @@ public class PlayerView {
 		Image image1 = new Image("turtle.GIF");
 		ImageView imageView2 = new ImageView(image1);
 		root.getChildren().add(imageView2);
-		myStage.show();
 	}
+	
+	public void setViewManager(ViewManager vm) {
+		 viewManager = vm;
+	 }
 
 	private void animationFrame() {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
@@ -118,7 +134,6 @@ public class PlayerView {
 		cam.setLayoutY(position.getY()-SCENE_SIZE/2);
 	}
 
-	//testing code
 	private void handleUI() {
 		String selectedAction = pullDownFactory.SpeedBox().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Speed Up")) {
@@ -188,7 +203,7 @@ public class PlayerView {
 
 		//Jump Input Component
 		ArrayList<String> jumpInputArgs = new ArrayList<String>();
-		jumpInputArgs.add(KeyCode.UP.toString()); // Press UP for jump
+		jumpInputArgs.add(KeyCode.A.toString()); // Press UP for jump
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
 		myEntity.addComponent(keyboardJumpInputComponent);
 	}
