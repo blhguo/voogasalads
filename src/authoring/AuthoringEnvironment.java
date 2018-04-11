@@ -60,6 +60,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
 		np.addListener(this);
+		np.addLevelController(lcontroller);
 	}
 	
 	@Override
