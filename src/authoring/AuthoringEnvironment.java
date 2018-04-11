@@ -46,7 +46,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		event = new EventPane();
 		level = new LevelPane();
 		story = new StoryBoardPane();
-		np = new NavigationPane();
+		np = new NavigationPane(stage);
 		
 		canvas = new Canvas(AuthRes.getInt("canvassize"));
 		
@@ -59,7 +59,6 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
-		np = new NavigationPane();
 		np.addListener(this);
 	}
 	
@@ -84,7 +83,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 		//Build scene from StackPane
 		Scene scene = initScene(sp);
-		scene.getStylesheets().add(getClass().getResource("/main/vooga.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		return scene;
 		
 	}
