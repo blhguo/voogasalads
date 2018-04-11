@@ -41,4 +41,15 @@ public class HitboxComponent implements Component {
     public double getHeight() {
         return myHeight;
     }
+
+    @Override
+    public String getValues() {
+        return "Width,d," + myWidth + ";Height,d," + myHeight + ";xOffset,d," + myXOffset +
+                ";yOffset,d," + myYOffset;
+    }
+
+    @Override
+    public String getName() {
+        return "Hitbox";
+    }
 }

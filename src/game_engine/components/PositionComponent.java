@@ -44,12 +44,12 @@ public class PositionComponent implements Component {
 	public void setAngle(double angle){
 		myAngle = angle;
 	}
-	public String getValues(){
+
+	public String getValues() {
 		String ret;
 		ret = "XPos,d," + this.getX() + ";" + "YPos,d," + this.getY() + ";" + "Angle,d," + this.getAngle();
 		return ret;
 	}
-
 	@Override
 	public String getName() {
 		return "Position";

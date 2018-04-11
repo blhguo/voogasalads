@@ -46,4 +46,16 @@ public class CollidableComponent implements Component{
 	public void setPushable(int pushable){
 		myPushable = pushable;
 	}
+
+	@Override
+	public String getValues() {
+		return "Collidable,b," + myIntersectable+ ";Passable,b," + myPassable +
+				";Pushable,d," + myPushable;
+
+	}
+
+	@Override
+	public String getName() {
+		return "Collidable";
+	}
 }

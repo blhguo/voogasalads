@@ -22,4 +22,14 @@ public class MovementRequestComponent implements Component{
 	public void clear() {
 		ds = new CopyOnWriteArrayList<Vector>();
 	}
+
+	@Override
+	public String getValues() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
 }

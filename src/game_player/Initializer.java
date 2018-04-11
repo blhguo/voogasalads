@@ -33,21 +33,21 @@ public class Initializer {
 	public void instantiate(List<Level> levels) {
 		Engine engine = new Engine();
 		GameSystem movementSystem = new MovementSystem(engine);
-		engine.addSystem(movementSystem);
-		GameSystem keyboardMovementSystem = new KeyboardMovementSystem(engine);
-		engine.addSystem(keyboardMovementSystem);
-		GameSystem keyboardJumpSystem = new KeyboardJumpSystem(engine);
-		engine.addSystem(keyboardJumpSystem);
-		GameSystem inputGarbageCollectionSystem = new InputGarbageCollectionSystem(engine);
-		engine.addSystem(movementSystem);
-		GameSystem collisionBroadSystem = new CollisionBroadSystem(engine);
-		engine.addSystem(movementSystem);
-		//GameSystem collisionCircleSystem = new CollisionBroadSystem(engine);
-		//GameSystem collisionNarrowSystem = new CollisionBroadSystem(engine);
-		GameSystem collisionResponseSystem = new CollisionResponseSystem(engine);
-		engine.addSystem(movementSystem);
-		//GameSystem collisionSystem = new CollisionBroadSystem(engine);
-		engine.startGame(levels);
+//		engine.addSystem(movementSystem);
+//		GameSystem keyboardMovementSystem = new KeyboardMovementSystem(engine);
+//		engine.addSystem(keyboardMovementSystem);
+//		GameSystem keyboardJumpSystem = new KeyboardJumpSystem(engine);
+//		engine.addSystem(keyboardJumpSystem);
+//		GameSystem inputGarbageCollectionSystem = new InputGarbageCollectionSystem(engine);
+//		engine.addSystem(movementSystem);
+//		GameSystem collisionBroadSystem = new CollisionBroadSystem(engine);
+//		engine.addSystem(movementSystem);
+//		//GameSystem collisionCircleSystem = new CollisionBroadSystem(engine);
+//		//GameSystem collisionNarrowSystem = new CollisionBroadSystem(engine);
+//		GameSystem collisionResponseSystem = new CollisionResponseSystem(engine);
+//		engine.addSystem(movementSystem);
+//		//GameSystem collisionSystem = new CollisionBroadSystem(engine);
+//		engine.startGame(levels);
 		
 		/*
 		engine.addEntities();
