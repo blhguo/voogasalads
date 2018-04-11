@@ -63,4 +63,14 @@ public class SpriteComponent implements Component{
     public void setAngle(double angle) {
         myAngle = angle;
     }
+
+    public String getName(){
+        return "Sprite";
+    }
+    @Override
+    public String getValues() {
+        return "Path,s," + getFileName() + ";Visible,b," + isVisible +
+                ";Width,d," + getWidth() + ";Height,d," + getHeight() +
+                ";Angle,d," + getAngle();
+    }
 }
