@@ -46,9 +46,9 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		event = new EventPane();
 		level = new LevelPane();
 		story = new StoryBoardPane();
-		np = new NavigationPane();
+		np = new NavigationPane(stage);
 		
-		canvas = new Canvas(AuthRes.getInt("canvassize"));
+		canvas = new Canvas();
 		
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
@@ -59,8 +59,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
-		np = new NavigationPane();
 		np.addListener(this);
+		np.addLevelController(lcontroller);
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		//Build BorderPane by setting right, center, and left
 		bp = new BorderPane();
 		update(""); //calls default setting for right pane
-		bp.setLeft(np);
+		bp.setLeft(np.getView());
 		Pane canvasView = canvas.getView();
 		bp.setCenter(canvasView);
 		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
@@ -78,12 +78,13 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		Pane t = new Toolbar(stage).getView();
 		t.setPickOnBounds(false);
 		bp.setPickOnBounds(false);
-		StackPane sp = new StackPane(t, bp);
+//		StackPane sp = new StackPane(t, bp);
+		StackPane sp = new StackPane(bp, t);
 		sp.setPickOnBounds(false);
 
 		//Build scene from StackPane
 		Scene scene = initScene(sp);
-		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		return scene;
 		
 	}

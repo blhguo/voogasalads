@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * CollisionMenu, InteractionMenu, etc.
  */
 
-public class ComponentMenu extends VBox{
+public class ComponentMenu extends VBox implements Comparable{
 	private static final String COMPONENT_BUNDLE = "Component";
 	private static final String COMPONENT_DELIM  = ";";
 	private static final String ATTRIBUTE_DELIM  = ",";
@@ -32,6 +32,9 @@ public class ComponentMenu extends VBox{
 		myComponents = ResourceBundle.getBundle(COMPONENT_BUNDLE);
 		myType = type;
 		elements = new ArrayList<>();
+	}
+	public List<MenuElement> getElements(){
+		return elements;
 	}
 	public void addMenuElement(MenuElement element){
 		elements.add(element);
@@ -48,6 +51,12 @@ public class ComponentMenu extends VBox{
 	}
 
 	public TitledPane getTitledPane() {
+		//this.getChildren().stream().forEach(item -> System.out.println(item));
 		return new TitledPane(myType, this);
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		return this.getType().compareTo(o.toString());
 	}
 }

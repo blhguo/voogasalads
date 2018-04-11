@@ -6,6 +6,7 @@ import java.util.Arrays;
 import authoring.controllers.LevelController;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
+import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,26 +14,32 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import observables.Listener;
 import observables.Subject;
 import resources.keys.AuthRes;
 
 //Left Pane
-public class NavigationPane extends Pane implements Subject, GUINode {
+public class NavigationPane implements Subject, GUINode {
 
 	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
 	private LevelController lcontroller;
+	private Pane pane;
+	private Stage stage;
 	
-	public NavigationPane() {
-		this.getStyleClass().add("pane-back");
-
-		this.setPadding(new Insets(AuthRes.getInt("Padding")));
+	public NavigationPane(Stage s) {
+		stage = s;
+		pane = new Pane();
+		pane.getStyleClass().add("pane-back");
+		pane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
 	}
-
+	public void addLevelController(LevelController l){
+		lcontroller = l;
+	}
 	@Override
 	public void addListener(Listener l) {
 		myListeners.add(l);
@@ -73,7 +80,7 @@ public class NavigationPane extends Pane implements Subject, GUINode {
 			}
 			else{
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					//new PlayerMain();
+					new PlayerMain().start(stage);
 				}, "button-nav");
 				
 			}
@@ -81,12 +88,12 @@ public class NavigationPane extends Pane implements Subject, GUINode {
 			
 		}
 		prefButtons.setLayoutY(AuthRes.getInt("EnvironmentY")*4/5);
-		this.getChildren().addAll(navOptions, prefButtons);
+		pane.getChildren().addAll(navOptions, prefButtons);
 	}
 
 	@Override
 	public Pane getView() {
-		return this;
+		return pane;
 	}
 	
 	public void setController(LevelController lc){
