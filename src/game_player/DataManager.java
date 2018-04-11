@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import game_engine.Level;
-import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -17,7 +16,7 @@ import javafx.scene.input.KeyCode;
 public class DataManager {
 	private Map<KeyCode,String> keyPrefs;
 	private List<String> gameInputs;
-	private List<Level> gameLevels;
+	private List<Level> gameLevels = new ArrayList<Level>();
 	
 	public DataManager() {
 		keyPrefs = new HashMap<KeyCode,String>();
@@ -63,6 +62,10 @@ public class DataManager {
 	 */
 	public void setGameLevels(List<Level> lev) {
 		gameLevels = lev;
+	}
+	
+	public List<Level> getGameLevels(){
+		return gameLevels;
 	}
 	
 	public List<String> getInputCommands(){
