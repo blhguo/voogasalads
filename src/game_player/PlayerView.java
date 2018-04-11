@@ -196,7 +196,7 @@ public class PlayerView {
 
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
-		jumpArgs.add("true");
+		//jumpArgs.add("true");
 		jumpArgs.add("-1"); //number of jumps
 		JumpComponent jumpComponent = new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
