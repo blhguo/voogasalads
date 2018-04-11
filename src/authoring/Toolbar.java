@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.SplashScreen;
 import resources.keys.AuthRes;
 
 public class Toolbar implements GUINode {
@@ -28,9 +29,9 @@ public class Toolbar implements GUINode {
 
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 20),
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 30),
 				e -> stage.setScene(new SplashScreen(stage).display()),
-				"button-close");
+				"button-nav");
 	}
 }
 

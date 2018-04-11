@@ -13,17 +13,18 @@ public class PlayerMain extends Application{
 	Menu menu;
 	DataManager dataManager;
 	Initializer initializer;
+	PulldownFactory pullDownFactory;
 	
 	
 	
 	/**
 	 * Method called to initialize the Game Player
 	 */
-	
 	public void start(Stage stage) {
 		this.dataManager = new DataManager();
-		this.menu = new Menu(dataManager);
-		this.viewManager = new ViewManager(menu,stage);
+		this.pullDownFactory = new PulldownFactory(dataManager);
+		this.menu = new Menu(dataManager, pullDownFactory);
+		this.viewManager = new ViewManager(menu,stage,pullDownFactory);
 		this.initializer = new Initializer(this.viewManager);
 	}
 	
