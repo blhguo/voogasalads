@@ -6,6 +6,8 @@ import authoring.GameChooserScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -55,18 +57,18 @@ public class ViewManager {
 		changeBrightness();
 		changeVolume();
 	}
-	
+
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
-	
+
 	public Scene getScene() {
 		return gameScene;
 	}
-	
+
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
@@ -125,7 +127,7 @@ public class ViewManager {
 		gameStage.setScene(gc.display());
 		gameStage.show();
 	}
-	
+
 	public Pane getNode() {
 		return view;
 	}
