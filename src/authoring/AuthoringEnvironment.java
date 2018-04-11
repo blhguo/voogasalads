@@ -48,7 +48,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
 		
-		canvas = new Canvas(AuthRes.getInt("canvassize"));
+		canvas = new Canvas();
 		
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
