@@ -1,6 +1,10 @@
-package authoring;
+package main;
 
+import authoring.AuthoringEnvironment;
+import authoring.GUIGridPaneSuper;
+import authoring.GameChooserScreen;
 import authoring.utilities.ButtonFactory;
+import authoring.utilities.ImageBuilder;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -19,28 +23,24 @@ public class SplashScreen extends GUIGridPaneSuper{
 	}
 	
 	private VBox makeVBox(){
-		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));
-		
-		Button createButton = new Button("+");
-		createButton.setOnAction(e -> {
-			AuthoringEnvironment ae = new AuthoringEnvironment();
+		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));		
+		Button createButton = ButtonFactory.makeButton(e -> {
+			AuthoringEnvironment ae = new AuthoringEnvironment(myStage);
 			myStage.setScene(ae.display());
 			myStage.show();
 		});
-		Button loadButton = new Button("+");
-		loadButton.setOnAction(e -> {
+		Button loadButton = ButtonFactory.makeButton(e -> {
 			GameChooserScreen gc = new GameChooserScreen(myStage);
 			myStage.setScene(gc.display());
 			myStage.show();
 		});
 		
-		Button playButton = new Button("+");
-		playButton.setOnAction(e -> {
+		Button playButton = ButtonFactory.makeButton(e -> {
 			GameChooserScreen gc = new GameChooserScreen(myStage);
 			myStage.setScene(gc.display());
 			myStage.show();
 		});
-		
+				
 		HBox createHB = ButtonFactory.makeHBox("Create New Level", "Authoring Environment", createButton);
 		HBox loadHB = ButtonFactory.makeHBox("Load Game for Editing", "Authoring Environment", loadButton);
 		HBox playHB = ButtonFactory.makeHBox("Load Game for Play", "Game Player", playButton);
