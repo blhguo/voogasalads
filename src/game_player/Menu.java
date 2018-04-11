@@ -91,7 +91,7 @@ public class Menu {
 		initKeyPrefMenu();
 		keyPrefStage = new Stage();
 		Scene scene = new Scene(keyPrefMenu);
-		scene.getStylesheets().add(getClass().getResource("aesthetic.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
 		keyPrefStage.setScene(scene);
 				
@@ -120,7 +120,7 @@ public class Menu {
 	private void makeSettingsStage() {
 		settingsStage = new Stage();
 		Scene scene = new Scene(settingsMenu);
-		scene.getStylesheets().add(getClass().getResource("aesthetic.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
 		brightnessSlider.setMin(-1);
