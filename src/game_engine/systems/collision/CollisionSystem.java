@@ -30,7 +30,7 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @param e2
 	 * @return
 	 */
-	protected abstract void checkIntersect(Entity e1, Entity e2);
+	protected abstract void checkIntersect(Entity e1, Entity e2, double elapsedTime);
 	
 //	/**
 //	 *
@@ -65,7 +65,7 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @param e
 	 * @return
 	 */
-	protected double[] getExtrema(Entity e){
+	protected double[] getExtrema(Entity e, double elapsedTime){
 		PositionComponent p = (PositionComponent) e.getComponent(PositionComponent.class);
 		HitboxComponent h = (HitboxComponent) e.getComponent(HitboxComponent.class);
 
@@ -80,11 +80,11 @@ public abstract class CollisionSystem extends GameSystem {
 		YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
 		
 		if(xp!=null) {
-			centerX += xp.getCurrVel();
+			centerX += xp.getCurrVel()*elapsedTime;
 		}
 		if(yp!=null) {
 			System.out.println(yp.getCurrVel());
-			centerY += yp.getCurrVel();
+			centerY += yp.getCurrVel()*elapsedTime;
 		}
 
 		if(p.getAngle()%90 == 0){

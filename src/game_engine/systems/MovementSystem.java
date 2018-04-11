@@ -41,9 +41,9 @@ public class MovementSystem extends GameSystem {
 			Component rcc = e.getComponent(RightCollidedComponent.class);
 			Component lcc = e.getComponent(LeftCollidedComponent.class);
 			
-//			if(!(tcc!=null && yPhysics.getAccel() > 0 || bcc!=null && yPhysics.getAccel() < 0))
+			if(!(tcc!=null && yPhysics.getAccel() > 0 || bcc!=null && yPhysics.getAccel() < 0))
 				yPhysics.setCurrVel(yPhysics.getCurrVel() + -1 * yPhysics.getAccel() * elapsedTime);
-//			if(!(rcc!=null && yPhysics.getAccel() > 0 || lcc!=null && yPhysics.getAccel() < 0))
+			if(!(rcc!=null && yPhysics.getAccel() > 0 || lcc!=null && yPhysics.getAccel() < 0))
 				xPhysics.setCurrVel(xPhysics.getCurrVel() + -1 * xPhysics.getAccel() * elapsedTime);
 //			else
 //				System.out.println("cock");

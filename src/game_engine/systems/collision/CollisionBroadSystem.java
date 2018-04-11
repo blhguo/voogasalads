@@ -66,7 +66,7 @@ public class CollisionBroadSystem extends CollisionSystem {
             for(int j = i + 1; j<collideableEntities.size(); j ++) {
                 Entity e1 = collideableEntities.get(i);
                 Entity e2 = collideableEntities.get(j);
-                checkIntersect(e1, e2);
+                checkIntersect(e1, e2, elapsedTime);
             }
         }
 
@@ -79,9 +79,9 @@ public class CollisionBroadSystem extends CollisionSystem {
      * @return
      */
     @Override
-    protected void checkIntersect(Entity e1, Entity e2){
-        double[] aabb1 = getExtrema(e1);
-        double[] aabb2 = getExtrema(e2);
+    protected void checkIntersect(Entity e1, Entity e2, double elapsedTime){
+        double[] aabb1 = getExtrema(e1, elapsedTime);
+        double[] aabb2 = getExtrema(e2, elapsedTime);
 
         // TODO: need to add dx dy compensation
 

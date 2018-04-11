@@ -98,11 +98,12 @@ public class CollisionTest extends Application {
 
     private void setup(){
         e = new Engine();
-        colSys = new CollisionBroadSystem(e);
-        colResponseSys = new CollisionResponseSystem(e);
+        
         keyboardJumpSys = new KeyboardJumpSystem(e);
         keyboardMovementSys = new KeyboardMovementSystem(e);
         movementSys = new MovementSystem(e);
+        colSys = new CollisionBroadSystem(e);
+        colResponseSys = new CollisionResponseSystem(e);
         inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
         
         
