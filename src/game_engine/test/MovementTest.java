@@ -114,7 +114,7 @@ public class MovementTest extends Application{
 		Map<Entity, String> spriteMap = new HashMap<>(); //Simulate authoring env. map of Entity to Sprite filename
 
 		List<String> spriteArgs = new ArrayList<>();
-		spriteArgs.add("Mario.GIF");
+		spriteArgs.add("turtle.GIF");
 		spriteArgs.add("true"); //is visible
 		spriteArgs.add("40");
 		spriteArgs.add("40");
@@ -127,11 +127,21 @@ public class MovementTest extends Application{
 
 		//Use Imageview to display sprite
 		myEntityImage = new ImageView();
+		ImageView other = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity))));
+		other.setTranslateZ(30);
+//		other.Z
+//		other.setY(550);
+		myEntityImage.setTranslateZ(20);
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity)));
 		myEntityImage.setImage(image);
 		myEntityImage.setFitWidth(spriteComponent.getWidth());
 		myEntityImage.setFitHeight(spriteComponent.getHeight());
 		myRoot.getChildren().add(myEntityImage);	
+		myRoot.getChildren().add(other);
+	}
+	
+	private void setRotate(){
+		myEntityImage.setRotate(90);
 	}
 
 	private void initialMovement() {
