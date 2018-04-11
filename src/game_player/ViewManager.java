@@ -51,18 +51,18 @@ public class ViewManager {
 		changeBrightness();
 		changeVolume();
 	}
-	
+
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
-	
+
 	public Scene getScene() {
 		return gameScene;
 	}
-	
+
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
@@ -118,7 +118,7 @@ public class ViewManager {
 		gameStage.setScene(gc.display());
 		gameStage.show();
 	}
-	
+
 	public Pane getNode() {
 		return view;
 	}
