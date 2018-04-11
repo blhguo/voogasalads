@@ -39,6 +39,9 @@ public class ComponentFactory {
 	}
 
 	private Component createComponent(String key, List<String> args) {
+//		System.out.println("Component: " + key);
+//		System.out.println("key: " + key);
+//		System.out.println("component: " + myComponents.getString(key));
 		try {
 			System.out.println("key: " + key);
 			System.out.println("component: " + myComponents.getString(key));

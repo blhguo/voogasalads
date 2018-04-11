@@ -36,11 +36,12 @@ public class NavigationPane implements Subject, GUINode {
 		stage = s;
 		pane = new Pane();
 		pane.getStyleClass().add("pane-back");
-
 		pane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
 	}
-
+	public void addLevelController(LevelController l){
+		lcontroller = l;
+	}
 	@Override
 	public void addListener(Listener l) {
 		myListeners.add(l);

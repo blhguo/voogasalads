@@ -33,4 +33,14 @@ public class JumpComponent implements Component{
 	public int getDefaultJumpsAllowed(){
 		return myDefaultJumpsAllowed;
 	}
+
+	@Override
+	public String getValues() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
 }
