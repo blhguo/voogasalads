@@ -32,7 +32,7 @@ public class MovementSystem extends GameSystem {
 			position.setX(position.getX() + xPhysics.getCurrVel() * elapsedTime);
 			position.setY(position.getY() + yPhysics.getCurrVel() * elapsedTime);
 		
-			yPhysics.setCurrVel(yPhysics.getCurrVel() + yPhysics.getAccel() * elapsedTime);
+			yPhysics.setCurrVel(yPhysics.getCurrVel() + -1 * yPhysics.getAccel() * elapsedTime);
 			xPhysics.setCurrVel(xPhysics.getCurrVel() + xPhysics.getAccel() * elapsedTime);
 		}
 	}
