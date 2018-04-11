@@ -11,7 +11,7 @@ public abstract class PhysicsComponent implements Component {
 	
 	public PhysicsComponent(List<String> args) {
 		myDefaultVel = Double.parseDouble(args.get(0));
-		myCurrVel = myDefaultVel;
+		myCurrVel = 0;
 		myAccel = Double.parseDouble(args.get(1));
 	}
 	
