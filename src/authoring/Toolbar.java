@@ -29,7 +29,7 @@ public class Toolbar implements GUINode {
 
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 30),
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 25),
 				e -> stage.setScene(new SplashScreen(stage).display()),
 				"button-nav");
 	}
