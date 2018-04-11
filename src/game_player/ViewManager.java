@@ -31,7 +31,7 @@ public class ViewManager {
 	private Pane view;
 	private Scene gameScene;
 	private PulldownFactory pullDownFactory;
-	
+
 	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
 		this.menu = menu;
 		this.pullDownFactory = pdf;
@@ -41,18 +41,18 @@ public class ViewManager {
 		gameStage.setTitle("CALL US SALAD");
 		gameStage.show();
 	}
-	
+
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
-	
+
 	public Scene getScene() {
 		return gameScene;
 	}
-	
+
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
@@ -73,13 +73,13 @@ public class ViewManager {
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
 	}
-	
+
 	public void showGameSelectionMenu() {
 		GameChooserScreen gc = new GameChooserScreen(gameStage);
 		gameStage.setScene(gc.display());
 		gameStage.show();
 	}
-	
+
 	public Pane getNode() {
 		return view;
 	}

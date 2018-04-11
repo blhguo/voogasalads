@@ -99,12 +99,7 @@ public class MovementTest extends Application{
 
 		myRoot = new Group();
 		Scene scene = new Scene(myRoot, width, height, background);
-		scene.setOnKeyPressed(e -> {
-			
-		myEngine.receiveInput(e);
-		myEntityImage.setRotate(90);
-		}
-		);
+		scene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 
 		initialSprite();
@@ -134,8 +129,8 @@ public class MovementTest extends Application{
 		myEntityImage = new ImageView();
 		ImageView other = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity))));
 		other.setTranslateZ(30);
-		other.Z
-		other.setY(550);
+//		other.Z
+//		other.setY(550);
 		myEntityImage.setTranslateZ(20);
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity)));
 		myEntityImage.setImage(image);
@@ -184,8 +179,6 @@ public class MovementTest extends Application{
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
 		jumpArgs.add("2"); //number of jumps
-		jumpArgs.add(JUMP_VELOCITY); //
-		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
 
