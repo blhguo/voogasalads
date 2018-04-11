@@ -2,7 +2,8 @@ package authoring.component_menus;
 
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
-import game_engine.components.CollidableComponent;
+//import game_engine.components.CollidableComponent;
+import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TitledPane;
