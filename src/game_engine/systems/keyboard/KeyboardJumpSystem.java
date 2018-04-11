@@ -29,7 +29,7 @@ public class KeyboardJumpSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(VERTICAL_PHYSICS, KEYBOARD_JUMP_INPUT, JUMP);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			YPhysicsComponent yPhysics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);		
+			YPhysicsComponent yPhysics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);
 			KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 			JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
 			for(InputEvent input : getEngine().getInput()){
