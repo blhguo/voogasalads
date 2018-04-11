@@ -1,10 +1,6 @@
 package game_engine.components.keyboard;
 
-
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import game_engine.Component;
 import game_engine.Vector;
