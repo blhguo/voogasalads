@@ -20,6 +20,12 @@ public class SpriteComponent implements Component{
         myAngle = Double.parseDouble(args.get(4));
     }
 
+    @Override
+    public String getValues() {
+        return "Path,s," + getFileName() + ";Visible,b," + isVisible +
+                ";Width,d," + getWidth() + ";Height,d," + getHeight() +
+                ";Angle,d," + getAngle();
+    }
     public String getFileName() {
         return myFileName;
     }
@@ -57,10 +63,16 @@ public class SpriteComponent implements Component{
     }
 
     public double getAngle() {
-        return myAngle;
+        return 0;
+        //return myAngle;
     }
 
     public void setAngle(double angle) {
-        myAngle = angle;
+        //myAngle = angle;
     }
+    public String getName(){
+        return "Sprite";
+    }
+
+
 }
