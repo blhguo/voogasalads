@@ -8,4 +8,15 @@ public class XPhysicsComponent extends PhysicsComponent {
 		super(args);
 	}
 
+	@Override
+	public String getValues() {
+		String vals = "DefaultXVelocity,d," + this.getDefaultVel() + ";Acceleration,d," + this.getAccel();
+		return vals;
+	}
+
+	@Override
+	public String getName() {
+		return "XPhysics";
+	}
+
 }

@@ -6,7 +6,17 @@ public class YPhysicsComponent extends PhysicsComponent {
 
 	public YPhysicsComponent(List<String> args) {
 		super(args);
-		System.out.println("iniitasfsd");
+	}
+
+	@Override
+	public String getValues() {
+		String vals = "DefaultYVelocity,d," + this.getDefaultVel() + ";Acceleration,d," + this.getAccel();
+		return vals;
+	}
+
+	@Override
+	public String getName() {
+		return "YPhysics";
 	}
 
 }
