@@ -174,8 +174,8 @@ public class PlayerView {
 
 		//YPhysics Component
 		List<String> yPhysicsArgs = new ArrayList<>();
-		yPhysicsArgs.add("-500"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-		yPhysicsArgs.add("1000"); //acceleration
+		yPhysicsArgs.add("500"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		yPhysicsArgs.add("-1000"); //acceleration
 		YPhysicsComponent yPhysicsComponent = new YPhysicsComponent(yPhysicsArgs);
 		myEntity.addComponent(yPhysicsComponent);
 
