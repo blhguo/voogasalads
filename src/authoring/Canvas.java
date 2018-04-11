@@ -30,8 +30,8 @@ public class Canvas implements GUINode {
 	private EntityController controller;
 	
 	
-	public Canvas(int size){
-		//this.size = size;
+	public Canvas(){
+		
 	}
 	
 	public Pane getView(){
