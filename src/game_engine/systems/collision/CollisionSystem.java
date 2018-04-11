@@ -11,6 +11,8 @@ import game_engine.GameSystem;
 import game_engine.components.PositionComponent;
 import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.hitbox.HitboxComponent;
+import game_engine.components.physics.XPhysicsComponent;
+import game_engine.components.physics.YPhysicsComponent;
 
 /**
  * @author Jeremy Chen
@@ -73,6 +75,17 @@ public abstract class CollisionSystem extends GameSystem {
 		double height = h.getHeight();
 		double centerX = p.getX() + h.getXOffset();
 		double centerY = p.getY() + h.getYOffset();
+		
+		XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
+		YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
+		
+		if(xp!=null) {
+			centerX += xp.getCurrVel();
+		}
+		if(yp!=null) {
+			System.out.println(yp.getCurrVel());
+			centerY += yp.getCurrVel();
+		}
 
 		if(p.getAngle()%90 == 0){
 			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};

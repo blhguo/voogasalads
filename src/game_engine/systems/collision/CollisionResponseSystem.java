@@ -41,15 +41,20 @@ public class CollisionResponseSystem extends GameSystem{
     @Override
     public void act(double elapsedTime) {
         List<Entity> collidedEntities = getEngine().getEntitiesContainingAny(TARGET_COMPONENTS);
+        System.out.println(collidedEntities.size());
         for (Entity e: collidedEntities){
             XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
             YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
-            if(xp!=null && (e.getComponent(LEFT) != null && xp.getCurrVel()<0) ||
-                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0)){
+            System.out.println(yp);
+            
+            if(xp!=null && (e.getComponent(LEFT) != null && xp.getCurrVel()>0) ||
+                    (e.getComponent(RIGHT) != null && xp.getCurrVel() < 0)){
+            	System.out.println("smth happened");
                 xp.setCurrVel(0.0);
             }
-            if(yp!=null && (e.getComponent(BOTTOM) != null && yp.getCurrVel()<0) ||
-                    (e.getComponent(TOP) != null && yp.getCurrVel() > 0)){
+            if(yp!=null && (e.getComponent(BOTTOM) != null && yp.getCurrVel()>0) ||
+                    (e.getComponent(TOP) != null && yp.getCurrVel() < 0)){
+            	System.out.println("smth happened y");
                 yp.setCurrVel(0.0);
             }
         }
