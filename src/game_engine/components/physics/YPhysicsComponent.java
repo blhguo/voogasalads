@@ -8,4 +8,13 @@ public class YPhysicsComponent extends PhysicsComponent {
 		super(args);
 	}
 
+	@Override
+	public String getValues() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
 }
