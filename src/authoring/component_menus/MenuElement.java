@@ -8,4 +8,6 @@ public interface MenuElement {
 	Node getView();
 
 	String getValue();
+
+	String getTitle();
 }
