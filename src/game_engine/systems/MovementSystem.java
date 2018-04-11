@@ -8,6 +8,10 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.PositionComponent;
+import game_engine.components.collision.edge_collided.BottomCollidedComponent;
+import game_engine.components.collision.edge_collided.LeftCollidedComponent;
+import game_engine.components.collision.edge_collided.RightCollidedComponent;
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
 
@@ -31,9 +35,18 @@ public class MovementSystem extends GameSystem {
 			
 			position.setX(position.getX() + xPhysics.getCurrVel() * elapsedTime);
 			position.setY(position.getY() + yPhysics.getCurrVel() * elapsedTime);
-		
-			yPhysics.setCurrVel(yPhysics.getCurrVel() + -1 * yPhysics.getAccel() * elapsedTime);
-			xPhysics.setCurrVel(xPhysics.getCurrVel() + xPhysics.getAccel() * elapsedTime);
+			
+			Component tcc = e.getComponent(TopCollidedComponent.class);
+			Component bcc = e.getComponent(BottomCollidedComponent.class);
+			Component rcc = e.getComponent(RightCollidedComponent.class);
+			Component lcc = e.getComponent(LeftCollidedComponent.class);
+			
+			if(!(tcc!=null && yPhysics.getAccel() > 0 || bcc!=null && yPhysics.getAccel() < 0))
+				yPhysics.setCurrVel(yPhysics.getCurrVel() + -1 * yPhysics.getAccel() * elapsedTime);
+			if(!(rcc!=null && yPhysics.getAccel() > 0 || lcc!=null && yPhysics.getAccel() < 0))
+				xPhysics.setCurrVel(xPhysics.getCurrVel() + -1 * xPhysics.getAccel() * elapsedTime);
+//			else
+//				System.out.println("cock");
 		}
 	}
 }

@@ -38,8 +38,8 @@ public class MovementTest extends Application{
 	private Group myRoot;
 	private Scene myScene;
 	
-	private static final String GRAVITY = "1000"; //effects of gravity
-	private static final String JUMP_VELOCITY = "-500"; //effects of how high you jump
+	private static final String GRAVITY = "-1000"; //effects of gravity
+	private static final String JUMP_VELOCITY = "500"; //effects of how high you jump
 
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -114,7 +114,7 @@ public class MovementTest extends Application{
 		Map<Entity, String> spriteMap = new HashMap<>(); //Simulate authoring env. map of Entity to Sprite filename
 
 		List<String> spriteArgs = new ArrayList<>();
-		spriteArgs.add("turtle.GIF");
+		spriteArgs.add("Mario.GIF");
 		spriteArgs.add("true"); //is visible
 		spriteArgs.add("40");
 		spriteArgs.add("40");
@@ -127,21 +127,11 @@ public class MovementTest extends Application{
 
 		//Use Imageview to display sprite
 		myEntityImage = new ImageView();
-		ImageView other = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity))));
-		other.setTranslateZ(30);
-//		other.Z
-//		other.setY(550);
-		myEntityImage.setTranslateZ(20);
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(spriteMap.get(myEntity)));
 		myEntityImage.setImage(image);
 		myEntityImage.setFitWidth(spriteComponent.getWidth());
 		myEntityImage.setFitHeight(spriteComponent.getHeight());
 		myRoot.getChildren().add(myEntityImage);	
-		myRoot.getChildren().add(other);
-	}
-	
-	private void setRotate(){
-		myEntityImage.setRotate(90);
 	}
 
 	private void initialMovement() {
@@ -155,7 +145,7 @@ public class MovementTest extends Application{
 
 		//Physics Component
 		List<String> yPhysicsArgs = new ArrayList<>();
-		yPhysicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		yPhysicsArgs.add(JUMP_VELOCITY);
 		yPhysicsArgs.add(GRAVITY); //acceleration
 		YPhysicsComponent xPhysicsComponent = new YPhysicsComponent(yPhysicsArgs);
 		myEntity.addComponent(xPhysicsComponent);
@@ -179,6 +169,7 @@ public class MovementTest extends Application{
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
 		jumpArgs.add("2"); //number of jumps
+		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
 
