@@ -35,8 +35,8 @@ public class EntityController {
 		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
-		iv.setX(pos.getX() + 325);
-		iv.setY(325 - pos.getY());
+		iv.setX(pos.getX());
+		iv.setY(pos.getY());
 		System.out.println("New Enitity imageview xPos:" + pos.getX());
 		System.out.println("New Enitity imageview yPos:" + pos.getY());
 
