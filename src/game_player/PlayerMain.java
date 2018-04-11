@@ -29,7 +29,7 @@ public class PlayerMain extends Application{
 		this.menu = new Menu(dataManager, pullDownFactory);
 //		this.viewManager = new ViewManager(menu,stage,pullDownFactory);
 		this.initializer = new Initializer(this.viewManager);
-		this.playerView = new PlayerView(pullDownFactory, engine);
+		this.playerView = new PlayerView(pullDownFactory, engine,viewManager);
 	}
 	
 	public Scene getScene() {

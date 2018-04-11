@@ -62,6 +62,10 @@ public class PulldownFactory {
 		return saveLoadBox;
 	}
 	
+	protected ComboBox<String> getSaveLoadBox(){
+		return saveLoadBox;
+	}
+	
 	private void checkSomething() {
 		if(saveLoadBox.getValue().equals("Save")) {
 			handleSave();
@@ -75,9 +79,10 @@ public class PulldownFactory {
 		 turd.saveData(dataManager.getGameLevels());
 	 }
 	 
-	 private void handleLoad() {
+	 protected void handleLoad() {
 		 ManipData turd = new ManipData();
 		 File file = getFile();
+		 viewManager.changeBackground();
 		 levels = turd.loadData(file);
 		 dataManager.setGameLevels(levels);
 		 Initializer initializer = new Initializer(viewManager);
