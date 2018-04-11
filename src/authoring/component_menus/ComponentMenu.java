@@ -48,6 +48,7 @@ public class ComponentMenu extends VBox{
 	}
 
 	public TitledPane getTitledPane() {
+		//this.getChildren().stream().forEach(item -> System.out.println(item));
 		return new TitledPane(myType, this);
 	}
 }
