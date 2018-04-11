@@ -2,6 +2,10 @@
     -fx-cursor: hand;
 }
 
+.button-close {
+	-fx-background-color: rgba(0, 0, 0, 0)
+}
+
 .button-label {
 	-fx-font-family: segoeui;
 	-fx-font-size: 14px;
@@ -37,7 +41,7 @@
 }
 
 .pane-back {
-	-fx-background-color: rgba(0, 0, 0, 0.5);
+	-fx-background-color: rgba(0, 0, 0, 0.3);
 }
 
 .pane-title {
@@ -63,11 +67,19 @@
 .titled-pane > .title {
 	-fx-font-size: 14px;
 	-fx-font-family: segoeuil;
-	-fx-text-fill: white;
+	/*-fx-text-fill: white;*/
 	-fx-background-color: rgba(0,0,0,0);
 }
 
+.titled-pane > .title > .text{
+	-fx-fill: white;
+}
+
 .titled-pane > *.content {
-	-fx-background-color: rgba(0, 0, 0, 0.5);
+	-fx-background-color: rgba(0, 0, 0, 0);
 	-fx-stroke: rgba(0,0,0,0.5);
+}
+
+.titled-pane > .title > .arrow-button{
+	-fx-fill: white;
 }
