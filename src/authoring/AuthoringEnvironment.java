@@ -69,7 +69,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		//Build BorderPane by setting right, center, and left
 		bp = new BorderPane();
 		update(""); //calls default setting for right pane
-		bp.setLeft(np);
+		bp.setLeft(np.getView());
 		Pane canvasView = canvas.getView();
 		bp.setCenter(canvasView);
 		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
@@ -78,12 +78,13 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		Pane t = new Toolbar(stage).getView();
 		t.setPickOnBounds(false);
 		bp.setPickOnBounds(false);
-		StackPane sp = new StackPane(t, bp);
+//		StackPane sp = new StackPane(t, bp);
+		StackPane sp = new StackPane(bp, t);
 		sp.setPickOnBounds(false);
 
 		//Build scene from StackPane
 		Scene scene = initScene(sp);
-		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/vooga.css").toString());
 		return scene;
 		
 	}

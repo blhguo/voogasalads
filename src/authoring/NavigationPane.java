@@ -18,18 +18,20 @@ import observables.Subject;
 import resources.keys.AuthRes;
 
 //Left Pane
-public class NavigationPane extends Pane implements Subject, GUINode {
+public class NavigationPane implements Subject, GUINode {
 
 	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
 	private LevelController lcontroller;
+	private Pane pane;
 	
 	public NavigationPane() {
-		this.getStyleClass().add("pane-back");
+		pane = new Pane();
+		pane.getStyleClass().add("pane-back");
 
-		this.setPadding(new Insets(AuthRes.getInt("Padding")));
+		pane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
 	}
 
@@ -81,12 +83,12 @@ public class NavigationPane extends Pane implements Subject, GUINode {
 			
 		}
 		prefButtons.setLayoutY(AuthRes.getInt("EnvironmentY")*4/5);
-		this.getChildren().addAll(navOptions, prefButtons);
+		pane.getChildren().addAll(navOptions, prefButtons);
 	}
 
 	@Override
 	public Pane getView() {
-		return this;
+		return pane;
 	}
 	
 	public void setController(LevelController lc){

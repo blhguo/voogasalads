@@ -1,5 +1,8 @@
-package authoring;
+package main;
 
+import authoring.AuthoringEnvironment;
+import authoring.GUIGridPaneSuper;
+import authoring.GameChooserScreen;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
 import javafx.scene.control.Button;

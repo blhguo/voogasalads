@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.SplashScreen;
 import resources.keys.AuthRes;
 
 public class Toolbar implements GUINode {
