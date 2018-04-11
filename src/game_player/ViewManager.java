@@ -1,15 +1,18 @@
 package game_player;
 
+import java.awt.event.MouseAdapter;
 import java.io.File;
 
 import authoring.GameChooserScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -71,7 +74,7 @@ public class ViewManager {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
 		
-		gameBackground = new Image("mountain.png");
+		gameBackground = new Image("gray.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
 
@@ -82,6 +85,12 @@ public class ViewManager {
 		order.getStyleClass().add("pane-back");
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
+		
+		
+
+		
+		
+		
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(770, 530);
@@ -93,6 +102,12 @@ public class ViewManager {
 		return center;
 	}
 	
+	public void changeBackground() {
+		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.NO_REPEAT, 
+		BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		view.setBackground(new Background(back));
+	}
+
 
 	
 	public void changeBrightness() {
