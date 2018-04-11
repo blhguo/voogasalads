@@ -1,6 +1,7 @@
 package game_player;
 
 import javafx.stage.Stage;
+import game_engine.Engine;
 import javafx.application.Application;
 import javafx.scene.Scene;
 /**
@@ -14,6 +15,7 @@ public class PlayerMain extends Application{
 	DataManager dataManager;
 	Initializer initializer;
 	PulldownFactory pullDownFactory;
+	PlayerView playerView;
 	
 	
 	
@@ -21,11 +23,13 @@ public class PlayerMain extends Application{
 	 * Method called to initialize the Game Player
 	 */
 	public void start(Stage stage) {
+		Engine engine = new Engine();
 		this.dataManager = new DataManager();
 		this.pullDownFactory = new PulldownFactory(dataManager);
 		this.menu = new Menu(dataManager, pullDownFactory);
 		this.viewManager = new ViewManager(menu,stage,pullDownFactory);
 		this.initializer = new Initializer(this.viewManager);
+		this.playerView = new PlayerView(pullDownFactory, engine);
 	}
 	
 	public Scene getScene() {
