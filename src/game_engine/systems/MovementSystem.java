@@ -36,10 +36,7 @@ public class MovementSystem extends GameSystem {
 			position.setX(position.getX() + xPhysics.getCurrVel() * elapsedTime);
 			position.setY(position.getY() + yPhysics.getCurrVel() * elapsedTime);
 			
-			Component tcc = e.getComponent(TopCollidedComponent.class);
-			Component bcc = e.getComponent(BottomCollidedComponent.class);
-			Component rcc = e.getComponent(RightCollidedComponent.class);
-			Component lcc = e.getComponent(LeftCollidedComponent.class);
+
 			
 			/**
 			 *  TODO bad hotfix need to update
