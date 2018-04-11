@@ -1,20 +1,20 @@
 package game_engine;
 
-public abstract class Vector {
+public class Vector {
 	
-	private double myA;
-	private double myB;
+	private double myX;
+	private double myY;
 	
-	public Vector(double a, double b) {
-		myA = a;
-		myB = b;
+	public Vector(double x, double y) {
+		myX = x;
+		myY = y;
 	}
 	
-	protected double getA() {
-		return myA;
+	public double getX() {
+		return myX;
 	}
 	
-	protected double getB() {
-		return myB;
+	public double getY() {
+		return myY;
 	}
 }
