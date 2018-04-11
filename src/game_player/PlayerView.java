@@ -22,7 +22,6 @@ import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -192,7 +191,5 @@ public class PlayerView {
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
 		myEntity.addComponent(keyboardJumpInputComponent);
 	}
-
-
 
 }

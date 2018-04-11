@@ -31,14 +31,4 @@ public class KeyboardJumpInputComponent implements Component{
 		//This is a test for mergine
 		return UP;
 	}
-
-	@Override
-	public String getValues() {
-		return null;
-	}
-
-	@Override
-	public String getName() {
-		return "Keyboard Jump Input";
-	}
 }
