@@ -40,17 +40,10 @@ public class EntityController {
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
-<<<<<<< HEAD
+	private Button button;
 
 	
 	public EntityController(EntityPane pane, Canvas c){
-=======
-	private BasePane base;
-	private NavigationPane nav;
-	private Button button;
-
-	public EntityController(EntityPane pane, Canvas c, BasePane bp, NavigationPane np){
->>>>>>> c5d141faf7ff72847d825dafb1929481e6e2ef6c
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
