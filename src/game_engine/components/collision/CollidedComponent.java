@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Jeremy
  * This class represents a Component that serves as a flag for Systems to recognize that the Entity possessing this component has collided with another entity
- * It is an abstract superclass for Top, Botom, Right, and LeftCollidedComponent
+ * It is an abstract superclass for Top, Bottom, Right, and LeftCollidedComponent
  */
 public abstract class CollidedComponent implements Component{
     private List<Entity> others;
