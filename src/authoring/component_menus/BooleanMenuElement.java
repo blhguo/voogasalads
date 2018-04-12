@@ -4,6 +4,10 @@ import authoring.utilities.ButtonFactory;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 
+/**
+ * @author liampulsifer
+ * Boolean checkbox input element
+ */
 public class BooleanMenuElement implements MenuElement{
 	private CheckBox box;
 	private Node view;

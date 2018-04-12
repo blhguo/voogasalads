@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 /**
+ * @author liampulsifer
  * A menu element for String input (i.e. file names, etc.)
  */
 public class StringMenuElement implements MenuElement{

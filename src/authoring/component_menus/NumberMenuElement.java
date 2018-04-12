@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 /**
+ * @author liampulsifer
  * A menu element for numeric input
  */
 public class NumberMenuElement implements MenuElement{

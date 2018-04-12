@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * @author liampulsifer
  * manages interaction between EntityPane and Canvas
  * maintains a map of ImageView to Entity and defines on-click behavior of ImageViews
  */

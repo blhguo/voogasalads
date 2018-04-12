@@ -13,6 +13,8 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 
 /**
+ * @author jennychin
+ * @author elizabethschulman
  * Handles pane interactions (i.e. one pane needing to update another)
  */
 public class PaneController {

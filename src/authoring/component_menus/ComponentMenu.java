@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
+ * @author liampulsifer
  * This interface defines the various kinds of Component Menus which will be elements
  * of the EntityComponent menu in the Authoring Environment
  * Examples of classes which implement this interface might include

@@ -7,6 +7,7 @@ import game_engine.Entity;
 import game_engine.Level;
 
 /**
+ * @author jennychin
  * Maintains control of all active entities and the levels in which they reside, passes data to Data
  */
 public class LevelController {
