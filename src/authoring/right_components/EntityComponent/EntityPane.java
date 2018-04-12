@@ -20,6 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,9 @@ public class EntityPane extends BasePane {
 	private Group root;
 	private StackPane pane;
 	private VBox box;
+	private HBox reset;
+	private Button createButton;
+
 	public EntityPane(){
 
 		menuList = makeMenuList();
@@ -62,6 +66,7 @@ public class EntityPane extends BasePane {
 	public List<Node> getButtonArray() {
 		List<Node> list = new ArrayList<>();
 		list.add(accordion);
+		createButton = controller.getButton();
 		list.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
 		return list;
 	}
@@ -71,9 +76,12 @@ public class EntityPane extends BasePane {
 		menuList = makeMenuList();
 		Collections.sort(menuList);
 		accordion = makeMenuView();
+
+		box.getChildren().remove(reset);
 		box.getChildren().remove(box.getChildren().size() - 1);
 		box.getChildren().add(accordion);
-		box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, createButton));
+		//box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
 		//box.getChildren().stream().forEach(e -> System.out.println(e));
 		controller.resetImageViews();
 	}
@@ -99,11 +107,11 @@ public class EntityPane extends BasePane {
 		Entity entity = new Entity();
 //		menuList.stream().forEach(menu -> System.out.println(menu + " : " + menu.getType() + " : "
 //		+ menu.getComponentList().size()));
-		System.out.println("New Entity");
+		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
 			if (menu.isIncluded()) {
 				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
-				System.out.println("Added one component");
+				//System.out.println("Added one component");
 			}
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
@@ -130,11 +138,16 @@ public class EntityPane extends BasePane {
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
 
-		box.getChildren().remove(box.getChildren().size() - 1);
+		//box.getChildren().remove(box.getChildren().size() - 1);
 
-		Button reset = ButtonFactory.makeButton(e -> resetAccordion());
-		box.getChildren().add((ButtonFactory.makeHBox("Back to new Entity Creation",
-				"Displaying current entity", reset)));
+		Button button = ButtonFactory.makeButton(e -> resetAccordion());
+		box.getChildren().remove(reset);
+		reset = ButtonFactory.makeHBox("Back to new Entity Creation",
+				"Displaying current entity", button);
+		box.getChildren().add(reset);
+		System.out.println(box.getChildren().size());
+
+		;
 		//box.getChildren().remove(accordion);
 		//System.out.println("Hit");
 	}
