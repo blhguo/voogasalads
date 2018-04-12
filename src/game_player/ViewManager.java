@@ -28,6 +28,8 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 /**
+ * This class initializes the layout for the game player, and manages the
+ * structure of the overall program.
  * 
  * @author Brandon Dalla Rosa, Dana Park
  *
@@ -48,6 +50,13 @@ public class ViewManager {
 	private Group subRoot;
 	private ColorAdjust colorAdjust = new ColorAdjust();
 	
+	/**
+	 * Constructor for the view manager. It initializes all of the structures
+	 * seen in the game player and organizes them efficiently.
+	 * @param menu: The current menu of the program.
+	 * @param stage: The active stage hosting the game.
+	 * @param pdf: The active pull down factory.
+	 */ 
 	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
 		this.menu = menu;
 		this.pullDownFactory = pdf;
@@ -66,7 +75,10 @@ public class ViewManager {
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
-
+    
+    /**
+     * Returns the scene of the game for ease of access.
+     */ 
 	public Scene getScene() {
 		return gameScene;
 	}
@@ -105,16 +117,24 @@ public class ViewManager {
 		return center;
 	}
 	
+	/**
+	 * Returns the subscene in which the current active game can be found.
+	 */ 
 	public SubScene getSubScene() {
 		return subScene;
 	}
 	
+	/**
+	 * Returns the root of the subscene, for entities to be added to.
+	 */ 
 	public Group getSubRoot() {
 		return subRoot;
 	}
 	
 	
-	
+	/**
+	 * Changes the background image of the subscene to the desired image.
+	 */ 
 	public void changeBackground() {
 		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.REPEAT,
 		BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -122,7 +142,9 @@ public class ViewManager {
 	}
 
 
-	
+	/**
+	 * Changes the brightness of the current program.
+	 */ 
 	public void changeBrightness() {
 		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
@@ -133,7 +155,10 @@ public class ViewManager {
 			}
 		});
 	}
-
+    
+    /**
+     * Changes the volume of the current program.
+     */ 
 	public void changeVolume() {
 		this.menu.getVolumeSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
@@ -147,13 +172,19 @@ public class ViewManager {
 			}
 		});
 	}
-
+    
+    /**
+     * Display the stage for game selection.
+     */ 
 	public void showGameSelectionMenu() {
 		GameChooserScreen gc = new GameChooserScreen(gameStage);
 		gameStage.setScene(gc.display());
 		gameStage.show();
 	}
-
+    
+    /**
+     * Return the root node of the view manager.
+     */ 
 	public Pane getNode() {
 		return view;
 	}
