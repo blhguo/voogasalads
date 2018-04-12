@@ -17,6 +17,9 @@ import game_engine.components.physics.YPhysicsComponent;
 
 /**
  * @author: Jeremy Chen
+ * A GameSystem that provides generic behavior for entites that posses a CollidedComponent (have been collided)
+ * Describes very basic collision behavior (stopping & pushing)
+ * 
  */
 
 public class CollisionResponseSystem extends GameSystem{
@@ -34,10 +37,18 @@ public class CollisionResponseSystem extends GameSystem{
                 add(TOP);
             }});
 
+    /**
+     * @param engine
+     * Constructor
+     */
     public CollisionResponseSystem(Engine engine) {
         super(engine);
     }
 
+    /* (non-Javadoc)
+     * @see game_engine.GameSystem#act(double)
+     * Main loop: checks for matching velocity/collision direction, as to stop/push entities in appropraite cases
+     */
     @Override
     public void act(double elapsedTime) {
         List<Entity> collidedEntities = getEngine().getEntitiesContainingAny(TARGET_COMPONENTS);
@@ -45,10 +56,16 @@ public class CollisionResponseSystem extends GameSystem{
             XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
             YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
                         
+<<<<<<< HEAD
             if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() > 0) ||
                     (e.getComponent(RIGHT) != null && xp.getCurrVel() < 0))){
-            	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
                 xp.setCurrVel(0.0);
+=======
+            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() < 0) ||
+                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0))){
+            	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
+                //xp.setCurrVel(0.0);
+>>>>>>> liam
             }
             if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
                     (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){

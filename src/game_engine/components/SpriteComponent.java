@@ -4,6 +4,14 @@ import java.util.List;
 
 import game_engine.Component;
 
+/**
+ * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * 
+ * The Sprite Component stores the file name of the image that represents the sprite as well as the height,
+ * width, rotation angle, and visibility.
+ *
+ */
+
 public class SpriteComponent implements Component{
 
     private String myFileName;
@@ -19,6 +27,7 @@ public class SpriteComponent implements Component{
         myHeight = Double.parseDouble(args.get(3));
         myAngle = Double.parseDouble(args.get(4));
     }
+
     public String getFileName() {
         return myFileName;
     }
@@ -70,7 +79,7 @@ public class SpriteComponent implements Component{
                 ";Angle,d," + getAngle();
     }
 
-    @Override
+	@Override
 	public String getName() {
 		return "Sprite";
 	}

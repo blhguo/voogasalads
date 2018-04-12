@@ -6,7 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import java.util.List;
 
 /**
- * @author: Jeremy Chen
+ * @author: Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * This component stores the X-Position, Y-Position, and rotation angle of an entity
  */
 public class PositionComponent implements Component {
 	
@@ -45,13 +46,16 @@ public class PositionComponent implements Component {
 		myAngle = angle;
 	}
 
+	@Override
 	public String getValues() {
-		String ret;
-		ret = "XPos,d," + this.getX() + ";" + "YPos,d," + this.getY() + ";" + "Angle,d," + this.getAngle();
-		return ret;
+		String values = "xPos,d,"+ getX() + ";yPos,d," + getY() + ";Angle,d," + getAngle();
+		return values;
 	}
+
 	@Override
 	public String getName() {
 		return "Position";
 	}
+	
+	
 }

@@ -4,6 +4,13 @@ import java.util.List;
 
 import game_engine.Component;
 
+/**
+ * 
+ * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * 
+ * This component defines whether or not an entity can jump as well as the number of jumps allowed by the entity.
+ */
+
 public class JumpComponent implements Component{
 	private boolean myOnGround;
 	private int myJumpsAllowed;
@@ -36,7 +43,7 @@ public class JumpComponent implements Component{
 
 	@Override
 	public String getValues() {
-		String vals = "Jumps allowed,d," + getJumpsAllowed();
+		String vals = "Jumps allowed,d," + myJumpsAllowed;
         return vals;
 	}
 	@Override

@@ -25,6 +25,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import resources.keys.AuthRes;
 
+/**
+ * @author liampulsifer
+ * Creates and modifies entities in the canvas
+ */
 public class EntityPane extends BasePane {
 	private EntityController controller;
 	private List<ComponentMenu> menuList;
@@ -51,6 +55,10 @@ public class EntityPane extends BasePane {
 		accordion = makeMenuView();
 	}
 
+	/**
+	 * Gets the displayed portion of the entity pane
+	 * @return
+	 */
 	@Override
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
@@ -58,22 +66,31 @@ public class EntityPane extends BasePane {
 		newbox = new VBox();
 		newbox.getChildren().addAll(getButtonArray());
 		ScrollPane pane = new ScrollPane(newbox);
+		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		pane.setStyle("-fx-background: transparent;");
 		pane.setPrefHeight(250);
+		pane.setPrefWidth(150);
 		box.getChildren().add(pane);
 		box.getChildren().addAll(createButtonArray);
 		//box.getChildren().addAll(getButtonArray());
 
 	    return box;
 	}
-	
 
-	public Node getStack() {
+	/**
+	 *
+	 * @return the sprite in the top corner
+	 */
+	private Node getStack() {
 		pane = new StackPane();
 		pane.getChildren().add(controller.getSprite());
 		return pane;
 	}
 
+	/**
+	 *
+	 * @return the array of buttons and the accordion containing menu components
+	 */
 	public List<Node> getButtonArray() {
 		List<Node> list = new ArrayList<>();
 		list.add(accordion);
@@ -82,6 +99,10 @@ public class EntityPane extends BasePane {
 		list.addAll(createButtonArray);
 		return list;
 	}
+
+	/**
+	 * Reinstantiates the buttons in the editing view
+	 */
 	private void resetEditButtons(){
 		editButtonArray.clear();
 		editButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
@@ -91,6 +112,10 @@ public class EntityPane extends BasePane {
 		editButtonArray.add(ButtonFactory.makeHBox("Delete Entity", null, controller.getRemoveButton()));
 
 	}
+
+	/**
+	 * resets the accordion with the new menucomponents taken into account
+	 */
 	private void resetAccordion() {
 		newbox.getChildren().remove(accordion);
 		menuList = makeMenuList();
@@ -102,13 +127,20 @@ public class EntityPane extends BasePane {
 		controller.resetImageViews();
 	}
 
-
+	/**
+	 * Makes the menu list, which contains all of the active component menus
+	 */
 	private List<ComponentMenu> makeMenuList(){
 		List<ComponentMenu> list;
 		list = new ComponentMenuFactory().getMenus();
 		//list.stream().forEach(e -> e.getComponentList().stream().forEach(ev -> System.out.println(ev)));
 		return list;
 	}
+
+	/**
+	 *
+	 * @return the accordion with menu components
+	 */
 	private Accordion makeMenuView() {
 		Accordion acc = new Accordion();
 		//acc.getPanes().add(new ImageMenu().getTitledPane());
@@ -119,33 +151,51 @@ public class EntityPane extends BasePane {
 		//acc.getPanes().stream().forEach(e -> System.out.println(e));
 		return acc;
 	}
+	/**
+	 * Creates an entity using all of the info from the menu components
+	 * @return the entity to EntityController
+	 */
 	public Entity getEntity(){
 		Entity entity = new Entity();
 //		menuList.stream().forEach(menu -> System.out.println(menu + " : " + menu.getType() + " : "
 //		+ menu.getComponentList().size()));
 		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
-			if (menu.isIncluded()) {
+			if (menu.isIncluded())
 				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
-				//System.out.println("Added one component");
-			}
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
 		return entity;
 	}
 
+	/**
+	 * Sets the entity controller
+	 * @param controller
+	 */
 	public void setController(EntityController controller) {
 		this.controller = controller;
 	}
+
+	/**
+	 *
+	 * @return menuList
+	 */
 	public List<ComponentMenu> getMenuList(){
 		return menuList;
 	}
+
+	/**
+	 * Updates the list of menuComponents using the menuComponents of the passed Entity
+	 * @param entity
+	 */
 	public void updateMenus(Entity entity) {
 		accordion.getPanes().clear();
 		menuList.clear();
 		for (Component comp : entity.getComponents()){
-			menuList.add(new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName()));
+			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
+					comp.getValues().split(";"), comp.getName());
+			add.Include();
+			menuList.add(add);
 			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
 		}
 		Collections.sort(menuList);
