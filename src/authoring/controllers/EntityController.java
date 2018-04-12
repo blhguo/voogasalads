@@ -37,13 +37,11 @@ public class EntityController {
 		map = new HashMap<>();
 		entityList = new ArrayList<>();
 		menuMap = new HashMap<>();
-		view = ImageBuilder.getImageView("default.jpg", 200, 200);
 	}
 	public void add(Entity entity){
 		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
-		view = new ImageView(iv.getImage());
 		iv.setX(pos.getX());
 		iv.setY(pos.getY());
 		System.out.println("New Enitity imageview xPos:" + pos.getX());
@@ -66,7 +64,9 @@ public class EntityController {
 
 	}
 	public ImageView getSprite(){
-		return view;
+		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
+		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 200, 200);
+		return iv;
 	}
 	public Map<Entity, List<ComponentMenu>> getMenuMap(){
 		return menuMap;
