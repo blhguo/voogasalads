@@ -39,6 +39,7 @@ public class ComponentFactory {
 	}
 
 	private Component createComponent(String key, List<String> args) {
+
 //		System.out.println("Component: " + key);
 //		System.out.println("key: " + key);
 //		System.out.println("component: " + myComponents.getString(key));
@@ -49,6 +50,7 @@ public class ComponentFactory {
 			return (Component) ctor.newInstance(args);
 		} catch (Exception e) {
 			System.out.println(e.getCause());
+			e.printStackTrace();
 			throw new ComponentNotFoundException("Component not found.");
 		}
 	}

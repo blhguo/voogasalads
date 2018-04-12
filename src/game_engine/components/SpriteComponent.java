@@ -62,9 +62,7 @@ public class SpriteComponent implements Component{
     public void setAngle(double angle) {
         myAngle = angle;
     }
-    public String getName(){
-        return "Sprite";
-    }
+
     @Override
     public String getValues() {
         return "Path,s," + getFileName() + ";Visible,b," + isVisible +
@@ -72,4 +70,8 @@ public class SpriteComponent implements Component{
                 ";Angle,d," + getAngle();
     }
 
+    @Override
+	public String getName() {
+		return "Sprite";
+	}
 }

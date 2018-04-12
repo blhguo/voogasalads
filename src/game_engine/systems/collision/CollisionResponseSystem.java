@@ -44,11 +44,10 @@ public class CollisionResponseSystem extends GameSystem{
         for (Entity e: collidedEntities){
             XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
             YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
-            
-            System.out.println(xp.getCurrVel());
-            
-            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() < 0) ||
-                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0))){
+                        
+            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() > 0) ||
+                    (e.getComponent(RIGHT) != null && xp.getCurrVel() < 0))){
+            	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
                 xp.setCurrVel(0.0);
             }
             if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||

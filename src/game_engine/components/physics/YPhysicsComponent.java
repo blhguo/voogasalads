@@ -18,5 +18,4 @@ public class YPhysicsComponent extends PhysicsComponent {
 	public String getName() {
 		return "YPhysics";
 	}
-
 }

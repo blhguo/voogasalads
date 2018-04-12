@@ -3,12 +3,109 @@
     <game__engine.Entity>
       <myComponents>
         <entry>
+          <java-class>game_engine.components.PositionComponent</java-class>
+          <game__engine.components.PositionComponent>
+            <myXPos>3.0</myXPos>
+            <myYPos>409.0</myYPos>
+            <myAngle>0.0</myAngle>
+          </game__engine.components.PositionComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.keyboard.KeyboardJumpInputComponent</java-class>
+          <game__engine.components.keyboard.KeyboardJumpInputComponent>
+            <myUp>W</myUp>
+          </game__engine.components.keyboard.KeyboardJumpInputComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.JumpComponent</java-class>
+          <game__engine.components.JumpComponent>
+            <myOnGround>true</myOnGround>
+            <myJumpsAllowed>0</myJumpsAllowed>
+            <myDefaultJumpsAllowed>0</myDefaultJumpsAllowed>
+          </game__engine.components.JumpComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.keyboard.KeyboardMovementInputComponent</java-class>
+          <game__engine.components.keyboard.KeyboardMovementInputComponent>
+            <myLeft>A</myLeft>
+            <myRight>D</myRight>
+          </game__engine.components.keyboard.KeyboardMovementInputComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.SpriteComponent</java-class>
+          <game__engine.components.SpriteComponent>
+            <myFileName>brick.png</myFileName>
+            <isVisible>true</isVisible>
+            <myHeight>50.0</myHeight>
+            <myWidth>50.0</myWidth>
+            <myAngle>0.0</myAngle>
+          </game__engine.components.SpriteComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.physics.XPhysicsComponent</java-class>
+          <game__engine.components.physics.XPhysicsComponent>
+            <myCurrVel>0.0</myCurrVel>
+            <myDefaultVel>0.0</myDefaultVel>
+            <myAccel>0.0</myAccel>
+          </game__engine.components.physics.XPhysicsComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.collision.hitbox.HitboxComponent</java-class>
+          <game__engine.components.collision.hitbox.HitboxComponent>
+            <myWidth>50.0</myWidth>
+            <myHeight>50.0</myHeight>
+            <myXOffset>0.0</myXOffset>
+            <myYOffset>0.0</myYOffset>
+          </game__engine.components.collision.hitbox.HitboxComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.physics.YPhysicsComponent</java-class>
+          <game__engine.components.physics.YPhysicsComponent>
+            <myCurrVel>0.0</myCurrVel>
+            <myDefaultVel>0.0</myDefaultVel>
+            <myAccel>0.0</myAccel>
+          </game__engine.components.physics.YPhysicsComponent>
+        </entry>
+        <entry>
           <java-class>game_engine.components.collision.CollidableComponent</java-class>
           <game__engine.components.collision.CollidableComponent>
             <myIntersectable>true</myIntersectable>
-            <myPassable>true</myPassable>
+            <myPassable>false</myPassable>
             <myPushable>0</myPushable>
           </game__engine.components.collision.CollidableComponent>
+        </entry>
+      </myComponents>
+    </game__engine.Entity>
+    <game__engine.Entity>
+      <myComponents>
+        <entry>
+          <java-class>game_engine.components.PositionComponent</java-class>
+          <game__engine.components.PositionComponent>
+            <myXPos>148.0</myXPos>
+            <myYPos>113.0</myYPos>
+            <myAngle>0.0</myAngle>
+          </game__engine.components.PositionComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.keyboard.KeyboardJumpInputComponent</java-class>
+          <game__engine.components.keyboard.KeyboardJumpInputComponent>
+            <myUp>W</myUp>
+          </game__engine.components.keyboard.KeyboardJumpInputComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.JumpComponent</java-class>
+          <game__engine.components.JumpComponent>
+            <myOnGround>true</myOnGround>
+            <myJumpsAllowed>-1</myJumpsAllowed>
+            <myDefaultJumpsAllowed>-1</myDefaultJumpsAllowed>
+          </game__engine.components.JumpComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.keyboard.KeyboardMovementInputComponent</java-class>
+          <game__engine.components.keyboard.KeyboardMovementInputComponent>
+            <myLeft>A</myLeft>
+            <myRight>D</myRight>
+          </game__engine.components.keyboard.KeyboardMovementInputComponent>
         </entry>
         <entry>
           <java-class>game_engine.components.SpriteComponent</java-class>
@@ -21,6 +118,7 @@
           </game__engine.components.SpriteComponent>
         </entry>
         <entry>
+<<<<<<< HEAD
           <java-class>game_engine.components.PositionComponent</java-class>
           <game__engine.components.PositionComponent>
             <myXPos>99.60000000000002</myXPos>
@@ -177,6 +275,39 @@
             <myYPos>120.39999999999998</myYPos>
             <myAngle>0.0</myAngle>
           </game__engine.components.PositionComponent>
+=======
+          <java-class>game_engine.components.physics.XPhysicsComponent</java-class>
+          <game__engine.components.physics.XPhysicsComponent>
+            <myCurrVel>0.0</myCurrVel>
+            <myDefaultVel>30.0</myDefaultVel>
+            <myAccel>0.0</myAccel>
+          </game__engine.components.physics.XPhysicsComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.collision.hitbox.HitboxComponent</java-class>
+          <game__engine.components.collision.hitbox.HitboxComponent>
+            <myWidth>50.0</myWidth>
+            <myHeight>50.0</myHeight>
+            <myXOffset>0.0</myXOffset>
+            <myYOffset>0.0</myYOffset>
+          </game__engine.components.collision.hitbox.HitboxComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.physics.YPhysicsComponent</java-class>
+          <game__engine.components.physics.YPhysicsComponent>
+            <myCurrVel>0.0</myCurrVel>
+            <myDefaultVel>300.0</myDefaultVel>
+            <myAccel>-500.0</myAccel>
+          </game__engine.components.physics.YPhysicsComponent>
+        </entry>
+        <entry>
+          <java-class>game_engine.components.collision.CollidableComponent</java-class>
+          <game__engine.components.collision.CollidableComponent>
+            <myIntersectable>true</myIntersectable>
+            <myPassable>false</myPassable>
+            <myPushable>0</myPushable>
+          </game__engine.components.collision.CollidableComponent>
+>>>>>>> b083ad109cd0beed1012948974d9e668503f4bea
         </entry>
       </myComponents>
     </game__engine.Entity>
