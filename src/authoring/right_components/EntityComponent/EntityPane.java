@@ -20,6 +20,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -36,9 +37,12 @@ public class EntityPane extends BasePane {
 	private VBox box;
 	private HBox reset;
 	private Button createButton;
+	private List<HBox> createButtonArray;
+	private List<HBox> editButtonArray;
 
 	public EntityPane(){
-
+		createButtonArray = new ArrayList<>();
+		editButtonArray = new ArrayList<>();
 		menuList = makeMenuList();
 		Collections.sort(menuList);
 		ogmenuList = new ArrayList<>(menuList);
@@ -67,22 +71,27 @@ public class EntityPane extends BasePane {
 		List<Node> list = new ArrayList<>();
 		list.add(accordion);
 		createButton = controller.getButton();
-		list.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		createButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		list.addAll(createButtonArray);
 		return list;
 	}
+	private void resetEditButtons(){
+		editButtonArray.clear();
+		editButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		Button button = ButtonFactory.makeButton(e -> resetAccordion());
+		editButtonArray.add(ButtonFactory.makeHBox("Back to new Entity Creation",
+				"Displaying current entity", button));
+		editButtonArray.add(ButtonFactory.makeHBox("Delete Entity", null, controller.getRemoveButton()));
 
+	}
 	private void resetAccordion() {
 		box.getChildren().remove(accordion);
 		menuList = makeMenuList();
 		Collections.sort(menuList);
 		accordion = makeMenuView();
-
-		box.getChildren().remove(reset);
-		box.getChildren().remove(box.getChildren().size() - 1);
 		box.getChildren().add(accordion);
-		box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, createButton));
-		//box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
-		//box.getChildren().stream().forEach(e -> System.out.println(e));
+		box.getChildren().removeAll(editButtonArray);
+		box.getChildren().addAll(createButtonArray);
 		controller.resetImageViews();
 	}
 
@@ -137,17 +146,10 @@ public class EntityPane extends BasePane {
 
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
-
-		//box.getChildren().remove(box.getChildren().size() - 1);
-
-		Button button = ButtonFactory.makeButton(e -> resetAccordion());
-		box.getChildren().remove(reset);
-		reset = ButtonFactory.makeHBox("Back to new Entity Creation",
-				"Displaying current entity", button);
-		box.getChildren().add(reset);
-		System.out.println(box.getChildren().size());
-
-		;
+		box.getChildren().removeAll(editButtonArray);
+		resetEditButtons();
+		box.getChildren().removeAll(createButtonArray);
+		box.getChildren().addAll(editButtonArray);
 		//box.getChildren().remove(accordion);
 		//System.out.println("Hit");
 	}
