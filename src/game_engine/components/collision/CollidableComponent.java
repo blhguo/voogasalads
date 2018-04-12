@@ -51,7 +51,6 @@ public class CollidableComponent implements Component{
 	@Override
 	public String getValues() {
 		String vals = "Collideable,b," + getIntersectable() + ";Passable,b," + getPassable() + ";Pushable,d," + getPushable();
-//		Collidable=Collidable,b,true;Passable,b,true;Pushable,d,0
 		return vals;
 	}
 
