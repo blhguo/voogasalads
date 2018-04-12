@@ -31,6 +31,7 @@ public class LevelController {
 		for (Entity e : currentLevels.get(0).getEntities()){
 			System.out.println(e);
 		}
+		System.out.println("currentLevels: " + currentLevels);
 		data.saveData(currentLevels);
 		//or .saveData(currentLevels, currentAttributes)
 	}

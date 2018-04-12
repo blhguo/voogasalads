@@ -5,6 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import game_engine.systems.InputGarbageCollectionSystem;
+import game_engine.systems.MovementSystem;
+import game_engine.systems.collision.CollisionBroadSystem;
+import game_engine.systems.collision.CollisionResponseSystem;
+import game_engine.systems.keyboard.KeyboardJumpSystem;
+import game_engine.systems.keyboard.KeyboardMovementSystem;
 import javafx.scene.input.InputEvent;
 
 public class Engine {
@@ -12,6 +18,16 @@ public class Engine {
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<GameSystem> mySystems = new ArrayList<>();
 	private LinkedList<InputEvent> myInputs = new LinkedList<>();
+	
+	public Engine() {
+		mySystems.add(new MovementSystem(this));
+		mySystems.add(new KeyboardMovementSystem(this));
+		mySystems.add(new KeyboardJumpSystem(this));
+		mySystems.add(new InputGarbageCollectionSystem(this));
+		mySystems.add(new CollisionBroadSystem(this));
+		mySystems.add(new CollisionResponseSystem(this));
+	}
+
 	
 	public void update(double elapsedTime) {
 		for (GameSystem system : mySystems) {

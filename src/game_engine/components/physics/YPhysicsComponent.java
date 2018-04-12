@@ -10,11 +10,12 @@ public class YPhysicsComponent extends PhysicsComponent {
 
 	@Override
 	public String getValues() {
-		return null;
+		String vals = "DefaultYVelocity,d," + this.getDefaultVel() + ";Acceleration,d," + this.getAccel();
+		return vals;
 	}
 
 	@Override
 	public String getName() {
-		return null;
+		return "YPhysics";
 	}
 }

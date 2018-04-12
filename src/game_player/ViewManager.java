@@ -1,15 +1,23 @@
 package game_player;
 
+import java.awt.event.MouseAdapter;
 import java.io.File;
 
 import authoring.GameChooserScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Camera;
+import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.SubScene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -42,6 +50,8 @@ public class ViewManager {
 	private ImageView gameImageView;
 	private Image gameBackground;
 	private BackgroundImage game;
+	private SubScene subScene;
+	private Group subRoot;
 	private ColorAdjust colorAdjust = new ColorAdjust();
 	
 	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
@@ -55,18 +65,18 @@ public class ViewManager {
 		changeBrightness();
 		changeVolume();
 	}
-	
+
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
 	}
-	
+
 	public Scene getScene() {
 		return gameScene;
 	}
-	
+
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
@@ -78,21 +88,45 @@ public class ViewManager {
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		center.setBackground(new Background(back));
+
 		VBox order = new VBox(20);
 		order.getStyleClass().add("pane-back");
+
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
+		
 		menu.addMenu(order);
 		view = new Pane();
-		view.setPrefSize(770, 530);
+		view.setPrefSize(1000, 730);
+		subRoot = new Group();
+		subScene = new SubScene(subRoot, 770, 530, false, null);
+
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
-		order.getChildren().add(view);
+
+		order.getChildren().add(subScene);
+		subRoot.getChildren().add(view);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
 	}
 	
+	public SubScene getSubScene() {
+		return subScene;
+	}
+	
+	public Group getSubRoot() {
+		return subRoot;
+	}
+	
+	
+	
+	public void changeBackground() {
+		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.NO_REPEAT, 
+		BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		view.setBackground(new Background(back));
+	}
+
 
 	
 	public void changeBrightness() {
@@ -125,7 +159,7 @@ public class ViewManager {
 		gameStage.setScene(gc.display());
 		gameStage.show();
 	}
-	
+
 	public Pane getNode() {
 		return view;
 	}
