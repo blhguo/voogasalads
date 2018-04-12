@@ -58,8 +58,10 @@ public class EntityPane extends BasePane {
 		newbox = new VBox();
 		newbox.getChildren().addAll(getButtonArray());
 		ScrollPane pane = new ScrollPane(newbox);
+		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		pane.setStyle("-fx-background: transparent;");
 		pane.setPrefHeight(250);
+		pane.setPrefWidth(150);
 		box.getChildren().add(pane);
 		box.getChildren().addAll(createButtonArray);
 		//box.getChildren().addAll(getButtonArray());

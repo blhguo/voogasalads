@@ -41,31 +41,61 @@ public class ComponentMenu extends VBox implements Comparable{
 		this.setOnMousePressed(e -> Include());
 	}
 
+	/**
+	 * Sets included to true -- makes the component menu be added to a created entity
+	 */
 	private void Include() {
 		included = true;
 		System.out.println("Menu included");
 	}
 
+	/**
+	 *
+	 * @return included
+	 */
 	public boolean isIncluded(){
 		return included;
 	}
+
+	/**
+	 *
+	 * @return the list of all menuElements
+	 */
 	public List<MenuElement> getElements(){
 		return elements;
 	}
+
+	/**
+	 * Adds a new MenuElement to the list
+	 * @param element the menuElement (i.e. entry field) to be added
+	 */
 	public void addMenuElement(MenuElement element){
 		elements.add(element);
 		this.getChildren().add(element.getView());
 	}
+
+	/**
+	 * Used to get the list of parameters to input to the constructor of each component
+	 * @return the list of values of each component
+	 */
 	public List<String> getComponentList(){
 		List<String> list = new ArrayList<String>();
 		elements.stream().forEach(e -> list.add(e.getValue()));
 		return list;
 	}
 
+	/**
+	 *
+	 * @return the type of the menu
+	 */
 	public String getType() {
 		return myType;
 	}
 
+	/**
+	 * Converts this object into a titledpane for use in EntityPane
+	 * @return the TitledPane
+	 */
 	public TitledPane getTitledPane() {
 		//this.getChildren().stream().forEach(item -> System.out.println(item));
 		TitledPane myPane = new TitledPane(myType, this);
@@ -73,6 +103,11 @@ public class ComponentMenu extends VBox implements Comparable{
 		return myPane;
 	}
 
+	/**
+	 *
+	 * @param o object to be compared
+	 * @return returns 1 if this is greater than object
+	 */
 	@Override
 	public int compareTo(Object o) {
 		return this.getType().compareTo(o.toString());
