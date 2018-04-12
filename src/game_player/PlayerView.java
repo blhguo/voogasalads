@@ -156,8 +156,8 @@ public class PlayerView {
 
 		//Movement Input Componenet		
 		List<String> keyboardMovementInputArgs = new ArrayList<>();
-		keyboardMovementInputArgs.add(KeyCode.LEFT.toString());
-		keyboardMovementInputArgs.add(KeyCode.RIGHT.toString());
+		keyboardMovementInputArgs.add(KeyCode.A.toString());
+		keyboardMovementInputArgs.add(KeyCode.D.toString());
 		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(keyboardMovementInputArgs);
 		myEntity.addComponent(keyboardInputComponent);
 
@@ -201,7 +201,7 @@ public class PlayerView {
 
 		//Jump Input Component
 		ArrayList<String> jumpInputArgs = new ArrayList<String>();
-		jumpInputArgs.add(KeyCode.A.toString()); // Press UP for jump
+		jumpInputArgs.add(KeyCode.W.toString()); // Press W for jump
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
 		myEntity.addComponent(keyboardJumpInputComponent);
 	}
