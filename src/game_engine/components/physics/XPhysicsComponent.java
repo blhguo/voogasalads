@@ -18,4 +18,5 @@ public class XPhysicsComponent extends PhysicsComponent {
 	public String getName() {
 		return "XPhysics";
 	}
+
 }

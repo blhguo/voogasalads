@@ -75,7 +75,7 @@ public class ViewManager {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
 		
-		gameBackground = new Image("mountain.png");
+		gameBackground = new Image("gray.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
 

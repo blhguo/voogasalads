@@ -73,9 +73,9 @@ public class Menu {
 	
 	private void makePullDownMenus() {
 		
-		pane.getChildren().add(pullDownFactory.SpeedBox());
-		pane.getChildren().add(pullDownFactory.StatusBox());
-		pane.getChildren().add(pullDownFactory.SaveLoadBox());
+		pane.getChildren().add(pullDownFactory.getSpeedBox());
+		pane.getChildren().add(pullDownFactory.getStatusBox());
+		pane.getChildren().add(pullDownFactory.getSaveLoadBox());
 		
 	}
 	private void makeKeyPrefMenu() {
