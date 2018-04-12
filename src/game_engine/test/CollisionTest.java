@@ -178,7 +178,7 @@ public class CollisionTest extends Application {
     			
     	//Jump Component
     	List<String> jumpArgs = new ArrayList<String>();
-    	jumpArgs.add("true");
+//    	jumpArgs.add("true");
     	jumpArgs.add("-1"); //number of jumps
     	// Y velocity
     	JumpComponent jumpComponent= new JumpComponent(jumpArgs);
