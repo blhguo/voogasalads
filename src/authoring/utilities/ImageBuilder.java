@@ -41,14 +41,6 @@ public class ImageBuilder {
         return view;
     }
     
-//    public static DraggableImageView getDraggableImageView(String path, int width, int height, Pane p){
-//    	Image image = new Image(path, width, height, false, true);
-//        DraggableImageView view = new DraggableImageView(image);
-//        System.out.println("test");
-//        // view.setBounds(p);
-//        return view;
-//    }
-    
     public static DraggableImageView getDraggableImageView(String path, int width, int height, Pane p){
         Image image = new Image(path, width, height, false, true);
         DraggableImageView view = new DraggableImageView(image);
