@@ -47,6 +47,7 @@ public class ComponentFactory {
 			Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] { List.class });
 			return (Component) ctor.newInstance(args);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ComponentNotFoundException("Component not found.");
 		}
 	}

@@ -63,20 +63,13 @@ public class SpriteComponent implements Component{
     public void setAngle(double angle) {
         myAngle = angle;
     }
-<<<<<<< HEAD
+
     @Override
     public String getValues() {
         return "Path,s," + getFileName() + ";Visible,b," + isVisible +
                 ";Width,d," + getWidth() + ";Height,d," + getHeight() +
                 ";Angle,d," + getAngle();
     }
-=======
-
-	@Override
-	public String getValues() {
-		return "Filename,s,Mario.gif;Visibility,b,true;Width,d,20.0;Height,d,20.0;Angle,d,0.0";
-	}
->>>>>>> pristineengine
 
 	@Override
 	public String getName() {

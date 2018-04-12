@@ -18,6 +18,7 @@ public class CollidableComponent implements Component{
 	private int myPushable;
 
 	public CollidableComponent(List<String> args){
+		System.out.println(args);
 		myIntersectable = Boolean.parseBoolean(args.get(0));
 		myPassable = Boolean.parseBoolean(args.get(1));
 		myPushable = Integer.parseInt(args.get(2));
@@ -27,7 +28,7 @@ public class CollidableComponent implements Component{
 		return myPassable;
 	}
 	
-	public void setPassible(boolean passable){
+	public void setPassable(boolean passable){
 		myPassable = passable;
 	}
 	
@@ -45,5 +46,17 @@ public class CollidableComponent implements Component{
 	
 	public void setPushable(int pushable){
 		myPushable = pushable;
+	}
+
+	@Override
+	public String getValues() {
+		String vals = "Collideable,b," + getIntersectable() + ";Passable,b," + getPassable() + ";Pushable,d," + getPushable();
+//		Collidable=Collidable,b,true;Passable,b,true;Pushable,d,0
+		return vals;
+	}
+
+	@Override
+	public String getName() {
+		return "Collidable";
 	}
 }

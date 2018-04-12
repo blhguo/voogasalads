@@ -5,10 +5,7 @@ import java.util.List;
 
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
-<<<<<<< HEAD
-//import game_engine.components.CollidableComponent;
-=======
->>>>>>> pristineengine
+
 import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
