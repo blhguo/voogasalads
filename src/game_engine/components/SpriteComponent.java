@@ -19,7 +19,6 @@ public class SpriteComponent implements Component{
         myHeight = Double.parseDouble(args.get(3));
         myAngle = Double.parseDouble(args.get(4));
     }
-
     public String getFileName() {
         return myFileName;
     }
@@ -71,7 +70,7 @@ public class SpriteComponent implements Component{
                 ";Angle,d," + getAngle();
     }
 
-	@Override
+    @Override
 	public String getName() {
 		return "Sprite";
 	}

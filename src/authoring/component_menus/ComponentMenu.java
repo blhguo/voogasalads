@@ -24,7 +24,7 @@ public class ComponentMenu extends VBox implements Comparable{
 	private static final String COMPONENT_BUNDLE = "Component";
 	private static final String COMPONENT_DELIM  = ";";
 	private static final String ATTRIBUTE_DELIM  = ",";
-
+	private boolean included;
 	private ResourceBundle myComponents;
 	private List<MenuElement> elements;
 	private String myType;
@@ -32,6 +32,22 @@ public class ComponentMenu extends VBox implements Comparable{
 		myComponents = ResourceBundle.getBundle(COMPONENT_BUNDLE);
 		myType = type;
 		elements = new ArrayList<>();
+		if (!(type.equals("Position") || type.equals("Sprite"))) {
+			included = false;
+		}
+		else {
+			included = true;
+		}
+		this.setOnMousePressed(e -> Include());
+	}
+
+	private void Include() {
+		included = true;
+		System.out.println("Menu included");
+	}
+
+	public boolean isIncluded(){
+		return included;
 	}
 	public List<MenuElement> getElements(){
 		return elements;
@@ -52,7 +68,9 @@ public class ComponentMenu extends VBox implements Comparable{
 
 	public TitledPane getTitledPane() {
 		//this.getChildren().stream().forEach(item -> System.out.println(item));
-		return new TitledPane(myType, this);
+		TitledPane myPane = new TitledPane(myType, this);
+		myPane.setOnMouseClicked(e -> Include());
+		return myPane;
 	}
 
 	@Override
