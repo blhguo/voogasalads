@@ -8,6 +8,8 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
+import game_engine.components.collision.CollidableComponent;
+import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -44,15 +46,40 @@ public class CollisionResponseSystem extends GameSystem{
         for (Entity e: collidedEntities){
             XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
             YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
-                        
-            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() < 0) ||
-                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0))){
-            	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
-                xp.setCurrVel(0.0);
+            
+        	CollidableComponent c1 = (CollidableComponent) e.getComponent(CollidableComponent.class);
+            CollidedComponent l = (CollidedComponent) e.getComponent(LEFT);
+            CollidedComponent r = (CollidedComponent) e.getComponent(RIGHT);
+            CollidedComponent t = (CollidedComponent) e.getComponent(TOP);
+            CollidedComponent b = (CollidedComponent) e.getComponent(BOTTOM);
+        	
+            if(xp!=null && ((l != null && xp.getCurrVel() < 0) ||
+                    (r != null && xp.getCurrVel() > 0))){
+                	
+            		if(l!=null) {
+            			Entity e2 = l.getEntities().get(0);
+            			CollidableComponent c2 = (CollidableComponent) e2.getComponent(CollidableComponent.class);
+            			XPhysicsComponent xp2 = (XPhysicsComponent) e2.getComponent(XPhysicsComponent.class);
+            			if(c2.getPushable() > c1.getPushable()) {
+            				xp.setCurrVel(xp2.getCurrVel());
+            			}
+            			else if(c2.getPushable() < c1.getPushable()) {
+            				xp2.setCurrVel(xp.getCurrVel());
+            			}
+            			else {
+            				xp.setCurrVel(0.0);
+            			}
+            		}
+            		else {
+            			xp.setCurrVel(0.0);	
+            		}
+            		
             }
             if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
                     (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){
-                yp.setCurrVel(0.0);
+                
+            	yp.setCurrVel(0.0);
+                
             }
         }
     }

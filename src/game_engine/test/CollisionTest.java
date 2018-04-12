@@ -37,12 +37,14 @@ public class CollisionTest extends Application {
     private Entity e1;
     private Entity e2;
     private Entity e3;
+    private Entity e4;
 
     private Engine e;
 
     private Rectangle r1;
     private Rectangle r2;
     private Rectangle r3;
+    private Rectangle r4;
 
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -137,6 +139,16 @@ public class CollisionTest extends Application {
         r1.setX(x);
         r1.setY(y);
         r1.setRotate(theta);
+        
+        PositionComponent pos1 = (PositionComponent) e4.getComponent(PositionComponent.class);
+        double x1 = pos1.getX() - r4.getWidth()/2;
+        double y1 = pos1.getY() - r4.getHeight()/2;
+
+        double theta1 = pos1.getAngle();
+
+        r4.setX(x1);
+        r4.setY(y1);
+        r4.setRotate(theta1);
     }
 
     private void updateRectColor(){
@@ -154,6 +166,7 @@ public class CollisionTest extends Application {
     	e1 = new Entity();
         e2 = new Entity();
         e3 = new Entity();
+        e4 = new Entity();
 
     	//Movement Input Componenet		
     	List<String> keyboardMovementInputArgs = new ArrayList<>();
@@ -206,8 +219,13 @@ public class CollisionTest extends Application {
         
         ArrayList<String> pos3 = new ArrayList<String>();
         pos3.add("550");
-        pos3.add("700");
+        pos3.add("500");
         pos3.add("0");
+        
+        ArrayList<String> pos4 = new ArrayList<String>();
+        pos4.add("350");
+        pos4.add("100");
+        pos4.add("0");
 
         ArrayList<String> hb2 = new ArrayList<String>();
         hb2.add("3000");
@@ -221,16 +239,32 @@ public class CollisionTest extends Application {
         hb1.add("0");
         hb1.add("0");
         
+        ArrayList<String> hb4 = new ArrayList<String>();
+        hb4.add("100");
+        hb4.add("100");
+        hb4.add("0");
+        hb4.add("0");
+        
         ArrayList<String> hb3 = new ArrayList<String>();
         hb3.add("1000");
-        hb3.add("1000");
+        hb3.add("300");
         hb3.add("0");
         hb3.add("0");
 
         ArrayList<String> cc = new ArrayList<String>();
         cc.add("true");
         cc.add("true");
-        cc.add("0");
+        cc.add("2");
+        
+        ArrayList<String> cc1 = new ArrayList<String>();
+        cc1.add("true");
+        cc1.add("true");
+        cc1.add("1");
+        
+        ArrayList<String> cc2 = new ArrayList<String>();
+        cc2.add("true");
+        cc2.add("true");
+        cc2.add("0");
 
         
         e1.addComponent(new PositionComponent(pos1));
@@ -249,30 +283,44 @@ public class CollisionTest extends Application {
         e3.addComponent(new PositionComponent(pos3));
         e3.addComponent(new HitboxComponent(hb3));
         e3.addComponent(new CollidableComponent(cc));
+        
+        e4.addComponent(new XPhysicsComponent(phys));
+        e4.addComponent(new YPhysicsComponent(yPhysicsArgs));
+        e4.addComponent(new PositionComponent(pos4));
+        e4.addComponent(new HitboxComponent(hb4));
+        e4.addComponent(new CollidableComponent(cc1));
 
         
         e.addEntity(e2);
         e.addEntity(e3);
         e.addEntity(e1);
+        e.addEntity(e4);
     }
 
     private void initRects(){
         PositionComponent pos1 = (PositionComponent) e1.getComponent(PositionComponent.class);
         PositionComponent pos2 = (PositionComponent) e2.getComponent(PositionComponent.class);
         PositionComponent pos3 = (PositionComponent) e3.getComponent(PositionComponent.class);
+        PositionComponent pos4 = (PositionComponent) e4.getComponent(PositionComponent.class);
 
+        
         HitboxComponent hb1 = (HitboxComponent) e1.getComponent(HitboxComponent.class);
         HitboxComponent hb2 = (HitboxComponent) e2.getComponent(HitboxComponent.class);
         HitboxComponent hb3 = (HitboxComponent) e3.getComponent(HitboxComponent.class);
+        HitboxComponent hb4 = (HitboxComponent) e4.getComponent(HitboxComponent.class);
 
 
         r1 = new Rectangle(pos1.getX() - hb1.getWidth()/2, pos1.getY() - hb1.getHeight()/2, hb1.getWidth(), hb1.getHeight());
         r2 = new Rectangle(pos2.getX() - hb2.getWidth()/2, pos2.getY() - hb2.getHeight()/2, hb2.getWidth(), hb2.getHeight());
         r3 = new Rectangle(pos3.getX() - hb3.getWidth()/2, pos3.getY() - hb3.getHeight()/2, hb3.getWidth(), hb3.getHeight());
-
+        r4 = new Rectangle(pos4.getX() - hb4.getWidth()/2, pos4.getY() - hb4.getHeight()/2, hb4.getWidth(), hb4.getHeight());
+        	
+        r4.setFill(Color.PINK);
+        
         root.getChildren().add(r1);
         root.getChildren().add(r2);
         root.getChildren().add(r3);
+        root.getChildren().add(r4);
     }
 
     /**

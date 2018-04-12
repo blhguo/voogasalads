@@ -55,13 +55,11 @@ public class CollisionBroadSystem extends CollisionSystem {
     @Override
     public void act(double elapsedTime){
         List<Entity> collideableEntities = getEngine().getEntitiesContaining(TARGET_COMPONENTS);
-        // CLEANUP
         collideableEntities.forEach( (entity) -> entity.removeComponent(TopCollidedComponent.class));
         collideableEntities.forEach( (entity) -> entity.removeComponent(LeftCollidedComponent.class));
         collideableEntities.forEach( (entity) -> entity.removeComponent(BottomCollidedComponent.class));
         collideableEntities.forEach( (entity) -> entity.removeComponent(RightCollidedComponent.class));
         
-//        List<Pair> possibleCollisions = new ArrayList<Pair>();
         for(int i = 0; i < collideableEntities.size(); i ++) {
             for(int j = 0; j<collideableEntities.size(); j ++) {
             	if(i!=j) {
@@ -84,8 +82,6 @@ public class CollisionBroadSystem extends CollisionSystem {
     protected void checkIntersect(Entity e1, Entity e2, double elapsedTime){
         double[] aabb1 = getExtrema(e1, elapsedTime);
         double[] aabb2 = getExtrema(e2, elapsedTime);
-
-        // TODO: need to add dx dy compensation
 
         boolean xOverlap = Math.max(aabb1[0], aabb2[0]) <= Math.min(aabb1[1], aabb2[1]);
         boolean yOverlap = Math.max(aabb1[2], aabb2[2]) <= Math.min(aabb1[3], aabb2[3]);
@@ -111,10 +107,7 @@ public class CollisionBroadSystem extends CollisionSystem {
             boolean top = yMax2 >= yMin1 && yMin2 <= yMin1;
             boolean bottom = yMax2 >= yMax1 && yMin2 <= yMax1;
             boolean tbBig = xMin2 <= xMin1 && xMax2 >= xMax1;
-            boolean tbSmall = xMin2 >= xMin1 && xMax2 <= xMax1;
-
-            // TODO: FIX CORNER CASES
-            
+            boolean tbSmall = xMin2 >= xMin1 && xMax2 <= xMax1;            
 
             ArrayList<CollidedComponent> collidedToAdd = new ArrayList<CollidedComponent>();
             
