@@ -20,9 +20,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import resources.keys.AuthRes;
 
 public class EntityPane extends BasePane {
@@ -33,10 +33,17 @@ public class EntityPane extends BasePane {
 	private Group root;
 	private StackPane pane;
 	private VBox box;
-	public EntityPane(){
+	private HBox reset;
+	private Button createButton;
+	private List<HBox> createButtonArray;
+	private List<HBox> editButtonArray;
 
+	public EntityPane(){
+		createButtonArray = new ArrayList<>();
+		editButtonArray = new ArrayList<>();
 		menuList = makeMenuList();
 		Collections.sort(menuList);
+
 		ogmenuList = new ArrayList<>(menuList);
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
@@ -47,6 +54,11 @@ public class EntityPane extends BasePane {
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
 		box.getChildren().add(getStack());
+//		ScrollPane pane = new ScrollPane(accordion);
+//		pane.setStyle("-fx-background: transparent;");
+//		pane.setPrefHeight(250);
+//		box.getChildren().add(pane);
+//		box.getChildren().addAll(createButtonArray);
 		box.getChildren().addAll(getButtonArray());
 
 	    return box;
@@ -62,19 +74,28 @@ public class EntityPane extends BasePane {
 	public List<Node> getButtonArray() {
 		List<Node> list = new ArrayList<>();
 		list.add(accordion);
-		list.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		createButton = controller.getButton();
+		createButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		list.addAll(createButtonArray);
 		return list;
 	}
+	private void resetEditButtons(){
+		editButtonArray.clear();
+		editButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		Button button = ButtonFactory.makeButton(e -> resetAccordion());
+		editButtonArray.add(ButtonFactory.makeHBox("Back to new Entity Creation",
+				"Displaying current entity", button));
+		editButtonArray.add(ButtonFactory.makeHBox("Delete Entity", null, controller.getRemoveButton()));
 
+	}
 	private void resetAccordion() {
 		box.getChildren().remove(accordion);
 		menuList = makeMenuList();
 		Collections.sort(menuList);
 		accordion = makeMenuView();
-		box.getChildren().remove(box.getChildren().size() - 1);
 		box.getChildren().add(accordion);
-		box.getChildren().add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
-		//box.getChildren().stream().forEach(e -> System.out.println(e));
+		box.getChildren().removeAll(editButtonArray);
+		box.getChildren().addAll(createButtonArray);
 		controller.resetImageViews();
 	}
 
@@ -99,7 +120,7 @@ public class EntityPane extends BasePane {
 		Entity entity = new Entity();
 //		menuList.stream().forEach(menu -> System.out.println(menu + " : " + menu.getType() + " : "
 //		+ menu.getComponentList().size()));
-		System.out.println("New Entity");
+		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
 			new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
 		}
@@ -126,12 +147,10 @@ public class EntityPane extends BasePane {
 
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
-
-		box.getChildren().remove(box.getChildren().size() - 1);
-
-		Button reset = ButtonFactory.makeButton(e -> resetAccordion());
-		box.getChildren().add((ButtonFactory.makeHBox("Back to new Entity Creation",
-				"Displaying current entity", reset)));
+		box.getChildren().removeAll(editButtonArray);
+		resetEditButtons();
+		box.getChildren().removeAll(createButtonArray);
+		box.getChildren().addAll(editButtonArray);
 		//box.getChildren().remove(accordion);
 		//System.out.println("Hit");
 	}
