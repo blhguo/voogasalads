@@ -31,4 +31,11 @@ public class Level {
 	public Iterable<Entity> getEntities() {
 		return () -> myLevel.iterator();
 	}
+
+	/**
+	 *
+	 * @param e removes the specified entity
+	 */
+    public void remove(Entity e) {myLevel.remove(e);}
+
 }

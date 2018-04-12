@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 /**
  * 
  * @author Dana Park
@@ -40,8 +41,8 @@ public class PlayerView {
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	private static final double DOUBLE_RATE = 2.0;
-	private static final double HALF_RATE = 0.5;
+	private static final double DOUBLE_RATE = 1.05;
+	private static final double HALF_RATE = 0.93;
 	private static final double SCENE_SIZE = 500;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
@@ -52,39 +53,37 @@ public class PlayerView {
 	private Camera cam;
 	private ViewManager viewManager;
 	private SubScene subScene;
+
 	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
 		pullDownFactory = pdf;
 		myEngine = engine;
-		viewManager=view;
+		viewManager = view;
 	}
 
 	public void instantiate() {
 		Scene scene = viewManager.getScene();
-		subScene= viewManager.getSubScene();
+		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
 		scene.setOnKeyPressed(e -> {
-			
-		myEngine.receiveInput(e);
+
+			myEngine.receiveInput(e);
 		});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		
-		subScene.setOnKeyPressed(e -> {
-			
-			myEngine.receiveInput(e);
-			System.out.println("subscene");});
-			subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		
+
+		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
+		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		List<Level> levels = pullDownFactory.getLevels();
-		System.out.println(levels);
-		for(Entity e: levels.get(0).getEntities()){
+		for (Entity e : levels.get(0).getEntities()) {
 			myEngine.addEntity(e);
 		}
 
 		spriteMap = new HashMap<ImageView, Entity>();
-		List<Entity> spriteEntities = myEngine.getEntitiesContaining(Arrays.asList(SpriteComponent.class, PositionComponent.class));
-		for(Entity e: spriteEntities){
+		List<Entity> spriteEntities = myEngine
+				.getEntitiesContaining(Arrays.asList(SpriteComponent.class, PositionComponent.class));
+		for (Entity e : spriteEntities) {
 			SpriteComponent sprite = ((SpriteComponent) e.getComponent(SpriteComponent.class));
 			String imageName = sprite.getFileName();
 			Image image = new Image(imageName);
@@ -95,17 +94,15 @@ public class PlayerView {
 			root.getChildren().add(imageView);
 		}
 
-		
 		animationFrame();
 	}
-	
+
 	public void setViewManager(ViewManager vm) {
-		 viewManager = vm;
-	 }
+		viewManager = vm;
+	}
 
 	private void animationFrame() {
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> step(SECOND_DELAY));
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -113,98 +110,103 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
+		animation.stop();
 		myEngine.update(delay);
 		render();
-		handleUI();		
+		handleUI();	
 	}
 
-	private void render(){
-		for(ImageView imageView : spriteMap.keySet()) {
+	private void render() {
+		for (ImageView imageView : spriteMap.keySet()) {
 			Entity entity = spriteMap.get(imageView);
 			PositionComponent position = (PositionComponent) entity.getComponent(PositionComponent.class);
 			SpriteComponent sprite = (SpriteComponent) entity.getComponent(SpriteComponent.class);
-			imageView.setX(position.getX() - sprite.getWidth()/2);
-			imageView.setY(position.getY() - sprite.getHeight()/2);
-			imageView.setRotate(sprite.getAngle()); //TODO: figure out logistics of rotate
+			imageView.setX(position.getX() - sprite.getWidth() / 2);
+			imageView.setY(position.getY() - sprite.getHeight() / 2);
+			imageView.setRotate(sprite.getAngle()); // TODO: figure out logistics of rotate
 		}
 		List<Entity> entity = myEngine.getEntitiesContaining(Arrays.asList(KeyboardMovementInputComponent.class));
 		PositionComponent position = (PositionComponent) entity.get(0).getComponent(PositionComponent.class);
-		cam.setLayoutX(position.getX()-SCENE_SIZE/2);
-		cam.setLayoutY(position.getY()-SCENE_SIZE/2);
+		cam.setLayoutX(position.getX() - SCENE_SIZE / 2);
+		cam.setLayoutY(position.getY() - SCENE_SIZE / 2);
 	}
 
-	private void handleUI() {
-		String selectedAction = pullDownFactory.SpeedBox().getSelectionModel().getSelectedItem();
+	public void handleUI() {
+		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();
+		String statusAction = pullDownFactory.getStatusBox().getSelectionModel().getSelectedItem();
+		
 		if (selectedAction.equals("Speed Up")) {
+			
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
 		}
 		if (selectedAction.equals("Slow Down")) {
 			animation.setRate(animation.getRate() * HALF_RATE);
 		}
-		if (selectedAction.equals("Pause")) {
+		if (statusAction.equals("Pause Game")) {
 			animation.stop();
 		}
-		if (selectedAction.equals("Play")) {
+		if (statusAction.equals("Play Game")) {
 			animation.play();
 		}
 	}
 
 	private void testingStuffInitializeEntity() {
-		//Create one entity
+		// Create one entity
 		Entity myEntity = new Entity();
 		myEngine.addEntity(myEntity);
 
-		//Movement Input Componenet		
+		// Movement Input Componenet
 		List<String> keyboardMovementInputArgs = new ArrayList<>();
 		keyboardMovementInputArgs.add(KeyCode.A.toString());
 		keyboardMovementInputArgs.add(KeyCode.D.toString());
-		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(keyboardMovementInputArgs);
+		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(
+				keyboardMovementInputArgs);
 		myEntity.addComponent(keyboardInputComponent);
 
 		List<String> spriteArgs = new ArrayList<>();
 		spriteArgs.add("mario.GIF");
-		spriteArgs.add("true"); //is visible
+		spriteArgs.add("true"); // is visible
 		spriteArgs.add("40");
 		spriteArgs.add("40");
-		spriteArgs.add("0"); //angle
-		SpriteComponent spriteComponent = new SpriteComponent(spriteArgs); //Create sprite
-		myEntity.addComponent(spriteComponent); //Add sprite component to entity
+		spriteArgs.add("0"); // angle
+		SpriteComponent spriteComponent = new SpriteComponent(spriteArgs); // Create sprite
+		myEntity.addComponent(spriteComponent); // Add sprite component to entity
 
-		//Position Component
+		// Position Component
 		List<String> positionArgs = new ArrayList<>();
-		positionArgs.add("100"); //X position
-		positionArgs.add("100"); //Y 
-		positionArgs.add("100"); //angle
+		positionArgs.add("100"); // X position
+		positionArgs.add("100"); // Y
+		positionArgs.add("100"); // angle
 		PositionComponent positionComponent = new PositionComponent(positionArgs);
 		myEntity.addComponent(positionComponent);
 
-		//XPhysics
+		// XPhysics
 		List<String> xPhysicsArgs = new ArrayList<>();
-		xPhysicsArgs.add("400"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-		xPhysicsArgs.add("0"); //acceleration
+		xPhysicsArgs.add("400"); // X velocity aka maxX velocity aka dx (the distance it moves each step)
+		xPhysicsArgs.add("0"); // acceleration
 		XPhysicsComponent xPhysicsComponent = new XPhysicsComponent(xPhysicsArgs);
 		xPhysicsComponent.setCurrVel(10);
 		myEntity.addComponent(xPhysicsComponent);
 
-		//YPhysics Component
+		// YPhysics Component
 		List<String> yPhysicsArgs = new ArrayList<>();
-		yPhysicsArgs.add("500"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-		yPhysicsArgs.add("-1000"); //acceleration
+		yPhysicsArgs.add("500"); // X velocity aka maxX velocity aka dx (the distance it moves each step)
+		yPhysicsArgs.add("-1000"); // acceleration
 		YPhysicsComponent yPhysicsComponent = new YPhysicsComponent(yPhysicsArgs);
 		myEntity.addComponent(yPhysicsComponent);
 
-		//Jump Component
+		// Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
-		jumpArgs.add("-1"); //number of jumps
+		jumpArgs.add("-1"); // number of jumps
 		JumpComponent jumpComponent = new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
 
-		//Jump Input Component
+		// Jump Input Component
 		ArrayList<String> jumpInputArgs = new ArrayList<String>();
 		jumpInputArgs.add(KeyCode.W.toString()); // Press UP for jump
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
 		myEntity.addComponent(keyboardJumpInputComponent);
-		
+
 		ManipData m = new ManipData();
 		Level level = new Level();
 		level.addEntity(myEntity);

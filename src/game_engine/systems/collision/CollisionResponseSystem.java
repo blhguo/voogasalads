@@ -56,9 +56,16 @@ public class CollisionResponseSystem extends GameSystem{
             XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
             YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
                         
+<<<<<<< HEAD
             if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() > 0) ||
                     (e.getComponent(RIGHT) != null && xp.getCurrVel() < 0))){
                 xp.setCurrVel(0.0);
+=======
+            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() < 0) ||
+                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0))){
+            	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
+                //xp.setCurrVel(0.0);
+>>>>>>> liam
             }
             if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
                     (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){

@@ -37,6 +37,7 @@ public class EntityPane extends BasePane {
 	private Button createButton;
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
+	private VBox newbox;
 
 	public EntityPane(){
 		createButtonArray = new ArrayList<>();
@@ -54,12 +55,16 @@ public class EntityPane extends BasePane {
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
 		box.getChildren().add(getStack());
-//		ScrollPane pane = new ScrollPane(accordion);
-//		pane.setStyle("-fx-background: transparent;");
-//		pane.setPrefHeight(250);
-//		box.getChildren().add(pane);
-//		box.getChildren().addAll(createButtonArray);
-		box.getChildren().addAll(getButtonArray());
+		newbox = new VBox();
+		newbox.getChildren().addAll(getButtonArray());
+		ScrollPane pane = new ScrollPane(newbox);
+		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		pane.setStyle("-fx-background: transparent;");
+		pane.setPrefHeight(250);
+		pane.setPrefWidth(150);
+		box.getChildren().add(pane);
+		box.getChildren().addAll(createButtonArray);
+		//box.getChildren().addAll(getButtonArray());
 
 	    return box;
 	}
@@ -89,11 +94,11 @@ public class EntityPane extends BasePane {
 
 	}
 	private void resetAccordion() {
-		box.getChildren().remove(accordion);
+		newbox.getChildren().remove(accordion);
 		menuList = makeMenuList();
 		Collections.sort(menuList);
 		accordion = makeMenuView();
-		box.getChildren().add(accordion);
+		newbox.getChildren().add(accordion);
 		box.getChildren().removeAll(editButtonArray);
 		box.getChildren().addAll(createButtonArray);
 		controller.resetImageViews();
@@ -122,10 +127,8 @@ public class EntityPane extends BasePane {
 //		+ menu.getComponentList().size()));
 		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
-			if (menu.isIncluded()) {
+			if (menu.isIncluded())
 				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
-				//System.out.println("Added one component");
-			}
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
 		return entity;
@@ -141,8 +144,10 @@ public class EntityPane extends BasePane {
 		accordion.getPanes().clear();
 		menuList.clear();
 		for (Component comp : entity.getComponents()){
-			menuList.add(new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName()));
+			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
+					comp.getValues().split(";"), comp.getName());
+			add.Include();
+			menuList.add(add);
 			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
 		}
 		Collections.sort(menuList);

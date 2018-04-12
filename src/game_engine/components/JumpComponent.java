@@ -43,7 +43,7 @@ public class JumpComponent implements Component{
 
 	@Override
 	public String getValues() {
-		String vals = "Jumps allowed,d," + getJumpsAllowed();
+		String vals = "Jumps allowed,d," + myJumpsAllowed;
         return vals;
 	}
 	@Override
