@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  */
 public class PulldownFactory {
 	
-	private static final String DEFAULT_RESOURCE_PACKAGE = "gamePlayerResources/";
+	private static final String DEFAULT_RESOURCE_PACKAGE = "game_player_resources/";
 
 	private ResourceBundle speedProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "speed");
 	private ResourceBundle statusProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "status");
