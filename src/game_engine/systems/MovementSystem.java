@@ -8,6 +8,10 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.PositionComponent;
+import game_engine.components.collision.edge_collided.BottomCollidedComponent;
+import game_engine.components.collision.edge_collided.LeftCollidedComponent;
+import game_engine.components.collision.edge_collided.RightCollidedComponent;
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
 
@@ -31,9 +35,15 @@ public class MovementSystem extends GameSystem {
 			
 			position.setX(position.getX() + xPhysics.getCurrVel() * elapsedTime);
 			position.setY(position.getY() + yPhysics.getCurrVel() * elapsedTime);
-		
+			
+
+			
+			/**
+			 *  TODO bad hotfix need to update
+			 *  
+			 */
 			yPhysics.setCurrVel(yPhysics.getCurrVel() + -1 * yPhysics.getAccel() * elapsedTime);
-			xPhysics.setCurrVel(xPhysics.getCurrVel() + xPhysics.getAccel() * elapsedTime);
+			xPhysics.setCurrVel(xPhysics.getCurrVel() + -1 * xPhysics.getAccel() * elapsedTime);
 		}
 	}
 }

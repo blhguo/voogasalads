@@ -8,4 +8,14 @@ public class YPhysicsComponent extends PhysicsComponent {
 		super(args);
 	}
 
+	@Override
+	public String getValues() {
+		String vals = "DefaultYVelocity,d," + this.getDefaultVel() + ";Acceleration,d," + this.getAccel();
+		return vals;
+	}
+
+	@Override
+	public String getName() {
+		return "YPhysics";
+	}
 }

@@ -1,10 +1,6 @@
 package game_engine.components.keyboard;
 
-
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import game_engine.Component;
 import game_engine.Vector;
@@ -14,7 +10,8 @@ public class KeyboardMovementInputComponent implements Component {
 	private static final Vector LEFT = new Vector(-1,0);
 	private static final Vector RIGHT = new Vector(1,0);
 	
-	private Map<KeyCode, Vector> myDirections;
+	private KeyCode myLeft;
+	private KeyCode myRight;
 	
 	/**
 	 * Creates a new instance of MovementInput with specified key input codes
@@ -24,33 +21,42 @@ public class KeyboardMovementInputComponent implements Component {
 	 * @param down
 	 */
 	public KeyboardMovementInputComponent(List<String> args){
-		myDirections = new HashMap<>();
-		myDirections.put(KeyCode.valueOf(args.get(0)), LEFT);
-		myDirections.put(KeyCode.valueOf(args.get(1)), RIGHT);
+		myLeft = KeyCode.valueOf(args.get(0));
+		myRight = KeyCode.valueOf(args.get(1));
 	}
 	
 	public void setLeft(KeyCode left){
-		myDirections.put(left, LEFT);
+		myLeft = left;
 	}
 	
 	public void setRight(KeyCode right){
-		myDirections.put(right, RIGHT);
+		myRight = right;
+	}
+	
+	public KeyCode getLeft(){
+		return myLeft;
+	}
+	
+	public KeyCode getRight(){
+		return myRight;
 	}
 	
 	public Vector getDirection(KeyCode dir){
-		if(!myDirections.containsKey(dir)){
+		if(dir.equals(myLeft)){
+			return LEFT;
+		}else if(dir.equals(myRight)){
+			return RIGHT;
+		}else{
 			return new Vector(0,0);
 		}
-		return myDirections.get(dir);
 	}
-
-	@Override
+	
 	public String getValues() {
-		return null;
+		String vals = "Left,s," + getLeft().getName() + ";Right,s," + getRight().getName();
+        return vals;
 	}
-
-	@Override
+	
 	public String getName() {
-		return "Keyboard Movement Input";
+		return "KeyboardMovementInput";
 	}
 }

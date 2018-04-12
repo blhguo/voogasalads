@@ -1,7 +1,8 @@
 package game_engine.components;
 import game_engine.Component;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,15 +45,16 @@ public class PositionComponent implements Component {
 		myAngle = angle;
 	}
 
-	public String getValues(){
-		String ret;
-		ret = "XPos,d," + this.getX() + ";" + "YPos,d," + this.getY() + ";" + "Angle,d," + this.getAngle();
-		return ret;
+	@Override
+	public String getValues() {
+		String values = "xPos,d,"+ getX() + ";yPos,d," + getY() + ";Angle,d," + getAngle();
+		return values;
 	}
 
 	@Override
 	public String getName() {
 		return "Position";
 	}
-
+	
+	
 }

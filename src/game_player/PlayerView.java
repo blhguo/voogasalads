@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Level;
@@ -23,7 +24,6 @@ import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -56,18 +56,16 @@ public class PlayerView {
 		pullDownFactory = pdf;
 		myEngine = engine;
 		viewManager=view;
-		instantiate(null);
-		animationFrame();
 	}
 
-	public void instantiate(List<Level> levels) {
+	public void instantiate() {
 		Scene scene = viewManager.getScene();
 		subScene= viewManager.getSubScene();
 		root = viewManager.getSubRoot();
 		scene.setOnKeyPressed(e -> {
 			
 		myEngine.receiveInput(e);
-		System.out.println("yoyoyoyoyo");});
+		});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 		
 		subScene.setOnKeyPressed(e -> {
@@ -78,26 +76,27 @@ public class PlayerView {
 		
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
-		//		for(Entity e: levels.get(0).getEntities()){
-		//			myEngine.addEntity(e);
-		//		}
-		
-		testingStuffInitializeEntity();
+		List<Level> levels = pullDownFactory.getLevels();
+		System.out.println(levels);
+		for(Entity e: levels.get(0).getEntities()){
+			myEngine.addEntity(e);
+		}
 
 		spriteMap = new HashMap<ImageView, Entity>();
 		List<Entity> spriteEntities = myEngine.getEntitiesContaining(Arrays.asList(SpriteComponent.class, PositionComponent.class));
 		for(Entity e: spriteEntities){
-			String imageName = ((SpriteComponent) e.getComponent(SpriteComponent.class)).getFileName();
+			SpriteComponent sprite = ((SpriteComponent) e.getComponent(SpriteComponent.class));
+			String imageName = sprite.getFileName();
 			Image image = new Image(imageName);
 			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(40);
-			imageView.setFitWidth(40);
+			imageView.setFitWidth(sprite.getWidth());
+			imageView.setFitHeight(sprite.getHeight());
 			spriteMap.put(imageView, e);
 			root.getChildren().add(imageView);
 		}
-		Image image1 = new Image("turtle.GIF");
-		ImageView imageView2 = new ImageView(image1);
-		root.getChildren().add(imageView2);
+
+		
+		animationFrame();
 	}
 	
 	public void setViewManager(ViewManager vm) {
@@ -157,8 +156,8 @@ public class PlayerView {
 
 		//Movement Input Componenet		
 		List<String> keyboardMovementInputArgs = new ArrayList<>();
-		keyboardMovementInputArgs.add(KeyCode.LEFT.toString());
-		keyboardMovementInputArgs.add(KeyCode.RIGHT.toString());
+		keyboardMovementInputArgs.add(KeyCode.A.toString());
+		keyboardMovementInputArgs.add(KeyCode.D.toString());
 		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(keyboardMovementInputArgs);
 		myEntity.addComponent(keyboardInputComponent);
 
@@ -196,18 +195,20 @@ public class PlayerView {
 
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
-		jumpArgs.add("true");
 		jumpArgs.add("-1"); //number of jumps
 		JumpComponent jumpComponent = new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
 
 		//Jump Input Component
 		ArrayList<String> jumpInputArgs = new ArrayList<String>();
-		jumpInputArgs.add(KeyCode.A.toString()); // Press UP for jump
+		jumpInputArgs.add(KeyCode.W.toString()); // Press UP for jump
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
 		myEntity.addComponent(keyboardJumpInputComponent);
+		
+		ManipData m = new ManipData();
+		Level level = new Level();
+		level.addEntity(myEntity);
+		m.saveData(Arrays.asList(level));
 	}
-
-
 
 }

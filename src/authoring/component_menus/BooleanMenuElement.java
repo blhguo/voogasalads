@@ -7,9 +7,11 @@ import javafx.scene.control.CheckBox;
 public class BooleanMenuElement implements MenuElement{
 	private CheckBox box;
 	private Node view;
+	private String title;
 	public BooleanMenuElement(String title, boolean d) {
 		box = new CheckBox();
 		box.setSelected(d);
+		this.title = title;
 		view = ButtonFactory.makeHBox(title, null, box);
 	}
 
@@ -21,5 +23,10 @@ public class BooleanMenuElement implements MenuElement{
 	@Override
 	public String getValue() {
 		return Boolean.toString(box.isSelected())   ;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
 	}
 }

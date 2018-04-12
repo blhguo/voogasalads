@@ -71,6 +71,13 @@
     -fx-prompt-text-fill: white ;
 }
 
+.game-chooser {
+	-fx-font-family: segoeuil;
+	-fx-font-size: 15px;
+	-fx-fill: rgba(255, 255, 255, 0.7);
+	-fx-font-weight: lighter;
+}
+
 .pane-back {
 	-fx-background-color: rgba(0, 0, 0, 0.5);
 }
