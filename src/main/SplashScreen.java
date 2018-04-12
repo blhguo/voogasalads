@@ -19,14 +19,13 @@ public class SplashScreen extends GUIGridPaneSuper{
 	
 	public SplashScreen(Stage stage){
 		myStage = stage;
-//		Font myFont = Font.loadFont(getClass().getResourceAsStream("resources/Segoe fonts v1710/segoeuil.ttf"), 10);
 	}
 	
 	private VBox makeVBox(){
 		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));		
 		Button createButton = ButtonFactory.makeButton(e -> {
 			AuthoringEnvironment ae = new AuthoringEnvironment(myStage);
-			myStage.setScene(ae.display());
+			myStage.getScene().setRoot(ae.test());
 			myStage.show();
 		});
 		Button loadButton = ButtonFactory.makeButton(e -> {
