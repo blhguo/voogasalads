@@ -115,7 +115,7 @@ public class PlayerView {
 	private void step(double delay) {
 		myEngine.update(delay);
 		render();
-		handleUI();		
+		handleUI();	
 	}
 
 	private void render(){
@@ -135,16 +135,20 @@ public class PlayerView {
 
 	private void handleUI() {
 		String selectedAction = pullDownFactory.SpeedBox().getSelectionModel().getSelectedItem();
+		String statusAction = pullDownFactory.StatusBox().getSelectionModel().getSelectedItem();
+
+		
 		if (selectedAction.equals("Speed Up")) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
 		}
 		if (selectedAction.equals("Slow Down")) {
 			animation.setRate(animation.getRate() * HALF_RATE);
 		}
-		if (selectedAction.equals("Pause")) {
+		if (statusAction.equals("Pause Game")) {
+			System.out.println(statusAction);
 			animation.stop();
 		}
-		if (selectedAction.equals("Play")) {
+		if (statusAction.equals("Play Game")) {
 			animation.play();
 		}
 	}
