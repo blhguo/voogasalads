@@ -8,6 +8,7 @@ import game_engine.components.JumpComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.hitbox.HitboxComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.keyboard.KeyboardMovementInputComponent;
@@ -93,6 +94,11 @@ public class CollisionTest extends Application {
 		keyboardJumpSys.act(elapsedTime); //update jump
 		inputGarbageCollectionSystem.act(elapsedTime);
 		
+//		CollidedComponent temp = (BottomCollidedComponent) e1.getComponent(BottomCollidedComponent.class);
+//		if(temp!=null) {
+//			System.out.println("\n\n Bottom collided with " + temp.getEntities().get(0));
+//		}
+//		System.out.println(e1.getComponent(BottomCollidedComponent.class)!=null);
 
         updateRectPos();
         updateRectColor();
@@ -100,11 +106,13 @@ public class CollisionTest extends Application {
 
     private void setup(){
         e = new Engine();
+        colResponseSys = new CollisionResponseSystem(e);
         keyboardJumpSys = new KeyboardJumpSystem(e);
         keyboardMovementSys = new KeyboardMovementSystem(e);
-        movementSys = new MovementSystem(e);
         colSys = new CollisionBroadSystem(e);
-        colResponseSys = new CollisionResponseSystem(e);
+        
+        movementSys = new MovementSystem(e);
+        
 //        moveResponseSys = new MovementResponseSystem(e);
         inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
         
@@ -214,7 +222,7 @@ public class CollisionTest extends Application {
         hb1.add("0");
         
         ArrayList<String> hb3 = new ArrayList<String>();
-        hb3.add("100");
+        hb3.add("1000");
         hb3.add("1000");
         hb3.add("0");
         hb3.add("0");
@@ -242,9 +250,10 @@ public class CollisionTest extends Application {
         e3.addComponent(new HitboxComponent(hb3));
         e3.addComponent(new CollidableComponent(cc));
 
+        
+        e.addEntity(e2);
         e.addEntity(e3);
         e.addEntity(e1);
-        e.addEntity(e2);
     }
 
     private void initRects(){
