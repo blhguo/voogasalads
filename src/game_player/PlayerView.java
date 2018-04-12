@@ -56,11 +56,9 @@ public class PlayerView {
 		pullDownFactory = pdf;
 		myEngine = engine;
 		viewManager=view;
-		//instantiate(null);
-		animationFrame();
 	}
 
-	public void instantiate(List<Level> levels) {
+	public void instantiate() {
 		Scene scene = viewManager.getScene();
 		subScene= viewManager.getSubScene();
 		root = viewManager.getSubRoot();
@@ -78,6 +76,8 @@ public class PlayerView {
 		
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
+		List<Level> levels = pullDownFactory.getLevels();
+		System.out.println(levels);
 		for(Entity e: levels.get(0).getEntities()){
 			myEngine.addEntity(e);
 		}
@@ -85,17 +85,18 @@ public class PlayerView {
 		spriteMap = new HashMap<ImageView, Entity>();
 		List<Entity> spriteEntities = myEngine.getEntitiesContaining(Arrays.asList(SpriteComponent.class, PositionComponent.class));
 		for(Entity e: spriteEntities){
-			String imageName = ((SpriteComponent) e.getComponent(SpriteComponent.class)).getFileName();
+			SpriteComponent sprite = ((SpriteComponent) e.getComponent(SpriteComponent.class));
+			String imageName = sprite.getFileName();
 			Image image = new Image(imageName);
 			ImageView imageView = new ImageView(image);
-			imageView.setFitHeight(40);
-			imageView.setFitWidth(40);
+			imageView.setFitWidth(sprite.getWidth());
+			imageView.setFitHeight(sprite.getHeight());
 			spriteMap.put(imageView, e);
 			root.getChildren().add(imageView);
 		}
-		Image image1 = new Image("turtle.GIF");
-		ImageView imageView2 = new ImageView(image1);
-		root.getChildren().add(imageView2);
+
+		
+		animationFrame();
 	}
 	
 	public void setViewManager(ViewManager vm) {
