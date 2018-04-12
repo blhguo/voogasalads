@@ -38,6 +38,7 @@ public class CollisionTest extends Application {
     private Entity e2;
     private Entity e3;
     private Entity e4;
+    private Entity e5;
 
     private Engine e;
 
@@ -45,6 +46,7 @@ public class CollisionTest extends Application {
     private Rectangle r2;
     private Rectangle r3;
     private Rectangle r4;
+    private Rectangle r5;
 
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -167,6 +169,7 @@ public class CollisionTest extends Application {
         e2 = new Entity();
         e3 = new Entity();
         e4 = new Entity();
+        e5 = new Entity();
 
     	//Movement Input Componenet		
     	List<String> keyboardMovementInputArgs = new ArrayList<>();
@@ -208,28 +211,33 @@ public class CollisionTest extends Application {
             phys.add("0");
 
         ArrayList<String> pos1 = new ArrayList<String>();
-        pos1.add("600");
+        pos1.add("25");
         pos1.add("100");
         pos1.add("0");
 
         ArrayList<String> pos2 = new ArrayList<String>();
-        pos2.add("500");
-        pos2.add("1000");
+        pos2.add("50");
+        pos2.add("200");
         pos2.add("0");
         
         ArrayList<String> pos3 = new ArrayList<String>();
-        pos3.add("800");
+        pos3.add("900");
         pos3.add("500");
         pos3.add("0");
         
+        ArrayList<String> pos5 = new ArrayList<String>();
+        pos5.add("300");
+        pos5.add("700");
+        pos5.add("0");
+        
         ArrayList<String> pos4 = new ArrayList<String>();
-        pos4.add("600");
+        pos4.add("300");
         pos4.add("0");
         pos4.add("0");
 
         ArrayList<String> hb2 = new ArrayList<String>();
-        hb2.add("3000");
-        hb2.add("450");
+        hb2.add("350");
+        hb2.add("100");
         hb2.add("0");
         hb2.add("0");
 
@@ -240,14 +248,14 @@ public class CollisionTest extends Application {
         hb1.add("0");
         
         ArrayList<String> hb4 = new ArrayList<String>();
-        hb4.add("100");
-        hb4.add("100");
+        hb4.add("500");
+        hb4.add("75");
         hb4.add("0");
         hb4.add("0");
         
         ArrayList<String> hb3 = new ArrayList<String>();
-        hb3.add("1000");
-        hb3.add("300");
+        hb3.add("500");
+        hb3.add("100");
         hb3.add("0");
         hb3.add("0");
 
@@ -284,6 +292,12 @@ public class CollisionTest extends Application {
         e3.addComponent(new HitboxComponent(hb3));
         e3.addComponent(new CollidableComponent(cc));
         
+        e5.addComponent(new XPhysicsComponent(phys));
+        e5.addComponent(new YPhysicsComponent(phys));
+        e5.addComponent(new PositionComponent(pos5));
+        e5.addComponent(new HitboxComponent(hb2));
+        e5.addComponent(new CollidableComponent(cc));
+        
         e4.addComponent(new XPhysicsComponent(phys));
         e4.addComponent(new YPhysicsComponent(yPhysicsArgs));
         e4.addComponent(new PositionComponent(pos4));
@@ -295,6 +309,7 @@ public class CollisionTest extends Application {
         e.addEntity(e3);
         e.addEntity(e1);
         e.addEntity(e4);
+        e.addEntity(e5);
     }
 
     private void initRects(){
@@ -302,18 +317,21 @@ public class CollisionTest extends Application {
         PositionComponent pos2 = (PositionComponent) e2.getComponent(PositionComponent.class);
         PositionComponent pos3 = (PositionComponent) e3.getComponent(PositionComponent.class);
         PositionComponent pos4 = (PositionComponent) e4.getComponent(PositionComponent.class);
+        PositionComponent pos5 = (PositionComponent) e5.getComponent(PositionComponent.class);
 
         
         HitboxComponent hb1 = (HitboxComponent) e1.getComponent(HitboxComponent.class);
         HitboxComponent hb2 = (HitboxComponent) e2.getComponent(HitboxComponent.class);
         HitboxComponent hb3 = (HitboxComponent) e3.getComponent(HitboxComponent.class);
         HitboxComponent hb4 = (HitboxComponent) e4.getComponent(HitboxComponent.class);
+        HitboxComponent hb5 = (HitboxComponent) e5.getComponent(HitboxComponent.class);
 
 
         r1 = new Rectangle(pos1.getX() - hb1.getWidth()/2, pos1.getY() - hb1.getHeight()/2, hb1.getWidth(), hb1.getHeight());
         r2 = new Rectangle(pos2.getX() - hb2.getWidth()/2, pos2.getY() - hb2.getHeight()/2, hb2.getWidth(), hb2.getHeight());
         r3 = new Rectangle(pos3.getX() - hb3.getWidth()/2, pos3.getY() - hb3.getHeight()/2, hb3.getWidth(), hb3.getHeight());
         r4 = new Rectangle(pos4.getX() - hb4.getWidth()/2, pos4.getY() - hb4.getHeight()/2, hb4.getWidth(), hb4.getHeight());
+        r5 = new Rectangle(pos5.getX() - hb5.getWidth()/2, pos5.getY() - hb5.getHeight()/2, hb5.getWidth(), hb5.getHeight());
         	
         r4.setFill(Color.PINK);
         
@@ -321,6 +339,7 @@ public class CollisionTest extends Application {
         root.getChildren().add(r2);
         root.getChildren().add(r3);
         root.getChildren().add(r4);
+        root.getChildren().add(r5);
     }
 
     /**
