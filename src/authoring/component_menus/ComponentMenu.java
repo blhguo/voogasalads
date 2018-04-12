@@ -39,13 +39,13 @@ public class ComponentMenu extends VBox implements Comparable{
 		else {
 			included = true;
 		}
-		this.setOnMousePressed(e -> Include());
+		//this.setOnMousePressed(e -> Include());
 	}
 
 	/**
 	 * Sets included to true -- makes the component menu be added to a created entity
 	 */
-	private void Include() {
+	public void Include() {
 		included = true;
 		System.out.println("Menu included");
 	}
@@ -99,7 +99,9 @@ public class ComponentMenu extends VBox implements Comparable{
 	 */
 	public TitledPane getTitledPane() {
 		//this.getChildren().stream().forEach(item -> System.out.println(item));
-		return new TitledPane(myType, this);
+		TitledPane pane = new TitledPane(myType, this);
+		pane.setOnMouseClicked(e -> Include());
+		return pane;
 	}
 
 	/**

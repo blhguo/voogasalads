@@ -116,7 +116,7 @@ public class ViewManager {
 	
 	
 	public void changeBackground() {
-		BackgroundImage back = new BackgroundImage(new Image("clouds.png"), BackgroundRepeat.REPEAT, 
+		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.REPEAT,
 		BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(back));
 	}

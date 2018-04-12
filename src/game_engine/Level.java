@@ -9,6 +9,8 @@ public class Level {
     public void addEntity(Entity e) {
     		myLevel.add(e);
     }
+
+    public void remove(Entity e) {myLevel.remove(e);}
     
     public Iterable<Entity> getEntities() {
     	return () -> myLevel.iterator();

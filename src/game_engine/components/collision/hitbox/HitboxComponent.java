@@ -44,7 +44,7 @@ public class HitboxComponent implements Component {
 
 	@Override
 	public String getValues() {
-		String val = "Width,d," + myWidth + ";Height,d,5" + myHeight + ";xOffset,d," + myXOffset + ";yOffset,d," + myYOffset;
+		String val = "Width,d," + myWidth + ";Height,d," + myHeight + ";xOffset,d," + myXOffset + ";yOffset,d," + myYOffset;
 		return val;
 	}
 

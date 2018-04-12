@@ -48,7 +48,7 @@ public class CollisionResponseSystem extends GameSystem{
             if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() < 0) ||
                     (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0))){
             	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
-                xp.setCurrVel(0.0);
+                //xp.setCurrVel(0.0);
             }
             if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
                     (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){

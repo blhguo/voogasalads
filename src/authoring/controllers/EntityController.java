@@ -97,6 +97,7 @@ public class EntityController {
 	 */
 	public void removeEntity(Entity e, ImageView iv){
 		map.remove(iv, e);
+		lcontroller.getActiveLevel().remove(e);
 		canvas.update(map);
 		System.out.println("DDD");
 	}

@@ -127,7 +127,8 @@ public class EntityPane extends BasePane {
 //		+ menu.getComponentList().size()));
 		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
-			new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
+			if (menu.isIncluded())
+				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
 		return entity;
@@ -143,8 +144,10 @@ public class EntityPane extends BasePane {
 		accordion.getPanes().clear();
 		menuList.clear();
 		for (Component comp : entity.getComponents()){
-			menuList.add(new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName()));
+			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
+					comp.getValues().split(";"), comp.getName());
+			add.Include();
+			menuList.add(add);
 			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
 		}
 		Collections.sort(menuList);
