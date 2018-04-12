@@ -38,4 +38,14 @@ public abstract class CollidedComponent implements Component{
     public List<Entity> getEntities(){
         return others;
     }
+    
+    @Override
+	public String getValues() {
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return null;
+	}
 }

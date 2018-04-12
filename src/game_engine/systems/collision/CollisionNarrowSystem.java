@@ -13,9 +13,4 @@ public abstract class CollisionNarrowSystem extends CollisionSystem {
         super(engine);
     }
 
-    @Override
-    protected void checkIntersect(Entity e1, Entity e2){
-
-    }
-
 }

@@ -70,7 +70,7 @@ public class ManipData {
 		int counter = 0;
 		try {
 			//this writes only one file
-			fos = new FileOutputStream("gameDataSave"+"someuniquefactor"+".xml");
+			fos = new FileOutputStream("savedata/gameDataSave"+"someuniquefactor"+".xml");
 	        try {
 	        	//writes xml header and then the number of data objects inside
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));

@@ -9,9 +9,11 @@ import javafx.scene.control.TextField;
 public class NumberMenuElement implements MenuElement{
 	TextField field;
 	private Node view;
+	private String title;
 	public NumberMenuElement(String title, String d){
 		field = new TextField();
 		field.setText(d);
+		this.title = title;
 //		field.textProperty().addListener(new ChangeListener<String>() {
 //			@Override
 //			public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -32,5 +34,10 @@ public class NumberMenuElement implements MenuElement{
 	@Override
 	public String getValue() {
 		return field.getText();
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
 	}
 }

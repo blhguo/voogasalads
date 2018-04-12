@@ -6,6 +6,7 @@ import java.util.Arrays;
 import authoring.controllers.LevelController;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.ImageBuilder;
+import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import observables.Listener;
 import observables.Subject;
 import resources.keys.AuthRes;
@@ -26,15 +28,18 @@ public class NavigationPane implements Subject, GUINode {
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
 	private LevelController lcontroller;
 	private Pane pane;
+	private Stage stage;
 	
-	public NavigationPane() {
+	public NavigationPane(Stage s) {
+		stage = s;
 		pane = new Pane();
 		pane.getStyleClass().add("pane-back");
-
 		pane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
 	}
-
+	public void addLevelController(LevelController l){
+		lcontroller = l;
+	}
 	@Override
 	public void addListener(Listener l) {
 		myListeners.add(l);
@@ -75,7 +80,7 @@ public class NavigationPane implements Subject, GUINode {
 			}
 			else{
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					//new PlayerMain();
+					new PlayerMain().start(stage);
 				}, "button-nav");
 				
 			}

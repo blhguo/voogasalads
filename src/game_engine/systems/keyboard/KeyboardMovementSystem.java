@@ -34,12 +34,14 @@ public class KeyboardMovementSystem extends GameSystem{
 				KeyEvent keyInput = (KeyEvent) input;
 				Vector direction = keyboardInput.getDirection(keyInput.getCode());
 				if (direction.getX() != 0) {
+					// add horiz vector to MovementRequests
 					horizontal.setCurrVel(direction.getX() * horizontal.getCurrVel());
 				}
-				
 				if (input.getEventType().getName().equals(KEY_PRESSED) && direction.getX() != 0) {
+					// add horiz vector to MovementRequests
 					horizontal.setCurrVel(direction.getX() * horizontal.getDefaultVel());
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {
+					// add horiz vector to MovementRequests
 					horizontal.setCurrVel(0);
 				}
 			}

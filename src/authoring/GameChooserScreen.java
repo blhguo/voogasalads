@@ -42,6 +42,11 @@ public class GameChooserScreen extends GUIGridPaneSuper {
 	
 	//test loader
 	public void testLoad(VBox vbox) {
-		vbox.getChildren().add(ButtonFactory.makeButton(null,new ImageView(new Image(AuthRes.getString("sunset"))), e -> new PlayerMain().start(myStage)));
+		Text mtncap = new Text("   Mountain ~vIbes~");
+		mtncap.getStyleClass().add("game-chooser");
+		vbox.getChildren().addAll(
+				ButtonFactory.makeButton(null,new ImageView(new Image(AuthRes.getString("mtnthumb"))), 
+						e -> new PlayerMain().start(myStage), "button-nav"),
+				mtncap);
 	}
 }
