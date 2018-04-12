@@ -15,8 +15,8 @@
         <entry>
           <java-class>game_engine.components.collision.hitbox.HitboxComponent</java-class>
           <game__engine.components.collision.hitbox.HitboxComponent>
-            <myWidth>50.0</myWidth>
-            <myHeight>50.0</myHeight>
+            <myWidth>20.0</myWidth>
+            <myHeight>20.0</myHeight>
             <myXOffset>0.0</myXOffset>
             <myYOffset>0.0</myYOffset>
           </game__engine.components.collision.hitbox.HitboxComponent>
