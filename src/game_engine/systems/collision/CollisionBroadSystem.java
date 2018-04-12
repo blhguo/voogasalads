@@ -103,8 +103,8 @@ public class CollisionBroadSystem extends CollisionSystem {
             double yMax1 = aabb1[3];
             double yMax2 = aabb2[3];
 
-            boolean left = xMin2 <= xMax1 && xMax2 >= xMax1;
-            boolean right = xMin2 <= xMin1 && xMax2 >= xMin1;
+            boolean right = xMin2 <= xMax1 && xMax2 >= xMax1;
+            boolean left = xMin2 <= xMin1 && xMax2 >= xMin1;
             boolean rlSmall = yMax2 <= yMax1 && yMin2 >= yMin1;
             boolean rlBig = yMax2 >= yMax1 && yMin2 <= yMin1;
 
@@ -123,11 +123,11 @@ public class CollisionBroadSystem extends CollisionSystem {
             CollidedComponent t = new TopCollidedComponent();
             CollidedComponent b = new BottomCollidedComponent();
             if(right && (rlSmall || rlBig)) {
-                System.out.println("RIGHT");
+//                System.out.println("RIGHT");
                 collidedToAdd.add(r);
             }
             else if(left && (rlSmall || rlBig)) {
-                System.out.println("LEFT");
+//                System.out.println("LEFT");
                 collidedToAdd.add(l);
             }
             else if(bottom && (tbSmall || tbBig)){
@@ -140,24 +140,26 @@ public class CollisionBroadSystem extends CollisionSystem {
             }
             else if(bottom && left) {
                 double dx = Math.abs(xMax2 - xMin1);
-                double dy = Math.abs(yMax2 - yMin1);
+                double dy = Math.abs(yMin2 - yMax1);
+                System.out.println("BL dx: " + dx + " dy: " + dy);
                 if(dx>dy){
-//                    System.out.println("BOTTOM");
+                    System.out.println("BL BOTTOM");
                     collidedToAdd.add(b);
                 }
                 else if(dy>dx){
-//                    System.out.println("LEFT");
+                    System.out.println("BL LEFT");
                     collidedToAdd.add(l);
                 }
                 else{
-//                    System.out.println("BOTTOM LEFT");
+                    System.out.println("BL BOTTOM LEFT");
                 	collidedToAdd.add(b);
                     collidedToAdd.add(l);
                 }
             }
             else if(bottom & right){
+            	System.out.println("BOTTOM RIGHT");
                 double dx = Math.abs(xMax1 - xMin2);
-                double dy = Math.abs(yMax2 - yMin1);
+                double dy = Math.abs(yMax1 - yMin2);
                 if(dx>dy){
 //                    System.out.println("BOTTOM");
                 	collidedToAdd.add(b);
@@ -173,8 +175,9 @@ public class CollisionBroadSystem extends CollisionSystem {
                 }
             }
             else if(top && left){
-                double dx = xMin1 - xMin2;
-                double dy = yMax2 - yMax1;
+            	System.out.println("TOP LEFT");
+                double dx = Math.abs(xMin1 - xMax2);
+                double dy = Math.abs(yMin1 - yMax2);
                 if(dx>dy){
 //                    System.out.println("TOP");
                 	collidedToAdd.add(t);
@@ -190,19 +193,19 @@ public class CollisionBroadSystem extends CollisionSystem {
                 }
             }
             else if(top && right) {
-//                System.out.println("TOP RIGHT");
-                double dx = yMax2 - yMax1;
-                double dy = yMax2 - yMax1;
+                System.out.println("TOP RIGHT");
+                double dx = Math.abs(xMin2 - xMax1);
+                double dy = Math.abs(yMin1 - yMax2);
                 if(dx>dy){
-//                    System.out.println("TOP");
+                    System.out.println("TOP");
                 	collidedToAdd.add(t);
                 }
                 else if(dy>dx){
-//                    System.out.println("right");
+                    System.out.println("right");
                 	collidedToAdd.add(r);
                 }
                 else{
-//                	System.out.println("top right");
+                	System.out.println("top right");
                 	collidedToAdd.add(t);
                 	collidedToAdd.add(r);
                 }
