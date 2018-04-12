@@ -251,9 +251,9 @@ public class CollisionTest extends Application {
         e3.addComponent(new CollidableComponent(cc));
 
         
-        e.addEntity(e1);
         e.addEntity(e2);
         e.addEntity(e3);
+        e.addEntity(e1);
     }
 
     private void initRects(){

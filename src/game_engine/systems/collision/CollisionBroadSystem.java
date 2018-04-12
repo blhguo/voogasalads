@@ -62,11 +62,13 @@ public class CollisionBroadSystem extends CollisionSystem {
         collideableEntities.forEach( (entity) -> entity.removeComponent(RightCollidedComponent.class));
         
 //        List<Pair> possibleCollisions = new ArrayList<Pair>();
-        for(int i = 0; i < collideableEntities.size()-1; i ++) {
-            for(int j = i + 1; j<collideableEntities.size(); j ++) {
-                Entity e1 = collideableEntities.get(i);
-                Entity e2 = collideableEntities.get(j);
-                checkIntersect(e1, e2, elapsedTime);
+        for(int i = 0; i < collideableEntities.size(); i ++) {
+            for(int j = 0; j<collideableEntities.size(); j ++) {
+            	if(i!=j) {
+	                Entity e1 = collideableEntities.get(i);
+	                Entity e2 = collideableEntities.get(j);
+	                checkIntersect(e1, e2, elapsedTime);
+            	}
             }
         }
 
@@ -114,7 +116,7 @@ public class CollisionBroadSystem extends CollisionSystem {
             // TODO: FIX CORNER CASES
             
 
-            CollidedComponent collidedToAdd = null;
+            ArrayList<CollidedComponent> collidedToAdd = new ArrayList<CollidedComponent>();
             
             CollidedComponent r = new RightCollidedComponent();
             CollidedComponent l = new LeftCollidedComponent();
@@ -122,35 +124,35 @@ public class CollisionBroadSystem extends CollisionSystem {
             CollidedComponent b = new BottomCollidedComponent();
             if(right && (rlSmall || rlBig)) {
                 System.out.println("RIGHT");
-                collidedToAdd = r;
+                collidedToAdd.add(r);
             }
             else if(left && (rlSmall || rlBig)) {
                 System.out.println("LEFT");
-                collidedToAdd = l;
+                collidedToAdd.add(l);
             }
             else if(bottom && (tbSmall || tbBig)){
 //                System.out.println("BOTTOM");
-                collidedToAdd = b;
+                collidedToAdd.add(b);
             }
             else if(top && (tbSmall || tbBig)){
 //                System.out.println("TOP");
-                collidedToAdd = t;
+                collidedToAdd.add(t);
             }
             else if(bottom && left) {
                 double dx = Math.abs(xMax2 - xMin1);
                 double dy = Math.abs(yMax2 - yMin1);
                 if(dx>dy){
 //                    System.out.println("BOTTOM");
-                    collidedToAdd = b;
+                    collidedToAdd.add(b);
                 }
                 else if(dy>dx){
 //                    System.out.println("LEFT");
-                    collidedToAdd = l;
+                    collidedToAdd.add(l);
                 }
                 else{
 //                    System.out.println("BOTTOM LEFT");
-                    e1.addComponent(b);
-                    collidedToAdd = l;
+                	collidedToAdd.add(b);
+                    collidedToAdd.add(l);
                 }
             }
             else if(bottom & right){
@@ -158,16 +160,16 @@ public class CollisionBroadSystem extends CollisionSystem {
                 double dy = Math.abs(yMax2 - yMin1);
                 if(dx>dy){
 //                    System.out.println("BOTTOM");
-                    collidedToAdd = b;
+                	collidedToAdd.add(b);
                 }
                 else if(dx<dy){
 //                    System.out.println("RIGHT");
-                    collidedToAdd = r;
+                	collidedToAdd.add(r);
                 }
                 else{
 //                    System.out.println("BOTTOM RIGHT");
-                    e1.addComponent(b);
-                    collidedToAdd = r;
+                	collidedToAdd.add(b);
+                	collidedToAdd.add(r);
                 }
             }
             else if(top && left){
@@ -175,16 +177,16 @@ public class CollisionBroadSystem extends CollisionSystem {
                 double dy = yMax2 - yMax1;
                 if(dx>dy){
 //                    System.out.println("TOP");
-                    collidedToAdd = t;
+                	collidedToAdd.add(t);
                 }
                 else if(dy>dx){
 //                    System.out.println("LEFT");
-                    collidedToAdd = l;
+                	collidedToAdd.add(l);
                 }
                 else{
 //                    System.out.println("TOP LEFT");
-                    e1.addComponent(t);
-                    collidedToAdd = l;
+                	collidedToAdd.add(t);
+                	 collidedToAdd.add(t);
                 }
             }
             else if(top && right) {
@@ -193,21 +195,22 @@ public class CollisionBroadSystem extends CollisionSystem {
                 double dy = yMax2 - yMax1;
                 if(dx>dy){
 //                    System.out.println("TOP");
-                    collidedToAdd = t;
+                	collidedToAdd.add(t);
                 }
                 else if(dy>dx){
 //                    System.out.println("right");
-                    collidedToAdd = r;
+                	collidedToAdd.add(r);
                 }
                 else{
 //                	System.out.println("top right");
-                    e1.addComponent(t);
-                    collidedToAdd = r;
+                	collidedToAdd.add(t);
+                	collidedToAdd.add(r);
                 }
             }
-            if(collidedToAdd!=null) {
-            	collidedToAdd.addEntity(e2);
-            	e1.addComponent(collidedToAdd);
+            
+            for(CollidedComponent c: collidedToAdd) {
+            	c.addEntity(e2);
+            	e1.addComponent(c);
             }
         }
     }
