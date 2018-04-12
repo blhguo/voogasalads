@@ -208,28 +208,28 @@ public class CollisionTest extends Application {
             phys.add("0");
 
         ArrayList<String> pos1 = new ArrayList<String>();
-        pos1.add("250");
-        pos1.add("250");
+        pos1.add("600");
+        pos1.add("100");
         pos1.add("0");
 
         ArrayList<String> pos2 = new ArrayList<String>();
-        pos2.add("250");
+        pos2.add("500");
         pos2.add("1000");
         pos2.add("0");
         
         ArrayList<String> pos3 = new ArrayList<String>();
-        pos3.add("550");
+        pos3.add("800");
         pos3.add("500");
         pos3.add("0");
         
         ArrayList<String> pos4 = new ArrayList<String>();
-        pos4.add("350");
-        pos4.add("100");
+        pos4.add("600");
+        pos4.add("0");
         pos4.add("0");
 
         ArrayList<String> hb2 = new ArrayList<String>();
         hb2.add("3000");
-        hb2.add("500");
+        hb2.add("450");
         hb2.add("0");
         hb2.add("0");
 

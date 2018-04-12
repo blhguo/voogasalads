@@ -55,23 +55,38 @@ public class CollisionResponseSystem extends GameSystem{
         	
             if(xp!=null && ((l != null && xp.getCurrVel() < 0) ||
                     (r != null && xp.getCurrVel() > 0))){
-                	
+                	Entity e2;
             		if(l!=null) {
-            			Entity e2 = l.getEntities().get(0);
+            			e2 = l.getEntities().get(0);
             			CollidableComponent c2 = (CollidableComponent) e2.getComponent(CollidableComponent.class);
             			XPhysicsComponent xp2 = (XPhysicsComponent) e2.getComponent(XPhysicsComponent.class);
             			if(c2.getPushable() > c1.getPushable()) {
             				xp.setCurrVel(xp2.getCurrVel());
             			}
             			else if(c2.getPushable() < c1.getPushable()) {
+            				System.out.println("lel");
             				xp2.setCurrVel(xp.getCurrVel());
             			}
             			else {
+            				System.out.println("kms");
             				xp.setCurrVel(0.0);
             			}
             		}
-            		else {
-            			xp.setCurrVel(0.0);	
+            		else if (r!=null ){
+            			e2 = r.getEntities().get(0);
+            			CollidableComponent c2 = (CollidableComponent) e2.getComponent(CollidableComponent.class);
+            			XPhysicsComponent xp2 = (XPhysicsComponent) e2.getComponent(XPhysicsComponent.class);
+            			if(c2.getPushable() > c1.getPushable()) {
+            				xp.setCurrVel(xp2.getCurrVel());
+            			}
+            			else if(c2.getPushable() < c1.getPushable()) {
+            				System.out.println("lel");
+            				xp2.setCurrVel(xp.getCurrVel());
+            			}
+            			else {
+            				System.out.println("kms");
+            				xp.setCurrVel(0.0);
+            			}
             		}
             		
             }

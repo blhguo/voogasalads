@@ -33,6 +33,8 @@ public class MovementSystem extends GameSystem {
 			YPhysicsComponent yPhysics = (YPhysicsComponent) e.getComponent(VERTICAL_PHYSICS);
 			PositionComponent position = (PositionComponent) e.getComponent(POSITION);
 			
+			
+			
 			position.setX(position.getX() + xPhysics.getCurrVel() * elapsedTime);
 			position.setY(position.getY() + yPhysics.getCurrVel() * elapsedTime);
 			
@@ -44,6 +46,10 @@ public class MovementSystem extends GameSystem {
 			 */
 			yPhysics.setCurrVel(yPhysics.getCurrVel() + -1 * yPhysics.getAccel() * elapsedTime);
 			xPhysics.setCurrVel(xPhysics.getCurrVel() + -1 * xPhysics.getAccel() * elapsedTime);
+			
+			if(Math.abs(xPhysics.getCurrVel())>xPhysics.getDefaultVel()) {
+				xPhysics.setCurrVel(0.0);
+			}
 		}
 	}
 }
