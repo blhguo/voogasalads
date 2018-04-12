@@ -1,3 +1,8 @@
+/*
+ * @author: jermey chen
+ * Yet to be implemented, will be implemented for final
+ */
+
 //package game_engine.components;
 //
 //import javafx.util.Pair;

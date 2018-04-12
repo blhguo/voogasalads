@@ -42,6 +42,7 @@ public class CollisionBroadSystem extends CollisionSystem {
     /**
      *
      * @param engine
+     * Constructor
      */
     public CollisionBroadSystem(Engine engine) {
         super(engine);
@@ -49,8 +50,10 @@ public class CollisionBroadSystem extends CollisionSystem {
 
 
     /**
-     *  TODO NEEDS TO ACCOUNT FOR ELAPSED TIME
      * @param elapsedTime
+     * 
+     * Main loop for CollisionBraodSystem: Will perform garbage collection of collidedComponents from last cycle
+     * And will loop over every Collidable Entity to check for collisions
      */
     @Override
     public void act(double elapsedTime){
@@ -79,13 +82,13 @@ public class CollisionBroadSystem extends CollisionSystem {
      * @param e1
      * @param e2
      * @return
+     * Method that will check for overlap between two AABB (Axis-Aligned Bounding Box) and also determine which side each Entity has been collided
+     * TODO: NEEDS SIGNIFICANT REFACTORING
      */
     @Override
     protected void checkIntersect(Entity e1, Entity e2, double elapsedTime){
         double[] aabb1 = getExtrema(e1, elapsedTime);
         double[] aabb2 = getExtrema(e2, elapsedTime);
-
-        // TODO: need to add dx dy compensation
 
         boolean xOverlap = Math.max(aabb1[0], aabb2[0]) <= Math.min(aabb1[1], aabb2[1]);
         boolean yOverlap = Math.max(aabb1[2], aabb2[2]) <= Math.min(aabb1[3], aabb2[3]);
@@ -112,10 +115,7 @@ public class CollisionBroadSystem extends CollisionSystem {
             boolean bottom = yMax2 >= yMax1 && yMin2 <= yMax1;
             boolean tbBig = xMin2 <= xMin1 && xMax2 >= xMax1;
             boolean tbSmall = xMin2 >= xMin1 && xMax2 <= xMax1;
-
-            // TODO: FIX CORNER CASES
             
-
             ArrayList<CollidedComponent> collidedToAdd = new ArrayList<CollidedComponent>();
             
             CollidedComponent r = new RightCollidedComponent();
