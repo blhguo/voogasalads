@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 /**
  * 
  * @author Dana Park, Brandon Dalla Rosa
- *
+ *Class that makes a generic button
  */
 public class ButtonMaker {
 
