@@ -45,13 +45,16 @@ public class PositionComponent implements Component {
 		myAngle = angle;
 	}
 
+	@Override
 	public String getValues() {
-		String ret;
-		ret = "XPos,d," + this.getX() + ";" + "YPos,d," + this.getY() + ";" + "Angle,d," + this.getAngle();
-		return ret;
+		String values = "xPos,d,"+ getX() + ";yPos,d," + getY() + ";Angle,d," + getAngle();
+		return values;
 	}
+
 	@Override
 	public String getName() {
 		return "Position";
 	}
+	
+	
 }
