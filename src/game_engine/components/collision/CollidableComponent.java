@@ -46,4 +46,16 @@ public class CollidableComponent implements Component{
 	public void setPushable(int pushable){
 		myPushable = pushable;
 	}
+
+	@Override
+	public String getValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -41,4 +41,16 @@ public class HitboxComponent implements Component {
     public double getHeight() {
         return myHeight;
     }
+
+	@Override
+	public String getValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
