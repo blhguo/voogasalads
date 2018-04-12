@@ -14,9 +14,11 @@ import resources.keys.AuthRes;
 public class Toolbar implements GUINode {
 
 	Stage stage;
+	private SplashScreen splash;
 	
-	public Toolbar(Stage stage) {
+	public Toolbar(Stage stage, SplashScreen ss) {
 		this.stage = stage;
+		splash = ss;
 	}
 	
 	@Override
@@ -30,7 +32,7 @@ public class Toolbar implements GUINode {
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
 				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 25),
-				e -> stage.setScene(new SplashScreen(stage).display()),
+				e -> stage.getScene().setRoot(splash.display()),
 				"button-nav");
 	}
 }

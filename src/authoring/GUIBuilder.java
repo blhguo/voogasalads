@@ -12,7 +12,7 @@ import resources.keys.AuthRes;
 
 public abstract class GUIBuilder {
 	
-	public abstract Scene display();
+	public abstract Pane display();
 	
 	public Scene initScene(Pane pane){
 		Scene scene = new Scene(pane, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));

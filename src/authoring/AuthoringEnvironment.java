@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import main.SplashScreen;
 import observables.Listener;
 import resources.keys.AuthRes;
 
@@ -42,10 +43,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private StoryBoardPane story;
 	private BorderPane bp;
 	private Canvas canvas;
+	private SplashScreen splash;	
 	
-	
-	public AuthoringEnvironment(Stage stage){
+	public AuthoringEnvironment(Stage stage, SplashScreen ss){
 		this.stage = stage;
+		splash = ss;
 		base = new BasePane();
 		entity = new EntityPane();
 		event = new EventPane();
@@ -55,7 +57,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		
 		canvas = new Canvas();
 		
-		EntityController controller = new EntityController(entity, canvas, base, np);
+		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController();
 		
@@ -69,7 +71,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	}
 	
 	@Override
-	public Scene display() {
+	public Pane display() {
 		
 		//Build BorderPane by setting right, center, and left
 		bp = new BorderPane();
@@ -80,45 +82,22 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
 
 		//Build StackPane to overlay ToolBar on top
-		Pane t = new Toolbar(stage).getView();
-		t.setPickOnBounds(false);
-		bp.setPickOnBounds(false);
+//		Pane t = new Toolbar(stage, splash).getView();
+//		t.setPickOnBounds(false);
+//		bp.setPickOnBounds(false);
 //		StackPane sp = new StackPane(t, bp);
-		StackPane sp = new StackPane(bp, t);
+		StackPane sp = new StackPane(bp); // t);
 		sp.setPickOnBounds(false);
-
-		//Build scene from StackPane
-		Scene scene = initScene(sp);
-		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
-
-		return scene;
-		
-	}
-	
-	public StackPane test(){
-		//Build BorderPane by setting right, center, and left
-		bp = new BorderPane();
-		update(""); //calls default setting for right pane
-		bp.setLeft(np.getView());
-		Pane canvasView = canvas.getView();
-		bp.setCenter(canvasView);
-		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
-
-		//Build StackPane to overlay ToolBar on top
-		Pane t = new Toolbar(stage).getView();
-		t.setPickOnBounds(false);
-		bp.setPickOnBounds(false);
-//		StackPane sp = new StackPane(t, bp);
-		StackPane sp = new StackPane(bp, t);
-		sp.setPickOnBounds(false);
-		
-		//Build scene from StackPane
 
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
+		//Build scene from StackPane
+		//Scene scene = initScene(sp);
+		//scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 
 		return sp;
+		
 	}
 
 	@Override

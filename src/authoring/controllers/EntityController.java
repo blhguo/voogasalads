@@ -40,17 +40,14 @@ public class EntityController {
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
-	private BasePane base;
-	private NavigationPane nav;
+
 	
-	public EntityController(EntityPane pane, Canvas c, BasePane bp, NavigationPane np){
+	public EntityController(EntityPane pane, Canvas c){
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
 		entityList = new ArrayList<>();
 		menuMap = new HashMap<>();
-		base = bp;
-		nav = np;
 	}
 	public void add(Entity entity){
 		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
