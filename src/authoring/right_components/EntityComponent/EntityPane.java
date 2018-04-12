@@ -37,6 +37,7 @@ public class EntityPane extends BasePane {
 	private Button createButton;
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
+	private VBox newbox;
 
 	public EntityPane(){
 		createButtonArray = new ArrayList<>();
@@ -54,12 +55,14 @@ public class EntityPane extends BasePane {
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
 		box.getChildren().add(getStack());
-//		ScrollPane pane = new ScrollPane(accordion);
-//		pane.setStyle("-fx-background: transparent;");
-//		pane.setPrefHeight(250);
-//		box.getChildren().add(pane);
-//		box.getChildren().addAll(createButtonArray);
-		box.getChildren().addAll(getButtonArray());
+		newbox = new VBox();
+		newbox.getChildren().addAll(getButtonArray());
+		ScrollPane pane = new ScrollPane(newbox);
+		pane.setStyle("-fx-background: transparent;");
+		pane.setPrefHeight(250);
+		box.getChildren().add(pane);
+		box.getChildren().addAll(createButtonArray);
+		//box.getChildren().addAll(getButtonArray());
 
 	    return box;
 	}
@@ -89,11 +92,11 @@ public class EntityPane extends BasePane {
 
 	}
 	private void resetAccordion() {
-		box.getChildren().remove(accordion);
+		newbox.getChildren().remove(accordion);
 		menuList = makeMenuList();
 		Collections.sort(menuList);
 		accordion = makeMenuView();
-		box.getChildren().add(accordion);
+		newbox.getChildren().add(accordion);
 		box.getChildren().removeAll(editButtonArray);
 		box.getChildren().addAll(createButtonArray);
 		controller.resetImageViews();
