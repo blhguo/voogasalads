@@ -135,6 +135,8 @@ public class PlayerView {
 
 	private void handleUI() {
 		String selectedAction = pullDownFactory.SpeedBox().getSelectionModel().getSelectedItem();
+		String selectedAction = pullDownFactory.SpeedBox().getSelectionModel().getSelectedItem();
+
 		if (selectedAction.equals("Speed Up")) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
 		}
