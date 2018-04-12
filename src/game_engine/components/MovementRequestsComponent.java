@@ -28,4 +28,16 @@ public class MovementRequestsComponent implements Component, Iterable{
 	public Iterator iterator() {
 		return ds.iterator();
 	}
+
+	@Override
+	public String getValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
