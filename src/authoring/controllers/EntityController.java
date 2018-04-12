@@ -40,9 +40,17 @@ public class EntityController {
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
+<<<<<<< HEAD
 
 	
 	public EntityController(EntityPane pane, Canvas c){
+=======
+	private BasePane base;
+	private NavigationPane nav;
+	private Button button;
+
+	public EntityController(EntityPane pane, Canvas c, BasePane bp, NavigationPane np){
+>>>>>>> c5d141faf7ff72847d825dafb1929481e6e2ef6c
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
@@ -58,7 +66,7 @@ public class EntityController {
 		iv.setY(pos.getY());
 
 		map.put(iv, entity);
-		iv.setOnMouseClicked(e -> UpdateMenus(iv));
+		iv.setOnMouseClicked(e -> UpdateMenus(iv, entity));
 		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), pos, entity, iv));
 		entityList.add(entity);
 		menuMap.put(entity, entityPane.getMenuList());
@@ -67,16 +75,23 @@ public class EntityController {
 
 		lcontroller.getActiveLevel().addEntity(entity);
 	}
-	
+	public Button getRemoveButton(){
+		return button;
+	}
+	public void removeEntity(Entity e, ImageView iv){
+		map.remove(iv, e);
+		canvas.update(map);
+		System.out.println("DDD");
+	}
 	public void setPos(double x, double y, PositionComponent pos, Entity ent, ImageView iv){
 		pos.setX(x);
 		pos.setY(y);
-		UpdateMenus(iv);
+		UpdateMenus(iv, ent);
 
 	}
 	public ImageView getSprite(){
 		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
-		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 200, 200);
+		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 130, 130);
 		return iv;
 	}
 	public Map<Entity, List<ComponentMenu>> getMenuMap(){
@@ -92,7 +107,8 @@ public class EntityController {
 		this.add(entityPane.getEntity());
 		canvas.update(map);
 	}
-	public void UpdateMenus(ImageView iv){
+	public void UpdateMenus(ImageView iv, Entity entity){
+		button = ButtonFactory.makeButton(e -> removeEntity(entity, iv));
 		toggleStyle(iv);
 		entityPane.updateMenus(map.get(iv));
 	}
