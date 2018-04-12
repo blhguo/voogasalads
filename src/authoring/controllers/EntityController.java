@@ -1,7 +1,10 @@
 package authoring.controllers;
 
+import authoring.AuthoringEnvironment;
 import authoring.Canvas;
+import authoring.NavigationPane;
 import authoring.component_menus.ComponentMenu;
+import authoring.right_components.BasePane;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.DraggableImageView;
@@ -9,11 +12,18 @@ import authoring.utilities.ImageBuilder;
 import game_engine.Entity;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
+import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import resources.keys.AuthRes;
 
 import javax.swing.text.Position;
 import java.util.ArrayList;
@@ -30,8 +40,10 @@ public class EntityController {
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
+	private BasePane base;
+	private NavigationPane nav;
 	
-	public EntityController(EntityPane pane, Canvas c){
+	public EntityController(EntityPane pane, Canvas c, BasePane bp, NavigationPane np){
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
@@ -46,8 +58,6 @@ public class EntityController {
 		view = new ImageView(iv.getImage());
 		iv.setX(pos.getX());
 		iv.setY(pos.getY());
-		System.out.println("New Enitity imageview xPos:" + pos.getX());
-		System.out.println("New Enitity imageview yPos:" + pos.getY());
 
 		map.put(iv, entity);
 		iv.setOnMouseClicked(e -> UpdateMenus(iv));
@@ -59,6 +69,7 @@ public class EntityController {
 
 		lcontroller.getActiveLevel().addEntity(entity);
 	}
+	
 	public void setPos(double x, double y, PositionComponent pos, Entity ent, ImageView iv){
 		pos.setX(x);
 		pos.setY(y);
