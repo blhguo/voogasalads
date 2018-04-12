@@ -31,6 +31,7 @@ public class Initializer {
 	}
 	
 	public void instantiate(List<Level> levels) {
+		
 		Engine engine = new Engine();
 		GameSystem movementSystem = new MovementSystem(engine);
 		engine.addSystem(movementSystem);

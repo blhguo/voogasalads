@@ -2,8 +2,10 @@ package game_player;
 
 import java.awt.event.MouseAdapter;
 import java.io.File;
+import java.nio.file.Paths;
 
 import authoring.GameChooserScreen;
+import authoring.Toolbar;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -31,6 +33,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -52,8 +55,11 @@ public class ViewManager {
 	private BackgroundImage game;
 	private SubScene subScene;
 	private Group subRoot;
+	private Group wholeView;
 	private ColorAdjust colorAdjust = new ColorAdjust();
-	
+	private Toolbar toolBar;
+	private MediaPlayer mediaPlayer;
+	private Rectangle rectangle;
 	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
 		this.menu = menu;
 		this.pullDownFactory = pdf;
@@ -71,6 +77,7 @@ public class ViewManager {
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
+		
 	}
 
 	public Scene getScene() {
@@ -78,23 +85,27 @@ public class ViewManager {
 	}
 
 	private Pane setObjects() {
+		makeMediaPlayer();
+		rectangle = new Rectangle();
+		rectangle.setWidth(900);
+		rectangle.setHeight(900);
+		rectangle.setFill(Color.BLACK);
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
-		
 		gameBackground = new Image("mountain.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
-
+		
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		center.setBackground(new Background(back));
 
 		VBox order = new VBox(20);
 		order.getStyleClass().add("pane-back");
-
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
-		
+		center.getChildren().add(gameImageView);
+
 		menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(1000, 730);
@@ -106,8 +117,13 @@ public class ViewManager {
 		view.setBackground(new Background(game));
 
 		order.getChildren().add(subScene);
+
 		subRoot.getChildren().add(view);
+		
+		order.getChildren().add(rectangle);
+
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+
 		return center;
 	}
 	
@@ -115,10 +131,17 @@ public class ViewManager {
 		return subScene;
 	}
 	
+	public MediaPlayer getMediaPlayer() {
+		return mediaPlayer;
+	}
+	
 	public Group getSubRoot() {
 		return subRoot;
 	}
 	
+	public Stage getStage() {
+		return gameStage;
+	}
 	
 	
 	public void changeBackground() {
@@ -132,21 +155,22 @@ public class ViewManager {
 	public void changeBrightness() {
 		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				
-				colorAdjust.setBrightness((double) new_val);
-				gameImageView.setEffect(colorAdjust);
-				System.out.println(new_val);
+				rectangle.setFill(Color.BLACK);
+				subRoot.getChildren().add(rectangle);
 			}
 		});
+	}
+	
+	public void makeMediaPlayer() {
+		String path = "resources/baby.mp3";
+	    Media media = new Media(Paths.get(path).toUri().toString());
+	    mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.play();
 	}
 
 	public void changeVolume() {
 		this.menu.getVolumeSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				String path = "/resources/baby.mp3";
-				Media media = new Media(new File(path).toURI().toString());
-
-				MediaPlayer mediaPlayer = new MediaPlayer(media);
 				mediaPlayer.setVolume((double) new_val);
 				mediaPlayer.play();
 
