@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * 
  * @author Brandon Dalla Rosa, Dana Park
- *
+ *Class that represents all Menu items contained in HBox on top of the screen
  */
 
 public class Menu {
