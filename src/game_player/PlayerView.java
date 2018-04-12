@@ -41,7 +41,7 @@ public class PlayerView {
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
-	private static final double HALF_RATE = 0.95;
+	private static final double HALF_RATE = 0.93;
 	private static final double SCENE_SIZE = 500;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
@@ -113,6 +113,7 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
+		animation.stop();
 		myEngine.update(delay);
 		render();
 		handleUI();	

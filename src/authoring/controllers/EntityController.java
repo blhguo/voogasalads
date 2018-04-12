@@ -84,7 +84,7 @@ public class EntityController {
 	}
 	public ImageView getSprite(){
 		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
-		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 200, 200);
+		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 135, 135);
 		return iv;
 	}
 	public Map<Entity, List<ComponentMenu>> getMenuMap(){
