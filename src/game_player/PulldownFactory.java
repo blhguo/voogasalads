@@ -86,10 +86,8 @@ public class PulldownFactory {
 	protected void handleLoad() {
 		ManipData turd = new ManipData();
 		File file = getFile();
-		System.out.println(file.getAbsolutePath());
 		viewManager.changeBackground();
 		levels = turd.loadData(file);
-		System.out.println("LEVELS: " + levels);
 		dataManager.setGameLevels(levels);
 		playerView.instantiate();
 	}
