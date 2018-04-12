@@ -63,4 +63,14 @@ public class SpriteComponent implements Component{
     public void setAngle(double angle) {
         myAngle = angle;
     }
+
+	@Override
+	public String getValues() {
+		return "Filename,s,Mario.gif;Visibility,b,true;Width,d,20.0;Height,d,20.0;Angle,d,0.0";
+	}
+
+	@Override
+	public String getName() {
+		return "Sprite";
+	}
 }

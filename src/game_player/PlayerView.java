@@ -1,12 +1,12 @@
 package game_player;
 
 import java.util.ArrayList;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Level;
@@ -56,7 +56,7 @@ public class PlayerView {
 		pullDownFactory = pdf;
 		myEngine = engine;
 		viewManager=view;
-		instantiate(null);
+		//instantiate(null);
 		animationFrame();
 	}
 
@@ -78,11 +78,9 @@ public class PlayerView {
 		
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
-		//		for(Entity e: levels.get(0).getEntities()){
-		//			myEngine.addEntity(e);
-		//		}
-		
-		testingStuffInitializeEntity();
+		for(Entity e: levels.get(0).getEntities()){
+			myEngine.addEntity(e);
+		}
 
 		spriteMap = new HashMap<ImageView, Entity>();
 		List<Entity> spriteEntities = myEngine.getEntitiesContaining(Arrays.asList(SpriteComponent.class, PositionComponent.class));
@@ -157,8 +155,8 @@ public class PlayerView {
 
 		//Movement Input Componenet		
 		List<String> keyboardMovementInputArgs = new ArrayList<>();
-		keyboardMovementInputArgs.add(KeyCode.LEFT.toString());
-		keyboardMovementInputArgs.add(KeyCode.RIGHT.toString());
+		keyboardMovementInputArgs.add(KeyCode.A.toString());
+		keyboardMovementInputArgs.add(KeyCode.D.toString());
 		KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(keyboardMovementInputArgs);
 		myEntity.addComponent(keyboardInputComponent);
 
@@ -196,16 +194,20 @@ public class PlayerView {
 
 		//Jump Component
 		List<String> jumpArgs = new ArrayList<String>();
-		jumpArgs.add("true");
 		jumpArgs.add("-1"); //number of jumps
 		JumpComponent jumpComponent = new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);
 
 		//Jump Input Component
 		ArrayList<String> jumpInputArgs = new ArrayList<String>();
-		jumpInputArgs.add(KeyCode.A.toString()); // Press UP for jump
+		jumpInputArgs.add(KeyCode.W.toString()); // Press UP for jump
 		KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
 		myEntity.addComponent(keyboardJumpInputComponent);
+		
+		ManipData m = new ManipData();
+		Level level = new Level();
+		level.addEntity(myEntity);
+		m.saveData(Arrays.asList(level));
 	}
 
 }

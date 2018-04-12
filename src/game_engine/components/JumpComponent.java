@@ -10,8 +10,8 @@ public class JumpComponent implements Component{
 	private int myDefaultJumpsAllowed;
 	
 	public JumpComponent(List<String> args){
-		myOnGround = Boolean.parseBoolean(args.get(0));
-		myJumpsAllowed = Integer.parseInt(args.get(1));
+		myJumpsAllowed = Integer.parseInt(args.get(0));
+		myOnGround = true;
 		myDefaultJumpsAllowed = myJumpsAllowed;
 	}
 	public void setOnGround(boolean onGround){
@@ -32,5 +32,14 @@ public class JumpComponent implements Component{
 	
 	public int getDefaultJumpsAllowed(){
 		return myDefaultJumpsAllowed;
+	}
+	@Override
+	public String getValues() {
+		String vals = "Jumps allowed,d,-1";
+        return vals;
+	}
+	@Override
+	public String getName() {
+		return "Jump";
 	}
 }
