@@ -21,10 +21,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import resources.keys.AuthRes;
 
 public class EntityPane extends BasePane {
@@ -45,6 +43,7 @@ public class EntityPane extends BasePane {
 		editButtonArray = new ArrayList<>();
 		menuList = makeMenuList();
 		Collections.sort(menuList);
+
 		ogmenuList = new ArrayList<>(menuList);
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
@@ -55,6 +54,11 @@ public class EntityPane extends BasePane {
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
 		box.getChildren().add(getStack());
+//		ScrollPane pane = new ScrollPane(accordion);
+//		pane.setStyle("-fx-background: transparent;");
+//		pane.setPrefHeight(250);
+//		box.getChildren().add(pane);
+//		box.getChildren().addAll(createButtonArray);
 		box.getChildren().addAll(getButtonArray());
 
 	    return box;
