@@ -101,10 +101,7 @@ public class EntityPane extends BasePane {
 //		+ menu.getComponentList().size()));
 		System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
-			if (menu.isIncluded()) {
-				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
-				System.out.println("Added one component");
-			}
+			new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
 		return entity;
