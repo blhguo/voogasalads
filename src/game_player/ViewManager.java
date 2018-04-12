@@ -1,23 +1,17 @@
 package game_player;
 
-import java.awt.event.MouseAdapter;
 import java.io.File;
 
 import authoring.GameChooserScreen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Camera;
 import javafx.scene.Group;
-import javafx.scene.ParallelCamera;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -81,7 +75,7 @@ public class ViewManager {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
 		
-		gameBackground = new Image("mountain.png");
+		gameBackground = new Image("gray.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
 
@@ -101,8 +95,8 @@ public class ViewManager {
 		subRoot = new Group();
 		subScene = new SubScene(subRoot, 770, 530, false, null);
 
-		game = new BackgroundImage(gameBackground, BackgroundRepeat.NO_REPEAT, 
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
+				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
 
 		order.getChildren().add(subScene);
@@ -122,8 +116,8 @@ public class ViewManager {
 	
 	
 	public void changeBackground() {
-		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.NO_REPEAT, 
-		BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		BackgroundImage back = new BackgroundImage(new Image("clouds.png"), BackgroundRepeat.REPEAT, 
+		BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(back));
 	}
 

@@ -50,6 +50,6 @@ public class HitboxComponent implements Component {
 
 	@Override
 	public String getName() {
-		return "HitBox";
+		return "Hitbox";
 	}
 }

@@ -8,7 +8,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setFullScreen(true);
+		//primaryStage.setFullScreen(true);
 		SplashScreen ss = new SplashScreen(primaryStage);
 		Scene testScene = ss.display();
 		primaryStage.setScene(testScene);

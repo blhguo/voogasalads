@@ -54,8 +54,6 @@ public class EntityController {
 		map = new HashMap<>();
 		entityList = new ArrayList<>();
 		menuMap = new HashMap<>();
-		base = bp;
-		nav = np;
 	}
 
 	/**
@@ -69,7 +67,6 @@ public class EntityController {
 		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
 		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
-		
 		iv.setX(pos.getX());
 		iv.setY(pos.getY());
 
@@ -125,7 +122,7 @@ public class EntityController {
 	 */
 	public ImageView getSprite(){
 		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
-		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 130, 130);
+		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 135, 135);
 		return iv;
 	}
 	@Deprecated

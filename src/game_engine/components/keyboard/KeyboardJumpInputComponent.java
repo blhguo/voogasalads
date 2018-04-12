@@ -33,7 +33,7 @@ public class KeyboardJumpInputComponent implements Component{
 	}
 	
 	public String getValues() {
-		String vals = "Up,s," + myUp;
+		String vals = "Up,s,Up";
         return vals;
 	}
 	
