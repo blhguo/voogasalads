@@ -22,7 +22,7 @@ public class DataManager {
 		keyPrefs = new HashMap<KeyCode,String>();
 		gameInputs = new ArrayList<String>();
 		
-		String[] testInputs = {"up","down","left","right"}; //To be read in from data
+		String[] testInputs = {"left","right","up"}; //To be read in from data
 		for(int i=0;i<testInputs.length;i++) {
 			gameInputs.add(testInputs[i]);
 		}

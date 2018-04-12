@@ -1,4 +1,4 @@
-package gamePlayerInterfaces;
+package game_player_interfaces;
 
 /** 
  * @author Dana Park 

@@ -38,8 +38,8 @@ public class MovementTest extends Application{
 	private Group myRoot;
 	private Scene myScene;
 	
-	private static final String GRAVITY = "1000"; //effects of gravity
-	private static final String JUMP_VELOCITY = "-500"; //effects of how high you jump
+	private static final String GRAVITY = "-1000"; //effects of gravity
+	private static final String JUMP_VELOCITY = "500"; //effects of how high you jump
 
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -145,7 +145,7 @@ public class MovementTest extends Application{
 
 		//Physics Component
 		List<String> yPhysicsArgs = new ArrayList<>();
-		yPhysicsArgs.add("0"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
+		yPhysicsArgs.add(JUMP_VELOCITY);
 		yPhysicsArgs.add(GRAVITY); //acceleration
 		YPhysicsComponent xPhysicsComponent = new YPhysicsComponent(yPhysicsArgs);
 		myEntity.addComponent(xPhysicsComponent);
@@ -169,7 +169,6 @@ public class MovementTest extends Application{
 		List<String> jumpArgs = new ArrayList<String>();
 		jumpArgs.add("true");
 		jumpArgs.add("2"); //number of jumps
-		jumpArgs.add(JUMP_VELOCITY); //
 		// Y velocity
 		JumpComponent jumpComponent= new JumpComponent(jumpArgs);
 		myEntity.addComponent(jumpComponent);

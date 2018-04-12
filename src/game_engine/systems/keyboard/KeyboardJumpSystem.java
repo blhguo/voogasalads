@@ -29,7 +29,7 @@ public class KeyboardJumpSystem extends GameSystem{
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(VERTICAL_PHYSICS, KEYBOARD_JUMP_INPUT, JUMP);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			YPhysicsComponent physics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);		
+			YPhysicsComponent yPhysics = (YPhysicsComponent) entity.getComponent(VERTICAL_PHYSICS);
 			KeyboardJumpInputComponent jumpInput = (KeyboardJumpInputComponent) entity.getComponent(KEYBOARD_JUMP_INPUT);
 			JumpComponent jump = (JumpComponent) entity.getComponent(JUMP);
 			for(InputEvent input : getEngine().getInput()){
@@ -39,10 +39,8 @@ public class KeyboardJumpSystem extends GameSystem{
 				KeyEvent key = (KeyEvent) getEngine().getInput().get(0);
 				Vector direction = jumpInput.getDirection(key.getCode());
 				if (direction.getY() == 1 && jump.getJumpsAllowed() != 0){
-					physics.setCurrVel(jump.getJumpVelocity());
+					yPhysics.setCurrVel(-1 * yPhysics.getDefaultVel());
 					jump.setJumpsAllowed(jump.getJumpsAllowed() - 1);
-					// should fix this to be more active and not give up data
-					//getEngine().getInput().remove(input);
 				}
 			}
 		}

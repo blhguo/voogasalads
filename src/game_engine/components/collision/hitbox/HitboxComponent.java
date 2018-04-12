@@ -15,7 +15,7 @@ public class HitboxComponent implements Component {
     private double myXOffset;
     private double myYOffset;
 
-    public HitboxComponent(List<String> args){
+    public HitboxComponent (List<String> args){
         myWidth = Double.parseDouble(args.get(0));
         myHeight = Double.parseDouble(args.get(1));
         myXOffset = Double.parseDouble(args.get(2));
@@ -40,15 +40,5 @@ public class HitboxComponent implements Component {
 //    @Override
     public double getHeight() {
         return myHeight;
-    }
-
-    @Override
-    public String getValues() {
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return "HitBox";
     }
 }
