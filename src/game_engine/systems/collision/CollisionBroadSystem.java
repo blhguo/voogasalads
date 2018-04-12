@@ -123,11 +123,11 @@ public class CollisionBroadSystem extends CollisionSystem {
             CollidedComponent t = new TopCollidedComponent();
             CollidedComponent b = new BottomCollidedComponent();
             if(right && (rlSmall || rlBig)) {
-                System.out.println("RIGHT");
+//                System.out.println("RIGHT");
                 collidedToAdd.add(r);
             }
             else if(left && (rlSmall || rlBig)) {
-                System.out.println("LEFT");
+//                System.out.println("LEFT");
                 collidedToAdd.add(l);
             }
             else if(bottom && (tbSmall || tbBig)){
