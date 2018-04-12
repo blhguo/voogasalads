@@ -11,7 +11,7 @@
 //public class MovementRequestsComponent implements Component, Iterable{
 //	// tmeporarly a list of lists
 //	private List<Vector> ds;
-//	
+//	∑aaa
 //	public MovementRequestsComponent() {
 //		clear();
 //	}

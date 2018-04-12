@@ -6,7 +6,9 @@ import gameData.ManipData;
 import game_engine.Entity;
 import game_engine.Level;
 
-
+/**
+ * Maintains control of all active entities and the levels in which they reside, passes data to Data
+ */
 public class LevelController {
 
 	private ArrayList<Level> currentLevels;	
@@ -20,12 +22,17 @@ public class LevelController {
 		activeLevel = initLevel;
 		data = new ManipData();
 	}
-	
+	/**
+	 * @param l Adds the specifed level to current levels
+	 */
 	public void addLevel(Level l) {
 		currentLevels.add(l);
 		activeLevel = l;
 	}
-	
+
+	/**
+	 * Passes the current levels array to data
+	 */
 	public void saveGame() {
 		currentLevels.stream().forEach(e -> System.out.println(e));
 		for (Entity e : currentLevels.get(0).getEntities()){
@@ -35,7 +42,11 @@ public class LevelController {
 		data.saveData(currentLevels);
 		//or .saveData(currentLevels, currentAttributes)
 	}
-	
+
+	/**
+	 *
+	 * @return the active level
+	 */
 	public Level getActiveLevel(){
 		return currentLevels.get(0);
 	}
