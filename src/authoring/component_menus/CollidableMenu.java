@@ -1,15 +1,15 @@
 package authoring.component_menus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
-import game_engine.components.CollidableComponent;
+import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Deprecated
 public class CollidableMenu extends VBox  {
