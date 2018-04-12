@@ -13,6 +13,14 @@ import game_engine.components.physics.XPhysicsComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * 
+ * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * The purpose of this system class is to act on all entities that contain the XPhysics and KeyboardMovementInput Components.
+ * This system loops over all keypresses taken from the input queue in engine and maps these keypresses to potential horizontal movement
+ * within these respective Entities.
+ *
+ */
 public class KeyboardMovementSystem extends GameSystem{
 
 	private static final Class<? extends Component> KEYBOARD_MOVE_INPUT = KeyboardMovementInputComponent.class;
@@ -20,10 +28,19 @@ public class KeyboardMovementSystem extends GameSystem{
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	private static final String KEY_RELEASED = "KEY_RELEASED";
 
+	/**
+	 * Creates a new instance of the KeyboardMovementSystem
+	 * @param engine
+	 */
 	public KeyboardMovementSystem(Engine engine) {
 		super(engine);
 	}
 
+	/**
+	 * This method loops over all entities that contain the correct components necessary for horizontal movement through keyboard input.
+	 * It then acts on these entities by changing the x velocity of the XPhysics component of these entities whenever a valid movement input
+	 * keypress is read in from the input queue in Engine.
+	 */
 	@Override
 	public void act(double elapsedTime) {
 		List<Class<? extends Component>> args = Arrays.asList(HORIZONTAL_PHYSICS, KEYBOARD_MOVE_INPUT);
