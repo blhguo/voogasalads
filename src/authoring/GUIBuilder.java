@@ -10,10 +10,32 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
 
+/**
+ * @author Jennifer Chin
+ * Abstract super class called GUIBuilder. This class is extended by all classes that 
+ * initialize scenes. This class is intended to provide hierarchy to the front end GUI
+ * elements. GUIBuilder classes are made up of GUINode classes. Because all GUINode classes
+ * implement the same method, it is easy for the GUIBuilder class the use the GUINode
+ * classes interchangeably.
+ */
+
 public abstract class GUIBuilder {
 	
-	public abstract Scene display();
+	/**
+	 * Abstract method called display. Returns a pane, which is usually set as the root
+	 * of the scene (initialized below). Pulls front end visual logic out of the rest of
+	 * the class and places it in this method.
+	 * @return Pane
+	 */
+	public abstract Pane display();
 	
+	/**
+	 * Initializes the scene of the GUIBuilder objects. There is a constant background 
+	 * and size of the scenes and those elements are established here. In order to change
+	 * one of these values for the entire program, only this one method needs to be updated. 
+	 * @param pane
+	 * @return Scene
+	 */
 	public Scene initScene(Pane pane){
 		Scene scene = new Scene(pane, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
