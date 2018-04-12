@@ -1,13 +1,9 @@
 package game_player;
 
-import javafx.stage.Stage;
-
-import java.io.File;
-
-import gameData.ManipData;
 import game_engine.Engine;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 /**
  * 
  * @author Brandon Dalla Rosa
@@ -17,7 +13,6 @@ public class PlayerMain extends Application{
 	ViewManager viewManager;
 	Menu menu;
 	DataManager dataManager;
-	Initializer initializer;
 	PulldownFactory pullDownFactory;
 	PlayerView playerView;
 	
@@ -31,11 +26,10 @@ public class PlayerMain extends Application{
 		this.dataManager = new DataManager();
 		this.pullDownFactory = new PulldownFactory(dataManager);
 		this.menu = new Menu(dataManager, pullDownFactory);
-		this.viewManager = new ViewManager(menu,stage,pullDownFactory);
-		this.initializer = new Initializer(this.viewManager);
-		this.playerView = new PlayerView(pullDownFactory, engine,viewManager);
-		File file = new File("gameDataSavesomeuniquefactor.xml");
-		playerView.instantiate(new ManipData().loadData(file));
+		this.viewManager = new ViewManager(menu, stage, pullDownFactory);
+		this.playerView = new PlayerView(pullDownFactory, engine, viewManager);
+		
+		this.pullDownFactory.setPlayerView(playerView);
 	}
 	
 	public Scene getScene() {

@@ -3,6 +3,7 @@ package authoring.controllers;
 import java.util.ArrayList;
 
 import gameData.ManipData;
+import game_engine.Entity;
 import game_engine.Level;
 
 
@@ -26,11 +27,17 @@ public class LevelController {
 	}
 	
 	public void saveGame() {
-		data.saveData(currentLevels); //or .saveData(currentLevels, currentAttributes)
+		currentLevels.stream().forEach(e -> System.out.println(e));
+		for (Entity e : currentLevels.get(0).getEntities()){
+			System.out.println(e);
+		}
+		System.out.println("currentLevels: " + currentLevels);
+		data.saveData(currentLevels);
+		//or .saveData(currentLevels, currentAttributes)
 	}
 	
 	public Level getActiveLevel(){
-		return activeLevel;
+		return currentLevels.get(0);
 	}
 	
 }

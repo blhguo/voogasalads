@@ -19,7 +19,7 @@ public class Engine {
 	private List<GameSystem> mySystems = new ArrayList<>();
 	private LinkedList<InputEvent> myInputs = new LinkedList<>();
 	
-	public Engine(){
+	public Engine() {
 		mySystems.add(new MovementSystem(this));
 		mySystems.add(new KeyboardMovementSystem(this));
 		mySystems.add(new KeyboardJumpSystem(this));

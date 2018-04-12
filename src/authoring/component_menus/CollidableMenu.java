@@ -5,6 +5,7 @@ import java.util.List;
 
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
+
 import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;

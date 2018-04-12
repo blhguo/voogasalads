@@ -22,7 +22,7 @@ public class DraggableImageView extends ImageView {
 	private double minX = 0;
 	private double maxX = 610;
 	private double minY = 0;
-	private double maxY = 740;
+	private double maxY = 640;
 	/**
 	 * makes a draggable image with given image
 	 * @param image
@@ -32,10 +32,6 @@ public class DraggableImageView extends ImageView {
 		this.setOnMousePressed(e -> {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
-			System.out.println("scene x: " + mouseX);
-			System.out.println("scene y: " + mouseY);
-			System.out.println("pane x: " + e.getX());
-			System.out.println("pane y: " + e.getY());
 		});
 		this.setOnMouseDragged(event -> {
 			//System.out.println(event.getClass());

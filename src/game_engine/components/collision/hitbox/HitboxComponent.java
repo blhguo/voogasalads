@@ -44,13 +44,12 @@ public class HitboxComponent implements Component {
 
 	@Override
 	public String getValues() {
-		// TODO Auto-generated method stub
-		return null;
+		String val = "Width,d," + myWidth + ";Height,d,5" + myHeight + ";xOffset,d," + myXOffset + ";yOffset,d," + myYOffset;
+		return val;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HitBox";
 	}
 }
