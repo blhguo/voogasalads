@@ -11,6 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import resources.keys.AuthRes;
 
+/**
+ * @author Liam Pulsifer
+ * @author Jennifer Chin
+ * Button Factory class allows for standardization of all Buttons across the authoring
+ * environment. Used by all front end classes to make general buttons. This class sets
+ * the CSS for the buttons
+ */
 public class ButtonFactory {
 
 	/**
