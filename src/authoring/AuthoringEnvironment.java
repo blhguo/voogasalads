@@ -1,25 +1,38 @@
 package authoring;
 
+import authoring.controllers.EntityController;
+import authoring.controllers.LevelController;
+import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
-import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
+import authoring.right_components.EntityComponent.EntityPane;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import observables.Listener;
 import resources.keys.AuthRes;
 
 /**
  * @author Liam Pulsifer
  * @author Jenny Chin
- * @author Elizabeth Schulman
+ * @author Elizabeth Shulman
  */
 
 public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
+	private Stage stage;
+	
 	private NavigationPane np;
 	
 	private BasePane base;
@@ -31,43 +44,82 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private Canvas canvas;
 	
 	
-	public AuthoringEnvironment(){
-		//instantiate leftPane, rightPane, Canvas
-			
+	public AuthoringEnvironment(Stage stage){
+		this.stage = stage;
 		base = new BasePane();
 		entity = new EntityPane();
 		event = new EventPane();
 		level = new LevelPane();
 		story = new StoryBoardPane();
-		canvas = new Canvas(AuthRes.getInt("canvassize"));
-		EntityController controller = new EntityController(entity, canvas);
+		np = new NavigationPane(stage);
+		
+		canvas = new Canvas();
+		
+		EntityController controller = new EntityController(entity, canvas, base, np);
+		PaneController pcontroller = new PaneController(level, canvas);
+		LevelController lcontroller = new LevelController();
+		
 		canvas.setController(controller);
 		entity.setController(controller);
-		np = new NavigationPane();
+		level.setController(pcontroller);
+		level.setLevelController(lcontroller);
+		controller.setLevelController(lcontroller);
 		np.addListener(this);
+		np.addLevelController(lcontroller);
 	}
 	
 	@Override
 	public Scene display() {
+		
+		//Build BorderPane by setting right, center, and left
 		bp = new BorderPane();
-		Scene scene = initScene(bp);
-		
-		//set leftPane
-		
 		update(""); //calls default setting for right pane
-		bp.setLeft(np);
-		bp.setCenter(canvas.getView());
-		//bp.setTop(new Rectangle(1200, 50, Color.GRAY));
-		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
-		scene.getStylesheets().add(getClass().getResource("vooga.css").toString());
-		//Scene scene = new Scene(bp, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
+		bp.setLeft(np.getView());
+		Pane canvasView = canvas.getView();
+		bp.setCenter(canvasView);
+		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
+
+		//Build StackPane to overlay ToolBar on top
+		Pane t = new Toolbar(stage).getView();
+		t.setPickOnBounds(false);
+		bp.setPickOnBounds(false);
+//		StackPane sp = new StackPane(t, bp);
+		StackPane sp = new StackPane(bp, t);
+		sp.setPickOnBounds(false);
+
+		//Build scene from StackPane
+		Scene scene = initScene(sp);
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
+
 		return scene;
 		
 	}
-//	
-//	private void dragAndDrop(){
-//		
-//	}
+	
+	public StackPane test(){
+		//Build BorderPane by setting right, center, and left
+		bp = new BorderPane();
+		update(""); //calls default setting for right pane
+		bp.setLeft(np.getView());
+		Pane canvasView = canvas.getView();
+		bp.setCenter(canvasView);
+		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
+
+		//Build StackPane to overlay ToolBar on top
+		Pane t = new Toolbar(stage).getView();
+		t.setPickOnBounds(false);
+		bp.setPickOnBounds(false);
+//		StackPane sp = new StackPane(t, bp);
+		StackPane sp = new StackPane(bp, t);
+		sp.setPickOnBounds(false);
+		
+		//Build scene from StackPane
+
+		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		sp.setBackground(new Background(back));
+
+		return sp;
+	}
 
 	@Override
 	public void update(String state) { //more concise/less repetitive way to write this?

@@ -7,13 +7,13 @@ public class Abs extends Super{
 	private int a;
 	private double b;
 	private Chest f;
-	
+
 	public Abs (int t, double y) {
 		this.a = t;
 		this.b = y;
 		this.f = new Chest(t, (int)y);
 	}
-	
+
 	@Override
 	public void update() {
 		this.a++;

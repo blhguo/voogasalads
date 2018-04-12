@@ -7,6 +7,7 @@ import authoring.GUINode;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.Pane;
@@ -36,8 +37,8 @@ public class BasePane implements GUINode {
 	private void buildHeader(String title, VBox masterBox) {
         Label paneTitle = new Label(title);
         paneTitle.getStyleClass().add("pane-title");
-		masterBox.getChildren().add(paneTitle);
-		masterBox.getChildren().add(newSeparator());
+        
+		masterBox.getChildren().addAll(paneTitle, new Separator());
 	}
 
 	public List<Node> getButtonArray() {

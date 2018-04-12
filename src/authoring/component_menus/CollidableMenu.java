@@ -1,28 +1,50 @@
 package authoring.component_menus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
-import game_engine.components.Collidable;
+
+import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 
-public class CollidableMenu extends CheckBox implements ComponentMenu {
+@Deprecated
+public class CollidableMenu extends VBox  {
+	private CheckBox intersectable;
+	private CheckBox passable;
+	private CheckBox pushable;
+	public static final String TITLE = "Collidable";
 	public CollidableMenu() {
-		this.setIndeterminate(false);
-		this.setSelected(true);
+		intersectable = new CheckBox();
+		passable = new CheckBox();
+		pushable = new CheckBox();
+		intersectable.setIndeterminate(false);
+		passable.setIndeterminate(false);
+		pushable.setIndeterminate(false);
+		this.getChildren().add(ButtonFactory.makeHBox("Check to make intersectable", null, intersectable));
+		this.getChildren().add(ButtonFactory.makeHBox("Check to make passable", null, passable));
+		this.getChildren().add(ButtonFactory.makeHBox("Check to make pushable", null, pushable));
+
 
 	}
-	@Override
+
 	public Component makeComponent() {
-		return new Collidable(this.isSelected());
+		List<String> list = new ArrayList<>();
+		list.add(Boolean.toString(intersectable.isSelected()));
+		list.add(Boolean.toString(passable.isSelected()));
+		list.add(Boolean.toString(pushable.isSelected()));
+		return new CollidableComponent(list);
 	}
-	@Override
+
 	public Node getNode(){
-		return ButtonFactory.makeHBox("Check to make collidable","", this);
+		return this;
 	}
-	@Override
+
 	public TitledPane getTitledPane(){
-		return new TitledPane("Collidable", this.getNode());
+		return new TitledPane(TITLE, this.getNode());
 	}
 }

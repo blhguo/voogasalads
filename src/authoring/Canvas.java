@@ -1,40 +1,58 @@
 package authoring;
 
 import game_engine.Entity;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Map;
 
+
+import authoring.controllers.EntityController;
+
 public class Canvas implements GUINode {
-	private int size;
-	private StackPane pane;
-	private VBox box;
+	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
+
+	private Pane pane;
 	private EntityController controller;
-	public Canvas(int size){
-		this.size = size;
+	
+	
+	public Canvas(){
+		
 	}
-	public VBox getView(){
-		box = new VBox();
-		StackPane pane = new StackPane();
-		//box.getChildren().add(pane);
-		Rectangle rect = new Rectangle(size, size);
-		rect.setStyle("-fx-background-color: rgba(0,0,0.5)");
-		box.getChildren().add(rect);
-		//pane.setPadding(new Insets(20, 20, 20, 20));
-		box.setAlignment(Pos.CENTER);
-		return box;
+	
+	public Pane getView(){
+		pane = new Pane();
+		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		return pane;
+
 	}
 	public void update(Map<ImageView, Entity> map){
-		box.getChildren().clear();
+		pane.getChildren().clear();
 		for (ImageView view : map.keySet()){
-			box.getChildren().add(view);
+			System.out.println("Current view");
+			pane.getChildren().add(view);
 			view.toFront();
 		}
+		System.out.println("Canvas updated");
+	}
+	
+	public void updateBackground(Image im){
+		pane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 	}
 
 	public void setController(EntityController controller) {

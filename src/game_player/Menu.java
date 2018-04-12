@@ -2,11 +2,14 @@ package game_player;
 
 import java.util.ArrayList;
 import authoring.GameChooserScreen;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
@@ -28,7 +31,7 @@ import javafx.stage.Stage;
 public class Menu {
 	
 	private HBox pane;
-	private PulldownFactory pullDownFactory = new PulldownFactory();
+	private PulldownFactory pullDownFactory;
 	private VBox keyPrefMenu;
 	private VBox settingsMenu;
 	private Button keyPrefButton;
@@ -46,12 +49,13 @@ public class Menu {
 	private Button currentPrefButton;	
 	private String currentPrefString;
 	
-	public Menu(DataManager data) {
+	public Menu(DataManager data, PulldownFactory pdf) {
 		pane = new HBox(20);
 		pane.setAlignment(Pos.CENTER);
 		dataManager = data;
 		currentKey = KeyCode.ENTER;
 		currentPrefButton = new Button();
+		pullDownFactory = pdf;
 		makePullDownMenus();
 		makeKeyPrefMenu();
 		makeGameSelectionMenu();
@@ -87,7 +91,7 @@ public class Menu {
 		initKeyPrefMenu();
 		keyPrefStage = new Stage();
 		Scene scene = new Scene(keyPrefMenu);
-		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
 		keyPrefStage.setScene(scene);
 				
@@ -116,10 +120,18 @@ public class Menu {
 	private void makeSettingsStage() {
 		settingsStage = new Stage();
 		Scene scene = new Scene(settingsMenu);
-		scene.getStylesheets().add(getClass().getResource("playerAesthetic.css").toString());
+		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
+		brightnessSlider.setMin(-1);
+		brightnessSlider.setMax(1);
+		
+
 		volumeSlider = new Slider();
+		volumeSlider.getStyleClass().add("slider");
+		volumeSlider.setMin(0);
+		volumeSlider.setMax(1);
+		
 		volumeLabel = new Label("Change Volume:");
 		brightnessLabel = new Label("Change Brightness:");
 		volumeLabel.getStyleClass().add("button-nav");
@@ -131,6 +143,16 @@ public class Menu {
 		settingsMenu.getChildren().add(volumeSlider);
 		settingsStage.setScene(scene);
 	}
+	
+	
+	public Slider getBrightnessSlider() {
+		return brightnessSlider;
+	}
+	
+	public Slider getVolumeSlider() {
+		return volumeSlider;
+	}
+	
 	
 
 	
@@ -160,6 +182,7 @@ public class Menu {
 	}
 	
 	public void showGameSelectionMenu() {
+		//TODO Make this choose game to play, not edit
 		gameSelectionStage = new Stage();
 		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
 		gameSelectionStage.setScene(gc.display());
