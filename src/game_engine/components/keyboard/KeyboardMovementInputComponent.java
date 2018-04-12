@@ -6,6 +6,12 @@ import game_engine.Component;
 import game_engine.Vector;
 import javafx.scene.input.KeyCode;
 
+
+/**
+ * 
+ * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * Component that stores the KeyCodes for left and right movement of an entity
+ */
 public class KeyboardMovementInputComponent implements Component {
 	private static final Vector LEFT = new Vector(-1,0);
 	private static final Vector RIGHT = new Vector(1,0);

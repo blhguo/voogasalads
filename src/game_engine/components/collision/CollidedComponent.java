@@ -6,6 +6,11 @@ import game_engine.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Jeremy Chen
+ * Component that stores information of an entity's collision
+ */
 public abstract class CollidedComponent implements Component{
     private List<Entity> others;
 
