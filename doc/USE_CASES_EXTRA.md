@@ -62,4 +62,4 @@ Use Cases -- Complete Implementation
 40. Player can save and load game states at any time
 41. Player can set certain key preferences to each game
 42. Player can choose to reset a game and restart it, clearing previous saved data
-43. Player can reset preferencencence
+43. Player can reset preferences
