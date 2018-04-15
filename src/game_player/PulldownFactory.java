@@ -31,31 +31,46 @@ public class PulldownFactory {
 	private DataManager dataManager;
 	private ViewManager viewManager;
 	private PlayerView playerView;
-
+	
+	
 	public PulldownFactory(DataManager dat) {
 		dataManager = dat;
+		speedBox =  SpeedBox();
+		statusBox =  StatusBox();
+		saveLoadBox =  SaveLoadBox();
+
+
 	}
 
 	protected ComboBox<String> SpeedBox() {
-		speedBox = new ComboBox<String>();
+		speedBox =  new ComboBox<String>();
+
 		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
 		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
 				getResources(speedProperties, "SlowDownCommand"));
 		speedBox.setPrefSize(160, 20);
+		speedBox.setOnAction(click -> {
+			playerView.handleUI();
+		});
 		return speedBox;
 	}
 
 	protected ComboBox<String> StatusBox() {
-		statusBox = new ComboBox<String>();
+		statusBox =  new ComboBox<String>();
+
 		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
 		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"),
 				getResources(statusProperties, "PlayGameCommand"), getResources(statusProperties, "ReplayGameCommand"));
 		statusBox.setPrefSize(160, 20);
+		statusBox.setOnAction(click -> {
+			playerView.handleUI();
+		});
 		return statusBox;
 	}
 
 	protected ComboBox<String> SaveLoadBox() {
-		saveLoadBox = new ComboBox<String>();
+		saveLoadBox =  new ComboBox<String>();
+
 		saveLoadBox.setValue(getResources(saveLoadProperties, "InitialCommand"));
 		saveLoadBox.getItems().addAll(getResources(saveLoadProperties, "SaveCommand"),
 				getResources(saveLoadProperties, "LoadCommand"));
@@ -68,6 +83,16 @@ public class PulldownFactory {
 
 	protected ComboBox<String> getSaveLoadBox() {
 		return saveLoadBox;
+	}
+	
+	protected ComboBox<String>getStatusBox(){
+		return statusBox;
+		
+	}
+	
+	protected ComboBox<String>getSpeedBox(){
+		return speedBox;
+		
 	}
 
 	private void checkSomething() {
@@ -86,10 +111,8 @@ public class PulldownFactory {
 	protected void handleLoad() {
 		ManipData turd = new ManipData();
 		File file = getFile();
-		System.out.println(file.getAbsolutePath());
 		viewManager.changeBackground();
 		levels = turd.loadData(file);
-		System.out.println("LEVELS: " + levels);
 		dataManager.setGameLevels(levels);
 		playerView.instantiate();
 	}
