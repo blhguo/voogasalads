@@ -1,7 +1,6 @@
 package authoring.component_menus;
 
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 
 /**
  * @author liampulsifer

@@ -1,8 +1,6 @@
 package authoring.component_menus;
 
 import authoring.utilities.ButtonFactory;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
