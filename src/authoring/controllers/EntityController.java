@@ -57,30 +57,46 @@ public class EntityController {
 	}
 
 	/**
-	 *  Adds an entity to the map and sets the ImageView behavior associated with that entity
-	 *  //TODO move ImageView functionality out of this method
-	 *  Also adds the entity to the levelController's active level
-	 *  //TODO move that out as well
+	 * Adds the passed Entity to the local map of imageviews to entities
+	 * calls setUpImageView to make the imageview of the entity
+	 * adds the entity to the levelController
 	 * @param entity the entity to be added to the map
 	 */
 	public void add(Entity entity){
-		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
-		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
-		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(), (int) comp.getWidth(), (int) comp.getHeight());
-		iv.setX(pos.getX());
-		iv.setY(pos.getY());
-
-		map.put(iv, entity);
-		iv.setOnMouseClicked(e -> UpdateMenus(iv, entity));
-		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), pos, entity, iv));
-		entityList.add(entity);
+		//entityList.add(entity);
+		map.put(setUpImageView(entity), entity);
 		menuMap.put(entity, entityPane.getMenuList());
 		System.out.println("Number of Entities: " + map.keySet().size());
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
-
-		lcontroller.getActiveLevel().addEntity(entity);
+		addToLevel(entity);
 	}
 
+	/**
+	 * Sets up an imageview which is draggable and has features to set
+	 * new entity positions for its entity
+	 * @param entity
+	 * @return ImageView
+	 */
+	private ImageView setUpImageView(Entity entity){
+		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
+		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
+		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(),
+				(int) comp.getWidth(), (int) comp.getHeight());
+		iv.setX(pos.getX());
+		iv.setY(pos.getY());
+		iv.setOnMouseClicked(e -> UpdateMenus(iv, entity));
+		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), pos, entity, iv));
+		return iv;
+
+	}
+
+	/**
+	 * Adds the given entity to the level controller's active level
+	 * @param entity
+	 */
+	private void addToLevel(Entity entity) {
+		lcontroller.getActiveLevel().addEntity(entity);
+	}
 	/**
 	 *
 	 * @return a button which removes the currently selected entity
@@ -130,7 +146,12 @@ public class EntityController {
 	public Map<Entity, List<ComponentMenu>> getMenuMap(){
 		return menuMap;
 	}
-
+	/**
+	 *
+	 */
+	public List<ComponentMenu> getMenuComponents(Entity entity){
+		return menuMap.get(entity);
+	}
 	/**
 	 *
 	 * @return ImageView to Entity map
