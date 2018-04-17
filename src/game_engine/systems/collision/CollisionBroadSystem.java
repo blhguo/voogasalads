@@ -112,13 +112,8 @@ public class CollisionBroadSystem extends CollisionSystem {
             boolean top = yMax2 >= yMin1 && yMin2 <= yMin1;
             boolean bottom = yMax2 >= yMax1 && yMin2 <= yMax1;
             boolean tbBig = xMin2 <= xMin1 && xMax2 >= xMax1;
-<<<<<<< HEAD
             boolean tbSmall = xMin2 >= xMin1 && xMax2 <= xMax1;
             
-=======
-            boolean tbSmall = xMin2 >= xMin1 && xMax2 <= xMax1;            
-
->>>>>>> liam
             ArrayList<CollidedComponent> collidedToAdd = new ArrayList<CollidedComponent>();
             
             CollidedComponent r = new RightCollidedComponent();
