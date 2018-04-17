@@ -4,6 +4,7 @@ import authoring.AuthoringEnvironment;
 import authoring.Canvas;
 import authoring.NavigationPane;
 import authoring.component_menus.ComponentMenu;
+import authoring.component_menus.ComponentMenuFactory;
 import authoring.right_components.BasePane;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.utilities.ButtonFactory;
@@ -33,6 +34,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * @author liampulsifer
  * manages interaction between EntityPane and Canvas
  * maintains a map of ImageView to Entity and defines on-click behavior of ImageViews
  */
@@ -44,11 +46,10 @@ public class EntityController {
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
-	private BasePane base;
-	private NavigationPane nav;
 	private Button button;
 
-	public EntityController(EntityPane pane, Canvas c, BasePane bp, NavigationPane np){
+	
+	public EntityController(EntityPane pane, Canvas c){
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();
@@ -65,8 +66,8 @@ public class EntityController {
 	public void add(Entity entity){
 		//entityList.add(entity);
 		map.put(setUpImageView(entity), entity);
-		menuMap.put(entity, entityPane.getMenuList());
-		System.out.println("Number of Entities: " + map.keySet().size());
+		menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
+			stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 		addToLevel(entity);
 	}
@@ -115,7 +116,6 @@ public class EntityController {
 		map.remove(iv, e);
 		lcontroller.getActiveLevel().remove(e);
 		canvas.update(map);
-		System.out.println("DDD");
 	}
 
 	/**
@@ -129,6 +129,12 @@ public class EntityController {
 	public void setPos(double x, double y, PositionComponent pos, Entity ent, ImageView iv){
 		pos.setX(x);
 		pos.setY(y);
+		ComponentMenu menu = (ComponentMenu) menuMap.get(ent).stream().filter(e -> e.getType().equals("Position"))
+				.collect(Collectors.toList()).get(0);
+		menuMap.get(ent).remove(menu);
+		String[] arr = {"xPos,d," + x, "yPos,d," + y, "Angle,d,0.0"};
+		menu = new ComponentMenuFactory().newComponentMenu(arr, "Position");
+		menuMap.get(ent).add(menu);
 		UpdateMenus(iv, ent);
 
 	}
@@ -184,7 +190,7 @@ public class EntityController {
 	public void UpdateMenus(ImageView iv, Entity entity){
 		button = ButtonFactory.makeButton(e -> removeEntity(entity, iv));
 		toggleStyle(iv);
-		entityPane.updateMenus(map.get(iv));
+		entityPane.updateMenus(entity);
 	}
 
 	/**

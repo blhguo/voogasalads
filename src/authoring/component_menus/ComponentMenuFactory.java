@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * @author liampulsifer
  * Makes new Component menus, either from the resource file (default)
  * or from existing components (using the Component's getValues() method
  */

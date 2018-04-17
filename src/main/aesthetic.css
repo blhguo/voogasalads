@@ -176,6 +176,19 @@
     -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {
-    -fx-background-color: rgba(128, 128, 128, 0.7)
+.scroll-pane {
+	-fx-background-color: rgba(0, 0, 0, 0);
 }
+
+.scroll-pane > .corner {
+	-fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+	-fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {
+	-fx-background-color: rgba(128, 128, 128, 0.7)
+}
+

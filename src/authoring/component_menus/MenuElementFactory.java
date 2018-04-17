@@ -1,6 +1,7 @@
 package authoring.component_menus;
 
 /**
+ * @author liampulsifer
  * Creates MenuElements given their Name, Type, and Value
  */
 public class MenuElementFactory {

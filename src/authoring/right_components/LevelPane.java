@@ -17,11 +17,21 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import resources.keys.AuthRes;
 
+/**
+ * @author Elizabeth Shulman
+ * @author Jennifer Chin
+ * Level menu that extends BasePane, which implements GUINode. Gives the user the ability
+ * to create a new Level and set properties for that level such as background image. 
+ */
 public class LevelPane extends BasePane {
 	
 	private PaneController controller;
 	private LevelController lcontroller;
 
+	/**
+	 * GUINode method that returns the view of this Pane
+	 * @return Pane
+	 */
 	@Override
 	public Pane getView() {
 		VBox box = buildBasicView(AuthRes.getString("LevelTitle"));
@@ -29,6 +39,10 @@ public class LevelPane extends BasePane {
 		return box;
 	}
 
+	/**
+	 * BasePane method that returns the buttons on this Pane
+	 * @return List<Node>
+	 */
 	@Override
 	public List<Node> getButtonArray() {
 		ArrayList<Node> list = new ArrayList<>();
@@ -43,10 +57,21 @@ public class LevelPane extends BasePane {
 
 	}
 	
+	/**
+	 * Allows the PaneController to be set for this Pane. PaneController allows the 
+	 * LevelPane to communicate with the Canvas so that the background image can be
+	 * changed
+	 * @param pc
+	 */
 	public void setController(PaneController pc){
 		controller = pc;
 	}
 	
+	/**
+	 * Allows the LevelController to be set for this Pane. LevelController will allow
+	 * the LevelPane to properly instantiate a new Level.
+	 * @param lc
+	 */
 	public void setLevelController(LevelController lc){
 		lcontroller = lc;
 	}
