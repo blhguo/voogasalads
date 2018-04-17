@@ -46,7 +46,7 @@ public class VoogleImages {
 	 */
 	public static final String DEFAULT_START_PAGE = "http://images.search.yahoo.com/";
 	public static final Dimension2D DEFAULT_SIZE = new Dimension2D(1100, 700);
-	public static final String DEFAULT_RESOURCE_PACKAGE = "util/resources/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	public static final String STYLESHEET = "voogle.css";
 	public static final String LANGUAGE = "English";
 
