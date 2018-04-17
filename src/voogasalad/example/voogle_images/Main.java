@@ -1,4 +1,4 @@
-package example;
+package voogasalad.example.voogle_images;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -20,7 +20,6 @@ public class Main extends Application {
 		stage.setScene(demoApp.getScene());
 		stage.show();
 	}
-	
 
 	public static void main(String[] args) {
 		launch(args);

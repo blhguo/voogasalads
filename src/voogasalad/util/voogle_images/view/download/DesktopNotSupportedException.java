@@ -1,4 +1,4 @@
-package util.view.download;
+package voogasalad.util.voogle_images.view.download;
 
 /**
  * Exception thrown when a user attempts to open an image on their local machine but no application

@@ -1,4 +1,4 @@
-package voogle_images;
+package voogasalad.util.voogle_images.view.download;
 
 import java.io.File;
 import java.util.ResourceBundle;

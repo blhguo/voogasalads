@@ -1,4 +1,4 @@
-package util.view.download;
+package voogasalad.util.voogle_images.view.download;
 
 import java.awt.Desktop;
 import java.io.File;

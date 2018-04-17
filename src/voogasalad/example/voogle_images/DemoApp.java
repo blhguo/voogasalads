@@ -1,4 +1,4 @@
-package example;
+package voogasalad.example.voogle_images;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,8 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import util.ImageObserver;
-import util.VoogleImages;
+import voogasalad.util.voogle_images.ImageObserver;
+import voogasalad.util.voogle_images.VoogleImages;
 
 /**
  * A simple demo application demonstrating how to make use of the VoogleImages utility.
@@ -27,7 +27,7 @@ import util.VoogleImages;
  */
 public class DemoApp implements ImageObserver {
 
-	private static final String DEFAULT_RESOURCE_PACKAGE = "example/resources/";
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private static final String DEFAULT_LANG = "English";
 	private static final String STYLESHEET = "example.css";
 	private static final Dimension2D DIMENSION = new Dimension2D(300, 800);
