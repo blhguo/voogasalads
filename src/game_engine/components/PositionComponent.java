@@ -6,7 +6,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import java.util.List;
 
 /**
- * @author: Jeremy Chen
+ * @author: Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * This component stores the X-Position, Y-Position, and rotation angle of an entity
  */
 public class PositionComponent implements Component {
 	

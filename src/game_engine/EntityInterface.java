@@ -2,6 +2,13 @@ package game_engine;
 
 import java.util.List;
 
+/**
+ * 
+ * This interface specifies the methods that an Entity object must implement.
+ * 
+ * @author Andy Nguyen
+ *
+ */
 public interface EntityInterface {
 	
 	/**

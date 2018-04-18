@@ -1,4 +1,4 @@
-package authoring.utilities;
+package frontend_utilities;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import resources.keys.AuthRes;
 
+/**
+ * @author Liam Pulsifer
+ * @author Jennifer Chin
+ * Button Factory class allows for standardization of all Buttons across the authoring
+ * environment. Used by all front end classes to make general buttons. This class sets
+ * the CSS for the buttons
+ */
 public class ButtonFactory {
 
 	/**
@@ -92,6 +99,13 @@ public class ButtonFactory {
 		retButton.setOnAction(handler);
 		retButton.getStyleClass().add(styleclass);
 		return retButton;
+	}
+
+	public static HBox makeLittleHBox(String delete_entity, Object o, Button removeButton) {
+		removeButton.setMaxHeight(10);
+		HBox ret = makeHBox(delete_entity, (String) o, removeButton);
+		ret.setMaxHeight(10);
+		return ret;
 	}
 
 }

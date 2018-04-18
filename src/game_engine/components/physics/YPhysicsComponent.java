@@ -2,6 +2,11 @@ package game_engine.components.physics;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * Stores the velocity and acceleration for the Y direction
+ */
 public class YPhysicsComponent extends PhysicsComponent {
 
 	public YPhysicsComponent(List<String> args) {

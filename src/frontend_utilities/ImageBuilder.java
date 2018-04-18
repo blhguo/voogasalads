@@ -1,12 +1,11 @@
-package authoring.utilities;
+package frontend_utilities;
 
+import frontend_utilities.DraggableImageView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 /**
- * @author liampulsifer
- *
+ * @author Liam Pulsifer
  * Auxilary class with static methods that help convert image paths into displayable ImageView objects
  */
 
@@ -35,13 +34,15 @@ public class ImageBuilder {
         ImageView view = new DraggableImageView(image);
         return view;
     }
-    public static DraggableImageView getDraggableImageView(String path, int width, int height){
-        Image image = new Image(path, width, height, false, true);
-        DraggableImageView view = new DraggableImageView(image);
-        return view;
-    }
     
-    public static DraggableImageView getDraggableImageView(String path, int width, int height, Pane p){
+    /**
+     * Creates a DraggableImageView using a image filepath, width, and height
+     * @param path
+     * @param width
+     * @param height
+     * @return DraggableImageView
+     */
+    public static DraggableImageView getDraggableImageView(String path, int width, int height){
         Image image = new Image(path, width, height, false, true);
         DraggableImageView view = new DraggableImageView(image);
         return view;
