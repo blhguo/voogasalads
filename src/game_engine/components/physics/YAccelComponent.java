@@ -2,9 +2,9 @@ package game_engine.components.physics;
 
 import game_engine.Component;
 
-public class XVelocityComponent extends Component {
+public class YAccelComponent extends Component {
 	
-	public XVelocityComponent(String arg) {
+	public YAccelComponent(String arg) {
 		super(arg);
 	}
 
