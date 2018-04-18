@@ -14,16 +14,30 @@ public class DataCondition implements Condition {
 	private String myComparison;
 	private String myExpected;
 	
+//	private Component myComponent;
+	
 	public DataCondition(Entity entity, Class<Component> componentClass, String comparison, String expected) {
 		myEntity = entity;
 		myComponentClass = componentClass;
 		myComparison = comparison;
 		myExpected = expected;
 	}
+//	
+//	public DataCondition(Component component, String comparison, String expected) {
+//		myComponent = component;
+//		myComparison = comparison;
+//		myExpected = expected;
+//	}
 	
 	@Override
 	public boolean evaluate() {
-		String expression = myEntity.getComponent(myComponentClass).getValue() + myComparison + myExpected; 
+		String expression;
+//		if(myEntity == null && myComponent != null) {
+//			expression = myComponent.getValue() + myComparison + myExpected; 
+//		}
+//		else {
+			expression = myEntity.getComponent(myComponentClass).getValue() + myComparison + myExpected; 
+//		}
 		BigDecimal result =  new Expression(expression).eval();
 		return result.equals(BigDecimal.ONE);
 	}

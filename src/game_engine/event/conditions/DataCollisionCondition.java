@@ -21,7 +21,22 @@ public class DataCollisionCondition extends CollisionCondition{
 	
 	@Override
 	protected boolean findCollidedTarget(CollidedComponent sideComponent) {
-		return sideComponent.contains(targetComponent) 
-				&& new DataCondition(myEntity, targetComponent, myComparison, myExpected).evaluate();
+		if(sideComponent.contains(targetComponent)){
+			
+			
+			return new DataCondition(otherEntity, targetComponent, myComparison, myExpected).evaluate();
+		}
+		return false;
+	}
+	
+	@Override
+	protected boolean checkSides() {
+		for(Class<CollidedComponent> c: sidesToCheck) {
+			CollidedComponent sideComponent = (CollidedComponent) myEntity.getComponent(c);
+			if(findCollidedTarget(sideComponent)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

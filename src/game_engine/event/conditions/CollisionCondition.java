@@ -16,10 +16,6 @@ public abstract class CollisionCondition implements Condition {
 		sidesToCheck = sides;
 	}
 	
-	public CollisionCondition(Entity e1, Class<Component> targetComponent, List<Class<CollidedComponent>> sides) {
-		
-	}
-	
 	@Override
 	public boolean evaluate() {
 		return checkSides();
