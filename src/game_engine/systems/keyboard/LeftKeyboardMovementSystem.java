@@ -11,14 +11,14 @@ import game_engine.Vector;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import game_engine.components.keyboard.LeftKeyboardMovementInputComponent;
-import game_engine.components.physics.DefaultXVelocityComponent;
-import game_engine.components.physics.XVelocityComponent;
+import game_engine.components.physics.DefaultXVelComponent;
+import game_engine.components.physics.XVelComponent;
 
 
 public class LeftKeyboardMovementSystem extends GameSystem{
 	private static final Class<? extends Component> LEFT_KEYBOARD_MOVE_INPUT = LeftKeyboardMovementInputComponent.class;
-	private static final Class<? extends Component> DEFAULT_X_VEL = DefaultXVelocityComponent.class;
-	private static final Class<? extends Component> X_VEL = XVelocityComponent.class;
+	private static final Class<? extends Component> DEFAULT_X_VEL = DefaultXVelComponent.class;
+	private static final Class<? extends Component> X_VEL = XVelComponent.class;
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	private static final String KEY_RELEASED = "KEY_RELEASED";
 	

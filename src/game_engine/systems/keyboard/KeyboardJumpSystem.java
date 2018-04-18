@@ -11,8 +11,8 @@ import game_engine.Vector;
 import game_engine.components.NumberOfJumpsAllowedComponent;
 import game_engine.components.OnGroundComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
-import game_engine.components.physics.YVelocityComponent;
-import game_engine.components.physics.DefaultYVelocityComponent;
+import game_engine.components.physics.YVelComponent;
+import game_engine.components.physics.DefaultYVelComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 
@@ -27,8 +27,8 @@ import javafx.scene.input.KeyEvent;
  */
 public class KeyboardJumpSystem extends GameSystem{
 	
-	private static final Class<? extends Component> DEFAULT_Y_VEL = DefaultYVelocityComponent.class;
-	private static final Class<? extends Component> Y_VEL = YVelocityComponent.class;
+	private static final Class<? extends Component> DEFAULT_Y_VEL = DefaultYVelComponent.class;
+	private static final Class<? extends Component> Y_VEL = YVelComponent.class;
 	private static final Class<? extends Component> KEYBOARD_JUMP_INPUT = KeyboardJumpInputComponent.class;
 	private static final Class<? extends Component> NUM_JUMPS = NumberOfJumpsAllowedComponent.class;
 	
