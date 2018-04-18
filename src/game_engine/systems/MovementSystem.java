@@ -33,9 +33,6 @@ public class MovementSystem extends GameSystem {
 		super(engine);
 	}
 
-	
-	// https://gamedev.stackexchange.com/questions/29617/how-to-make-a-character-jump
-	// http://jsfiddle.net/LyM87/3267/
 	/**
 	 * Given the elapsed time within the current iteration of the game loop, this method gets all entities that contain the 
 	 * necessary components and updates each of their Position component's attributes to reflect movement described in the

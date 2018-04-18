@@ -2,9 +2,9 @@ package game_engine.components.physics;
 
 import game_engine.Component;
 
-public class YVelocityComponent extends Component {
+public class XAccelComponent extends Component {
 
-	public YVelocityComponent(String arg) {
+	public XAccelComponent(String arg) {
 		super(arg);
 	}
 
