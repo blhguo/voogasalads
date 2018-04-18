@@ -16,10 +16,15 @@ import game_engine.components.physics.YPhysicsComponent;
 
 /**
  * @author Jeremy Chen
- * Interface for Systems that contain logic for collisions
+ * Superclass for all GameSystems that contain logic for collisions
+ * Contains shared method signature / several sharedutility methods
  */
 public abstract class CollisionSystem extends GameSystem {
 
+	/**
+	 * @param engine
+	 * Constructor, needs reference to engine to access entities
+	 */
 	public CollisionSystem(Engine engine) {
 		super(engine);
 	}
@@ -29,6 +34,9 @@ public abstract class CollisionSystem extends GameSystem {
 	 * @param e1
 	 * @param e2
 	 * @return
+	 * 
+	 * Method that will check for intersections between two passed entities & injects CollidedComponent accordingly
+	 * 
 	 */
 	protected abstract void checkIntersect(Entity e1, Entity e2, double elapsedTime);
 	
@@ -60,10 +68,12 @@ public abstract class CollisionSystem extends GameSystem {
 //	}
 	
 	/**
-	 *  Helper method that gets extrema of a sprite (min/max x & y coordinates), used for creating
-	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
+	 *  
 	 * @param e
 	 * @return
+	 * 
+	 * Helper method that gets extrema of a sprite (min/max x & y coordinates), used for creating
+	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
 	 */
 	protected double[] getExtrema(Entity e, double elapsedTime){
 		PositionComponent p = (PositionComponent) e.getComponent(PositionComponent.class);
@@ -105,6 +115,13 @@ public abstract class CollisionSystem extends GameSystem {
 		return new double[]{Collections.min(xCoords), Collections.max(xCoords), Collections.min(yCoords), Collections.max(yCoords)};
 	}
 
+    /**
+     * @param e1
+     * @param e2
+     * @param colSide
+     * Method that allows for injection of the CollidedComponetn
+     * NEEDS REFACTORING
+     */
     protected void addCollided(Entity e1, Entity e2, Class colSide){
 	    CollidedComponent colComp = (CollidedComponent) e1.getComponent(colSide);
         if(colComp == null) {

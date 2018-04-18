@@ -1,55 +1,52 @@
 package game_engine;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javafx.scene.layout.VBox;
-
+/**
+ * 
+ * @author benhubsch
+ * 
+ * A factory for creating Component objects.
+ */
 public class ComponentFactory {
 
 	private static final String COMPONENT_BUNDLE = "Component";
-	private static final String COMPONENT_DELIM  = "|";
-	private static final String ATTRIBUTE_DELIM  = ",";
 
 	private ResourceBundle myComponents;
 
+	/**
+	 * Instantiates a new ComponentFactory object.
+	 */
 	public ComponentFactory() {
 		myComponents = ResourceBundle.getBundle(COMPONENT_BUNDLE);
 	}
 
+	/**
+	 * Adds the component to the Entity, since components are associated with Entity objects.
+	 *
+	 * @param entity the entity
+	 * @param key the key
+	 * @param args the args
+	 * @return Component
+	 */
 	public Component addComponent(Entity entity, String key, List<String> args) {
 		Component component = createComponent(key, args);
 		entity.addComponent(component);
 		return component;
 	}
 
-	// property name -> VBox of HBoxes
-	public Iterable<VBox> getComponent() {
-		List<VBox> components = new ArrayList<>();
-		for (String component : myComponents.keySet()) {
-			String[] attributes = myComponents.getString(component).split(COMPONENT_DELIM);
-			for (String attr : attributes) {
-				String[] attrSplit = attr.split(ATTRIBUTE_DELIM);
-			}
-			components.add(null);
-		}
-		return null;
-	}
-
 	private Component createComponent(String key, List<String> args) {
-
-//		System.out.println("Component: " + key);
-//		System.out.println("key: " + key);
-//		System.out.println("component: " + myComponents.getString(key));
 		try {
+			System.out.println("key: " + key);
+			System.out.println("component: " + myComponents.getString(key));
 			Class<?> clazz = Class.forName(myComponents.getString(key) + "Component");
-//			System.out.println("clazz: " + clazz);
+			System.out.println("clazz: " + clazz);
+
 			Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] { List.class });
 			return (Component) ctor.newInstance(args);
 		} catch (Exception e) {
-			System.out.println(e.getCause());
 			e.printStackTrace();
 			throw new ComponentNotFoundException("Component not found.");
 		}

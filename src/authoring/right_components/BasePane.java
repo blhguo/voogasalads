@@ -13,10 +13,19 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * @author Elizabeth Shulman
+ * Base Pane is the super class for the right menus. 
+ * Default that is displayed when the Authoring Environment is first opened. 
+ * Implements GUINode because it is a sub-part of a scene
+ */
 public class BasePane implements GUINode {
 
 	protected int SIZE = 310;
 
+	/**
+	 * Implements method from GUINode interface. Returns visual of base pane
+	 */
 	@Override
 	public Pane getView() {
 		return buildBasicView(null);
@@ -41,11 +50,19 @@ public class BasePane implements GUINode {
 		masterBox.getChildren().addAll(paneTitle, new Separator());
 	}
 
+	/**
+	 * Method for adding buttons to the Pane. Overwritten by subclasses
+	 * @return List<Node>
+	 */
 	public List<Node> getButtonArray() {
 		List<Node> list = new ArrayList<>();
 		return list;
 	}
 	
+	/**
+	 * Method that adds space between each of the Nodes 
+	 * @return Separator
+	 */
 	public Separator newSeparator() {
 		Separator line = new Separator();
 		line.setHalignment(HPos.CENTER);

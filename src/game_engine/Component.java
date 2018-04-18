@@ -7,6 +7,5 @@ package game_engine;
  */
 public interface Component {
 	String getValues();
-
 	String getName();
 }

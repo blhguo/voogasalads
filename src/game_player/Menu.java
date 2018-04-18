@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * 
  * @author Brandon Dalla Rosa, Dana Park
- *
+ *Class that represents all Menu items contained in HBox on top of the screen
  */
 
 public class Menu {
@@ -71,13 +71,22 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
+    /**
+	 * Method to add ComboBoxes from PulldownFactory to Menu
+	 * 
+	 */
 	private void makePullDownMenus() {
 		
-		pane.getChildren().add(pullDownFactory.SpeedBox());
-		pane.getChildren().add(pullDownFactory.StatusBox());
-		pane.getChildren().add(pullDownFactory.SaveLoadBox());
+		pane.getChildren().add(pullDownFactory.getSpeedBox());
+		pane.getChildren().add(pullDownFactory.getStatusBox());
+		pane.getChildren().add(pullDownFactory.getSaveLoadBox());
 		
 	}
+	
+	/**
+	 * Method to make the keyPref Stage with keyPref options
+	 * 
+	 */
 	private void makeKeyPrefMenu() {
 		keyPrefMenu = new VBox(25);
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
@@ -96,6 +105,11 @@ public class Menu {
 		keyPrefStage.setScene(scene);
 				
 	}
+	
+	/**
+	 * Method to make gameSelectionButton that when clicked calls the showGameSelectionMenu method
+	 * 
+	 */
 	private void makeGameSelectionMenu() {
 		gameSelectionButton = new Button("Game Selection");
 		gameSelectionButton.getStyleClass().add("button-nav");
@@ -103,7 +117,10 @@ public class Menu {
 		pane.getChildren().add(gameSelectionButton);
 		
 	}
-	
+	/**
+	 * Method to make settings button that when clicked calls the showSettingsMenu method
+	 * 
+	 */
 	private void makeSettingsMenu() {
 		settingsButton = new Button("Settings");
 		settingsButton.getStyleClass().add("button-nav");
@@ -145,10 +162,17 @@ public class Menu {
 	}
 	
 	
+	/**
+	 * getter method for the Brightness Slider on the Settings Stage
+	 * 
+	 */
 	public Slider getBrightnessSlider() {
 		return brightnessSlider;
 	}
-	
+	/**
+	 * getter method for the Volume Slider on the Settings Stage
+	 * 
+	 */
 	public Slider getVolumeSlider() {
 		return volumeSlider;
 	}
@@ -181,18 +205,31 @@ public class Menu {
 		keyPrefStage.show();
 	}
 	
+	/**
+	 * method to show new Stage when gameSelectionButton is pressed
+	 * 
+	 */
 	public void showGameSelectionMenu() {
 		//TODO Make this choose game to play, not edit
 		gameSelectionStage = new Stage();
 		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
-		gameSelectionStage.setScene(gc.display());
+		//gameSelectionStage.setScene(gc.display());
 		gameSelectionStage.show();
 	}
 	
+	/**
+	 * method to show settings Menu
+	 * 
+	 */
 	public void showSettingsMenu() {
 		settingsStage.show();
 		
 	}
+	
+   /**
+	 * method to set keys to their preferences in the keyPrefStage
+	 * 
+	 */
 	public void checkForInput(KeyCode code) {
 		currentKey = code;
 		currentPrefButton.getStyleClass().add("button-keypref");

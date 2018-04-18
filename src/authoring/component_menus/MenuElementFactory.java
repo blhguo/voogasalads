@@ -1,10 +1,20 @@
 package authoring.component_menus;
 
+/**
+ * @author liampulsifer
+ * Creates MenuElements given their Name, Type, and Value
+ */
 public class MenuElementFactory {
 	private String[] entry;
 	public MenuElementFactory(){
 
 	}
+
+	/**
+	 *
+	 * @param entry -- an array with 3 elements, ElementName, Type, and value
+	 * @return A new MenuElement with the correct type and value
+	 */
 	public MenuElement getElement(String[] entry){
 		this.entry = entry;
 		MenuElement ret;

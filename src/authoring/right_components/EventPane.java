@@ -13,8 +13,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;
 
+/**
+ * @author Elizabeth Shulman
+ * Event menu that extends BasePane, which implements GUINode. Menu for toggling 
+ * relationships between multiple entities
+ */
 public class EventPane extends BasePane {
 	
+	/**
+	 * GUINode method that returns the view of this Pane
+	 * @return Pane
+	 */
 	@Override
 	public Pane getView() {
 		VBox box = buildBasicView(AuthRes.getString("EventTitle"));
@@ -23,6 +32,9 @@ public class EventPane extends BasePane {
 		return box;
 	}
 	
+	/**
+	 * BasePane method that initializes all the buttons for this right pane
+	 */
 	@Override 
 	public List<Node> getButtonArray(){
 		List<Node> list = new ArrayList<>();

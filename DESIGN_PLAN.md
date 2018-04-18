@@ -1,17 +1,17 @@
 VOOGA Design Plan
 ===
 ## Introduction
-We intend to build an authoring environment that allows a user to build and play scrolling-platform-style games as well as other game structures. To accomplish this, we will try make our program as flexible as possible to be able to support and create new additional features. To tackle this project, we will break the team into four separate subtasks: Game Engine, Game Authoring Environment, Game Player, and Game Data. The GAE will be able to take/or create new DataObjects that represent how the game will be executed and run and will allow the user to be able to edit and modify these values to impact the overall game experience. Game Engine will be able to take in a variety of DataObjects and convert them into a usable model which will be able to run the various user created games. The Game Player will be able to take in DataObjects and models from the Game Engine and create the visual display of the game and will also be able to modify DataObjects as the user progresses in the game. Positions and movements of objects will be updated and displayed by Game Player. Game Data will be used to save all variables and attributes that each game needs, including inter-object interactions. It will serialize the data to be saved into a file and will deserialize data into modifiable objects.
+We intend to build an authoring environment that allows a user to build and play scrolling-platform-style games as well as other game structures. To accomplish this, we will try make our program as flexible as possible to be able to support and create new additional features. To tackle this project, we will break the team into four separate subtasks: Game Engine, Game Authoring Environment, Game Player, and Game Data. The GAE will be able to take or create new DataObjects that represent how the game will be executed and run. It will allow the user to create and modify these values to shape the overall game experience. Game Engine will take in a variety of DataObjects and convert them into a usable model, which will be able to run the various user created games. The Game Player will be able to take in DataObjects and models from the Game Engine and create the visual display of the game and will also be able to modify DataObjects as the user progresses in the game. Positions and movements of objects will be updated and displayed by Game Player. Game Data will be used to save all variables and attributes that each game needs, including inter-object interactions. It will serialize the data to be saved into a file and will deserialize data into modifiable objects.
 
 These four components allow us to extend features and create new components without modifying the behaviors of the other components. In general, our components will be closed but will use sub-classes to allow for future integration of extra features.
 
 #### Flexibility
 
-Our project will be most flexible in the Game Engine portion.
+Our project will be most flexible in the Game Engine and Authoring Environment areas. Here, future game maintainers will be able to add new components and menus to enhance entity and level capabilities.
 
 #### Open & Closed
 
-Game Data will be open. Graphical Authoring Environment and Game Player are closed to each other and linked through Game Data.
+Game Data is open. Graphical Authoring Environment and Game Player are closed to each other and linked through Game Data. Game Engine at its core is closed, but will be open to extension through its component classes.
 
 #### Considerations for our genre
 
@@ -43,19 +43,18 @@ Game Data will be open. Graphical Authoring Environment and Game Player are clos
 9. ExportData Interface: This interface allows information from DataManager to be exported to save preferences and save the current game state.
 10. MenuData Interface: This interface represents the connection between the DataManager and Menu Classes so that DataManager will always contain the most updated menu data. Additionally, this will populate the Menu with the correct settings during initialization.
 11. ViewData Interface: This interface represents the connection between the DataManager and ViewManager Classes so that DataManager will always contain the most updated HUD data. 
+12. PlayerView: This is responsible for controlling animation and updating animations for the game.
+
 
 
 ### Game Engine
-
+Overview: our game engine extensively employs ECS (Entity-Component-System). This
 #### Modules
-1. Entity: An entity is any possible interactive element within the game. It will include a list a components (class containing behavioral data) and the entity's behaviors will be handled by an Entity Handler.
-2. Behavior: A behavior is some kind of action that an entity can take. It will implement some interface that allows for polymorphism when the method call happens inside of entity.
-3. Attribute: An attribute will describe the Behavior class and contain information for each Behavior. For example, attributes of a Move Behavior may include xPos, yPos, velocity, etc. Having an attribute module will allow flexibility in additional Behaviors.
-4. Event: An event will contain an action, which is some type of behavior that is performed after it is triggered. Events will trigger other events. Event trigering logic can be handled through composition, by having each Event contain an event that it can trigger once performs its action. This allows us to have arbitrarily complex events.
-5. Physics: We plan to use a library for this to avoid having to re-invent the wheel.
-6. WorldView
-    * Controls which level and where in the level the view should display; defines some scrolling and window behavior
-7. Level
+1. Entity: 
+2. Component: Components are passive data structures, tightly coupled with Systems (e.g. CollidableComponent is very tied to CollisionSystem) Instantiation/editing of Components is made possible for Game Authoring through a ComponentFactory
+3. GameSystem:
+4. Level: Container of entities...
+5. Engine: This is our public interface with Game Player. It contains a collection of Systems that describe game behavior, as well as exposes several filter functions that provide Game Player the relevant subset of Entities that need to be displayed to the screen 
     * Defines the level that gameplay will be occurring in: contains the entities and events pertinent for each level of the game; is essentially a collection of a subset of the game's entities and events
 
 
@@ -63,11 +62,11 @@ Game Data will be open. Graphical Authoring Environment and Game Player are clos
 
 #### Modules
  
-1. Entity Creator: This module will include a visual display of available entities to be created, as well as a system for the user to enter values of Entity data (such as location, sprite, etc). This module will be responsible for displaying the created Entity in the editing window. The Creator class will include methods to create entities (taking in various parameters) and to display those entities in the editing view.  
-2. Event Creator: This module will provide a visual display to tie together Entities using Events. The user will be able to choose which Events to create and which Entities are involved in that event. This could be viewed as a kind of EventFactory, but with visual elements to allow the user to input necessary information. 
+1. Entity Creator: This module will include a visual display of available entities to be created, as well as a system for the user to enter values of Entity data (such as location, sprite, etc). This module will be responsible for adding the created Entity to the c. The Creator class will include methods to create entities (taking in various parameters) and to display those entities on the Canvas.  
+2. Event Creator: This module will provide a visual display to tie together multiple Entities using Events. The user will be able to choose which Events to create and which Entities are involved in that event. This could be viewed as a kind of EventFactory, but with visual elements to allow the user to input necessary information. 
 3. Level Preferences: This object will provide a visual way to create and edit different levels, tying all of the entities, events, and preferences created together within that object. 
-4. EditWindow: This module will be responsible for displaying all created entities, as well as the background and other overarching elements. It will need to hold the data about Entities and Events in order to display them within its window. 
-5. Storyboard: 
+4. Storyboard: This module will allow the user to view, select, and reorder all available levels.
+5. Canvas: This module will be responsible for displaying all created entities, as well as the background and other overarching elements.
 
 ### Game Data
 
@@ -86,7 +85,11 @@ Game Data will be open. Graphical Authoring Environment and Game Player are clos
 
 The screen will be divided into two sections. The top section will be an HBox with Menu options, and the bottom will be the View. We intend to make a UI in which the player can use a mouse to interact with the various drop down menus available on top of the screen. These will contain the abilities to switch games, change game status, set preferences, and work with saved data. 
 
-The User will be able to choose which keys on the keyboard will correlate with inputs for the game to be able to play the game in whichever way it is designed.
+The User will be able to choose which keys on the keyboard will correlate with inputs for the game to be able to play the game in whichever way it is designed. Every input will be able to be changed to fit the user's preference, in a way which is flexible to handle any possible game with any number of possible inputs.
+
+There are three ComboBoxes that allow the user to change Speed, Status, and Save/Load options. The speed changes the rate at which the game updates, while the status allows the user to play and pause the game.
+
+There are three Buttons for Game Selection, Settings, and Key Preferences. The latter two buttons launch two small stages with options. The stages for each of these allow the user to customize settings which are general across all games, allowing for ease of use. This includes volume and brightness.
 
 In regards to erroneous situations (bad user input) we will display a descriptive message. For instance, if a player assigns two keys to a single input, the screen will say "You can only assign one key to one input". If a player tries to load an invalid file that is not a game file, the screen will display "This is an invalid file".
 ![PlayerUI](PlayerUI.jpg "Player UI")
@@ -94,14 +97,15 @@ In regards to erroneous situations (bad user input) we will display a descriptiv
 
 ### Game Authoring Environment
 
-We intend to build an authoring environment visually based off our included prototype (/doc/VOOGA Prototype.mp4). In the center of our screen, we intend to have a canvas, on which a user can view the currently selected level backdrop; drag-and-drop sprites; and identify sprite-specific interactions.  
+We intend to build an authoring environment visually based off our included prototype (/doc/VOOGA Prototype.mp4). In the center of our screen, we have a canvas, on which a user can view the currently selected level backdrop; drag-and-drop sprites; and identify sprite-specific interactions.  
 
 At the sides of our screen, we plan to include menus that allow for more complicated game customization. Within these menus, a user will be able to see information about the game physics, the sprites active in the level, relationships between game objects, and the level goals. If a user wishes to modify any of this information, they will have the ability to -- when selected, a menu item in the left toolbar will cue its corresponding panel to appear in the panel at the right side of the screen. Each panel will contain options specific to its category. The intended menus and their functions are:  
 * Entity Creator
     * Select sprite image
     * Manage sprite sizing
     * Add intrinsic sprite behavior (ability to run, jump, etc.) 
-    * Drag and drop sprite onto canvas
+    * Manage individual sprite interactions with the environment (e.g. will other entities be able to pass through it, etc)
+    * Add sprite onto canvas
 * Actions and Events
     * View all current in-game sprites
     * Manage interactions between two or more sprites (build events, link sprites with these events)
@@ -111,7 +115,7 @@ At the sides of our screen, we plan to include menus that allow for more complic
     * Add music
 * Storyboard
     * View and reorder all created levels
-    * Adjust game settings (e.g. name game)
+    * Adjust game settings (e.g. name of game, etc)
 
 
 ### Game Data
@@ -329,7 +333,7 @@ We decided to have Level as its own module because it allows us to define a data
 
 ### Entity Creator
 
-The Entity creator will be the utility that allows the user to place game elements and to set up graphics for those elements. It will work closely with the Entity class because it will be creating objects of that class, and with the Level class because each Entity created will be assigned to a level. The class will need to use a large number of JavaFX user input functions, such as drop-down menus, tab-panes, text-input fields, buttons, etc. The Entity Creator will need to be able to pass its created entities to the EditWindow, where they will be displayed for the user. 
+The Entity creator will be the utility that allows the user to place game elements and to set up graphics for those elements. It will work closely with the engine Entity class because it will be creating objects of that class, and with the Level class because each Entity created will be assigned to a level. The class will need to use a large number of JavaFX user input functions, such as drop-down menus, tab-panes, text-input fields, buttons, etc. The Entity Creator will need to be able to pass its created entities to the EditWindow, where they will be displayed for the user. 
 
 This module will utilize Entity classes from the Game Engine interface, and thus won't need a public API.
 
@@ -343,44 +347,37 @@ This is a necessary module because we need to have a way for the user to be able
 
 There will be no public interface for this module because it will be contained within our front-end entirely. It will simply call the Game Engine's interfaces to create these events and represent them visuall or otherwise.  
 
-### Level
+### Level Preferences
 
-A Level object will contain the larger game settings such as what will constitute a game's end, which order the levels should go in,  and other higher-order information. It will also need to have operations to set its own values. It should not, however, need to be a public because we want it to be closed to extension, representing the static preferences that a user selects for the game they design. 
+The Level Preferences pane will allow the user to create engine Level objects and add specifications to that level such as background image, music, and a win condition. After the level is created, created entities will be part of that level until a new level is created or selected. The Level Preferences pane will not need to be public because we want it to be closed to extension, representing the static preferences that a user selects for the game they design. 
 
 
 ### Storyboard 
 
-The Storyboard will provide a visual way for users to organize collections of Entities and Events into Levels, and arrange those levels in order based on their ending events. It will have the ability to create new instances of EditWindow, a class which will act as the data holder for Entities and Events, and then the user will be able to interact with the storyboard to arrange them.  
+The Storyboard will provide a visual way for users to organize collections of Entities and Events into Levels, and arrange those levels in order based on their ending events. The Storyboard will also give the user the ability to select and already created level for edit. 
 
 This module is necessary in order for the user to have a way to create an ordering of levels like it says in the assignment specification. 
 
 This module should not be extensible, but it should be able to interact with any Level.
 
 
-### EditWindow
+### Canvas
 
-The EditWindow will be the overall view window that displays our GUI. It will accomplish the goal of letting users see their game-creation process and allowing them to interact with the game Entities and Events. 
+The Canvas will be the central part of our GUI that displays what a current level looks like. It will accomplish the goal of letting users see their game-creation process and allowing them to interact with the game Entities and Events. 
 
-To do this, it will use a helper Interface called GUIComponent, which will define what any kind of displayable GUI object must have and do. This will include functionality to export itself as a JavaFX node and return information about inself. This Interface will collaborate with a class called GUIComponentBuilder, which will take in information about the GUIComponent to be built and create new instances of the required component. The EditWindow will then assemble all of these created objects into one view and display them. 
+To do this, it implement the GUINode Interface, which will define what any kind of displayable GUI object must have and do. This will include functionality to export itself as a JavaFX node and return information about inself. This Interface will collaborate with a class called GUIBuilder, which will take in information about the GUIComponent to be built and create new instances of the required component.  
 
 This is a necessary module because we need a way for the user to see their changes to a game in real-time, with all created Entities visible. 
 
-This should be extensible to different window shapes and types, in case we want to change how the window displays the data. 
+This class should not need to be extended - it merely displays whichever level is currently selected. This class itself does not create any back end objects or store them anywhere. 
 
-```java=
-public interface EditWindow {
+### Controllers 
 
-public void drawWindow();
+The Authoring Environment will have a number of controllers that allow the different panes the communicate with each other. For example, there will be an EntityController class that allows the EntityCreator to place objects on the Canvas. This class will also allow the Canvas to communicate with the EntityCreator so that the EntityCreator knows which Entity to edit.
 
-public void addEntity();
+There will also be a LevelController that creates back end level objects and communicates with the EntityCreator to add Entities to the current Level. The LevelController holds all the Levels, and will therefore also communicate with Storyboard to handle reordering. The LevelController also communicates with data in order to save levels.
 
-public void addEvent();
-
-}
-```
-
-
-
+There will also be a general PaneController which will communicate between any other necessary panes. For example, the save data button is in the left menu, so the Pane controller will be able to communicate with LevelController to give this butotn functionality.
 
 ### Game Data
 
@@ -475,11 +472,12 @@ public abstract DataObject extends Serializable{
 
 * Before we can devise a complete design solution, we need to further hash out how we are to receive and parse data from the back-end.
 * With regards to our current design, we as of now are thinking of creating a DataManager class that will constantly update and monitor the data for each user preference so that we can always access the most updated information. The current state of the game being played will also be monitored constantly.
+* For the advanced sprint, we need to figure out how to implement infinite scrolling with our Camera.
 
 ### Graphical Authoring Environment
 
-* We spent a lot of time discussing what our class hierarchy should be for the authoring environment. Because everyone in our subteam has worked on front end before, and hasn't been entirely satisfied with how classes were organized, we plan to have a GUIBuilder class and GUIComponent class to standardize and separate classes that create different panes and set up the organization of the GUI overall
-* We also took time to consider different types of Entities and how those different types could best be translated to an inheritance hierarchy. As of right now, we have an iEntity interface which is implemented by Interactive and Inactive interfaces and the Interactive interface is implemented by a Controllable interface. This inheritance hierarchy logically evolved as we talked about which attributes would need to be public for different types of Entities.
+* We spent a lot of time discussing what our class hierarchy should be for the authoring environment. Because everyone in our subteam has worked on front end before, and hasn't been entirely satisfied with how classes were organized, we plan to have a GUIBuilder abstract super class and GUINode interface to standardize and separate classes that create different panes and set up the organization of the GUI overall
+* We also wanted to make our ComponentMenus easily extendable, so that as engine adds new entity components, those can easily be displayed in the Authoring Environment. In other words, we want to avoid creating an entire new class for every component menu every time a new component is added. Therefore, we have a ComponentMenuFactory and general ComponentMenu class to be able to create a variable number of ComponentMenus easily.
 * We intend to keep most of our methods private or package-friendly and have the only public methods be those that are needed by game data
 
 ### Game Engine

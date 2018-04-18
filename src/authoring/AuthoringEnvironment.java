@@ -26,8 +26,11 @@ import resources.keys.AuthRes;
 
 /**
  * @author Liam Pulsifer
- * @author Jenny Chin
+ * @author Jennifer Chin
  * @author Elizabeth Shulman
+ * 
+ * Main authoring environment class. Initializes all parts of the AuthoringEnvironment
+ * and allows for communication between the different parts.
  */
 
 public class AuthoringEnvironment extends GUIBuilder implements Listener {
@@ -44,6 +47,16 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private BorderPane bp;
 	private Canvas canvas;
 	private SplashScreen splash;	
+	
+	/**
+	 * Constructor for the Authoring Environment. Takes in a stage and a splash screen
+	 * in order to change the root of the scene of the stage as the view changes.
+	 * Constructor initializes various parts of the Authoring Environment GUI - all the
+	 * different menus, canvas, and controllers necessary for the Authoring Environment
+	 * to run
+	 * @param stage
+	 * @param ss
+	 */
 	
 	public AuthoringEnvironment(Stage stage, SplashScreen ss){
 		this.stage = stage;
@@ -69,6 +82,12 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		np.addListener(this);
 		np.addLevelController(lcontroller);
 	}
+	
+	/**
+	 * Abstract method inherited from the GUIBuilder super class. Returns a Pane that
+	 * becomes the root of the scene. 
+	 * @return Pane
+	 */
 	
 	@Override
 	public Pane display() {
@@ -100,6 +119,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		
 	}
 
+	/**
+	 * Updates the right panel according the user selection. Called by Navigation Pane
+	 * to determine which right panel to display
+	 * @param state
+	 */
 	@Override
 	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
