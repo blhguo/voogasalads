@@ -10,11 +10,15 @@ public class Event {
 		myConditions = conditions;
 	}
 	
-	public void check(){
+	public void occur() {
+		for (Condition condition : myConditions) {
+			if (! condition.evaluate()) {
+				return;
+			}
+		}
 		
-	}
-	
-	private void execute(){
-		
+		for (Action action : myActions) {
+			action.execute();
+		}
 	}
 }
