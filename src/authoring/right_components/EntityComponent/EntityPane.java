@@ -42,13 +42,15 @@ public class EntityPane extends BasePane {
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
 	private VBox newbox;
+	private Button deleteButton;
+	private Button backButton;
 
 	public EntityPane(){
 		createButtonArray = new ArrayList<>();
 		editButtonArray = new ArrayList<>();
 		menuList = makeMenuList();
 		Collections.sort(menuList);
-
+		backButton = ButtonFactory.makeButton(e -> resetAccordion());
 		ogmenuList = new ArrayList<>(menuList);
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
@@ -108,12 +110,20 @@ public class EntityPane extends BasePane {
 	 */
 	private void resetEditButtons(){
 		editButtonArray.clear();
-		editButtonArray.add(ButtonFactory.makeLittleHBox("Create Entity", null, controller.getButton()));
-		Button button = ButtonFactory.makeButton(e -> resetAccordion());
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Update Entity", null,
+				ButtonFactory.makeButton(e -> updateEntity())));
+		createButton = controller.getButton();
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Create Entity", null, createButton));
 		editButtonArray.add(ButtonFactory.makeLittleHBox("Back to new Entity Creation",
-				"Displaying current entity", button));
-		editButtonArray.add(ButtonFactory.makeLittleHBox("Delete Entity", null, controller.getRemoveButton()));
+				"Displaying current entity", backButton));
+		deleteButton = controller.getRemoveButton();
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Delete Entity", null, deleteButton));
 
+	}
+
+	private void updateEntity() {
+		deleteButton.fire();
+		createButton.fire();
 	}
 
 	/**
