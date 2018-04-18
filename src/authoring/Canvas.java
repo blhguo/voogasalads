@@ -1,5 +1,8 @@
 package authoring;
 
+import java.util.Map;
+
+import authoring.controllers.EntityController;
 import game_engine.Entity;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -12,16 +15,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-
-import java.util.Map;
-
-
-import authoring.controllers.EntityController;
 
 /**
  * @author Jennifer Chin

@@ -8,10 +8,6 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.PositionComponent;
-import game_engine.components.collision.edge_collided.BottomCollidedComponent;
-import game_engine.components.collision.edge_collided.LeftCollidedComponent;
-import game_engine.components.collision.edge_collided.RightCollidedComponent;
-import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
 

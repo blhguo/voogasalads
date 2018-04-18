@@ -6,6 +6,6 @@ package game_engine;
  * Example: http://www.w3processing.com/index.php?subMenuLoad=java/oop/InterfaceFlag.php
  */
 public interface Component {
-	String getValues();
-	String getName();
+	String getValue();
+	void setValue(String value);
 }

@@ -8,7 +8,6 @@ import authoring.utilities.ButtonFactory;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import resources.keys.AuthRes;

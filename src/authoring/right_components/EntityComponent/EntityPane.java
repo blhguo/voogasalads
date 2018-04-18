@@ -1,18 +1,15 @@
 package authoring.right_components.EntityComponent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
-import authoring.component_menus.ImageMenu;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
 import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
@@ -21,9 +18,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import resources.keys.AuthRes;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  * @author liampulsifer

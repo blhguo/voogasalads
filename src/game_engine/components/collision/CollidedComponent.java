@@ -1,10 +1,10 @@
 package game_engine.components.collision;
 
-import game_engine.Component;
-import game_engine.Entity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import game_engine.Component;
+import game_engine.Entity;
 
 /**
  * @author Jeremy

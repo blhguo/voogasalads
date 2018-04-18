@@ -3,15 +3,12 @@ package authoring.right_components;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import authoring.utilities.ButtonFactory;
-import game_engine.Level;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;

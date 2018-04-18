@@ -1,9 +1,7 @@
 package game_engine.components;
-import game_engine.Component;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-
 import java.util.List;
+
+import game_engine.Component;
 
 /**
  * @author: Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen

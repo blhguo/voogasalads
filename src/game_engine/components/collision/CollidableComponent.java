@@ -1,8 +1,8 @@
 package game_engine.components.collision;
 
-import game_engine.Component;
-
 import java.util.List;
+
+import game_engine.Component;
 
 /**
  * @author: Jeremy Chen

@@ -5,12 +5,6 @@ import java.io.File;
 import authoring.Canvas;
 import authoring.right_components.LevelPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 
 /**
  * @author jennychin
