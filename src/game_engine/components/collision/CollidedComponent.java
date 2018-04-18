@@ -15,9 +15,11 @@ public abstract class CollidedComponent extends Component{
     private List<Entity> others;
 
     /**
+     * TODO: FIX LATER THIS IS TRASH
      * Constructor: takes no args, created by System rather than authoring
      */
     public CollidedComponent(){
+    	super(null);
         others = new ArrayList<Entity>();
     }
 
@@ -48,6 +50,19 @@ public abstract class CollidedComponent extends Component{
             others.add(e);
         }
     }
+    
+    public boolean contains(Entity e) {
+    	return others.contains(e);
+    }
+    
+    public boolean contains(Class<Component> c) {
+    	for(Entity e: others) {
+    		if(e.getComponent(c)!=null) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     /**
      * @param es
@@ -66,22 +81,5 @@ public abstract class CollidedComponent extends Component{
     public List<Entity> getEntities(){
         return others;
     }
-    
-    /* (non-Javadoc)
-     * @see game_engine.Component#getValues()
-     * Placeholder, for stopgap code in Authoring
-     */
-    @Override
-	public String getValues() {
-		return null;
-	}
 
-	/* (non-Javadoc)
-	 * @see game_engine.Component#getName()
-	 * Placeholder, for stopgap code in Authoring
-	 */
-	@Override
-	public String getName() {
-		return null;
-	}
 }
