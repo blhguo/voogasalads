@@ -134,7 +134,6 @@ public class CollisionBroadSystem extends CollisionSystem {
             else if(bottom && left) {
                 double dx = Math.abs(xMax2 - xMin1);
                 double dy = Math.abs(yMin2 - yMax1);
-                System.out.println("BL dx: " + dx + " dy: " + dy);
                 if(dx>dy){
                     System.out.println("BL BOTTOM");
                     collidedToAdd.add(b);

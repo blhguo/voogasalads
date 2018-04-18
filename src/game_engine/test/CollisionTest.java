@@ -90,13 +90,14 @@ public class CollisionTest extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-    	colSys.act(elapsedTime);
-    	colResponseSys.act(elapsedTime);
+    	
 		keyboardMovementSys.act(elapsedTime); //update position
 		movementSys.act(elapsedTime); //update position
 		
 		keyboardJumpSys.act(elapsedTime); //update jump
 		inputGarbageCollectionSystem.act(elapsedTime);
+		colSys.act(elapsedTime);
+    	colResponseSys.act(elapsedTime);
 		
 //		CollidedComponent temp = (BottomCollidedComponent) e1.getComponent(BottomCollidedComponent.class);
 //		if(temp!=null) {
@@ -142,15 +143,15 @@ public class CollisionTest extends Application {
         r1.setY(y);
         r1.setRotate(theta);
         
-        PositionComponent pos1 = (PositionComponent) e4.getComponent(PositionComponent.class);
-        double x1 = pos1.getX() - r4.getWidth()/2;
-        double y1 = pos1.getY() - r4.getHeight()/2;
+//        PositionComponent pos1 = (PositionComponent) e4.getComponent(PositionComponent.class);
+//        double x1 = pos1.getX() - r4.getWidth()/2;
+//        double y1 = pos1.getY() - r4.getHeight()/2;
 
-        double theta1 = pos1.getAngle();
+//        double theta1 = pos1.getAngle();
 
-        r4.setX(x1);
-        r4.setY(y1);
-        r4.setRotate(theta1);
+//        r4.setX(x1);
+//        r4.setY(y1);
+//        r4.setRotate(theta1);
     }
 
     private void updateRectColor(){
@@ -211,13 +212,13 @@ public class CollisionTest extends Application {
             phys.add("0");
 
         ArrayList<String> pos1 = new ArrayList<String>();
-        pos1.add("25");
+        pos1.add("300");
         pos1.add("100");
         pos1.add("0");
 
         ArrayList<String> pos2 = new ArrayList<String>();
         pos2.add("50");
-        pos2.add("200");
+        pos2.add("800");
         pos2.add("0");
         
         ArrayList<String> pos3 = new ArrayList<String>();
@@ -237,11 +238,11 @@ public class CollisionTest extends Application {
 
         ArrayList<String> hb2 = new ArrayList<String>();
         hb2.add("350");
-        hb2.add("100");
+        hb2.add("800");
         hb2.add("0");
         hb2.add("0");
 
-        ArrayList<String> hb1 = new ArrayList<String>();
+        ArrayList<String> hb1 = new  ArrayList<String>();
         hb1.add("50");
         hb1.add("50");
         hb1.add("0");
@@ -254,7 +255,7 @@ public class CollisionTest extends Application {
         hb4.add("0");
         
         ArrayList<String> hb3 = new ArrayList<String>();
-        hb3.add("500");
+        hb3.add("1000");
         hb3.add("100");
         hb3.add("0");
         hb3.add("0");
@@ -301,7 +302,7 @@ public class CollisionTest extends Application {
         e4.addComponent(new XPhysicsComponent(phys));
         e4.addComponent(new YPhysicsComponent(yPhysicsArgs));
         e4.addComponent(new PositionComponent(pos4));
-        e4.addComponent(new HitboxComponent(hb4));
+//        e4.addComponent(new HitboxComponent(hb4));
         e4.addComponent(new CollidableComponent(cc1));
 
         
@@ -330,15 +331,15 @@ public class CollisionTest extends Application {
         r1 = new Rectangle(pos1.getX() - hb1.getWidth()/2, pos1.getY() - hb1.getHeight()/2, hb1.getWidth(), hb1.getHeight());
         r2 = new Rectangle(pos2.getX() - hb2.getWidth()/2, pos2.getY() - hb2.getHeight()/2, hb2.getWidth(), hb2.getHeight());
         r3 = new Rectangle(pos3.getX() - hb3.getWidth()/2, pos3.getY() - hb3.getHeight()/2, hb3.getWidth(), hb3.getHeight());
-        r4 = new Rectangle(pos4.getX() - hb4.getWidth()/2, pos4.getY() - hb4.getHeight()/2, hb4.getWidth(), hb4.getHeight());
+//        r4 = new Rectangle(pos4.getX() - hb4.getWidth()/2, pos4.getY() - hb4.getHeight()/2, hb4.getWidth(), hb4.getHeight());
         r5 = new Rectangle(pos5.getX() - hb5.getWidth()/2, pos5.getY() - hb5.getHeight()/2, hb5.getWidth(), hb5.getHeight());
         	
-        r4.setFill(Color.PINK);
+//        r4.setFill(Color.PINK);
         
         root.getChildren().add(r1);
         root.getChildren().add(r2);
         root.getChildren().add(r3);
-        root.getChildren().add(r4);
+//        root.getChildren().add(r4);
         root.getChildren().add(r5);
     }
 
