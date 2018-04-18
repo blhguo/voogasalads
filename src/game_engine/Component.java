@@ -8,7 +8,7 @@ public abstract class Component {
 	private String myValue;
 	
 	public Component(String arg){
-		
+		myValue = arg;
 	}
 	
 	public String getValue(){
