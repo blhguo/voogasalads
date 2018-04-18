@@ -8,11 +8,6 @@ import java.util.Collections;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.components.PositionComponent;
-import game_engine.components.collision.CollidedComponent;
-import game_engine.components.collision.hitbox.HitboxComponent;
-import game_engine.components.physics.XPhysicsComponent;
-import game_engine.components.physics.YPhysicsComponent;
 
 /**
  * @author Jeremy Chen
@@ -39,33 +34,6 @@ public abstract class CollisionSystem extends GameSystem {
 	 * 
 	 */
 	protected abstract void checkIntersect(Entity e1, Entity e2, double elapsedTime);
-	
-//	/**
-//	 *
-//	 * @param e1
-//	 * @param e2
-//	 */
-//	protected void addCollided(Entity e1, Entity e2) {
-//		addCollidedHelper(e1, e2);
-//		addCollidedHelper(e2, e1);
-//	}
-	
-//	/**
-//	 *
-//	 * @param e1
-//	 * @param e2
-//	 */
-//	private void addCollidedHelper(Entity e1, Entity e2) {
-//		CollidedComponent c1 = (CollidedComponent) e1.getComponent(CollidedComponent.class);
-//		if(c1!=null) {
-//			c1.addCollidedWith(e2);
-//		}
-//		else {
-//			c1 = new CollidedComponent();
-//			c1.addCollidedWith(e2);
-//			e1.addComponent(c1);
-//		}
-//	}
 	
 	/**
 	 *  
@@ -130,7 +98,6 @@ public abstract class CollisionSystem extends GameSystem {
                 colComp = (CollidedComponent) colCon.newInstance();
                 e1.addComponent(colComp);
             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                // TODO: temp err
                 System.out.println("temp err msg");
             }
         }
