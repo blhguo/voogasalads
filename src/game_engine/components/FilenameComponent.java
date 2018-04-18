@@ -1,18 +1,11 @@
 package game_engine.components;
 
-public class FilenameComponent {
-	
-	private String myFilename;
+import game_engine.Component;
+
+public class FilenameComponent extends Component {
 
 	public FilenameComponent(String arg) {
-		myFilename = arg;
+		super(arg);
 	}
 	
-	public String getValue() {
-		return myFilename;
-	}
-	
-	public void setValue(String arg) {
-		myFilename = arg;
-	}
 }

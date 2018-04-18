@@ -1,14 +1,11 @@
 package game_engine.components;
 
-public class WidthComponent {
+import game_engine.Component;
 
-	private String myWidth;
+public class WidthComponent extends Component {
 	
 	public WidthComponent(String arg) {
-		myWidth = arg;
+		super(arg);
 	}
-	
-	public String getValue() {
-		return myWidth;
-	}
+
 }

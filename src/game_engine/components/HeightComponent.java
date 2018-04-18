@@ -1,18 +1,11 @@
 package game_engine.components;
 
-public class HeightComponent {
-	
-	private String myHeight;
+import game_engine.Component;
 
+public class HeightComponent extends Component {
+	
 	public HeightComponent(String arg) {
-		myHeight = arg;
+		super(arg);
 	}
-	
-	public String getValue() {
-		return myHeight;
-	}
-	
-	public void setValue(String arg) {
-		myHeight = arg;
-	}
+
 }

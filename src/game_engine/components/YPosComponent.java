@@ -2,9 +2,9 @@ package game_engine.components;
 
 import game_engine.Component;
 
-public class AngleComponent extends Component {
+public class YPosComponent extends Component {
 
-	public AngleComponent(String arg) {
+	public YPosComponent(String arg) {
 		super(arg);
 	}
 	
