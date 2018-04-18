@@ -1,36 +1,21 @@
 package game_engine.components;
 
-import java.util.List;
-
 import game_engine.Component;
 
 public class HealthComponent implements Component {
+	private String myHealth;
 	
-	private int myHealth;
-	
-	public HealthComponent(List<String> args){
-		myHealth = Integer.parseInt(args.get(0));
+	public HealthComponent(String arg){
+		myHealth = arg;
 	}
-	
-	public int getHealth(){
+
+	@Override
+	public String getValue() {
 		return myHealth;
 	}
 	
-	public void setHealth(int health){
-		myHealth = health;
-	}
-	
-
 	@Override
-	public String getValues() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setValue(String arg) {
+		myHealth = arg;
 	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
