@@ -1,4 +1,4 @@
-package game_engine.components;
+package game_engine.components.position;
 
 import game_engine.Component;
 
