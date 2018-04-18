@@ -3,15 +3,15 @@ package authoring;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.LevelController;
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
+import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
 import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;

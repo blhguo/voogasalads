@@ -1,5 +1,6 @@
 package authoring;
 
+import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
@@ -9,7 +10,6 @@ import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import authoring.right_components.EntityComponent.EntityPane;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
