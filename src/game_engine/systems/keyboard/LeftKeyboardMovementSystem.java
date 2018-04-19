@@ -7,7 +7,7 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.components.keyboard.LeftKeyboardMovementInputComponent;
+import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.XVelComponent;
 import javafx.scene.input.InputEvent;
@@ -15,7 +15,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class LeftKeyboardMovementSystem extends GameSystem{
-	private static final Class<? extends Component<String>> LEFT_KEYBOARD_MOVE_INPUT = LeftKeyboardMovementInputComponent.class;
+	private static final Class<? extends Component<String>> LEFT_KEYBOARD_MOVE_INPUT = LeftKeyboardComponent.class;
 	private static final Class<? extends Component<Double>> DEFAULT_X_VEL = DefaultXVelComponent.class;
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 	private static final String KEY_PRESSED = "KEY_PRESSED";

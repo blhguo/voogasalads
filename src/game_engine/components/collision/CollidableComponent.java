@@ -13,8 +13,8 @@ import game_engine.Component;
  * Pushable: An int, whose value dictates what Entities can be pusehd by this entity (higher can push lower)
  */
 public class CollidableComponent extends Component<Boolean>{
-	public CollidableComponent(Boolean arg) {
-		super(arg);
+	public CollidableComponent(String arg) {
+		super(Boolean.parseBoolean(arg));
 	}
 }
 	

@@ -4,8 +4,8 @@ import game_engine.Component;
 
 public class YAccelComponent extends Component<Double> {
 	
-	public YAccelComponent(Double arg) {
-		super(arg);
+	public YAccelComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}
 
 }

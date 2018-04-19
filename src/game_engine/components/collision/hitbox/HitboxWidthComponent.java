@@ -4,7 +4,7 @@ import game_engine.Component;
 
 public class HitboxWidthComponent extends Component<Double>{
 
-	public HitboxWidthComponent(Double arg) {
-		super(arg);
+	public HitboxWidthComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}	
 }

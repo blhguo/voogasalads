@@ -51,25 +51,25 @@ public abstract class CollisionSystem extends GameSystem {
 	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
 	 */
 	protected double[] getExtrema(Entity e, double elapsedTime){
-		double centerX = getDoubleValue(e, XPosComponent.class);
-		double centerY = getDoubleValue(e, YPosComponent.class);
+		double centerX = e.getComponent(XPosComponent.class).getValue();
+		double centerY = e.getComponent(YPosComponent.class).getValue();
 		
-		double xOffset = getDoubleValue(e, HitboxXOffsetComponent.class);
-		double yOffset = getDoubleValue(e, HitboxYOffsetComponent.class);
-		double width = getDoubleValue(e, HitboxWidthComponent.class);
-		double height = getDoubleValue(e, HitboxHeightComponent.class);
+		double xOffset = e.getComponent(HitboxXOffsetComponent.class).getValue();
+		double yOffset = e.getComponent(HitboxYOffsetComponent.class).getValue();
+		double width = e.getComponent(HitboxWidthComponent.class).getValue();
+		double height = e.getComponent(HitboxHeightComponent.class).getValue();
 		
-		Double currXVel = getDoubleValue(e, XVelComponent.class);
-		Double currYVel = getDoubleValue(e, YVelComponent.class);
-		Double currAngle = getDoubleValue(e, AngleComponent.class);
+		XVelComponent xVel = (XVelComponent) e.getComponent(XVelComponent.class);
+		YVelComponent yVel = (YVelComponent) e.getComponent(YVelComponent.class);
+		AngleComponent currAngle = (AngleComponent) e.getComponent(AngleComponent.class);
 		
-		if(currXVel!=null) {
-			centerX += currXVel*elapsedTime;
+		if(xVel!=null) {
+			centerX += xVel.getValue()*elapsedTime;
 		}
-		if(currYVel!=null) {
-			centerY += currYVel*elapsedTime;
+		if(yVel!=null) {
+			centerY += yVel.getValue()*elapsedTime;
 		}
-		if(currAngle%90 == 0){
+		if(currAngle!=null && currAngle.getValue()%90 == 0){
 			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};
 		}
 		
@@ -81,8 +81,8 @@ public abstract class CollisionSystem extends GameSystem {
 				double origX = i*width + centerX;
 				double origY = j*height + centerY;
 
-				double transformedX = centerX+(origX-centerX)*Math.cos(currAngle)+(origY-centerY)*Math.sin(currAngle);
-				double transformedY = centerY-(origX-centerX)*Math.sin(currAngle)+(origY-centerY)*Math.cos(currAngle);
+				double transformedX = centerX+(origX-centerX)*Math.cos(currAngle.getValue())+(origY-centerY)*Math.sin(currAngle.getValue());
+				double transformedY = centerY-(origX-centerX)*Math.sin(currAngle.getValue())+(origY-centerY)*Math.cos(currAngle.getValue());
 				xCoords.add(transformedX);
 				yCoords.add(transformedY);
 			}

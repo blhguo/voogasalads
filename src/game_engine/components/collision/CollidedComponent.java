@@ -12,15 +12,13 @@ import game_engine.Entity;
  * It is an abstract superclass for Top, Bottom, Right, and LeftCollidedComponent
  */
 public abstract class CollidedComponent extends Component<List<Entity>>{
-    //private List<Entity> others;
 
-    /**
-     * TODO: FIX LATER THIS IS TRASH
-     * Constructor: takes no args, created by System rather than authoring
-     */
     public CollidedComponent(List<Entity> val){
     	super(val);
-        //others = new ArrayList<Entity>();
+    }
+    
+    public CollidedComponent() {
+    	super(new ArrayList<Entity>());
     }
 
     //COMMENTED OUT BY KEVIN 4/18/18 - question: why are there 3 constructors?
@@ -47,17 +45,27 @@ public abstract class CollidedComponent extends Component<List<Entity>>{
      * Setter allowing System to add an entity to the list of entities contained in the component
      */
     public void addEntity(Entity e){
-        if(!others.contains(e)) {
-            others.add(e);
+        if(!getValue().contains(e)) {
+            getValue().add(e);
+        }
+    }
+    
+    /**
+     * @param e
+     * Setter allowing System to add an entity to the list of entities contained in the component
+     */
+    public void removeEntity(Entity e){
+        if(getValue().contains(e)) {
+        	getValue().remove(getValue().indexOf(e));
         }
     }
     
     public boolean contains(Entity e) {
-    	return others.contains(e);
+    	return getValue().contains(e);
     }
     
-    public boolean contains(Class<Component> c) {
-    	for(Entity e: others) {
+    public boolean contains(Class<? extends Component<?>> c) {
+    	for(Entity e: getValue()) {
     		if(e.getComponent(c)!=null) {
     			return true;
     		}
@@ -74,13 +82,4 @@ public abstract class CollidedComponent extends Component<List<Entity>>{
             addEntity(e);
         }
     }
-
-    /**
-     * @return
-     * Getter that gets all the entities contained in this component
-     */
-    public List<Entity> getEntities(){
-        return others;
-    }
-
 }

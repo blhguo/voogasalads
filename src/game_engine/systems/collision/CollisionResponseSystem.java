@@ -22,13 +22,13 @@ import game_engine.components.physics.YVelComponent;
  * 
  */
 public class CollisionResponseSystem extends GameSystem{
-    private static final Class<? extends Component> LEFT = LeftCollidedComponent.class;
-    private static final Class<? extends Component> BOTTOM = BottomCollidedComponent.class;
-    private static final Class<? extends Component> RIGHT = RightCollidedComponent.class;
-    private static final Class<? extends Component> TOP = TopCollidedComponent.class;
+    private static final Class<? extends Component<?>> LEFT = LeftCollidedComponent.class;
+    private static final Class<? extends Component<?>> BOTTOM = BottomCollidedComponent.class;
+    private static final Class<? extends Component<?>> RIGHT = RightCollidedComponent.class;
+    private static final Class<? extends Component<?>> TOP = TopCollidedComponent.class;
 
-    private static final List<Class<? extends Component>> TARGET_COMPONENTS = Collections.unmodifiableList(
-            new ArrayList<Class<? extends Component>>() {{
+    private static final List<Class<? extends Component<?>>> TARGET_COMPONENTS = Collections.unmodifiableList(
+            new ArrayList<Class<? extends Component<?>>>() {{
                 add(LEFT);
                 add(RIGHT);
                 add(BOTTOM);
@@ -53,17 +53,15 @@ public class CollisionResponseSystem extends GameSystem{
         for (Entity e: collidedEntities){
             XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
             YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
-            Double currXVel = getDoubleValue(e, XVelComponent.class);
-    		Double currYVel = getDoubleValue(e, YVelComponent.class);
     		String stopVal = Double.toString(0.0);
     		
-            if(xv!=null && ((e.getComponent(LEFT) != null && currXVel < 0) ||
-                    (e.getComponent(RIGHT) != null && currXVel > 0))){
-                xv.setValue(stopVal);
+            if(xv!=null && ((e.getComponent(LEFT) != null && xv.getValue() < 0) ||
+                    (e.getComponent(RIGHT) != null && xv.getValue() > 0))){
+                xv.setValue(0.0);
             }
-            if(yv!=null && ((e.getComponent(BOTTOM) != null && currYVel > 0) ||
-                    (e.getComponent(TOP) != null && currYVel < 0))){
-                yv.setValue(stopVal);
+            if(yv!=null && ((e.getComponent(BOTTOM) != null && yv.getValue() > 0) ||
+                    (e.getComponent(TOP) != null && yv.getValue() < 0))){
+                yv.setValue(0.0);
             }
         }
     }
