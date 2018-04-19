@@ -20,16 +20,16 @@ import game_engine.components.collision.edge_collided.TopCollidedComponent;
  */
 public class CollisionBroadSystem extends CollisionSystem {
 	
-    private static final Class<? extends Component> XPOS = XPosComponent.class;
-    private static final Class<? extends Component> YPOS = YPosComponent.class;
-    private static final Class<? extends Component> COLLIDABLE = CollidableComponent.class;
-    private static final Class<? extends Component> HITBOX_WIDTH = HitboxWidthComponent.class;
-    private static final Class<? extends Component> HITBOX_HEIGHT = HitboxHeightComponent.class;
-    private static final Class<? extends Component> HITBOX_X_OFFSET= HitboxXOffsetComponent.class;
-    private static final Class<? extends Component> HITBOX_Y_OFFSET = HitboxYOffsetComponent.class;
+    private static final Class<? extends Component<?>> XPOS = XPosComponent.class;
+    private static final Class<? extends Component<?>> YPOS = YPosComponent.class;
+    private static final Class<? extends Component<?>> COLLIDABLE = CollidableComponent.class;
+    private static final Class<? extends Component<?>> HITBOX_WIDTH = HitboxWidthComponent.class;
+    private static final Class<? extends Component<?>> HITBOX_HEIGHT = HitboxHeightComponent.class;
+    private static final Class<? extends Component<?>> HITBOX_X_OFFSET= HitboxXOffsetComponent.class;
+    private static final Class<? extends Component<?>> HITBOX_Y_OFFSET = HitboxYOffsetComponent.class;
     
-    private static final List<Class<? extends Component>> TARGET_COMPONENTS = Collections.unmodifiableList(
-    		new ArrayList<Class<? extends Component>>() {{ 
+    private static final List<Class<? extends Component<?>>> TARGET_COMPONENTS = Collections.unmodifiableList(
+    		new ArrayList<Class<? extends Component<?>>>() {{ 
     			add(XPOS);
     			add(YPOS);
     			add(COLLIDABLE);

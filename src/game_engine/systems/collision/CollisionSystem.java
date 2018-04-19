@@ -51,17 +51,17 @@ public abstract class CollisionSystem extends GameSystem {
 	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
 	 */
 	protected double[] getExtrema(Entity e, double elapsedTime){
-		double centerX = getDoubleValue(e, XPosComponent.class);
-		double centerY = getDoubleValue(e, YPosComponent.class);
+		double centerX = e.getComponent(XPosComponent.class).getValue();
+		double centerY = e.getComponent(YPosComponent.class).getValue();
 		
-		double xOffset = getDoubleValue(e, HitboxXOffsetComponent.class);
-		double yOffset = getDoubleValue(e, HitboxYOffsetComponent.class);
-		double width = getDoubleValue(e, HitboxWidthComponent.class);
-		double height = getDoubleValue(e, HitboxHeightComponent.class);
+		double xOffset = e.getComponent(HitboxXOffsetComponent.class).getValue();
+		double yOffset = e.getComponent(HitboxYOffsetComponent.class).getValue();
+		double width = e.getComponent(HitboxWidthComponent.class).getValue();
+		double height = e.getComponent(HitboxHeightComponent.class).getValue();
 		
-		Double currXVel = getDoubleValue(e, XVelComponent.class);
-		Double currYVel = getDoubleValue(e, YVelComponent.class);
-		Double currAngle = getDoubleValue(e, AngleComponent.class);
+		Double currXVel = e.getComponent(XVelComponent.class).getValue();
+		Double currYVel = e.getComponent(YVelComponent.class).getValue();
+		Double currAngle = e.getComponent(AngleComponent.class).getValue();
 		
 		if(currXVel!=null) {
 			centerX += currXVel*elapsedTime;
