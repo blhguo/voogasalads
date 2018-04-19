@@ -32,9 +32,7 @@ public class Menu {
 	
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
-	private VBox keyPrefMenu;
 	private VBox settingsMenu;
-	private Button keyPrefButton;
 	private Button gameSelectionButton;
 	private Button settingsButton;
 	private Stage keyPrefStage;
@@ -45,22 +43,17 @@ public class Menu {
 	private Label volumeLabel;
 	private Label brightnessLabel;
 	private DataManager dataManager;
-	private KeyCode currentKey;
-	private Button currentPrefButton;	
-	private String currentPrefString;
 	
 	public Menu(DataManager data, PulldownFactory pdf) {
 		pane = new HBox(20);
 		pane.setAlignment(Pos.CENTER);
 		dataManager = data;
-		currentKey = KeyCode.ENTER;
-		currentPrefButton = new Button();
 		pullDownFactory = pdf;
 		makePullDownMenus();
-		makeKeyPrefMenu();
 		makeGameSelectionMenu();
 		makeSettingsMenu();
 		makeSettingsStage();
+		KeyPrefMenu kpm = new KeyPrefMenu(dataManager,pane);
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -81,29 +74,6 @@ public class Menu {
 		pane.getChildren().add(pullDownFactory.getStatusBox());
 		pane.getChildren().add(pullDownFactory.getSaveLoadBox());
 		
-	}
-	
-	/**
-	 * Method to make the keyPref Stage with keyPref options
-	 * 
-	 */
-	private void makeKeyPrefMenu() {
-		keyPrefMenu = new VBox(25);
-		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		keyPrefMenu.setBackground(new Background(back));
-		keyPrefButton = new Button("Key Prefs");
-		keyPrefButton.setOnAction(click->{showPrefMenu();});
-		keyPrefButton.setPrefSize(160, 20);
-		keyPrefButton.getStyleClass().add("button-nav");
-		pane.getChildren().add(keyPrefButton);
-		initKeyPrefMenu();
-		keyPrefStage = new Stage();
-		Scene scene = new Scene(keyPrefMenu);
-		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
-		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
-		keyPrefStage.setScene(scene);
-				
 	}
 	
 	/**
@@ -177,34 +147,6 @@ public class Menu {
 		return volumeSlider;
 	}
 	
-	
-
-	
-	private void initKeyPrefMenu() {
-		ArrayList<String> inputs = (ArrayList<String>) dataManager.getInputCommands();
-		for(String s : inputs) {
-			HBox toAdd = new HBox(10);
-			toAdd.setAlignment(Pos.CENTER);
-			Label label = new Label(s);
-			label.getStyleClass().add("text-keypref");
-
-			Button button = new Button("ENTER");
-			button.getStyleClass().add("button-keypref");
-			button.setOnAction(click->{setPref(button,s);});
-			toAdd.getChildren().add(label);
-			toAdd.getChildren().add(button);
-			keyPrefMenu.getChildren().add(toAdd);
-		}
-	}
-	
-	private void setPref(Button button,  String string) {
-		currentPrefButton = button;
-		currentPrefString = string;
-	}
-	private void showPrefMenu() {
-		keyPrefStage.show();
-	}
-	
 	/**
 	 * method to show new Stage when gameSelectionButton is pressed
 	 * 
@@ -224,19 +166,6 @@ public class Menu {
 	public void showSettingsMenu() {
 		settingsStage.show();
 		
-	}
-	
-   /**
-	 * method to set keys to their preferences in the keyPrefStage
-	 * 
-	 */
-	public void checkForInput(KeyCode code) {
-		currentKey = code;
-		currentPrefButton.getStyleClass().add("button-keypref");
-
-		currentPrefButton.setText(""+currentKey);
-		dataManager.setKey(currentPrefString, code);
-	}
-	
+	}	
 
 }
