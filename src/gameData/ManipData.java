@@ -125,8 +125,10 @@ public class ManipData {
 				fos1 = new FileOutputStream(file);
 				fos1.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
 				fos1.write(("<stuff>").getBytes("UTF-8"));
+				int counter = 0;
 				for (String k : metaMap.keySet()) {
-					saveOneMeta(k, metaMap.get(k));
+					saveOneMeta(k, metaMap.get(k), counter);
+					counter++;
 				}
 				fos.write("</stuff>".getBytes("UTF-8"));
 			} catch (IOException e) {
@@ -136,30 +138,84 @@ public class ManipData {
 		  }
 	}
 	
-	private void saveOneMeta(String key, String value) {
+	private void saveOneMeta(String key, String value, int counter) {
 		try {
-			fos1.write("<key>".getBytes("UTF-8"));
+	        fos1.write(("<key"+Integer.toString(counter)+">").getBytes("UTF-8"));
 			fos1.write(key.getBytes("UTF-8"));
-			fos1.write("</key>".getBytes("UTF-8"));
-			fos1.write("<value>".getBytes("UTF-8"));
+	        fos1.write(("</key"+Integer.toString(counter)+">").getBytes("UTF-8"));
+	        fos1.write(("<value"+Integer.toString(counter)+">").getBytes("UTF-8"));
 			fos1.write(value.getBytes("UTF-8"));
-			fos1.write("</value>".getBytes("UTF-8"));		
+	        fos1.write(("</value"+Integer.toString(counter)+">").getBytes("UTF-8"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	private Node getEntry(Document doc, String id, String key, String value) {
+		Element entry = doc.createElement("Data");
+		entry.setAttribute("id", id);
+        entry.appendChild(getEntryElements(doc, entry, "key", key));
+        entry.appendChild(getEntryElements(doc, entry, "value", value));
+        return entry;
+    }
+ 
+    // utility method to create text node
+    private Node getEntryElements(Document doc, Element element, String name, String value) {
+        Element node = doc.createElement(name);
+        node.appendChild(doc.createTextNode(value));
+        return node;
+    }
 	
 	
-	public ArrayList<Level> loadData(File load) {
+	
+	
+	public ArrayList<Level> loadData(String filePath, String gameName) {
 		try {
+			File load = new File(filePath);
 			openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO
 		}
 		return loadLevels();
+	}
+	
+	public Map<String, String> openMeta(File file) {
+		Map<String, String> metaMap;
+		metaMap = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        String filePath = file.getAbsolutePath();
+        String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+        if (!fileType.equals(".xml")) {
+        	System.out.println("You dun goofed");
+        };
+        
+        try {
+        	dBuilder = dbFactory.newDocumentBuilder();
+        	Document doc;
+        	try {
+        		doc = dBuilder.parse(file);
+        		doc.getDocumentElement().normalize();
+        		NodeList nList = doc.getElementsByTagName("stuff");
+        		for (int i = 0; i < nList.getLength(); i = i + 2) {
+        			Node nNode = nList.item(i);
+        			Node nNode1 = nList.item(i+1);
+        			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+        				Element eElement = (Element) nNode;
+        				Element eElement1 = (Element) nNode1;
+        				metaMap.put(eElement.getNodeValue(), eElement.getNodeValue());
+        			}
+        		}}
+        		finally {
+        	        
+        	    }
+        		
+	}
+        finally {
+        	return metaMap;
+        }
 	}
 	
 	private void openFile(File file) throws ParserConfigurationException{
