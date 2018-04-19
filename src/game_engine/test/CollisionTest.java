@@ -1,45 +1,42 @@
 package game_engine.test;
-import java.util.ArrayList;
-import java.util.List;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.JumpComponent;
-import game_engine.components.PositionComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
-import game_engine.components.collision.hitbox.HitboxComponent;
+//import game_engine.components.collision.hitbox.HitboxComponent;
 import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
-import game_engine.components.keyboard.KeyboardMovementInputComponent;
+//import game_engine.components.keyboard.KeyboardMovementInputComponent;
 import game_engine.components.keyboard.LeftKeyboardMovementInputComponent;
 import game_engine.components.keyboard.RightKeyboardMovementInputComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.DefaultYVelComponent;
 import game_engine.components.physics.XAccelComponent;
-import game_engine.components.physics.XPhysicsComponent;
+//import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YAccelComponent;
-import game_engine.components.physics.YPhysicsComponent;
+//import game_engine.components.physics.YPhysicsComponent;
 import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.systems.InputGarbageCollectionSystem;
-import game_engine.systems.MovementSystem;
+//import game_engine.systems.MovementSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.KeyboardMovementSystem;
+//import game_engine.systems.keyboard.KeyboardMovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -203,6 +200,16 @@ public class CollisionTest extends Application {
     	e3.addComponent(new HitboxWidthComponent("100"));
     	e3.addComponent(new HitboxXOffsetComponent("0"));
     	e3.addComponent(new HitboxYOffsetComponent("0"));
+    	
+    	e1.addComponent(new CollidableComponent("true"));
+    	e1.addComponent(new PassableComponent("true"));
+    	
+    	e2.addComponent(new CollidableComponent("true"));
+    	e2.addComponent(new PassableComponent("true"));
+    	
+    	e3.addComponent(new CollidableComponent("true"));
+    	e3.addComponent(new PassableComponent("true"));
+
         
         e.addEntity(e2);
         e.addEntity(e3);
