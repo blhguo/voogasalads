@@ -105,9 +105,11 @@ public class ManipData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
+			saveMeta(metaMap, gameName);
 	        if(fos != null){
 	            try{
 	                fos.close();
+	                fos1.close();
 	            }catch (IOException e) {
 	                e.printStackTrace(); //TODO
 	            }
