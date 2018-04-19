@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Entity {
-	private Map<Class<? extends Component>, Component<?>> myComponents;
+	private Map<Class<?>, Component<?>> myComponents;
 
 	/**
 	 * Instantiates a new Entity object.

@@ -4,8 +4,8 @@ import game_engine.Component;
 
 public class VisibilityComponent extends Component<Boolean> {
 
-	public VisibilityComponent(Boolean arg) {
-		super(arg);
+	public VisibilityComponent(String arg) {
+		super(Boolean.parseBoolean(arg));
 	}
 	
 }

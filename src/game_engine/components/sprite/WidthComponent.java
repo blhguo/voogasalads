@@ -2,10 +2,10 @@ package game_engine.components.sprite;
 
 import game_engine.Component;
 
-public class WidthComponent extends Component<Double> {
+public class WidthComponent extends Component<Integer> {
 	
-	public WidthComponent(Double arg) {
-		super(arg);
+	public WidthComponent(String arg) {
+		super(Integer.parseInt(arg));
 	}
 
 }
