@@ -7,12 +7,11 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Vector;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyEvent;
 import game_engine.components.keyboard.RightKeyboardMovementInputComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.XVelComponent;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
 
 
 public class RightKeyboardMovementSystem extends GameSystem{
