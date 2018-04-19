@@ -8,11 +8,15 @@ import java.util.Collections;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.components.PositionComponent;
-import game_engine.components.collision.CollidedComponent;
-import game_engine.components.collision.hitbox.HitboxComponent;
-import game_engine.components.physics.XPhysicsComponent;
-import game_engine.components.physics.YPhysicsComponent;
+import game_engine.components.collision.hitbox.HitboxHeightComponent;
+import game_engine.components.collision.hitbox.HitboxWidthComponent;
+import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
+import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
+import game_engine.components.physics.XVelComponent;
+import game_engine.components.physics.YVelComponent;
+import game_engine.components.position.AngleComponent;
+import game_engine.components.position.XPosComponent;
+import game_engine.components.position.YPosComponent;
 
 /**
  * @author Jeremy Chen
@@ -40,33 +44,6 @@ public abstract class CollisionSystem extends GameSystem {
 	 */
 	protected abstract void checkIntersect(Entity e1, Entity e2, double elapsedTime);
 	
-//	/**
-//	 *
-//	 * @param e1
-//	 * @param e2
-//	 */
-//	protected void addCollided(Entity e1, Entity e2) {
-//		addCollidedHelper(e1, e2);
-//		addCollidedHelper(e2, e1);
-//	}
-	
-//	/**
-//	 *
-//	 * @param e1
-//	 * @param e2
-//	 */
-//	private void addCollidedHelper(Entity e1, Entity e2) {
-//		CollidedComponent c1 = (CollidedComponent) e1.getComponent(CollidedComponent.class);
-//		if(c1!=null) {
-//			c1.addCollidedWith(e2);
-//		}
-//		else {
-//			c1 = new CollidedComponent();
-//			c1.addCollidedWith(e2);
-//			e1.addComponent(c1);
-//		}
-//	}
-	
 	/**
 	 *  
 	 * @param e
@@ -76,25 +53,25 @@ public abstract class CollisionSystem extends GameSystem {
 	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
 	 */
 	protected double[] getExtrema(Entity e, double elapsedTime){
-		PositionComponent p = (PositionComponent) e.getComponent(PositionComponent.class);
-		HitboxComponent h = (HitboxComponent) e.getComponent(HitboxComponent.class);
-
-		double angle = Math.toRadians(p.getAngle());
-		double width = h.getWidth();
-		double height = h.getHeight();
-		double centerX = p.getX() + h.getXOffset();
-		double centerY = p.getY() + h.getYOffset();
+		double centerX = getDoubleValue(e, XPosComponent.class);
+		double centerY = getDoubleValue(e, YPosComponent.class);
 		
-		XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
-		YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
+		double xOffset = getDoubleValue(e, HitboxXOffsetComponent.class);
+		double yOffset = getDoubleValue(e, HitboxYOffsetComponent.class);
+		double width = getDoubleValue(e, HitboxWidthComponent.class);
+		double height = getDoubleValue(e, HitboxHeightComponent.class);
 		
-		if(xp!=null) {
-			centerX += xp.getCurrVel()*elapsedTime;
+		Double currXVel = getDoubleValue(e, XVelComponent.class);
+		Double currYVel = getDoubleValue(e, YVelComponent.class);
+		Double currAngle = getDoubleValue(e, AngleComponent.class);
+		
+		if(currXVel!=null) {
+			centerX += currXVel*elapsedTime;
 		}
-		if(yp!=null) {
-			centerY += yp.getCurrVel()*elapsedTime;
+		if(currYVel!=null) {
+			centerY += currYVel*elapsedTime;
 		}
-		if(p.getAngle()%90 == 0){
+		if(currAngle%90 == 0){
 			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};
 		}
 		
@@ -106,8 +83,8 @@ public abstract class CollisionSystem extends GameSystem {
 				double origX = i*width + centerX;
 				double origY = j*height + centerY;
 
-				double transformedX = centerX+(origX-centerX)*Math.cos(angle)+(origY-centerY)*Math.sin(angle);
-				double transformedY = centerY-(origX-centerX)*Math.sin(angle)+(origY-centerY)*Math.cos(angle);
+				double transformedX = centerX+(origX-centerX)*Math.cos(currAngle)+(origY-centerY)*Math.sin(currAngle);
+				double transformedY = centerY-(origX-centerX)*Math.sin(currAngle)+(origY-centerY)*Math.cos(currAngle);
 				xCoords.add(transformedX);
 				yCoords.add(transformedY);
 			}
@@ -115,25 +92,24 @@ public abstract class CollisionSystem extends GameSystem {
 		return new double[]{Collections.min(xCoords), Collections.max(xCoords), Collections.min(yCoords), Collections.max(yCoords)};
 	}
 
-    /**
-     * @param e1
-     * @param e2
-     * @param colSide
-     * Method that allows for injection of the CollidedComponetn
-     * NEEDS REFACTORING
-     */
-    protected void addCollided(Entity e1, Entity e2, Class colSide){
-	    CollidedComponent colComp = (CollidedComponent) e1.getComponent(colSide);
-        if(colComp == null) {
-            try {
-                Constructor<?> colCon = colSide.getConstructor();
-                colComp = (CollidedComponent) colCon.newInstance();
-                e1.addComponent(colComp);
-            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
-                // TODO: temp err
-                System.out.println("temp err msg");
-            }
-        }
-        colComp.addEntity(e2);
-    }
+//    /**
+//     * @param e1
+//     * @param e2
+//     * @param colSide
+//     * Method that allows for injection of the CollidedComponetn
+//     * NEEDS REFACTORING
+//     */
+//    protected void addCollided(Entity e1, Entity e2, Class colSide){
+//	    CollidedComponent colComp = (CollidedComponent) e1.getComponent(colSide);
+//        if(colComp == null) {
+//            try {
+//                Constructor<?> colCon = colSide.getConstructor();
+//                colComp = (CollidedComponent) colCon.newInstance();
+//                e1.addComponent(colComp);
+//            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+//                System.out.println("temp err msg");
+//            }
+//        }
+//        colComp.addEntity(e2);
+//    }
 }
