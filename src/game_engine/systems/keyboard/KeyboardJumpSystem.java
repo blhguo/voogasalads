@@ -7,12 +7,10 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Vector;
 import game_engine.components.NumberOfJumpsAllowedComponent;
-import game_engine.components.OnGroundComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
-import game_engine.components.physics.YVelComponent;
 import game_engine.components.physics.DefaultYVelComponent;
+import game_engine.components.physics.YVelComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 
