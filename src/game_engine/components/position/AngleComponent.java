@@ -4,8 +4,8 @@ import game_engine.Component;
 
 public class AngleComponent extends Component<Double> {
 
-	public AngleComponent(Double arg) {
-		super(arg);
+	public AngleComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}
 	
 }

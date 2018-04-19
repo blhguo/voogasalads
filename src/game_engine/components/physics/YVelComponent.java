@@ -4,8 +4,8 @@ import game_engine.Component;
 
 public class YVelComponent extends Component<Double> {
 
-	public YVelComponent(Double arg) {
-		super(arg);
+	public YVelComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}
 
 }

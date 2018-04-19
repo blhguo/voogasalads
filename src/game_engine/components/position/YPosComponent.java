@@ -4,8 +4,8 @@ import game_engine.Component;
 
 public class YPosComponent extends Component<Double> {
 
-	public YPosComponent(Double arg) {
-		super(arg);
+	public YPosComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}
 	
 }

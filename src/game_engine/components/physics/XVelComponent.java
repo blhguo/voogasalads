@@ -4,8 +4,8 @@ import game_engine.Component;
 
 public class XVelComponent extends Component<Double> {
 	
-	public XVelComponent(Double arg) {
-		super(arg);
+	public XVelComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}
 
 }
