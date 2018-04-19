@@ -2,9 +2,9 @@ package game_engine.components.collision.hitbox;
 
 import game_engine.Component;
 
-public class HitboxWidthComponent extends Component{
+public class HitboxWidthComponent extends Component<Double>{
 
-	public HitboxWidthComponent(String arg) {
+	public HitboxWidthComponent(Double arg) {
 		super(arg);
 	}	
 }

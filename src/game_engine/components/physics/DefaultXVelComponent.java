@@ -2,9 +2,9 @@ package game_engine.components.physics;
 
 import game_engine.Component;
 
-public class DefaultXVelComponent extends Component {
+public class DefaultXVelComponent extends Component<Double> {
 
-	public DefaultXVelComponent(String arg) {
+	public DefaultXVelComponent(Double arg) {
 		super(arg);
 	}
 

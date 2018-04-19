@@ -7,7 +7,7 @@ import game_engine.components.collision.CollidedComponent;
  * Temporary subclass of CollidedComponent, that allows systems to distinguish which side (in this case left) of an AABB an entity has been collided with
  */
 public class LeftCollidedComponent extends CollidedComponent {
-	@Override
+		@Override
 	public String getValues() {
 		return null;
 	}
