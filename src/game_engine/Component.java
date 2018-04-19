@@ -1,17 +1,16 @@
 package game_engine;
 
-public abstract class Component {
-	private String myValue;
-	
-	public Component(String arg) {
-		myValue = arg;
+public abstract class Component<T> {
+	private T myValue;
+	public Component(T val) {
+		myValue = val;
 	}
 	
-	public String getValue() {
+	public void setValue(T val) {
+		myValue = val;
+	}
+	
+	public T getValue(){
 		return myValue;
-	}
-	
-	public void setValue(String value) {
-		myValue = value;
 	}
 }

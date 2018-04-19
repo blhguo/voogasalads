@@ -10,13 +10,13 @@ import game_engine.event.Condition;
 
 public class DataCondition implements Condition {
 	private Entity myEntity;
-	private Class<Component> myComponentClass;
+	private Class<Component<?>> myComponentClass;
 	private String myComparison;
 	private String myExpected;
 	
 //	private Component myComponent;
 	
-	public DataCondition(Entity entity, Class<Component> componentClass, String comparison, String expected) {
+	public DataCondition(Entity entity, Class<Component<?>> componentClass, String comparison, String expected) {
 		myEntity = entity;
 		myComponentClass = componentClass;
 		myComparison = comparison;
