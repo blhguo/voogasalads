@@ -101,19 +101,13 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
 
 		//Build StackPane to overlay ToolBar on top
-//		Pane t = new Toolbar(stage, splash).getView();
-//		t.setPickOnBounds(false);
-//		bp.setPickOnBounds(false);
-//		StackPane sp = new StackPane(t, bp);
-		StackPane sp = new StackPane(bp); // t);
-		sp.setPickOnBounds(false);
+		Pane t = new Toolbar(stage, splash).getView();
+		t.setPickOnBounds(false);
+		StackPane sp = new StackPane(bp, t);
 
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
-		//Build scene from StackPane
-		//Scene scene = initScene(sp);
-		//scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 
 		return sp;
 		
