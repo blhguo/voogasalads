@@ -33,22 +33,15 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
 	private VBox keyPrefMenu;
-	private VBox settingsMenu;
 	private Button keyPrefButton;
 	private Button gameSelectionButton;
-	private Button settingsButton;
 	private Stage keyPrefStage;
 	private Stage gameSelectionStage;
-	private Stage settingsStage;
-	private Slider volumeSlider;
-	private Slider brightnessSlider;
-	private Label volumeLabel;
-	private Label brightnessLabel;
 	private DataManager dataManager;
 	private KeyCode currentKey;
 	private Button currentPrefButton;	
 	private String currentPrefString;
-	
+	private SettingsMenu settings;
 	public Menu(DataManager data, PulldownFactory pdf) {
 		pane = new HBox(20);
 		pane.setAlignment(Pos.CENTER);
@@ -58,9 +51,10 @@ public class Menu {
 		pullDownFactory = pdf;
 		makePullDownMenus();
 		makeKeyPrefMenu();
+		settings = new SettingsMenu();
 		makeGameSelectionMenu();
-		makeSettingsMenu();
-		makeSettingsStage();
+		settings.makeSettingsMenu(pane);
+		settings.makeSettingsStage();
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -117,69 +111,7 @@ public class Menu {
 		pane.getChildren().add(gameSelectionButton);
 		
 	}
-	/**
-	 * Method to make settings button that when clicked calls the showSettingsMenu method
-	 * 
-	 */
-	private void makeSettingsMenu() {
-		settingsButton = new Button("Settings");
-		settingsButton.getStyleClass().add("button-nav");
-		settingsButton.setOnAction(click->{showSettingsMenu();});
-		pane.getChildren().add(settingsButton);
-		settingsMenu = new VBox(50);
-		settingsMenu.setPrefWidth(300);
 
-		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		settingsMenu.setBackground(new Background(back));
-		settingsButton.setOnAction(click->{showSettingsMenu();});	
-	}
-	private void makeSettingsStage() {
-		settingsStage = new Stage();
-		Scene scene = new Scene(settingsMenu);
-		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
-		brightnessSlider = new Slider();
-		brightnessSlider.getStyleClass().add("slider");
-		brightnessSlider.setMin(-1);
-		brightnessSlider.setMax(1);
-		
-
-		volumeSlider = new Slider();
-		volumeSlider.getStyleClass().add("slider");
-		volumeSlider.setMin(0);
-		volumeSlider.setMax(1);
-		
-		volumeLabel = new Label("Change Volume:");
-		brightnessLabel = new Label("Change Brightness:");
-		volumeLabel.getStyleClass().add("button-nav");
-		brightnessLabel.getStyleClass().add("button-nav");
-
-		settingsMenu.getChildren().add(brightnessLabel);
-		settingsMenu.getChildren().add(brightnessSlider);
-		settingsMenu.getChildren().add(volumeLabel);
-		settingsMenu.getChildren().add(volumeSlider);
-		settingsStage.setScene(scene);
-	}
-	
-	
-	/**
-	 * getter method for the Brightness Slider on the Settings Stage
-	 * 
-	 */
-	public Slider getBrightnessSlider() {
-		return brightnessSlider;
-	}
-	/**
-	 * getter method for the Volume Slider on the Settings Stage
-	 * 
-	 */
-	public Slider getVolumeSlider() {
-		return volumeSlider;
-	}
-	
-	
-
-	
 	private void initKeyPrefMenu() {
 		ArrayList<String> inputs = (ArrayList<String>) dataManager.getInputCommands();
 		for(String s : inputs) {
@@ -204,6 +136,20 @@ public class Menu {
 	private void showPrefMenu() {
 		keyPrefStage.show();
 	}
+	/**
+	 * getter method for the Brightness Slider on the Settings Stage
+	 * 
+	 */
+	public Slider getBrightnessSlider() {
+		return settings.getBrightnessSlider();
+	}
+	/**
+	 * getter method for the Volume Slider on the Settings Stage
+	 * 
+	 */
+	public Slider getVolumeSlider() {
+		return settings.getBrightnessSlider();
+	}
 	
 	/**
 	 * method to show new Stage when gameSelectionButton is pressed
@@ -217,15 +163,7 @@ public class Menu {
 		gameSelectionStage.show();
 	}
 	
-	/**
-	 * method to show settings Menu
-	 * 
-	 */
-	public void showSettingsMenu() {
-		settingsStage.show();
-		
-	}
-	
+
    /**
 	 * method to set keys to their preferences in the keyPrefStage
 	 * 
