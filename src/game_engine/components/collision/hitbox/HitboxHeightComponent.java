@@ -4,7 +4,7 @@ import game_engine.Component;
 
 public class HitboxHeightComponent extends Component<Double>{
 
-	public HitboxHeightComponent(Double arg) {
-		super(arg);
+	public HitboxHeightComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}	
 }

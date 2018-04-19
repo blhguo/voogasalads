@@ -59,17 +59,17 @@ public abstract class CollisionSystem extends GameSystem {
 		double width = e.getComponent(HitboxWidthComponent.class).getValue();
 		double height = e.getComponent(HitboxHeightComponent.class).getValue();
 		
-		Double currXVel = e.getComponent(XVelComponent.class).getValue();
-		Double currYVel = e.getComponent(YVelComponent.class).getValue();
-		Double currAngle = e.getComponent(AngleComponent.class).getValue();
+		XVelComponent xVel = (XVelComponent) e.getComponent(XVelComponent.class);
+		YVelComponent yVel = (YVelComponent) e.getComponent(YVelComponent.class);
+		AngleComponent currAngle = (AngleComponent) e.getComponent(AngleComponent.class);
 		
-		if(currXVel!=null) {
-			centerX += currXVel*elapsedTime;
+		if(xVel!=null) {
+			centerX += xVel.getValue()*elapsedTime;
 		}
-		if(currYVel!=null) {
-			centerY += currYVel*elapsedTime;
+		if(yVel!=null) {
+			centerY += yVel.getValue()*elapsedTime;
 		}
-		if(currAngle%90 == 0){
+		if(currAngle!=null && currAngle.getValue()%90 == 0){
 			return new double[]{centerX - width/2, centerX + width/2, centerY - height/2, centerY + height/2};
 		}
 		
@@ -81,8 +81,8 @@ public abstract class CollisionSystem extends GameSystem {
 				double origX = i*width + centerX;
 				double origY = j*height + centerY;
 
-				double transformedX = centerX+(origX-centerX)*Math.cos(currAngle)+(origY-centerY)*Math.sin(currAngle);
-				double transformedY = centerY-(origX-centerX)*Math.sin(currAngle)+(origY-centerY)*Math.cos(currAngle);
+				double transformedX = centerX+(origX-centerX)*Math.cos(currAngle.getValue())+(origY-centerY)*Math.sin(currAngle.getValue());
+				double transformedY = centerY-(origX-centerX)*Math.sin(currAngle.getValue())+(origY-centerY)*Math.cos(currAngle.getValue());
 				xCoords.add(transformedX);
 				yCoords.add(transformedY);
 			}

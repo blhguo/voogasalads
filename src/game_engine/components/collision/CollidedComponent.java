@@ -16,6 +16,10 @@ public abstract class CollidedComponent extends Component<List<Entity>>{
     public CollidedComponent(List<Entity> val){
     	super(val);
     }
+    
+    public CollidedComponent() {
+    	super(new ArrayList<Entity>());
+    }
 
     //COMMENTED OUT BY KEVIN 4/18/18 - question: why are there 3 constructors?
 //    /**

@@ -10,7 +10,7 @@ import game_engine.components.collision.CollidedComponent;
  * Temporary subclass of CollidedComponent, that allows systems to distinguish which side (in this case top) of an AABB an entity has been collided with
  */
 public class TopCollidedComponent extends CollidedComponent{
-	public TopCollidedComponent(List<Entity> val){
-    	super(val);
-    }
+//	public TopCollidedComponent(List<Entity> val){
+//    	super(val);
+//    }
 }

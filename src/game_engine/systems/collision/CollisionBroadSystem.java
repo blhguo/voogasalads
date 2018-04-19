@@ -22,6 +22,7 @@ public class CollisionBroadSystem extends CollisionSystem {
 	
     private static final Class<? extends Component<?>> XPOS = XPosComponent.class;
     private static final Class<? extends Component<?>> YPOS = YPosComponent.class;
+    private static final Class<? extends Component<?>> ANGLE = AngleComponent.class;
     private static final Class<? extends Component<?>> COLLIDABLE = CollidableComponent.class;
     private static final Class<? extends Component<?>> HITBOX_WIDTH = HitboxWidthComponent.class;
     private static final Class<? extends Component<?>> HITBOX_HEIGHT = HitboxHeightComponent.class;
@@ -32,6 +33,7 @@ public class CollisionBroadSystem extends CollisionSystem {
     		new ArrayList<Class<? extends Component<?>>>() {{ 
     			add(XPOS);
     			add(YPOS);
+    			add(ANGLE);
     			add(COLLIDABLE);
     			add(HITBOX_WIDTH);
     			add(HITBOX_HEIGHT);

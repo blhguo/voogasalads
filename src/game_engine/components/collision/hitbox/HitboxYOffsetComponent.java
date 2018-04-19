@@ -4,7 +4,7 @@ import game_engine.Component;
 
 public class HitboxYOffsetComponent extends Component<Double>{
 
-	public HitboxYOffsetComponent(Double arg) {
-		super(arg);
+	public HitboxYOffsetComponent(String arg) {
+		super(Double.parseDouble(arg));
 	}	
 }

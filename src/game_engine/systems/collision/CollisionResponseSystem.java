@@ -53,16 +53,14 @@ public class CollisionResponseSystem extends GameSystem{
         for (Entity e: collidedEntities){
             XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
             YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
-            Double currXVel = xv.getValue();
-    		Double currYVel = yv.getValue();
     		String stopVal = Double.toString(0.0);
     		
-            if(xv!=null && ((e.getComponent(LEFT) != null && currXVel < 0) ||
-                    (e.getComponent(RIGHT) != null && currXVel > 0))){
+            if(xv!=null && ((e.getComponent(LEFT) != null && xv.getValue() < 0) ||
+                    (e.getComponent(RIGHT) != null && xv.getValue() > 0))){
                 xv.setValue(0.0);
             }
-            if(yv!=null && ((e.getComponent(BOTTOM) != null && currYVel > 0) ||
-                    (e.getComponent(TOP) != null && currYVel < 0))){
+            if(yv!=null && ((e.getComponent(BOTTOM) != null && yv.getValue() > 0) ||
+                    (e.getComponent(TOP) != null && yv.getValue() < 0))){
                 yv.setValue(0.0);
             }
         }
