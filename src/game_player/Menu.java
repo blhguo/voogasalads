@@ -46,8 +46,6 @@ public class Menu {
 		pane = new HBox(20);
 		pane.setAlignment(Pos.CENTER);
 		dataManager = data;
-		currentKey = KeyCode.ENTER;
-		currentPrefButton = new Button();
 		pullDownFactory = pdf;
 		makePullDownMenus();
 		makeKeyPrefMenu();
@@ -75,29 +73,6 @@ public class Menu {
 		pane.getChildren().add(pullDownFactory.getStatusBox());
 		pane.getChildren().add(pullDownFactory.getSaveLoadBox());
 		
-	}
-	
-	/**
-	 * Method to make the keyPref Stage with keyPref options
-	 * 
-	 */
-	private void makeKeyPrefMenu() {
-		keyPrefMenu = new VBox(25);
-		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		keyPrefMenu.setBackground(new Background(back));
-		keyPrefButton = new Button("Key Prefs");
-		keyPrefButton.setOnAction(click->{showPrefMenu();});
-		keyPrefButton.setPrefSize(160, 20);
-		keyPrefButton.getStyleClass().add("button-nav");
-		pane.getChildren().add(keyPrefButton);
-		initKeyPrefMenu();
-		keyPrefStage = new Stage();
-		Scene scene = new Scene(keyPrefMenu);
-		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
-		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
-		keyPrefStage.setScene(scene);
-				
 	}
 	
 	/**
