@@ -6,8 +6,8 @@ import java.util.List;
 public class GenericsTest {
 	public static void main(String[] args){
 		Entity e = new Entity();
-		Component<Double> health = new HealthComponent(3.0);
-		Component<Integer> numJumps = new NumJumpsComponent(1);
+		Component<Double> health = new HealthComponent("3.0");
+		Component<Integer> numJumps = new NumJumpsComponent("1");
 		e.addComponent(health);
 		e.addComponent(numJumps);
 		System.out.println("hi");
