@@ -48,6 +48,7 @@ public class ViewManager {
 	private BackgroundImage game;
 	private SubScene subScene;
 	private Group subRoot;
+	private SettingsMenu settings;
 	private ColorAdjust colorAdjust = new ColorAdjust();
 	
 	/**
