@@ -22,10 +22,10 @@ import game_engine.components.position.YPosComponent;
  *
  */
 public class PositionSystem extends GameSystem {
-	private static final Class<? extends Component> X_POSITION = XPosComponent.class;
-	private static final Class<? extends Component> X_VEL = XVelComponent.class;
-	private static final Class<? extends Component> Y_POSITION = YPosComponent.class;
-	private static final Class<? extends Component> Y_VEL = YVelComponent.class;
+	private static final Class<? extends Component<Double>> X_POSITION = XPosComponent.class;
+	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
+	private static final Class<? extends Component<Double>> Y_POSITION = YPosComponent.class;
+	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
 
 	/**
 	 * Creates a new instance of the MovementSystem class
@@ -41,15 +41,15 @@ public class PositionSystem extends GameSystem {
 	 * velocities of their respective XPhysics and YPhysics components.
 	 */
 	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(X_POSITION, X_VEL, Y_POSITION, Y_VEL);
+		List<Class<? extends Component<?>>> args = Arrays.asList(X_POSITION, X_VEL, Y_POSITION, Y_VEL);
 		for (Entity e : getEngine().getEntitiesContaining(args)) {
-			Component xPos = e.getComponent(X_POSITION);
-			Component yPos = e.getComponent(Y_POSITION);
-			double xVel = Double.parseDouble(e.getComponent(X_VEL).getValue());
-			double yVel = Double.parseDouble(e.getComponent(Y_VEL).getValue());
-
-			xPos.setValue(Double.toString(Double.parseDouble(xPos.getValue()) + xVel * elapsedTime));
-			yPos.setValue(Double.toString(Double.parseDouble(yPos.getValue()) + yVel * elapsedTime));
+			Component<Double> xPos = e.getComponent(XPosComponent.class);
+			Component<Double> yPos = e.getComponent(Y_POSITION);
+			double xVel = e.getComponent(X_VEL).getValue();
+			double yVel = e.getComponent(Y_VEL).getValue();
+			
+			xPos.setValue(xPos.getValue() + xVel * elapsedTime);
+			yPos.setValue(yPos.getValue() + yVel * elapsedTime);
 		}
 	}
 }

@@ -7,12 +7,10 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Vector;
 import game_engine.components.NumberOfJumpsAllowedComponent;
-import game_engine.components.OnGroundComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
-import game_engine.components.physics.YVelComponent;
 import game_engine.components.physics.DefaultYVelComponent;
+import game_engine.components.physics.YVelComponent;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 
@@ -27,10 +25,10 @@ import javafx.scene.input.KeyEvent;
  */
 public class KeyboardJumpSystem extends GameSystem{
 	
-	private static final Class<? extends Component> DEFAULT_Y_VEL = DefaultYVelComponent.class;
-	private static final Class<? extends Component> Y_VEL = YVelComponent.class;
-	private static final Class<? extends Component> KEYBOARD_JUMP_INPUT = KeyboardJumpInputComponent.class;
-	private static final Class<? extends Component> NUM_JUMPS = NumberOfJumpsAllowedComponent.class;
+	private static final Class<? extends Component<Double>> DEFAULT_Y_VEL = DefaultYVelComponent.class;
+	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
+	private static final Class<? extends Component<String>> KEYBOARD_JUMP_INPUT = KeyboardJumpInputComponent.class;
+	private static final Class<? extends Component<Integer>> NUM_JUMPS = NumberOfJumpsAllowedComponent.class;
 	
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	
@@ -49,12 +47,12 @@ public class KeyboardJumpSystem extends GameSystem{
 	 */
 	@Override
 	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(DEFAULT_Y_VEL, Y_VEL, KEYBOARD_JUMP_INPUT, NUM_JUMPS);
+		List<Class<? extends Component<?>>> args = Arrays.asList(DEFAULT_Y_VEL, Y_VEL, KEYBOARD_JUMP_INPUT, NUM_JUMPS);
 		for (Entity entity : getEngine().getEntitiesContaining(args)) {
-			Component defaultYVel = entity.getComponent(DEFAULT_Y_VEL);
-			Component yVelocity = entity.getComponent(Y_VEL);
-			Component jumpInput = entity.getComponent(KEYBOARD_JUMP_INPUT);
-			Component numJumps = entity.getComponent(NUM_JUMPS);
+			Component<Double> defaultYVel = entity.getComponent(DEFAULT_Y_VEL);
+			Component<Double> yVelocity = entity.getComponent(Y_VEL);
+			Component<String> jumpInput = entity.getComponent(KEYBOARD_JUMP_INPUT);
+			Component<Integer> numJumps = entity.getComponent(NUM_JUMPS);
 			for(InputEvent input : getEngine().getInput()){
 				if (!input.getEventType().getName().equals(KEY_PRESSED)) {
 					continue;
@@ -63,10 +61,10 @@ public class KeyboardJumpSystem extends GameSystem{
 				int currNumberJumps = Integer.parseInt(jumpInput.getValue());
 				boolean correctKey = jumpInput.getValue().equals(key.getCode());
 				if(correctKey && currNumberJumps != 0){
-					double changedVel = Double.parseDouble(defaultYVel.getValue());
-					yVelocity.setValue(Double.toString(changedVel));
-					int jumps = Integer.parseInt(numJumps.getValue());
-					numJumps.setValue(Integer.toString(jumps - 1));
+					double changedVel = defaultYVel.getValue();
+					yVelocity.setValue(changedVel);
+					int jumps = numJumps.getValue();
+					numJumps.setValue(jumps - 1);
 				}
 			}
 		}

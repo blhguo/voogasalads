@@ -2,10 +2,10 @@ package game_engine.components.physics;
 
 import game_engine.Component;
 
-public class DefaultYVelComponent extends Component {
+public class DefaultYVelComponent extends Component<Double> {
 
 	public DefaultYVelComponent(String arg) {
-		super(arg);
+		super(Double.parseDouble(arg));
 	}
 
 }
