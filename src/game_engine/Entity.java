@@ -42,8 +42,9 @@ public class Entity {
 	/* (non-Javadoc)
 	 * @see game_engine.EntityInterface#getComponent(java.lang.Class)
 	 */
-	public Component<?> getComponent(Class<? extends Component<?>> clazz) {
-		return myComponents.get(clazz);
+	@SuppressWarnings("unchecked")
+	public <T> Component<T> getComponent(Class<? extends Component<T>> clazz) {
+		return (Component<T>) myComponents.get(clazz);
 	}
 
 	/* (non-Javadoc)

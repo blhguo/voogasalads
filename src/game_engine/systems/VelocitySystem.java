@@ -32,10 +32,10 @@ public class VelocitySystem extends GameSystem {
 			Component<Double> xVel = e.getComponent(X_VEL);
 			Component<Double> yVel = e.getComponent(Y_VEL);
 			double xAccel = e.getComponent(X_ACCEL).getValue();
-			double yAccel = se.getComponent(X_ACCEL).getValue();
+			double yAccel = e.getComponent(X_ACCEL).getValue();
 
-			xVel.setValue(Double.toString(Double.parseDouble(xVel.getValue()) + -1 * xAccel * elapsedTime));
-			yVel.setValue(Double.toString(Double.parseDouble(yVel.getValue()) + -1 * yAccel * elapsedTime));
+			xVel.setValue(xVel.getValue() + -1 * xAccel * elapsedTime);
+			yVel.setValue(yVel.getValue() + -1 * yAccel * elapsedTime);
 		}
 	}
 
