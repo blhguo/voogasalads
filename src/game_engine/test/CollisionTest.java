@@ -8,7 +8,6 @@ import game_engine.components.JumpComponent;
 import game_engine.components.PositionComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
-import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.hitbox.HitboxComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.keyboard.KeyboardMovementInputComponent;

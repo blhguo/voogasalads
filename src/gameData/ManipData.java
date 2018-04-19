@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,6 +41,7 @@ public class ManipData {
 	private XStream deserializer;
 	private String xml;
 	private FileOutputStream fos;
+	private FileOutputStream fos1;
 	private ArrayList<Level> levellist;
 
 	//constructor
@@ -49,6 +51,7 @@ public class ManipData {
 		this.deserializer = new XStream(new DomDriver());
 		this.xml = "";
 		this.fos = null;
+		this.fos1 = null;
 		this.levellist = new ArrayList<Level>();
 	}
 	
@@ -66,11 +69,20 @@ public class ManipData {
 		}
 	}
 	
-	public void saveData(List<Level> levels) {
+	public void saveData(List<Level> levels, String gameName, Map<String, String> metaMap) {
 		int counter = 0;
 		try {
 			//this writes only one file
-			fos = new FileOutputStream("savedata/gameDataSave"+"someuniquefactor"+".xml");
+			File file = new File("games/" + gameName + "/" + "gameLevels"+".xml");
+			if (!file.exists()) {
+			     try {
+					file.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  }
+			fos = new FileOutputStream(file);
 	        try {
 	        	//writes xml header and then the number of data objects inside
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
@@ -93,9 +105,11 @@ public class ManipData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
+			saveMeta(metaMap, gameName);
 	        if(fos != null){
 	            try{
 	                fos.close();
+	                fos1.close();
 	            }catch (IOException e) {
 	                e.printStackTrace(); //TODO
 	            }
@@ -103,14 +117,105 @@ public class ManipData {
 	    }
 	}
 	
-	public ArrayList<Level> loadData(File load) {
+	private void saveMeta(Map<String, String> metaMap, String gameName) {
+		File file = new File("games/" + gameName + "/" + "metaData"+".xml");
+		if (!file.exists()) {
+		     try {
+				file.createNewFile();
+				fos1 = new FileOutputStream(file);
+				fos1.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
+				fos1.write(("<stuff>").getBytes("UTF-8"));
+				int counter = 0;
+				for (String k : metaMap.keySet()) {
+					saveOneMeta(k, metaMap.get(k), counter);
+					counter++;
+				}
+				fos.write("</stuff>".getBytes("UTF-8"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  }
+	}
+	
+	private void saveOneMeta(String key, String value, int counter) {
 		try {
+	        fos1.write(("<key"+Integer.toString(counter)+">").getBytes("UTF-8"));
+			fos1.write(key.getBytes("UTF-8"));
+	        fos1.write(("</key"+Integer.toString(counter)+">").getBytes("UTF-8"));
+	        fos1.write(("<value"+Integer.toString(counter)+">").getBytes("UTF-8"));
+			fos1.write(value.getBytes("UTF-8"));
+	        fos1.write(("</value"+Integer.toString(counter)+">").getBytes("UTF-8"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private Node getEntry(Document doc, String id, String key, String value) {
+		Element entry = doc.createElement("Data");
+		entry.setAttribute("id", id);
+        entry.appendChild(getEntryElements(doc, entry, "key", key));
+        entry.appendChild(getEntryElements(doc, entry, "value", value));
+        return entry;
+    }
+ 
+    // utility method to create text node
+    private Node getEntryElements(Document doc, Element element, String name, String value) {
+        Element node = doc.createElement(name);
+        node.appendChild(doc.createTextNode(value));
+        return node;
+    }
+	
+	
+	
+	
+	public ArrayList<Level> loadData(String filePath, String gameName) {
+		try {
+			File load = new File(filePath);
 			openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO
 		}
 		return loadLevels();
+	}
+	
+	public Map<String, String> openMeta(File file) {
+		Map<String, String> metaMap;
+		metaMap = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder;
+        String filePath = file.getAbsolutePath();
+        String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+        if (!fileType.equals(".xml")) {
+        	System.out.println("You dun goofed");
+        };
+        
+        try {
+        	dBuilder = dbFactory.newDocumentBuilder();
+        	Document doc;
+        	try {
+        		doc = dBuilder.parse(file);
+        		doc.getDocumentElement().normalize();
+        		NodeList nList = doc.getElementsByTagName("stuff");
+        		for (int i = 0; i < nList.getLength(); i = i + 2) {
+        			Node nNode = nList.item(i);
+        			Node nNode1 = nList.item(i+1);
+        			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+        				Element eElement = (Element) nNode;
+        				Element eElement1 = (Element) nNode1;
+        				metaMap.put(eElement.getNodeValue(), eElement.getNodeValue());
+        			}
+        		}}
+        		finally {
+        	        
+        	    }
+        		
+	}
+        finally {
+        	return metaMap;
+        }
 	}
 	
 	private void openFile(File file) throws ParserConfigurationException{

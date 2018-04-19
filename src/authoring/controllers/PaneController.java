@@ -5,13 +5,12 @@ import java.io.File;
 import authoring.Canvas;
 import authoring.right_components.LevelPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 
+/**
+ * @author jennychin
+ * @author elizabethschulman
+ * Handles pane interactions (i.e. one pane needing to update another)
+ */
 public class PaneController {
 
 	private LevelPane levelPane;
@@ -23,7 +22,11 @@ public class PaneController {
 		levelPane = lp;
 		canvas = c;
 	}
-	
+
+	/**
+	 *
+	 * @param image Sets the background to a specified image
+	 */
 	public void setBackground(File image){
 		System.out.println(image.getPath());
 		System.out.println(image.getName());

@@ -1,9 +1,9 @@
 package authoring.component_menus;
 
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 
 /**
+ * @author liampulsifer
  * Defines an Element of a ComponentMenu
  * Which creates an input field of the correct type based on a Component's parameters
  */

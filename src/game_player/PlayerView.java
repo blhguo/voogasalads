@@ -33,6 +33,7 @@ import javafx.util.Duration;
 /**
  * 
  * @author Dana Park
+ * Class that handles animations and updating of animations in game
  *
  */
 public class PlayerView {
@@ -54,12 +55,25 @@ public class PlayerView {
 	private ViewManager viewManager;
 	private SubScene subScene;
 
+
+/**
+ * @param pdf
+ * @param engine
+ * @param view
+ * constructor for PlayerView
+ *
+ */
 	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
 		pullDownFactory = pdf;
 		myEngine = engine;
 		viewManager = view;
 	}
 
+
+/**
+ * method that instantiates the scene with the camera for the game with all necessary sprites
+ *
+ */
 	public void instantiate() {
 		Scene scene = viewManager.getScene();
 		subScene = viewManager.getSubScene();
@@ -97,6 +111,10 @@ public class PlayerView {
 		animationFrame();
 	}
 
+/**
+ * @param vm
+ *method that sets viewManager as the param
+ */
 	public void setViewManager(ViewManager vm) {
 		viewManager = vm;
 	}
@@ -130,6 +148,12 @@ public class PlayerView {
 		cam.setLayoutX(position.getX() - SCENE_SIZE / 2);
 		cam.setLayoutY(position.getY() - SCENE_SIZE / 2);
 	}
+	
+/**
+ * method that handles reactions when buttons are pressed on Menu.
+ * Ex: When Play button is pressed, the method will make the game play
+ *
+ */
 
 	public void handleUI() {
 		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();

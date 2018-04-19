@@ -1,21 +1,17 @@
 package authoring.utilities;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
-import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
 
 /**
- * improved form of imageview, allows for dragging
- * specifically, dragging it is possible, as well as double clicking allowing for rotation
- */
-/**
- * improved form of imageview, allows for dragging
- * specifically, dragging it is possible, as well as double clicking allowing for rotation
+ * @author Jennifer Chin
+ * @author Liam Pulsifer
+ * @author Elizabeth Shulman
+ * Improved form of ImageView, allows use to click an ImageView and drag it around. 
+ * Does not allow the user to drag the ImageView outside of the Canvas
  */
 public class DraggableImageView extends ImageView {
 	private double mouseX;
@@ -24,8 +20,9 @@ public class DraggableImageView extends ImageView {
 	private double maxX;
 	private double minY = 0;
 	private double maxY;
+	
 	/**
-	 * makes a draggable image with given image
+	 * Makes a Draggable ImageView with given image
 	 * @param image
 	 */
 	public DraggableImageView(Image image) {

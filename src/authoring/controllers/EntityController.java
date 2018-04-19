@@ -1,10 +1,12 @@
 package authoring.controllers;
 
-import authoring.AuthoringEnvironment;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import authoring.Canvas;
-import authoring.NavigationPane;
 import authoring.component_menus.ComponentMenu;
-import authoring.right_components.BasePane;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.utilities.ButtonFactory;
 import authoring.utilities.DraggableImageView;
@@ -12,27 +14,11 @@ import authoring.utilities.ImageBuilder;
 import game_engine.Entity;
 import game_engine.components.PositionComponent;
 import game_engine.components.SpriteComponent;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import resources.keys.AuthRes;
-
-import javax.swing.text.Position;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
+ * @author liampulsifer
  * manages interaction between EntityPane and Canvas
  * maintains a map of ImageView to Entity and defines on-click behavior of ImageViews
  */
@@ -44,11 +30,10 @@ public class EntityController {
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
-	private BasePane base;
-	private NavigationPane nav;
 	private Button button;
 
-	public EntityController(EntityPane pane, Canvas c, BasePane bp, NavigationPane np){
+	
+	public EntityController(EntityPane pane, Canvas c){
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();

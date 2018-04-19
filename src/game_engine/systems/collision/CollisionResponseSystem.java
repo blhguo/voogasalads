@@ -12,15 +12,16 @@ import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
-import game_engine.components.physics.XPhysicsComponent;
-import game_engine.components.physics.YPhysicsComponent;
+import game_engine.components.physics.XVelComponent;
+import game_engine.components.physics.YVelComponent;
 
 /**
  * @author: Jeremy Chen
+ * A GameSystem that provides generic behavior for entites that posses a CollidedComponent (have been collided)
+ * Describes very basic collision behavior (stopping & pushing)
+ * 
  */
-
 public class CollisionResponseSystem extends GameSystem{
-
     private static final Class<? extends Component> LEFT = LeftCollidedComponent.class;
     private static final Class<? extends Component> BOTTOM = BottomCollidedComponent.class;
     private static final Class<? extends Component> RIGHT = RightCollidedComponent.class;
@@ -34,25 +35,35 @@ public class CollisionResponseSystem extends GameSystem{
                 add(TOP);
             }});
 
+    /**
+     * @param engine
+     * Constructor
+     */
     public CollisionResponseSystem(Engine engine) {
         super(engine);
     }
 
+    /* (non-Javadoc)
+     * @see game_engine.GameSystem#act(double)
+     * Main loop: checks for matching velocity/collision direction, as to stop/push entities in appropraite cases
+     */
     @Override
     public void act(double elapsedTime) {
         List<Entity> collidedEntities = getEngine().getEntitiesContainingAny(TARGET_COMPONENTS);
         for (Entity e: collidedEntities){
-            XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
-            YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
-                        
-            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() < 0) ||
-                    (e.getComponent(RIGHT) != null && xp.getCurrVel() > 0))){
-            	System.out.println(" ||| I AINT FINNA BE UR SIDE HOE ||| ");
-                //xp.setCurrVel(0.0);
+            XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
+            YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
+            Double currXVel = getDoubleValue(e, XVelComponent.class);
+    		Double currYVel = getDoubleValue(e, YVelComponent.class);
+    		String stopVal = Double.toString(0.0);
+    		
+            if(xv!=null && ((e.getComponent(LEFT) != null && currXVel < 0) ||
+                    (e.getComponent(RIGHT) != null && currXVel > 0))){
+                xv.setValue(stopVal);
             }
-            if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
-                    (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){
-                yp.setCurrVel(0.0);
+            if(yv!=null && ((e.getComponent(BOTTOM) != null && currYVel > 0) ||
+                    (e.getComponent(TOP) != null && currYVel < 0))){
+                yv.setValue(stopVal);
             }
         }
     }

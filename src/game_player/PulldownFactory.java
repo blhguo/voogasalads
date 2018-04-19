@@ -12,6 +12,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
+ * This is the class in which the pulldown menus are created and accessed.
+ * It deals with the methods required by the pulldown menu, in addition to their
+ * setup and format.
  * 
  * @author Dana Park, Brandon Dalla Rosa
  *
@@ -32,7 +35,10 @@ public class PulldownFactory {
 	private ViewManager viewManager;
 	private PlayerView playerView;
 	
-	
+	/**
+	 *Constructor for the pull down factory. It initializes all of the
+	 * combo boxes seen in the game player.
+	 */
 	public PulldownFactory(DataManager dat) {
 		dataManager = dat;
 		speedBox =  SpeedBox();
@@ -116,15 +122,21 @@ public class PulldownFactory {
 		dataManager.setGameLevels(levels);
 		playerView.instantiate();
 	}
-
+    
+    /**
+     * Method to return the list of levels loaded from data.
+     */ 
 	public List<Level> getLevels() {
 		return levels;
 	}
-
+    
+    /**
+     * Method to pass the view manager into the pull down factory for access.
+     */ 
 	public void setViewManager(ViewManager vm) {
 		viewManager = vm;
 	}
-
+    
 	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
 		File file = fileChooser.showOpenDialog(new Stage());
@@ -134,7 +146,11 @@ public class PulldownFactory {
 	protected String getResources(ResourceBundle bundle, String string) {
 		return bundle.getString(string);
 	}
-
+    
+    /**
+     * Method called to pass the playerview into the pull down factory for
+     * ease of access.
+     */ 
 	public void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
 	}
