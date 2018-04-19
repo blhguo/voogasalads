@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import user_interface.GameCamera;
 import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
@@ -19,7 +19,6 @@ import game_engine.components.physics.XPhysicsComponent;
 import game_engine.components.physics.YPhysicsComponent;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -47,14 +46,12 @@ public class PlayerView {
 	private static final double SCENE_SIZE = 500;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-
 	private Map<ImageView, Entity> spriteMap;
 	private Stage myStage;
 	private Group root;
-	private Camera cam;
 	private ViewManager viewManager;
 	private SubScene subScene;
-
+	private GameCamera cam;
 
 /**
  * @param pdf
@@ -86,9 +83,8 @@ public class PlayerView {
 
 		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-
-		cam = new ParallelCamera();
-		subScene.setCamera(cam);
+		cam = new GameCamera();
+		subScene.setCamera(cam.initCamera());
 		List<Level> levels = pullDownFactory.getLevels();
 		for (Entity e : levels.get(0).getEntities()) {
 			myEngine.addEntity(e);
@@ -145,8 +141,7 @@ public class PlayerView {
 		}
 		List<Entity> entity = myEngine.getEntitiesContaining(Arrays.asList(KeyboardMovementInputComponent.class));
 		PositionComponent position = (PositionComponent) entity.get(0).getComponent(PositionComponent.class);
-		cam.setLayoutX(position.getX() - SCENE_SIZE / 2);
-		cam.setLayoutY(position.getY() - SCENE_SIZE / 2);
+		cam.setCamera(position.getX() - SCENE_SIZE / 2, position.getY() - SCENE_SIZE / 2);
 	}
 	
 /**
