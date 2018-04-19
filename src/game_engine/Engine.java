@@ -15,6 +15,7 @@ import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
 import game_engine.systems.keyboard.RightKeyboardMovementSystem;
 import javafx.scene.input.InputEvent;
 
+
 /**
  * The Class Engine.
  *
@@ -63,7 +64,7 @@ public class Engine {
 	 * @param args the args
 	 * @return List<Entity>
 	 */
-	public List<Entity> getEntitiesContaining(List<Class<? extends Component>> args) {
+	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
 
@@ -73,7 +74,7 @@ public class Engine {
 	 * @param args the args
 	 * @return List<Entity>
 	 */
-	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component>> args) {
+	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
 

@@ -13,10 +13,10 @@ import game_engine.components.physics.YAccelComponent;
 import game_engine.components.physics.YVelComponent;
 
 public class VelocitySystem extends GameSystem {
-	private static final Class<? extends Component> X_ACCEL = XAccelComponent.class;
-	private static final Class<? extends Component> X_VEL = XVelComponent.class;
-	private static final Class<? extends Component> Y_ACCEL = YAccelComponent.class;
-	private static final Class<? extends Component> Y_VEL = YVelComponent.class;
+	private static final Class<? extends Component<Double>> X_ACCEL = XAccelComponent.class;
+	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
+	private static final Class<? extends Component<Double>> Y_ACCEL = YAccelComponent.class;
+	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
 
 	/**
 	 * Creates a new instance of the MovementSystem class
@@ -27,12 +27,12 @@ public class VelocitySystem extends GameSystem {
 	}
 
 	public void act(double elapsedTime) {
-		List<Class<? extends Component>> args = Arrays.asList(X_ACCEL, X_VEL, Y_ACCEL, Y_VEL);
+		List<Class<? extends Component<?>>> args = Arrays.asList(X_ACCEL, X_VEL, Y_ACCEL, Y_VEL);
 		for (Entity e : getEngine().getEntitiesContaining(args)) {
-			Component xVel = e.getComponent(X_VEL);
-			Component yVel = e.getComponent(Y_VEL);
-			double xAccel = Double.parseDouble(e.getComponent(X_ACCEL).getValue());
-			double yAccel = Double.parseDouble(e.getComponent(X_ACCEL).getValue());
+			Component<Double> xVel = e.getComponent(X_VEL);
+			Component<Double> yVel = e.getComponent(Y_VEL);
+			double xAccel = e.getComponent(X_ACCEL).getValue();
+			double yAccel = se.getComponent(X_ACCEL).getValue();
 
 			xVel.setValue(Double.toString(Double.parseDouble(xVel.getValue()) + -1 * xAccel * elapsedTime));
 			yVel.setValue(Double.toString(Double.parseDouble(yVel.getValue()) + -1 * yAccel * elapsedTime));
