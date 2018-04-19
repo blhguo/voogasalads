@@ -29,3 +29,37 @@
 27. Can't read everything in component menus
 28. Unclear what number for jumps
 29. Left game to play before saving
+30. •	No default game
+o	Game selection opens an empty window
+o	Settings also opens up an empty window
+o	Actually opened up in a separate window behind the game
+•	Key preferences used to work and now it doesn’t
+•	Finally found the load window….looks tough when it’s blackened out
+•	Can map same keys to the same button
+o	Finally figured how to play
+•	Went straight through the brick
+o	Stuck in the middle of a brick
+•	Tried to make movements that didn’t conform to the normal pattern
+o	Went off the end once the level didn’t change
+o	“Minimap might be nice”
+•	hotkeys for some of the shortcuts
+•	froze on game change
+
+
+•	clicked on entity creator
+•	clicked on a couple of dropdowns; was kind of confused
+•	background was confusing since it didn’t replicate
+•	wasn’t clear how to save a game
+o	no way to go back from player to game
+•	not clear that things have saved
+•	background overwritten by default
+•	“nice to load game after you’ve saved”
+•	no bounds on the level
+o	add a layer of bricks around the end of the level so it’s not limitless
+•	background images have different sizes, should normalize to a standard size
+•	Bug where you “play” game before you save game, everything pauses/crashes
+•	Button to go from “playing” game back to authoring (issue might be fixed with live editing)
+•	File browser for images rather than typing file names (ease of access)
+•	Scolling during authoring (level is fixed to the size of the editing window)
+•	Infinite/looping/autogenerating levels
+•	Natural movement
