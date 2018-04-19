@@ -25,9 +25,7 @@ public abstract class GUIGridPaneSuper extends GUIBuilder {
 		gridpane.setVgap(AuthRes.getInt("Padding"));
 		gridpane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		
-		//Scene myScene = initScene(gridpane);
 		setBackground(gridpane);
-		
 		finishScene(gridpane);
 		return gridpane;
 	}
