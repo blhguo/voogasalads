@@ -1,6 +1,7 @@
 package authoring;
 
-import authoring.utilities.ButtonFactory;
+import authoring.GUI_Heirarchy.GUIGridPaneSuper;
+import frontend_utilities.ButtonFactory;
 import game_player.PlayerMain;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

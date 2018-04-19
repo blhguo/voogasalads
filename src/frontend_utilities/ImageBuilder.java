@@ -1,8 +1,8 @@
-package authoring.utilities;
+package frontend_utilities;
 
+import frontend_utilities.DraggableImageView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 /**
  * @author Liam Pulsifer
