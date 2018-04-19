@@ -30,28 +30,28 @@ public abstract class GameSystem {
 	 * @param elapsedTime the elapsed time
 	 */
 	public abstract void act(double elapsedTime);
-	
-	protected Double getDoubleValue(Entity e, Class componentClass) {
-		Component c = e.getComponent(componentClass);
-		if(c!=null) {
-			return Double.parseDouble(c.getValue());
-		}
-		return null;
-	}
-	
-	protected Boolean getBooleanValue(Entity e, Class componentClass) {
-		Component c = e.getComponent(componentClass);
-		if(c!=null) {
-			return Boolean.parseBoolean(c.getValue());
-		}
-		return null;
-	}
-	
-	protected Integer getIntegerValue(Entity e, Class componentClass) {
-		Component c = e.getComponent(componentClass);
-		if(c!=null) {
-			return Integer.parseInt(c.getValue());
-		}
-		return null;
-	}
+//	
+//	protected Double getDoubleValue(Entity e, Class componentClass) {
+//		Component c = e.getComponent(componentClass);
+//		if(c!=null) {
+//			return Double.parseDouble(c.getValue());
+//		}
+//		return null;
+//	}
+//	
+//	protected Boolean getBooleanValue(Entity e, Class componentClass) {
+//		Component c = e.getComponent(componentClass);
+//		if(c!=null) {
+//			return Boolean.parseBoolean(c.getValue());
+//		}
+//		return null;
+//	}
+//	
+//	protected Integer getIntegerValue(Entity e, Class componentClass) {
+//		Component c = e.getComponent(componentClass);
+//		if(c!=null) {
+//			return Integer.parseInt(c.getValue());
+//		}
+//		return null;
+//	}
 }
