@@ -1,7 +1,7 @@
 package authoring.GUI_Heirarchy;
 
-import authoring.GUI_Heirarchy.GUIBuilder;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
@@ -26,6 +26,7 @@ public abstract class GUIGridPaneSuper extends GUIBuilder {
 		gridpane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		
 		//Scene myScene = initScene(gridpane);
+		setBackground(gridpane);
 		
 		finishScene(gridpane);
 		return gridpane;

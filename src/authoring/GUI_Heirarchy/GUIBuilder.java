@@ -39,9 +39,16 @@ public abstract class GUIBuilder {
 	public Scene initScene(Pane pane){
 		Scene scene = new Scene(pane, AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY"));
 		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
+//		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+//				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+//		pane.setBackground(new Background(back));
+		setBackground(pane);
+		return scene;
+	}
+	
+	public void setBackground(Pane pane){
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		pane.setBackground(new Background(back));
-		return scene;
 	}
 }
