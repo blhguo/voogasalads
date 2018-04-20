@@ -172,7 +172,6 @@ public class CollisionBroadSystem extends CollisionSystem {
                 }
             }
             else if(top && right) {
-                System.out.println("TOP RIGHT");
                 double dx = Math.abs(xMin2 - xMax1);
                 double dy = Math.abs(yMin1 - yMax2);
                 if(dx>dy){

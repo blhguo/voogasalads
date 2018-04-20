@@ -1,15 +1,15 @@
-package game_engine.event.actions;
+package game_engine.event.actions.micro;
 
 import game_engine.Component;
 import game_engine.Entity;
 import game_engine.event.Action;
 
-public class DataAction<T> implements Action {
+public class DataSetAction<T> implements Action {
 	private Entity myEntity;
 	private Class<? extends Component<T>> myComponentClass;
 	private T myValue;
 
-	public DataAction(Entity entity, Class<? extends Component<T>> componentClass, T value) {
+	public DataSetAction(Entity entity, Class<? extends Component<T>> componentClass, T value) {
 		myEntity = entity;
 		myComponentClass = componentClass;
 		myValue = value;
