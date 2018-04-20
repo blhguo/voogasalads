@@ -56,6 +56,14 @@ public class CollisionNarrowGJKSystem extends CollisionNarrowSystem{
 		
 		
 	}
+	
+	private Point2D supportFunct() {
+		return null;
+	}
+	
+	private Point2D minkowskiDiff() {
+		return null;
+	}
 
 	@Override
 	public void act(double elapsedTime) {
@@ -64,12 +72,10 @@ public class CollisionNarrowGJKSystem extends CollisionNarrowSystem{
 		for(int i = 0; i < broadCollidedEntities.size(); i ++) {
 			Entity e1 = broadCollidedEntities.get(i);
 			List<Entity> others = new CopyOnWriteArrayList<Entity>();
-			List<Component<List<Entity>>> collidedComponents = new ArrayList<Component<List<Entity>>>();
 			List<Class<? extends Component<List<Entity>>>> collidedClasses = new ArrayList<Class<? extends Component<List<Entity>>>>();
 			for(Class<? extends Component<?>> c: TARGET_COMPONENTS) {
 				Component<List<Entity>> comp = (Component<List<Entity>>) e1.getComponent(c);
 				if(comp !=null) {
-					collidedComponents.add(comp);
 					collidedClasses.add((Class<? extends Component<List<Entity>>>) c);
 					others.addAll(comp.getValue());
 				}
@@ -86,28 +92,22 @@ public class CollisionNarrowGJKSystem extends CollisionNarrowSystem{
 		}
 	}
 	
-	private Polygon generatePolygon(Entity e) {
+	private List<Point2D> generatePolygon(Entity e) {
 		double xPos = e.getComponent(XPosComponent.class).getValue();
 		double yPos = e.getComponent(YPosComponent.class).getValue();
 		double angle = e.getComponent(AngleComponent.class).getValue();
 		List<Double[]> relativeVertices = e.getComponent(GJKHitboxComponent.class).getValue();
 		Polygon polygon = new Polygon();
-		Double[] transformedVertices = new Double[relativeVertices.size()*2];
+		List<Point2D> transformedVertices = new ArrayList<Point2D>();
 		
 		for(int i = 0; i < relativeVertices.size(); i ++ ) {
 			double absoluteX = xPos + relativeVertices.get(i)[0];
 			double absoluteY = yPos + relativeVertices.get(i)[1];
-			Point2D transformedRelativeVertex = transformPoint(new Point2D(absoluteX, absoluteY), new Point2D(xPos, yPos), angle);
-			transformedVertices[i*2] = transformedRelativeVertex.getX();
-			transformedVertices[i*2 + 1] = transformedRelativeVertex.getY();
+			Point2D transformedVertex = transformPoint(new Point2D(absoluteX, absoluteY), new Point2D(xPos, yPos), angle);
+			transformedVertices.add(transformedVertex);
 		}
 		
-		polygon.getPoints().addAll(transformedVertices);
-		return polygon;
+		return transformedVertices;
 	}
-	
-	private void supportFunc() {
-		
-	}	
 
 }
