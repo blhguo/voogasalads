@@ -1,5 +1,6 @@
 package authoring.right_components.EntityComponent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,14 +8,12 @@ import java.util.stream.Collectors;
 
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
+import authoring.component_menus.MenuElement;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
-<<<<<<< HEAD
+
 import frontend_utilities.ButtonFactory;
-=======
-import authoring.utilities.ButtonFactory;
-import game_engine.Component;
->>>>>>> 125ad7129025eed6839c6a3f5c7905d3be84c45d
+import frontend_utilities.ImageBuilder;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import javafx.scene.Group;
@@ -22,14 +21,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-<<<<<<< HEAD
-import javafx.scene.layout.*;
-=======
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
->>>>>>> 125ad7129025eed6839c6a3f5c7905d3be84c45d
 
 /**
  * @author liampulsifer
@@ -152,7 +147,7 @@ public class EntityPane extends BasePane {
 	 */
 	private List<ComponentMenu> makeMenuList(){
 		List<ComponentMenu> list;
-		list = new ComponentMenuFactory().getMenus();
+		list = new ComponentMenuFactory().getDefaultMenus();
 		//list.stream().forEach(e -> e.getComponentList().stream().forEach(ev -> System.out.println(ev)));
 		return list;
 	}
@@ -181,8 +176,10 @@ public class EntityPane extends BasePane {
 //		+ menu.getComponentList().size()));
 		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
-			if (menu.isIncluded())
-				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
+			for (MenuElement element : menu.getElements()) {
+				if (menu.isIncluded())
+					entity.addComponent(element.getComponent());
+			}
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
 		return entity;

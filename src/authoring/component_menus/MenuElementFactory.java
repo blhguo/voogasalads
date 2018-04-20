@@ -1,11 +1,15 @@
 package authoring.component_menus;
 
+import game_engine.Component;
+import game_engine.ComponentFactory;
+
 /**
  * @author liampulsifer
  * Creates MenuElements given their Name, Type, and Value
  */
 public class MenuElementFactory {
 	private String[] entry;
+	private ComponentFactory factory;
 	public MenuElementFactory(){
 
 	}
@@ -17,6 +21,7 @@ public class MenuElementFactory {
 	 */
 	public MenuElement getElement(String[] entry){
 		this.entry = entry;
+		factory = new ComponentFactory();
 		MenuElement ret;
 		if(entry[1].equals("d")){
 			ret = handleDouble();
@@ -31,14 +36,14 @@ public class MenuElementFactory {
 	}
 
 	private StringMenuElement handleString() {
-		return new StringMenuElement(entry[0], entry[2]);
+		return new StringMenuElement(entry[0], factory.createComponent(entry[0], entry[2]));
 	}
 
 	private BooleanMenuElement handleBoolean() {
-		return new BooleanMenuElement(entry[0], Boolean.parseBoolean(entry[2]));
+		return new BooleanMenuElement(entry[0], factory.createComponent(entry[0], entry[2]));
 	}
 
 	private NumberMenuElement handleDouble() {
-		return new NumberMenuElement(entry[0], entry[2]);
+		return new NumberMenuElement(entry[0], factory.createComponent(entry[0], entry[2]));
 	}
 }

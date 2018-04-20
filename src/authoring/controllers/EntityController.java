@@ -16,6 +16,11 @@ import frontend_utilities.ButtonFactory;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
 import game_engine.Entity;
+import game_engine.components.position.XPosComponent;
+import game_engine.components.position.YPosComponent;
+import game_engine.components.sprite.FilenameComponent;
+import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.WidthComponent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import java.util.ArrayList;
@@ -69,14 +74,13 @@ public class EntityController {
 	 * @return ImageView
 	 */
 	private ImageView setUpImageView(Entity entity){
-		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
-		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
-		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(),
-				(int) comp.getWidth(), (int) comp.getHeight());
-		iv.setX(pos.getX());
-		iv.setY(pos.getY());
+		DraggableImageView iv = ImageBuilder.getDraggableImageView(entity.getComponent(FilenameComponent.class).getValue(),
+				entity.getComponent(WidthComponent.class).getValue().intValue(),
+				entity.getComponent(HeightComponent.class).getValue().intValue());
+		iv.setX(entity.getComponent(XPosComponent.class).getValue());
+		iv.setY(entity.getComponent(YPosComponent.class).getValue());
 		iv.setOnMouseClicked(e -> UpdateMenus(iv, entity));
-		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), pos, entity, iv));
+		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), entity, iv));
 		return iv;
 
 	}
@@ -112,13 +116,12 @@ public class EntityController {
 	 * Sets the position component of an entity to be that of its imageview, and updates the map
 	 * @param x -- ImageView x
 	 * @param y -- ImageView y
-	 * @param pos -- the entity's position component
 	 * @param ent
 	 * @param iv
 	 */
-	public void setPos(double x, double y, PositionComponent pos, Entity ent, ImageView iv){
-		pos.setX(x);
-		pos.setY(y);
+	public void setPos(double x, double y, Entity ent, ImageView iv){
+		ent.getComponent(XPosComponent.class).setValue(x);
+		ent.getComponent(YPosComponent.class).setValue(y);
 		ComponentMenu menu = (ComponentMenu) menuMap.get(ent).stream().filter(e -> e.getType().equals("Position"))
 				.collect(Collectors.toList()).get(0);
 		menuMap.get(ent).remove(menu);
@@ -134,8 +137,8 @@ public class EntityController {
 	 * @return the default sprite for display at the top of the EntityPane
 	 */
 	public ImageView getSprite(){
-		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
-		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 135, 135);
+		ImageView iv = ImageBuilder.getImageView(entityPane.getEntity().getComponent(FilenameComponent.class)
+				.getValue(), 135, 135);
 		return iv;
 	}
 	@Deprecated

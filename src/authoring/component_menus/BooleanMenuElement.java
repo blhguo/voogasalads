@@ -1,6 +1,7 @@
 package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
+import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 
@@ -8,13 +9,17 @@ import javafx.scene.control.CheckBox;
  * @author liampulsifer
  * Boolean checkbox input element
  */
-public class BooleanMenuElement implements MenuElement{
+public class BooleanMenuElement extends MenuElement{
 	private CheckBox box;
 	private Node view;
 	private String title;
-	public BooleanMenuElement(String title, boolean d) {
+	public BooleanMenuElement(String title, Component component) {
+		setMyComponent(component);
 		box = new CheckBox();
-		box.setSelected(d);
+		if (!(component.getValue() instanceof Boolean)){
+			System.out.println("That's not a bool!");
+		}
+		box.setSelected((boolean) component.getValue());
 		this.title = title;
 		view = ButtonFactory.makeHBox(title, null, box);
 	}

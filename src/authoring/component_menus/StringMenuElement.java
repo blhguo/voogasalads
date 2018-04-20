@@ -1,6 +1,7 @@
 package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
+import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
@@ -8,13 +9,14 @@ import javafx.scene.control.TextField;
  * @author liampulsifer
  * A menu element for String input (i.e. file names, etc.)
  */
-public class StringMenuElement implements MenuElement{
+public class StringMenuElement extends MenuElement{
 	TextField field;
 	private Node view;
 	private String title;
-	public StringMenuElement(String title, String d){
+	public StringMenuElement(String title, Component component){
+		setMyComponent(component);
 		field = new TextField();
-		field.setText(d);
+		field.setText((String) component.getValue());
 		this.title = title;
 		view = ButtonFactory.makeHBox(title, null, field);
 	}
