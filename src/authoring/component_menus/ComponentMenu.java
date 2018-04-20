@@ -1,17 +1,12 @@
 package authoring.component_menus;
 
-import game_engine.Component;
-import game_engine.ComponentFactory;
-//import game_engine.components.CollidableComponent;
-import javafx.scene.Node;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import game_engine.Component;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 
 /**
  * @author liampulsifer
@@ -22,16 +17,12 @@ import java.util.ResourceBundle;
  */
 
 public class ComponentMenu extends VBox implements Comparable{
-	private static final String COMPONENT_BUNDLE = "Component";
 	private static final String COMPONENT_DELIM  = ";";
 	private static final String ATTRIBUTE_DELIM  = ",";
-
-	private ResourceBundle myComponents;
 	private List<MenuElement> elements;
 	private String myType;
 	private boolean included;
 	public ComponentMenu(String type){
-		myComponents = ResourceBundle.getBundle(COMPONENT_BUNDLE);
 		myType = type;
 		elements = new ArrayList<>();
 		if (!(type.equals("Position") || type.equals("Sprite"))) {
@@ -41,6 +32,13 @@ public class ComponentMenu extends VBox implements Comparable{
 			included = true;
 		}
 		//this.setOnMousePressed(e -> Include());
+	}
+	public String getMyType() {
+		return myType;
+	}
+
+	public void setMyType(String myType) {
+		this.myType = myType;
 	}
 
 	/**
@@ -80,9 +78,9 @@ public class ComponentMenu extends VBox implements Comparable{
 	 * Used to get the list of parameters to input to the constructor of each component
 	 * @return the list of values of each component
 	 */
-	public List<String> getComponentList(){
-		List<String> list = new ArrayList<String>();
-		elements.stream().forEach(e -> list.add(e.getValue()));
+	public List<Component> getComponentList(){
+		List<Component> list = new ArrayList<>();
+		elements.stream().forEach(e -> list.add(e.getComponent()));
 		return list;
 	}
 

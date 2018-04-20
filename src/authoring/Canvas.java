@@ -1,6 +1,12 @@
 package authoring;
 
+<<<<<<< HEAD
 import authoring.GUI_Heirarchy.GUINode;
+=======
+import java.util.Map;
+
+import authoring.controllers.EntityController;
+>>>>>>> 125ad7129025eed6839c6a3f5c7905d3be84c45d
 import game_engine.Entity;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -14,11 +20,14 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+<<<<<<< HEAD
 
 import java.util.Map;
 
 
 import authoring.controllers.EntityController;
+=======
+>>>>>>> 125ad7129025eed6839c6a3f5c7905d3be84c45d
 
 /**
  * @author Jennifer Chin

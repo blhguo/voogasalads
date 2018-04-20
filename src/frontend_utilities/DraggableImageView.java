@@ -1,12 +1,9 @@
 package frontend_utilities;
 
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
-import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
 
 /**

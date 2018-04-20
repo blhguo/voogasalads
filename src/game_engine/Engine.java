@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import game_engine.systems.InputGarbageCollectionSystem;
-import game_engine.systems.MovementSystem;
+import game_engine.systems.PositionSystem;
+import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.KeyboardMovementSystem;
+import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
+import game_engine.systems.keyboard.RightKeyboardMovementSystem;
 import javafx.scene.input.InputEvent;
+
 
 /**
  * The Class Engine.
@@ -33,8 +36,10 @@ public class Engine {
 	 * Instantiates a new Engine object.
 	 */
 	public Engine() {
-		mySystems.add(new MovementSystem(this));
-		mySystems.add(new KeyboardMovementSystem(this));
+		mySystems.add(new PositionSystem(this));
+		mySystems.add(new VelocitySystem(this));
+		mySystems.add(new LeftKeyboardMovementSystem(this));
+		mySystems.add(new RightKeyboardMovementSystem(this));
 		mySystems.add(new KeyboardJumpSystem(this));
 		mySystems.add(new InputGarbageCollectionSystem(this));
 		mySystems.add(new CollisionBroadSystem(this));
@@ -59,7 +64,7 @@ public class Engine {
 	 * @param args the args
 	 * @return List<Entity>
 	 */
-	public List<Entity> getEntitiesContaining(List<Class<? extends Component>> args) {
+	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
 
@@ -69,7 +74,7 @@ public class Engine {
 	 * @param args the args
 	 * @return List<Entity>
 	 */
-	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component>> args) {
+	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
 

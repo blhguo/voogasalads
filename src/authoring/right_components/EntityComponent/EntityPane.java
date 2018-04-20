@@ -9,7 +9,12 @@ import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
+<<<<<<< HEAD
 import frontend_utilities.ButtonFactory;
+=======
+import authoring.utilities.ButtonFactory;
+import game_engine.Component;
+>>>>>>> 125ad7129025eed6839c6a3f5c7905d3be84c45d
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import javafx.scene.Group;
@@ -17,7 +22,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+<<<<<<< HEAD
 import javafx.scene.layout.*;
+=======
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+>>>>>>> 125ad7129025eed6839c6a3f5c7905d3be84c45d
 
 /**
  * @author liampulsifer

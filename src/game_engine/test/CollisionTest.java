@@ -1,25 +1,36 @@
 package game_engine.test;
-import java.util.ArrayList;
-import java.util.List;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.JumpComponent;
-import game_engine.components.PositionComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
-import game_engine.components.collision.hitbox.HitboxComponent;
+import game_engine.components.collision.edge_collided.LeftCollidedComponent;
+import game_engine.components.collision.edge_collided.RightCollidedComponent;
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
+import game_engine.components.collision.hitbox.HitboxHeightComponent;
+import game_engine.components.collision.hitbox.HitboxWidthComponent;
+import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
+import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
-import game_engine.components.keyboard.KeyboardMovementInputComponent;
-import game_engine.components.physics.XPhysicsComponent;
-import game_engine.components.physics.YPhysicsComponent;
+import game_engine.components.keyboard.LeftKeyboardComponent;
+import game_engine.components.keyboard.RightKeyboardComponent;
+import game_engine.components.physics.DefaultXVelComponent;
+import game_engine.components.physics.DefaultYVelComponent;
+import game_engine.components.physics.XAccelComponent;
+import game_engine.components.physics.XVelComponent;
+import game_engine.components.physics.YAccelComponent;
+import game_engine.components.physics.YVelComponent;
+import game_engine.components.position.AngleComponent;
+import game_engine.components.position.XPosComponent;
+import game_engine.components.position.YPosComponent;
 import game_engine.systems.InputGarbageCollectionSystem;
-import game_engine.systems.MovementSystem;
+import game_engine.systems.PositionSystem;
+import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.KeyboardMovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -46,13 +57,11 @@ public class CollisionTest extends Application {
 
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-    
-    private static final String GRAVITY = "-1000"; //effects of gravity
-//    private static final String GRAVITY = "0";
+    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;    
+    private static final String GRAVITY = "0";
 	private static final String JUMP_VELOCITY = "500"; //effects of how high you jump
 
-    private static final String TITLE = "Collision Tester";
+    private static final String TITLE = "asdf";
     private static final int WIDTH = 1600;
     private static final int HEIGHT= 800;
     private static final Paint BACKGROUND = Color.rgb(36, 36, 36);
@@ -61,9 +70,9 @@ public class CollisionTest extends Application {
     private Scene myScene;
 
     private CollisionBroadSystem colSys;
-    private MovementSystem movementSys;
+    private PositionSystem posSys;
+    private VelocitySystem velSys;
     private KeyboardJumpSystem keyboardJumpSys;
-    private KeyboardMovementSystem keyboardMovementSys;
     private InputGarbageCollectionSystem inputGarbageCollectionSystem;
     private CollisionResponseSystem colResponseSys;
 
@@ -88,17 +97,10 @@ public class CollisionTest extends Application {
     private void step(double elapsedTime) {
     	colSys.act(elapsedTime);
     	colResponseSys.act(elapsedTime);
-		keyboardMovementSys.act(elapsedTime); //update position
-		movementSys.act(elapsedTime); //update position
-		
+    	posSys.act(elapsedTime);
+		velSys.act(elapsedTime);
 		keyboardJumpSys.act(elapsedTime); //update jump
 		inputGarbageCollectionSystem.act(elapsedTime);
-		
-//		CollidedComponent temp = (BottomCollidedComponent) e1.getComponent(BottomCollidedComponent.class);
-//		if(temp!=null) {
-//			System.out.println("\n\n Bottom collided with " + temp.getEntities().get(0));
-//		}
-//		System.out.println(e1.getComponent(BottomCollidedComponent.class)!=null);
 
         updateRectPos();
         updateRectColor();
@@ -108,14 +110,10 @@ public class CollisionTest extends Application {
         e = new Engine();
         colResponseSys = new CollisionResponseSystem(e);
         keyboardJumpSys = new KeyboardJumpSystem(e);
-        keyboardMovementSys = new KeyboardMovementSystem(e);
         colSys = new CollisionBroadSystem(e);
-        
-        movementSys = new MovementSystem(e);
-        
-//        moveResponseSys = new MovementResponseSystem(e);
+        posSys = new PositionSystem(e);
+        velSys = new VelocitySystem(e);
         inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
-        
         
         root = new Group();
         myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
@@ -128,11 +126,9 @@ public class CollisionTest extends Application {
     }
 
     private void updateRectPos(){
-        PositionComponent pos = (PositionComponent) e1.getComponent(PositionComponent.class);
-        double x = pos.getX() - r1.getWidth()/2;
-        double y = pos.getY() - r1.getHeight()/2;
-
-        double theta = pos.getAngle();
+        double x = e1.getComponent(XPosComponent.class).getValue();
+        double y = e1.getComponent(YPosComponent.class).getValue();
+        double theta = e1.getComponent(AngleComponent.class).getValue();
 
         r1.setX(x);
         r1.setY(y);
@@ -140,7 +136,10 @@ public class CollisionTest extends Application {
     }
 
     private void updateRectColor(){
-        if(e1.getComponent(CollidedComponent.class)!=null){
+        if(e1.getComponent(TopCollidedComponent.class)!=null
+        		|| e1.getComponent(BottomCollidedComponent.class)!=null
+        		|| e1.getComponent(LeftCollidedComponent.class)!=null
+        		|| e1.getComponent(RightCollidedComponent.class)!=null){
             r1.setFill(Color.BLUE);
         }
         else{
@@ -155,121 +154,84 @@ public class CollisionTest extends Application {
         e2 = new Entity();
         e3 = new Entity();
 
-    	//Movement Input Componenet		
-    	List<String> keyboardMovementInputArgs = new ArrayList<>();
-    	keyboardMovementInputArgs.add(KeyCode.LEFT.toString());
-    	keyboardMovementInputArgs.add(KeyCode.RIGHT.toString());
-    	KeyboardMovementInputComponent keyboardInputComponent = new KeyboardMovementInputComponent(keyboardMovementInputArgs);
-    	e1.addComponent(keyboardInputComponent);
+    	LeftKeyboardComponent keyLeftComp = new LeftKeyboardComponent(KeyCode.LEFT.toString());
+    	RightKeyboardComponent keyRightComp = new RightKeyboardComponent(KeyCode.RIGHT.toString());
+    	e1.addComponent(keyLeftComp);
+    	e1.addComponent(keyRightComp);
     	
-    	//Physics Component
-    	List<String> yPhysicsArgs = new ArrayList<>();
-    	yPhysicsArgs.add(JUMP_VELOCITY);
-    	yPhysicsArgs.add(GRAVITY); //acceleration
-    	YPhysicsComponent xPhysicsComponent = new YPhysicsComponent(yPhysicsArgs);
-    	e1.addComponent(xPhysicsComponent);
-
-    	List<String> xPhysicsArgs = new ArrayList<>();
-    	xPhysicsArgs.add("400"); //X velocity aka maxX velocity aka dx (the distance it moves each step)
-    	xPhysicsArgs.add("0"); //acceleration
-    	XPhysicsComponent yPhysicsComponent = new XPhysicsComponent(xPhysicsArgs);
-    	yPhysicsComponent.setCurrVel(0);
-    	e1.addComponent(yPhysicsComponent);
-    			
-    	//Jump Component
-    	List<String> jumpArgs = new ArrayList<String>();
-//    	jumpArgs.add("true");
-    	jumpArgs.add("-1"); //number of jumps
-    	// Y velocity
-    	JumpComponent jumpComponent= new JumpComponent(jumpArgs);
-    	e1.addComponent(jumpComponent);
-    			
-    	//Jump Input Component
-    	ArrayList<String> jumpInputArgs = new ArrayList<String>();
-    	jumpInputArgs.add(KeyCode.UP.toString()); // Press UP for jump
-    	KeyboardJumpInputComponent keyboardJumpInputComponent = new KeyboardJumpInputComponent(jumpInputArgs);
-    	e1.addComponent(keyboardJumpInputComponent);
+    	e1.addComponent(new YAccelComponent(GRAVITY));
+    	e1.addComponent(new DefaultYVelComponent(JUMP_VELOCITY));
+    	e1.addComponent(new YVelComponent("0"));
     	
-        ArrayList<String> phys =new ArrayList<String>();
-        for(int i = 0; i < 2; i ++)
-            phys.add("0");
+    	e1.addComponent(new XVelComponent("0"));
+    	e1.addComponent(new DefaultXVelComponent("400"));
+    	e1.addComponent(new XAccelComponent("0"));
+    	
+    	e1.addComponent(new XPosComponent("500"));
+    	e1.addComponent(new YPosComponent("350"));
+    	e1.addComponent(new AngleComponent("0"));
+    	
+    	e2.addComponent(new XPosComponent("800"));
+    	e2.addComponent(new YPosComponent("800"));
+    	e2.addComponent(new AngleComponent("0"));
+    	
+    	e3.addComponent(new XPosComponent("800"));
+    	e3.addComponent(new YPosComponent("300"));
+    	e3.addComponent(new AngleComponent("0"));
+    	
+    	
+    	e1.addComponent(new HitboxHeightComponent("100.0"));
+    	e1.addComponent(new HitboxWidthComponent("100.0"));
+    	e1.addComponent(new HitboxXOffsetComponent("0.0"));
+    	e1.addComponent(new HitboxYOffsetComponent("0.0"));
+    	
+    	e2.addComponent(new HitboxHeightComponent("75.0"));
+    	e2.addComponent(new HitboxWidthComponent("2000.0"));
+    	e2.addComponent(new HitboxXOffsetComponent("0.0"));
+    	e2.addComponent(new HitboxYOffsetComponent("0.0"));
+    	
+    	e3.addComponent(new HitboxHeightComponent("500.0"));
+    	e3.addComponent(new HitboxWidthComponent("100.0"));
+    	e3.addComponent(new HitboxXOffsetComponent("0.0"));
+    	e3.addComponent(new HitboxYOffsetComponent("0.0"));
+    	
+    	e1.addComponent(new CollidableComponent("true"));
+    	e1.addComponent(new PassableComponent("true"));
+    	
+    	e2.addComponent(new CollidableComponent("true"));
+    	e2.addComponent(new PassableComponent("true"));
+    	
+    	e3.addComponent(new CollidableComponent("true"));
+    	e3.addComponent(new PassableComponent("true"));
 
-        ArrayList<String> pos1 = new ArrayList<String>();
-        pos1.add("250");
-        pos1.add("250");
-        pos1.add("0");
-
-        ArrayList<String> pos2 = new ArrayList<String>();
-        pos2.add("250");
-        pos2.add("1000");
-        pos2.add("0");
-        
-        ArrayList<String> pos3 = new ArrayList<String>();
-        pos3.add("550");
-        pos3.add("700");
-        pos3.add("0");
-
-        ArrayList<String> hb2 = new ArrayList<String>();
-        hb2.add("3000");
-        hb2.add("500");
-        hb2.add("0");
-        hb2.add("0");
-
-        ArrayList<String> hb1 = new ArrayList<String>();
-        hb1.add("50");
-        hb1.add("50");
-        hb1.add("0");
-        hb1.add("0");
-        
-        ArrayList<String> hb3 = new ArrayList<String>();
-        hb3.add("1000");
-        hb3.add("1000");
-        hb3.add("0");
-        hb3.add("0");
-
-        ArrayList<String> cc = new ArrayList<String>();
-        cc.add("true");
-        cc.add("true");
-        cc.add("0");
-
-        
-        e1.addComponent(new PositionComponent(pos1));
-        e1.addComponent(new HitboxComponent(hb1));
-        e1.addComponent(new CollidableComponent(cc));
-
-        e2.addComponent(new XPhysicsComponent(phys));
-        e2.addComponent(new YPhysicsComponent(phys));
-        e2.addComponent(new PositionComponent(pos2));
-        e2.addComponent(new HitboxComponent(hb2));
-        e2.addComponent(new CollidableComponent(cc));
-        
-        
-        e3.addComponent(new XPhysicsComponent(phys));
-        e3.addComponent(new YPhysicsComponent(phys));
-        e3.addComponent(new PositionComponent(pos3));
-        e3.addComponent(new HitboxComponent(hb3));
-        e3.addComponent(new CollidableComponent(cc));
-
-        
         e.addEntity(e2);
         e.addEntity(e3);
         e.addEntity(e1);
     }
 
     private void initRects(){
-        PositionComponent pos1 = (PositionComponent) e1.getComponent(PositionComponent.class);
-        PositionComponent pos2 = (PositionComponent) e2.getComponent(PositionComponent.class);
-        PositionComponent pos3 = (PositionComponent) e3.getComponent(PositionComponent.class);
+        double x1 = e1.getComponent(XPosComponent.class).getValue();
+        double y1 = e1.getComponent(YPosComponent.class).getValue();
+        
+        double x2 = e2.getComponent(XPosComponent.class).getValue();
+        double y2 = e2.getComponent(YPosComponent.class).getValue();
+        
+        double x3 = e3.getComponent(XPosComponent.class).getValue();
+        double y3 = e3.getComponent(YPosComponent.class).getValue();
+        
+        double hh1 = e1.getComponent(HitboxHeightComponent.class).getValue();
+        double hw1 = e1.getComponent(HitboxWidthComponent.class).getValue();
+        
+        double hh2 = e2.getComponent(HitboxHeightComponent.class).getValue();
+        double hw2 = e2.getComponent(HitboxWidthComponent.class).getValue();
+        
+        double hh3 = e3.getComponent(HitboxHeightComponent.class).getValue();
+        double hw3 = e3.getComponent(HitboxWidthComponent.class).getValue();
 
-        HitboxComponent hb1 = (HitboxComponent) e1.getComponent(HitboxComponent.class);
-        HitboxComponent hb2 = (HitboxComponent) e2.getComponent(HitboxComponent.class);
-        HitboxComponent hb3 = (HitboxComponent) e3.getComponent(HitboxComponent.class);
-
-
-        r1 = new Rectangle(pos1.getX() - hb1.getWidth()/2, pos1.getY() - hb1.getHeight()/2, hb1.getWidth(), hb1.getHeight());
-        r2 = new Rectangle(pos2.getX() - hb2.getWidth()/2, pos2.getY() - hb2.getHeight()/2, hb2.getWidth(), hb2.getHeight());
-        r3 = new Rectangle(pos3.getX() - hb3.getWidth()/2, pos3.getY() - hb3.getHeight()/2, hb3.getWidth(), hb3.getHeight());
-
+        r1 = new Rectangle(x1 - hw1/2, y1 - hh1/2, hw1, hh1);
+        r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
+        r3 = new Rectangle(x3 - hw3/2, y3 - hh3/2, hw3, hh3);
+        
         root.getChildren().add(r1);
         root.getChildren().add(r2);
         root.getChildren().add(r3);
