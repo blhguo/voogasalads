@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  *         The Entity is one of our main abstractions: everything you see on-screen or interact with
  *         during a game is an Entity. We favor Composition over Inheritance here by aggregating an
  *         Entity's attributes using a Map of Components. The entity exposes various methods that
- *         allow the rest of the backend to funciton.
+ *         allow the rest of the backend to function.
  */
 public class Entity {
 	private Map<Class<?>, Component<?>> myComponents;
