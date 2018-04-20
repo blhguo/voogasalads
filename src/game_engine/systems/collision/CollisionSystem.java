@@ -15,6 +15,7 @@ import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
+import javafx.geometry.Point2D;
 
 /**
  * @author Jeremy Chen
@@ -49,6 +50,8 @@ public abstract class CollisionSystem extends GameSystem {
 	 * 
 	 * Helper method that gets extrema of a sprite (min/max x & y coordinates), used for creating
 	 *  an AABB, among other applications, will return in the form [min_x, max_x, min_y, max_y]
+	 *  
+	 *  TODO: NEEDS UPDATE TO TRANSFORMED AABB
 	 */
 	protected double[] getExtrema(Entity e, double elapsedTime){
 		double centerX = e.getComponent(XPosComponent.class).getValue();
@@ -88,6 +91,29 @@ public abstract class CollisionSystem extends GameSystem {
 			}
 		}
 		return new double[]{Collections.min(xCoords), Collections.max(xCoords), Collections.min(yCoords), Collections.max(yCoords)};
+	}
+	
+	/**
+	 * @param point
+	 * @param angle
+	 * @return
+	 * 
+	 * Will return a transformed point (assumed to be rotated about origin), rotated by a specified degree angle 
+	 * (Using javaFX coordinate/angle system, with North being 0 degrees, and positive rotation being clockwise
+	 */
+	public Point2D transformPoint(Point2D point, double angle) {
+		double radAngle = Math.toRadians(angle);
+		double transX = point.getX() * Math.cos(radAngle) - point.getY() * Math.sin(radAngle);
+		double transY = point.getY() * Math.cos(radAngle) + point.getX() * Math.sin(radAngle);
+		
+		return new Point2D(transX, transY);
+	}
+	
+	public Point2D transformPoint(Point2D point, Point2D origin, double angle) {
+		Point2D relativeCoord = new Point2D(point.getX() - origin.getX(), point.getY() - origin.getY());
+		Point2D transRelative = transformPoint(relativeCoord, angle);
+		
+		return new Point2D(transRelative.getX() + origin.getX(), transRelative.getY() + origin.getY());
 	}
 
 //    /**
