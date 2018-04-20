@@ -1,4 +1,4 @@
-package authoring.utilities;
+package frontend_utilities;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
