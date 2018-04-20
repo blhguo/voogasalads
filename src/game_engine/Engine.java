@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import game_engine.systems.HealthSystem;
 import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
@@ -44,6 +45,7 @@ public class Engine {
 		mySystems.add(new InputGarbageCollectionSystem(this));
 		mySystems.add(new CollisionBroadSystem(this));
 		mySystems.add(new CollisionResponseSystem(this));
+		mySystems.add(new HealthSystem(this));
 	}
 
 	/**
