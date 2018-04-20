@@ -1,24 +1,26 @@
-package game_engine.event.actions;
+package game_engine.event.actions.micro;
 
 import game_engine.Component;
+
+
 import game_engine.Entity;
 import game_engine.event.Action;
 
-public class DataMultiplyAction implements Action{
+public class DataIncrementAction implements Action {
 	private Entity myEntity;
 	private Class<? extends Component<Number>> myComponentClass;
-	private Number myScale;
+	private Number myDelta;
 
-	public DataMultiplyAction(Entity entity, Class<? extends Component<Number>> componentClass, Number scale) {
+	public DataIncrementAction(Entity entity, Class<? extends Component<Number>> componentClass, Number delta) {
 		myEntity = entity;
 		myComponentClass = componentClass;
-		myScale = scale;
+		myDelta = delta;
 	}
 	
 	@Override
 	public void execute() {
 		Component<Number> comp = myEntity.getComponent(myComponentClass);
-		comp.setValue(myScale.doubleValue() * comp.getValue().doubleValue());
+		comp.setValue(myDelta.doubleValue() + comp.getValue().doubleValue());
 	}
 
 }
