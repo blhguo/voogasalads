@@ -1,7 +1,11 @@
 package game_engine.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.Level;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.PassableComponent;
@@ -13,9 +17,11 @@ import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
+import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
+import game_engine.components.keyboard.UpKeyboardComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.DefaultYVelComponent;
 import game_engine.components.physics.XAccelComponent;
@@ -30,9 +36,11 @@ import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
+import game_engine.systems.keyboard.DownKeyboardMovementSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
 import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
 import game_engine.systems.keyboard.RightKeyboardMovementSystem;
+import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -79,6 +87,8 @@ public class CollisionTest extends Application {
     private CollisionResponseSystem colResponseSys;
     private LeftKeyboardMovementSystem leftKeySys;
     private RightKeyboardMovementSystem rightKeySys;
+    private UpKeyboardMovementSystem upKeySys;
+    private DownKeyboardMovementSystem downKeySys;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -106,6 +116,8 @@ public class CollisionTest extends Application {
 		keyboardJumpSys.act(elapsedTime); //update jump
 		leftKeySys.act(elapsedTime);
 		rightKeySys.act(elapsedTime);
+		upKeySys.act(elapsedTime);
+		downKeySys.act(elapsedTime);
 		inputGarbageCollectionSystem.act(elapsedTime);
 
         updateRectPos();
@@ -113,7 +125,9 @@ public class CollisionTest extends Application {
     }
 
     private void setup(){
-        e = new Engine();
+    	buildEntities();
+        initRects();
+        
         colResponseSys = new CollisionResponseSystem(e);
         keyboardJumpSys = new KeyboardJumpSystem(e);
         colSys = new CollisionBroadSystem(e);
@@ -121,6 +135,8 @@ public class CollisionTest extends Application {
         velSys = new VelocitySystem(e);
         leftKeySys = new LeftKeyboardMovementSystem(e);
         rightKeySys = new RightKeyboardMovementSystem(e);
+        upKeySys = new UpKeyboardMovementSystem(e);
+        downKeySys = new DownKeyboardMovementSystem(e);
         inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
         
         root = new Group();
@@ -129,8 +145,7 @@ public class CollisionTest extends Application {
         myScene.setOnKeyPressed(b -> e.receiveInput(b));
 		myScene.setOnKeyReleased(b -> e.receiveInput(b));
 
-        buildEntities();
-        initRects();
+       
     }
 
     private void updateRectPos(){
@@ -164,8 +179,12 @@ public class CollisionTest extends Application {
 
     	LeftKeyboardComponent keyLeftComp = new LeftKeyboardComponent(KeyCode.LEFT.toString());
     	RightKeyboardComponent keyRightComp = new RightKeyboardComponent(KeyCode.RIGHT.toString());
+    	UpKeyboardComponent keyUpComp = new UpKeyboardComponent(KeyCode.UP.toString());
+    	DownKeyboardComponent keyDownComp = new DownKeyboardComponent(KeyCode.DOWN.toString());
     	e1.addComponent(keyLeftComp);
     	e1.addComponent(keyRightComp);
+    	e1.addComponent(keyUpComp);
+    	e1.addComponent(keyDownComp);
     	
     	e1.addComponent(new YAccelComponent(GRAVITY));
     	e1.addComponent(new DefaultYVelComponent(JUMP_VELOCITY));
@@ -211,10 +230,15 @@ public class CollisionTest extends Application {
     	
     	e3.addComponent(new CollidableComponent("true"));
     	e3.addComponent(new PassableComponent("true"));
-
-        e.addEntity(e2);
-        e.addEntity(e3);
-        e.addEntity(e1);
+    	
+    	Level asdf = new Level();
+    	asdf.addEntity(e2);
+    	asdf.addEntity(e1);
+    	asdf.addEntity(e3);
+    	
+    	List<Level> levels = new ArrayList<Level>();
+    	levels.add(asdf);
+    	e = new Engine(levels, asdf);
     }
 
     private void initRects(){
