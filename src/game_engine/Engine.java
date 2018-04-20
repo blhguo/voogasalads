@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+import game_engine.systems.HealthSystem;
 import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
@@ -28,14 +30,18 @@ import javafx.scene.input.InputEvent;
  */
 public class Engine {
 
-	private List<Entity> myEntities = new ArrayList<>();
 	private List<GameSystem> mySystems = new ArrayList<>();
 	private LinkedList<InputEvent> myInputs = new LinkedList<>();
+	
+	private List<Level> myLevels;
+	private Level myCurrentLevel;
 
 	/**
 	 * Instantiates a new Engine object.
 	 */
-	public Engine() {
+	public Engine(List<Level> levels, Level startingLevel) {
+		myLevels = levels;
+		myCurrentLevel = startingLevel;
 		mySystems.add(new PositionSystem(this));
 		mySystems.add(new VelocitySystem(this));
 		mySystems.add(new LeftKeyboardMovementSystem(this));
@@ -44,6 +50,18 @@ public class Engine {
 		mySystems.add(new InputGarbageCollectionSystem(this));
 		mySystems.add(new CollisionBroadSystem(this));
 		mySystems.add(new CollisionResponseSystem(this));
+		mySystems.add(new HealthSystem(this));
+	}
+	
+	public void setLevel(Level level){
+		myCurrentLevel = level;
+	}
+	
+	/**
+	 * possible future thing to worry about is conditional rendering for efficiency purposes
+	 */
+	private void conditionRendering(){
+		
 	}
 
 	/**
@@ -65,7 +83,16 @@ public class Engine {
 	 * @return List<Entity>
 	 */
 	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
-		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
+		return StreamSupport.stream(myCurrentLevel.getEntities().spliterator(), false).filter(e -> e.hasAll(args)).collect(Collectors.toList());
+	}
+	
+	/**
+	 * @param entities
+	 * @param args
+	 * @return
+	 */
+	public List<Entity> getEntitiesContaining(List<Entity> entities, List<Class<? extends Component<?>>> args) {
+		return entities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
 
 	/**
@@ -75,7 +102,17 @@ public class Engine {
 	 * @return List<Entity>
 	 */
 	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
-		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
+		return StreamSupport.stream(myCurrentLevel.getEntities().spliterator(), false).filter(e -> e.hasAny(args)).collect(Collectors.toList());
+	}
+	
+
+	/**
+	 * @param entities
+	 * @param args
+	 * @return
+	 */
+	public List<Entity> getEntitiesContainingAny(List<Entity> entities, List<Class<? extends Component<?>>> args) {
+		return entities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
 
 	/**
@@ -102,7 +139,7 @@ public class Engine {
 	 * @param e the e
 	 */
 	public void addEntity(Entity e) {
-		myEntities.add(e);
+		myCurrentLevel.addEntity(e);
 	}
 
 	/**
@@ -112,7 +149,16 @@ public class Engine {
 	 */
 	public void addEntities(List<Entity> entities) {
 		for (Entity e : entities) {
-			myEntities.add(e);
+			myCurrentLevel.addEntity(e);
 		}
+	}
+	
+	/**
+	 * Adds the entity to the backend. This is used during the various instantiation phases.
+	 *
+	 * @param e the e
+	 */
+	public void removeEntity(Entity e) {
+		myCurrentLevel.remove(e);
 	}
 }
