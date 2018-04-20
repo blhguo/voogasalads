@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import game_engine.systems.HealthSystem;
 import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
@@ -49,6 +50,7 @@ public class Engine {
 		mySystems.add(new InputGarbageCollectionSystem(this));
 		mySystems.add(new CollisionBroadSystem(this));
 		mySystems.add(new CollisionResponseSystem(this));
+		mySystems.add(new HealthSystem(this));
 	}
 	
 	public void setLevel(Level level){
@@ -83,6 +85,15 @@ public class Engine {
 	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
 		return StreamSupport.stream(myCurrentLevel.getEntities().spliterator(), false).filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
+	
+	/**
+	 * @param entities
+	 * @param args
+	 * @return
+	 */
+	public List<Entity> getEntitiesContaining(List<Entity> entities, List<Class<? extends Component<?>>> args) {
+		return entities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
+	}
 
 	/**
 	 * Gets the List<Entity> object containing all Entities with these Components.
@@ -92,6 +103,16 @@ public class Engine {
 	 */
 	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
 		return StreamSupport.stream(myCurrentLevel.getEntities().spliterator(), false).filter(e -> e.hasAny(args)).collect(Collectors.toList());
+	}
+	
+
+	/**
+	 * @param entities
+	 * @param args
+	 * @return
+	 */
+	public List<Entity> getEntitiesContainingAny(List<Entity> entities, List<Class<? extends Component<?>>> args) {
+		return entities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
 
 	/**
