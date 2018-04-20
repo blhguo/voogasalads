@@ -3,6 +3,7 @@ package authoring;
 import authoring.GUI_Heirarchy.GUINode;
 import game_engine.Entity;
 import javafx.geometry.Insets;
+import javafx.scene.ParallelCamera;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -14,7 +15,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
+import user_interface.GameCamera;
 import java.util.Map;
 
 
@@ -30,7 +31,7 @@ import authoring.controllers.EntityController;
 
 public class Canvas implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
-
+	private ParallelCamera cam;
 	private Pane pane;
 	private EntityController controller;
 	
@@ -49,6 +50,8 @@ public class Canvas implements GUINode {
 	public Pane getView(){
 		pane = new Pane();
 		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		//cam = new GameCamera();
+		//subScene.setCamera(cam.initCamera());
 		return pane;
 
 	}
