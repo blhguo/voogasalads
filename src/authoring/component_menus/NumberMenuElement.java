@@ -17,7 +17,7 @@ public class NumberMenuElement extends MenuElement{
 		setMyComponent(component);
 		field = new TextField();
 		if (!(component.getValue() instanceof Double)) {
-			System.out.println("That's not a Double!");
+			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
 			if (component.getValue() instanceof Integer){
 				component.setValue(((Integer) component.getValue()).doubleValue());
 			}

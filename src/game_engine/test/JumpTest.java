@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.components.PositionComponent;
-import game_engine.systems.MovementSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

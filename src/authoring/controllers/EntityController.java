@@ -125,7 +125,7 @@ public class EntityController {
 		ComponentMenu menu = (ComponentMenu) menuMap.get(ent).stream().filter(e -> e.getType().equals("Position"))
 				.collect(Collectors.toList()).get(0);
 		menuMap.get(ent).remove(menu);
-		String[] arr = {"xPos,d," + x, "yPos,d," + y, "Angle,d,0.0"};
+		String[] arr = {"XPos,d," + x, "YPos,d," + y, "Angle,d,0.0"};
 		menu = new ComponentMenuFactory().newComponentMenu(arr, "Position");
 		menuMap.get(ent).add(menu);
 		UpdateMenus(iv, ent);
