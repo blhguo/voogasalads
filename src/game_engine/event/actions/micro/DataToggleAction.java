@@ -1,4 +1,4 @@
-package game_engine.event.actions;
+package game_engine.event.actions.micro;
 
 import game_engine.Component;
 import game_engine.Entity;
