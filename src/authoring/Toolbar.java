@@ -1,7 +1,8 @@
 package authoring;
 
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
+import authoring.GUI_Heirarchy.GUINode;
+import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

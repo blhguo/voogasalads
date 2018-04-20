@@ -1,16 +1,14 @@
 package main;
 
 import authoring.AuthoringEnvironment;
-import authoring.GUIGridPaneSuper;
 import authoring.GameChooserScreen;
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
+import authoring.GUI_Heirarchy.GUIGridPaneSuper;
+import frontend_utilities.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
