@@ -12,6 +12,7 @@ import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.physics.DefaultYVelComponent;
 import game_engine.components.physics.YVelComponent;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -58,7 +59,7 @@ public class KeyboardJumpSystem extends GameSystem{
 					continue;
 				}
 				KeyEvent key = (KeyEvent) input;
-				int currNumberJumps = Integer.parseInt(jumpInput.getValue());
+				int currNumberJumps = numJumps.getValue();
 				boolean correctKey = jumpInput.getValue().equals(key.getCode());
 				if(correctKey && currNumberJumps != 0){
 					double changedVel = defaultYVel.getValue();

@@ -11,6 +11,7 @@ import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.XVelComponent;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 

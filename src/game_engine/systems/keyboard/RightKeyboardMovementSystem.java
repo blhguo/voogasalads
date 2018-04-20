@@ -11,6 +11,7 @@ import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.XVelComponent;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
@@ -48,6 +49,7 @@ public class RightKeyboardMovementSystem extends GameSystem{
 					// add horiz vector to MovementRequests
 					xVel.setValue(0.0);
 				}
+				
 			}
 		}
 	}

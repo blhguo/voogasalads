@@ -67,6 +67,15 @@ public class Engine {
 	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
+	
+	/**
+	 * @param entities
+	 * @param args
+	 * @return
+	 */
+	public List<Entity> getEntitiesContaining(List<Entity> entities, List<Class<? extends Component<?>>> args) {
+		return entities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
+	}
 
 	/**
 	 * Gets the List<Entity> object containing all Entities with these Components.
@@ -76,6 +85,16 @@ public class Engine {
 	 */
 	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
+	}
+	
+
+	/**
+	 * @param entities
+	 * @param args
+	 * @return
+	 */
+	public List<Entity> getEntitiesContainingAny(List<Entity> entities, List<Class<? extends Component<?>>> args) {
+		return entities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
 
 	/**
