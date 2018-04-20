@@ -31,6 +31,8 @@ import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
+import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
+import game_engine.systems.keyboard.RightKeyboardMovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -75,6 +77,8 @@ public class CollisionTest extends Application {
     private KeyboardJumpSystem keyboardJumpSys;
     private InputGarbageCollectionSystem inputGarbageCollectionSystem;
     private CollisionResponseSystem colResponseSys;
+    private LeftKeyboardMovementSystem leftKeySys;
+    private RightKeyboardMovementSystem rightKeySys;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -100,6 +104,8 @@ public class CollisionTest extends Application {
     	posSys.act(elapsedTime);
 		velSys.act(elapsedTime);
 		keyboardJumpSys.act(elapsedTime); //update jump
+		leftKeySys.act(elapsedTime);
+		rightKeySys.act(elapsedTime);
 		inputGarbageCollectionSystem.act(elapsedTime);
 
         updateRectPos();
@@ -113,6 +119,8 @@ public class CollisionTest extends Application {
         colSys = new CollisionBroadSystem(e);
         posSys = new PositionSystem(e);
         velSys = new VelocitySystem(e);
+        leftKeySys = new LeftKeyboardMovementSystem(e);
+        rightKeySys = new RightKeyboardMovementSystem(e);
         inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
         
         root = new Group();
