@@ -8,7 +8,6 @@ import game_engine.Entity;
 import game_engine.components.DamageComponent;
 import game_engine.components.HealthComponent;
 import game_engine.components.collision.CollidableComponent;
-import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
