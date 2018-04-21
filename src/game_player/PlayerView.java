@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import user_interface.GameCamera;
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.position.XPosComponent;
@@ -15,7 +16,6 @@ import game_engine.components.sprite.WidthComponent;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -43,16 +43,17 @@ public class PlayerView {
 	private Engine myEngine;
 	private Map<ImageView, Entity> spriteMap;
 	private Group root;
-	private Camera cam;
 	private ViewManager viewManager;
 	private SubScene subScene;
+	private GameCamera cam;
 
-	/**
-	 * @param pdf
-	 * @param engine
-	 * @param view constructor for PlayerView
-	 *
-	 */
+/**
+ * @param pdf
+ * @param engine
+ * @param view
+ * constructor for PlayerView
+ *
+ */
 	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
 		pullDownFactory = pdf;
 		myEngine = engine;
@@ -74,9 +75,8 @@ public class PlayerView {
 
 		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-
-		cam = new ParallelCamera();
-		subScene.setCamera(cam);
+		cam = new GameCamera();
+		subScene.setCamera(cam.initCamera());
 		List<Level> levels = pullDownFactory.getLevels();
 
 		spriteMap = new HashMap<ImageView, Entity>();
@@ -129,13 +129,9 @@ public class PlayerView {
 			imageView.setX(xPos - width / 2);
 			imageView.setY(yPos - height / 2);
 		}
-		
-		// assumes only one entity with the keyboard component
-		Entity entity = myEngine.getLevel().getEntitiesContaining(Arrays.asList(XPosComponent.class, YPosComponent.class)).get(0);
-		Double xPos = entity.getComponent(XPosComponent.class).getValue();
-		Double yPos = entity.getComponent(YPosComponent.class).getValue();
-		cam.setLayoutX(xPos - SCENE_SIZE / 2);
-		cam.setLayoutY(yPos - SCENE_SIZE / 2);
+		List<Entity> entity = myEngine.getEntitiesContaining(Arrays.asList(KeyboardMovementInputComponent.class));
+		PositionComponent position = (PositionComponent) entity.get(0).getComponent(PositionComponent.class);
+		cam.setCamera(position.getX() - SCENE_SIZE / 2, position.getY() - SCENE_SIZE / 2);
 	}
 
 	/**

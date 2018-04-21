@@ -22,7 +22,7 @@ public class Level {
 	private List<Event> myEvents;
 	private int myId;
 	
-	public Level(int id){
+	public Level(int id) {
 		myId = id;
 	}
 	
@@ -33,7 +33,6 @@ public class Level {
 	 * @return List<Entity>
 	 */
 	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
-	
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
 	
@@ -105,19 +104,19 @@ public class Level {
 		}
 	}
 	
-	public void addLevelAttribute(LevelAttribute<?> attribute){
+	public void addLevelAttribute(LevelAttribute<?> attribute ){
 		myAttributes.put(attribute.getClass(), attribute);
 	}
 	
-	public int getId(){
+	public int getId() {
 		return myId;
 	}
 	
-	public void addEvent(Event event){
+	public void addEvent(Event event) {
 		myEvents.add(event);
 	}
 	
-	public void removeEvent(Event event){
+	public void removeEvent(Event event) {
 		myEvents.remove(event);
 	}
 

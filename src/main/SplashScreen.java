@@ -1,9 +1,10 @@
 package main;
 
 import authoring.AuthoringEnvironment;
-import authoring.GUIGridPaneSuper;
 import authoring.GameChooserScreen;
 import authoring.utilities.ButtonFactory;
+import authoring.GUI_Heirarchy.GUIGridPaneSuper;
+import frontend_utilities.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
