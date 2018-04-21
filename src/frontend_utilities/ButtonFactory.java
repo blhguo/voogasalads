@@ -1,4 +1,4 @@
-package authoring.utilities;
+package frontend_utilities;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -99,6 +99,13 @@ public class ButtonFactory {
 		retButton.setOnAction(handler);
 		retButton.getStyleClass().add(styleclass);
 		return retButton;
+	}
+
+	public static HBox makeLittleHBox(String delete_entity, Object o, Button removeButton) {
+		removeButton.setMaxHeight(10);
+		HBox ret = makeHBox(delete_entity, (String) o, removeButton);
+		ret.setMaxHeight(10);
+		return ret;
 	}
 
 }

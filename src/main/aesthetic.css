@@ -117,6 +117,7 @@
 .titled-pane > *.content {
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-stroke: rgba(0,0,0,0.5);
+    -fx-border-color: rgba(0, 0, 0, 0);
 }
 
 .titled-pane > .title > .arrow-button{

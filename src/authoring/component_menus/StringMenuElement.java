@@ -1,6 +1,6 @@
 package authoring.component_menus;
 
-import authoring.utilities.ButtonFactory;
+import frontend_utilities.ButtonFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
