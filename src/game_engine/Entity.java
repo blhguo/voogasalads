@@ -51,7 +51,7 @@ public class Entity {
 	 * @see game_engine.EntityInterface#getComponents()
 	 */
 	public List<Component<?>> getComponents() {
-		return myComponents.keySet().stream().map(comp -> myComponents.get(comp)).collect(Collectors.toList());
+		return myComponents.values().stream().collect(Collectors.toList());
 	}
 
 	/* (non-Javadoc)
