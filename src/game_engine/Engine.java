@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -15,7 +14,7 @@ public class Engine {
 	private int myCurrentLevel;
 	private int myIdCounter;
 	private List<GameSystem> mySystems;
-	private LinkedList<InputEvent> myInputs;
+	private LinkedList<KeyEvent> myInputs;
 
 	public Engine() {
 		myLevels = new HashMap<Integer, Level>();
@@ -30,10 +29,10 @@ public class Engine {
 		}
 
 		currentLevel.checkEvents();
-		
+
 		myInputs.clear();
 	}
-	
+
 	public Level createLevel(){
 		Level createdLevel = new Level(myIdCounter);
 		myLevels.put(myIdCounter, createdLevel);
@@ -42,7 +41,7 @@ public class Engine {
 	}
 	
 	public void removeLevel(int id){
-		myLevels.remove(myLevels.get(id));
+		myLevels.remove(id);
 	}
 
 	public Level getLevel() {
@@ -53,9 +52,9 @@ public class Engine {
 		myCurrentLevel = dex;
 	}
 
-	public List<InputEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().map(input -> (KeyEvent) input)
-				.filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode())).collect(Collectors.toList());
+	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
+		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+				.collect(Collectors.toList());
 	}
 
 	public void receiveInput(KeyEvent event) {

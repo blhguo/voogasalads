@@ -117,7 +117,7 @@ public class Level {
 	
 	// public Level removeEvent()
 	
-	
+
 
 //	public void setThumb(String filepath) {
 //		this.thumbPath = filepath;
