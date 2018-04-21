@@ -1,13 +1,5 @@
 package game_engine.test;
 
-import java.util.Arrays;
-import java.util.List;
-
-import game_engine.Component;
-import game_engine.Entity;
-import game_engine.components.HealthComponent;
-import game_engine.components.NumberOfJumpsAllowedComponent;
-
 public class GenericsTest {
 	
 	public static void main(String[] args) {
