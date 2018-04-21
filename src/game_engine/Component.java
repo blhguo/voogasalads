@@ -1,5 +1,7 @@
 package game_engine;
 
+import game_engine.components.Authoring;
+
 public abstract class Component<T> {
 	private T myValue;
 	public Component(T val) {
@@ -10,8 +12,8 @@ public abstract class Component<T> {
 		myValue = val;
 	}
 	
-	public T getValue(){
+	@Authoring
+	public T getValue() {
 		return myValue;
 	}
 }
-

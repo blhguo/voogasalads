@@ -19,6 +19,6 @@ public class LeftKeyboardMovementSystem extends KeyboardMovementSystem{
 
 	@Override
 	protected int getDirection() {
-		return 1;
+		return -1;
 	}
 }

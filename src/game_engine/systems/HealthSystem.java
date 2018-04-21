@@ -40,8 +40,8 @@ public class HealthSystem extends GameSystem {
 		//Loops through entities with HealthComponent AND one of the Collided Components
 		List<Class<? extends Component<?>>> collidedArgs = Arrays.asList(TOP, BOTTOM, RIGHT, LEFT);
 		List<Entity> collidedEntities = level.getEntitiesContainingAny(healthyEntities, collidedArgs);
-		
-		
+
+				
 		for (Entity e : collidedEntities) {
 			Component<Double> myHealth = e.getComponent(HealthComponent.class);
 			Component<List<Entity>> topCollision = e.getComponent(TopCollidedComponent.class);
@@ -50,10 +50,18 @@ public class HealthSystem extends GameSystem {
 			Component<List<Entity>> leftCollision = e.getComponent(LeftCollidedComponent.class);
 			
 			List<Entity> combinedList = new ArrayList<Entity>();
-			combinedList.addAll(topCollision.getValue());
-			combinedList.addAll(bottomCollision.getValue());
-			combinedList.addAll(rightCollision.getValue());
-			combinedList.addAll(leftCollision.getValue());
+			if (topCollision != null) {
+				combinedList.addAll(topCollision.getValue());
+			}
+			if (bottomCollision != null) {
+				combinedList.addAll(bottomCollision.getValue());
+			}
+			if (rightCollision != null) {
+				combinedList.addAll(rightCollision.getValue());
+			}
+			if (leftCollision != null) {
+				combinedList.addAll(leftCollision.getValue());
+			}
 			
 			for (Entity e2 : combinedList) {
 				if (e2.hasAll(Arrays.asList(DamageComponent.class))) {
