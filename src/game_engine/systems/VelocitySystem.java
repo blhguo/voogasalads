@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import game_engine.Component;
-import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
+import game_engine.Level;
 import game_engine.components.physics.XAccelComponent;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YAccelComponent;
@@ -18,17 +18,9 @@ public class VelocitySystem extends GameSystem {
 	private static final Class<? extends Component<Double>> Y_ACCEL = YAccelComponent.class;
 	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
 
-	/**
-	 * Creates a new instance of the MovementSystem class
-	 * @param engine
-	 */
-	public VelocitySystem(Engine engine) {
-		super(engine);
-	}
-
-	public void act(double elapsedTime) {
+	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(X_ACCEL, X_VEL, Y_ACCEL, Y_VEL);
-		for (Entity e : getEngine().getEntitiesContaining(args)) {
+		for (Entity e : level.getEntitiesContaining(args)) {
 			Component<Double> xVel = e.getComponent(X_VEL);
 			Component<Double> yVel = e.getComponent(Y_VEL);
 			double xAccel = e.getComponent(X_ACCEL).getValue();

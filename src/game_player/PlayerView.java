@@ -8,8 +8,6 @@ import java.util.Map;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Level;
-import game_engine.components.keyboard.LeftKeyboardComponent;
-import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
@@ -24,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -41,11 +38,10 @@ public class PlayerView {
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
 	private static final double SCENE_SIZE = 500;
+	
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-
 	private Map<ImageView, Entity> spriteMap;
-	private Stage myStage;
 	private Group root;
 	private Camera cam;
 	private ViewManager viewManager;
@@ -72,7 +68,6 @@ public class PlayerView {
 		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
 		scene.setOnKeyPressed(e -> {
-
 			myEngine.receiveInput(e);
 		});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
@@ -83,12 +78,9 @@ public class PlayerView {
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		List<Level> levels = pullDownFactory.getLevels();
-		for (Entity e : levels.get(0).getEntities()) {
-			myEngine.addEntity(e);
-		}
 
 		spriteMap = new HashMap<ImageView, Entity>();
-		List<Entity> spriteEntities = myEngine
+		List<Entity> spriteEntities = levels.get(0)
 				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
 			String imageName = e.getComponent(FilenameComponent.class).getValue();
@@ -137,8 +129,9 @@ public class PlayerView {
 			imageView.setX(xPos - width / 2);
 			imageView.setY(yPos - height / 2);
 		}
+		
 		// assumes only one entity with the keyboard component
-		Entity entity = myEngine.getEntitiesContaining(Arrays.asList(LeftKeyboardComponent.class, RightKeyboardComponent.class)).get(0);
+		Entity entity = myEngine.getLevel().getEntitiesContaining(Arrays.asList(XPosComponent.class, YPosComponent.class)).get(0);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		cam.setLayoutX(xPos - SCENE_SIZE / 2);

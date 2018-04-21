@@ -1,164 +1,59 @@
 package game_engine;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import game_engine.systems.HealthSystem;
-import game_engine.systems.InputGarbageCollectionSystem;
-import game_engine.systems.PositionSystem;
-import game_engine.systems.VelocitySystem;
-import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
-import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
-import game_engine.systems.keyboard.RightKeyboardMovementSystem;
+import game_engine.event.Event;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-
-/**
- * The Class Engine.
- *
- * @author benhubsch, Kevin Deng, Jeremy Chen, Andy Nguyen
- * 
- *         This class is the main logic distributor of the backend. It receives user input from the
- *         Game Player and also handles the GameSystem update looping, which happens every time our
- *         game loops in Game Player. Lastly, it exposes methods that allow the GameSystem objects
- *         easy access to the Entity objects they need to do their work.
- */
 public class Engine {
-
-	private List<GameSystem> mySystems = new ArrayList<>();
-	private LinkedList<InputEvent> myInputs = new LinkedList<>();
-	
 	private List<Level> myLevels;
-	private Level myCurrentLevel;
+	private int myLevelDex;
+	private List<GameSystem> mySystems;
+	private List<Event> myEvents;
+	private LinkedList<InputEvent> myInputs;
 
-	/**
-	 * Instantiates a new Engine object.
-	 */
-	public Engine(List<Level> levels, Level startingLevel) {
+	public Engine(List<Level> levels) {
 		myLevels = levels;
-		myCurrentLevel = startingLevel;
-		mySystems.add(new PositionSystem(this));
-		mySystems.add(new VelocitySystem(this));
-		mySystems.add(new LeftKeyboardMovementSystem(this));
-		mySystems.add(new RightKeyboardMovementSystem(this));
-		mySystems.add(new KeyboardJumpSystem(this));
-		mySystems.add(new InputGarbageCollectionSystem(this));
-		mySystems.add(new CollisionBroadSystem(this));
-		mySystems.add(new CollisionResponseSystem(this));
-		mySystems.add(new HealthSystem(this));
-	}
-	
-	public void setLevel(Level level){
-		myCurrentLevel = level;
-	}
-	
-	/**
-	 * possible future thing to worry about is conditional rendering for efficiency purposes
-	 */
-	private void conditionRendering(){
-		
+		myLevelDex = 0;
 	}
 
-	/**
-	 * Allows each of the GameSystems to update the entities that contain the Components that the
-	 * GameSystem is looking for.
-	 *
-	 * @param elapsedTime the elapsed time
-	 */
 	public void update(double elapsedTime) {
 		for (GameSystem system : mySystems) {
-			system.act(elapsedTime);
+			system.act(elapsedTime, myLevels.get(myLevelDex));
 		}
-	}
 
-	/**
-	 * Gets the List<Entity> object containing all Entities with only these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
-		return StreamSupport.stream(myCurrentLevel.getEntities().spliterator(), false).filter(e -> e.hasAll(args)).collect(Collectors.toList());
-	}
-	
-	/**
-	 * @param entities
-	 * @param args
-	 * @return
-	 */
-	public List<Entity> getEntitiesContaining(List<Entity> entities, List<Class<? extends Component<?>>> args) {
-		return entities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
-	}
-
-	/**
-	 * Gets the List<Entity> object containing all Entities with these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
-		return StreamSupport.stream(myCurrentLevel.getEntities().spliterator(), false).filter(e -> e.hasAny(args)).collect(Collectors.toList());
-	}
-	
-
-	/**
-	 * @param entities
-	 * @param args
-	 * @return
-	 */
-	public List<Entity> getEntitiesContainingAny(List<Entity> entities, List<Class<? extends Component<?>>> args) {
-		return entities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
-	}
-
-	/**
-	 * Receives input from Game Player.
-	 *
-	 * @param input the input
-	 */
-	public void receiveInput(InputEvent input) {
-		myInputs.addFirst(input);
-	}
-
-	/**
-	 * Gets the List<InputEvent> object, which some of the Systems use to act on their Entity objects.
-	 *
-	 * @return List<InputEvent>
-	 */
-	public List<InputEvent> getInput() {
-		return myInputs;
-	}
-
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param e the e
-	 */
-	public void addEntity(Entity e) {
-		myCurrentLevel.addEntity(e);
-	}
-
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param entities the entities
-	 */
-	public void addEntities(List<Entity> entities) {
-		for (Entity e : entities) {
-			myCurrentLevel.addEntity(e);
+		for (Event event : myEvents) {
+			event.occur();
 		}
 	}
 	
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param e the e
-	 */
-	public void removeEntity(Entity e) {
-		myCurrentLevel.remove(e);
+	// public Level addLevel()
+	
+	// public Level removeLevel()
+	
+	// public Level addEvent()
+	
+	// public Level removeEvent()
+
+	public Level getLevel() {
+		return myLevels.get(myLevelDex);
 	}
+
+	public void setLevel(int dex) {
+		myLevelDex = dex;
+	}
+
+	public List<InputEvent> getInput(Component<KeyCode> keyInput) {
+		return myInputs.stream().map(input -> (KeyEvent) input)
+				.filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode())).collect(Collectors.toList());
+	}
+
+	public void receiveInput(KeyEvent event) {
+		myInputs.add(event);
+	}
+
 }
