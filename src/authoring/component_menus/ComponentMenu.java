@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring.controllers.EntityController;
+import authoring.right_components.EntityComponent.EntityPane;
 import game_engine.Component;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
@@ -22,6 +24,12 @@ public class ComponentMenu extends VBox implements Comparable{
 	private List<MenuElement> elements;
 	private String myType;
 	private boolean included;
+
+	public void setMyPane(EntityPane myPane) {
+		this.myPane = myPane;
+	}
+
+	private EntityPane myPane;
 	public ComponentMenu(String type){
 		myType = type;
 		elements = new ArrayList<>();
@@ -56,7 +64,9 @@ public class ComponentMenu extends VBox implements Comparable{
 	public boolean isIncluded(){
 		return included;
 	}
-
+	public void setComponentParent(){
+		elements.stream().forEach(e -> e.setMyMenu(this));
+	}
 	/**
 	 *
 	 * @return the list of all menuElements
@@ -111,5 +121,9 @@ public class ComponentMenu extends VBox implements Comparable{
 	@Override
 	public int compareTo(Object o) {
 		return this.getType().compareTo(o.toString());
+	}
+
+	public void alert() {
+		myPane.updateEntity();
 	}
 }

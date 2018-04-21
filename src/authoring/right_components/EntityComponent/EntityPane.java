@@ -14,8 +14,10 @@ import authoring.right_components.BasePane;
 
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
+import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
@@ -65,6 +67,7 @@ public class EntityPane extends BasePane {
 	@Override
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
+        box.setPadding(new Insets(10,10,10,10));
 		box.getChildren().add(getStack());
 		newbox = new VBox();
 		newbox.getChildren().addAll(getButtonArray());
@@ -122,7 +125,7 @@ public class EntityPane extends BasePane {
 
 	}
 
-	private void updateEntity() {
+	public void updateEntity() {
 		deleteButton.fire();
 		createButton.fire();
 		backButton.fire();
@@ -149,6 +152,8 @@ public class EntityPane extends BasePane {
 		List<ComponentMenu> list;
 		list = new ComponentMenuFactory().getDefaultMenus();
 		//list.stream().forEach(e -> e.getComponentList().stream().forEach(ev -> System.out.println(ev)));
+		list.stream().forEach(e -> e.setMyPane(this));
+		//list.stream().forEach(e -> e.setComponentParent());
 		return list;
 	}
 
@@ -177,8 +182,11 @@ public class EntityPane extends BasePane {
 		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
 			for (MenuElement element : menu.getElements()) {
-				if (menu.isIncluded())
+				if (menu.isIncluded()) {
+					element.setMyComponent(new ComponentFactory().createComponent(element.getTitle(),
+							element.getValue()));
 					entity.addComponent(element.getComponent());
+				}
 			}
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
@@ -219,6 +227,7 @@ public class EntityPane extends BasePane {
 		//controller.getMenuComponents(entity).stream().forEach(e -> System.out.println(e));
 		//System.out.println(entity);
 		menuList = new ArrayList<>(controller.getMenuComponents(entity));
+		menuList.stream().forEach(e -> e.setMyPane(this));
 		//menuList.stream().forEach(e -> System.out.println(e));
 		//Collections.sort(menuList);
 		accordion.getPanes().addAll(menuList.stream().map(e -> e.getTitledPane()).collect(Collectors.toList()));

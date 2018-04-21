@@ -2,16 +2,19 @@ package authoring.component_menus;
 
 import game_engine.Component;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import observables.Listener;
+import observables.Subject;
 
 /**
  * @author liampulsifer
  * Defines an Element of a ComponentMenu
  * Which creates an input field of the correct type based on a Component's parameters
  */
-public abstract class MenuElement {
-	private Component myComponent;
+public abstract class MenuElement{
+	protected ComponentMenu myMenu;
+	protected Component myComponent;
 
 	/**
 	 *
@@ -37,5 +40,18 @@ public abstract class MenuElement {
 	}
 	public void setMyComponent(Component c){
 		myComponent = c;
+	}
+
+	public abstract void updateComponent(KeyCode code, String text);
+	public void alert(){
+		myMenu.alert();
+	};
+
+	public ComponentMenu getMyMenu() {
+		return myMenu;
+	}
+
+	public void setMyMenu(ComponentMenu myMenu) {
+		this.myMenu = myMenu;
 	}
 }

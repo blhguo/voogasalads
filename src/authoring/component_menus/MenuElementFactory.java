@@ -3,6 +3,8 @@ package authoring.component_menus;
 import game_engine.Component;
 import game_engine.ComponentFactory;
 
+import java.awt.*;
+
 /**
  * @author liampulsifer
  * Creates MenuElements given their Name, Type, and Value
@@ -19,7 +21,7 @@ public class MenuElementFactory {
 	 * @param entry -- an array with 3 elements, ElementName, Type, and value
 	 * @return A new MenuElement with the correct type and value
 	 */
-	public MenuElement getElement(String[] entry){
+	public MenuElement getElement(String[] entry, ComponentMenu menu){
 		this.entry = entry;
 		factory = new ComponentFactory();
 		MenuElement ret;
@@ -32,6 +34,7 @@ public class MenuElementFactory {
 		else {
 			ret = handleString();
 		}
+		ret.setMyMenu(menu);
 		return ret;
 	}
 

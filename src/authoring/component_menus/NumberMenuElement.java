@@ -4,6 +4,7 @@ import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 /**
  * @author liampulsifer
@@ -23,6 +24,7 @@ public class NumberMenuElement extends MenuElement{
 			}
 		}
 		field.setText(Double.toString((Double) component.getValue()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
 		this.title = title;
 		view = ButtonFactory.makeHBox(title, null, field);
 	}
@@ -52,6 +54,20 @@ public class NumberMenuElement extends MenuElement{
 	@Override
 	public String getTitle() {
 		return title;
+	}
+
+	@Override
+	public void updateComponent(KeyCode code, String text) {
+		if (code.equals(KeyCode.ENTER)) {
+			try {
+				myComponent.setValue(Double.parseDouble(text));
+				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
+				alert();
+			} catch (NumberFormatException e) {
+				field.setText("Sorry, that's not a(n) " + title);
+				field.selectAll();
+			}
+		}
 	}
 
 }

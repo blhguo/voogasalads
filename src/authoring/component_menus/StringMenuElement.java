@@ -4,6 +4,7 @@ import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 /**
  * @author liampulsifer
@@ -18,6 +19,7 @@ public class StringMenuElement extends MenuElement{
 		field = new TextField();
 		field.setText((String) component.getValue());
 		this.title = title;
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
 		view = ButtonFactory.makeHBox(title, null, field);
 	}
 
@@ -46,5 +48,14 @@ public class StringMenuElement extends MenuElement{
 	@Override
 	public String getTitle() {
 		return title;
+	}
+
+	@Override
+	public void updateComponent(KeyCode code, String text) {
+		if (code.equals(KeyCode.ENTER)) {
+			myComponent.setValue(text);
+			alert();
+			System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
+		}
 	}
 }

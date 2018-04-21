@@ -4,6 +4,7 @@ import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.input.KeyCode;
 
 /**
  * @author liampulsifer
@@ -20,6 +21,7 @@ public class BooleanMenuElement extends MenuElement{
 			System.out.println("That's not a bool!");
 		}
 		box.setSelected((boolean) component.getValue());
+		box.setOnKeyPressed(e -> updateComponent(e.getCode(), Boolean.toString(box.isSelected())));
 		this.title = title;
 		view = ButtonFactory.makeHBox(title, null, box);
 	}
@@ -51,4 +53,16 @@ public class BooleanMenuElement extends MenuElement{
 		return title;
 	}
 
+	@Override
+	public void updateComponent(KeyCode code, String text) {
+		if (code.equals(KeyCode.ENTER)) {
+			try {
+				myComponent.setValue(Boolean.parseBoolean(text));
+				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
+				alert();
+			} catch (Exception e){
+				System.out.println("Sorry, that's not a boolean");
+			}
+		}
+	}
 }
