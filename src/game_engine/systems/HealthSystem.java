@@ -1,7 +1,7 @@
 package game_engine.systems;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import game_engine.Component;
@@ -10,12 +10,10 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.DamageComponent;
 import game_engine.components.HealthComponent;
-import game_engine.components.collision.edge_collided.TopCollidedComponent;
-import game_engine.components.position.XPosComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
-
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
 
 /**
  * This system manages each entity's health status 
@@ -25,7 +23,7 @@ import game_engine.components.collision.edge_collided.RightCollidedComponent;
  *
  */
 
-public class HealthSystem extends GameSystem{
+public class HealthSystem extends GameSystem {
 	
 	private static final Class<? extends Component<Double>> HEALTH = HealthComponent.class;
 	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;

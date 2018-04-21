@@ -5,15 +5,18 @@ import java.util.List;
 
 import game_engine.event.Event;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
 
-public class EngineController {
+public class GameLoop {
+	
+	private LinkedList<InputEvent> myInputs;
 	private List<GameSystem> mySystems;
 	private List<Event> myEvents;
-	private LevelManager myLevels;
+	private Engine myEngine;
 	
-	public EngineController(List<Class <? extends GameSystem>> systems, List<Event> events, LevelManager levelManager) {
+	public GameLoop(List<Class <? extends GameSystem>> systems, List<Event> events, Engine engine) {
 		myEvents = events;
-		myLevels = levelManager;
+		myEngine = engine;
 		// init systems
 	}
 	
@@ -24,6 +27,10 @@ public class EngineController {
 		for(Event event: myEvents) {
 			event.occur();
 		}
+	}
+
+	public void receiveInput(KeyEvent e) {
+		myInputs.add(e);
 	}
 	
 	

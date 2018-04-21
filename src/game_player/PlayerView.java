@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.GameLoop;
 import game_engine.Level;
-import game_engine.components.keyboard.LeftKeyboardComponent;
-import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
@@ -42,7 +40,7 @@ public class PlayerView {
 	private static final double HALF_RATE = 0.93;
 	private static final double SCENE_SIZE = 500;
 	private PulldownFactory pullDownFactory;
-	private Engine myEngine;
+	private GameLoop myGameLoop;
 
 	private Map<ImageView, Entity> spriteMap;
 	private Stage myStage;
@@ -57,9 +55,9 @@ public class PlayerView {
 	 * @param view constructor for PlayerView
 	 *
 	 */
-	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
+	public PlayerView(PulldownFactory pdf, GameLoop gameLoop, ViewManager view) {
 		pullDownFactory = pdf;
-		myEngine = engine;
+		myGameLoop = gameLoop;
 		viewManager = view;
 	}
 
@@ -72,23 +70,22 @@ public class PlayerView {
 		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
 		scene.setOnKeyPressed(e -> {
-
-			myEngine.receiveInput(e);
+			myGameLoop.receiveInput(e);
 		});
-		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		scene.setOnKeyReleased(e -> myGameLoop.receiveInput(e));
 
-		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		subScene.setOnKeyPressed(e -> myGameLoop.receiveInput(e));
+		subScene.setOnKeyReleased(e -> myGameLoop.receiveInput(e));
 
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		List<Level> levels = pullDownFactory.getLevels();
 		for (Entity e : levels.get(0).getEntities()) {
-			myEngine.addEntity(e);
+			myGameLoop.addEntity(e);
 		}
 
 		spriteMap = new HashMap<ImageView, Entity>();
-		List<Entity> spriteEntities = myEngine
+		List<Entity> spriteEntities = myGameLoop
 				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
 			String imageName = e.getComponent(FilenameComponent.class).getValue();
@@ -122,7 +119,7 @@ public class PlayerView {
 
 	private void step(double delay) {
 		animation.stop();
-		myEngine.update(delay);
+		myGameLoop.update(delay);
 		render();
 		handleUI();
 	}
@@ -137,8 +134,9 @@ public class PlayerView {
 			imageView.setX(xPos - width / 2);
 			imageView.setY(yPos - height / 2);
 		}
+		
 		// assumes only one entity with the keyboard component
-		Entity entity = myEngine.getEntitiesContaining(Arrays.asList(LeftKeyboardComponent.class, RightKeyboardComponent.class)).get(0);
+		Entity entity = myGameLoop.getEntitiesContaining(Arrays.asList(XPosComponent.class, YPosComponent.class)).get(0);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		cam.setLayoutX(xPos - SCENE_SIZE / 2);
