@@ -3,7 +3,7 @@ package authoring.component_menus;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.utilities.ButtonFactory;
+import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
@@ -36,7 +36,7 @@ public class CollidableMenu extends VBox  {
 		list.add(Boolean.toString(intersectable.isSelected()));
 		list.add(Boolean.toString(passable.isSelected()));
 		list.add(Boolean.toString(pushable.isSelected()));
-		return new CollidableComponent(list);
+		return new CollidableComponent(new String());
 	}
 
 	public Node getNode(){

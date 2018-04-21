@@ -34,17 +34,17 @@ public class ComponentMenuFactory {
 
 	/**
 	 *
-	 * @param attributes string array of possible attributes of the component. Each attribute contains a
+	 * @param attributes string array of possible attributes of the title. Each attribute contains a
 	 *                   comma-separated list of Attribute,Type,Default-value
-	 * @param component Name of component
+	 * @param title Name of title
 	 * @return
 	 */
-	public ComponentMenu newComponentMenu(String[] attributes, String component){
+	public ComponentMenu newComponentMenu(String[] attributes, String title){
 
-		ComponentMenu newMenu = new ComponentMenu(component);
+		ComponentMenu newMenu = new ComponentMenu(title);
 		for (String attr : attributes) {
 			String[] attrSplit = attr.split(ATTRIBUTE_DELIM);
-			newMenu.addMenuElement(factory.getElement(attrSplit));
+			newMenu.addMenuElement(factory.getElement(attrSplit, newMenu));
 		}
 		return newMenu;
 	}
@@ -53,7 +53,7 @@ public class ComponentMenuFactory {
 	 *
 	 * @return the list of ComponentMenus created in the default implementation
 	 */
-	public List<ComponentMenu> getMenus() {
+	public List<ComponentMenu> getDefaultMenus() {
 		return menuList;
 		//return menuList.stream().map(menu -> new TitledPane(menu.getType()0, menu)).collect(Collectors.toList());
 	}

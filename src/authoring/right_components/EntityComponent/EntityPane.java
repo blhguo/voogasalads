@@ -1,5 +1,6 @@
 package authoring.right_components.EntityComponent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,12 +8,16 @@ import java.util.stream.Collectors;
 
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
+import authoring.component_menus.MenuElement;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
-import authoring.utilities.ButtonFactory;
+
+import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
 import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
@@ -40,13 +45,16 @@ public class EntityPane extends BasePane {
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
 	private VBox newbox;
+	private Button deleteButton;
+	private Button backButton;
+	private List<EntityWrapper> entityList;
 
 	public EntityPane(){
 		createButtonArray = new ArrayList<>();
 		editButtonArray = new ArrayList<>();
 		menuList = makeMenuList();
 		Collections.sort(menuList);
-
+		backButton = ButtonFactory.makeButton(e -> resetAccordion());
 		ogmenuList = new ArrayList<>(menuList);
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
@@ -60,6 +68,7 @@ public class EntityPane extends BasePane {
 	@Override
 	public Pane getView() {
         box = buildBasicView("Entity Creator");
+        box.setPadding(new Insets(10,10,10,10));
 		box.getChildren().add(getStack());
 		newbox = new VBox();
 		newbox.getChildren().addAll(getButtonArray());
@@ -94,6 +103,9 @@ public class EntityPane extends BasePane {
 		list.add(accordion);
 		createButton = controller.getButton();
 		createButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		while(createButtonArray.size() > 1){
+			createButtonArray.remove(createButtonArray.size() - 1);
+		}
 		list.addAll(createButtonArray);
 		return list;
 	}
@@ -103,12 +115,21 @@ public class EntityPane extends BasePane {
 	 */
 	private void resetEditButtons(){
 		editButtonArray.clear();
-		editButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
-		Button button = ButtonFactory.makeButton(e -> resetAccordion());
-		editButtonArray.add(ButtonFactory.makeHBox("Back to new Entity Creation",
-				"Displaying current entity", button));
-		editButtonArray.add(ButtonFactory.makeHBox("Delete Entity", null, controller.getRemoveButton()));
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Update Entity", null,
+				ButtonFactory.makeButton(e -> updateEntity())));
+		createButton = controller.getButton();
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Create Entity", null, createButton));
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Back to new Entity Creation",
+				"Displaying current entity", backButton));
+		deleteButton = controller.getRemoveButton();
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Delete Entity", null, deleteButton));
 
+	}
+
+	public void updateEntity() {
+		deleteButton.fire();
+		createButton.fire();
+		backButton.fire();
 	}
 
 	/**
@@ -130,8 +151,10 @@ public class EntityPane extends BasePane {
 	 */
 	private List<ComponentMenu> makeMenuList(){
 		List<ComponentMenu> list;
-		list = new ComponentMenuFactory().getMenus();
+		list = new ComponentMenuFactory().getDefaultMenus();
 		//list.stream().forEach(e -> e.getComponentList().stream().forEach(ev -> System.out.println(ev)));
+		list.stream().forEach(e -> e.setMyPane(this));
+		//list.stream().forEach(e -> e.setComponentParent());
 		return list;
 	}
 
@@ -159,8 +182,13 @@ public class EntityPane extends BasePane {
 //		+ menu.getComponentList().size()));
 		//System.out.println("New Entity");
 		for(ComponentMenu menu : menuList){
-			if (menu.isIncluded())
-				new ComponentFactory().addComponent(entity, menu.getType(), menu.getComponentList());
+			for (MenuElement element : menu.getElements()) {
+				if (menu.isIncluded()) {
+					element.setMyComponent(new ComponentFactory().createComponent(element.getTitle(),
+							element.getValue()));
+					entity.addComponent(element.getComponent());
+				}
+			}
 		}
 		//menuList = ogmenuList.stream().map(e -> e).collect(Collectors.toList());
 		return entity;
@@ -187,16 +215,22 @@ public class EntityPane extends BasePane {
 	 * @param entity
 	 */
 	public void updateMenus(Entity entity) {
+		System.out.println("Entity at updateMenus in Entity Pane: " + entity);
 		accordion.getPanes().clear();
 		menuList.clear();
-		for (Component comp : entity.getComponents()){
-			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName());
-			add.Include();
-			menuList.add(add);
-			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
-		}
-		Collections.sort(menuList);
+//		for (Component comp : entity.getComponents()) {
+//			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
+//					comp.getValues().split(";"), comp.getName());
+//			add.Include();
+//			menuList.add(add);
+//			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
+//		}
+		//controller.getMenuComponents(entity).stream().forEach(e -> System.out.println(e));
+		//System.out.println(entity);
+		menuList = new ArrayList<>(controller.getMenuComponents(entity));
+		menuList.stream().forEach(e -> e.setMyPane(this));
+		//menuList.stream().forEach(e -> System.out.println(e));
+		//Collections.sort(menuList);
 		accordion.getPanes().addAll(menuList.stream().map(e -> e.getTitledPane()).collect(Collectors.toList()));
 
 //		menuList.stream().forEach(e -> System.out.println(e));
