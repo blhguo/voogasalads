@@ -36,13 +36,13 @@ public class HealthSystem extends GameSystem {
 		//Loops through entities with HealthComponent
 		List<Class<? extends Component<?>>> args = Arrays.asList(HEALTH);
 		List<Entity> healthyEntities = level.getEntitiesContaining(args);
-		
+
 		//Loops through entities with HealthComponent AND one of the Collided Components
 		List<Class<? extends Component<?>>> collidedArgs = Arrays.asList(TOP, BOTTOM, RIGHT, LEFT);
 		List<Entity> collidedEntities = level.getEntitiesContainingAny(healthyEntities, collidedArgs);
-
 				
 		for (Entity e : collidedEntities) {
+			System.out.println("REACHED HERE");
 			Component<Double> myHealth = e.getComponent(HealthComponent.class);
 			Component<List<Entity>> topCollision = e.getComponent(TopCollidedComponent.class);
 			Component<List<Entity>> bottomCollision = e.getComponent(BottomCollidedComponent.class);

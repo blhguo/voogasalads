@@ -35,14 +35,14 @@ public class Engine {
 		myInputs.clear();
 	}
 
-	public Level createLevel(){
+	public Level createLevel() {
 		Level createdLevel = new Level(myIdCounter);
 		myLevels.put(myIdCounter, createdLevel);
 		myIdCounter++;
 		return createdLevel;
 	}
-	
-	public void removeLevel(int id){
+
+	public void removeLevel(int id) {
 		myLevels.remove(id);
 	}
 
@@ -55,18 +55,14 @@ public class Engine {
 	}
 
 	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().filter(keyEvent -> 
-			keyInput.getValue().equals(keyEvent.getCode())
-			
-		)
-				.collect(Collectors.toList());
+		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode())).collect(Collectors.toList());
 	}
 
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
 	}
-	
-	//WROTE FOR TEMPORARY TESTING -- REMOVE LATER!!
+
+	// WROTE FOR TEMPORARY TESTING -- REMOVE LATER!!
 	public void clearInputs() {
 		myInputs.clear();
 	}
