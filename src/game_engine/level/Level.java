@@ -2,6 +2,7 @@ package game_engine.level;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.Component;
@@ -16,7 +17,7 @@ import game_engine.event.Event;
  *         level.
  */
 public class Level {
-
+	private Map<Class<?>, LevelAttribute<?>> myAttributes;
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<Event> myEvents;
 	private int myId;
@@ -103,12 +104,20 @@ public class Level {
 		}
 	}
 	
+	public void addLevelAttribute(LevelAttribute<?> attribute){
+		myAttributes.put(attribute.getClass(), attribute);
+	}
+	
 	public int getId(){
 		return myId;
 	}
 	
-	// public Level addEvent()
+	public void addEvent(Event event){
+		myEvents.add(event);
+	}
 	
-	// public Level removeEvent()
+	public void removeEvent(Event event){
+		myEvents.remove(event);
+	}
 
 }
