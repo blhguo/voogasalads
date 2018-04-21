@@ -17,6 +17,7 @@ public class Level {
 
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<Event> myEvents;
+	private int myId;
 //	private String myName;
 //	private String bgImage;
 //	private String musicPath;
@@ -25,6 +26,10 @@ public class Level {
 //	private boolean isInf;
 //	private String thumbPath;
 
+	
+	public Level(int id){
+		myId = id;
+	}
 	
 	/**
 	 * Gets the List<Entity> object containing all Entities with only these Components.
@@ -102,6 +107,10 @@ public class Level {
 		for (Event event : myEvents) {
 			event.occur();
 		}
+	}
+	
+	public int getId(){
+		return myId;
 	}
 	
 	// public Level addEvent()
