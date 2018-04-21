@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import game_engine.event.Event;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,7 +12,6 @@ public class Engine {
 	private List<Level> myLevels;
 	private int myLevelDex;
 	private List<GameSystem> mySystems;
-	private List<Event> myEvents;
 	private LinkedList<InputEvent> myInputs;
 
 	public Engine(List<Level> levels) {
@@ -22,22 +20,19 @@ public class Engine {
 	}
 
 	public void update(double elapsedTime) {
+		Level currentLevel = getLevel();
 		for (GameSystem system : mySystems) {
-			system.act(elapsedTime, myLevels.get(myLevelDex));
+			system.act(elapsedTime, currentLevel);
 		}
 
-		for (Event event : myEvents) {
-			event.occur();
-		}
+		currentLevel.checkEvents();
+		
+		myInputs.clear();
 	}
 	
 	// public Level addLevel()
 	
 	// public Level removeLevel()
-	
-	// public Level addEvent()
-	
-	// public Level removeEvent()
 
 	public Level getLevel() {
 		return myLevels.get(myLevelDex);
