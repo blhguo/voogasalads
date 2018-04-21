@@ -1,6 +1,5 @@
 package game_engine.systems;
 
-import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +7,12 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
+import game_engine.components.DamageComponent;
+import game_engine.components.collision.CollidableComponent;
+import game_engine.components.collision.hitbox.HitboxHeightComponent;
+import game_engine.components.collision.hitbox.HitboxWidthComponent;
+import game_engine.components.physics.XVelComponent;
+import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.projectile.ProjectileCollidableComponent;
@@ -20,6 +25,9 @@ import game_engine.components.projectile.ProjectileKeyboardInputComponent;
 import game_engine.components.projectile.ProjectileWidthComponent;
 import game_engine.components.projectile.ProjectileXVelComponent;
 import game_engine.components.projectile.ProjectileYVelComponent;
+import game_engine.components.sprite.FilenameComponent;
+import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.WidthComponent;
 import game_engine.level.Level;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
@@ -63,15 +71,17 @@ public class ProjectileSystem extends GameSystem {
 	
 	private void createProjectile(Entity entity, List<Class<? extends Component<?>>> args){
 		Entity projectile = new Entity();
-		for (Class<? extends Component<?>> clazz : args) {
-			Constructor<?> ctor;
-			try {
-				ctor = clazz.getDeclaredConstructor(new Class [] { String.class } );
-				projectile.addComponent((Component<?>) ctor.newInstance(entity.getComponent(clazz)));
-			} catch (Exception e) {
-				// Do nothing; projectile will simply not get added to screen.
-			}
-		}
+		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
+		projectile.addComponent(new XVelComponent(entity.getComponent(PROJ_XVEL).getValue().toString()));
+		projectile.addComponent(new WidthComponent(entity.getComponent(PROJ_WIDTH).getValue().toString()));
+		projectile.addComponent(new HeightComponent(entity.getComponent(PROJ_HEIGHT).getValue().toString()));
+		projectile.addComponent(new HitboxHeightComponent(entity.getComponent(PROJ_HITBOX_HEIGHT).getValue().toString()));
+		projectile.addComponent(new HitboxWidthComponent(entity.getComponent(PROJ_HITBOX_WIDTH).getValue().toString()));
+		projectile.addComponent(new DamageComponent(entity.getComponent(PROJ_DAMAGE).getValue().toString()));
+		projectile.addComponent(new CollidableComponent(entity.getComponent(PROJ_COLLIDABLE).getValue().toString()));
+		projectile.addComponent(new FilenameComponent(entity.getComponent(PROJ_FILENAME).getValue().toString()));
+		projectile.addComponent(new XPosComponent(entity.getComponent(ENTITY_XPOS).getValue().toString()));
+		projectile.addComponent(new YPosComponent(entity.getComponent(ENTITY_YPOS).getValue().toString()));
 	}
 
 }
