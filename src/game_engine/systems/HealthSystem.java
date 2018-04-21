@@ -54,7 +54,6 @@ public class HealthSystem extends GameSystem {
 			combinedList.addAll(bottomCollision.getValue());
 			combinedList.addAll(rightCollision.getValue());
 			combinedList.addAll(leftCollision.getValue());
-
 			
 			for (Entity e2 : combinedList) {
 				if (e2.hasAll(Arrays.asList(DamageComponent.class))) {
