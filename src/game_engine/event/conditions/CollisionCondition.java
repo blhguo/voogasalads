@@ -2,7 +2,6 @@ package game_engine.event.conditions;
 
 import java.util.List;
 
-import game_engine.Component;
 import game_engine.Entity;
 import game_engine.components.collision.CollidedComponent;
 import game_engine.event.Condition;

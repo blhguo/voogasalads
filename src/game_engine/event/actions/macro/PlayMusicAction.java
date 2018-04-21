@@ -3,18 +3,16 @@ package game_engine.event.actions.macro;
 import game_engine.Engine;
 import game_engine.event.Action;
 
-public class LevelChangeAction implements Action{
+public class PlayMusicAction implements Action{
 	private Engine myEngine;
-	private int myChangeTo;
 	
-	public LevelChangeAction(Engine engine, int levelNum){
+	public PlayMusicAction(Engine engine){
 		myEngine = engine;
-		myChangeTo = levelNum;
 	}
 	
 	@Override
 	public void execute() {
-		myEngine.setLevel(myChangeTo);
+		//TODO figure out a way to play music!
 	}
 	
 }
