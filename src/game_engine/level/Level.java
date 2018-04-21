@@ -16,8 +16,7 @@ import game_engine.event.Event;
  *         This class is simply a convenient data structure to store the Entity objects in a given
  *         level.
  */
-public class Level {
-	private Map<Class<?>, LevelAttribute<?>> myAttributes;
+public class Level extends Entity{
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<Event> myEvents;
 	private int myId;
