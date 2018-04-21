@@ -26,6 +26,7 @@ import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -52,6 +53,7 @@ public class PlayerView {
 	private ViewManager viewManager;
 	private SubScene subScene;
 	private GameCamera cam;
+	private DataManager dataManager;
 
 /**
  * @param pdf
@@ -60,10 +62,11 @@ public class PlayerView {
  * constructor for PlayerView
  *
  */
-	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
+	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view, DataManager dtm) {
 		pullDownFactory = pdf;
 		myEngine = engine;
 		viewManager = view;
+		dataManager = dtm;
 	}
 
 
@@ -77,6 +80,7 @@ public class PlayerView {
 		root = viewManager.getSubRoot();
 		scene.setOnKeyPressed(e -> {
 
+			//myEngine.receiveInput(dataManager.getKeyCodeInput(e.getCode()));
 			myEngine.receiveInput(e);
 		});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
