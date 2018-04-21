@@ -280,7 +280,7 @@ public class CollisionTest extends Application {
     	//Add Health Component
     	e1.addComponent(new HealthComponent("1000")); //100 health points for e1
     	e3.addComponent(new HealthComponent("2000"));
-    	e3.addComponent(new DamageComponent("1")); //e3 does 1 damage
+    	e3.addComponent(new DamageComponent("100")); //e3 does 100 damage
     	
     	//Add Project Components to Entity e1
     	e1.addComponent(new ProjectileWidthComponent("20"));
