@@ -16,5 +16,5 @@ public abstract class GameSystem {
 	 *
 	 * @param elapsedTime the elapsed time
 	 */
-	public abstract void act(double elapsedTime, Level current);
+	public abstract void act(double elapsedTime, Level level);
 }
