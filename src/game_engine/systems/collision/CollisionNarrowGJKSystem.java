@@ -7,7 +7,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import game_engine.Component;
 import game_engine.Entity;
-import game_engine.Level;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -16,6 +15,7 @@ import game_engine.components.collision.hitbox.GJKHitboxComponent;
 import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
+import game_engine.level.Level;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Polygon;
 

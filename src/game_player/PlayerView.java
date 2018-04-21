@@ -7,12 +7,12 @@ import java.util.Map;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Level;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.WidthComponent;
+import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Camera;

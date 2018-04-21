@@ -1,5 +1,7 @@
 package game_engine;
 
+import game_engine.level.Level;
+
 /**
  * 
  * @author benhubsch

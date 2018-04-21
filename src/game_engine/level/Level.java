@@ -1,9 +1,11 @@
-package game_engine;
+package game_engine.level;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import game_engine.Component;
+import game_engine.Entity;
 import game_engine.event.Event;
 
 /**
@@ -18,14 +20,6 @@ public class Level {
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<Event> myEvents;
 	private int myId;
-//	private String myName;
-//	private String bgImage;
-//	private String musicPath;
-//	private double width;
-//	private double height;
-//	private boolean isInf;
-//	private String thumbPath;
-
 	
 	public Level(int id){
 		myId = id;
@@ -116,63 +110,5 @@ public class Level {
 	// public Level addEvent()
 	
 	// public Level removeEvent()
-	
-
-
-//	public void setThumb(String filepath) {
-//		this.thumbPath = filepath;
-//	}
-//
-//	public String getThumb() {
-//		return this.thumbPath;
-//	}
-//
-//	public void setName(String name) {
-//		this.myName = name;
-//	}
-//
-//	public String getName() {
-//		return this.myName;
-//	}
-//
-//	public void setBG(String filepath) {
-//		this.bgImage = filepath;
-//	}
-//
-//	public String getBG() {
-//		return this.bgImage;
-//	}
-//
-//	public void setMusic(String filepath) {
-//		this.musicPath = filepath;
-//	}
-//
-//	public String getMusic() {
-//		return this.musicPath;
-//	}
-//
-//	public void setWidth(double width) {
-//		this.width = width;
-//	}
-//
-//	public double getWidth() {
-//		return this.width;
-//	}
-//
-//	public void setHeight(double height) {
-//		this.height = height;
-//	}
-//
-//	public double getHeight() {
-//		return this.height;
-//	}
-//
-//	public boolean isInfinite() {
-//		return isInf;
-//	}
-//
-//	public void setInf(boolean boolin) {
-//		this.isInf = boolin;
-//	}
 
 }

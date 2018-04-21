@@ -6,7 +6,6 @@ import java.util.List;
 
 import game_engine.Component;
 import game_engine.Entity;
-import game_engine.Level;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
@@ -20,6 +19,7 @@ import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
 import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
+import game_engine.level.Level;
 
 /**
  * @author: Jeremy Chen Broad-phase collision checking. Uses AABB (axiss-aligned bounding boxes) to

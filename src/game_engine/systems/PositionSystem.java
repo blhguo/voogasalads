@@ -6,11 +6,11 @@ import java.util.List;
 import game_engine.Component;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Level;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
+import game_engine.level.Level;
 
 /**
  * 

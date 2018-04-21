@@ -7,11 +7,11 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Level;
 import game_engine.components.NumberOfJumpsAllowedComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.components.physics.DefaultYVelComponent;
 import game_engine.components.physics.YVelComponent;
+import game_engine.level.Level;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 
