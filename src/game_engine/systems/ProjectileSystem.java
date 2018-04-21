@@ -46,9 +46,9 @@ public class ProjectileSystem extends GameSystem {
 	private static final Class<? extends Component<KeyCode>> PROJ_INPUT = ProjectileKeyboardInputComponent.class;
 	private static final Class<? extends Component<Double>> ENTITY_XPOS = XPosComponent.class;
 	private static final Class<? extends Component<Double>> ENTITY_YPOS = YPosComponent.class;
+	private static final String KEY_PRESSED = "KEY_PRESSED";
 	
 	private Engine myEngine;
-	private static final String KEY_PRESSED = "KEY_PRESSED";
 	
 	public ProjectileSystem(Engine engine) {
 		myEngine = engine;
