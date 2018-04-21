@@ -5,7 +5,6 @@ import java.util.List;
 
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Level;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
@@ -29,6 +28,7 @@ import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
+import game_engine.level.Level;
 import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;

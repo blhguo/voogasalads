@@ -1,7 +1,7 @@
 package game_engine.systems.collision;
 
 import game_engine.Entity;
-import game_engine.Level;
+import game_engine.level.Level;
 
 /**
  * @author Jeremy Chen Yet to be implemented. Meant to describe bounds of a circular hitbox when

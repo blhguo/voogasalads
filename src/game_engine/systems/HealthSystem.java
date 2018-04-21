@@ -7,13 +7,13 @@ import java.util.List;
 import game_engine.Component;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Level;
 import game_engine.components.DamageComponent;
 import game_engine.components.HealthComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
+import game_engine.level.Level;
 
 /**
  * This system manages each entity's health status 
