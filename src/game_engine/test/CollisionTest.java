@@ -38,6 +38,8 @@ import game_engine.components.projectile.ProjectileFilenameComponent;
 import game_engine.components.projectile.ProjectileHeightComponent;
 import game_engine.components.projectile.ProjectileHitboxHeightComponent;
 import game_engine.components.projectile.ProjectileHitboxWidthComponent;
+import game_engine.components.projectile.ProjectileHitboxXOffsetComponent;
+import game_engine.components.projectile.ProjectileHitboxYOffsetComponent;
 import game_engine.components.projectile.ProjectileKeyboardInputComponent;
 import game_engine.components.projectile.ProjectileWidthComponent;
 import game_engine.components.projectile.ProjectileXVelComponent;
@@ -283,10 +285,12 @@ public class CollisionTest extends Application {
     	e3.addComponent(new DamageComponent("1")); //e3 does 1 damage
     	
     	//Add Project Components to Entity e1
-    	e1.addComponent(new ProjectileWidthComponent("20"));
-    	e1.addComponent(new ProjectileHeightComponent("20"));
-    	e1.addComponent(new ProjectileHitboxWidthComponent("20"));
-    	e1.addComponent(new ProjectileHitboxHeightComponent("20"));
+    	e1.addComponent(new ProjectileWidthComponent("20.0"));
+    	e1.addComponent(new ProjectileHeightComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxWidthComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxHeightComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxXOffsetComponent("0.0"));
+    	e1.addComponent(new ProjectileHitboxYOffsetComponent("0.0"));
     	e1.addComponent(new ProjectileCollidableComponent("true"));
     	e1.addComponent(new ProjectileDamageComponent("2"));
     	e1.addComponent(new ProjectileKeyboardInputComponent(KeyCode.SPACE.toString()));
