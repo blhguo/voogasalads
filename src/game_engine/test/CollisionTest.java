@@ -29,7 +29,6 @@ import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.level.Level;
-import game_engine.systems.InputGarbageCollectionSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
@@ -81,7 +80,6 @@ public class CollisionTest extends Application {
     private PositionSystem posSys;
     private VelocitySystem velSys;
     private KeyboardJumpSystem keyboardJumpSys;
-    private InputGarbageCollectionSystem inputGarbageCollectionSystem;
     private CollisionResponseSystem colResponseSys;
     private LeftKeyboardMovementSystem leftKeySys;
     private RightKeyboardMovementSystem rightKeySys;
@@ -116,7 +114,6 @@ public class CollisionTest extends Application {
 		rightKeySys.act(elapsedTime);
 		upKeySys.act(elapsedTime);
 		downKeySys.act(elapsedTime);
-		inputGarbageCollectionSystem.act(elapsedTime);
 
         updateRectPos();
         updateRectColor();
@@ -135,7 +132,6 @@ public class CollisionTest extends Application {
         rightKeySys = new RightKeyboardMovementSystem(e);
         upKeySys = new UpKeyboardMovementSystem(e);
         downKeySys = new DownKeyboardMovementSystem(e);
-        inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
         
         root = new Group();
         myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
