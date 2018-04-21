@@ -4,7 +4,7 @@ import game_engine.Component;
 import game_engine.Entity;
 import game_engine.event.Action;
 
-public class DataMultiplyAction implements Action{
+public class DataMultiplyAction implements Action {
 	private Entity myEntity;
 	private Class<? extends Component<Double>> myComponentClass;
 	private Number myScale;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import game_engine.event.Event;
+
 /**
  * 
  * @author benhubsch
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 public class Level {
 
 	private List<Entity> myEntities = new ArrayList<>();
+	private List<Event> myEvents;
 //	private String myName;
 //	private String bgImage;
 //	private String musicPath;
@@ -94,6 +97,18 @@ public class Level {
 	public List<Entity> getEntities() {
 		return myEntities;
 	}
+
+	public void checkEvents() {
+		for (Event event : myEvents) {
+			event.occur();
+		}
+	}
+	
+	// public Level addEvent()
+	
+	// public Level removeEvent()
+	
+	
 
 //	public void setThumb(String filepath) {
 //		this.thumbPath = filepath;
