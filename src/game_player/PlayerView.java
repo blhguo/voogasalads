@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.GameLoop;
 import game_engine.Level;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
@@ -22,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -39,11 +38,10 @@ public class PlayerView {
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
 	private static final double SCENE_SIZE = 500;
+	
 	private PulldownFactory pullDownFactory;
-	private GameLoop myGameLoop;
-
+	private Engine myEngine;
 	private Map<ImageView, Entity> spriteMap;
-	private Stage myStage;
 	private Group root;
 	private Camera cam;
 	private ViewManager viewManager;
@@ -55,9 +53,9 @@ public class PlayerView {
 	 * @param view constructor for PlayerView
 	 *
 	 */
-	public PlayerView(PulldownFactory pdf, GameLoop gameLoop, ViewManager view) {
+	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view) {
 		pullDownFactory = pdf;
-		myGameLoop = gameLoop;
+		myEngine = engine;
 		viewManager = view;
 	}
 
@@ -70,22 +68,19 @@ public class PlayerView {
 		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
 		scene.setOnKeyPressed(e -> {
-			myGameLoop.receiveInput(e);
+			myEngine.receiveInput(e);
 		});
-		scene.setOnKeyReleased(e -> myGameLoop.receiveInput(e));
+		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 
-		subScene.setOnKeyPressed(e -> myGameLoop.receiveInput(e));
-		subScene.setOnKeyReleased(e -> myGameLoop.receiveInput(e));
+		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
+		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		List<Level> levels = pullDownFactory.getLevels();
-		for (Entity e : levels.get(0).getEntities()) {
-			myGameLoop.addEntity(e);
-		}
 
 		spriteMap = new HashMap<ImageView, Entity>();
-		List<Entity> spriteEntities = myGameLoop
+		List<Entity> spriteEntities = levels.get(0)
 				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
 			String imageName = e.getComponent(FilenameComponent.class).getValue();
@@ -119,7 +114,7 @@ public class PlayerView {
 
 	private void step(double delay) {
 		animation.stop();
-		myGameLoop.update(delay);
+		myEngine.update(delay);
 		render();
 		handleUI();
 	}
@@ -136,7 +131,7 @@ public class PlayerView {
 		}
 		
 		// assumes only one entity with the keyboard component
-		Entity entity = myGameLoop.getEntitiesContaining(Arrays.asList(XPosComponent.class, YPosComponent.class)).get(0);
+		Entity entity = myEngine.getLevel().getEntitiesContaining(Arrays.asList(XPosComponent.class, YPosComponent.class)).get(0);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		cam.setLayoutX(xPos - SCENE_SIZE / 2);

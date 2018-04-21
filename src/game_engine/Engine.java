@@ -1,87 +1,59 @@
 package game_engine;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import game_engine.event.Event;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 public class Engine {
 	private List<Level> myLevels;
-	private Level myCurrentLevel;
-	
-	public Engine(List<Level> levels, Level startLevel) {
+	private int myLevelDex;
+	private List<GameSystem> mySystems;
+	private List<Event> myEvents;
+	private LinkedList<InputEvent> myInputs;
+
+	public Engine(List<Level> levels) {
 		myLevels = levels;
-		myCurrentLevel = startLevel;
-	}
-	
-	/**
-	 * Gets the List<Entity> object containing all Entities with only these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
-		return myCurrentLevel.getEntities().stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
-	}
-	
-	/**
-	 * @param entities
-	 * @param args
-	 * @return
-	 */
-	public List<Entity> getEntitiesContaining(List<Entity> entities, List<Class<? extends Component<?>>> args) {
-		return entities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
+		myLevelDex = 0;
 	}
 
-	/**
-	 * Gets the List<Entity> object containing all Entities with these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
-		return myCurrentLevel.getEntities().stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
-	}
-	
+	public void update(double elapsedTime) {
+		for (GameSystem system : mySystems) {
+			system.act(elapsedTime, myLevels.get(myLevelDex));
+		}
 
-	/**
-	 * @param entities
-	 * @param args
-	 * @return
-	 */
-	public List<Entity> getEntitiesContainingAny(List<Entity> entities, List<Class<? extends Component<?>>> args) {
-		return entities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
-	}
-
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param e the e
-	 */
-	public void addEntity(Entity e) {
-		myCurrentLevel.addEntity(e);
-	}
-
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param entities the entities
-	 */
-	public void addEntities(List<Entity> entities) {
-		for (Entity e : entities) {
-			myCurrentLevel.addEntity(e);
+		for (Event event : myEvents) {
+			event.occur();
 		}
 	}
 	
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param e the e
-	 */
-	public void removeEntity(Entity e) {
-		myCurrentLevel.remove(e);
-	}
+	// public Level addLevel()
 	
-	public void setLevel(Level level){
-		myCurrentLevel = level;
-	}
+	// public Level removeLevel()
 	
+	// public Level addEvent()
+	
+	// public Level removeEvent()
+
+	public Level getLevel() {
+		return myLevels.get(myLevelDex);
+	}
+
+	public void setLevel(int dex) {
+		myLevelDex = dex;
+	}
+
+	public List<InputEvent> getInput(Component<KeyCode> keyInput) {
+		return myInputs.stream().map(input -> (KeyEvent) input)
+				.filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode())).collect(Collectors.toList());
+	}
+
+	public void receiveInput(KeyEvent event) {
+		myInputs.add(event);
+	}
+
 }

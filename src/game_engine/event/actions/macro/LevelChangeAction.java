@@ -1,21 +1,20 @@
 package game_engine.event.actions.macro;
 
 import game_engine.Engine;
-import game_engine.Level;
 import game_engine.event.Action;
 
 public class LevelChangeAction implements Action{
 	private Engine myEngine;
-	private Level myLevel;
+	private int myChangeTo;
 	
-	public LevelChangeAction(Engine engine, Level level){
+	public LevelChangeAction(Engine engine, int levelNum){
 		myEngine = engine;
-		myLevel = level;
+		myChangeTo = levelNum;
 	}
 	
 	@Override
 	public void execute() {
-		myEngine.setLevel(myLevel);
+		myEngine.setLevel(myChangeTo);
 	}
 	
 }
