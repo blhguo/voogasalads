@@ -19,6 +19,6 @@ public class DownKeyboardMovementSystem extends KeyboardMovementSystem{
 
 	@Override
 	protected int getDirection() {
-		return -1;
+		return 1;
 	}
 }
