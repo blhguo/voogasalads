@@ -63,13 +63,13 @@ public class ProjectileSystem extends GameSystem {
 			Component<KeyCode> keyInput = entity.getComponent(PROJ_INPUT);
 			for (InputEvent input : myEngine.getInput(keyInput)) {
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
-					createProjectile(entity, args);
+					createProjectile(entity);
 				}
 			}
 		}
 	}
 	
-	private void createProjectile(Entity entity, List<Class<? extends Component<?>>> args){
+	private void createProjectile(Entity entity) {
 		Entity projectile = new Entity();
 		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
 		projectile.addComponent(new XVelComponent(entity.getComponent(PROJ_XVEL).getValue().toString()));
