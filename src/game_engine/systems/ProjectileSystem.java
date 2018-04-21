@@ -63,13 +63,14 @@ public class ProjectileSystem extends GameSystem {
 			Component<KeyCode> keyInput = entity.getComponent(PROJ_INPUT);
 			for (InputEvent input : myEngine.getInput(keyInput)) {
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
-					createProjectile(entity);
+					Entity proj = createProjectile(entity);
+					level.addEntity(proj);
 				}
 			}
 		}
 	}
 	
-	private void createProjectile(Entity entity) {
+	private Entity createProjectile(Entity entity) {
 		Entity projectile = new Entity();
 		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
 		projectile.addComponent(new XVelComponent(entity.getComponent(PROJ_XVEL).getValue().toString()));
@@ -82,6 +83,7 @@ public class ProjectileSystem extends GameSystem {
 		projectile.addComponent(new FilenameComponent(entity.getComponent(PROJ_FILENAME).getValue().toString()));
 		projectile.addComponent(new XPosComponent(entity.getComponent(ENTITY_XPOS).getValue().toString()));
 		projectile.addComponent(new YPosComponent(entity.getComponent(ENTITY_YPOS).getValue().toString()));
+		return projectile;
 	}
 
 }
