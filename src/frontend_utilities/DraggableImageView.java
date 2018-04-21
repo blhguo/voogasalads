@@ -1,6 +1,8 @@
 package frontend_utilities;
 
+import authoring.DragResizeMod;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
@@ -31,6 +33,10 @@ public class DraggableImageView extends ImageView {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
 		});
+		setDrag();
+
+	}
+	public void setDrag(){
 		this.setOnMouseDragged(event -> {
 			int margin = AuthRes.getInt("Margin");
 			maxX = getParent().getLayoutBounds().getWidth() - margin;

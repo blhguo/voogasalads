@@ -16,10 +16,16 @@ public class StringMenuElement extends MenuElement{
 	private String title;
 	public StringMenuElement(String title, Component component){
 		setMyComponent(component);
+		myComponent.setMyMenuElement(this);
 		field = new TextField();
 		field.setText((String) component.getValue());
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.focusedProperty().addListener(e -> {
+					if (!field.focusedProperty().getValue()) {
+						updateComponent(KeyCode.ENTER, field.getText());
+					}
+		});
 		view = ButtonFactory.makeHBox(title, null, field);
 	}
 
@@ -54,8 +60,19 @@ public class StringMenuElement extends MenuElement{
 	public void updateComponent(KeyCode code, String text) {
 		if (code.equals(KeyCode.ENTER)) {
 			myComponent.setValue(text);
-			alert();
 			System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 		}
+	}
+
+	@Override
+	public void alert(Object o ){
+		field.setText((String) o );
+		myWrapper.updateImage();
+		myWrapper.updateSprite();
+	}
+
+	@Override
+	public void setComponentValue() {
+		myComponent.setValue(field.getText());
 	}
 }

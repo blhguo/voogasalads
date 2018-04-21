@@ -1,5 +1,6 @@
 package authoring.component_menus;
 
+import authoring.right_components.EntityComponent.EntityWrapper;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,12 @@ import observables.Subject;
 public abstract class MenuElement{
 	protected ComponentMenu myMenu;
 	protected Component myComponent;
+
+	public void setMyWrapper(EntityWrapper myWrapper) {
+		this.myWrapper = myWrapper;
+	}
+
+	protected EntityWrapper myWrapper;
 
 	/**
 	 *
@@ -40,12 +47,11 @@ public abstract class MenuElement{
 	}
 	public void setMyComponent(Component c){
 		myComponent = c;
+		myComponent.setMyMenuElement(this);
 	}
 
 	public abstract void updateComponent(KeyCode code, String text);
-	public void alert(){
-		myMenu.alert();
-	};
+	public abstract void alert(Object o);
 
 	public ComponentMenu getMyMenu() {
 		return myMenu;
@@ -54,4 +60,6 @@ public abstract class MenuElement{
 	public void setMyMenu(ComponentMenu myMenu) {
 		this.myMenu = myMenu;
 	}
+
+	public abstract void setComponentValue();
 }

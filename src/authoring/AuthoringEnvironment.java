@@ -5,6 +5,7 @@ import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
+import authoring.right_components.EntityComponent.EntityPaneWithWrappers;
 import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
@@ -40,7 +41,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private NavigationPane np;
 	
 	private BasePane base;
-	private EntityPane entity;
+	private EntityPaneWithWrappers entity;
 	private EventPane event;
 	private LevelPane level;
 	private StoryBoardPane story;
@@ -62,7 +63,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		this.stage = stage;
 		splash = ss;
 		base = new BasePane();
-		entity = new EntityPane();
+		entity = new EntityPaneWithWrappers();
 		event = new EventPane();
 		level = new LevelPane();
 		story = new StoryBoardPane();

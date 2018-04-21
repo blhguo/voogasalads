@@ -47,6 +47,7 @@ public class EntityPane extends BasePane {
 	private VBox newbox;
 	private Button deleteButton;
 	private Button backButton;
+	private List<EntityWrapper> entityList;
 
 	public EntityPane(){
 		createButtonArray = new ArrayList<>();
