@@ -1,7 +1,6 @@
 package game_engine;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -31,18 +30,19 @@ public class ComponentFactory {
 	 * @param args the args
 	 * @return Component
 	 */
-	public <T> Component<T> addComponent(Entity entity, String key, List<String> args) {
-		Component<T> component = createComponent(key, args);
+	public <T> Component<T> addComponent(Entity entity, String key, String arg) {
+		Component<T> component = createComponent(key, arg);
 		entity.addComponent(component);
 		return component;
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> Component<T> createComponent(String key, List<String> args) {
+	public <T> Component<T> createComponent(String key, String arg) {
+		System.out.println();
 		try {
-			Class<?> clazz = Class.forName(myComponents.getString(key) + "Component");
-			Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] { List.class });
-			return (Component<T>) ctor.newInstance(args);
+			Class<?> clazz = Class.forName(myComponents.getString(key));
+			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);
+			return (Component<T>) ctor.newInstance(arg);
 		} catch (Exception e) {
 			throw new ComponentNotFoundException("Component not found.");
 		}
