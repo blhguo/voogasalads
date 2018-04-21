@@ -17,13 +17,13 @@ public abstract class Component<T> {
 	public T getValue() {
 		return myValue;
 	}
-	
-	public void setMyMenuElement(MenuElement menu){
-		myMenuElement = menu;
-	}
-	
-	public void alert(){
-		myMenuElement.alert(this.getValue());
-	}
+//	
+//	public void setMyMenuElement(MenuElement menu){
+//		myMenuElement = menu;
+//	}
+//	
+//	public void alert(){
+//		myMenuElement.alert(this.getValue());
+//	}
 
 }
