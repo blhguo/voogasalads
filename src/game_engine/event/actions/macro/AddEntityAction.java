@@ -14,6 +14,6 @@ public class AddEntityAction implements Action{
 	
 	@Override
 	public void execute() {
-		myEngine.addEntity(myEntity);
+		myEngine.getLevel().addEntity(myEntity);
 	}
 }

@@ -37,6 +37,7 @@ public class ComponentFactory {
 		return component;
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T> Component<T> createComponent(String key, List<String> args) {
 		try {
 			Class<?> clazz = Class.forName(myComponents.getString(key) + "Component");
