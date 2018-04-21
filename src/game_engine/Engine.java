@@ -21,6 +21,7 @@ public class Engine {
 		myLevels = new HashMap<Integer, Level>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
+		myInputs = new LinkedList<KeyEvent>();
 	}
 
 	public void update(double elapsedTime) {
@@ -54,12 +55,20 @@ public class Engine {
 	}
 
 	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+		return myInputs.stream().filter(keyEvent -> 
+			keyInput.getValue().equals(keyEvent.getCode())
+			
+		)
 				.collect(Collectors.toList());
 	}
 
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
+	}
+	
+	//WROTE FOR TEMPORARY TESTING -- REMOVE LATER!!
+	public void clearInputs() {
+		myInputs.clear();
 	}
 
 }

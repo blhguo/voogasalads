@@ -5,7 +5,10 @@ import java.util.List;
 
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.components.DamageComponent;
+import game_engine.components.HealthComponent;
 import game_engine.components.collision.CollidableComponent;
+import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
@@ -29,7 +32,7 @@ import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.level.Level;
-import game_engine.systems.InputGarbageCollectionSystem;
+import game_engine.systems.HealthSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
@@ -81,12 +84,12 @@ public class CollisionTest extends Application {
     private PositionSystem posSys;
     private VelocitySystem velSys;
     private KeyboardJumpSystem keyboardJumpSys;
-    private InputGarbageCollectionSystem inputGarbageCollectionSystem;
     private CollisionResponseSystem colResponseSys;
     private LeftKeyboardMovementSystem leftKeySys;
     private RightKeyboardMovementSystem rightKeySys;
     private UpKeyboardMovementSystem upKeySys;
     private DownKeyboardMovementSystem downKeySys;
+    private HealthSystem healthSys;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -107,42 +110,44 @@ public class CollisionTest extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-    	colSys.act(elapsedTime);
-    	colResponseSys.act(elapsedTime);
-    	posSys.act(elapsedTime);
-		velSys.act(elapsedTime);
-		keyboardJumpSys.act(elapsedTime); //update jump
-		leftKeySys.act(elapsedTime);
-		rightKeySys.act(elapsedTime);
-		upKeySys.act(elapsedTime);
-		downKeySys.act(elapsedTime);
-		inputGarbageCollectionSystem.act(elapsedTime);
-
+    	Level currentLevel = e.getLevel();
+    	colSys.act(elapsedTime, currentLevel);
+    	colResponseSys.act(elapsedTime, currentLevel);
+    	posSys.act(elapsedTime, currentLevel);
+		velSys.act(elapsedTime, currentLevel);
+		keyboardJumpSys.act(elapsedTime, currentLevel); //update jump
+		leftKeySys.act(elapsedTime, currentLevel);
+		rightKeySys.act(elapsedTime, currentLevel);
+		upKeySys.act(elapsedTime, currentLevel);
+		downKeySys.act(elapsedTime, currentLevel);
+		healthSys.act(elapsedTime, currentLevel);
+		
+		System.out.println(e1.getComponent(HealthComponent.class).getValue());
         updateRectPos();
         updateRectColor();
+        e.clearInputs();
     }
 
     private void setup(){
+        root = new Group();
+        myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
+        myScene.setOnKeyPressed(b -> e.receiveInput(b));
+		myScene.setOnKeyReleased(b -> e.receiveInput(b));
+
     	buildEntities();
         initRects();
         
-        colResponseSys = new CollisionResponseSystem(e);
+        colResponseSys = new CollisionResponseSystem();
         keyboardJumpSys = new KeyboardJumpSystem(e);
-        colSys = new CollisionBroadSystem(e);
-        posSys = new PositionSystem(e);
-        velSys = new VelocitySystem(e);
+        colSys = new CollisionBroadSystem();
+        posSys = new PositionSystem();
+        velSys = new VelocitySystem();
         leftKeySys = new LeftKeyboardMovementSystem(e);
         rightKeySys = new RightKeyboardMovementSystem(e);
         upKeySys = new UpKeyboardMovementSystem(e);
         downKeySys = new DownKeyboardMovementSystem(e);
-        inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
+        healthSys = new HealthSystem();
         
-        root = new Group();
-        myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
-        
-        myScene.setOnKeyPressed(b -> e.receiveInput(b));
-		myScene.setOnKeyReleased(b -> e.receiveInput(b));
-
        
     }
 
@@ -229,14 +234,22 @@ public class CollisionTest extends Application {
     	e3.addComponent(new CollidableComponent("true"));
     	e3.addComponent(new PassableComponent("true"));
     	
-    	Level asdf = new Level();
+    	//Add Health Component
+    	e1.addComponent(new HealthComponent("1000")); //100 health points for e1
+    	e3.addComponent(new DamageComponent("1")); //e3 does 1 damage
+    	
+    	
+    	e = new Engine();
+    	
+    	Level asdf = e.createLevel();
     	asdf.addEntity(e2);
     	asdf.addEntity(e1);
     	asdf.addEntity(e3);
     	
     	List<Level> levels = new ArrayList<Level>();
     	levels.add(asdf);
-    	e = new Engine(levels, asdf);
+
+
     }
 
     private void initRects(){
@@ -259,11 +272,11 @@ public class CollisionTest extends Application {
         double hw3 = e3.getComponent(HitboxWidthComponent.class).getValue();
 
         r1 = new Rectangle(x1 - hw1/2, y1 - hh1/2, hw1, hh1);
-        r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
+        //r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
         r3 = new Rectangle(x3 - hw3/2, y3 - hh3/2, hw3, hh3);
         
         root.getChildren().add(r1);
-        root.getChildren().add(r2);
+        //root.getChildren().add(r2);
         root.getChildren().add(r3);
     }
 

@@ -13,9 +13,10 @@ import javafx.scene.input.KeyCode;
  * @author Kevin Deng, Andy Nguyen, REFACTORED by Jeremy Chen
  */
 public abstract class KeyboardMovementSystem extends GameSystem {
-	private final Class<? extends Component<KeyCode>> KEYBOARD_MOVE_INPUT;
-	private final Class<? extends Component<Double>> DEFAULT_VEL;
-	private final Class<? extends Component<Double>> VEL;
+	private Class<? extends Component<KeyCode>> myKeyboardMoveInput;
+	private Class<? extends Component<Double>> myDefaultVel;
+	private Class<? extends Component<Double>> myVel;
+	
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	private static final String KEY_RELEASED = "KEY_RELEASED";
 	
@@ -23,18 +24,18 @@ public abstract class KeyboardMovementSystem extends GameSystem {
 	
 	public KeyboardMovementSystem(Engine engine, Class<? extends Component<KeyCode>> keyMoveInput, Class<? extends Component<Double>> defaultVel, Class<? extends Component<Double>> vel) {
 		myEngine = engine;
-		KEYBOARD_MOVE_INPUT = keyMoveInput;
-		DEFAULT_VEL = defaultVel;
-		VEL = vel;
+		myKeyboardMoveInput = keyMoveInput;
+		myDefaultVel = defaultVel;
+		myVel = vel;
 	}
 
 	@Override
 	public void act(double elapsedTime, Level level) {
-		List<Class<? extends Component<?>>> args = Arrays.asList(KEYBOARD_MOVE_INPUT, DEFAULT_VEL);
+		List<Class<? extends Component<?>>> args = Arrays.asList(myKeyboardMoveInput, myDefaultVel, myVel);
 		for (Entity entity : level.getEntitiesContaining(args)) {
-			Component<KeyCode> keyInput = entity.getComponent(KEYBOARD_MOVE_INPUT);
-			Component<Double> defaultVel = entity.getComponent(DEFAULT_VEL);
-			Component<Double> vel = entity.getComponent(VEL);
+			Component<KeyCode> keyInput = entity.getComponent(myKeyboardMoveInput);
+			Component<Double> defaultVel = entity.getComponent(myDefaultVel);
+			Component<Double> vel = entity.getComponent(myVel);
 			for (InputEvent input : myEngine.getInput(keyInput)) {
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
 					vel.setValue(defaultVel.getValue()*getDirection());
