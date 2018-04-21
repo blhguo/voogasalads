@@ -13,7 +13,7 @@ public class GameOverAction implements Action {
 	@Override
 	public void execute() {
 		//TODO: implement loadGameOverScreen() in Player
-		playerView.loadGameOverScreen(); 
+//		playerView.loadGameOverScreen(); 
 		
 	}
 
