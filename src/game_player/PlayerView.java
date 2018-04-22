@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import user_interface.GameCamera;
-import gameData.ManipData;
+
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.position.XPosComponent;
@@ -17,12 +16,12 @@ import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import user_interface.GameCamera;
 
 /**
  * 
