@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Entity;
+import game_engine.components.keyboard.DownKeyboardComponent;
+import game_engine.components.keyboard.LeftKeyboardComponent;
+import game_engine.components.keyboard.RightKeyboardComponent;
+import game_engine.components.keyboard.UpKeyboardComponent;
 import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 
@@ -18,6 +23,7 @@ public class DataManager {
 	private Map<String,KeyCode> engineMap;
 	private List<String> gameInputs;
 	private List<Level> gameLevels = new ArrayList<Level>();
+	private Entity gamePlayer;
 	
 	public DataManager() {
 		keyPrefs = new HashMap<KeyCode,String>();
@@ -26,12 +32,14 @@ public class DataManager {
 		
 		String[] testInputs = {"left","right","up","down"}; //To be read in from data
 		KeyCode[] engineInputs = {KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.S};
-		//wasd
 		for(int i=0;i<testInputs.length;i++) {
 			gameInputs.add(testInputs[i]);
 			engineMap.put(testInputs[i],engineInputs[i]);
 		}
 		initializeInputs();
+	}
+	public void setGamePlayer(Entity gp) {
+		gamePlayer = gp;
 	}
 	/**
 	 * Method called to set a preference for a key.
@@ -41,6 +49,25 @@ public class DataManager {
 	 */
 	public void setKey(String input,KeyCode key) {
 		keyPrefs.put(key, input);
+		addGameDirection(key,input);
+	}
+	
+	private void addGameDirection(KeyCode k, String input) {
+		if(gamePlayer==null) {
+			return;
+		}
+		if(input.equals("left")){
+			gamePlayer.addComponent(new LeftKeyboardComponent(k));
+		}
+		else if(input.equals("right")) {
+			gamePlayer.addComponent(new RightKeyboardComponent(k));
+		}
+		else if(input.equals("up")) {
+			gamePlayer.addComponent(new UpKeyboardComponent(k));
+		}
+		else if(input.equals("down")) {
+			gamePlayer.addComponent(new DownKeyboardComponent(k));
+		}
 	}
 	/**
 	 * Method called to get the input for a given key during gameplay.
@@ -67,7 +94,7 @@ public class DataManager {
 	 */
 	private void initializeInputs() {
 		for(String s : gameInputs) {
-			keyPrefs.put(KeyCode.ENTER, s);
+			keyPrefs.put(engineMap.get(s), s);
 		}
 	}
 	/**

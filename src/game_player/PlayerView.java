@@ -21,9 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import user_interface.GameCamera;
 
@@ -50,6 +47,7 @@ public class PlayerView {
 	private SubScene subScene;
 	private GameCamera cam;
 	private DataManager dataManager;
+	private Entity gamePlayer;
 
 /**
  * @param pdf
@@ -77,7 +75,6 @@ public class PlayerView {
 			myEngine.receiveInput(e);
 		});
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-
 		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 		cam = new GameCamera();
@@ -128,9 +125,10 @@ public class PlayerView {
 		root.getChildren().clear();
 		myEngine.getLevel().getEntities().parallelStream().filter(this::isInView).forEach(this::display);
 		
-		Entity entity = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		Double xPos = entity.getComponent(XPosComponent.class).getValue();
-		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+		gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		dataManager.setGamePlayer(gamePlayer);
+		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
+		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
 		cam.setCamera(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
 	}
 	
