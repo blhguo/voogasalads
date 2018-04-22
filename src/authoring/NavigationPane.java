@@ -91,32 +91,25 @@ public class NavigationPane implements Subject, GUINode {
 		for(int i = 0; i < menuTitles.size(); i++) {
 			String s = menuTitles.get(i);
 			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(compIcons.get(i)))), 20, 20);
-			Button b = ButtonFactory.makeButton(s, iv, e -> np.notifyListeners(s),
-					"button-nav");
+			Button b = ButtonFactory.makeButton(s, iv, e -> np.notifyListeners(s), "button-nav");
 			navOptions.getChildren().add(b);
 		}
-		navOptions.setLayoutY(AuthRes.getInt("EnvironmentY")/10);
+		navOptions.setLayoutY(stage.getHeight()/10);
 		
 		VBox prefButtons = new VBox(AuthRes.getInt("NavPadding"));
 		for (int i = 0; i < prefTitles.size(); i++){
-			ImageView iv = new ImageView(new Image(AuthRes.getString(prefIcons.get(i))));
-			iv = ImageBuilder.resize(iv, 20);
+			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(prefIcons.get(i)))), 20);
 			Button b;
-			if (i == 1){
-				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					lcontroller.saveGame();
-				}, "button-nav");
+			if (prefTitles.get(i).equals("save")){
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> lcontroller.saveGame(), "button-nav");
 			}
 			else{
-				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					new PlayerMain().start(stage);
-				}, "button-nav");
-				
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> new PlayerMain().start(stage), "button-nav");
 			}
 			prefButtons.getChildren().add(b);
 			
 		}
-		prefButtons.setLayoutY(AuthRes.getInt("EnvironmentY")*4/5);
+		prefButtons.setLayoutY(stage.getHeight()*4/5);
 		pane.getChildren().addAll(navOptions, prefButtons);
 	}
 
