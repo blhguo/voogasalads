@@ -27,7 +27,7 @@ public class PlayerMain extends Application{
 		this.pullDownFactory = new PulldownFactory(dataManager);
 		this.menu = new Menu(dataManager, pullDownFactory);
 		this.viewManager = new ViewManager(menu, stage, pullDownFactory);
-		this.playerView = new PlayerView(pullDownFactory, engine, viewManager);
+		this.playerView = new PlayerView(pullDownFactory, engine, viewManager, dataManager);
 		
 		this.pullDownFactory.setPlayerView(playerView);
 	}
