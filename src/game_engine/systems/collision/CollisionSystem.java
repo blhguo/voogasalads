@@ -64,7 +64,7 @@ public abstract class CollisionSystem extends GameSystem {
 		if (yVel != null) {
 			centerY += yVel.getValue() * elapsedTime;
 		}
-		if (currAngle != null && currAngle.getValue() % 90 == 0) {
+		if (currAngle == null || (currAngle != null && currAngle.getValue() % 90 == 0)) {
 			return new double[] { centerX - width / 2, centerX + width / 2, centerY - height / 2,
 					centerY + height / 2 };
 		}
