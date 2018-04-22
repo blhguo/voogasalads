@@ -7,9 +7,9 @@ import game_engine.Entity;
 import game_engine.components.collision.CollidedComponent;
 
 public class ComponentCollisionCondition extends CollisionCondition{
-	Class<Component> targetComponent;
+	Class<Component<?>> targetComponent;
 	
-	public ComponentCollisionCondition(Entity e1, Class<Component>c, List<Class<CollidedComponent>> sides) {
+	public ComponentCollisionCondition(Entity e1, Class<Component<?>>c, List<Class<CollidedComponent>> sides) {
 		super(e1, sides);
 		targetComponent = c;
 	}

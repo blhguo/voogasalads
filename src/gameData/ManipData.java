@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import game_engine.Level;
+import game_engine.level.Level;
 
 /*
  * authors: Brandon, Harry
