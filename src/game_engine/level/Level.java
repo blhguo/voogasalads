@@ -103,10 +103,6 @@ public class Level extends Entity{
 		}
 	}
 	
-	public void addLevelAttribute(LevelAttribute<?> attribute ){
-		myAttributes.put(attribute.getClass(), attribute);
-	}
-	
 	public int getId() {
 		return myId;
 	}

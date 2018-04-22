@@ -1,6 +1,8 @@
 package game_engine.level;
 
-public class LevelHeightComponent extends LevelAttribute<Double>{
+import game_engine.Component;
+
+public class LevelHeightComponent extends Component<Double>{
 
 	public LevelHeightComponent(Double val) {
 		super(val);
