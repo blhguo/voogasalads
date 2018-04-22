@@ -87,7 +87,7 @@ public class Menu {
 	 * 
 	 */
 	public Slider getVolumeSlider() {
-		return settings.getBrightnessSlider();
+		return settings.getVolumeSlider();
 	}
 	
 	/**

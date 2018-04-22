@@ -87,6 +87,12 @@ public class DataManager {
 		return keyPrefs.get(key);
 	}
 	
+	/**
+	 * Returns the Keycode set to a given input string.
+	 * 
+	 * @param input
+	 * @return
+	 */
 	public KeyCode getKeyCode(String input) {
 		return keyPrefsReversed.get(input);
 	}
