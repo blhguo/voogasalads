@@ -24,10 +24,7 @@ public class PlayMusicAction implements Action{
 	public void execute() {
 		 Media media = new Media(new File(myMusicFile).toURI().toString());
 		 MediaPlayer mediaPlayer = new MediaPlayer(media);
-		 mediaPlayer.setStartTime(Duration.ZERO);
-		 if(myDuration == -1){
-			 mediaPlayer.setStopTime(media.durationProperty().get());
-		 }else{
+		 if(myDuration != -1){
 			 mediaPlayer.setStopTime(new Duration(myDuration));
 		 }
 		 mediaPlayer.play();

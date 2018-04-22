@@ -8,6 +8,7 @@ import game_engine.Component;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.DamageComponent;
+import game_engine.components.DespawnComponent;
 import game_engine.components.HealthComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
@@ -30,6 +31,7 @@ public class HealthSystem extends GameSystem {
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
+	private static final Class<? extends Component<Double>> DAMAGE = DamageComponent.class;
 
 	@Override
 	public void act(double elapsedTime, Level level) {
@@ -43,11 +45,11 @@ public class HealthSystem extends GameSystem {
 				
 		for (Entity e : collidedEntities) {
 			System.out.println("REACHED HERE");
-			Component<Double> myHealth = e.getComponent(HealthComponent.class);
-			Component<List<Entity>> topCollision = e.getComponent(TopCollidedComponent.class);
-			Component<List<Entity>> bottomCollision = e.getComponent(BottomCollidedComponent.class);
-			Component<List<Entity>> rightCollision = e.getComponent(RightCollidedComponent.class);
-			Component<List<Entity>> leftCollision = e.getComponent(LeftCollidedComponent.class);
+			Component<Double> myHealth = e.getComponent(HEALTH);
+			Component<List<Entity>> topCollision = e.getComponent(TOP);
+			Component<List<Entity>> bottomCollision = e.getComponent(BOTTOM);
+			Component<List<Entity>> rightCollision = e.getComponent(RIGHT);
+			Component<List<Entity>> leftCollision = e.getComponent(LEFT);
 			
 			List<Entity> combinedList = new ArrayList<Entity>();
 			if (topCollision != null) {
@@ -63,10 +65,15 @@ public class HealthSystem extends GameSystem {
 				combinedList.addAll(leftCollision.getValue());
 			}
 			
-			for (Entity e2 : combinedList) {
-				if (e2.hasAll(Arrays.asList(DamageComponent.class))) {
-					myHealth.setValue(myHealth.getValue() - e2.getComponent(DamageComponent.class).getValue());
+			for (Entity damager : combinedList) {
+				if (damager.hasAll(Arrays.asList(DamageComponent.class))) {
+					myHealth.setValue(myHealth.getValue() - damager.getComponent(DAMAGE).getValue());
 				}
+			}
+			
+			if(myHealth.getValue() <= 0){
+				Component<Boolean> despawn = new DespawnComponent();
+				e.addComponent(despawn);
 			}
 		}
 

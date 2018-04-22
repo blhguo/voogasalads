@@ -8,6 +8,7 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.DamageComponent;
+import game_engine.components.ProjectileComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
@@ -36,7 +37,7 @@ import game_engine.level.Level;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 
-public class ProjectileSystem extends GameSystem {
+public class ProjectileSpawnSystem extends GameSystem {
 
 	private static final Class<? extends Component<Double>> PROJ_YVEL = ProjectileYVelComponent.class;
 	private static final Class<? extends Component<Double>> PROJ_XVEL = ProjectileXVelComponent.class;
@@ -56,7 +57,7 @@ public class ProjectileSystem extends GameSystem {
 	
 	private Engine myEngine;
 	
-	public ProjectileSystem(Engine engine) {
+	public ProjectileSpawnSystem(Engine engine) {
 		myEngine = engine;
 	}
 	
@@ -78,6 +79,7 @@ public class ProjectileSystem extends GameSystem {
 	
 	private Entity createProjectile(Entity entity) {
 		Entity projectile = new Entity();
+		projectile.addComponent(new ProjectileComponent());
 		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
 		projectile.addComponent(new XVelComponent(entity.getComponent(PROJ_XVEL).getValue().toString()));
 		projectile.addComponent(new WidthComponent(entity.getComponent(PROJ_WIDTH).getValue().toString()));
