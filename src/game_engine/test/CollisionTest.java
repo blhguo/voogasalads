@@ -9,6 +9,7 @@ import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.DamageComponent;
 import game_engine.components.HealthComponent;
+import game_engine.components.ProjectileComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
@@ -38,14 +39,18 @@ import game_engine.components.projectile.ProjectileFilenameComponent;
 import game_engine.components.projectile.ProjectileHeightComponent;
 import game_engine.components.projectile.ProjectileHitboxHeightComponent;
 import game_engine.components.projectile.ProjectileHitboxWidthComponent;
+import game_engine.components.projectile.ProjectileHitboxXOffsetComponent;
+import game_engine.components.projectile.ProjectileHitboxYOffsetComponent;
 import game_engine.components.projectile.ProjectileKeyboardInputComponent;
 import game_engine.components.projectile.ProjectileWidthComponent;
 import game_engine.components.projectile.ProjectileXVelComponent;
 import game_engine.components.projectile.ProjectileYVelComponent;
 import game_engine.level.Level;
+import game_engine.systems.DespawnSystem;
 import game_engine.systems.HealthSystem;
 import game_engine.systems.PositionSystem;
-import game_engine.systems.ProjectileSystem;
+import game_engine.systems.ProjectileDespawnSystem;
+import game_engine.systems.ProjectileSpawnSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
@@ -59,12 +64,10 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -106,7 +109,9 @@ public class CollisionTest extends Application {
     private UpKeyboardMovementSystem upKeySys;
     private DownKeyboardMovementSystem downKeySys;
     private HealthSystem healthSys;
-    private ProjectileSystem projSys;
+    private ProjectileSpawnSystem projSys;
+    private ProjectileDespawnSystem projDespawn;
+    private DespawnSystem despawnSys;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -139,9 +144,11 @@ public class CollisionTest extends Application {
 		downKeySys.act(elapsedTime, currentLevel);
 		healthSys.act(elapsedTime, currentLevel);
 		projSys.act(elapsedTime, currentLevel);
+		projDespawn.act(elapsedTime, currentLevel);
+		despawnSys.act(elapsedTime, currentLevel);
 		
-		System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
-		System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
+		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
+		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();
@@ -167,9 +174,9 @@ public class CollisionTest extends Application {
         upKeySys = new UpKeyboardMovementSystem(e);
         downKeySys = new DownKeyboardMovementSystem(e);
         healthSys = new HealthSystem();
-        projSys = new ProjectileSystem(e);
-        
-       
+        projSys = new ProjectileSpawnSystem(e);
+        projDespawn = new ProjectileDespawnSystem();
+        despawnSys = new DespawnSystem();
     }
     
     private void updateAllEntities() {
@@ -280,13 +287,15 @@ public class CollisionTest extends Application {
     	//Add Health Component
     	e1.addComponent(new HealthComponent("1000")); //100 health points for e1
     	e3.addComponent(new HealthComponent("2000"));
-    	e3.addComponent(new DamageComponent("1")); //e3 does 1 damage
+    	e3.addComponent(new DamageComponent("100")); //e3 does 100 damage
     	
     	//Add Project Components to Entity e1
-    	e1.addComponent(new ProjectileWidthComponent("20"));
-    	e1.addComponent(new ProjectileHeightComponent("20"));
-    	e1.addComponent(new ProjectileHitboxWidthComponent("20"));
-    	e1.addComponent(new ProjectileHitboxHeightComponent("20"));
+    	e1.addComponent(new ProjectileWidthComponent("20.0"));
+    	e1.addComponent(new ProjectileHeightComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxWidthComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxHeightComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxXOffsetComponent("0.0"));
+    	e1.addComponent(new ProjectileHitboxYOffsetComponent("0.0"));
     	e1.addComponent(new ProjectileCollidableComponent("true"));
     	e1.addComponent(new ProjectileDamageComponent("2"));
     	e1.addComponent(new ProjectileKeyboardInputComponent(KeyCode.SPACE.toString()));

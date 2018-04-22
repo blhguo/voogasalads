@@ -1,9 +1,11 @@
 package game_engine;
 
-import game_engine.components.Authoring;
+import authoring.component_menus.MenuElement;
 
 public abstract class Component<T> {
 	private T myValue;
+	private MenuElement myMenuElement;
+
 	public Component(T val) {
 		myValue = val;
 	}
@@ -12,8 +14,16 @@ public abstract class Component<T> {
 		myValue = val;
 	}
 	
-	@Authoring
 	public T getValue() {
 		return myValue;
 	}
+//	
+//	public void setMyMenuElement(MenuElement menu){
+//		myMenuElement = menu;
+//	}
+//	
+//	public void alert(){
+//		myMenuElement.alert(this.getValue());
+//	}
+
 }

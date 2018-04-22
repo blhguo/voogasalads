@@ -1,9 +1,11 @@
 package game_engine.level;
 
-public class LevelWidthAttribute extends LevelAttribute<Double>{
+import game_engine.Component;
 
-	public LevelWidthAttribute(Double arg) {
-		super(arg);
+public class LevelWidthAttribute extends Component<Double>{
+
+	public LevelWidthAttribute(String arg) {
+		super(Double.parseDouble(arg));
 		// TODO Auto-generated constructor stub
 	}
 
