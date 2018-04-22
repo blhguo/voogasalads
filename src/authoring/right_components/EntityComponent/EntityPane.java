@@ -11,6 +11,7 @@ import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import authoring.utilities.ButtonFactory;
 import game_engine.Component;
+import frontend_utilities.ButtonFactory;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import javafx.scene.Group;
@@ -22,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 /**
  * @author liampulsifer
@@ -40,13 +42,15 @@ public class EntityPane extends BasePane {
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
 	private VBox newbox;
+	private Button deleteButton;
+	private Button backButton;
 
 	public EntityPane(){
 		createButtonArray = new ArrayList<>();
 		editButtonArray = new ArrayList<>();
 		menuList = makeMenuList();
 		Collections.sort(menuList);
-
+		backButton = ButtonFactory.makeButton(e -> resetAccordion());
 		ogmenuList = new ArrayList<>(menuList);
 //		menuList.stream().forEach(e -> System.out.println(e));
 //		ogmenuList.stream().forEach(e -> System.out.println(e));
@@ -94,6 +98,9 @@ public class EntityPane extends BasePane {
 		list.add(accordion);
 		createButton = controller.getButton();
 		createButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
+		while(createButtonArray.size() > 1){
+			createButtonArray.remove(createButtonArray.size() - 1);
+		}
 		list.addAll(createButtonArray);
 		return list;
 	}
@@ -103,12 +110,21 @@ public class EntityPane extends BasePane {
 	 */
 	private void resetEditButtons(){
 		editButtonArray.clear();
-		editButtonArray.add(ButtonFactory.makeHBox("Create Entity", null, controller.getButton()));
-		Button button = ButtonFactory.makeButton(e -> resetAccordion());
-		editButtonArray.add(ButtonFactory.makeHBox("Back to new Entity Creation",
-				"Displaying current entity", button));
-		editButtonArray.add(ButtonFactory.makeHBox("Delete Entity", null, controller.getRemoveButton()));
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Update Entity", null,
+				ButtonFactory.makeButton(e -> updateEntity())));
+		createButton = controller.getButton();
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Create Entity", null, createButton));
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Back to new Entity Creation",
+				"Displaying current entity", backButton));
+		deleteButton = controller.getRemoveButton();
+		editButtonArray.add(ButtonFactory.makeLittleHBox("Delete Entity", null, deleteButton));
 
+	}
+
+	private void updateEntity() {
+		deleteButton.fire();
+		createButton.fire();
+		backButton.fire();
 	}
 
 	/**
@@ -187,16 +203,21 @@ public class EntityPane extends BasePane {
 	 * @param entity
 	 */
 	public void updateMenus(Entity entity) {
+		System.out.println("Entity at updateMenus in Entity Pane: " + entity);
 		accordion.getPanes().clear();
 		menuList.clear();
-		for (Component comp : entity.getComponents()){
-			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
-					comp.getValues().split(";"), comp.getName());
-			add.Include();
-			menuList.add(add);
-			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
-		}
-		Collections.sort(menuList);
+//		for (Component comp : entity.getComponents()) {
+//			ComponentMenu add = new ComponentMenuFactory().newComponentMenu(
+//					comp.getValues().split(";"), comp.getName());
+//			add.Include();
+//			menuList.add(add);
+//			//accordion.getPanes().add(menuList.get(menuList.size() - 1).getTitledPane());
+//		}
+		//controller.getMenuComponents(entity).stream().forEach(e -> System.out.println(e));
+		//System.out.println(entity);
+		menuList = new ArrayList<>(controller.getMenuComponents(entity));
+		//menuList.stream().forEach(e -> System.out.println(e));
+		//Collections.sort(menuList);
 		accordion.getPanes().addAll(menuList.stream().map(e -> e.getTitledPane()).collect(Collectors.toList()));
 
 //		menuList.stream().forEach(e -> System.out.println(e));

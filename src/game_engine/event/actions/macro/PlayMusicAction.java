@@ -1,18 +1,33 @@
 package game_engine.event.actions.macro;
 
-import game_engine.Engine;
+import java.io.File;
+
 import game_engine.event.Action;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class PlayMusicAction implements Action{
-	private Engine myEngine;
+	private String myMusicFile;
+	private double myDuration;
 	
-	public PlayMusicAction(Engine engine){
-		myEngine = engine;
+	public PlayMusicAction(String musicFile){
+		this(musicFile, -1);
+	}
+	
+	public PlayMusicAction(String musicFile, double duration){
+		myMusicFile = musicFile;
+		myDuration = duration;
 	}
 	
 	@Override
 	public void execute() {
-		//TODO figure out a way to play music!
+		 Media media = new Media(new File(myMusicFile).toURI().toString());
+		 MediaPlayer mediaPlayer = new MediaPlayer(media);
+		 if(myDuration != -1){
+			 mediaPlayer.setStopTime(new Duration(myDuration));
+		 }
+		 mediaPlayer.play();
 	}
 	
 }

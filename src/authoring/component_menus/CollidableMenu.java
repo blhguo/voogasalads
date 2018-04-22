@@ -3,7 +3,7 @@ package authoring.component_menus;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.utilities.ButtonFactory;
+import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
