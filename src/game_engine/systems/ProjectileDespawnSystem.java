@@ -1,6 +1,5 @@
 package game_engine.systems;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import game_engine.Component;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.DespawnComponent;
+import game_engine.components.NullType;
 import game_engine.components.ProjectileComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
@@ -31,7 +31,7 @@ public class ProjectileDespawnSystem extends GameSystem{
 		List<Entity> collidedEntities = level.getEntitiesContainingAny(projectileEntities, collidedArgs);
 		
 		for (Entity collidedProjectile : collidedEntities) {
-			Component<Boolean> despawn = new DespawnComponent();
+			Component<NullType> despawn = new DespawnComponent();
 			collidedProjectile.addComponent(despawn);
 			System.out.println("REMOVED");
 		}

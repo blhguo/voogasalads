@@ -10,6 +10,7 @@ import game_engine.GameSystem;
 import game_engine.components.DamageComponent;
 import game_engine.components.DespawnComponent;
 import game_engine.components.HealthComponent;
+import game_engine.components.NullType;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -72,7 +73,7 @@ public class HealthSystem extends GameSystem {
 			}
 			
 			if(myHealth.getValue() <= 0){
-				Component<Boolean> despawn = new DespawnComponent();
+				Component<NullType> despawn = new DespawnComponent();
 				e.addComponent(despawn);
 			}
 		}
