@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -48,10 +49,18 @@ public class ViewManager extends GUIBuilder{
 	private Image gameBackground;
 	private BackgroundImage game;
 	private SubScene subScene;
+	private SubScene soundScene;
 	private Group subRoot;
-	private SettingsMenu settings;
+	private Group soundRoot;
 	private ColorAdjust colorAdjust = new ColorAdjust();
 	private Pane mainHBox;
+	private Media media;
+	private MediaPlayer mediaPlayer;
+	private MediaView mediaView;
+	
+	private SettingsMenu settings;
+	
+	
 	
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -68,16 +77,20 @@ public class ViewManager extends GUIBuilder{
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
 		gameStage.show();
+		settings = new SettingsMenu();
 		changeBrightness();
 		changeVolume();
 	}
 
 	private void setScene() {
-		Pane pane = setObjects();
-		gameScene = new Scene(pane,sceneWidth,sceneHeight);
+		mainHBox = setObjects();
+		
+		mainHBox.getChildren().add(mediaView);
+
+		gameScene = new Scene(mainHBox,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
-		mainHBox = pane;
+		
 	}
     
     /**
@@ -90,7 +103,6 @@ public class ViewManager extends GUIBuilder{
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
-		
 		gameBackground = new Image("gray.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
@@ -117,7 +129,17 @@ public class ViewManager extends GUIBuilder{
 
 		order.getChildren().add(subScene);
 		subRoot.getChildren().add(view);
+		
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		
+		String path = "/Users/danapark/CompSci308/voogasalad_callussalad/src/game_player/baby.mp3";
+		media = new Media(new File(path).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setAutoPlay(true);
+		mediaView = new MediaView(mediaPlayer);
+		mediaView.setMediaPlayer(mediaPlayer);
+		mediaPlayer.play();
+	
 		return center;
 	}
 	
@@ -126,6 +148,10 @@ public class ViewManager extends GUIBuilder{
 	 */ 
 	public SubScene getSubScene() {
 		return subScene;
+	}
+	
+	public MediaPlayer getMediaPlayer() {
+		return mediaPlayer;
 	}
 	
 	/**
@@ -164,14 +190,11 @@ public class ViewManager extends GUIBuilder{
      * Changes the volume of the current program.
      */ 
 	public void changeVolume() {
-		this.menu.getVolumeSlider().valueProperty().addListener(new ChangeListener<Number>() {
+		settings.getVolumeSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				String path = "/resources/baby.mp3";
-				Media media = new Media(new File(path).toURI().toString());
-
-				MediaPlayer mediaPlayer = new MediaPlayer(media);
-				mediaPlayer.setVolume((double) new_val);
-				mediaPlayer.play();
+				System.out.println("hello");
+				//mediaPlayer.setVolume((double) new_val);
+				//mediaPlayer.play();
 
 			}
 		});

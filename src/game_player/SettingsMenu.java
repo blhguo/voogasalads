@@ -25,10 +25,15 @@ public class SettingsMenu {
 	private Label volumeLabel;
 	private Label brightnessLabel;
 	
+	public SettingsMenu() {
+		brightnessSlider = makeBrightnessSlider();
+		volumeSlider = makeVolumeSlider();
+		
+	}
+	
 	protected void makeSettingsMenu(HBox pane) {
 		settingsButton = new Button("Settings");
 		settingsButton.getStyleClass().add("button-nav");
-		settingsButton.setOnAction(click->{showSettingsMenu();});
 		pane.getChildren().add(settingsButton);
 		settingsMenu = new VBox(50);
 		settingsMenu.setPrefWidth(300);
@@ -52,19 +57,21 @@ public class SettingsMenu {
 		settingsStage.setScene(scene);
 	}
 	
-	private void makeBrightnessSlider() {
+	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
 		brightnessSlider.setMin(-1);
 		brightnessSlider.setMax(1);
+		return brightnessSlider;
 		
 	}
 	
-	private void makeVolumeSlider() {
+	private Slider makeVolumeSlider() {
 		volumeSlider = new Slider();
 		volumeSlider.getStyleClass().add("slider");
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
+		return volumeSlider;
 	}
 	
 	private void makeBrightnessLabel() {

@@ -22,16 +22,21 @@ public class Menu {
 	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
+	private GameSelectionMenu gameMenu;
+	
 	public Menu(DataManager data, PulldownFactory pdf) {
-		pane = new HBox(20);
-		pane.setAlignment(Pos.CENTER);
+		pane = new HBox(80);
+		pane.setAlignment(Pos.TOP_CENTER);
+		//pane.getStyleClass().add("pane-back");
+
 		dataManager = data;
 		pullDownFactory = pdf;
 		makePullDownMenus();
 		settings = new SettingsMenu();
-		makeGameSelectionMenu();
 		settings.makeSettingsMenu(pane);
 		settings.makeSettingsStage();
+		gameMenu = new GameSelectionMenu();
+		gameMenu.makeGameSelectionMenu(pane);
 		KeyPrefMenu kpm = new KeyPrefMenu(dataManager,pane);
 	}
 	/**
@@ -59,13 +64,13 @@ public class Menu {
 	 * Method to make gameSelectionButton that when clicked calls the showGameSelectionMenu method
 	 * 
 	 */
-	private void makeGameSelectionMenu() {
-		gameSelectionButton = new Button("Game Selection");
-		gameSelectionButton.getStyleClass().add("button-nav");
-		gameSelectionButton.setOnAction(click->{showGameSelectionMenu();});
-		pane.getChildren().add(gameSelectionButton);
-		
-	}
+//	private void makeGameSelectionMenu() {
+//		gameSelectionButton = new Button("Game Selection");
+//		gameSelectionButton.getStyleClass().add("button-nav");
+//		gameSelectionButton.setOnAction(click->{showGameSelectionMenu();});
+//		pane.getChildren().add(gameSelectionButton);
+//		
+//	}
 	/**
 	 * getter method for the Brightness Slider on the Settings Stage
 	 * 
@@ -78,19 +83,21 @@ public class Menu {
 	 * 
 	 */
 	public Slider getVolumeSlider() {
+		
 		return settings.getBrightnessSlider();
+		
 	}
 	
 	/**
 	 * method to show new Stage when gameSelectionButton is pressed
 	 * 
 	 */
-	public void showGameSelectionMenu() {
-		//TODO Make this choose game to play, not edit
-		gameSelectionStage = new Stage();
-		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
-		//gameSelectionStage.setScene(gc.display());
-		gameSelectionStage.show();
-	}	
+//	public void showGameSelectionMenu() {
+//		//TODO Make this choose game to play, not edit
+//		gameSelectionStage = new Stage();
+//		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
+//		//gameSelectionStage.setScene(gc.display());
+//		gameSelectionStage.show();
+//	}	
 
 }
