@@ -60,8 +60,9 @@ public class SettingsMenu {
 	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
-		brightnessSlider.setMin(-1);
+		brightnessSlider.setMin(0);
 		brightnessSlider.setMax(1);
+		brightnessSlider.setValue(1);
 		return brightnessSlider;
 		
 	}
@@ -71,6 +72,7 @@ public class SettingsMenu {
 		volumeSlider.getStyleClass().add("slider");
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
+		volumeSlider.setValue(0);
 		return volumeSlider;
 	}
 	

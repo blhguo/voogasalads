@@ -30,7 +30,6 @@ public class PlayerMain extends Application{
 		this.playerView = new PlayerView(pullDownFactory, engine, viewManager, dataManager);
 		
 		this.pullDownFactory.setPlayerView(playerView);
-		this.viewManager.getMediaPlayer().play();
 	}
 	
 	public Scene getScene() {

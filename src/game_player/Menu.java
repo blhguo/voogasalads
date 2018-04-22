@@ -34,7 +34,7 @@ public class Menu {
 	private GameSelectionMenu gameMenu;
 	
 	public Menu(DataManager data, PulldownFactory pdf) {
-		pane = new HBox(80);
+		pane = new HBox(20);
 		pane.setAlignment(Pos.TOP_CENTER);
 		//pane.getStyleClass().add("pane-back");
 
@@ -92,9 +92,7 @@ public class Menu {
 	 * 
 	 */
 	public Slider getVolumeSlider() {
-		
-		return settings.getBrightnessSlider();
-		
+		return settings.getVolumeSlider();
 	}
 	
 	/**
