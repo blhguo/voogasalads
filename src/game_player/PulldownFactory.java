@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import game_player_interfaces.ImportData;
 import gameData.ManipData;
-import game_engine.Level;
+import game_engine.level.Level;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
