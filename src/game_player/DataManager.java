@@ -20,6 +20,7 @@ import javafx.scene.input.KeyCode;
  */
 public class DataManager {
 	private Map<KeyCode,String> keyPrefs;
+	private Map<String,KeyCode> keyPrefsReversed;
 	private Map<String,KeyCode> engineMap;
 	private List<String> gameInputs;
 	private List<Level> gameLevels = new ArrayList<Level>();
@@ -27,6 +28,7 @@ public class DataManager {
 	
 	public DataManager() {
 		keyPrefs = new HashMap<KeyCode,String>();
+		keyPrefsReversed = new HashMap<String,KeyCode>();
 		engineMap = new HashMap<String,KeyCode>();
 		gameInputs = new ArrayList<String>();
 		
@@ -40,6 +42,7 @@ public class DataManager {
 	}
 	public void setGamePlayer(Entity gp) {
 		gamePlayer = gp;
+		initializeInputs();
 	}
 	/**
 	 * Method called to set a preference for a key.
@@ -49,11 +52,16 @@ public class DataManager {
 	 */
 	public void setKey(String input,KeyCode key) {
 		keyPrefs.put(key, input);
+		keyPrefsReversed.put(input, key);
 		addGameDirection(key,input);
 	}
 	
 	private void addGameDirection(KeyCode k, String input) {
 		if(gamePlayer==null) {
+			for(String s : gameInputs) {
+				keyPrefs.put(engineMap.get(s), s);
+				keyPrefsReversed.put(s,engineMap.get(s));
+			}
 			return;
 		}
 		if(input.equals("left")){
@@ -79,14 +87,8 @@ public class DataManager {
 		return keyPrefs.get(key);
 	}
 	
-	/**
-	 * Method called to get the correct KeyCode for a given key during gameplay.
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public KeyCode getKeyCodeInput(KeyCode key) {
-		return engineMap.get(keyPrefs.get(key));
+	public KeyCode getKeyCode(String input) {
+		return keyPrefsReversed.get(input);
 	}
 	
 	/**
@@ -95,6 +97,8 @@ public class DataManager {
 	private void initializeInputs() {
 		for(String s : gameInputs) {
 			keyPrefs.put(engineMap.get(s), s);
+			keyPrefsReversed.put(s,engineMap.get(s));
+			addGameDirection(engineMap.get(s), s);
 		}
 	}
 	/**
