@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import game_engine.Level;
+import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 
 /**

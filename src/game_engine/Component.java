@@ -1,11 +1,19 @@
 package game_engine;
 
+import game_engine.components.Authoring;
 
-/**
- * The Interface Component is just a flag interface.
- * Example: http://www.w3processing.com/index.php?subMenuLoad=java/oop/InterfaceFlag.php
- */
-public interface Component {
-	String getValues();
-	String getName();
+public abstract class Component<T> {
+	private T myValue;
+	public Component(T val) {
+		myValue = val;
+	}
+	
+	public void setValue(T val) {
+		myValue = val;
+	}
+	
+	@Authoring
+	public T getValue() {
+		return myValue;
+	}
 }

@@ -1,5 +1,8 @@
 package authoring;
 
+import java.util.Map;
+
+import authoring.controllers.EntityController;
 import authoring.GUI_Heirarchy.GUINode;
 import game_engine.Entity;
 import javafx.geometry.Insets;
@@ -15,6 +18,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
 import user_interface.GameCamera;
 import java.util.Map;
 
