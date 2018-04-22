@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Spliterator;
 
 import game_engine.Engine;
 import game_engine.Entity;
@@ -119,18 +120,31 @@ public class PlayerView {
 	}
 
 	private void render() {
-		for (ImageView imageView : spriteMap.keySet()) {
-			Entity entity = spriteMap.get(imageView);
-			Double xPos = entity.getComponent(XPosComponent.class).getValue();
-			Double yPos = entity.getComponent(YPosComponent.class).getValue();
-			Double width = entity.getComponent(WidthComponent.class).getValue();
-			Double height = entity.getComponent(HeightComponent.class).getValue();
-			imageView.setX(xPos - width / 2);
-			imageView.setY(yPos - height / 2);
-		}
+		List<Entity> despawned = myEngine.getDespawned();
+		root.getChildren().removeAll(despawned);
+		
+		spriteMap.keySet().parallelStream().filter(this::isInView).forEach(this::display);
+		
 		List<Entity> entity = myEngine.getEntitiesContaining(Arrays.asList(KeyboardMovementInputComponent.class));
 		PositionComponent position = (PositionComponent) entity.get(0).getComponent(PositionComponent.class);
 		cam.setCamera(position.getX() - SCENE_SIZE / 2, position.getY() - SCENE_SIZE / 2);
+	}
+	
+	private void display(ImageView imageView) {
+		Entity entity = spriteMap.get(imageView);
+		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+		Double width = entity.getComponent(WidthComponent.class).getValue();
+		Double height = entity.getComponent(HeightComponent.class).getValue();
+		imageView.setX(xPos - width / 2);
+		imageView.setY(yPos - height / 2);
+	}
+	
+	private boolean isInView(ImageView imageView) {
+		Entity entity = spriteMap.get(imageView);
+		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+		return cam.initCamera().contains(xPos, yPos);
 	}
 
 	/**
