@@ -6,6 +6,7 @@ import java.util.List;
 
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
+import authoring.utilities.ButtonFactory;
 import frontend_utilities.ButtonFactory;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
