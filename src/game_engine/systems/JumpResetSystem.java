@@ -22,10 +22,7 @@ public class JumpResetSystem extends GameSystem{
 		for (Entity e : level.getEntitiesContaining(args)) {
 			Component<Double> defaultJumps = e.getComponent(DEFAULT_JUMPS);
 			Component<Double> numJumpsAllowed = e.getComponent(NUM_JUMPS_ALLOWED);
-			Component<List<Entity>> bottomCollided = e.getComponent(BOTTOM);
-			if(bottomCollided.getValue().size() > 0){
-				numJumpsAllowed.setValue(defaultJumps.getValue());
-			}
+			numJumpsAllowed.setValue(defaultJumps.getValue());
 		}
 	}
 

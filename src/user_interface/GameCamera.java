@@ -9,6 +9,7 @@ public class GameCamera {
 		cam = new ParallelCamera();
 		return cam;
 	}
+	
 	public void setCamera(double xLayout, double yLayout) {
 		cam.setLayoutX(xLayout);
 		cam.setLayoutY(yLayout);
