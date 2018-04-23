@@ -45,7 +45,6 @@ public class HealthSystem extends GameSystem {
 		List<Entity> collidedEntities = level.getEntitiesContainingAny(healthyEntities, collidedArgs);
 				
 		for (Entity e : collidedEntities) {
-			System.out.println("REACHED HERE");
 			Component<Double> myHealth = e.getComponent(HEALTH);
 			Component<List<Entity>> topCollision = e.getComponent(TOP);
 			Component<List<Entity>> bottomCollision = e.getComponent(BOTTOM);
