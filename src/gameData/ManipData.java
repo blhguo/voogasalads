@@ -43,6 +43,7 @@ public class ManipData {
 	private FileOutputStream fos;
 	private FileOutputStream fos1;
 	private ArrayList<Level> levellist;
+	private Engine output;
 
 	//constructor
 	public ManipData() {
@@ -69,7 +70,21 @@ public class ManipData {
 		}
 	}
 	
-	public void saveData(List<Level> levels, String gameName, Map<String, String> metaMap) {
+	private void saveEngine(Engine engine, String gameName) {
+		System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
+		try {
+			xml = serializer.toXML(engine);
+			fos.write("<data>".getBytes("UTF-8"));
+			fos.write(xml.getBytes("UTF-8"));
+			fos.write("</data>".getBytes("UTF-8"));
+		}
+		catch (Exception e) {
+			System.out.println("u dun goofed"); //TODO
+		}
+
+	}
+	
+	public void saveData(Engine engine, String gameName, Map<String, String> metaMap) {
 		int counter = 0;
 		try {
 			//this writes only one file
@@ -86,12 +101,8 @@ public class ManipData {
 	        try {
 	        	//writes xml header and then the number of data objects inside
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
-				String nums = Integer.toString(levels.size());
-				fos.write(("<higher "+"info='"+nums+"'>").getBytes("UTF-8"));
-				for(Level l: levels) {
-					saveLevel(l, counter);
-					counter++;
-				} 
+				fos.write(("<higher>").getBytes("UTF-8"));
+				saveEngine(engine, gameName);
 				fos.write("</higher>".getBytes("UTF-8"));
 
 	        } catch (UnsupportedEncodingException e) {
@@ -178,7 +189,7 @@ public class ManipData {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO
 		}
-		return loadLevels();
+		return loadEngine();
 	}
 	
 	public Map<String, String> openMeta(File file) {
@@ -237,17 +248,14 @@ public class ManipData {
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("higher");
 				Node nNode = nList.item(0);
-				Element eElement = (Element) nNode;
-				int nums = Integer.parseInt(eElement.getAttribute("info"));
-				for(int i=0;i<nums;i++) {
-
-					String s = nodeToString(eElement.getElementsByTagName("data"+Integer.toString(i)).item(0).getFirstChild());
+				Element eElement = (Element) nNode;			
+					String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());
 					System.out.println(s);
-					Level lilGuy = (Level) deserializer.fromXML(s);
+					Engine lilGuy = (Engine) deserializer.fromXML(s);
 					System.out.println(lilGuy);
-					levellist.add(lilGuy);
-				}
-				System.out.println(levellist);
+					output = lilGuy;
+				
+				System.out.println(output);
 				
 			} catch (SAXException e) {
 				System.out.println("here1");
@@ -277,4 +285,7 @@ public class ManipData {
 		return levellist;
 	}
 	
+	private Engine loadEngine() {
+		return output;
+	}
 }
