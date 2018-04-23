@@ -3,6 +3,7 @@ package authoring.right_components.EntityComponent;
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
+import authoring.component_menus.MenuElement;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
 import game_engine.Entity;
@@ -33,8 +34,11 @@ public class EntityWrapper {
 	public EntityWrapper(Entity e, EntityPaneWithWrappers pane){
 		entity = e;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
-		menuList.stream().forEach(b -> b.getElements().stream().forEach(
-				a -> a.setMyWrapper(this)));
+		for (ComponentMenu menu : menuList){
+			for(MenuElement element : menu.getElements()){
+				element.setMyWrapper(this);
+			}
+		}
 		//menuList.stream().forEach(c -> c.setMyPane(pane));
 		addAllComponents(entity);
 		imageView = createImageView();
@@ -42,9 +46,11 @@ public class EntityWrapper {
 	}
 
 	private void addAllComponents(Entity entity) {
-		menuList.stream().forEach(b -> b.getElements().stream().forEach(
-				a -> entity.addComponent(a.getComponent())
-		));
+		for (ComponentMenu menu : menuList){
+			for(MenuElement element : menu.getElements()){
+				entity.addComponent(element.getComponent());
+			}
+		}
 	}
 
 	private ImageView createImageView() {

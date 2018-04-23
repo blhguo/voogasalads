@@ -54,7 +54,7 @@ public class ComponentMenuFactory {
 	 * @return the list of ComponentMenus created in the default implementation
 	 */
 	public List<ComponentMenu> getDefaultMenus() {
-		return menuList;
+		return new ArrayList<>(menuList);
 		//return menuList.stream().map(menu -> new TitledPane(menu.getType()0, menu)).collect(Collectors.toList());
 	}
 }
