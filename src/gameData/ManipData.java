@@ -30,6 +30,7 @@ import org.xml.sax.SAXException;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import game_engine.Engine;
 import game_engine.level.Level;
 
 /*
@@ -88,7 +89,7 @@ public class ManipData {
 		int counter = 0;
 		try {
 			//this writes only one file
-			File file = new File("games/" + gameName + "/" + "gameLevels"+".xml");
+			File file = new File("savedata/gameLevels"+".xml");
 			if (!file.exists()) {
 			     try {
 					file.createNewFile();
@@ -116,20 +117,20 @@ public class ManipData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			saveMeta(metaMap, gameName);
-	        if(fos != null){
+			//saveMeta(metaMap, gameName);
+	        //if(fos != null){
 	            try{
 	                fos.close();
-	                fos1.close();
+	            //    fos1.close();
 	            }catch (IOException e) {
 	                e.printStackTrace(); //TODO
 	            }
 	        }
-	    }
+	    //}
 	}
 	
 	private void saveMeta(Map<String, String> metaMap, String gameName) {
-		File file = new File("games/" + gameName + "/" + "metaData"+".xml");
+		File file = new File("savedata/metaData"+".xml");
 		if (!file.exists()) {
 		     try {
 				file.createNewFile();
@@ -181,7 +182,7 @@ public class ManipData {
 	
 	
 	
-	public ArrayList<Level> loadData(String filePath, String gameName) {
+	public Engine loadData(String filePath, String gameName) {
 		try {
 			File load = new File(filePath);
 			openFile(load);
