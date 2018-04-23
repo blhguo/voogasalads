@@ -1,18 +1,19 @@
 package frontend_utilities;
 
-import authoring.DragResizeMod;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
 
 /**
  * @author Jennifer Chin
  * @author Liam Pulsifer
  * @author Elizabeth Shulman
- * Improved form of ImageView, allows use to click an ImageView and drag it around. 
+ * Improved form of ImageView, allows use to click an ImageView and drag it around.
  * Does not allow the user to drag the ImageView outside of the Canvas
  */
 public class DraggableImageView extends ImageView {
@@ -22,7 +23,7 @@ public class DraggableImageView extends ImageView {
 	private double maxX;
 	private double minY = 0;
 	private double maxY;
-	
+
 	/**
 	 * Makes a Draggable ImageView with given image
 	 * @param image
@@ -32,15 +33,13 @@ public class DraggableImageView extends ImageView {
 		this.setOnMousePressed(e -> {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
+			System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
 		});
-		setDrag();
-
-	}
-	public void setDrag(){
 		this.setOnMouseDragged(event -> {
 			int margin = AuthRes.getInt("Margin");
 			maxX = getParent().getLayoutBounds().getWidth() - margin;
 			maxY = getParent().getLayoutBounds().getHeight() - margin;
+			System.out.println("Dragged -- Mouse X: " + mouseX + " Mouse Y: " + mouseY);
 			double deltaX = event.getSceneX() - mouseX ;
 			double deltaY = event.getSceneY() - mouseY ;
 			mouseX = event.getSceneX();
@@ -53,7 +52,7 @@ public class DraggableImageView extends ImageView {
 	public void addHandler(EventHandler<MouseDragEvent> eventHandler){
 		this.setOnMouseDragReleased(eventHandler);
 	}
-	
+
 	private void setXPos(double pos, double minLimit, double maxLimit){
 		if (pos > maxLimit){
 			this.setX(maxLimit);
@@ -65,7 +64,7 @@ public class DraggableImageView extends ImageView {
 			this.setX(pos);
 		}
 	}
-	
+
 	private void setYPos(double pos, double minLimit, double maxLimit){
 		if (pos > maxLimit){
 			this.setY(maxLimit);
@@ -78,4 +77,3 @@ public class DraggableImageView extends ImageView {
 		}
 	}
 }
-

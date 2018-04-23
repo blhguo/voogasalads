@@ -48,7 +48,8 @@ public class EntityWrapper {
 	private void addAllComponents(Entity entity) {
 		for (ComponentMenu menu : menuList){
 			for(MenuElement element : menu.getElements()){
-				entity.addComponent(element.getComponent());
+				if (menu.isIncluded())
+					entity.addComponent(element.getComponent());
 			}
 		}
 	}
@@ -59,7 +60,7 @@ public class EntityWrapper {
 				entity.getComponent(WidthComponent.class).getValue().intValue(),
 				entity.getComponent(HeightComponent.class).getValue().intValue());
 		//TODO Set on mouse clicked to update the current EntityWrapper
-		iv.setOnMouseClicked(e -> setClick());
+		iv.setOnMousePressed(e -> setClick());
 		iv.setX(entity.getComponent(XPosComponent.class).getValue());
 		iv.setY(entity.getComponent(YPosComponent.class).getValue());
 		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), entity, iv));
