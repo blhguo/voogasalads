@@ -2,8 +2,8 @@ package game_engine.components;
 
 import game_engine.Component;
 
-public class DefaultNumberOfJumpsComponent extends Component{
+public class DefaultNumberOfJumpsComponent extends Component<Double> {
 	public DefaultNumberOfJumpsComponent(String arg) {
-		super(arg);
+		super(Double.parseDouble(arg));
 	}
 }

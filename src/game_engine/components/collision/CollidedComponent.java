@@ -11,52 +11,61 @@ import game_engine.Entity;
  * This class represents a Component that serves as a flag for Systems to recognize that the Entity possessing this component has collided with another entity
  * It is an abstract superclass for Top, Bottom, Right, and LeftCollidedComponent
  */
-public abstract class CollidedComponent extends Component{
-    private List<Entity> others;
+public abstract class CollidedComponent extends Component<List<Entity>> {
 
-    /**
-     * TODO: FIX LATER THIS IS TRASH
-     * Constructor: takes no args, created by System rather than authoring
-     */
-    public CollidedComponent(){
-    	super(null);
-        others = new ArrayList<Entity>();
+    public CollidedComponent(List<Entity> val){
+    	super(val);
+    }
+    
+    public CollidedComponent() {
+    	super(new ArrayList<Entity>());
     }
 
-    /**
-     * @param e
-     * If instantiated with the entity this Entity has collided with
-     */
-    public CollidedComponent(Entity e){
-        this();
-        addEntity(e);
-    }
-
-    /**
-     * @param es
-     * If instantiated with a list of entities that have collided with the entity containing the component
-     */
-    public CollidedComponent(List<Entity> es){
-        this();
-        addEntities(es);
-    }
+    //COMMENTED OUT BY KEVIN 4/18/18 - question: why are there 3 constructors?
+//    /**
+//     * @param e
+//     * If instantiated with the entity this Entity has collided with
+//     */
+//    public CollidedComponent(Entity e){
+//        this();
+//        addEntity(e);
+//    }
+//
+//    /**
+//     * @param es
+//     * If instantiated with a list of entities that have collided with the entity containing the component
+//     */
+//    public CollidedComponent(List<Entity> es){
+//        this();
+//        addEntities(es);
+//    }
 
     /**
      * @param e
      * Setter allowing System to add an entity to the list of entities contained in the component
      */
     public void addEntity(Entity e){
-        if(!others.contains(e)) {
-            others.add(e);
+        if(!getValue().contains(e)) {
+            getValue().add(e);
+        }
+    }
+    
+    /**
+     * @param e
+     * Setter allowing System to add an entity to the list of entities contained in the component
+     */
+    public void removeEntity(Entity e){
+        if(getValue().contains(e)) {
+        	getValue().remove(getValue().indexOf(e));
         }
     }
     
     public boolean contains(Entity e) {
-    	return others.contains(e);
+    	return getValue().contains(e);
     }
     
-    public boolean contains(Class<Component> c) {
-    	for(Entity e: others) {
+    public boolean contains(Class<? extends Component<?>> c) {
+    	for(Entity e: getValue()) {
     		if(e.getComponent(c)!=null) {
     			return true;
     		}
@@ -73,13 +82,4 @@ public abstract class CollidedComponent extends Component{
             addEntity(e);
         }
     }
-
-    /**
-     * @return
-     * Getter that gets all the entities contained in this component
-     */
-    public List<Entity> getEntities(){
-        return others;
-    }
-
 }
