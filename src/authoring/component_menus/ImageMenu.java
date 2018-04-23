@@ -1,11 +1,12 @@
 package authoring.component_menus;
 
-import authoring.utilities.ButtonFactory;
+import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
 @Deprecated
 public class ImageMenu  {
 
