@@ -66,196 +66,177 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class saveDataTest extends Application{
+public class saveDataTest extends Application {
 	private Engine engine;
-	
-	 private CollisionBroadSystem colSys;
-	    private PositionSystem posSys;
-	    private VelocitySystem velSys;
-	    private KeyboardJumpSystem keyboardJumpSys;
-	    private CollisionResponseSystem colResponseSys;
-	    private LeftKeyboardMovementSystem leftKeySys;
-	    private RightKeyboardMovementSystem rightKeySys;
-	    private UpKeyboardMovementSystem upKeySys;
-	    private DownKeyboardMovementSystem downKeySys;
-	    private HealthSystem healthSys;
-	    private ProjectileSpawnSystem projSys;
-	    private ProjectileDespawnSystem projDespawn;
-	    private DespawnSystem despawnSys;
-	    
-	    private Rectangle r1;
 
-	    private Group root;
-	    private Scene myScene;
-	    
-	    private static final int FRAMES_PER_SECOND = 60;
-	    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	    
-	    private Entity e1;
-	    private Entity e2;
-	    private Entity e3;
-	    
-	    
+	private Rectangle r1;
 
-	
+	private Group root;
+	private Scene myScene;
+
+	private static final int FRAMES_PER_SECOND = 60;
+	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
+	private Entity e1;
+	private Entity e2;
+	private Entity e3;
+
 	public void initializeEverything() {
 		engine = new Engine();
-    }
-	
-	public void makeEntities() {
-		e1 = new Entity();	
-        e2 = new Entity();
-        e3 = new Entity();
-
-    	LeftKeyboardComponent keyLeftComp = new LeftKeyboardComponent(KeyCode.LEFT.toString());
-    	RightKeyboardComponent keyRightComp = new RightKeyboardComponent(KeyCode.RIGHT.toString());
-    	UpKeyboardComponent keyUpComp = new UpKeyboardComponent(KeyCode.UP.toString());
-    	DownKeyboardComponent keyDownComp = new DownKeyboardComponent(KeyCode.DOWN.toString());
-    	e1.addComponent(keyLeftComp);
-    	e1.addComponent(keyRightComp);
-    	e1.addComponent(keyUpComp);
-    	e1.addComponent(keyDownComp);
-    	
-    	e1.addComponent(new YAccelComponent("20"));
-    	e1.addComponent(new DefaultYVelComponent("20"));
-    	e1.addComponent(new YVelComponent("0"));
-    	
-    	e1.addComponent(new XVelComponent("0"));
-    	e1.addComponent(new DefaultXVelComponent("400"));
-    	e1.addComponent(new XAccelComponent("0"));
-    	
-    	e1.addComponent(new XPosComponent("0"));
-    	e1.addComponent(new YPosComponent("0"));
-    	e1.addComponent(new AngleComponent("0"));
-    	
-    	e2.addComponent(new XPosComponent("100"));
-    	e2.addComponent(new YPosComponent("100"));
-    	e2.addComponent(new AngleComponent("0"));
-    	
-    	e3.addComponent(new XPosComponent("800"));
-    	e3.addComponent(new YPosComponent("300"));
-    	e3.addComponent(new AngleComponent("0"));
-    	
-    	
-    	e1.addComponent(new HitboxHeightComponent("100.0"));
-    	e1.addComponent(new HitboxWidthComponent("100.0"));
-    	e1.addComponent(new HitboxXOffsetComponent("0.0"));
-    	e1.addComponent(new HitboxYOffsetComponent("0.0"));
-    	
-    	e2.addComponent(new HitboxHeightComponent("20.0"));
-    	e2.addComponent(new HitboxWidthComponent("20.0"));
-    	e2.addComponent(new HitboxXOffsetComponent("0.0"));
-    	e2.addComponent(new HitboxYOffsetComponent("0.0"));
-    	
-    	e3.addComponent(new HitboxHeightComponent("500.0"));
-    	e3.addComponent(new HitboxWidthComponent("100.0"));
-    	e3.addComponent(new HitboxXOffsetComponent("0.0"));
-    	e3.addComponent(new HitboxYOffsetComponent("0.0"));
-    	
-    	e1.addComponent(new CollidableComponent("true"));
-    	//e1.addComponent(new PassableComponent("true"));
-    	
-    	e2.addComponent(new CollidableComponent("true"));
-    	e2.addComponent(new PassableComponent("true"));
-    	
-    	e3.addComponent(new CollidableComponent("true"));
-    	//e3.addComponent(new PassableComponent("true"));
-    	
-    	//Add Health Component
-    	e1.addComponent(new HealthComponent("1000")); //100 health points for e1
-    	e3.addComponent(new HealthComponent("2000"));
-    	e3.addComponent(new DamageComponent("100")); //e3 does 100 damage
-    	
-    	//Add Project Components to Entity e1
-    	e1.addComponent(new ProjectileWidthComponent("30.0"));
-    	e1.addComponent(new ProjectileHeightComponent("20.0"));
-    	e1.addComponent(new ProjectileHitboxWidthComponent("20.0"));
-    	e1.addComponent(new ProjectileHitboxHeightComponent("20.0"));
-    	e1.addComponent(new ProjectileHitboxXOffsetComponent("0.0"));
-    	e1.addComponent(new ProjectileHitboxYOffsetComponent("0.0"));
-    	e1.addComponent(new ProjectileCollidableComponent("true"));
-    	e1.addComponent(new ProjectileDamageComponent("2"));
-    	e1.addComponent(new ProjectileKeyboardInputComponent(KeyCode.SPACE.toString()));
-    	e1.addComponent(new ProjectileXVelComponent("200"));
-    	e1.addComponent(new ProjectileYVelComponent("0"));
-    	e1.addComponent(new ProjectileFilenameComponent("Mario.GIF"));
-    	
-    	
-    	Level asdf = engine.createLevel();
-    	asdf.addEntity(e2);
-    	asdf.addEntity(e1);
-    	asdf.addEntity(e3);
-    	
-    	List<Level> levels = new ArrayList<Level>();
-    	levels.add(asdf);
 	}
-	
+
+	public void makeEntities() {
+		e1 = new Entity();
+		e2 = new Entity();
+		e3 = new Entity();
+
+		LeftKeyboardComponent keyLeftComp = new LeftKeyboardComponent(KeyCode.LEFT.toString());
+		RightKeyboardComponent keyRightComp = new RightKeyboardComponent(KeyCode.RIGHT.toString());
+		UpKeyboardComponent keyUpComp = new UpKeyboardComponent(KeyCode.UP.toString());
+		DownKeyboardComponent keyDownComp = new DownKeyboardComponent(KeyCode.DOWN.toString());
+		e1.addComponent(keyLeftComp);
+		e1.addComponent(keyRightComp);
+		e1.addComponent(keyUpComp);
+		e1.addComponent(keyDownComp);
+
+		e1.addComponent(new YAccelComponent("20"));
+		e1.addComponent(new DefaultYVelComponent("20"));
+		e1.addComponent(new YVelComponent("0"));
+
+		e1.addComponent(new XVelComponent("0"));
+		e1.addComponent(new DefaultXVelComponent("400"));
+		e1.addComponent(new XAccelComponent("0"));
+
+		e1.addComponent(new XPosComponent("0"));
+		e1.addComponent(new YPosComponent("0"));
+		e1.addComponent(new AngleComponent("0"));
+
+		e2.addComponent(new XPosComponent("100"));
+		e2.addComponent(new YPosComponent("100"));
+		e2.addComponent(new AngleComponent("0"));
+
+		e3.addComponent(new XPosComponent("800"));
+		e3.addComponent(new YPosComponent("300"));
+		e3.addComponent(new AngleComponent("0"));
+
+		e1.addComponent(new HitboxHeightComponent("100.0"));
+		e1.addComponent(new HitboxWidthComponent("100.0"));
+		e1.addComponent(new HitboxXOffsetComponent("0.0"));
+		e1.addComponent(new HitboxYOffsetComponent("0.0"));
+
+		e2.addComponent(new HitboxHeightComponent("20.0"));
+		e2.addComponent(new HitboxWidthComponent("20.0"));
+		e2.addComponent(new HitboxXOffsetComponent("0.0"));
+		e2.addComponent(new HitboxYOffsetComponent("0.0"));
+
+		e3.addComponent(new HitboxHeightComponent("500.0"));
+		e3.addComponent(new HitboxWidthComponent("100.0"));
+		e3.addComponent(new HitboxXOffsetComponent("0.0"));
+		e3.addComponent(new HitboxYOffsetComponent("0.0"));
+
+		e1.addComponent(new CollidableComponent("true"));
+		// e1.addComponent(new PassableComponent("true"));
+
+		e2.addComponent(new CollidableComponent("true"));
+		e2.addComponent(new PassableComponent("true"));
+
+		e3.addComponent(new CollidableComponent("true"));
+		// e3.addComponent(new PassableComponent("true"));
+
+		// Add Health Component
+		e1.addComponent(new HealthComponent("1000")); // 100 health points for e1
+		e3.addComponent(new HealthComponent("2000"));
+		e3.addComponent(new DamageComponent("100")); // e3 does 100 damage
+
+		// Add Project Components to Entity e1
+		e1.addComponent(new ProjectileWidthComponent("30.0"));
+		e1.addComponent(new ProjectileHeightComponent("20.0"));
+		e1.addComponent(new ProjectileHitboxWidthComponent("20.0"));
+		e1.addComponent(new ProjectileHitboxHeightComponent("20.0"));
+		e1.addComponent(new ProjectileHitboxXOffsetComponent("0.0"));
+		e1.addComponent(new ProjectileHitboxYOffsetComponent("0.0"));
+		e1.addComponent(new ProjectileCollidableComponent("true"));
+		e1.addComponent(new ProjectileDamageComponent("2"));
+		e1.addComponent(new ProjectileKeyboardInputComponent(KeyCode.SPACE.toString()));
+		e1.addComponent(new ProjectileXVelComponent("200"));
+		e1.addComponent(new ProjectileYVelComponent("0"));
+		e1.addComponent(new ProjectileFilenameComponent("Mario.GIF"));
+
+		Level asdf = engine.createLevel();
+		asdf.addEntity(e2);
+		asdf.addEntity(e1);
+		asdf.addEntity(e3);
+
+		List<Level> levels = new ArrayList<Level>();
+		levels.add(asdf);
+	}
+
 	public void setUpRect() {
 		r1 = new Rectangle();
 		double x = e1.getComponent(XPosComponent.class).getValue();
-        double y = e1.getComponent(YPosComponent.class).getValue();
-        r1.setWidth(50);
-        r1.setHeight(50);
-        r1.setX(x);
-        r1.setY(y);
-        r1.setFill(Color.BLUE);
+		double y = e1.getComponent(YPosComponent.class).getValue();
+		r1.setWidth(50);
+		r1.setHeight(50);
+		r1.setX(x);
+		r1.setY(y);
+		r1.setFill(Color.BLUE);
 	}
-	
+
 	public void update(double elapsed) {
 		engine.update(elapsed);
 		Entity e1 = engine.getLevel().getEntities().get(1);
-	        double x = e1.getComponent(XPosComponent.class).getValue();
-	        double y = e1.getComponent(YPosComponent.class).getValue();
-	        double theta = e1.getComponent(AngleComponent.class).getValue();
-	        System.out.println("x: "+ x);
-	        System.out.println(" y: " + y);
-	        r1.setX(x);
-	        r1.setY(y);
+		double x = e1.getComponent(XPosComponent.class).getValue();
+		double y = e1.getComponent(YPosComponent.class).getValue();
+		double theta = e1.getComponent(AngleComponent.class).getValue();
+		System.out.println("x: " + x);
+		System.out.println(" y: " + y);
+		r1.setX(x);
+		r1.setY(y);
 	}
-	
+
 	public void saveIntoData() {
 		ManipData data = new ManipData();
 		Map<String, String> map = new HashMap<>();
 		map.put("dog", "cat");
 		map.put("potato", "fruit");
-    	data.saveData(engine, "Mario", map);
+		data.saveData(engine, "Mario", map);
 	}
-	
+
 	public Engine loadFromData() {
 		ManipData data = new ManipData();
 		return data.loadData("savedata/gameLevels.xml", "gameName");
 	}
 
 	public static void main(String[] args) {
-		 launch(args);
+		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		this.initializeEverything();
-    	this.makeEntities();
-    	this.saveIntoData();
-    	this.setUpRect();
-    	engine = this.loadFromData();
-		
+		this.makeEntities();
+		this.saveIntoData();
+		this.setUpRect();
+		engine = this.loadFromData();
+
 		System.out.println("hiasdfasdf");
 		root = new Group();
-        myScene = new Scene(root, 400, 400, Color.rgb(255, 255, 255));
-        myScene.setOnKeyPressed(b -> engine.receiveInput(b));
+		myScene = new Scene(root, 400, 400, Color.rgb(255, 255, 255));
+		myScene.setOnKeyPressed(b -> engine.receiveInput(b));
 		myScene.setOnKeyReleased(b -> engine.receiveInput(b));
-		
-		root.getChildren().add(r1);		
-        stage.setScene(myScene);
-        stage.setTitle("mario");
-        stage.show();
 
-        // attach "game loop" to timeline to play it
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> update(SECOND_DELAY));
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-		
+		root.getChildren().add(r1);
+		stage.setScene(myScene);
+		stage.setTitle("mario");
+		stage.show();
+
+		// attach "game loop" to timeline to play it
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> update(SECOND_DELAY));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+
 	}
 }

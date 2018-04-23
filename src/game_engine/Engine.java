@@ -50,11 +50,12 @@ public class Engine {
 		mySystems.add(new DownKeyboardMovementSystem(this));
 		mySystems.add(new HealthSystem());
 		mySystems.add(new ProjectileSpawnSystem(this));
-		mySystems.add( new ProjectileDespawnSystem());
-		mySystems.add(new DespawnSystem());
+		//mySystems.add( new ProjectileDespawnSystem());
+		//mySystems.add(new DespawnSystem());
 	}
 
 	public void update(double elapsedTime) {
+		System.out.println("Getting called!");
 		Level currentLevel = getLevel();
 		for (GameSystem system : mySystems) {
 			system.act(elapsedTime, currentLevel);
@@ -89,6 +90,7 @@ public class Engine {
 	}
 
 	public void receiveInput(KeyEvent event) {
+		System.out.println("added input!");
 		myInputs.add(event);
 	}
 
@@ -96,10 +98,6 @@ public class Engine {
 	public void clearInputs() {
 		myInputs.clear();
 	}
-
-	public List<Entity> getDespawned() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
