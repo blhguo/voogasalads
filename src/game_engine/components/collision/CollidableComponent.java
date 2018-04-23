@@ -1,7 +1,5 @@
 package game_engine.components.collision;
 
-import java.util.List;
-
 import game_engine.Component;
 
 /**
@@ -12,9 +10,9 @@ import game_engine.Component;
  * Passable: Signals to systems that this Entity is "tangible" (Use case: if intersectable & not passable, other entities can pass through it, but collisions are still detected)
  * Pushable: An int, whose value dictates what Entities can be pusehd by this entity (higher can push lower)
  */
-public class CollidableComponent extends Component{
+public class CollidableComponent extends Component<Boolean> {
 	public CollidableComponent(String arg) {
-		super(arg);
+		super(Boolean.parseBoolean(arg));
 	}
 }
 	

@@ -3,7 +3,7 @@ package authoring.right_components;
 import java.util.ArrayList;
 import java.util.List;
 
-import authoring.GUINode;
+import authoring.GUI_Heirarchy.GUINode;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;

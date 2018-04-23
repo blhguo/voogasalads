@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import gameData.ManipData;
 import game_engine.Entity;
-import game_engine.Level;
+import game_engine.level.Level;
 
 /**
  * @author jennychin
