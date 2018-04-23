@@ -65,6 +65,7 @@ public class EntityController {
 		//entityList.add(entity);
 		map.put(wrapper.getImageView(), wrapper.getEntity());
 		entityList.add(wrapper);
+		System.out.println("Wrapper added: " + entityList.size());
 		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
 			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));

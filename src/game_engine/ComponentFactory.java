@@ -38,7 +38,7 @@ public class ComponentFactory {
 	}
 
 	public <T> Component<T> createComponent(String key, String args) {
-		System.out.println();
+		//System.out.println();
 		try {
 			Class<?> clazz = Class.forName(myComponents.getString(key));
 			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);

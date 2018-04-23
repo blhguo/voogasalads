@@ -6,6 +6,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import resources.keys.AuthRes;
 
@@ -39,7 +40,7 @@ public class DraggableImageView extends ImageView {
 			int margin = AuthRes.getInt("Margin");
 			maxX = getParent().getLayoutBounds().getWidth() - margin;
 			maxY = getParent().getLayoutBounds().getHeight() - margin;
-			System.out.println("Dragged -- Mouse X: " + mouseX + " Mouse Y: " + mouseY);
+			//System.out.println("Dragged -- Mouse X: " + mouseX + " Mouse Y: " + mouseY);
 			double deltaX = event.getSceneX() - mouseX ;
 			double deltaY = event.getSceneY() - mouseY ;
 			mouseX = event.getSceneX();
@@ -75,5 +76,13 @@ public class DraggableImageView extends ImageView {
 		else{
 			this.setY(pos);
 		}
+	}
+
+	public void setOnMouse(EventHandler<MouseEvent> eventHandler) {
+		this.setOnMousePressed(e -> {
+			eventHandler.handle(e);
+			mouseX = e.getSceneX();
+			mouseY = e.getSceneY();
+		});
 	}
 }
