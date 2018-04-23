@@ -102,6 +102,12 @@
     -fx-fill: rgba(255, 255, 255, 0.7);
 }
 
+.title3 {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 14px;
+    -fx-fill: white;
+}
+
 
 .titled-pane > .title {
     -fx-font-size: 14px;
@@ -140,6 +146,16 @@
     -fx-prompt-text-fill: white;
     -fx-background-color: rgba(0, 0, 0, 0.5);
 
+}
+
+.combo-box-base .text {
+    -fx-fill: white;
+}
+
+.combo-box-auth {
+    -fx-font-family:segoeui;
+    -fx-font-size: 14px;
+    -fx-min-height: 28;
 }
 
 .slider {
