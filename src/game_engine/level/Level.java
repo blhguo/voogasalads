@@ -18,7 +18,7 @@ import game_engine.event.Event;
  */
 public class Level extends Entity{
 	private List<Entity> myEntities = new ArrayList<>();
-	private List<Event> myEvents;
+	private List<Event> myEvents = new ArrayList<>();
 	private int myId;
 	
 	public Level(int id) {
