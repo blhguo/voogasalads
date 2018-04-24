@@ -49,7 +49,7 @@ import game_engine.systems.ProjectileDespawnSystem;
 import game_engine.systems.ProjectileSpawnSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
+import game_engine.systems.collision.ImpassableResponseSystem;
 import game_engine.systems.keyboard.DownKeyboardMovementSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
 import game_engine.systems.keyboard.LeftKeyboardMovementSystem;

@@ -14,7 +14,7 @@ import game_engine.systems.ProjectileSpawnSystem;
 import game_engine.systems.SpriteSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
+import game_engine.systems.collision.ImpassableResponseSystem;
 import game_engine.systems.keyboard.DownKeyboardMovementSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
 import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
@@ -39,7 +39,7 @@ public class Engine {
 		
 		//TEMP!
 		mySystems = new ArrayList<>();
-		mySystems.add(new CollisionResponseSystem());
+		mySystems.add(new ImpassableResponseSystem());
 		mySystems.add(new KeyboardJumpSystem(this));
 		mySystems.add(new CollisionBroadSystem());
 		mySystems.add(new PositionSystem());
