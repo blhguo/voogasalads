@@ -35,7 +35,7 @@ public class DraggableImageView extends ImageView {
 			mouseY = e.getSceneY();
 		});
 		this.setOnMouseDragged(event -> {
-			int margin = AuthRes.getInt("Margin");
+			int margin = 2 * AuthRes.getInt("Margin");
 			maxX = getParent().getLayoutBounds().getWidth() - margin;
 			maxY = getParent().getLayoutBounds().getHeight() - margin;
 			double deltaX = event.getSceneX() - mouseX ;

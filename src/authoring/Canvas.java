@@ -3,6 +3,7 @@ package authoring;
 import authoring.GUI_Heirarchy.GUINode;
 import game_engine.Entity;
 import javafx.geometry.Insets;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
