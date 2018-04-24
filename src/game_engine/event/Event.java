@@ -16,7 +16,7 @@ public class Event {
 				return;
 			}
 		}
-		//System.out.println("CONDITION PASSED!!");
+
 		for (Action action : myActions) {
 			action.execute();
 		}
