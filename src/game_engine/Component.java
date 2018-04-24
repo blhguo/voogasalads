@@ -9,9 +9,10 @@ public abstract class Component<T> {
 	public Component(T val) {
 		myValue = val;
 	}
-	
+
 	public void setValue(T val) {
 		myValue = val;
+		alert();
 	}
 	
 	public T getValue() {
