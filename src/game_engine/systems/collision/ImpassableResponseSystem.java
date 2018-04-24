@@ -37,6 +37,7 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collidedEntities = getCollidedEntities(level);
+		System.out.println(collidedEntities.size());
 		for (Entity e : collidedEntities) {
 			XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
 			YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));

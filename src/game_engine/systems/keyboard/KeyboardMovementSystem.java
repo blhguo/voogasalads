@@ -1,4 +1,5 @@
 package game_engine.systems.keyboard;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,17 +14,19 @@ import javafx.scene.input.KeyCode;
  * @author Kevin Deng, Andy Nguyen, REFACTORED by Jeremy Chen
  */
 public abstract class KeyboardMovementSystem extends GameSystem {
-	private Class<? extends Component<KeyCode>> myKeyboardMoveInput;
-	private Class<? extends Component<Double>> myDefaultVel;
-	private Class<? extends Component<Double>> myVel;
 	
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	private static final String KEY_RELEASED = "KEY_RELEASED";
 	
 	private Engine myEngine; 
+	private Class<? extends Component<KeyCode>> myKeyboardMoveInput;
+	private Class<? extends Component<Double>> myDefaultVel;
+	private Class<? extends Component<Double>> myVel;
+	private int myDirection;
 	
-	public KeyboardMovementSystem(Engine engine, Class<? extends Component<KeyCode>> keyMoveInput, Class<? extends Component<Double>> defaultVel, Class<? extends Component<Double>> vel) {
+	public KeyboardMovementSystem(Engine engine, int direction, Class<? extends Component<KeyCode>> keyMoveInput, Class<? extends Component<Double>> defaultVel, Class<? extends Component<Double>> vel) {
 		myEngine = engine;
+		myDirection = direction;
 		myKeyboardMoveInput = keyMoveInput;
 		myDefaultVel = defaultVel;
 		myVel = vel;
@@ -37,15 +40,12 @@ public abstract class KeyboardMovementSystem extends GameSystem {
 			Component<Double> defaultVel = entity.getComponent(myDefaultVel);
 			Component<Double> vel = entity.getComponent(myVel);
 			for (InputEvent input : myEngine.getInput(keyInput)) {
-				System.out.println("inside keyboard system!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
-					vel.setValue(defaultVel.getValue()*getDirection());
+					vel.setValue(defaultVel.getValue() * myDirection);
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {
 					vel.setValue(0.0);
 				}
 			}
 		}
 	}
-	
-	protected abstract int getDirection();
 }
