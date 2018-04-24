@@ -2,7 +2,7 @@ package game_player;
 
 import java.io.File;
 
-import authoring.GameChooserScreen;
+import authoring.gamechoosers.GameChooserBase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -177,7 +177,7 @@ public class ViewManager {
      * Display the stage for game selection.
      */ 
 	public void showGameSelectionMenu() {
-		GameChooserScreen gc = new GameChooserScreen(gameStage);
+		GameChooserBase gc = new GameChooserBase(gameStage);
 		//gameStage.setScene(gc.display());
 		gameStage.show();
 	}

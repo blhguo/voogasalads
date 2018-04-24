@@ -1,8 +1,10 @@
 package main;
 
 import authoring.AuthoringEnvironment;
-import authoring.GameChooserScreen;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
+import authoring.gamechoosers.GameChooserBase;
+import authoring.gamechoosers.GameChooserEdit;
+import authoring.gamechoosers.GameChooserPlay;
 import frontend_utilities.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -42,13 +44,13 @@ public class SplashScreen extends GUIGridPaneSuper{
 			myStage.show();
 		});
 		Button loadButton = ButtonFactory.makeButton(e -> {
-			GameChooserScreen gc = new GameChooserScreen(myStage);
+			GameChooserBase gc = new GameChooserEdit(myStage);
 			myStage.getScene().setRoot(gc.display());
 			myStage.show();
 		});
 		
 		Button playButton = ButtonFactory.makeButton(e -> {
-			GameChooserScreen gc = new GameChooserScreen(myStage);
+			GameChooserBase gc = new GameChooserPlay(myStage);
 			myStage.getScene().setRoot(gc.display());
 			myStage.show();
 		});
