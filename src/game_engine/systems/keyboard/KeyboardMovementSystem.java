@@ -29,6 +29,7 @@ public abstract class KeyboardMovementSystem extends GameSystem {
 		myDirection = direction;
 		myKeyboardMoveInput = keyMoveInput;
 		myDefaultVel = defaultVel;
+		myVel = vel;
 	}
 
 	@Override

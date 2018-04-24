@@ -147,7 +147,7 @@ public class CollectibleTest extends Application {
     private void buildMainCharacterEntity(){
     	mainCharacter = new Entity();
     	//components needed for each of the 4 keyboard movement systems
-    	mainCharacter.addComponent(new DefaultXVelComponent("400"));
+    	mainCharacter.addComponent(new DefaultXVelComponent("200"));
     	mainCharacter.addComponent(new DefaultYVelComponent("30"));
     	mainCharacter.addComponent(new LeftKeyboardComponent(KeyCode.LEFT.toString()));
     	mainCharacter.addComponent(new RightKeyboardComponent(KeyCode.RIGHT.toString()));
@@ -192,7 +192,9 @@ public class CollectibleTest extends Application {
     }
     
     private void buildEngine(){
+    	System.out.println("engine");
     	engine = new Engine();
+    	System.out.println("hi");
     	Level level1 = engine.createLevel();
     	level1.addEntity(mainCharacter);
     	level1.addEntity(coin);
