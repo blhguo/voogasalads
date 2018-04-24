@@ -58,11 +58,14 @@ public class PlayerView {
  * constructor for PlayerView
  *
  */
-	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view, DataManager dtm) {
+	public PlayerView(PulldownFactory pdf, ViewManager view, DataManager dtm) {
 		pullDownFactory = pdf;
-		myEngine = engine;
 		viewManager = view;
 		dataManager = dtm;
+	}
+	
+	public void setEngine(Engine e) {
+		this.myEngine = e;
 	}
 
 	/**
@@ -81,10 +84,10 @@ public class PlayerView {
 		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 		cam = new GameCamera();
 		subScene.setCamera(cam.initCamera());
-		List<Level> levels = pullDownFactory.getLevels();
+		Level level= myEngine.getLevel();
 
 		spriteMap = new HashMap<>();
-		List<Entity> spriteEntities = levels.get(0)
+		List<Entity> spriteEntities = level
 				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
 			String imageName = e.getComponent(FilenameComponent.class).getValue();

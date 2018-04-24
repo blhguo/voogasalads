@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
@@ -23,8 +24,9 @@ public class DataManager {
 	private Map<String,KeyCode> keyPrefsReversed;
 	private Map<String,KeyCode> engineMap;
 	private List<String> gameInputs;
-	private List<Level> gameLevels = new ArrayList<Level>();
+	private Engine gameEngine;
 	private Entity gamePlayer;
+	
 	
 	public DataManager() {
 		keyPrefs = new HashMap<KeyCode,String>();
@@ -112,12 +114,12 @@ public class DataManager {
 	 * 
 	 * @param node
 	 */
-	public void setGameLevels(List<Level> lev) {
-		gameLevels = lev;
+	public void setGameEngine(Engine e) {
+		gameEngine = e;
 	}
 	
-	public List<Level> getGameLevels(){
-		return gameLevels;
+	public Engine getGameEngine(){
+		return gameEngine;
 	}
 	
 	public List<String> getInputCommands(){
