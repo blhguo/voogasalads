@@ -108,4 +108,9 @@ public class ButtonFactory {
 		return ret;
 	}
 
+	public static HBox makeHBox(String create_entity, Object o, Button button, Pos center) {
+		HBox box = makeHBox(create_entity, (String) o, button);
+		box.setAlignment(center);
+		return box;
+	}
 }

@@ -12,8 +12,8 @@ import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
-import game_engine.components.physics.XPhysicsComponent;
-import game_engine.components.physics.YPhysicsComponent;
+import game_engine.components.physics.XVelComponent;
+import game_engine.components.physics.YVelComponent;
 
 /**
  * @author: Jeremy Chen
@@ -21,16 +21,14 @@ import game_engine.components.physics.YPhysicsComponent;
  * Describes very basic collision behavior (stopping & pushing)
  * 
  */
-
 public class CollisionResponseSystem extends GameSystem{
+    private static final Class<? extends Component<?>> LEFT = LeftCollidedComponent.class;
+    private static final Class<? extends Component<?>> BOTTOM = BottomCollidedComponent.class;
+    private static final Class<? extends Component<?>> RIGHT = RightCollidedComponent.class;
+    private static final Class<? extends Component<?>> TOP = TopCollidedComponent.class;
 
-    private static final Class<? extends Component> LEFT = LeftCollidedComponent.class;
-    private static final Class<? extends Component> BOTTOM = BottomCollidedComponent.class;
-    private static final Class<? extends Component> RIGHT = RightCollidedComponent.class;
-    private static final Class<? extends Component> TOP = TopCollidedComponent.class;
-
-    private static final List<Class<? extends Component>> TARGET_COMPONENTS = Collections.unmodifiableList(
-            new ArrayList<Class<? extends Component>>() {{
+    private static final List<Class<? extends Component<?>>> TARGET_COMPONENTS = Collections.unmodifiableList(
+            new ArrayList<Class<? extends Component<?>>>() {{
                 add(LEFT);
                 add(RIGHT);
                 add(BOTTOM);
@@ -53,19 +51,18 @@ public class CollisionResponseSystem extends GameSystem{
     public void act(double elapsedTime) {
         List<Entity> collidedEntities = getEngine().getEntitiesContainingAny(TARGET_COMPONENTS);
         for (Entity e: collidedEntities){
-            XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
-            YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
-                        
-
-            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() > 0) ||
-                    (e.getComponent(RIGHT) != null && xp.getCurrVel() < 0))){
-                xp.setCurrVel(0.0);
-
-            }
-            if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
-                    (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){
-                yp.setCurrVel(0.0);
-            }
+            XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
+            YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
+    		String stopVal = Double.toString(0.0);
+    		
+//            if(xv!=null && ((e.getComponent(LEFT) != null && xv.getValue() < 0) ||
+//                    (e.getComponent(RIGHT) != null && xv.getValue() > 0))){
+//                xv.setValue(0.0);
+//            }
+//            if(yv!=null && ((e.getComponent(BOTTOM) != null && yv.getValue() > 0) ||
+//                    (e.getComponent(TOP) != null && yv.getValue() < 0))){
+//                yv.setValue(0.0);
+//            }
         }
     }
 }

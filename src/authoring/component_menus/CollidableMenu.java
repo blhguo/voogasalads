@@ -5,7 +5,6 @@ import java.util.List;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
-
 import game_engine.components.collision.CollidableComponent;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
@@ -37,7 +36,7 @@ public class CollidableMenu extends VBox  {
 		list.add(Boolean.toString(intersectable.isSelected()));
 		list.add(Boolean.toString(passable.isSelected()));
 		list.add(Boolean.toString(pushable.isSelected()));
-		return new CollidableComponent(list);
+		return new CollidableComponent(new String());
 	}
 
 	public Node getNode(){

@@ -1,9 +1,5 @@
 package gameData;
 
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
 public class Main {
 	
 //	public static void main (String[] args) {

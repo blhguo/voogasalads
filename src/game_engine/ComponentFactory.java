@@ -31,23 +31,19 @@ public class ComponentFactory {
 	 * @param args the args
 	 * @return Component
 	 */
-	public Component addComponent(Entity entity, String key, List<String> args) {
-		Component component = createComponent(key, args);
+	public <T> Component<T> addComponent(Entity entity, String key, String args) {
+		Component<T> component = createComponent(key, args);
 		entity.addComponent(component);
 		return component;
 	}
 
-	private Component createComponent(String key, List<String> args) {
+	public <T> Component<T> createComponent(String key, String args) {
+		//System.out.println();
 		try {
-			System.out.println("key: " + key);
-			System.out.println("component: " + myComponents.getString(key));
-			Class<?> clazz = Class.forName(myComponents.getString(key) + "Component");
-			System.out.println("clazz: " + clazz);
-
-			Constructor<?> ctor = clazz.getDeclaredConstructor(new Class[] { List.class });
-			return (Component) ctor.newInstance(args);
+			Class<?> clazz = Class.forName(myComponents.getString(key));
+			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);
+			return (Component<T>) ctor.newInstance(args);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new ComponentNotFoundException("Component not found.");
 		}
 	}
