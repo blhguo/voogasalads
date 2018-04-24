@@ -15,15 +15,15 @@ import game_engine.event.Event;
  *         This class is simply a convenient data structure to store the Entity objects in a given
  *         level.
  */
-public class Level extends Entity{
+public class Level extends Entity {
 	private List<Entity> myEntities = new ArrayList<>();
 	private List<Event> myEvents = new ArrayList<>();
 	private int myId;
-	
+
 	public Level(int id) {
 		myId = id;
 	}
-	
+
 	/**
 	 * Gets the List<Entity> object containing all Entities with only these Components.
 	 *
@@ -33,7 +33,7 @@ public class Level extends Entity{
 	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * @param entities
 	 * @param args
@@ -52,7 +52,6 @@ public class Level extends Entity{
 	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
 	}
-	
 
 	/**
 	 * @param entities
@@ -82,7 +81,7 @@ public class Level extends Entity{
 			myEntities.add(e);
 		}
 	}
-	
+
 	/**
 	 * Adds the entity to the backend. This is used during the various instantiation phases.
 	 *
@@ -91,7 +90,7 @@ public class Level extends Entity{
 	public void removeEntity(Entity e) {
 		myEntities.remove(e);
 	}
-	
+
 	public List<Entity> getEntities() {
 		return myEntities;
 	}
@@ -101,15 +100,15 @@ public class Level extends Entity{
 			event.occur();
 		}
 	}
-	
+
 	public int getId() {
 		return myId;
 	}
-	
+
 	public void addEvent(Event event) {
 		myEvents.add(event);
 	}
-	
+
 	public void removeEvent(Event event) {
 		myEvents.remove(event);
 	}
