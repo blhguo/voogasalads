@@ -222,9 +222,12 @@ public class EntityController {
 	}
 
 	public void alertEntityPane(double sceneX, double sceneY) {
-		EntityWrapper wrap = new EntityWrapper(entityPane.getPureCurrent(),
-				sceneX, sceneY, entityPane);
-		this.add(wrap);
-		entityPane.setActiveWrapper(wrap);
+		EntityWrapper wrap = entityPane.getPureCurrent();
+		wrap.setPos(sceneX, sceneY, wrap.getEntity(), wrap.getImageView());
+		entityList.add(wrap);
+		canvas.update(entityList);
+		System.out.println("# of Entities " + entityList.size());
+		entityPane.newWrapper();
+		//entityPane.setActiveWrapper(wrap);
 	}
 }

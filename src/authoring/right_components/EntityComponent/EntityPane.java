@@ -42,6 +42,7 @@ public class EntityPane extends BasePane{
 	}
 
 	public Pane getView(){
+		controller.listenCanvas();
 		createButtonArray = instantiateCreateButtonArray();
 		editButtonArray = instantiateEditButtonArray();
 		box = buildBasicView("Entity Creator");
@@ -113,7 +114,7 @@ public class EntityPane extends BasePane{
 		controller.resetImageViews();
 	}
 	public void setActiveWrapper(EntityWrapper wrapper){
-		controller.listenCanvas();
+		//controller.listenCanvas();
 		box.getChildren().remove(menuBox);
 		box.getChildren().removeAll(createButtonArray);
 		box.getChildren().removeAll(editButtonArray);
@@ -142,7 +143,7 @@ public class EntityPane extends BasePane{
 		updateSprite();
 	}
 	public void newWrapper(){
-		controller.stopListenCanvas();
+		controller.listenCanvas();
 		box.getChildren().remove(menuBox);
 		box.getChildren().removeAll(createButtonArray);
 		box.getChildren().removeAll(editButtonArray);

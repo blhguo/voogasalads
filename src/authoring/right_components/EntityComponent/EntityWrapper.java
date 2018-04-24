@@ -49,12 +49,12 @@ public class EntityWrapper {
 		for (ComponentMenu menu: menuList){
 			for (MenuElement element : menu.getElements()){
 				element.setMyWrapper(this);
-//				if (element.getTitle().equals("XPos")){
-//					element.getComponent().setValue(xpos);
-//				}
-//				else if (element.getTitle().equals("YPos")){
-//					element.getComponent().setValue(ypos);
-//				}
+				if (element.getTitle().equals("XPos")){
+					element.getComponent().setValue(xpos);
+				}
+				else if (element.getTitle().equals("YPos")){
+					element.getComponent().setValue(ypos);
+				}
 			}
 		}
 		addAllComponents(entity);
@@ -91,7 +91,7 @@ public class EntityWrapper {
 		entityPane.setActiveWrapper(this);
 	}
 
-	private void setPos(double x, double y, Entity entity, ImageView iv) {
+	public void setPos(double x, double y, Entity entity, ImageView iv) {
 		entity.getComponent(XPosComponent.class).setValue(x);
 		entity.getComponent(YPosComponent.class).setValue(y);
 	}
