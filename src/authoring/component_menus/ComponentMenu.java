@@ -2,9 +2,7 @@ package authoring.component_menus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import authoring.controllers.EntityController;
 import authoring.right_components.EntityComponent.EntityPane;
 import game_engine.Component;
 import javafx.scene.control.TitledPane;
@@ -124,6 +122,6 @@ public class ComponentMenu extends VBox implements Comparable{
 	}
 
 	public void alert() {
-		myPane.updateEntity();
+		//myPane.updateEntity();
 	}
 }

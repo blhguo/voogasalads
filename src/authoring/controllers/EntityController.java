@@ -9,10 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import authoring.Canvas;
-import authoring.component_menus.ComponentMenu;
 import authoring.right_components.EntityComponent.EntityPane;
-import authoring.right_components.EntityComponent.EntityPaneWithWrappers;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.DraggableImageView;
@@ -25,10 +22,7 @@ import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.WidthComponent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 import java.util.stream.Collectors;
 /**
  * @author liampulsifer
@@ -39,14 +33,14 @@ public class EntityController {
 	Map<ImageView, Entity> map;
 	List<EntityWrapper> entityList;
 	Map<Entity, List<ComponentMenu>> menuMap;
-	private EntityPaneWithWrappers entityPane;
+	private EntityPane entityPane;
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
 	private Button button;
 
 	
-	public EntityController(EntityPaneWithWrappers pane, Canvas c){
+	public EntityController(EntityPane pane, Canvas c){
 		entityPane = pane;
 		canvas = c;
 		map = new HashMap<>();

@@ -3,7 +3,6 @@ package authoring.right_components.EntityComponent;
 import authoring.Canvas;
 import authoring.controllers.EntityController;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -13,7 +12,7 @@ public class EntityPaneTestMain extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		EntityPaneWithWrappers pane = new EntityPaneWithWrappers();
+		EntityPane pane = new EntityPane();
 		Canvas canvas = new Canvas();
 		EntityController controller = new EntityController(pane, canvas);
 		pane.setController(controller);

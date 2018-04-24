@@ -1,6 +1,5 @@
 package authoring.right_components.EntityComponent;
 
-import authoring.GUI_Heirarchy.GUINode;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
 import authoring.component_menus.MenuElement;
@@ -18,7 +17,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +28,8 @@ public class EntityWrapper {
 	private Entity entity;
 	private ImageView imageView;
 	private List<ComponentMenu> menuList;
-	private EntityPaneWithWrappers entityPane;
-	public EntityWrapper(Entity e, EntityPaneWithWrappers pane){
+	private EntityPane entityPane;
+	public EntityWrapper(Entity e, EntityPane pane){
 		entity = e;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
 		for (ComponentMenu menu : menuList){
