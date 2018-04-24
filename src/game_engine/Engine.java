@@ -35,6 +35,7 @@ public class Engine {
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
 		
+		
 		//TEMP!
 		mySystems = new ArrayList<>();
 		mySystems.add(new CollisionResponseSystem());
@@ -91,11 +92,4 @@ public class Engine {
 		System.out.println("added input!");
 		myInputs.add(event);
 	}
-
-	// WROTE FOR TEMPORARY TESTING -- REMOVE LATER!!
-	public void clearInputs() {
-		myInputs.clear();
-	}
-	
-
 }

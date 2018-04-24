@@ -51,7 +51,7 @@ import game_engine.components.projectile.ProjectileWidthComponent;
 import game_engine.components.projectile.ProjectileXVelComponent;
 import game_engine.components.projectile.ProjectileYVelComponent;
 import game_engine.event.Event;
-import game_engine.event.actions.micro.DataIncrementAction;
+import game_engine.event.actions.micro.DataChangeAction;
 import game_engine.event.conditions.EntityCollisionCondition;
 import game_engine.level.Level;
 import game_engine.systems.DespawnSystem;
@@ -137,8 +137,6 @@ public class CollisionTest extends Application {
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();
-
-        e.clearInputs();
     }
 
     private void setup(){
@@ -343,7 +341,7 @@ public class CollisionTest extends Application {
     	//Testing Score event - When e1 collides with e3, e1's score increases by 10
     	List<Class<? extends CollidedComponent>> rightSide = Arrays.asList(RightCollidedComponent.class);
     	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3, rightSide);
-    	DataIncrementAction action1 = new DataIncrementAction(e1, DefaultXVelComponent.class, 100);
+    	DataChangeAction action1 = new DataChangeAction(e1, DefaultXVelComponent.class, "+", 100);
     	
     	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
     	
