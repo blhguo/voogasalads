@@ -22,11 +22,11 @@ public abstract class CollisionResponseSystem extends GameSystem {
 	
 	
 	protected List<Entity> getCollidedEntities(Level level){
-		return level.getEntitiesContaining(COLLIDED_ARGS);
+		return level.getEntitiesContainingAny(COLLIDED_ARGS);
 	}
 	
 	protected List<Entity> getCollidedEntities(List<Entity> entities, Level level){
-		return level.getEntitiesContaining(entities, COLLIDED_ARGS);
+		return level.getEntitiesContainingAny(entities, COLLIDED_ARGS);
 	}
 	
 	protected List<Entity> getAllCollidedWith(Entity e){

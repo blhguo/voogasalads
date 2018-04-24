@@ -15,6 +15,16 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
 import game_engine.level.Level;
+import game_engine.systems.CollectibleSystem;
+import game_engine.systems.DespawnSystem;
+import game_engine.systems.PositionSystem;
+import game_engine.systems.VelocitySystem;
+import game_engine.systems.collision.CollisionBroadSystem;
+import game_engine.systems.collision.ImpassableResponseSystem;
+import game_engine.systems.keyboard.DownKeyboardMovementSystem;
+import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
+import game_engine.systems.keyboard.RightKeyboardMovementSystem;
+import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -30,12 +40,26 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
+		//mySystems = initSystems();
+		
+		//Andy -> wasn't working on my end so I commented it out temporarily and added the hard coded systems
+		mySystems = new ArrayList<>();
+		mySystems.add(new CollisionBroadSystem());
+		mySystems.add(new PositionSystem());
+		mySystems.add(new VelocitySystem());
+		mySystems.add(new LeftKeyboardMovementSystem(this));
+		mySystems.add(new RightKeyboardMovementSystem(this));
+		mySystems.add(new UpKeyboardMovementSystem(this));
+		mySystems.add(new DownKeyboardMovementSystem(this));
+		mySystems.add(new CollectibleSystem());
+		//mySystems.add(new ProjectileSpawnSystem(this));
+		mySystems.add(new DespawnSystem());
+		mySystems.add(new ImpassableResponseSystem());
 
-		mySystems = initSystems();
+
 	}
 
 	public void update(double elapsedTime) {
-		System.out.println("Getting called!");
 		Level currentLevel = getLevel();
 		for (GameSystem system : mySystems) {
 			system.act(elapsedTime, currentLevel);
@@ -71,7 +95,6 @@ public class Engine {
 	}
 
 	public void receiveInput(KeyEvent event) {
-		System.out.println("added input!");
 		myInputs.add(event);
 	}
 
