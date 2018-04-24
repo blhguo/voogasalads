@@ -15,6 +15,9 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
 import game_engine.level.Level;
+import game_engine.level.LevelBackgroundComponent;
+import game_engine.level.LevelNameComponent;
+import game_engine.level.LevelThumbComponent;
 import game_engine.systems.CollectibleSystem;
 import game_engine.systems.DespawnSystem;
 import game_engine.systems.PositionSystem;
