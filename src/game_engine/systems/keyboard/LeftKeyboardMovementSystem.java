@@ -12,13 +12,10 @@ public class LeftKeyboardMovementSystem extends KeyboardMovementSystem{
 	private static final Class<? extends Component<KeyCode>> LEFT_KEYBOARD_MOVE_INPUT = LeftKeyboardComponent.class;
 	private static final Class<? extends Component<Double>> DEFAULT_X_VEL = DefaultXVelComponent.class;
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
+	private static final int DIRECTION = -11;
 	
 	public LeftKeyboardMovementSystem(Engine engine) {
-		super(engine, LEFT_KEYBOARD_MOVE_INPUT, DEFAULT_X_VEL, X_VEL);
+		super(engine, DIRECTION, LEFT_KEYBOARD_MOVE_INPUT, DEFAULT_X_VEL, X_VEL);
 	}
 
-	@Override
-	protected int getDirection() {
-		return -1;
-	}
 }

@@ -152,7 +152,7 @@ public class PlayerView {
 		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
 		// changes which direction the imageview faces based off of movement direction of entity
 		if(polarity != null) {
-			imageView.setScaleX((int) Math.signum(polarity.getValue()));
+			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
 		root.getChildren().add(imageView);
 	}

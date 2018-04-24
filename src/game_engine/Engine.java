@@ -1,27 +1,20 @@
 package game_engine;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+
 import game_engine.level.Level;
-import game_engine.systems.CollectibleSystem;
-import game_engine.systems.DespawnSystem;
-import game_engine.systems.HealthSystem;
-import game_engine.systems.PositionSystem;
-import game_engine.systems.ProjectileSpawnSystem;
-import game_engine.systems.SpriteSystem;
-import game_engine.systems.VelocitySystem;
-import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
-import game_engine.systems.keyboard.DownKeyboardMovementSystem;
-import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
-import game_engine.systems.keyboard.RightKeyboardMovementSystem;
-import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -37,25 +30,7 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
-		
-		
-		//TEMP!
-		mySystems = new ArrayList<>();
-		mySystems.add(new CollisionResponseSystem());
-		mySystems.add(new KeyboardJumpSystem(this));
-		mySystems.add(new CollisionBroadSystem());
-		mySystems.add(new PositionSystem());
-		mySystems.add(new VelocitySystem());
-		mySystems.add(new LeftKeyboardMovementSystem(this));
-		mySystems.add(new RightKeyboardMovementSystem(this));
-		mySystems.add(new UpKeyboardMovementSystem(this));
-		mySystems.add(new DownKeyboardMovementSystem(this));
-		mySystems.add(new HealthSystem());
-		mySystems.add(new SpriteSystem());
-		mySystems.add(new ProjectileSpawnSystem(this));
-		mySystems.add(new CollectibleSystem());
-		//mySystems.add( new ProjectileDespawnSystem());
-		mySystems.add(new DespawnSystem());
+		mySystems = initSystems();
 	}
 
 	public void update(double elapsedTime) {
@@ -90,11 +65,40 @@ public class Engine {
 	}
 
 	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode())).collect(Collectors.toList());
+		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+				.collect(Collectors.toList());
 	}
 
 	public void receiveInput(KeyEvent event) {
 		System.out.println("added input!");
 		myInputs.add(event);
 	}
+
+	private List<GameSystem> initSystems() {
+		Reflections reflections = new Reflections("game_engine", new SubTypesScanner(true));
+		Set<Class<? extends GameSystem>> allClasses = reflections.getSubTypesOf(GameSystem.class);
+
+		List<GameSystem> systems = new ArrayList<>();
+
+		allClasses.stream().filter(clazz -> !Modifier.isAbstract(clazz.getModifiers())).forEach(clazz -> {
+			try {
+				Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
+				Constructor<?> ctor;
+				GameSystem system;
+				if (params.length > 0) {
+					ctor = clazz.getDeclaredConstructor(new Class[] { Engine.class });
+					system = (GameSystem) ctor.newInstance(new Engine());
+				} else {
+					ctor = clazz.getDeclaredConstructor(new Class[] {});
+					system = (GameSystem) ctor.newInstance();
+				}
+				systems.add(system);
+			} catch (Exception e) {
+				// do nothing: just continue without this system
+			}
+		});
+
+		return systems;
+	}
+
 }
