@@ -52,7 +52,9 @@ import game_engine.components.projectile.ProjectileWidthComponent;
 import game_engine.components.projectile.ProjectileXVelComponent;
 import game_engine.components.projectile.ProjectileYVelComponent;
 import game_engine.event.Event;
+import game_engine.event.actions.macro.LevelChangeAction;
 import game_engine.event.actions.micro.DataIncrementAction;
+import game_engine.event.conditions.DataCondition;
 import game_engine.event.conditions.EntityCollisionCondition;
 import game_engine.level.Level;
 import game_engine.systems.DespawnSystem;
@@ -123,6 +125,7 @@ public class CollisionTest extends Application {
     private DespawnSystem despawnSys;
     
     private Event event1;
+    private Event event2;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -155,14 +158,16 @@ public class CollisionTest extends Application {
 		downKeySys.act(elapsedTime, currentLevel);
 		healthSys.act(elapsedTime, currentLevel);
 		projSys.act(elapsedTime, currentLevel);
-		//projDespawn.act(elapsedTime, currentLevel);
+		projDespawn.act(elapsedTime, currentLevel);
 		//despawnSys.act(elapsedTime, currentLevel);
         event1.occur();
+        event2.occur();
 
 		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
 		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
-		System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
-		System.out.println("XVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+		//System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
+		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+		System.out.println("Current level: " + e.getLevel().getId());
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();
@@ -330,13 +335,16 @@ public class CollisionTest extends Application {
     	
     	e = new Engine();
     	
-    	Level asdf = e.createLevel();
+    	Level lvl0 = e.createLevel();
     	//asdf.addEntity(e2);
-    	asdf.addEntity(e1);
-    	asdf.addEntity(e3);
+    	lvl0.addEntity(e1);
+    	lvl0.addEntity(e3);
+    	
+    	Level lvl1 = e.createLevel();
     	
     	List<Level> levels = new ArrayList<Level>();
-    	levels.add(asdf);
+    	levels.add(lvl0);
+    	levels.add(lvl1);
 
 
     }
@@ -382,6 +390,13 @@ public class CollisionTest extends Application {
     	DataIncrementAction action1 = new DataIncrementAction(e1, DefaultXVelComponent.class, 100);
     	
     	event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+    	
+    	//Event: Change level from 0 to 1 when DefaultXVel == 500
+    	DataCondition condition2 = new DataCondition(e1, DefaultXVelComponent.class, "==", "500");
+    	LevelChangeAction action2 = new LevelChangeAction(e, 1);
+    	event2 = new Event(Arrays.asList(action2), Arrays.asList(condition2));
+    	
+    	
     }
 
     /**
