@@ -10,7 +10,7 @@ import game_engine.GameSystem;
 import game_engine.components.DamageComponent;
 import game_engine.components.DespawnComponent;
 import game_engine.components.HealthComponent;
-import game_engine.components.NullType;
+import game_engine.NullType;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
