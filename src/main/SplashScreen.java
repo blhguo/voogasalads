@@ -2,7 +2,6 @@ package main;
 
 import authoring.AuthoringEnvironment;
 import authoring.GameChooserScreen;
-import authoring.utilities.ButtonFactory;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
 import frontend_utilities.ButtonFactory;
 import javafx.geometry.Insets;
