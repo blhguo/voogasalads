@@ -6,12 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import game_engine.Component;
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.DamageComponent;
 import game_engine.components.HealthComponent;
-import game_engine.components.ProjectileComponent;
 import game_engine.components.collect.CollectibleComponent;
 import game_engine.components.collect.CollectorComponent;
 import game_engine.components.collect.ScoreComponent;
@@ -107,23 +106,7 @@ public class CollisionTest extends Application {
 
     private Group root;
     private Scene myScene;
-
-    private CollisionBroadSystem colSys;
-    private PositionSystem posSys;
-    private VelocitySystem velSys;
-    private KeyboardJumpSystem keyboardJumpSys;
-    private CollisionResponseSystem colResponseSys;
-    private LeftKeyboardMovementSystem leftKeySys;
-    private RightKeyboardMovementSystem rightKeySys;
-    private UpKeyboardMovementSystem upKeySys;
-    private DownKeyboardMovementSystem downKeySys;
-    private HealthSystem healthSys;
-    private ProjectileSpawnSystem projSys;
-    private ProjectileDespawnSystem projDespawn;
-    private DespawnSystem despawnSys;
     
-    private Event event1;
-
     @Override
     public void start(Stage stage) throws Exception {
         setup();
@@ -144,25 +127,13 @@ public class CollisionTest extends Application {
      */
     private void step(double elapsedTime) {
     	Level currentLevel = e.getLevel();
-    	colSys.act(elapsedTime, currentLevel);
-    	colResponseSys.act(elapsedTime, currentLevel);
-    	posSys.act(elapsedTime, currentLevel);
-		velSys.act(elapsedTime, currentLevel);
-		keyboardJumpSys.act(elapsedTime, currentLevel); //update jump
-		leftKeySys.act(elapsedTime, currentLevel);
-		rightKeySys.act(elapsedTime, currentLevel);
-		upKeySys.act(elapsedTime, currentLevel);
-		downKeySys.act(elapsedTime, currentLevel);
-		healthSys.act(elapsedTime, currentLevel);
-		projSys.act(elapsedTime, currentLevel);
-		//projDespawn.act(elapsedTime, currentLevel);
-		//despawnSys.act(elapsedTime, currentLevel);
-        event1.occur();
+    	e.update(elapsedTime);
 
 		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
 		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
 		System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
 		System.out.println("XVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+		
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();
@@ -179,21 +150,6 @@ public class CollisionTest extends Application {
     	buildEntities();
         initRects();
         
-        colResponseSys = new CollisionResponseSystem();
-        keyboardJumpSys = new KeyboardJumpSystem(e);
-        colSys = new CollisionBroadSystem();
-        posSys = new PositionSystem();
-        velSys = new VelocitySystem();
-        leftKeySys = new LeftKeyboardMovementSystem(e);
-        rightKeySys = new RightKeyboardMovementSystem(e);
-        upKeySys = new UpKeyboardMovementSystem(e);
-        downKeySys = new DownKeyboardMovementSystem(e);
-        healthSys = new HealthSystem();
-        projSys = new ProjectileSpawnSystem(e);
-        projDespawn = new ProjectileDespawnSystem();
-        despawnSys = new DespawnSystem();
-        
-        testEvents();
     }
     
     private void updateAllEntities() {
@@ -334,10 +290,18 @@ public class CollisionTest extends Application {
     	//asdf.addEntity(e2);
     	asdf.addEntity(e1);
     	asdf.addEntity(e3);
+    	asdf.addEvent(testEvents());
     	
     	List<Level> levels = new ArrayList<Level>();
     	levels.add(asdf);
-
+    	
+    	ManipData data = new ManipData();
+		Map<String, String> map = new HashMap<>();
+		map.put("dog", "cat");
+		map.put("potato", "fruit");
+		data.saveData(e, "Mario", map);
+		
+		e = data.loadData("savedata/gameLevels.xml", "gameName");
 
     }
 
@@ -375,13 +339,15 @@ public class CollisionTest extends Application {
         root.getChildren().add(r3);
     }
     
-    private void testEvents() {
+    private Event testEvents() {
     	//Testing Score event - When e1 collides with e3, e1's score increases by 10
     	List<Class<? extends CollidedComponent>> rightSide = Arrays.asList(RightCollidedComponent.class);
     	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3, rightSide);
     	DataIncrementAction action1 = new DataIncrementAction(e1, DefaultXVelComponent.class, 100);
     	
-    	event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+    	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+    	
+    	return event1;
     }
 
     /**
