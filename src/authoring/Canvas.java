@@ -6,6 +6,7 @@ import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.EntityController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
@@ -32,6 +33,7 @@ import javafx.scene.paint.Color;
 public class Canvas extends SubScene implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
 	private Pane myPane;
+	private Group root;
 	private EntityController myController;
 
 	
@@ -40,10 +42,12 @@ public class Canvas extends SubScene implements GUINode {
 	 * to autosize.
 	 * @param root
 	 */
-	public Canvas(Parent root){	
-		super(root, 1000,10);	//arbitrary values, because overriden with autosize()?
-		autosize();
+	public Canvas(Group root){	
+		super(root, 100,100);	//arbitrary values, because overriden with autosize()?
+		this.root = root;
+//		autosize();
 		this.setCamera(new ParallelCamera());
+		getView();
 	}
 
 	
@@ -55,7 +59,8 @@ public class Canvas extends SubScene implements GUINode {
 	public Pane getView(){
 		myPane = new Pane();
 		myPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
-		myPane.getChildren().add(this);
+		//myPane.getChildren().add(this);
+		root.getChildren().add(myPane);
 		return myPane;
 	}
 
@@ -78,8 +83,9 @@ public class Canvas extends SubScene implements GUINode {
 	 * @param im
 	 */
 	public void updateBackground(Image im){
-		myPane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+		myPane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+		root.getChildren().add(myPane);
 	}
 
 	/**

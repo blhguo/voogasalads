@@ -98,8 +98,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		update(""); //calls default setting for right pane
 		bp.setLeft(np.getView());
 		Pane canvasView = canvas.getView();
-		bp.setCenter(canvasView);
-		BorderPane.setMargin(canvasView, new Insets(AuthRes.getInt("Margin")));
+		bp.setCenter(canvas);
+		BorderPane.setMargin(canvas, new Insets(AuthRes.getInt("Margin")));
 
 		//Build StackPane to overlay ToolBar on top
 		Pane t = new Toolbar(stage, splash).getView();
