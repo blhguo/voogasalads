@@ -50,6 +50,7 @@ import game_engine.components.projectile.ProjectileKeyboardInputComponent;
 import game_engine.components.projectile.ProjectileWidthComponent;
 import game_engine.components.projectile.ProjectileXVelComponent;
 import game_engine.components.projectile.ProjectileYVelComponent;
+import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.event.Event;
 import game_engine.event.actions.macro.LevelChangeAction;
 import game_engine.event.actions.micro.DataIncrementAction;
@@ -177,7 +178,7 @@ public class CollisionTest extends Application {
     			double width = entity.getComponent(HitboxWidthComponent.class).getValue();
     			double height = entity.getComponent(HitboxHeightComponent.class).getValue();
 
-    			Rectangle bullet = new Rectangle(x, y, width, height);
+    			Rectangle bullet = new Rectangle(x - width/2, y - height/2, width, height);
     			spritesMap.put(entity, bullet);
     			root.getChildren().add(bullet);
     		}
@@ -185,8 +186,10 @@ public class CollisionTest extends Application {
 	    		Rectangle r = spritesMap.get(entity);
 	    		double xPos = entity.getComponent(XPosComponent.class).getValue();
 	    		double yPos = entity.getComponent(YPosComponent.class).getValue();
-	    		r.setX(xPos);
-	    		r.setY(yPos);
+	    		double width = entity.getComponent(HitboxWidthComponent.class).getValue();
+    			double height = entity.getComponent(HitboxHeightComponent.class).getValue();
+	    		r.setX(xPos - width/2);
+	    		r.setY(yPos - height/2);
     		}
     	}
     }
@@ -194,10 +197,13 @@ public class CollisionTest extends Application {
     private void updateRectPos(){
         double x = e1.getComponent(XPosComponent.class).getValue();
         double y = e1.getComponent(YPosComponent.class).getValue();
+        double width = e1.getComponent(HitboxWidthComponent.class).getValue();
+		double height = e1.getComponent(HitboxHeightComponent.class).getValue();
+        
         double theta = e1.getComponent(AngleComponent.class).getValue();
 
-        r1.setX(x);
-        r1.setY(y);
+        r1.setX(x - width/2);
+        r1.setY(y - height/2);
         r1.setRotate(theta);
     }
 
@@ -228,6 +234,7 @@ public class CollisionTest extends Application {
     	e1.addComponent(keyRightComp);
     	e1.addComponent(keyUpComp);
     	e1.addComponent(keyDownComp);
+    	e1.addComponent(new SpritePolarityComponent("1"));
     	
     	e1.addComponent(new YAccelComponent(GRAVITY));
     	e1.addComponent(new DefaultYVelComponent(JUMP_VELOCITY));
