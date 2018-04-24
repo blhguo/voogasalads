@@ -11,6 +11,7 @@ import game_engine.level.Level;
 import game_engine.systems.HealthSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.ProjectileSpawnSystem;
+import game_engine.systems.SpriteSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.CollisionResponseSystem;
@@ -47,6 +48,7 @@ public class Engine {
 		mySystems.add(new UpKeyboardMovementSystem(this));
 		mySystems.add(new DownKeyboardMovementSystem(this));
 		mySystems.add(new HealthSystem());
+		mySystems.add(new SpriteSystem());
 		mySystems.add(new ProjectileSpawnSystem(this));
 		//mySystems.add( new ProjectileDespawnSystem());
 		//mySystems.add(new DespawnSystem());
