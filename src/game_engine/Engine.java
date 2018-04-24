@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
+import game_engine.systems.CollectibleSystem;
+import game_engine.systems.DespawnSystem;
 import game_engine.systems.HealthSystem;
 import game_engine.systems.PositionSystem;
 import game_engine.systems.ProjectileSpawnSystem;
@@ -51,8 +53,9 @@ public class Engine {
 		mySystems.add(new HealthSystem());
 		mySystems.add(new SpriteSystem());
 		mySystems.add(new ProjectileSpawnSystem(this));
+		mySystems.add(new CollectibleSystem());
 		//mySystems.add( new ProjectileDespawnSystem());
-		//mySystems.add(new DespawnSystem());
+		mySystems.add(new DespawnSystem());
 	}
 
 	public void update(double elapsedTime) {

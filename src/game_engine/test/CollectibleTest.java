@@ -110,8 +110,12 @@ public class CollectibleTest extends Application {
      */
     private void step(double elapsedTime) {
     	engine.update(elapsedTime);
-		updateAllEntities();
-        //updateRectPos();
+        updateAllRects();
+        printOutMainCharacterScore();
+    }
+    
+    private void printOutMainCharacterScore(){
+    	System.out.println("Score: " + mainCharacter.getComponent(ScoreComponent.class).getValue());
     }
 
     private void setup(){
@@ -120,23 +124,15 @@ public class CollectibleTest extends Application {
         myScene.setOnKeyPressed(b -> engine.receiveInput(b));
 		myScene.setOnKeyReleased(b -> engine.receiveInput(b));
 
-    	buildEntities();
+    	buildMainCharacterEntity();
+    	buildCoinEntity();
+    	buildEngine();
         initRects();
     }
     
-    private void updateAllEntities() {
+    private void updateAllRects() {
     	for (Entity entity : engine.getLevel().getEntities()) {
-    		if (!spritesMap.containsKey(entity)) {
-    			double x = entity.getComponent(XPosComponent.class).getValue();
-    			double y = entity.getComponent(YPosComponent.class).getValue();
-    			double width = entity.getComponent(HitboxWidthComponent.class).getValue();
-    			double height = entity.getComponent(HitboxHeightComponent.class).getValue();
-
-    			Rectangle bullet = new Rectangle(x - width/2, y - height/2, width, height);
-    			spritesMap.put(entity, bullet);
-    			root.getChildren().add(bullet);
-    		}
-    		else if (!spritesMap.isEmpty()){
+    		if (!spritesMap.isEmpty()){
 	    		Rectangle r = spritesMap.get(entity);
 	    		double xPos = entity.getComponent(XPosComponent.class).getValue();
 	    		double yPos = entity.getComponent(YPosComponent.class).getValue();
@@ -147,123 +143,59 @@ public class CollectibleTest extends Application {
     		}
     	}
     }
-
-    private void updateRectPos(){
-        double x = mainCharacter.getComponent(XPosComponent.class).getValue();
-        double y = mainCharacter.getComponent(YPosComponent.class).getValue();
-        double width = mainCharacter.getComponent(HitboxWidthComponent.class).getValue();
-		double height = mainCharacter.getComponent(HitboxHeightComponent.class).getValue();
-        
-        double theta = mainCharacter.getComponent(AngleComponent.class).getValue();
-
-        mainCharacterRect.setX(x - width/2);
-        mainCharacterRect.setY(y - height/2);
-        mainCharacterRect.setRotate(theta);
-    }
-
-    private void updateRectColor(){
-        if(mainCharacter.getComponent(TopCollidedComponent.class)!=null
-        		|| mainCharacter.getComponent(BottomCollidedComponent.class)!=null
-        		|| mainCharacter.getComponent(LeftCollidedComponent.class)!=null
-        		|| mainCharacter.getComponent(RightCollidedComponent.class)!=null){
-            mainCharacterRect.setFill(Color.BLUE);
-        }
-        else{
-            if(mainCharacterRect.getFill()!=Color.GRAY){
-                mainCharacterRect.setFill(Color.GRAY);
-            }
-        }
-    }
-
-    private void buildEntities(){
+    
+    private void buildMainCharacterEntity(){
     	mainCharacter = new Entity();
-        coin = new Entity();
-
-    	LeftKeyboardComponent keyLeftComp = new LeftKeyboardComponent(KeyCode.LEFT.toString());
-    	RightKeyboardComponent keyRightComp = new RightKeyboardComponent(KeyCode.RIGHT.toString());
-    	UpKeyboardComponent keyUpComp = new UpKeyboardComponent(KeyCode.UP.toString());
-    	DownKeyboardComponent keyDownComp = new DownKeyboardComponent(KeyCode.DOWN.toString());
-    	mainCharacter.addComponent(keyLeftComp);
-    	mainCharacter.addComponent(keyRightComp);
-    	mainCharacter.addComponent(keyUpComp);
-    	mainCharacter.addComponent(keyDownComp);
-    	mainCharacter.addComponent(new SpritePolarityComponent("1"));
-    	
-    	mainCharacter.addComponent(new YAccelComponent("0"));
+    	//components needed for each of the 4 keyboard movement systems
+    	mainCharacter.addComponent(new DefaultXVelComponent("400"));
     	mainCharacter.addComponent(new DefaultYVelComponent("30"));
+    	mainCharacter.addComponent(new LeftKeyboardComponent(KeyCode.LEFT.toString()));
+    	mainCharacter.addComponent(new RightKeyboardComponent(KeyCode.RIGHT.toString()));
+    	mainCharacter.addComponent(new UpKeyboardComponent(KeyCode.UP.toString()));
+    	mainCharacter.addComponent(new DownKeyboardComponent(KeyCode.DOWN.toString()));
+    	mainCharacter.addComponent(new XVelComponent("0"));
     	mainCharacter.addComponent(new YVelComponent("0"));
     	
-    	mainCharacter.addComponent(new XVelComponent("0"));
-    	mainCharacter.addComponent(new DefaultXVelComponent("400"));
+    	//extra components needed for velocity system
     	mainCharacter.addComponent(new XAccelComponent("0"));
+    	mainCharacter.addComponent(new YAccelComponent("0"));
     	
+    	//extra components needed for position system
     	mainCharacter.addComponent(new XPosComponent("500"));
     	mainCharacter.addComponent(new YPosComponent("350"));
-    	mainCharacter.addComponent(new AngleComponent("0"));
-    	
-    	coin.addComponent(new XPosComponent("800"));
-    	coin.addComponent(new YPosComponent("300"));
-    	coin.addComponent(new AngleComponent("0"));
-    	
-    	
+
+    	//extra components needed for collision detection
     	mainCharacter.addComponent(new HitboxHeightComponent("100.0"));
     	mainCharacter.addComponent(new HitboxWidthComponent("100.0"));
     	mainCharacter.addComponent(new HitboxXOffsetComponent("0.0"));
     	mainCharacter.addComponent(new HitboxYOffsetComponent("0.0"));
+    	mainCharacter.addComponent(new CollidableComponent("true"));
     	
+    	//components needed for collectible system
+    	mainCharacter.addComponent(new CollectorComponent());
+    	mainCharacter.addComponent(new ScoreComponent("0"));
+    }
+    
+    private void buildCoinEntity(){
+    	coin = new Entity();
+    	//component needed for collectible system
+    	coin.addComponent(new CollectibleComponent("50"));
+    	
+    	//component needed for collision detection system and position
+    	coin.addComponent(new CollidableComponent("true"));
     	coin.addComponent(new HitboxHeightComponent("500.0"));
     	coin.addComponent(new HitboxWidthComponent("100.0"));
     	coin.addComponent(new HitboxXOffsetComponent("0.0"));
     	coin.addComponent(new HitboxYOffsetComponent("0.0"));
-    	
-    	mainCharacter.addComponent(new CollidableComponent("true"));
-    	//e1.addComponent(new PassableComponent("true"));
-
-    	
-    	coin.addComponent(new CollidableComponent("true"));
-    	//e3.addComponent(new PassableComponent("true"));
-    	
-    	//Add Health Component
-    	mainCharacter.addComponent(new HealthComponent("1000")); //100 health points for e1
-    	coin.addComponent(new HealthComponent("2000"));
-    	coin.addComponent(new DamageComponent("100")); //e3 does 100 damage
-    	
-    	//Add Project Components to Entity e1
-    	mainCharacter.addComponent(new ProjectileWidthComponent("20.0"));
-    	mainCharacter.addComponent(new ProjectileHeightComponent("20.0"));
-    	mainCharacter.addComponent(new ProjectileHitboxWidthComponent("20.0"));
-    	mainCharacter.addComponent(new ProjectileHitboxHeightComponent("20.0"));
-    	mainCharacter.addComponent(new ProjectileHitboxXOffsetComponent("0.0"));
-    	mainCharacter.addComponent(new ProjectileHitboxYOffsetComponent("0.0"));
-    	mainCharacter.addComponent(new ProjectileCollidableComponent("true"));
-    	mainCharacter.addComponent(new ProjectileDamageComponent("2"));
-    	mainCharacter.addComponent(new ProjectileKeyboardInputComponent(KeyCode.SPACE.toString()));
-    	mainCharacter.addComponent(new ProjectileXVelComponent("200"));
-    	mainCharacter.addComponent(new ProjectileYVelComponent("0"));
-    	mainCharacter.addComponent(new ProjectileFilenameComponent("Mario.GIF"));
-    	
-    	//Add Collectible/Collector components
-    	mainCharacter.addComponent(new CollectorComponent());
-    	coin.addComponent(new CollectibleComponent("50"));
-    	
-    	//Add Score component to entity1
-    	mainCharacter.addComponent(new ScoreComponent("0")); // 0 is default score
-    	
-    	
+    	coin.addComponent(new XPosComponent("800"));
+    	coin.addComponent(new YPosComponent("300"));
+    }
+    
+    private void buildEngine(){
     	engine = new Engine();
-    	
-    	Level lvl0 = engine.createLevel();
-    	//asdf.addEntity(e2);
-    	lvl0.addEntity(mainCharacter);
-    	lvl0.addEntity(coin);
-    	
-    	Level lvl1 = engine.createLevel();
-    	
-    	List<Level> levels = new ArrayList<Level>();
-    	levels.add(lvl0);
-    	levels.add(lvl1);
-
-
+    	Level level1 = engine.createLevel();
+    	level1.addEntity(mainCharacter);
+    	level1.addEntity(coin);
     }
 
     private void initRects(){
@@ -280,17 +212,12 @@ public class CollectibleTest extends Application {
         double hw3 = coin.getComponent(HitboxWidthComponent.class).getValue();
 
         mainCharacterRect = new Rectangle(x1 - hw1/2, y1 - hh1/2, hw1, hh1);
-        //r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
         coinRect = new Rectangle(x3 - hw3/2, y3 - hh3/2, hw3, hh3);
         
         spritesMap.put(mainCharacter, mainCharacterRect);
-        //spritesMap.put(e2, r2);
         spritesMap.put(coin, coinRect);
 
-        
-        
         root.getChildren().add(mainCharacterRect);
-        //root.getChildren().add(r2);
         root.getChildren().add(coinRect);
     }
     
