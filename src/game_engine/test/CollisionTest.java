@@ -53,7 +53,7 @@ import game_engine.components.projectile.ProjectileYVelComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.event.Event;
 import game_engine.event.actions.macro.LevelChangeAction;
-import game_engine.event.actions.micro.DataIncrementAction;
+import game_engine.event.actions.micro.DataChangeAction;
 import game_engine.event.conditions.DataCondition;
 import game_engine.event.conditions.EntityCollisionCondition;
 import game_engine.level.Level;
@@ -133,21 +133,9 @@ public class CollisionTest extends Application {
      */
     private void step(double elapsedTime) {
     	Level currentLevel = e.getLevel();
-    	colSys.act(elapsedTime, currentLevel);
-    	colResponseSys.act(elapsedTime, currentLevel);
-    	posSys.act(elapsedTime, currentLevel);
-		velSys.act(elapsedTime, currentLevel);
-		keyboardJumpSys.act(elapsedTime, currentLevel); //update jump
-		leftKeySys.act(elapsedTime, currentLevel);
-		rightKeySys.act(elapsedTime, currentLevel);
-		upKeySys.act(elapsedTime, currentLevel);
-		downKeySys.act(elapsedTime, currentLevel);
-		healthSys.act(elapsedTime, currentLevel);
-		projSys.act(elapsedTime, currentLevel);
-		projDespawn.act(elapsedTime, currentLevel);
 		//despawnSys.act(elapsedTime, currentLevel);
-        event1.occur();
-        event2.occur();
+        //event1.occur();
+        //event2.occur();
 
 		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
 		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
@@ -301,7 +289,7 @@ public class CollisionTest extends Application {
     	e1.addComponent(new ProjectileFilenameComponent("Mario.GIF"));
     	
     	//Add Collectible/Collector components
-    	e1.addComponent(new CollectorComponent("true"));
+    	e1.addComponent(new CollectorComponent());
     	e3.addComponent(new CollectibleComponent("50"));
     	
     	//Add Score component to entity1
@@ -372,7 +360,7 @@ public class CollisionTest extends Application {
     	DataCondition condition2 = new DataCondition(e1, DefaultXVelComponent.class, "==", "500");
     	LevelChangeAction action2 = new LevelChangeAction(e, 1);
     	event2 = new Event(Arrays.asList(action2), Arrays.asList(condition2));
-    	
+    	return null;
     	
     }
 
