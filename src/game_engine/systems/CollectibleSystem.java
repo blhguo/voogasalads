@@ -43,13 +43,15 @@ public class CollectibleSystem extends GameSystem{
 				}
 			}
 		}
-		
 	}
 	
 	private List<Entity> getCollidedEntitiesOn(Entity entity, List<Class<? extends Component<List<Entity>>>> sides){
 		List<Entity> collidedEntities = new ArrayList<>();
 		for(Class<? extends Component<List<Entity>>> collisionSide : sides){
-			collidedEntities.addAll(entity.getComponent(collisionSide).getValue());
+			Component<List<Entity>> comp = entity.getComponent(collisionSide);
+			if(comp != null){
+				collidedEntities.addAll(comp.getValue());
+			}
 		}
 		return collidedEntities;
 	}
