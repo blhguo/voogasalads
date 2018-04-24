@@ -3,6 +3,7 @@ package game_player;
 import java.io.File;
 
 import authoring.GameChooserScreen;
+import authoring.GUI_Heirarchy.GUIBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -34,7 +35,7 @@ import javafx.stage.Stage;
  * @author Brandon Dalla Rosa, Dana Park
  *
  */
-public class ViewManager {
+public class ViewManager extends GUIBuilder{
 	private Menu menu;
 	private Stage gameStage;
 	private double sceneWidth = 1200;
@@ -48,7 +49,9 @@ public class ViewManager {
 	private BackgroundImage game;
 	private SubScene subScene;
 	private Group subRoot;
+	private SettingsMenu settings;
 	private ColorAdjust colorAdjust = new ColorAdjust();
+	private Pane mainHBox;
 	
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -74,6 +77,7 @@ public class ViewManager {
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
+		mainHBox = pane;
 	}
     
     /**
@@ -187,5 +191,10 @@ public class ViewManager {
      */ 
 	public Pane getNode() {
 		return view;
+	}
+
+	@Override
+	public Pane display() {
+		return mainHBox;
 	}
 }
