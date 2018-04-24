@@ -62,6 +62,20 @@ public class Engine {
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
+	
+	public Map<Integer, List<Component>> getLevelPreviews(List<Class<? extends Component<?>>> args){
+		Map<Integer, List<Component>> preview = new HashMap<Integer, List<Component>>();
+		List<Component> previewComponents;
+		for(Integer key: myLevels.keySet()) {
+			previewComponents = new ArrayList<Component>();
+			Level lvl = myLevels.get(key);
+			for(Class<? extends Component<?>> c: args) {
+				previewComponents.add(lvl.getComponent(c));
+			}
+			preview.put(key, previewComponents);
+		}
+		return preview;
+	}
 
 	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
 		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
