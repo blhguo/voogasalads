@@ -62,14 +62,14 @@ public class Engine {
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
-	
-	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args){
+
+	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
 		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
 		List<Component<?>> previewComponents;
-		for(Integer key: myLevels.keySet()) {
+		for (Integer key : myLevels.keySet()) {
 			previewComponents = new ArrayList<Component<?>>();
 			Level lvl = myLevels.get(key);
-			for(Class<? extends Component<?>> c: args) {
+			for (Class<? extends Component<?>> c : args) {
 				previewComponents.add(lvl.getComponent(c));
 			}
 			preview.put(key, previewComponents);
@@ -107,7 +107,8 @@ public class Engine {
 				systems.add(system);
 				System.out.println(system);
 			} catch (Exception e) {
-				// do nothing: just continue without this system
+				// Do nothing: Continue without this system.
+				// No use in adding a NullSystem or anything like that since the user doesn't see it.
 			}
 		});
 
