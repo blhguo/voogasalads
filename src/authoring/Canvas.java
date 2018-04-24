@@ -1,6 +1,13 @@
 package authoring;
 
 import authoring.GUI_Heirarchy.GUINode;
+
+import java.util.List;
+import java.util.Map;
+
+import authoring.controllers.EntityController;
+
+import authoring.right_components.EntityComponent.EntityWrapper;
 import game_engine.Entity;
 import javafx.geometry.Insets;
 import javafx.scene.chart.NumberAxis;
@@ -16,10 +23,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
-import java.util.Map;
-
-
-import authoring.controllers.EntityController;
 
 /**
  * @author Jennifer Chin
@@ -58,15 +61,12 @@ public class Canvas implements GUINode {
 	 * Allows the canvas to be updated according to the current entities in the map.
 	 * The map is created in EntityController and EntityController calls this method in
 	 * order to update the canvas. 
-	 * @param map
+	 * @param entityList
 	 */
-	public void update(Map<ImageView, Entity> map){
+	public void update(List<EntityWrapper> entityList){
 		pane.getChildren().clear();
-		for (ImageView view : map.keySet()){
-			System.out.println("Current view");
-			pane.getChildren().add(view);
-			view.toFront();
-		}
+		entityList.stream().forEach(e -> System.out.println(e));
+		entityList.stream().forEach(e -> pane.getChildren().add(e.getImageView()));
 		System.out.println("Canvas updated");
 	}
 	
