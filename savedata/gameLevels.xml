@@ -8,10 +8,10 @@
           <game__engine.Entity>
             <myComponents>
               <entry>
-                <java-class>game_engine.components.collision.CollidableComponent</java-class>
-                <game__engine.components.collision.CollidableComponent>
-                  <myValue class="boolean">true</myValue>
-                </game__engine.components.collision.CollidableComponent>
+                <java-class>game_engine.components.keyboard.UpKeyboardComponent</java-class>
+                <game__engine.components.keyboard.UpKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">UP</myValue>
+                </game__engine.components.keyboard.UpKeyboardComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.projectile.ProjectileYVelComponent</java-class>
@@ -62,16 +62,16 @@
                 </game__engine.components.projectile.ProjectileHitboxWidthComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.collect.ScoreComponent</java-class>
-                <game__engine.components.collect.ScoreComponent>
+                <java-class>game_engine.components.physics.XAccelComponent</java-class>
+                <game__engine.components.physics.XAccelComponent>
                   <myValue class="double">0.0</myValue>
-                </game__engine.components.collect.ScoreComponent>
+                </game__engine.components.physics.XAccelComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.keyboard.RightKeyboardComponent</java-class>
-                <game__engine.components.keyboard.RightKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">RIGHT</myValue>
-                </game__engine.components.keyboard.RightKeyboardComponent>
+                <java-class>game_engine.components.physics.DefaultYVelComponent</java-class>
+                <game__engine.components.physics.DefaultYVelComponent>
+                  <myValue class="double">500.0</myValue>
+                </game__engine.components.physics.DefaultYVelComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.projectile.ProjectileFilenameComponent</java-class>
@@ -116,8 +116,8 @@
                 </game__engine.components.physics.XVelComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                <java-class>game_engine.components.physics.YVelComponent</java-class>
+                <game__engine.components.physics.YVelComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
               </entry>
@@ -149,7 +149,7 @@
                 <java-class>game_engine.components.physics.YVelComponent</java-class>
                 <game__engine.components.physics.YVelComponent>
                   <myValue class="double">0.0</myValue>
-                </game__engine.components.physics.YVelComponent>
+                </game__engine.components.position.AngleComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.projectile.ProjectileKeyboardInputComponent</java-class>
@@ -206,10 +206,16 @@
                 </game__engine.components.physics.YAccelComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.position.AngleComponent</java-class>
-                <game__engine.components.position.AngleComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.position.AngleComponent>
+                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
+                <game__engine.components.physics.DefaultXVelComponent>
+                  <myValue class="double">400.0</myValue>
+                </game__engine.components.physics.DefaultXVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.HealthComponent</java-class>
+                <game__engine.components.HealthComponent>
+                  <myValue class="double">1000.0</myValue>
+                </game__engine.components.HealthComponent>
               </entry>
             </myComponents>
           </game__engine.Entity>
@@ -220,6 +226,16 @@
                 <game__engine.components.collision.CollidableComponent>
                   <myValue class="boolean">true</myValue>
                 </game__engine.components.collision.CollidableComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.collect.CollectibleComponent</java-class>
@@ -288,11 +304,12 @@
           <game__engine.event.Event>
             <myActions class="java.util.Arrays$ArrayList">
               <a class="game_engine.event.Action-array">
-                <game__engine.event.actions.micro.DataIncrementAction>
+                <game__engine.event.actions.micro.DataChangeAction>
                   <myEntity reference="../../../../../../myEntities/game__engine.Entity"/>
                   <myComponentClass>game_engine.components.physics.DefaultXVelComponent</myComponentClass>
-                  <myDelta>100.0</myDelta>
-                </game__engine.event.actions.micro.DataIncrementAction>
+                  <myValue>100.0</myValue>
+                  <myExpression>+</myExpression>
+                </game__engine.event.actions.micro.DataChangeAction>
               </a>
             </myActions>
             <myConditions class="java.util.Arrays$ArrayList">
