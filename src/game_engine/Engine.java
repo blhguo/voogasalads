@@ -67,4 +67,9 @@ public class Engine {
 		myInputs.clear();
 	}
 
+	public List<Entity> getDespawned() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

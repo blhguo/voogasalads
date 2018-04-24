@@ -7,10 +7,11 @@ import game_engine.Component;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.DespawnComponent;
+import game_engine.components.NullType;
 import game_engine.level.Level;
 
 public class DespawnSystem extends GameSystem{
-	private static final Class<? extends Component<Boolean>> DESPAWN = DespawnComponent.class;
+	private static final Class<? extends Component<NullType>> DESPAWN = DespawnComponent.class;
 	
 	@Override
 	public void act(double elapsedTime, Level level) {

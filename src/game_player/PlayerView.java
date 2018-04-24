@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import user_interface.GameCamera;
-import gameData.ManipData;
+
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
@@ -17,12 +17,12 @@ import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import user_interface.GameCamera;
 
 /**
  * 
@@ -41,7 +41,7 @@ public class PlayerView {
 	
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-	private Map<ImageView, Entity> spriteMap;
+	private Map<String, ImageView> spriteMap;
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
@@ -79,7 +79,7 @@ public class PlayerView {
 		subScene.setCamera(cam.initCamera());
 		List<Level> levels = pullDownFactory.getLevels();
 
-		spriteMap = new HashMap<ImageView, Entity>();
+		spriteMap = new HashMap<>();
 		List<Entity> spriteEntities = levels.get(0)
 				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
@@ -90,7 +90,7 @@ public class PlayerView {
 			ImageView imageView = new ImageView(image);
 			imageView.setFitWidth(width);
 			imageView.setFitHeight(height);
-			spriteMap.put(imageView, e);
+			spriteMap.put(imageName, imageView);
 			root.getChildren().add(imageView);
 		}
 
@@ -120,18 +120,39 @@ public class PlayerView {
 	}
 
 	private void render() {
-		for (ImageView imageView : spriteMap.keySet()) {
-			Entity entity = spriteMap.get(imageView);
-			Double xPos = entity.getComponent(XPosComponent.class).getValue();
-			Double yPos = entity.getComponent(YPosComponent.class).getValue();
-			Double width = entity.getComponent(WidthComponent.class).getValue();
-			Double height = entity.getComponent(HeightComponent.class).getValue();
-			imageView.setX(xPos - width / 2);
-			imageView.setY(yPos - height / 2);
+		root.getChildren().clear();
+		myEngine.getLevel().getEntities().parallelStream().filter(this::isInView).forEach(this::display);
+		
+		Entity entity = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+		cam.setCamera(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
+	}
+	
+	private ImageView getImageView(Entity entity) {
+		String filename = entity.getComponent(FilenameComponent.class).getValue();
+		if (!spriteMap.containsKey(filename) ) {
+			spriteMap.put(filename, new ImageView(filename));
 		}
-		List<Entity> entity = myEngine.getEntitiesContaining(Arrays.asList(KeyboardMovementInputComponent.class));
-		PositionComponent position = (PositionComponent) entity.get(0).getComponent(PositionComponent.class);
-		cam.setCamera(position.getX() - SCENE_SIZE / 2, position.getY() - SCENE_SIZE / 2);
+		return spriteMap.get(filename);
+	}
+	
+	private void display(Entity entity) {
+		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+		Double width = entity.getComponent(WidthComponent.class).getValue();
+		Double height = entity.getComponent(HeightComponent.class).getValue();
+		
+		ImageView imageView = getImageView(entity);
+		imageView.setX(xPos - width / 2);
+		imageView.setY(yPos - height / 2);
+		root.getChildren().add(imageView);
+	}
+	
+	private boolean isInView(Entity entity) {
+		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+		return cam.initCamera().contains(xPos, yPos);
 	}
 
 	/**
