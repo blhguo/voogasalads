@@ -2,12 +2,17 @@ package authoring.right_components;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
+import game_engine.Component;
 import game_engine.level.LevelNameComponent;
+import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -62,18 +67,30 @@ public class LevelPane extends BasePane {
 //		activeLevels.getStyleClass().add("combo-box-auth");
 //		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
 		
- 		ComboBox tempLevels = new ComboBox();
- 		tempLevels.getItems().addAll("Level 1", "Level 2");
- 		tempLevels.setPromptText("Active Level Name");
- 		tempLevels.getStyleClass().add("combo-box-auth");
- 		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, tempLevels));
+		ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
+ 		ComboBox activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
+ 		//activeLevels.getItems().addAll("Level 1", "Level 2");
+ 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
+ 		Map<Integer, List<Component>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
+ 		activeLevels.setOnAction(e -> {
+ 			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
+ 			for (Entry<Integer, List<Component>> ent: map.entrySet()){
+ 				if(ent.getValue().equals(chosenLevel)){
+ 					Integer chosenId = ent.getKey();
+ 					lcontroller.getEngine().setLevel(chosenId);
+ 				}
+ 			}
+ 		});
+ 		activeLevels.getStyleClass().add("combo-box-auth");
+ 		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
 		
+ 		//need to check that name doesn't already exist
 		TextField name = new TextField(AuthRes.getString("LevelNameDefault"));
 		name.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.ENTER){
 				String text = name.getText();
 				//use level manager class to actually save this text as name
-				lcontroller.getActiveLevel().addComponent(new LevelNameComponent(text));
+				lcontroller.getEngine().getLevel().addComponent(new LevelNameComponent(text));
 			}
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Level Name: ", null, name));

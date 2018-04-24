@@ -1,10 +1,13 @@
 package authoring.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import gameData.ManipData;
+import game_engine.Component;
 import game_engine.Engine;
-import game_engine.Entity;
 import game_engine.level.Level;
 
 /**
@@ -40,16 +43,28 @@ public class LevelController {
 	/**
 	 * @return the active level
 	 */
-	public Level getActiveLevel(){
-		return engine.getLevel();
-	}
-	
-	public void setActiveLevel(Level l){
-		engine.setLevel(l.getId());
-	}
-	
-//	public ArrayList<Level> getLevels(){
-//		return currentLevels;
+//	public Level getActiveLevel(){
+//		return engine.getLevel();
 //	}
+//	
+//	public void setActiveLevel(Level l){
+//		engine.setLevel(l.getId());
+//	}
+	
+	public Engine getEngine(){
+		return engine;
+	}
+	
+	// may need to change from string to generic depending on what this method gets used for
+	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
+		ArrayList<Object> ret = new ArrayList<Object>();
+		Map<Integer, List<Component>> map = engine.getLevelPreviews(Arrays.asList(comp));
+		for (List<Component> list: map.values()){
+			for (Component c: list){
+				ret.add(c.getValue());
+			}
+		}
+		return ret;
+	}
 	
 }
