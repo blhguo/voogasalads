@@ -22,13 +22,11 @@ public class PlayerMain extends Application{
 	 * Method called to initialize the Game Player
 	 */
 	public void start(Stage stage) {
-		Engine engine = new Engine();
 		this.dataManager = new DataManager();
 		this.pullDownFactory = new PulldownFactory(dataManager);
 		this.menu = new Menu(dataManager, pullDownFactory);
 		this.viewManager = new ViewManager(menu, stage, pullDownFactory);
-		this.playerView = new PlayerView(pullDownFactory, engine, viewManager, dataManager);
-		
+		this.playerView = new PlayerView(pullDownFactory, viewManager, dataManager);
 		this.pullDownFactory.setPlayerView(playerView);
 	}
 	
