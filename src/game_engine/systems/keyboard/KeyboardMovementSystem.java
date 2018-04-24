@@ -37,6 +37,7 @@ public abstract class KeyboardMovementSystem extends GameSystem {
 			Component<Double> defaultVel = entity.getComponent(myDefaultVel);
 			Component<Double> vel = entity.getComponent(myVel);
 			for (InputEvent input : myEngine.getInput(keyInput)) {
+				System.out.println("inside keyboard system!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
 					vel.setValue(defaultVel.getValue()*getDirection());
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {

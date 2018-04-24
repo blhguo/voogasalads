@@ -6,12 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import game_engine.Component;
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.DamageComponent;
 import game_engine.components.HealthComponent;
-import game_engine.components.ProjectileComponent;
 import game_engine.components.collect.CollectibleComponent;
 import game_engine.components.collect.CollectorComponent;
 import game_engine.components.collect.ScoreComponent;
@@ -109,20 +108,6 @@ public class CollisionTest extends Application {
 
     private Group root;
     private Scene myScene;
-
-    private CollisionBroadSystem colSys;
-    private PositionSystem posSys;
-    private VelocitySystem velSys;
-    private KeyboardJumpSystem keyboardJumpSys;
-    private CollisionResponseSystem colResponseSys;
-    private LeftKeyboardMovementSystem leftKeySys;
-    private RightKeyboardMovementSystem rightKeySys;
-    private UpKeyboardMovementSystem upKeySys;
-    private DownKeyboardMovementSystem downKeySys;
-    private HealthSystem healthSys;
-    private ProjectileSpawnSystem projSys;
-    private ProjectileDespawnSystem projDespawn;
-    private DespawnSystem despawnSys;
     
     private Event event1;
     private Event event2;
@@ -171,8 +156,6 @@ public class CollisionTest extends Application {
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();
-
-        e.clearInputs();
     }
 
     private void setup(){
@@ -184,21 +167,6 @@ public class CollisionTest extends Application {
     	buildEntities();
         initRects();
         
-        colResponseSys = new CollisionResponseSystem();
-        keyboardJumpSys = new KeyboardJumpSystem(e);
-        colSys = new CollisionBroadSystem();
-        posSys = new PositionSystem();
-        velSys = new VelocitySystem();
-        leftKeySys = new LeftKeyboardMovementSystem(e);
-        rightKeySys = new RightKeyboardMovementSystem(e);
-        upKeySys = new UpKeyboardMovementSystem(e);
-        downKeySys = new DownKeyboardMovementSystem(e);
-        healthSys = new HealthSystem();
-        projSys = new ProjectileSpawnSystem(e);
-        projDespawn = new ProjectileDespawnSystem();
-        despawnSys = new DespawnSystem();
-        
-        testEvents();
     }
     
     private void updateAllEntities() {
@@ -383,11 +351,13 @@ public class CollisionTest extends Application {
         root.getChildren().add(r3);
     }
     
-    private void testEvents() {
+    private Event testEvents() {
     	//Testing Score event - When e1 collides with e3, e1's score increases by 10
     	List<Class<? extends CollidedComponent>> rightSide = Arrays.asList(RightCollidedComponent.class);
     	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3, rightSide);
-    	DataIncrementAction action1 = new DataIncrementAction(e1, DefaultXVelComponent.class, 100);
+    	DataChangeAction action1 = new DataChangeAction(e1, DefaultXVelComponent.class, "+", 100);
+    	
+    	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
     	
     	event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
     	
