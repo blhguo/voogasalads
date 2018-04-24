@@ -1,7 +1,19 @@
 package game_engine.test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.components.DamageComponent;
+import game_engine.components.HealthComponent;
+import game_engine.components.collect.CollectibleComponent;
+import game_engine.components.collect.CollectorComponent;
+import game_engine.components.collect.ScoreComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.PassableComponent;
@@ -13,9 +25,10 @@ import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
-import game_engine.components.keyboard.KeyboardJumpInputComponent;
+import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
+import game_engine.components.keyboard.UpKeyboardComponent;
 import game_engine.components.physics.DefaultXVelComponent;
 import game_engine.components.physics.DefaultYVelComponent;
 import game_engine.components.physics.XAccelComponent;
@@ -25,12 +38,38 @@ import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
-import game_engine.systems.InputGarbageCollectionSystem;
+import game_engine.components.projectile.ProjectileCollidableComponent;
+import game_engine.components.projectile.ProjectileDamageComponent;
+import game_engine.components.projectile.ProjectileFilenameComponent;
+import game_engine.components.projectile.ProjectileHeightComponent;
+import game_engine.components.projectile.ProjectileHitboxHeightComponent;
+import game_engine.components.projectile.ProjectileHitboxWidthComponent;
+import game_engine.components.projectile.ProjectileHitboxXOffsetComponent;
+import game_engine.components.projectile.ProjectileHitboxYOffsetComponent;
+import game_engine.components.projectile.ProjectileKeyboardInputComponent;
+import game_engine.components.projectile.ProjectileWidthComponent;
+import game_engine.components.projectile.ProjectileXVelComponent;
+import game_engine.components.projectile.ProjectileYVelComponent;
+import game_engine.components.sprite.SpritePolarityComponent;
+import game_engine.event.Event;
+import game_engine.event.actions.macro.LevelChangeAction;
+import game_engine.event.actions.micro.DataChangeAction;
+import game_engine.event.conditions.DataCondition;
+import game_engine.event.conditions.EntityCollisionCondition;
+import game_engine.level.Level;
+import game_engine.systems.DespawnSystem;
+import game_engine.systems.HealthSystem;
 import game_engine.systems.PositionSystem;
+import game_engine.systems.ProjectileDespawnSystem;
+import game_engine.systems.ProjectileSpawnSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
+import game_engine.systems.collision.ImpassableResponseSystem;
+import game_engine.systems.keyboard.DownKeyboardMovementSystem;
 import game_engine.systems.keyboard.KeyboardJumpSystem;
+import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
+import game_engine.systems.keyboard.RightKeyboardMovementSystem;
+import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -45,9 +84,11 @@ import javafx.util.Duration;
 
 public class CollisionTest extends Application {
 
-    private Entity e1;
-    private Entity e2;
-    private Entity e3;
+    private Entity e1; //smol rect
+    private Entity e2; 
+    private Entity e3; //BIG rect
+    
+    Map<Entity, Rectangle> spritesMap = new HashMap<Entity, Rectangle>();
 
     private Engine e;
 
@@ -68,13 +109,9 @@ public class CollisionTest extends Application {
 
     private Group root;
     private Scene myScene;
-
-    private CollisionBroadSystem colSys;
-    private PositionSystem posSys;
-    private VelocitySystem velSys;
-    private KeyboardJumpSystem keyboardJumpSys;
-    private InputGarbageCollectionSystem inputGarbageCollectionSystem;
-    private CollisionResponseSystem colResponseSys;
+    
+    private Event event1;
+    private Event event2;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -95,43 +132,66 @@ public class CollisionTest extends Application {
      * @param elapsedTime
      */
     private void step(double elapsedTime) {
-    	colSys.act(elapsedTime);
-    	colResponseSys.act(elapsedTime);
-    	posSys.act(elapsedTime);
-		velSys.act(elapsedTime);
-		keyboardJumpSys.act(elapsedTime); //update jump
-		inputGarbageCollectionSystem.act(elapsedTime);
+    	Level currentLevel = e.getLevel();
+		//despawnSys.act(elapsedTime, currentLevel);
+        //event1.occur();
+        //event2.occur();
 
-        updateRectPos();
+		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
+		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
+		//System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
+		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+		System.out.println("Current level: " + e.getLevel().getId());
+		updateAllEntities();
+        //updateRectPos();
         updateRectColor();
     }
 
     private void setup(){
-        e = new Engine();
-        colResponseSys = new CollisionResponseSystem(e);
-        keyboardJumpSys = new KeyboardJumpSystem(e);
-        colSys = new CollisionBroadSystem(e);
-        posSys = new PositionSystem(e);
-        velSys = new VelocitySystem(e);
-        inputGarbageCollectionSystem = new InputGarbageCollectionSystem(e);
-        
         root = new Group();
         myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
-        
         myScene.setOnKeyPressed(b -> e.receiveInput(b));
 		myScene.setOnKeyReleased(b -> e.receiveInput(b));
 
-        buildEntities();
+    	buildEntities();
         initRects();
+        
+    }
+    
+    private void updateAllEntities() {
+    	for (Entity entity : e.getLevel().getEntities()) {
+    		if (!spritesMap.containsKey(entity)) {
+    			double x = entity.getComponent(XPosComponent.class).getValue();
+    			double y = entity.getComponent(YPosComponent.class).getValue();
+    			double width = entity.getComponent(HitboxWidthComponent.class).getValue();
+    			double height = entity.getComponent(HitboxHeightComponent.class).getValue();
+
+    			Rectangle bullet = new Rectangle(x - width/2, y - height/2, width, height);
+    			spritesMap.put(entity, bullet);
+    			root.getChildren().add(bullet);
+    		}
+    		else if (!spritesMap.isEmpty()){
+	    		Rectangle r = spritesMap.get(entity);
+	    		double xPos = entity.getComponent(XPosComponent.class).getValue();
+	    		double yPos = entity.getComponent(YPosComponent.class).getValue();
+	    		double width = entity.getComponent(HitboxWidthComponent.class).getValue();
+    			double height = entity.getComponent(HitboxHeightComponent.class).getValue();
+	    		r.setX(xPos - width/2);
+	    		r.setY(yPos - height/2);
+    		}
+    	}
     }
 
     private void updateRectPos(){
         double x = e1.getComponent(XPosComponent.class).getValue();
         double y = e1.getComponent(YPosComponent.class).getValue();
+        double width = e1.getComponent(HitboxWidthComponent.class).getValue();
+		double height = e1.getComponent(HitboxHeightComponent.class).getValue();
+        
         double theta = e1.getComponent(AngleComponent.class).getValue();
 
-        r1.setX(x);
-        r1.setY(y);
+        r1.setX(x - width/2);
+        r1.setY(y - height/2);
         r1.setRotate(theta);
     }
 
@@ -156,8 +216,13 @@ public class CollisionTest extends Application {
 
     	LeftKeyboardComponent keyLeftComp = new LeftKeyboardComponent(KeyCode.LEFT.toString());
     	RightKeyboardComponent keyRightComp = new RightKeyboardComponent(KeyCode.RIGHT.toString());
+    	UpKeyboardComponent keyUpComp = new UpKeyboardComponent(KeyCode.UP.toString());
+    	DownKeyboardComponent keyDownComp = new DownKeyboardComponent(KeyCode.DOWN.toString());
     	e1.addComponent(keyLeftComp);
     	e1.addComponent(keyRightComp);
+    	e1.addComponent(keyUpComp);
+    	e1.addComponent(keyDownComp);
+    	e1.addComponent(new SpritePolarityComponent("1"));
     	
     	e1.addComponent(new YAccelComponent(GRAVITY));
     	e1.addComponent(new DefaultYVelComponent(JUMP_VELOCITY));
@@ -171,8 +236,8 @@ public class CollisionTest extends Application {
     	e1.addComponent(new YPosComponent("350"));
     	e1.addComponent(new AngleComponent("0"));
     	
-    	e2.addComponent(new XPosComponent("800"));
-    	e2.addComponent(new YPosComponent("800"));
+    	e2.addComponent(new XPosComponent("100"));
+    	e2.addComponent(new YPosComponent("100"));
     	e2.addComponent(new AngleComponent("0"));
     	
     	e3.addComponent(new XPosComponent("800"));
@@ -185,8 +250,8 @@ public class CollisionTest extends Application {
     	e1.addComponent(new HitboxXOffsetComponent("0.0"));
     	e1.addComponent(new HitboxYOffsetComponent("0.0"));
     	
-    	e2.addComponent(new HitboxHeightComponent("75.0"));
-    	e2.addComponent(new HitboxWidthComponent("2000.0"));
+    	e2.addComponent(new HitboxHeightComponent("20.0"));
+    	e2.addComponent(new HitboxWidthComponent("20.0"));
     	e2.addComponent(new HitboxXOffsetComponent("0.0"));
     	e2.addComponent(new HitboxYOffsetComponent("0.0"));
     	
@@ -196,17 +261,55 @@ public class CollisionTest extends Application {
     	e3.addComponent(new HitboxYOffsetComponent("0.0"));
     	
     	e1.addComponent(new CollidableComponent("true"));
-    	e1.addComponent(new PassableComponent("true"));
+    	//e1.addComponent(new PassableComponent("true"));
     	
     	e2.addComponent(new CollidableComponent("true"));
     	e2.addComponent(new PassableComponent("true"));
     	
     	e3.addComponent(new CollidableComponent("true"));
-    	e3.addComponent(new PassableComponent("true"));
+    	//e3.addComponent(new PassableComponent("true"));
+    	
+    	//Add Health Component
+    	e1.addComponent(new HealthComponent("1000")); //100 health points for e1
+    	e3.addComponent(new HealthComponent("2000"));
+    	e3.addComponent(new DamageComponent("100")); //e3 does 100 damage
+    	
+    	//Add Project Components to Entity e1
+    	e1.addComponent(new ProjectileWidthComponent("20.0"));
+    	e1.addComponent(new ProjectileHeightComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxWidthComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxHeightComponent("20.0"));
+    	e1.addComponent(new ProjectileHitboxXOffsetComponent("0.0"));
+    	e1.addComponent(new ProjectileHitboxYOffsetComponent("0.0"));
+    	e1.addComponent(new ProjectileCollidableComponent("true"));
+    	e1.addComponent(new ProjectileDamageComponent("2"));
+    	e1.addComponent(new ProjectileKeyboardInputComponent(KeyCode.SPACE.toString()));
+    	e1.addComponent(new ProjectileXVelComponent("200"));
+    	e1.addComponent(new ProjectileYVelComponent("0"));
+    	e1.addComponent(new ProjectileFilenameComponent("Mario.GIF"));
+    	
+    	//Add Collectible/Collector components
+    	e1.addComponent(new CollectorComponent());
+    	e3.addComponent(new CollectibleComponent("50"));
+    	
+    	//Add Score component to entity1
+    	e1.addComponent(new ScoreComponent("0")); // 0 is default score
+    	
+    	
+    	e = new Engine();
+    	
+    	Level lvl0 = e.createLevel();
+    	//asdf.addEntity(e2);
+    	lvl0.addEntity(e1);
+    	lvl0.addEntity(e3);
+    	
+    	Level lvl1 = e.createLevel();
+    	
+    	List<Level> levels = new ArrayList<Level>();
+    	levels.add(lvl0);
+    	levels.add(lvl1);
 
-        e.addEntity(e2);
-        e.addEntity(e3);
-        e.addEntity(e1);
+
     }
 
     private void initRects(){
@@ -229,12 +332,36 @@ public class CollisionTest extends Application {
         double hw3 = e3.getComponent(HitboxWidthComponent.class).getValue();
 
         r1 = new Rectangle(x1 - hw1/2, y1 - hh1/2, hw1, hh1);
-        r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
+        //r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
         r3 = new Rectangle(x3 - hw3/2, y3 - hh3/2, hw3, hh3);
         
+        spritesMap.put(e1, r1);
+        //spritesMap.put(e2, r2);
+        spritesMap.put(e3, r3);
+
+        
+        
         root.getChildren().add(r1);
-        root.getChildren().add(r2);
+        //root.getChildren().add(r2);
         root.getChildren().add(r3);
+    }
+    
+    private Event testEvents() {
+    	//Testing Score event - When e1 collides with e3, e1's score increases by 10
+    	List<Class<? extends CollidedComponent>> rightSide = Arrays.asList(RightCollidedComponent.class);
+    	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3, rightSide);
+    	DataChangeAction action1 = new DataChangeAction(e1, DefaultXVelComponent.class, "+", 100);
+    	
+    	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+    	
+    	event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+    	
+    	//Event: Change level from 0 to 1 when DefaultXVel == 500
+    	DataCondition condition2 = new DataCondition(e1, DefaultXVelComponent.class, "==", "500");
+    	LevelChangeAction action2 = new LevelChangeAction(e, 1);
+    	event2 = new Event(Arrays.asList(action2), Arrays.asList(condition2));
+    	return null;
+    	
     }
 
     /**

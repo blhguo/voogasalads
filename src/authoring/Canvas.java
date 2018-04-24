@@ -23,6 +23,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import user_interface.GameCamera;
+import java.util.Map;
+
+
+import authoring.controllers.EntityController;
 
 /**
  * @author Jennifer Chin
@@ -34,7 +39,7 @@ import javafx.scene.paint.Color;
 
 public class Canvas implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
-
+	private ParallelCamera cam;
 	private Pane pane;
 	private EntityController controller;
 	
@@ -53,6 +58,8 @@ public class Canvas implements GUINode {
 	public Pane getView(){
 		pane = new Pane();
 		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		//cam = new GameCamera();
+		//subScene.setCamera(cam.initCamera());
 		return pane;
 
 	}
