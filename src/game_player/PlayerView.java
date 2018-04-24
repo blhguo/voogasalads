@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.PrimeComponent;
@@ -12,6 +13,7 @@ import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
@@ -146,6 +148,12 @@ public class PlayerView {
 		ImageView imageView = getImageView(entity);
 		imageView.setX(xPos - width / 2);
 		imageView.setY(yPos - height / 2);
+		
+		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
+		// changes which direction the imageview faces based off of movement direction of entity
+		if(polarity != null) {
+			imageView.setScaleX((int) Math.signum(polarity.getValue()));
+		}
 		root.getChildren().add(imageView);
 	}
 	
