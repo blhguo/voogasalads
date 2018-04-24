@@ -8,10 +8,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
-import game_engine.systems.DespawnSystem;
 import game_engine.systems.HealthSystem;
 import game_engine.systems.PositionSystem;
-import game_engine.systems.ProjectileDespawnSystem;
 import game_engine.systems.ProjectileSpawnSystem;
 import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
