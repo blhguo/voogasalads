@@ -1,29 +1,22 @@
 package authoring.right_components;
 
-import java.awt.event.KeyEvent;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
-import game_engine.Level;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import game_engine.level.LevelNameComponent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import resources.keys.AuthRes;
@@ -80,6 +73,7 @@ public class LevelPane extends BasePane {
 			if(event.getCode() == KeyCode.ENTER){
 				String text = name.getText();
 				//use level manager class to actually save this text as name
+				lcontroller.getActiveLevel().addComponent(new LevelNameComponent(text));
 			}
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Level Name: ", null, name));
@@ -102,7 +96,7 @@ public class LevelPane extends BasePane {
 		list.add(ButtonFactory.makeHBox("Add Music", null, musicButton));
 		
 		Button newLevel = ButtonFactory.makeButton(event -> {
-			lcontroller.addLevel(new Level());
+			lcontroller.addLevel();
 			//also needs to update activeLevel text
 		});
 		list.add(ButtonFactory.makeHBox("Add New Level", null, newLevel));

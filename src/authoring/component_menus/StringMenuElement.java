@@ -18,7 +18,7 @@ public class StringMenuElement extends MenuElement{
 		setMyComponent(component);
 		myComponent.setMyMenuElement(this);
 		field = new TextField();
-		field.setText((String) component.getValue());
+		field.setText(component.getValue().toString());
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
 		field.focusedProperty().addListener(e -> {
