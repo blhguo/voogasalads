@@ -63,6 +63,7 @@ public class EntityController {
 		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
 			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
+		//canvas.update(entityList);
 		addToLevel(wrapper.getEntity());
 	}
 
@@ -102,8 +103,6 @@ public class EntityController {
 
 	/**
 	 *  Removes this entity and imageview from the map and updates the canvas to show the deleted entity
-	 * @param e
-	 * @param iv
 	 */
 	public void removeEntity(){
 		entityList.remove(entityPane.getPureCurrent());
@@ -215,4 +214,17 @@ public class EntityController {
 		});
 	}
 
+	public void listenCanvas() {
+		canvas.listen();
+	}
+	public void stopListenCanvas(){
+		canvas.stopListen();
+	}
+
+	public void alertEntityPane(double sceneX, double sceneY) {
+		EntityWrapper wrap = new EntityWrapper(entityPane.getPureCurrent(),
+				sceneX, sceneY, entityPane);
+		this.add(wrap);
+		entityPane.setActiveWrapper(wrap);
+	}
 }

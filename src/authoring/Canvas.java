@@ -65,7 +65,7 @@ public class Canvas implements GUINode {
 	public void update(List<EntityWrapper> entityList){
 		pane.getChildren().clear();
 		entityList.stream().forEach(e -> System.out.println(e));
-		entityList.stream().forEach(e -> pane.getChildren().add(e.getImageView()));
+		entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
 	
@@ -85,5 +85,18 @@ public class Canvas implements GUINode {
 	 */
 	public void setController(EntityController controller) {
 		this.controller = controller;
+	}
+
+	public void listen() {
+//		System.out.println("Listening");
+//		pane.setOnMousePressed(e -> {
+//			controller.alertEntityPane(e.getSceneX(), e.getSceneY());
+//			System.out.println("Clicked");
+//		});
+	}
+
+	public void stopListen() {
+//		System.out.println("Stopped listening");
+//		pane.setOnMouseClicked(e -> {});
 	}
 }

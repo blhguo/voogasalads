@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,24 @@ public class EntityWrapper {
 			}
 		}
 		//menuList.stream().forEach(c -> c.setMyPane(pane));
+		addAllComponents(entity);
+		imageView = createImageView();
+		entityPane = pane;
+	}
+	public EntityWrapper(EntityWrapper e, double xpos, double ypos, EntityPane pane){
+		entity = new Entity();
+		menuList = new ArrayList<ComponentMenu>(e.getMenuList());
+		for (ComponentMenu menu: menuList){
+			for (MenuElement element : menu.getElements()){
+				element.setMyWrapper(this);
+//				if (element.getTitle().equals("XPos")){
+//					element.getComponent().setValue(xpos);
+//				}
+//				else if (element.getTitle().equals("YPos")){
+//					element.getComponent().setValue(ypos);
+//				}
+			}
+		}
 		addAllComponents(entity);
 		imageView = createImageView();
 		entityPane = pane;
@@ -86,7 +105,7 @@ public class EntityWrapper {
 		ScrollPane pane = new ScrollPane(acc);
 		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		pane.setStyle("-fx-background: transparent;");
-		pane.setPrefHeight(100);
+		pane.setPrefHeight(200);
 		pane.setPrefWidth(150);
 		return pane;
 	}
