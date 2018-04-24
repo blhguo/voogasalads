@@ -5,11 +5,12 @@ import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
-import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
+import authoring.right_components.EntityComponent.EntityPane;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -68,7 +69,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
 		
-		canvas = new Canvas();
+		canvas = new Canvas(new Group());
 		
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);

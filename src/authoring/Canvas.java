@@ -1,17 +1,15 @@
 package authoring;
 
-import authoring.GUI_Heirarchy.GUINode;
-
 import java.util.List;
-import java.util.Map;
 
+import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.EntityController;
-
 import authoring.right_components.EntityComponent.EntityWrapper;
-import game_engine.Entity;
 import javafx.geometry.Insets;
+import javafx.scene.ParallelCamera;
+import javafx.scene.Parent;
+import javafx.scene.SubScene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -31,18 +29,23 @@ import javafx.scene.paint.Color;
  * the canvas.
  */
 
-public class Canvas implements GUINode {
+public class Canvas extends SubScene implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
+	private Pane myPane;
+	private EntityController myController;
 
-	private Pane pane;
-	private EntityController controller;
 	
 	/**
-	 * Constructor, no parameters
+	 * Constructor; establishes the canvas' root, initializes the camera, and sets the canvas
+	 * to autosize.
+	 * @param root
 	 */
-	public Canvas(){
-		
+	public Canvas(Parent root){	
+		super(root, 1000,10);	//arbitrary values, because overriden with autosize()?
+		autosize();
+		this.setCamera(new ParallelCamera());
 	}
+
 	
 	/**
 	 * Method from GUINode interface. Returns a Pane that is the view of this GUINode.
@@ -50,11 +53,12 @@ public class Canvas implements GUINode {
 	 * @return Pane
 	 */
 	public Pane getView(){
-		pane = new Pane();
-		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
-		return pane;
-
+		myPane = new Pane();
+		myPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		myPane.getChildren().add(this);
+		return myPane;
 	}
+
 	
 	/**
 	 * Allows the canvas to be updated according to the current entities in the map.
@@ -63,9 +67,9 @@ public class Canvas implements GUINode {
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
-		pane.getChildren().clear();
+		myPane.getChildren().clear();
 		entityList.stream().forEach(e -> System.out.println(e));
-		entityList.stream().forEach(e -> pane.getChildren().add(e.getImageView()));
+		entityList.stream().forEach(e -> myPane.getChildren().add(e.getImageView()));
 		System.out.println("Canvas updated");
 	}
 	
@@ -74,7 +78,7 @@ public class Canvas implements GUINode {
 	 * @param im
 	 */
 	public void updateBackground(Image im){
-		pane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
+		myPane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 	}
 
@@ -84,6 +88,6 @@ public class Canvas implements GUINode {
 	 * @param controller
 	 */
 	public void setController(EntityController controller) {
-		this.controller = controller;
+		myController = controller;
 	}
 }
