@@ -75,11 +75,6 @@ public class Engine {
 		myInputs.add(event);
 	}
 
-	// WROTE FOR TEMPORARY TESTING -- REMOVE LATER!!
-	public void clearInputs() {
-		myInputs.clear();
-	}
-
 	private List<GameSystem> initSystems() {
 		Reflections reflections = new Reflections("game_engine", new SubTypesScanner(true));
 		Set<Class<? extends GameSystem>> allClasses = reflections.getSubTypesOf(GameSystem.class);

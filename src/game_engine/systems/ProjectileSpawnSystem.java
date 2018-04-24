@@ -32,6 +32,7 @@ import game_engine.components.projectile.ProjectileXVelComponent;
 import game_engine.components.projectile.ProjectileYVelComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.level.Level;
 import javafx.scene.input.InputEvent;
@@ -81,7 +82,24 @@ public class ProjectileSpawnSystem extends GameSystem {
 		Entity projectile = new Entity();
 		projectile.addComponent(new ProjectileComponent());
 		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
-		projectile.addComponent(new XVelComponent(entity.getComponent(PROJ_XVEL).getValue().toString()));
+		
+		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
+		Double projectileXVel = entity.getComponent(PROJ_XVEL).getValue();
+		
+		double spawnXOffset = 0;
+		Component<Double> entityHitboxWidth = entity.getComponent(HitboxWidthComponent.class);
+		Component<Double> entityHitboxXOffset = entity.getComponent(HitboxXOffsetComponent.class);
+		double projHitboxWidth = entity.getComponent(PROJ_HITBOX_WIDTH).getValue();
+		
+		if(entityHitboxWidth != null && entityHitboxXOffset != null) {
+			spawnXOffset = (entityHitboxWidth.getValue() + entityHitboxXOffset.getValue() + projHitboxWidth)/2;
+		}
+		if(polarity!=null) {
+			double dir = Math.signum(polarity.getValue());
+			projectileXVel = projectileXVel * dir;
+			spawnXOffset *= dir;
+		}
+		projectile.addComponent(new XVelComponent(projectileXVel.toString()));
 		projectile.addComponent(new WidthComponent(entity.getComponent(PROJ_WIDTH).getValue().toString()));
 		projectile.addComponent(new HeightComponent(entity.getComponent(PROJ_HEIGHT).getValue().toString()));
 		projectile.addComponent(new HitboxHeightComponent(entity.getComponent(PROJ_HITBOX_HEIGHT).getValue().toString()));
@@ -91,12 +109,10 @@ public class ProjectileSpawnSystem extends GameSystem {
 		projectile.addComponent(new FilenameComponent(entity.getComponent(PROJ_FILENAME).getValue().toString()));
 		projectile.addComponent(new HitboxXOffsetComponent(entity.getComponent(PROJ_HITBOX_X_OFFSET).getValue().toString()));
 		projectile.addComponent(new HitboxYOffsetComponent(entity.getComponent(PROJ_HITBOX_Y_OFFSET).getValue().toString()));
-
-		//projectile.addComponent(new XPosComponent((entity.getComponent(ENTITY_XPOS).getValue()).toString()));
 		
-		//ADDED THE OFFSET FOR TESTING PURPOSES - REMOVE!! 
+		
 		projectile.addComponent(new YPosComponent(entity.getComponent(ENTITY_YPOS).getValue().toString()));
-		projectile.addComponent(new XPosComponent(Double.toString(entity.getComponent(ENTITY_XPOS).getValue()+120)));
+		projectile.addComponent(new XPosComponent(Double.toString(entity.getComponent(ENTITY_XPOS).getValue()+spawnXOffset)));
 		
 
 		return projectile;
