@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import game_player_interfaces.ImportData;
 import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.level.Level;
@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * @author Dana Park, Brandon Dalla Rosa
  *
  */
-public class PulldownFactory {
+public class PulldownFactory implements ImportData {
 
 	private static final String DEFAULT_RESOURCE_PACKAGE = "game_player_resources/";
 
@@ -83,7 +83,7 @@ public class PulldownFactory {
 				getResources(saveLoadProperties, "LoadCommand"));
 		saveLoadBox.setPrefSize(160, 20);
 		saveLoadBox.setOnAction(click -> {
-			checkSomething();
+			checkSaveOrLoad();
 		});
 		return saveLoadBox;
 	}
@@ -102,11 +102,11 @@ public class PulldownFactory {
 		
 	}
 
-	private void checkSomething() {
+	private void checkSaveOrLoad() {
 		if (saveLoadBox.getValue().equals("Save")) {
 			handleSave();
 		} else if (saveLoadBox.getValue().equals("Load")) {
-			handleLoad();
+			importGame();
 		}
 	}
 
@@ -115,7 +115,8 @@ public class PulldownFactory {
 		turd.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
 
-	protected void handleLoad() {
+	@Override
+	public void importGame() {
 		ManipData turd = new ManipData();
 		File file = getFile();
 		viewManager.changeBackground();
@@ -156,6 +157,18 @@ public class PulldownFactory {
      */ 
 	public void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
+	}
+
+	@Override
+	public void importPreferences() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void importGameState() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
