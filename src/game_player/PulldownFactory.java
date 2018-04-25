@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import game_player_interfaces.ImportData;
 import gameData.ManipData;
+import game_engine.Engine;
 import game_engine.level.Level;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
@@ -30,7 +31,7 @@ public class PulldownFactory implements ImportData {
 	private ComboBox<String> speedBox;
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
-	private List<Level> levels = new ArrayList<Level>();
+	private Engine gameEngine;
 	private DataManager dataManager;
 	private ViewManager viewManager;
 	private PlayerView playerView;
@@ -111,24 +112,30 @@ public class PulldownFactory implements ImportData {
 
 	private void handleSave() {
 		ManipData turd = new ManipData();
-		turd.saveData(dataManager.getGameLevels());
+		turd.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
 
 	@Override
 	public void importGame() {
 		ManipData turd = new ManipData();
+		
+		
+		
+		
 		File file = getFile();
 		viewManager.changeBackground();
-		levels = turd.loadData(file);
-		dataManager.setGameLevels(levels);
+		gameEngine = turd.loadData(file,"ExampleGame");
+		System.out.println(gameEngine);
+		playerView.setEngine(gameEngine);
+		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
 	}
     
     /**
      * Method to return the list of levels loaded from data.
      */ 
-	public List<Level> getLevels() {
-		return levels;
+	public Engine getGameEngine() {
+		return gameEngine;
 	}
     
     /**

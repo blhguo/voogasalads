@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.PrimeComponent;
@@ -12,6 +13,7 @@ import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
@@ -57,11 +59,14 @@ public class PlayerView {
  * constructor for PlayerView
  *
  */
-	public PlayerView(PulldownFactory pdf, Engine engine, ViewManager view, DataManager dtm) {
+	public PlayerView(PulldownFactory pdf, ViewManager view, DataManager dtm) {
 		pullDownFactory = pdf;
-		myEngine = engine;
 		viewManager = view;
 		dataManager = dtm;
+	}
+	
+	public void setEngine(Engine e) {
+		this.myEngine = e;
 	}
 
 	/**
@@ -80,10 +85,10 @@ public class PlayerView {
 		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 		cam = new GameCamera();
 		subScene.setCamera(cam.initCamera());
-		List<Level> levels = pullDownFactory.getLevels();
+		Level level= myEngine.getLevel();
 
 		spriteMap = new HashMap<>();
-		List<Entity> spriteEntities = levels.get(0)
+		List<Entity> spriteEntities = level
 				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
 			String imageName = e.getComponent(FilenameComponent.class).getValue();
@@ -150,6 +155,12 @@ public class PlayerView {
 		ImageView imageView = getImageView(entity);
 		imageView.setX(xPos - width / 2);
 		imageView.setY(yPos - height / 2);
+		
+		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
+		// changes which direction the imageview faces based off of movement direction of entity
+		if(polarity != null) {
+			imageView.setScaleX(Math.signum(polarity.getValue()));
+		}
 		root.getChildren().add(imageView);
 	}
 	

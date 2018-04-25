@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.keyboard.UpKeyboardComponent;
-import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -23,8 +23,11 @@ public class DataManager {
 	private Map<String,KeyCode> keyPrefsReversed;
 	private Map<String,KeyCode> engineMap;
 	private List<String> gameInputs;
-	private List<Level> gameLevels = new ArrayList<Level>();
+	private Engine gameEngine;
 	private Entity gamePlayer;
+	private String gameTitle;
+	private Map<String,String> gameMetadata;
+	
 	
 	public DataManager() {
 		keyPrefs = new HashMap<KeyCode,String>();
@@ -65,16 +68,16 @@ public class DataManager {
 			return;
 		}
 		if(input.equals("left")){
-			gamePlayer.addComponent(new LeftKeyboardComponent(k));
+			gamePlayer.addComponent(new LeftKeyboardComponent(k.toString()));
 		}
 		else if(input.equals("right")) {
-			gamePlayer.addComponent(new RightKeyboardComponent(k));
+			gamePlayer.addComponent(new RightKeyboardComponent(k.toString()));
 		}
 		else if(input.equals("up")) {
-			gamePlayer.addComponent(new UpKeyboardComponent(k));
+			gamePlayer.addComponent(new UpKeyboardComponent(k.toString()));
 		}
 		else if(input.equals("down")) {
-			gamePlayer.addComponent(new DownKeyboardComponent(k));
+			gamePlayer.addComponent(new DownKeyboardComponent(k.toString()));
 		}
 	}
 	/**
@@ -112,12 +115,25 @@ public class DataManager {
 	 * 
 	 * @param node
 	 */
-	public void setGameLevels(List<Level> lev) {
-		gameLevels = lev;
+	public void setGameEngine(Engine e) {
+		gameEngine = e;
 	}
 	
-	public List<Level> getGameLevels(){
-		return gameLevels;
+	public Engine getGameEngine(){
+		return gameEngine;
+	}
+	
+	public String getGameTitle() {
+		return gameTitle;
+	}
+	public void setGameTitle(String gt) {
+		this.gameTitle = gt;
+	}
+	public Map<String,String> getGameMetadata(){
+		return this.gameMetadata;
+	}
+	public void setGameMetadata(Map<String,String> gm) {
+		this.gameMetadata = gm;
 	}
 	
 	public List<String> getInputCommands(){
