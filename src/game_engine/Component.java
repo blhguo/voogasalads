@@ -12,7 +12,7 @@ public abstract class Component<T> {
 
 	public void setValue(T val) {
 		myValue = val;
-		alert();
+//		alert();
 	}
 	
 	public T getValue() {
