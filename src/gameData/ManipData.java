@@ -182,10 +182,10 @@ public class ManipData {
 	
 	
 	
-	public Engine loadData(String filePath, String gameName) {
+	public Engine loadData(File file, String gamename) {
 		try {
-			File load = new File(filePath);
-			openFile(load);
+			//File load = new File(filePath);
+			openFile(file);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO

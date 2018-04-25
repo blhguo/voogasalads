@@ -112,14 +112,15 @@ public class PulldownFactory {
 
 	private void handleSave() {
 		ManipData turd = new ManipData();
-		turd.saveData(dataManager.getGameLevels());
+		turd.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
 
 	protected void handleLoad() {
 		ManipData turd = new ManipData();
 		File file = getFile();
 		viewManager.changeBackground();
-		gameEngine = turd.loadData(file);
+		gameEngine = turd.loadData(file,"ExampleGame");
+		System.out.println(gameEngine);
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
