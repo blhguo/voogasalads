@@ -59,4 +59,9 @@ public class LevelController {
 		return ret;
 	}
 	
+	public void addComp(Component c){
+		engine.getLevel().addComponent(c);
+	}
+	
+	
 }
