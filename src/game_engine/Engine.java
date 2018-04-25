@@ -15,18 +15,9 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
 import game_engine.level.Level;
-import game_engine.systems.CollectibleSystem;
-import game_engine.systems.DespawnSystem;
-import game_engine.systems.PositionSystem;
-import game_engine.systems.VelocitySystem;
-import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.ImpassableResponseSystem;
-import game_engine.systems.keyboard.DownKeyboardMovementSystem;
-import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
-import game_engine.systems.keyboard.RightKeyboardMovementSystem;
-import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import voogasalad.util.reflection.Reflection;
 
 public class Engine {
 	private Map<Integer, Level> myLevels;
@@ -40,23 +31,7 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
-		//mySystems = initSystems();
-		
-		//Andy -> wasn't working on my end so I commented it out temporarily and added the hard coded systems
-		mySystems = new ArrayList<>();
-		mySystems.add(new CollisionBroadSystem());
-		mySystems.add(new PositionSystem());
-		mySystems.add(new VelocitySystem());
-		mySystems.add(new LeftKeyboardMovementSystem(this));
-		mySystems.add(new RightKeyboardMovementSystem(this));
-		mySystems.add(new UpKeyboardMovementSystem(this));
-		mySystems.add(new DownKeyboardMovementSystem(this));
-		mySystems.add(new CollectibleSystem());
-		//mySystems.add(new ProjectileSpawnSystem(this));
-		mySystems.add(new DespawnSystem());
-		mySystems.add(new ImpassableResponseSystem());
-
-
+		mySystems = initSystems();
 	}
 
 	public void update(double elapsedTime) {
@@ -89,6 +64,20 @@ public class Engine {
 		myCurrentLevel = dex;
 	}
 
+	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
+		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
+		List<Component<?>> previewComponents;
+		for (Integer key : myLevels.keySet()) {
+			previewComponents = new ArrayList<Component<?>>();
+			Level lvl = myLevels.get(key);
+			for (Class<? extends Component<?>> c : args) {
+				previewComponents.add(lvl.getComponent(c));
+			}
+			preview.put(key, previewComponents);
+		}
+		return preview;
+	}
+
 	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
 		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
 				.collect(Collectors.toList());
@@ -107,18 +96,16 @@ public class Engine {
 		allClasses.stream().filter(clazz -> !Modifier.isAbstract(clazz.getModifiers())).forEach(clazz -> {
 			try {
 				Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
-				Constructor<?> ctor;
 				GameSystem system;
 				if (params.length > 0) {
-					ctor = clazz.getDeclaredConstructor(new Class[] { Engine.class });
-					system = (GameSystem) ctor.newInstance(new Engine());
+					system = (GameSystem) Reflection.createInstance(clazz.getName(), this);
 				} else {
-					ctor = clazz.getDeclaredConstructor(new Class[] {});
-					system = (GameSystem) ctor.newInstance();
+					system = (GameSystem) Reflection.createInstance(clazz.getName());
 				}
 				systems.add(system);
 			} catch (Exception e) {
-				// do nothing: just continue without this system
+				// Do nothing: Continue without this system.
+				// No use in adding a NullSystem or anything like that since the user doesn't see it.
 			}
 		});
 
