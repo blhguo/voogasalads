@@ -9,6 +9,7 @@ import gameData.ManipData;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.level.Level;
+import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
 
 /**
@@ -19,10 +20,12 @@ public class LevelController {
 
 	private ManipData data;
 	private Engine engine;
+	private PaneController pcontroller;
 	
-	public LevelController() {
+	public LevelController(PaneController pc) {
 		engine = new Engine();
 		data = new ManipData();
+		pcontroller = pc;
 		addLevel();
 	}
 	/**
@@ -32,6 +35,9 @@ public class LevelController {
 		Level newLevel = engine.createLevel();
 		// add defaults to level
 		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(newLevel.getId())));
+		// need to fix default background
+		newLevel.addComponent(new LevelBackgroundComponent("default.png"));
+		pcontroller.resetBackground();
 		engine.setLevel(newLevel.getId());
 	}
 
@@ -39,7 +45,7 @@ public class LevelController {
 	 * Passes the current levels array to data
 	 */
 	public void saveGame() {
-		// need to get map of levels from engine to pass to data
+		// need all 3 parameters
 		//data.saveData(currentLevels);
 		//or .saveData(currentLevels, currentAttributes)
 	}
@@ -62,6 +68,5 @@ public class LevelController {
 	public void addComp(Component c){
 		engine.getLevel().addComponent(c);
 	}
-	
 	
 }

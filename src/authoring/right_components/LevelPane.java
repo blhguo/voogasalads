@@ -73,9 +73,10 @@ public class LevelPane extends BasePane {
 		
 		Button backButton = ButtonFactory.makeButton(event -> {
 			File file = initFileChooser("Choose Background Image");
-			controller.setBackground(file);
+			String fname = file.getName();
+			controller.setBackground(fname);
 			// may need to add /images in front of image name
-			lcontroller.addComp(new LevelBackgroundComponent(file.getName()));
+			lcontroller.addComp(new LevelBackgroundComponent(fname));
 		});
 		list.add(ButtonFactory.makeHBox("Select Background", null, backButton));
 		
@@ -93,11 +94,19 @@ public class LevelPane extends BasePane {
 		Button newLevel = ButtonFactory.makeButton(event -> {
 			lcontroller.addLevel();
 			//also needs to update activeLevel text
+			updateLabels(activeLevels, name);
 		});
 		list.add(ButtonFactory.makeHBox("Add New Level", null, newLevel));
 		
 		return list;
 
+	}
+	
+	private void updateLabels(ComboBox cb, TextField tf){
+		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
+		cb.setPromptText(name);
+		tf.setText(name);
+		controller.setBackground(lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue());
 	}
 	
 	private ComboBox makeActiveLevelList(ArrayList<Object> levelNames){
@@ -112,8 +121,6 @@ public class LevelPane extends BasePane {
  					lcontroller.getEngine().setLevel(chosenId);
  				}
  			}
- 			box.getChildren().removeAll(getButtonArray());
- 			box.getChildren().addAll(getButtonArray());
  		});
  		activeLevels.getStyleClass().add("combo-box-auth");
  		return activeLevels;
