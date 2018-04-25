@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -41,7 +40,7 @@ public class ViewManager extends GUIBuilder{
 	private Stage gameStage;
 	private double sceneWidth = 1200;
 	private double sceneHeight = 900;
-	private Paint backColor = Color.BLACK;
+	private Paint backColor = Color.TRANSPARENT;
 	private Pane view;
 	private Scene gameScene;
 	private PulldownFactory pullDownFactory;
@@ -102,16 +101,14 @@ public class ViewManager extends GUIBuilder{
 		center.setBackground(new Background(back));
 
 		VBox order = new VBox(20);
-		order.getStyleClass().add("pane-back");
 
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
 		
-		//menu.addMenu(order);
 		view = new Pane();
 		view.setPrefSize(1000, 730);
 		subRoot = new Group();
-		subScene = new SubScene(subRoot, 770, 530, false, null);
+		subScene = new SubScene(subRoot, 920, 660, false, null);
 
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -167,7 +164,6 @@ public class ViewManager extends GUIBuilder{
 	public void changeBrightness() {
 		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				//gameStage.setOpacity((double)new_val/2+.5);
 				dimmer.opacityProperty().set(1-(double)new_val);
 			}
 		});

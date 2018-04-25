@@ -27,26 +27,30 @@ public class Menu {
 	
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
+	private ButtonMaker buttonMaker;
 	private Button gameSelectionButton;
+	private Button pausePlayButton;
 	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
+	private KeyPrefMenu kpm;
 	
 	public Menu(DataManager data, PulldownFactory pdf) {
-		pane = new HBox(20);
+		pane = new HBox(35);
 		pane.setAlignment(Pos.TOP_CENTER);
-		//pane.getStyleClass().add("pane-back");
-
 		dataManager = data;
 		pullDownFactory = pdf;
-		makePullDownMenus();
+		makeButtons();
 		settings = new SettingsMenu();
 		settings.makeSettingsMenu(pane);
 		settings.makeSettingsStage();
 		gameMenu = new GameSelectionMenu();
 		gameMenu.makeGameSelectionMenu(pane);
-		KeyPrefMenu kpm = new KeyPrefMenu(dataManager,pane);
+		kpm = new KeyPrefMenu(dataManager,pane);
+		getPullDown();
+		
+
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -57,29 +61,29 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
+	public void getPullDown(){
+		pane.getChildren().add(pullDownFactory.SaveLoadBox());
+	}
+	
     /**
 	 * Method to add ComboBoxes from PulldownFactory to Menu
 	 * 
 	 */
-	private void makePullDownMenus() {
-		
-		pane.getChildren().add(pullDownFactory.getSpeedBox());
-		pane.getChildren().add(pullDownFactory.getStatusBox());
-		pane.getChildren().add(pullDownFactory.getSaveLoadBox());
-		
+
+	
+	private void makeButtons() {
+		buttonMaker = new ButtonMaker();
+//		pane.getChildren().add(buttonMaker.pausePlayButton());
+//		pane.getChildren().add(buttonMaker.replayButton());
+//		pane.getChildren().add(buttonMaker.saveButton());
+//		pane.getChildren().add(buttonMaker.slowControlButton());
+//		pane.getChildren().add(buttonMaker.speedControlButton());
+		for (int i = 0; i < buttonMaker.makeMenuButton().size(); i++) {
+			pane.getChildren().add(buttonMaker.makeMenuButton().get(i));
+		}
+
 	}
 	
-	/**
-	 * Method to make gameSelectionButton that when clicked calls the showGameSelectionMenu method
-	 * 
-	 */
-//	private void makeGameSelectionMenu() {
-//		gameSelectionButton = new Button("Game Selection");
-//		gameSelectionButton.getStyleClass().add("button-nav");
-//		gameSelectionButton.setOnAction(click->{showGameSelectionMenu();});
-//		pane.getChildren().add(gameSelectionButton);
-//		
-//	}
 	/**
 	 * getter method for the Brightness Slider on the Settings Stage
 	 * 
@@ -95,16 +99,5 @@ public class Menu {
 		return settings.getVolumeSlider();
 	}
 	
-	/**
-	 * method to show new Stage when gameSelectionButton is pressed
-	 * 
-	 */
-//	public void showGameSelectionMenu() {
-//		//TODO Make this choose game to play, not edit
-//		gameSelectionStage = new Stage();
-//		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
-//		//gameSelectionStage.setScene(gc.display());
-//		gameSelectionStage.show();
-//	}	
 
 }

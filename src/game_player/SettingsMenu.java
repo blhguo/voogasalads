@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -32,7 +33,10 @@ public class SettingsMenu {
 	}
 	
 	protected void makeSettingsMenu(HBox pane) {
-		settingsButton = new Button("Settings");
+		ImageView settingsImageView = new ImageView( getClass().getResource( "/game_player_resources/settings.png").toExternalForm());
+		settingsImageView.setFitHeight(30);
+		settingsImageView.setFitWidth(30);
+		settingsButton = new Button("", settingsImageView);
 		settingsButton.getStyleClass().add("button-nav");
 		pane.getChildren().add(settingsButton);
 		settingsMenu = new VBox(50);
@@ -42,6 +46,7 @@ public class SettingsMenu {
 		settingsMenu.setBackground(new Background(back));
 		settingsButton.setOnAction(click->{showSettingsMenu();});	
 	}
+	
 	protected void makeSettingsStage() {
 		settingsStage = new Stage();
 		Scene scene = new Scene(settingsMenu);

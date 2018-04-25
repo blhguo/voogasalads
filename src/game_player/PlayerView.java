@@ -40,6 +40,7 @@ public class PlayerView {
 	private static final double SCENE_SIZE = 500;
 	
 	private PulldownFactory pullDownFactory;
+	private ButtonMaker buttonMaker;
 	private Engine myEngine;
 	private Map<String, ImageView> spriteMap;
 	private Group root;
@@ -167,7 +168,7 @@ public class PlayerView {
 	public void handleUI() {
 		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();
 		String statusAction = pullDownFactory.getStatusBox().getSelectionModel().getSelectedItem();
-
+	
 		if (selectedAction.equals("Speed Up")) {
 
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
