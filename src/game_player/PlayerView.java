@@ -121,7 +121,6 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
-		animation.stop();
 		myEngine.update(delay);
 		render();
 		handleUI();
