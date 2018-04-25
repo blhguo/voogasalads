@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -33,13 +34,16 @@ public class KeyPrefMenu {
 	 */
 	public KeyPrefMenu(DataManager data, Pane root) {
 		currentKey = KeyCode.ENTER;
+		ImageView keyboardImageView = new ImageView( getClass().getResource( "/game_player_resources/keyboard.png").toExternalForm());
+		keyboardImageView.setFitHeight(30);
+		keyboardImageView.setFitWidth(30);
 		currentPrefButton = new Button();
 		dataManager = data;
 		keyPrefMenu = new VBox(25);
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		keyPrefMenu.setBackground(new Background(back));
-		keyPrefButton = new Button("Key Prefs");
+		keyPrefButton = new Button("", keyboardImageView);
 		keyPrefButton.setOnAction(click->{showPrefMenu();});
 		keyPrefButton.setPrefSize(160, 20);
 		keyPrefButton.getStyleClass().add("button-nav");
@@ -59,7 +63,7 @@ public class KeyPrefMenu {
 			toAdd.setAlignment(Pos.CENTER);
 			Label label = new Label(s);
 			label.getStyleClass().add("text-keypref");
-			Button button = new Button("ENTER");
+			Button button = new Button(dataManager.getKeyCode(s).toString());
 			button.getStyleClass().add("button-keypref");
 			button.setOnAction(click->{setPref(button,s);});
 			toAdd.getChildren().add(label);
@@ -72,7 +76,7 @@ public class KeyPrefMenu {
 		currentKey = code;
 		currentPrefButton.getStyleClass().add("button-keypref");
 
-		currentPrefButton.setText(""+currentKey);
+		currentPrefButton.setText(""+dataManager.getKeyCode(currentPrefString));
 		dataManager.setKey(currentPrefString, code);
 	}
 	
