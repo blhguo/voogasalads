@@ -101,6 +101,7 @@ public class CollectibleTest extends Application {
 	}
 
 	private void updateAllRects() {
+		root.getChildren().clear();
 		for (Entity entity : engine.getLevel().getEntities()) {
 			if (!spritesMap.isEmpty()){
 				Rectangle r = spritesMap.get(entity);
@@ -110,6 +111,7 @@ public class CollectibleTest extends Application {
 				double height = entity.getComponent(HitboxHeightComponent.class).getValue();
 				r.setX(xPos - width/2);
 				r.setY(yPos - height/2);
+				root.getChildren().add(r);
 			}
 		}
 	}
@@ -118,7 +120,7 @@ public class CollectibleTest extends Application {
 		mainCharacter = new Entity();
 		//components needed for each of the 4 keyboard movement systems
 		mainCharacter.addComponent(new DefaultXVelComponent("200"));
-		mainCharacter.addComponent(new DefaultYVelComponent("30"));
+		mainCharacter.addComponent(new DefaultYVelComponent("200"));
 		mainCharacter.addComponent(new LeftKeyboardComponent(KeyCode.LEFT.toString()));
 		mainCharacter.addComponent(new RightKeyboardComponent(KeyCode.RIGHT.toString()));
 		mainCharacter.addComponent(new UpKeyboardComponent(KeyCode.UP.toString()));

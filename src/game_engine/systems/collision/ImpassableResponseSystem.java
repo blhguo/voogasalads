@@ -1,12 +1,9 @@
 package game_engine.systems.collision;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import game_engine.Component;
 import game_engine.Entity;
-import game_engine.GameSystem;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -37,7 +34,6 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collidedEntities = getCollidedEntities(level);
-		System.out.println(collidedEntities.size());
 		for (Entity e : collidedEntities) {
 			XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
 			YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
