@@ -9,6 +9,7 @@ import gameData.ManipData;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.level.Level;
+import game_engine.level.LevelNameComponent;
 
 /**
  * @author Jennifer Chin
@@ -22,12 +23,15 @@ public class LevelController {
 	public LevelController() {
 		engine = new Engine();
 		data = new ManipData();
+		addLevel();
 	}
 	/**
 	 * @param l Adds the specifed level to current levels
 	 */
 	public void addLevel() {
 		Level newLevel = engine.createLevel();
+		// add defaults to level
+		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(newLevel.getId())));
 		engine.setLevel(newLevel.getId());
 	}
 
@@ -39,23 +43,11 @@ public class LevelController {
 		//data.saveData(currentLevels);
 		//or .saveData(currentLevels, currentAttributes)
 	}
-
-	/**
-	 * @return the active level
-	 */
-//	public Level getActiveLevel(){
-//		return engine.getLevel();
-//	}
-//	
-//	public void setActiveLevel(Level l){
-//		engine.setLevel(l.getId());
-//	}
 	
 	public Engine getEngine(){
 		return engine;
 	}
 	
-	// may need to change from string to generic depending on what this method gets used for
 	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
 		Map<Integer, List<Component>> map = engine.getLevelPreviews(Arrays.asList(comp));

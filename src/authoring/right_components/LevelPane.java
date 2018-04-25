@@ -55,41 +55,16 @@ public class LevelPane extends BasePane {
 	@Override
 	public List<Node> getButtonArray() {
 		ArrayList<Node> list = new ArrayList<>();
-		
-//		ArrayList<String> levels = lcontroller.getLevels().stream().map(l -> l.getName()).collect(Collectors.toList());
-//		ComboBox activeLevels = new ComboBox(FXCollections.observableArrayList(levels));
-//		activeLevels.setPromptText(lcontroller.getActiveLevel().getName());
-//		activeLevels.setOnAction(e -> {
-//			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
-//			//get Level object from chosenLevel name
-//			lcontroller.setActiveLevel(Level from name);
-//		});
-//		activeLevels.getStyleClass().add("combo-box-auth");
-//		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
-		
 		ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
- 		ComboBox activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
- 		//activeLevels.getItems().addAll("Level 1", "Level 2");
- 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
- 		Map<Integer, List<Component>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
- 		activeLevels.setOnAction(e -> {
- 			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
- 			for (Entry<Integer, List<Component>> ent: map.entrySet()){
- 				if(ent.getValue().equals(chosenLevel)){
- 					Integer chosenId = ent.getKey();
- 					lcontroller.getEngine().setLevel(chosenId);
- 				}
- 			}
- 		});
- 		activeLevels.getStyleClass().add("combo-box-auth");
+ 		
+		ComboBox activeLevels = makeActiveLevelList(levelNames);
  		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
 		
  		//need to check that name doesn't already exist
-		TextField name = new TextField(AuthRes.getString("LevelNameDefault"));
+		TextField name = new TextField(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 		name.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.ENTER){
 				String text = name.getText();
-				//use level manager class to actually save this text as name
 				lcontroller.getEngine().getLevel().addComponent(new LevelNameComponent(text));
 			}
 		});
@@ -122,6 +97,23 @@ public class LevelPane extends BasePane {
 
 	}
 	
+	private ComboBox makeActiveLevelList(ArrayList<Object> levelNames){
+		ComboBox activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
+ 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
+ 		Map<Integer, List<Component>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
+ 		activeLevels.setOnAction(e -> {
+ 			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
+ 			for (Entry<Integer, List<Component>> ent: map.entrySet()){
+ 				if(ent.getValue().equals(chosenLevel)){
+ 					Integer chosenId = ent.getKey();
+ 					lcontroller.getEngine().setLevel(chosenId);
+ 				}
+ 			}
+ 		});
+ 		activeLevels.getStyleClass().add("combo-box-auth");
+ 		return activeLevels;
+	}
+	
 	/**
 	 * Allows the PaneController to be set for this Pane. PaneController allows the 
 	 * LevelPane to communicate with the Canvas so that the background image can be
@@ -141,6 +133,5 @@ public class LevelPane extends BasePane {
 		lcontroller = lc;
 	}
 	
-	//eventually we will need to have some button similar to entity
-	//pane where when clicked it initializes a new level
+	// need a method that updates values displayed
 }

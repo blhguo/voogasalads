@@ -89,7 +89,7 @@ public class EntityController {
 	 * @param entity
 	 */
 	private void addToLevel(Entity entity) {
-		lcontroller.getActiveLevel().addEntity(entity);
+		lcontroller.getEngine().getLevel().addEntity(entity);
 	}
 	/**
 	 *
