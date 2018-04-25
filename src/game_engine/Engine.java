@@ -1,22 +1,15 @@
 package game_engine;
 
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
 import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import voogasalad.util.reflection.Reflection;
 
 public class Engine {
 	private Map<Integer, Level> myLevels;
@@ -30,7 +23,7 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
-		mySystems = initSystems();
+		mySystems = new SystemInitializer().init(this);
 	}
 
 	public void update(double elapsedTime) {
@@ -84,31 +77,6 @@ public class Engine {
 
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
-	}
-
-	private List<GameSystem> initSystems() {
-		Reflections reflections = new Reflections("game_engine", new SubTypesScanner(true));
-		Set<Class<? extends GameSystem>> allClasses = reflections.getSubTypesOf(GameSystem.class);
-
-		List<GameSystem> systems = new ArrayList<>();
-
-		allClasses.stream().filter(clazz -> !Modifier.isAbstract(clazz.getModifiers())).forEach(clazz -> {
-			try {
-				Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
-				GameSystem system;
-				if (params.length > 0) {
-					system = (GameSystem) Reflection.createInstance(clazz.getName(), this);
-				} else {
-					system = (GameSystem) Reflection.createInstance(clazz.getName());
-				}
-				systems.add(system);
-			} catch (Exception e) {
-				// Do nothing: Continue without this system.
-				// No use in adding a NullSystem or anything like that since the user doesn't see it.
-			}
-		});
-
-		return systems;
 	}
 
 }
