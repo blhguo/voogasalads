@@ -26,6 +26,8 @@ public class DataManager {
 	private List<String> gameInputs;
 	private Engine gameEngine;
 	private Entity gamePlayer;
+	private String gameTitle;
+	private Map<String,String> gameMetadata;
 	
 	
 	public DataManager() {
@@ -120,6 +122,19 @@ public class DataManager {
 	
 	public Engine getGameEngine(){
 		return gameEngine;
+	}
+	
+	public String getGameTitle() {
+		return gameTitle;
+	}
+	public void setGameTitle(String gt) {
+		this.gameTitle = gt;
+	}
+	public Map<String,String> getGameMetadata(){
+		return this.gameMetadata;
+	}
+	public void setGameMetadata(Map<String,String> gm) {
+		this.gameMetadata = gm;
 	}
 	
 	public List<String> getInputCommands(){
