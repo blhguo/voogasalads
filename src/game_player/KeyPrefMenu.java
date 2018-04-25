@@ -59,7 +59,7 @@ public class KeyPrefMenu {
 			toAdd.setAlignment(Pos.CENTER);
 			Label label = new Label(s);
 			label.getStyleClass().add("text-keypref");
-			Button button = new Button("ENTER");
+			Button button = new Button(dataManager.getKeyCode(s).toString());
 			button.getStyleClass().add("button-keypref");
 			button.setOnAction(click->{setPref(button,s);});
 			toAdd.getChildren().add(label);
@@ -72,7 +72,7 @@ public class KeyPrefMenu {
 		currentKey = code;
 		currentPrefButton.getStyleClass().add("button-keypref");
 
-		currentPrefButton.setText(""+currentKey);
+		currentPrefButton.setText(""+dataManager.getKeyCode(currentPrefString));
 		dataManager.setKey(currentPrefString, code);
 	}
 	
