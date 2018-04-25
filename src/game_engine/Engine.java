@@ -17,6 +17,7 @@ import org.reflections.scanners.SubTypesScanner;
 import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import voogasalad.util.reflection.Reflection;
 
 public class Engine {
 	private Map<Integer, Level> myLevels;
@@ -95,17 +96,13 @@ public class Engine {
 		allClasses.stream().filter(clazz -> !Modifier.isAbstract(clazz.getModifiers())).forEach(clazz -> {
 			try {
 				Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
-				Constructor<?> ctor;
 				GameSystem system;
 				if (params.length > 0) {
-					ctor = clazz.getDeclaredConstructor(new Class[] { Engine.class });
-					system = (GameSystem) ctor.newInstance(this);
+					system = (GameSystem) Reflection.createInstance(clazz.getName(), this);
 				} else {
-					ctor = clazz.getDeclaredConstructor(new Class[] {});
-					system = (GameSystem) ctor.newInstance();
+					system = (GameSystem) Reflection.createInstance(clazz.getName());
 				}
 				systems.add(system);
-				System.out.println(system);
 			} catch (Exception e) {
 				// Do nothing: Continue without this system.
 				// No use in adding a NullSystem or anything like that since the user doesn't see it.
