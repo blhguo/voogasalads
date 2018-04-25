@@ -3,8 +3,10 @@ package game_engine.test;
 import java.util.HashMap;
 import java.util.Map;
 
+import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.components.PrimeComponent;
 import game_engine.components.collect.CollectibleComponent;
 import game_engine.components.collect.CollectorComponent;
 import game_engine.components.collect.ScoreComponent;
@@ -98,6 +100,12 @@ public class CollectibleTest extends Application {
 		buildCoinEntity();
 		buildEngine();
 		initRects();
+		
+		ManipData data = new ManipData();
+		Map<String, String> map = new HashMap<>();
+		map.put("dog", "cat");
+		map.put("potato", "fruit");
+		data.saveData(engine, "Mario", map);
 	}
 
 	private void updateAllRects() {
@@ -127,6 +135,7 @@ public class CollectibleTest extends Application {
 		mainCharacter.addComponent(new DownKeyboardComponent(KeyCode.DOWN.toString()));
 		mainCharacter.addComponent(new XVelComponent("0"));
 		mainCharacter.addComponent(new YVelComponent("0"));
+		mainCharacter.addComponent(new PrimeComponent());
 
 		//extra components needed for velocity system
 		mainCharacter.addComponent(new XAccelComponent("0"));
