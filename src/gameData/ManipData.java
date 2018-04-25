@@ -71,7 +71,7 @@ public class ManipData {
 		}
 	}
 	
-	private void saveEngine(Engine engine, String gameName) {
+	private void saveEngine(Engine engine) {
 		System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(engine);
@@ -103,7 +103,7 @@ public class ManipData {
 	        	//writes xml header and then the number of data objects inside
 				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
 				fos.write(("<higher>").getBytes("UTF-8"));
-				saveEngine(engine, gameName);
+				saveEngine(engine);
 				fos.write("</higher>".getBytes("UTF-8"));
 
 	        } catch (UnsupportedEncodingException e) {
@@ -127,6 +127,46 @@ public class ManipData {
 	            }
 	        }
 	    //}
+	}
+	
+	public void saveData(Engine engine, String saveFileName) {
+		try {
+			File file = new File("savedata/" + saveFileName + ".xml");
+			if (!file.exists()) {
+				try {
+					file.createNewFile();
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			fos = new FileOutputStream(file);
+			try {
+				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
+				fos.write(("<higher>").getBytes("UTF-8"));
+				saveEngine(engine);
+				fos.write("</higher>".getBytes("UTF-8"));
+
+	        } catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			//saveMeta(metaMap, gameName);
+	        //if(fos != null){
+	            try{
+	                fos.close();
+	            //    fos1.close();
+	            }catch (IOException e) {
+	                e.printStackTrace(); //TODO
+	            }
+	        }
 	}
 	
 	private void saveMeta(Map<String, String> metaMap, String gameName) {
