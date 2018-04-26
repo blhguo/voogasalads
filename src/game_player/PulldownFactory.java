@@ -125,7 +125,6 @@ public class PulldownFactory implements ImportData {
 		File file = getFile();
 		viewManager.changeBackground();
 		gameEngine = turd.loadData(file,"ExampleGame");
-		System.out.println(gameEngine);
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();

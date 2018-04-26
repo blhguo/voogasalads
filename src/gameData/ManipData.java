@@ -58,7 +58,7 @@ public class ManipData {
 	}
 	
 	private void saveLevel(Level input, int levelnum) {
-		System.out.println("Beginning of serialization");//println includes new line ya sily my bad
+		// System.out.println("Beginning of serialization");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(input);
 			//writes each data object inside a unique data tag
@@ -67,12 +67,12 @@ public class ManipData {
 	        fos.write(("</data"+Integer.toString(levelnum)+">").getBytes("UTF-8"));
 	        }
 		catch (Exception e){
-			System.out.println("Something broke"); //TODO
+			// System.out.println("Something broke"); //TODO
 		}
 	}
 	
 	private void saveEngine(Engine engine, String gameName) {
-		System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
+		// System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
 		try {
 			xml = serializer.toXML(engine);
 			fos.write("<data>".getBytes("UTF-8"));
@@ -80,7 +80,7 @@ public class ManipData {
 			fos.write("</data>".getBytes("UTF-8"));
 		}
 		catch (Exception e) {
-			System.out.println("u dun goofed"); //TODO
+			// System.out.println("u dun goofed"); //TODO
 		}
 
 	}
@@ -201,7 +201,7 @@ public class ManipData {
         String filePath = file.getAbsolutePath();
         String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
         if (!fileType.equals(".xml")) {
-        	System.out.println("You dun goofed");
+        	// System.out.println("You dun goofed");
         };
         
         try {
@@ -231,13 +231,13 @@ public class ManipData {
 	}
 	
 	private void openFile(File file) throws ParserConfigurationException{
-		System.out.println(file);
+		// System.out.println(file);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         String filePath = file.getAbsolutePath();
         String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
         if (!fileType.equals(".xml")) {
-        	System.out.println("You dun goofed");
+        	// System.out.println("You dun goofed");
         };
         //maybe a func to check that the file is an xml extension
         try {
@@ -251,19 +251,19 @@ public class ManipData {
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;			
 					String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());
-					System.out.println(s);
+//					// System.out.println(s);
 					Engine lilGuy = (Engine) deserializer.fromXML(s);
-					System.out.println(lilGuy);
+//					// System.out.println(lilGuy);
 					output = lilGuy;
 				
-				System.out.println(output);
+//				// System.out.println(output);
 				
 			} catch (SAXException e) {
-				System.out.println("here1");
+				// System.out.println("here1");
 				return; //TODO
 			}
         } catch (IOException e) {
-			System.out.println("here2");
+			// System.out.println("here2");
 
         		return; //TODO
         }
@@ -277,7 +277,7 @@ public class ManipData {
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 			t.transform(new DOMSource(node), new StreamResult(sw));
 		} catch (TransformerException te) {
-			System.out.println("exception");
+			// System.out.println("exception");
 		}
 		return sw.toString();
 	}
