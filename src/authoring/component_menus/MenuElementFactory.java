@@ -31,11 +31,18 @@ public class MenuElementFactory {
 		else if(entry[1].equals("b")){
 			ret = handleBoolean();
 		}
+		else if(entry[1].equals("k")){
+			ret = handleKey();
+		}
 		else {
 			ret = handleString();
 		}
 		ret.setMyMenu(menu);
 		return ret;
+	}
+
+	private KeyMenuElement handleKey() {
+		return new KeyMenuElement(entry[0], factory.createComponent(entry[0], entry[2]));
 	}
 
 	private StringMenuElement handleString() {
