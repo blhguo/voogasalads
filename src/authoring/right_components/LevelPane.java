@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
+import frontend_utilities.UserFeedback;
 import game_engine.Component;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelMusicComponent;
@@ -70,7 +71,7 @@ public class LevelPane extends BasePane {
 		activeLevels = makeActiveLevelList(levelNames);
  		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
 		
- 		textName = makeNameChooser(levelNames);
+ 		textName = makeNameChooser();
 		list.add(ButtonFactory.makeReverseHBox("Set Level Name: ", null, textName));
 		
 		Button backButton = ButtonFactory.makeButton(event -> {
@@ -137,19 +138,16 @@ public class LevelPane extends BasePane {
  		return activeLevels;
 	}
 	
-	private TextField makeNameChooser(ArrayList<Object> levelNames){
+	private TextField makeNameChooser(){
 		textName = new TextField(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 		textName.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.ENTER){
+				ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
 				String text = textName.getText();
 				int count = 0;
 				for (Object str: levelNames){
 					if (str.toString().equals(text)){
-						Alert a = new Alert(AlertType.ERROR);
-						a.setTitle(AuthRes.getString("ErrorTitle"));
-						a.setHeaderText(AuthRes.getString("SameLevelHeader"));
-						a.setContentText(AuthRes.getString("SameLevelContent"));
-						a.initOwner(stage);
+						Alert a = UserFeedback.getErrorMessage(AuthRes.getString("SameLevelHeader"), AuthRes.getString("SameLevelContent"), stage);
 						a.showAndWait();
 						break;
 					}
