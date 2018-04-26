@@ -35,9 +35,9 @@ public class LevelController {
 		Level newLevel = engine.createLevel();
 		// add defaults to level
 		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(newLevel.getId())));
-		// need to fix default background
-		newLevel.addComponent(new LevelBackgroundComponent("default.png"));
-		pcontroller.resetBackground();
+		// not actually an image - default is just a string holder 
+		newLevel.addComponent(new LevelBackgroundComponent("default"));
+		//pcontroller.resetBackground();
 		engine.setLevel(newLevel.getId());
 	}
 
