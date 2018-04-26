@@ -1,11 +1,6 @@
 package game_engine;
 
 import authoring.component_menus.MenuElement;
-import javafx.beans.property.Property;
-import observables.Subject;
-
-import java.beans.PropertyChangeEvent;
-
 
 public abstract class Component<T> {
 	private T myValue;
@@ -17,8 +12,9 @@ public abstract class Component<T> {
 		myValue = val;
 	}
 	
-	public T getValue(){
+	public T getValue() {
 		return myValue;
 	}
 }
 
+}

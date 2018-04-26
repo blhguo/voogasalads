@@ -1,5 +1,8 @@
 package authoring.right_components.EntityComponent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import frontend_utilities.ButtonFactory;
@@ -8,16 +11,12 @@ import game_engine.Entity;
 import game_engine.components.sprite.FilenameComponent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EntityPane extends BasePane{
 

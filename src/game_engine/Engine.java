@@ -1,118 +1,117 @@
 package game_engine;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import game_engine.systems.InputGarbageCollectionSystem;
-import game_engine.systems.PositionSystem;
-import game_engine.systems.VelocitySystem;
-import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
-import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
-import game_engine.systems.keyboard.RightKeyboardMovementSystem;
-import javafx.scene.input.InputEvent;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
+import game_engine.level.Level;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-/**
- * The Class Engine.
- *
- * @author benhubsch, Kevin Deng, Jeremy Chen, Andy Nguyen
- * 
- *         This class is the main logic distributor of the backend. It receives user input from the
- *         Game Player and also handles the GameSystem update looping, which happens every time our
- *         game loops in Game Player. Lastly, it exposes methods that allow the GameSystem objects
- *         easy access to the Entity objects they need to do their work.
- */
 public class Engine {
+	private Map<Integer, Level> myLevels;
+	private int myCurrentLevel;
+	private int myIdCounter;
+	private List<GameSystem> mySystems;
+	private LinkedList<KeyEvent> myInputs;
 
-	private List<Entity> myEntities = new ArrayList<>();
-	private List<GameSystem> mySystems = new ArrayList<>();
-	private LinkedList<InputEvent> myInputs = new LinkedList<>();
-
-	/**
-	 * Instantiates a new Engine object.
-	 */
 	public Engine() {
-		mySystems.add(new PositionSystem(this));
-		mySystems.add(new VelocitySystem(this));
-		mySystems.add(new LeftKeyboardMovementSystem(this));
-		mySystems.add(new RightKeyboardMovementSystem(this));
-		mySystems.add(new KeyboardJumpSystem(this));
-		mySystems.add(new InputGarbageCollectionSystem(this));
-		mySystems.add(new CollisionBroadSystem(this));
-		mySystems.add(new CollisionResponseSystem(this));
+		myLevels = new HashMap<Integer, Level>();
+		myCurrentLevel = 0;
+		myIdCounter = 0;
+		myInputs = new LinkedList<KeyEvent>();
+		mySystems = initSystems();
 	}
 
-	/**
-	 * Allows each of the GameSystems to update the entities that contain the Components that the
-	 * GameSystem is looking for.
-	 *
-	 * @param elapsedTime the elapsed time
-	 */
 	public void update(double elapsedTime) {
+		Level currentLevel = getLevel();
 		for (GameSystem system : mySystems) {
-			system.act(elapsedTime);
+			system.act(elapsedTime, currentLevel);
 		}
+
+		currentLevel.checkEvents();
+
+		myInputs.clear();
 	}
 
-	/**
-	 * Gets the List<Entity> object containing all Entities with only these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
-		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
+	public Level createLevel() {
+		Level createdLevel = new Level(myIdCounter);
+		myLevels.put(myIdCounter, createdLevel);
+		myIdCounter++;
+		return createdLevel;
 	}
 
-	/**
-	 * Gets the List<Entity> object containing all Entities with these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component<?>>> args) {
-		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
+	public void removeLevel(int id) {
+		myLevels.remove(id);
 	}
 
-	/**
-	 * Receives input from Game Player.
-	 *
-	 * @param input the input
-	 */
-	public void receiveInput(InputEvent input) {
-		myInputs.addFirst(input);
+	public Level getLevel() {
+		return myLevels.get(myCurrentLevel);
 	}
 
-	/**
-	 * Gets the List<InputEvent> object, which some of the Systems use to act on their Entity objects.
-	 *
-	 * @return List<InputEvent>
-	 */
-	public List<InputEvent> getInput() {
-		return myInputs;
+	public void setLevel(int dex) {
+		myCurrentLevel = dex;
 	}
-
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param e the e
-	 */
-	public void addEntity(Entity e) {
-		myEntities.add(e);
-	}
-
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param entities the entities
-	 */
-	public void addEntities(List<Entity> entities) {
-		for (Entity e : entities) {
-			myEntities.add(e);
+	
+	public Map<Integer, List<Component>> getLevelPreviews(List<Class<? extends Component<?>>> args){
+		Map<Integer, List<Component>> preview = new HashMap<Integer, List<Component>>();
+		List<Component> previewComponents;
+		for(Integer key: myLevels.keySet()) {
+			previewComponents = new ArrayList<Component>();
+			Level lvl = myLevels.get(key);
+			for(Class<? extends Component<?>> c: args) {
+				previewComponents.add(lvl.getComponent(c));
+			}
+			preview.put(key, previewComponents);
 		}
+		return preview;
 	}
+
+	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
+		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+				.collect(Collectors.toList());
+	}
+
+	public void receiveInput(KeyEvent event) {
+		myInputs.add(event);
+	}
+
+	private List<GameSystem> initSystems() {
+		Reflections reflections = new Reflections("game_engine", new SubTypesScanner(true));
+		Set<Class<? extends GameSystem>> allClasses = reflections.getSubTypesOf(GameSystem.class);
+
+		List<GameSystem> systems = new ArrayList<>();
+
+		allClasses.stream().filter(clazz -> !Modifier.isAbstract(clazz.getModifiers())).forEach(clazz -> {
+			try {
+				Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
+				Constructor<?> ctor;
+				GameSystem system;
+				if (params.length > 0) {
+					ctor = clazz.getDeclaredConstructor(new Class[] { Engine.class });
+					system = (GameSystem) ctor.newInstance(this);
+				} else {
+					ctor = clazz.getDeclaredConstructor(new Class[] {});
+					system = (GameSystem) ctor.newInstance();
+				}
+				systems.add(system);
+				System.out.println(system);
+			} catch (Exception e) {
+				// do nothing: just continue without this system
+			}
+		});
+
+		return systems;
+	}
+
 }

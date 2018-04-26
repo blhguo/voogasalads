@@ -16,7 +16,7 @@ public class Event {
 				return;
 			}
 		}
-		
+
 		for (Action action : myActions) {
 			action.execute();
 		}
