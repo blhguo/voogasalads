@@ -46,7 +46,6 @@ public class ButtonMaker {
 		List<Button>buttonList = new ArrayList<Button>();
 
 		for (int i=0; i<images.size(); i++) {
-		System.out.println(images.get(i));
 			ImageView buttonImageView = new ImageView( getClass().getResource( "/game_player_resources/"+images.get(i)).toExternalForm());
 
 			buttonImageView.setFitHeight(30);

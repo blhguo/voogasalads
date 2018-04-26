@@ -4,7 +4,7 @@ import game_engine.Component;
 import javafx.scene.input.KeyCode;
 
 public class KeyboardJumpInputComponent extends Component<KeyCode>{
-	public KeyboardJumpInputComponent(KeyCode k){
-		super(k);
+	public KeyboardJumpInputComponent(String arg){
+		super(KeyCode.getKeyCode(arg));
 	}
 }

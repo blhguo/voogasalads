@@ -4,7 +4,7 @@ import game_engine.Component;
 import javafx.scene.input.KeyCode;
 
 public class DownKeyboardComponent extends Component<KeyCode>{
-	public DownKeyboardComponent(KeyCode k) {
-		super(k);
+	public DownKeyboardComponent(String arg) {
+		super(KeyCode.valueOf(arg));
 	}
 }
