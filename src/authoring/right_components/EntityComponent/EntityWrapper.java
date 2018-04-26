@@ -33,6 +33,7 @@ public class EntityWrapper {
 	private ImageView imageView;
 	private List<ComponentMenu> menuList;
 	private EntityPane entityPane;
+	private final DropShadow ds;
 	public EntityWrapper(Entity e, EntityPane pane){
 		entity = e;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
@@ -46,6 +47,7 @@ public class EntityWrapper {
 		addAllComponents(entity);
 		imageView = createImageView();
 		entityPane = pane;
+		ds = new DropShadow( 20, Color.DARKMAGENTA);
 	}
 	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
@@ -53,6 +55,8 @@ public class EntityWrapper {
 		addAllComponents(entity);
 		imageView = createImageView();
 		entityPane = pane;
+		ds = new DropShadow( 20, Color.DARKMAGENTA);
+
 	}
 
 	private void addAllComponents(Entity entity) {
@@ -85,7 +89,6 @@ public class EntityWrapper {
 
 	private void onClicked() {
 		entityPane.clearImageViews();
-		DropShadow ds = new DropShadow( 20, Color.AQUA );
 		entityPane.setActiveWrapper(this);
 		entityPane.getPureCurrent().getImageView().setEffect(ds);
 	}
