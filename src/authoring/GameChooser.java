@@ -37,7 +37,7 @@ public class GameChooser extends GUIGridPaneSuper {
 	}
 
 	/**
-	 * Implement abstract method from GUIGridPaneSuper. Finishes adding elements to the
+	 * Implements abstract method from GUIGridPaneSuper. Finishes adding elements to the
 	 * gridpane, such as title and thumbnails.
 	 */
 	@Override
@@ -46,6 +46,11 @@ public class GameChooser extends GUIGridPaneSuper {
 		addTitle(gridpane, myType);
 	}
 	
+	/**
+	 * Builds the basic view for the GameChooser screen, factoring out all the common elements
+	 * between the Load Game for Play view and the Load Game for Edit view
+	 * @param gridpane
+	 */
 	public void addCoreFinishingElements(GridPane gridpane) {
 		double chooserWidth = AuthRes.getInt("EnvironmentX") - (AuthRes.getInt("Margin") * 10);
 		double chooserHeight = AuthRes.getInt("EnvironmentY") - (AuthRes.getInt("Margin") * 10);
@@ -55,9 +60,15 @@ public class GameChooser extends GUIGridPaneSuper {
 		vbox.getStyleClass().add("chooser-back");
 		gridpane.add(vbox, 20, 13);
 		testLoad(vbox);
-		//gridpane.add(new Toolbar(myStage, new SplashScreen(myStage)).getView(), AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY")/10);
+//		gridpane.add(new Toolbar(myStage, new SplashScreen(myStage)).getView(), AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY")/10); 	//why isn't this visible? need to do stackpane again or??
 	}
 	
+	/**
+	 * Adds a title specific to the type of view (e.g. "Load Game for Edit" vs. "Load Game
+	 * for Play"
+	 * @param gridpane	current pane set as root in scene
+	 * @param type		which specific GameChooser view is needed; determines end of title string
+	 */
 	public void addTitle(GridPane gridpane, String type) {
 		try {
 			Text title = new Text(AuthRes.getString("ChooserTitle") + AuthRes.getString(type));
@@ -70,8 +81,9 @@ public class GameChooser extends GUIGridPaneSuper {
 		}
 	}
 	
+	
+	//TEST LOADING
 	//class also needs to load saved games to be edited/played - each game needs thumbnail
-
 	/**
 	 * Loads a thumbnail for a game. Creates a button out of the thumbnail so that when
 	 * pressed, user can play that game
