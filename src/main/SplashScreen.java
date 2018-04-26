@@ -52,7 +52,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 			myStage.show();
 		});
 				
-		HBox createHB = ButtonFactory.makeHBox("Create New Level", "Authoring Environment", createButton);
+		HBox createHB = ButtonFactory.makeHBox("Create New Game", "Authoring Environment", createButton);
 		HBox loadHB = ButtonFactory.makeHBox("Load Game for Editing", "Authoring Environment", loadButton);
 		HBox playHB = ButtonFactory.makeHBox("Load Game for Play", "Game Player", playButton);
 		myVBox.getChildren().addAll(createHB, loadHB, playHB);

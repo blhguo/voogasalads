@@ -72,4 +72,5 @@ public class ImageBuilder {
         view.setFitWidth(size);
         return view;
     }
+    
 }
