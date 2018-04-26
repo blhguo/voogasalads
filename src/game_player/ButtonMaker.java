@@ -24,8 +24,8 @@ public class ButtonMaker {
 	private Button save;
 	private PlayerView playerView;
 	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png"));
-	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(play, pause, slowControl, speedControl, replay, save));
-
+	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(pause, play, slowControl, speedControl, replay, save));
+    private ArrayList<String> methods=new ArrayList<String>(Arrays.asList("handlePause()", "handlePlay()", "handleSpeed()", "handleReplay()","handleSlow()"));
 	public ButtonMaker() {
 		// TODO Auto-generated constructor stub
 	}
@@ -46,7 +46,7 @@ public class ButtonMaker {
 		List<Button>buttonList = new ArrayList<Button>();
 
 		for (int i=0; i<images.size(); i++) {
-			System.out.println(images.get(i));
+		System.out.println(images.get(i));
 			ImageView buttonImageView = new ImageView( getClass().getResource( "/game_player_resources/"+images.get(i)).toExternalForm());
 
 			buttonImageView.setFitHeight(30);
