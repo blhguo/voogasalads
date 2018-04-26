@@ -8,7 +8,6 @@ import game_engine.Entity;
 import game_engine.components.sprite.FilenameComponent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,9 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,8 +102,9 @@ public class EntityPane extends BasePane{
 	}
 
 	public EntityWrapper getCurrent() {
-//		current.getMenuList().stream().forEach(a -> a.getElements().stream()
-//			.forEach(b -> b.setComponentValue()));
+		current.getMenuList().stream().forEach(a -> a.getElements().stream()
+			.forEach(b -> b.setComponentValue()));
+		current.updateImage();
 		return current;
 	}
 
@@ -125,6 +123,8 @@ public class EntityPane extends BasePane{
 		updateSprite();
 	}
 	public void refresh(){
+		controller.updateCanvas();
+		current.updateImage();
 		box.getChildren().remove(menuBox);
 		ArrayList<HBox> list = new ArrayList<>();
 		if (box.getChildren().removeAll(createButtonArray)){
@@ -156,5 +156,10 @@ public class EntityPane extends BasePane{
 	}
 	public EntityWrapper getPureCurrent(){
 		return current;
+	}
+
+	public void newDuplicateEntity() {
+		current = new EntityWrapper(current, this);
+		refresh();
 	}
 }

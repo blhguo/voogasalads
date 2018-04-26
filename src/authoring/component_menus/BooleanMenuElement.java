@@ -16,7 +16,6 @@ public class BooleanMenuElement extends MenuElement{
 	private String title;
 	public BooleanMenuElement(String title, Component component) {
 		setMyComponent(component);
-		myComponent.setMyMenuElement(this);
 		box = new CheckBox();
 		if (!(component.getValue() instanceof Boolean)){
 			System.out.println("That's not a bool!");
@@ -50,6 +49,11 @@ public class BooleanMenuElement extends MenuElement{
 		return Boolean.toString(box.isSelected())   ;
 	}
 
+	@Override
+	public void setValue(Object o) {
+		box.setSelected(Boolean.parseBoolean(o.toString()));
+	}
+
 	/**
 	 *
 	 * @return the title of the text entry box (i.e. Collidable or something)
@@ -64,16 +68,12 @@ public class BooleanMenuElement extends MenuElement{
 		if (code.equals(KeyCode.ENTER)) {
 			try {
 				myComponent.setValue(Boolean.parseBoolean(text));
+				myMenu.alert();
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 			} catch (Exception e){
 				System.out.println("Sorry, that's not a boolean");
 			}
 		}
-	}
-	public void alert(Object o){
-		box.setSelected((Boolean) o );
-		myWrapper.updateImage();
-		myWrapper.updateSprite();
 	}
 
 	@Override

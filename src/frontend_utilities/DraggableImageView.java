@@ -24,6 +24,7 @@ public class DraggableImageView extends ImageView {
 	private double maxX;
 	private double minY = 0;
 	private double maxY;
+	private boolean clicked;
 
 	/**
 	 * Makes a Draggable ImageView with given image
@@ -31,6 +32,7 @@ public class DraggableImageView extends ImageView {
 	 */
 	public DraggableImageView(Image image) {
 		super(image);
+		clicked = false;
 		this.setOnMousePressed(e -> {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
@@ -84,5 +86,17 @@ public class DraggableImageView extends ImageView {
 			mouseX = e.getSceneX();
 			mouseY = e.getSceneY();
 		});
+	}
+
+	public void toggleStyle() {
+		if (!clicked){
+			this.setStyle("-fx-opacity: .5;");
+			clicked = true;
+			System.out.println("Set style to clicked");
+		}
+		else {
+			System.out.println("Set style to null");
+			this.setStyle("");
+		}
 	}
 }

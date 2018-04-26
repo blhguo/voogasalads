@@ -79,8 +79,7 @@ public class EntityController {
 				entity.getComponent(HeightComponent.class).getValue().intValue());
 		iv.setX(entity.getComponent(XPosComponent.class).getValue());
 		iv.setY(entity.getComponent(YPosComponent.class).getValue());
-		iv.setOnMouseClicked(e -> UpdateMenus(iv, entity));
-		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), entity, iv));
+		iv.setOnMouseDragReleased(e -> setPos(iv.getX(), iv.getY(), entity, iv));
 		return iv;
 
 	}
@@ -120,15 +119,6 @@ public class EntityController {
 	public void setPos(double x, double y, Entity ent, ImageView iv){
 		ent.getComponent(XPosComponent.class).setValue(x);
 		ent.getComponent(YPosComponent.class).setValue(y);
-		System.out.println(ent.getComponent(XPosComponent.class).getValue());
-		System.out.println(ent.getComponent(YPosComponent.class).getValue());
-		ComponentMenu menu = (ComponentMenu) menuMap.get(ent).stream().filter(e -> e.getType().equals("Position"))
-				.collect(Collectors.toList()).get(0);
-		menuMap.get(ent).remove(menu);
-		String[] arr = {"XPos,d," + x, "YPos,d," + y, "Angle,d,0.0"};
-		menu = new ComponentMenuFactory().newComponentMenu(arr, "Position");
-		menuMap.get(ent).add(menu);
-		UpdateMenus(iv, ent);
 
 	}
 
@@ -178,16 +168,6 @@ public class EntityController {
 	}
 
 	/**
-	 * Updates the menus in EntityPane to reflect a change in the displayed Entity
-	 * @param iv
-	 * @param entity
-	 */
-	public void UpdateMenus(ImageView iv, Entity entity){
-		toggleStyle(iv);
-		//entityPane.updateMenus(entity);
-	}
-
-	/**
 	 * Adds a levelController for passing Entities to Data
 	 * @param lc
 	 */
@@ -195,22 +175,13 @@ public class EntityController {
 		lcontroller = lc;
 	}
 
-	/**
-	 * Makes a given ImageView translucent to indicate clicked-on
-	 * @param iv
-	 */
-	private void toggleStyle(ImageView iv) {
-		resetImageViews();
-		iv.setStyle("-fx-opacity: .5;");
-	}
 
 	/**
 	 * Makes all imageviews set to their default style
 	 */
 	public void resetImageViews(){
 		entityList.stream().forEach(e -> {
-			e.setImageViewStyle("");
-			System.out.println("Done");
+			e.getImageView().setEffect(null);
 		});
 	}
 
@@ -222,12 +193,17 @@ public class EntityController {
 	}
 
 	public void alertEntityPane(double sceneX, double sceneY) {
-		EntityWrapper wrap = entityPane.getPureCurrent();
-		wrap.setPos(sceneX, sceneY, wrap.getEntity(), wrap.getImageView());
+		EntityWrapper wrap = entityPane.getCurrent();
+		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
+				sceneY - wrap.getImageView().getFitHeight() / 2);
 		entityList.add(wrap);
 		canvas.update(entityList);
 		System.out.println("# of Entities " + entityList.size());
-		entityPane.newWrapper();
+		entityPane.newDuplicateEntity();
 		//entityPane.setActiveWrapper(wrap);
+	}
+
+	public void updateCanvas() {
+		canvas.update(entityList);
 	}
 }

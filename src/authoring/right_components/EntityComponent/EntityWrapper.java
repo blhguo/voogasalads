@@ -10,12 +10,15 @@ import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class EntityWrapper {
 	public EntityWrapper(Entity e, EntityPane pane){
 		entity = e;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
+		menuList.stream().forEach(d -> d.setMyPane(pane));
 		for (ComponentMenu menu : menuList){
 			for(MenuElement element : menu.getElements()){
 				element.setMyWrapper(this);
@@ -43,20 +47,9 @@ public class EntityWrapper {
 		imageView = createImageView();
 		entityPane = pane;
 	}
-	public EntityWrapper(EntityWrapper e, double xpos, double ypos, EntityPane pane){
+	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
 		menuList = new ArrayList<ComponentMenu>(e.getMenuList());
-		for (ComponentMenu menu: menuList){
-			for (MenuElement element : menu.getElements()){
-				element.setMyWrapper(this);
-				if (element.getTitle().equals("XPos")){
-					element.getComponent().setValue(xpos);
-				}
-				else if (element.getTitle().equals("YPos")){
-					element.getComponent().setValue(ypos);
-				}
-			}
-		}
 		addAllComponents(entity);
 		imageView = createImageView();
 		entityPane = pane;
@@ -77,23 +70,41 @@ public class EntityWrapper {
 				entity.getComponent(WidthComponent.class).getValue().intValue(),
 				entity.getComponent(HeightComponent.class).getValue().intValue());
 		//TODO Set on mouse clicked to update the current EntityWrapper
-		iv.setOnMouse(e -> setClick());
+		iv.setOnMouse(e -> {
+			onClicked();
+			e.consume();
+		});
 		iv.setX(entity.getComponent(XPosComponent.class).getValue());
 		iv.setY(entity.getComponent(YPosComponent.class).getValue());
-		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), entity, iv));
-
+		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY()));
+		if (!entity.getComponent(VisibilityComponent.class).getValue()){
+			iv.setOpacity(.2);
+		}
 		return iv;
 	}
 
-	private void setClick() {
+	private void onClicked() {
 		entityPane.clearImageViews();
-		imageView.setStyle("-fx-opacity: .5;");
+		DropShadow ds = new DropShadow( 20, Color.AQUA );
 		entityPane.setActiveWrapper(this);
+		entityPane.getPureCurrent().getImageView().setEffect(ds);
 	}
 
-	public void setPos(double x, double y, Entity entity, ImageView iv) {
+	public void setPos(double x, double y) {
 		entity.getComponent(XPosComponent.class).setValue(x);
 		entity.getComponent(YPosComponent.class).setValue(y);
+		imageView.setX(entity.getComponent(XPosComponent.class).getValue());
+		imageView.setY(entity.getComponent(YPosComponent.class).getValue());
+		for (ComponentMenu menu : menuList){
+			for (MenuElement element : menu.getElements()){
+				if (element.getComponent() instanceof XPosComponent){
+					element.setValue(x);
+				}
+				else if (element.getComponent() instanceof YPosComponent){
+					element.setValue(y);
+				}
+			}
+		}
 	}
 	public Node getView(){
 		Accordion acc = new Accordion();
@@ -115,6 +126,12 @@ public class EntityWrapper {
 		imageView.setImage(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		imageView.setFitWidth(entity.getComponent(WidthComponent.class).getValue());
 		imageView.setFitHeight(entity.getComponent(HeightComponent.class).getValue());
+		if (!entity.getComponent(VisibilityComponent.class).getValue()){
+			imageView.setOpacity(.2);
+		}
+		else {
+			imageView.setOpacity(1);
+		}
 	}
 
 	public void updateSprite(){
