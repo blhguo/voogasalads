@@ -194,5 +194,27 @@ public class PlayerView {
 			animation.play();
 		}
 	}
+	
+	public void handlePause() {
+			animation.stop();
+	}
+	
+	public void handlePlay() {
+		animation.play();
+		
+	}
+	
+	public void handleReplay() {
+		System.out.println("havent dont this yet");
+	}
+	
+	public void handleSpeed() {
+		animation.setRate(animation.getRate() * DOUBLE_RATE);
+	}
+	
+	public void handleSlow() {
+		animation.setRate(animation.getRate() * HALF_RATE);
+		
+	}
 
 }
