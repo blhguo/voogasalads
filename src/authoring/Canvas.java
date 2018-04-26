@@ -4,6 +4,7 @@ import authoring.GUI_Heirarchy.GUINode;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import authoring.controllers.EntityController;
 
@@ -76,8 +77,13 @@ public class Canvas implements GUINode {
 	 */
 	public void update(List<EntityWrapper> entityList){
 		pane.getChildren().clear();
-		entityList.stream().forEach(e -> System.out.println(e));
-		entityList.stream().forEach(e -> pane.getChildren().add(e.getImageView()));
+		System.out.println("-----Updating Canvas------");
+		entityList.stream().forEach(e -> System.out.println("Entity " + e));
+		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
+			if (!pane.getChildren().contains(view))
+				pane.getChildren().add(view);
+		}
+		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
 	
@@ -97,5 +103,18 @@ public class Canvas implements GUINode {
 	 */
 	public void setController(EntityController controller) {
 		this.controller = controller;
+	}
+
+	public void listen() {
+		System.out.println("Listening");
+		pane.setOnMousePressed(e -> {
+			controller.alertEntityPane(e.getX(), e.getY());
+			System.out.println("Clicked -- Canvas line 100");
+		});
+	}
+
+	public void stopListen() {
+//		System.out.println("Stopped listening");
+//		pane.setOnMouseClicked(e -> {});
 	}
 }
