@@ -26,6 +26,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 /**
@@ -53,6 +54,11 @@ public class ViewManager extends GUIBuilder{
 	private Rectangle dimmer;
 	private Paint dimmerColor = Color.BLACK;
 	private MediaPlayer sound;
+	private Text score;
+	private int scoreCount = 3;
+	private int timeCount = 60;
+
+	private Text time;
 	
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -130,7 +136,23 @@ public class ViewManager extends GUIBuilder{
 		sound.setVolume(0);
 		sound.setCycleCount(sound.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		
+		score = createText(score,  5, 382, "lives remaining: "+scoreCount, 12) ;
+		time = createText(time,  5, 395, "bricks hit: "+timeCount, 12) ;
+		order.getChildren().add(score);
+		order.getChildren().add(time);
+
 		return center;
+	}
+	
+	private Text createText(Text txt, int x, int y, String message, int fontSize) {
+		txt = new Text();
+		txt.setX(x);
+		txt.setY(y);
+		txt.setFill(Color.WHITE);
+		txt.setText(message);
+		txt.setFont(Font.font("Impact", fontSize));
+		return txt;
 	}
 	
 	/**

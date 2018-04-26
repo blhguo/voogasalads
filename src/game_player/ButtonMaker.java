@@ -25,7 +25,7 @@ public class ButtonMaker {
 	private PlayerView playerView;
 	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png"));
 	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(pause, play, slowControl, speedControl, replay, save));
-    private ArrayList<String> methods=new ArrayList<String>(Arrays.asList("handlePause()", "handlePlay()", "handleSpeed()", "handleReplay()","handleSlow()"));
+   // private ArrayList<?> methods=new ArrayList<?>(Arrays.asList(handlePause(), handlePlay(), handleSpeed(), handleReplay(),handleSlow()));
 	public ButtonMaker() {
 		// TODO Auto-generated constructor stub
 	}
