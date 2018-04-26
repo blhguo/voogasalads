@@ -2,7 +2,7 @@ package game_player;
 
 import java.util.ArrayList;
 
-import authoring.gamechoosers.GameChooserBase;
+import authoring.GameChooser;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -210,7 +210,7 @@ public class Menu {
 	public void showGameSelectionMenu() {
 		//TODO Make this choose game to play, not edit
 		gameSelectionStage = new Stage();
-		GameChooserBase gc = new GameChooserBase(gameSelectionStage);
+		GameChooser gc = new GameChooser(gameSelectionStage, "Play");
 		//gameSelectionStage.setScene(gc.display());
 		gameSelectionStage.show();
 	}

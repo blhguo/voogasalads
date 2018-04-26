@@ -1,17 +1,17 @@
-package authoring.gamechoosers;
+package authoring;
 
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
 import frontend_utilities.ButtonFactory;
 import game_player.PlayerMain;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.SplashScreen;
 import resources.keys.AuthRes;
 
 /**
@@ -20,18 +20,20 @@ import resources.keys.AuthRes;
  * Scene, and it extends GUIGridPaneSuper because it uses a gridpane as the root of that
  * Scene. 
  */
-public class GameChooserBase extends GUIGridPaneSuper {
+public class GameChooser extends GUIGridPaneSuper {
 
 	private Stage myStage;
+	private String myType;
 	
 	/**
 	 * Constructor that takes in a Stage in order to change the scene of the stage to 
 	 * the GameChooserScreen
 	 * @param stage
 	 */
-	public GameChooserBase(Stage stage){
+	public GameChooser(Stage stage, String gametype){
 		//uses stage to switch scene once game is chosen
 		myStage = stage;
+		myType = gametype;
 	}
 
 	/**
@@ -40,8 +42,8 @@ public class GameChooserBase extends GUIGridPaneSuper {
 	 */
 	@Override
 	public void finishScene(GridPane gridpane) {
-		addTitle(gridpane, null);
 		addCoreFinishingElements(gridpane);
+		addTitle(gridpane, myType);
 	}
 	
 	public void addCoreFinishingElements(GridPane gridpane) {
@@ -53,7 +55,7 @@ public class GameChooserBase extends GUIGridPaneSuper {
 		vbox.getStyleClass().add("chooser-back");
 		gridpane.add(vbox, 20, 13);
 		testLoad(vbox);
-//		gridpane.add(new Toolbar(myStage).getView(), AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY")/10);
+		//gridpane.add(new Toolbar(myStage, new SplashScreen(myStage)).getView(), AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY")/10);
 	}
 	
 	public void addTitle(GridPane gridpane, String type) {
