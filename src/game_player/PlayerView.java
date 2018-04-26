@@ -19,12 +19,12 @@ import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import user_interface.GameCamera;
 
 /**
  * 
@@ -40,7 +40,7 @@ public class PlayerView {
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
 	private static final double SCENE_SIZE = 500;
-	
+
 	private PulldownFactory pullDownFactory;
 	private ButtonMaker buttonMaker;
 	private Engine myEngine;
@@ -48,23 +48,22 @@ public class PlayerView {
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
-	private GameCamera cam;
+	private ParallelCamera cam;
 	private DataManager dataManager;
 	private Entity gamePlayer;
 
-/**
- * @param pdf
- * @param engine
- * @param view
- * constructor for PlayerView
- *
- */
+	/**
+	 * @param pdf
+	 * @param engine
+	 * @param view constructor for PlayerView
+	 *
+	 */
 	public PlayerView(PulldownFactory pdf, ViewManager view, DataManager dtm) {
 		pullDownFactory = pdf;
 		viewManager = view;
 		dataManager = dtm;
 	}
-	
+
 	public void setEngine(Engine e) {
 		this.myEngine = e;
 	}
@@ -83,13 +82,13 @@ public class PlayerView {
 		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
 		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
 		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		cam = new GameCamera();
-		subScene.setCamera(cam.initCamera());
-		Level level= myEngine.getLevel();
+		cam = new ParallelCamera();
+		subScene.setCamera(cam);
+		Level level = myEngine.getLevel();
 
 		spriteMap = new HashMap<>();
-		List<Entity> spriteEntities = level
-				.getEntitiesContaining(Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
+		List<Entity> spriteEntities = level.getEntitiesContaining(
+				Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
 			String imageName = e.getComponent(FilenameComponent.class).getValue();
 			Double height = e.getComponent(HeightComponent.class).getValue();
@@ -121,6 +120,7 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
+		// animation.stop();
 		myEngine.update(delay);
 		render();
 		handleUI();
@@ -128,46 +128,54 @@ public class PlayerView {
 
 	private void render() {
 		root.getChildren().clear();
-		myEngine.getLevel().getEntities().parallelStream().filter(this::isInView).forEach(this::display);
-		
+		myEngine.getLevel().getEntities().stream().filter(this::isInView).forEach(this::display);
+		System.out.println();
+
 		gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		dataManager.setGamePlayer(gamePlayer);
 		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
 		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
-		cam.setCamera(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
+		cam.relocate(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
 	}
-	
+
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
-		if (!spriteMap.containsKey(filename) ) {
+		if (!spriteMap.containsKey(filename)) {
 			spriteMap.put(filename, new ImageView(filename));
 		}
 		return spriteMap.get(filename);
 	}
-	
+
 	private void display(Entity entity) {
+		System.out.println("entity: " + entity);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
 		Double height = entity.getComponent(HeightComponent.class).getValue();
-		
+
 		ImageView imageView = getImageView(entity);
 		imageView.setX(xPos - width / 2);
 		imageView.setY(yPos - height / 2);
-		
+
 		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
 		// changes which direction the imageview faces based off of movement direction of entity
-		if(polarity != null) {
+		if (polarity != null) {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
 		root.getChildren().add(imageView);
 	}
-	
+
 	private boolean isInView(Entity entity) {
-		Double xPos = entity.getComponent(XPosComponent.class).getValue();
-		Double yPos = entity.getComponent(YPosComponent.class).getValue();
-		return cam.initCamera().contains(xPos, yPos);
+//		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+//		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+//		
+//		Double xMin = cam.getLayoutX() - SCENE_SIZE / 2;
+//		Double xMax = cam.getLayoutX() + SCENE_SIZE / 2;
+//		Double yMin = cam.getLayoutY() - SCENE_SIZE / 2;
+//		Double yMax = cam.getLayoutY() + SCENE_SIZE / 2;
+//		return ((xMin <= xPos && xMax >= xPos ) && (yMin <= yPos && yMax >= yPos));
 	}
+	
 
 	/**
 	 * method that handles reactions when buttons are pressed on Menu. Ex: When Play button is pressed,
@@ -178,7 +186,7 @@ public class PlayerView {
 	public void handleUI() {
 		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();
 		String statusAction = pullDownFactory.getStatusBox().getSelectionModel().getSelectedItem();
-	
+
 		if (selectedAction.equals("Speed Up")) {
 
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
