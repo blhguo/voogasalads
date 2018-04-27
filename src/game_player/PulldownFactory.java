@@ -4,8 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import game_player_interfaces.ImportData;
 import gameData.ManipData;
+import game_engine.Engine;
 import game_engine.level.Level;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
  * @author Dana Park, Brandon Dalla Rosa
  *
  */
-public class PulldownFactory {
+public class PulldownFactory implements ImportData {
 
 	private static final String DEFAULT_RESOURCE_PACKAGE = "game_player_resources/";
 
@@ -30,7 +31,7 @@ public class PulldownFactory {
 	private ComboBox<String> speedBox;
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
-	private List<Level> levels = new ArrayList<Level>();
+	private Engine gameEngine;
 	private DataManager dataManager;
 	private ViewManager viewManager;
 	private PlayerView playerView;
@@ -82,7 +83,7 @@ public class PulldownFactory {
 				getResources(saveLoadProperties, "LoadCommand"));
 		saveLoadBox.setPrefSize(160, 20);
 		saveLoadBox.setOnAction(click -> {
-			checkSomething();
+			checkSaveOrLoad();
 		});
 		return saveLoadBox;
 	}
@@ -101,33 +102,39 @@ public class PulldownFactory {
 		
 	}
 
-	private void checkSomething() {
+	private void checkSaveOrLoad() {
 		if (saveLoadBox.getValue().equals("Save")) {
 			handleSave();
 		} else if (saveLoadBox.getValue().equals("Load")) {
-			handleLoad();
+			importGame();
 		}
 	}
 
 	private void handleSave() {
 		ManipData turd = new ManipData();
-		turd.saveData(dataManager.getGameLevels());
+		turd.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
 
-	protected void handleLoad() {
+	@Override
+	public void importGame() {
 		ManipData turd = new ManipData();
+		
+		
+		
+		
 		File file = getFile();
 		viewManager.changeBackground();
-		levels = turd.loadData(file);
-		dataManager.setGameLevels(levels);
+		gameEngine = turd.loadData(file,"ExampleGame");
+		playerView.setEngine(gameEngine);
+		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
 	}
     
     /**
      * Method to return the list of levels loaded from data.
      */ 
-	public List<Level> getLevels() {
-		return levels;
+	public Engine getGameEngine() {
+		return gameEngine;
 	}
     
     /**
@@ -153,6 +160,18 @@ public class PulldownFactory {
      */ 
 	public void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
+	}
+
+	@Override
+	public void importPreferences() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void importGameState() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

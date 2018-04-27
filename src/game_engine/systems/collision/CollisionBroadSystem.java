@@ -16,7 +16,6 @@ import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
-import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.level.Level;
