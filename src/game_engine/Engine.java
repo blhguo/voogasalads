@@ -8,6 +8,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
+import game_engine.systems.CollectibleSystem;
+import game_engine.systems.DespawnSystem;
+import game_engine.systems.HealthSystem;
+import game_engine.systems.JumpResetSystem;
+import game_engine.systems.PositionSystem;
+import game_engine.systems.ProjectileDespawnSystem;
+import game_engine.systems.ProjectileSpawnSystem;
+import game_engine.systems.TimerSystem;
+import game_engine.systems.VelocitySystem;
+import game_engine.systems.collision.CollisionBroadSystem;
+import game_engine.systems.collision.ImpassableResponseSystem;
+import game_engine.systems.keyboard.DownKeyboardMovementSystem;
+import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
+import game_engine.systems.keyboard.RightKeyboardMovementSystem;
+import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -23,7 +38,23 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
-		mySystems = new SystemInitializer().init(this);
+		//mySystems = new SystemInitializer().init(this);
+		mySystems = new ArrayList<>();
+		mySystems.add(new CollectibleSystem());
+		mySystems.add(new DespawnSystem());
+		mySystems.add(new HealthSystem());
+		mySystems.add(new JumpResetSystem());
+		mySystems.add(new PositionSystem());
+		mySystems.add(new ProjectileDespawnSystem());
+		mySystems.add(new ProjectileSpawnSystem(this));
+		mySystems.add(new TimerSystem());
+		mySystems.add(new VelocitySystem());
+		mySystems.add(new DownKeyboardMovementSystem(this));
+		mySystems.add(new LeftKeyboardMovementSystem(this));
+		mySystems.add(new RightKeyboardMovementSystem(this));
+		mySystems.add(new UpKeyboardMovementSystem(this));
+		mySystems.add(new CollisionBroadSystem());
+		mySystems.add(new ImpassableResponseSystem());
 	}
 
 	public void update(double elapsedTime) {

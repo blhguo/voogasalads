@@ -124,6 +124,7 @@ public class ManipData {
 	}
 
 	public Engine loadData(String filePath, String gameName) {
+		System.out.println(filePath);
 		try {
 			File load = new File(filePath);
 			openFile(load);
@@ -139,21 +140,24 @@ public class ManipData {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
+		System.out.println(filePath);
 		String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
-		};
+		}
 		//maybe a func to check that the file is an xml extension
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
 			try {
 				doc = dBuilder.parse(file);
-
 				doc.getDocumentElement().normalize();
-				NodeList nList = doc.getElementsByTagName("higher");
+				NodeList nList = doc.getElementsByTagName("value0");
+				System.out.println("part 1" + nList.item(0));
 				Node nNode = nList.item(0);
-				Element eElement = (Element) nNode;			
+				System.out.println(nNode);
+				Element eElement = (Element) nNode;	
+				System.out.println(eElement);
 				String s = nodeToString(eElement.getElementsByTagName("data"+Integer.toString(0)).item(0).getFirstChild());
 				System.out.println(s);
 				Engine lilGuy = (Engine) deserializer.fromXML(s);
