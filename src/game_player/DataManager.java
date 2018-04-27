@@ -11,10 +11,6 @@ import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.keyboard.UpKeyboardComponent;
-<<<<<<< HEAD
-import game_engine.level.Level;
-=======
->>>>>>> origin/solvingConflictsWithPlayerAndEngine
 import javafx.scene.input.KeyCode;
 
 /**
@@ -40,7 +36,7 @@ public class DataManager {
 		gameInputs = new ArrayList<String>();
 		
 		String[] testInputs = {"left","right","up","down"}; //To be read in from data
-		KeyCode[] engineInputs = {KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.S};
+		KeyCode[] engineInputs = {KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.S}; //also defaults from data
 		for(int i=0;i<testInputs.length;i++) {
 			gameInputs.add(testInputs[i]);
 			engineMap.put(testInputs[i],engineInputs[i]);
@@ -72,7 +68,6 @@ public class DataManager {
 			return;
 		}
 		if(input.equals("left")){
-
 			gamePlayer.addComponent(new LeftKeyboardComponent(k.toString()));
 		}
 		else if(input.equals("right")) {
