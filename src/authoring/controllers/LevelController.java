@@ -29,7 +29,7 @@ public class LevelController {
 		addLevel();
 	}
 	/**
-	 * @param l Adds the specifed level to current levels
+	 * Adds a new level to the engine
 	 */
 	public void addLevel() {
 		Level newLevel = engine.createLevel();
@@ -56,8 +56,8 @@ public class LevelController {
 	
 	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
-		Map<Integer, List<Component>> map = engine.getLevelPreviews(Arrays.asList(comp));
-		for (List<Component> list: map.values()){
+		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));
+		for (List<Component<?>> list: map.values()){
 			for (Component c: list){
 				ret.add(c.getValue());
 			}
