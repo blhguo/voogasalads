@@ -39,10 +39,8 @@ public class PlayerView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
-	private static final double SCENE_SIZE = 500;
 
 	private PulldownFactory pullDownFactory;
-	private ButtonMaker buttonMaker;
 	private Engine myEngine;
 	private Map<String, ImageView> spriteMap;
 	private Group root;
@@ -120,7 +118,6 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
-		// animation.stop();
 		myEngine.update(delay);
 		render();
 		handleUI();
@@ -135,7 +132,7 @@ public class PlayerView {
 		dataManager.setGamePlayer(gamePlayer);
 		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
 		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
-		cam.relocate(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
+		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 	}
 
 	private ImageView getImageView(Entity entity) {
@@ -147,7 +144,6 @@ public class PlayerView {
 	}
 
 	private void display(Entity entity) {
-		System.out.println("entity: " + entity);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
@@ -166,14 +162,14 @@ public class PlayerView {
 	}
 
 	private boolean isInView(Entity entity) {
-//		Double xPos = entity.getComponent(XPosComponent.class).getValue();
-//		Double yPos = entity.getComponent(YPosComponent.class).getValue();
-//		
-//		Double xMin = cam.getLayoutX() - SCENE_SIZE / 2;
-//		Double xMax = cam.getLayoutX() + SCENE_SIZE / 2;
-//		Double yMin = cam.getLayoutY() - SCENE_SIZE / 2;
-//		Double yMax = cam.getLayoutY() + SCENE_SIZE / 2;
-//		return ((xMin <= xPos && xMax >= xPos ) && (yMin <= yPos && yMax >= yPos));
+		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+
+//		System.out.println("cam width: " + cam.getBoundsInParent().getWidth() + " height: " + cam.getBoundsInParent().getHeight());
+//		System.out.println("xMin: " + xMin + " xMax: " + xMax + " yMin: " + yMin + " yMax: " + yMax);
+//		System.out.println("entity xPos: " + xPos + " yPos: " + yPos);
+		return true;
+//		return ((xMin <= xPos && xPos <= xMax ) && (yMin <= yPos && yPos <= yMax));
 	}
 	
 
@@ -182,7 +178,6 @@ public class PlayerView {
 	 * the method will make the game play
 	 *
 	 */
-
 	public void handleUI() {
 		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();
 		String statusAction = pullDownFactory.getStatusBox().getSelectionModel().getSelectedItem();
