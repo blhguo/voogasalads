@@ -12,13 +12,10 @@ public class DownKeyboardMovementSystem extends KeyboardMovementSystem{
 	private static final Class<? extends Component<KeyCode>> DOWN_KEYBOARD_MOVE_INPUT = DownKeyboardComponent.class;
 	private static final Class<? extends Component<Double>> DEFAULT_Y_VEL = DefaultYVelComponent.class;
 	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
+	private static final int DIRECTION = 1;
 	
 	public DownKeyboardMovementSystem(Engine engine) {
-		super(engine, DOWN_KEYBOARD_MOVE_INPUT, DEFAULT_Y_VEL, Y_VEL);
+		super(engine, DIRECTION, DOWN_KEYBOARD_MOVE_INPUT, DEFAULT_Y_VEL, Y_VEL);
 	}
 
-	@Override
-	protected int getDirection() {
-		return 1;
-	}
 }

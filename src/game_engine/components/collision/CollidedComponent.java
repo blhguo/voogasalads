@@ -66,9 +66,9 @@ public abstract class CollidedComponent extends Component<List<Entity>> {
     
     public boolean contains(Class<? extends Component<?>> c) {
     	for(Entity e: getValue()) {
-    		if(e.getComponent(c)!=null) {
-    			return true;
-    		}
+//    		if(e.getComponent(c)!=null) {
+//    			return true;
+//    		}
     	}
     	return false;
     }

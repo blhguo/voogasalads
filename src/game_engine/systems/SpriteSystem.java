@@ -24,13 +24,17 @@ public class SpriteSystem extends GameSystem {
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(POLARITY, X_VEL);
 		for(Entity e : level.getEntitiesContaining(args)) {
-			double xVel = e.getComponent(X_VEL).getValue();
-			int polarity = e.getComponent(POLARITY).getValue();
-			if(xVel*polarity < 0){
-				e.getComponent(POLARITY).setValue(-1*polarity);
-			}
+			setPolarity(e);
 		}
 
+	}
+	
+	private void setPolarity(Entity e){
+		double xVel = e.getComponent(X_VEL).getValue();
+		int polarity = e.getComponent(POLARITY).getValue();
+		if(xVel*polarity < 0){
+			e.getComponent(POLARITY).setValue(-1*polarity);
+		}
 	}
 
 }

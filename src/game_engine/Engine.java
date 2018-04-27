@@ -8,17 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
-import game_engine.systems.HealthSystem;
-import game_engine.systems.PositionSystem;
-import game_engine.systems.ProjectileSpawnSystem;
-import game_engine.systems.VelocitySystem;
-import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
-import game_engine.systems.keyboard.DownKeyboardMovementSystem;
-import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
-import game_engine.systems.keyboard.RightKeyboardMovementSystem;
-import game_engine.systems.keyboard.UpKeyboardMovementSystem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -34,27 +23,10 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
-		
-		
-		//TEMP!
-		mySystems = new ArrayList<>();
-		mySystems.add(new CollisionResponseSystem());
-		mySystems.add(new KeyboardJumpSystem(this));
-		mySystems.add(new CollisionBroadSystem());
-		mySystems.add(new PositionSystem());
-		mySystems.add(new VelocitySystem());
-		mySystems.add(new LeftKeyboardMovementSystem(this));
-		mySystems.add(new RightKeyboardMovementSystem(this));
-		mySystems.add(new UpKeyboardMovementSystem(this));
-		mySystems.add(new DownKeyboardMovementSystem(this));
-		mySystems.add(new HealthSystem());
-		mySystems.add(new ProjectileSpawnSystem(this));
-		//mySystems.add( new ProjectileDespawnSystem());
-		//mySystems.add(new DespawnSystem());
+		mySystems = new SystemInitializer().init(this);
 	}
 
 	public void update(double elapsedTime) {
-		System.out.println("Getting called!");
 		Level currentLevel = getLevel();
 		for (GameSystem system : mySystems) {
 			system.act(elapsedTime, currentLevel);
@@ -84,12 +56,27 @@ public class Engine {
 		myCurrentLevel = dex;
 	}
 
+	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
+		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
+		List<Component<?>> previewComponents;
+		for (Integer key : myLevels.keySet()) {
+			previewComponents = new ArrayList<Component<?>>();
+			Level lvl = myLevels.get(key);
+			for (Class<? extends Component<?>> c : args) {
+				previewComponents.add(lvl.getComponent(c));
+			}
+			preview.put(key, previewComponents);
+		}
+		return preview;
+	}
+
 	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode())).collect(Collectors.toList());
+		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+				.collect(Collectors.toList());
 	}
 
 	public void receiveInput(KeyEvent event) {
-		System.out.println("added input!");
 		myInputs.add(event);
 	}
+
 }
