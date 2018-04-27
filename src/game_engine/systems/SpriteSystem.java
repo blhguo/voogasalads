@@ -6,8 +6,6 @@ import java.util.List;
 import game_engine.Component;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.NullType;
-import game_engine.components.DespawnComponent;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.level.Level;

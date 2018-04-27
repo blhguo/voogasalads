@@ -1,0 +1,68 @@
+#main {
+	-fx-background-color: rgb(77, 31, 206);
+}
+
+@font-face {
+	src: url("Roboto-Medium.ttf");
+}
+
+#nav-panel {
+	-fx-background-color: rgb(77, 31, 206);
+	-fx-alignment: center;
+	-fx-min-height: 51px;
+}
+
+.button {
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: rgb(77, 31, 206);
+    -fx-border-insets: 10px;
+}
+
+.button:hover {
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: rgb(132, 91, 255);
+}
+
+#download-bar {
+	-fx-background-color: rgb(244, 244, 244);
+	-fx-border-color: rgb(81, 81, 81) transparent transparent transparent;
+}
+
+#download {
+	-fx-padding: 10px 8px 10px 8px;
+}
+
+.open {
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 2px 0px 0px 2px;
+    -fx-background-color: rgb(219, 219, 219);
+    -fx-border-insets: 5px;
+}
+
+.open:hover {
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: rgb(153, 153, 153);
+}
+
+.close {
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0px 2px 2px 0px;
+    -fx-background-color: rgb(188,0,0);
+    -fx-border-insets: 5px;
+    -fx-text-fill: rgb(219, 219, 219);
+}
+
+.close:hover {
+	-fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: rgb(128, 0, 0);
+}
