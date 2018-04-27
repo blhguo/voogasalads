@@ -34,7 +34,7 @@
               <entry>
                 <java-class>game_engine.components.keyboard.LeftKeyboardComponent</java-class>
                 <game__engine.components.keyboard.LeftKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">A</myValue>
+                  <myValue class="javafx.scene.input.KeyCode">LEFT</myValue>
                 </game__engine.components.keyboard.LeftKeyboardComponent>
               </entry>
               <entry>
@@ -74,7 +74,7 @@
               <entry>
                 <java-class>game_engine.components.keyboard.RightKeyboardComponent</java-class>
                 <game__engine.components.keyboard.RightKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">D</myValue>
+                  <myValue class="javafx.scene.input.KeyCode">RIGHT</myValue>
                 </game__engine.components.keyboard.RightKeyboardComponent>
               </entry>
               <entry>
@@ -86,7 +86,7 @@
               <entry>
                 <java-class>game_engine.components.keyboard.UpKeyboardComponent</java-class>
                 <game__engine.components.keyboard.UpKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">W</myValue>
+                  <myValue class="javafx.scene.input.KeyCode">UP</myValue>
                 </game__engine.components.keyboard.UpKeyboardComponent>
               </entry>
               <entry>
@@ -104,7 +104,7 @@
               <entry>
                 <java-class>game_engine.components.keyboard.DownKeyboardComponent</java-class>
                 <game__engine.components.keyboard.DownKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">S</myValue>
+                  <myValue class="javafx.scene.input.KeyCode">DOWN</myValue>
                 </game__engine.components.keyboard.DownKeyboardComponent>
               </entry>
               <entry>
