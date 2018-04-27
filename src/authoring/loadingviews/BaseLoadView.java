@@ -1,5 +1,6 @@
-package authoring;
+package authoring.loadingviews;
 
+import authoring.Toolbar;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
 import frontend_utilities.ButtonFactory;
 import game_player.PlayerMain;
@@ -21,32 +22,20 @@ import resources.keys.AuthRes;
  * Scene, and it extends GUIGridPaneSuper because it uses a gridpane as the root of that
  * Scene. 
  */
-public class GameChooser extends GUIGridPaneSuper {
+public abstract class BaseLoadView extends GUIGridPaneSuper {
 
 	private Stage myStage;
-	private String myType;
 	
 	/**
 	 * Constructor that takes in a Stage in order to change the scene of the stage to 
 	 * the GameChooserScreen
 	 * @param stage
 	 */
-	public GameChooser(Stage stage, String gametype){
+	public BaseLoadView(Stage stage){
 		//uses stage to switch scene once game is chosen
 		myStage = stage;
-		myType = gametype;
 	}
 
-	/**
-	 * Implements abstract method from GUIGridPaneSuper. Finishes adding elements to the
-	 * gridpane, such as title and thumbnails.
-	 */
-	@Override
-	public Pane finishScene(GridPane gridpane) {
-		addTitle(gridpane, myType);
-		return addCoreFinishingElements(gridpane);
-	}
-	
 	/**
 	 * Builds the basic view for the GameChooser screen, factoring out all the common elements
 	 * between the Load Game for Play view and the Load Game for Edit view
