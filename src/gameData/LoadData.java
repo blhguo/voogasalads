@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 
-import game_engine.Level;
+import game_engine.level.Level;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
