@@ -4,6 +4,7 @@ import authoring.Canvas;
 import authoring.controllers.EntityController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -13,7 +14,7 @@ public class EntityPaneTestMain extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		EntityPane pane = new EntityPane();
-		Canvas canvas = new Canvas();
+		Canvas canvas = new Canvas(new BorderPane());
 		EntityController controller = new EntityController(pane, canvas);
 		pane.setController(controller);
 		canvas.setController(controller);

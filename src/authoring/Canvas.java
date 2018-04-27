@@ -1,26 +1,24 @@
 package authoring;
 
-import authoring.GUI_Heirarchy.GUINode;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.EntityController;
-
 import authoring.right_components.EntityComponent.EntityWrapper;
-import game_engine.Entity;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.ParallelCamera;
-import javafx.scene.chart.NumberAxis;
+import javafx.scene.SubScene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -32,6 +30,7 @@ import java.util.Map;
 import authoring.controllers.EntityController;
 
 /**
+ * @author elizabethshulman
  * @author Jennifer Chin
  * @author Liam Pulsifer
  * Canvas class for the middle portion of the Authoring Environment. Displays the current
@@ -41,28 +40,32 @@ import authoring.controllers.EntityController;
 
 public class Canvas implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
-	private ParallelCamera cam;
-	private Pane pane;
-	private EntityController controller;
-	
-	/**
-	 * Constructor, no parameters
-	 */
-	public Canvas(){
-		pane = new Pane();
-	}
-	
-	/**
-	 * Method from GUINode interface. Returns a Pane that is the view of this GUINode.
-	 * Canvas only requires a background color to start
-	 * @return Pane
-	 */
-	public Pane getView(){
-		setDefaultBackground();
-		//cam = new GameCamera();
-		//subScene.setCamera(cam.initCamera());
-		return pane;
+	private SubScene mySubscene;
+	private EntityController myController;
+	private Pane myRootPane;
+	private BorderPane parent;
 
+	
+	/**
+	 * Constructor; establishes the canvas' root, initializes the camera, and sets the canvas
+	 * to autosize.
+	 * @param root
+	 */
+	public Canvas(BorderPane parent){	
+		myRootPane = new Pane();
+		this.parent = parent;
+		myRootPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		
+		mySubscene = new SubScene(myRootPane,
+//				stage.getWidth()-AuthRes.getInt("PrefBaseSize")-AuthRes.getInt("PrefNavPaneSize"), 100);
+//				myRootPane.getBoundsInParent().getWidth(),
+//				myRootPane.getBoundsInParent().getHeight());
+				600, 600);
+				
+				
+//		mySubscene.autosize;
+		mySubscene.setCamera(new ParallelCamera());
+//		mySubscene.setManaged(false);
 	}
 	
 	public void setDefaultBackground(){
@@ -88,12 +91,12 @@ public class Canvas implements GUINode {
 	}
 	
 	/**
-	 * Called by PaneController in order to set the background to a specified image
+	 * Sets the background to a specified image
 	 * @param im
 	 */
 	public void updateBackground(Image im){
-		pane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+		myRootPane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 	}
 
 	/**
@@ -102,7 +105,12 @@ public class Canvas implements GUINode {
 	 * @param controller
 	 */
 	public void setController(EntityController controller) {
-		this.controller = controller;
+		myController = controller;
+	}
+	
+	@Override
+	public Node getView() {
+		return mySubscene;
 	}
 
 	public void listen() {

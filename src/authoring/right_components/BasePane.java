@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import resources.keys.AuthRes;
 
 /**
  * @author Elizabeth Shulman
@@ -19,8 +20,6 @@ import javafx.scene.layout.VBox;
  * Implements GUINode because it is a sub-part of a scene
  */
 public class BasePane implements GUINode {
-
-	protected int SIZE = 310;
 
 	/**
 	 * Implements method from GUINode interface. Returns visual of base pane
@@ -32,7 +31,7 @@ public class BasePane implements GUINode {
 	
 	protected VBox buildBasicView(String title) {
 		VBox masterBox = new VBox();
-        masterBox.setPrefWidth(SIZE);
+        masterBox.setPrefWidth(AuthRes.getInt("PrefBaseSize"));
         masterBox.setPadding(new Insets(20, 30, 20 ,30));
         masterBox.setSpacing(20);
 		masterBox.getStyleClass().add("pane-back");
@@ -65,7 +64,7 @@ public class BasePane implements GUINode {
 	public Separator newSeparator() {
 		Separator line = new Separator();
 		line.setHalignment(HPos.CENTER);
-		line.setPrefWidth(SIZE * 2.0/3);
+		line.setPrefWidth(AuthRes.getInt("PrefBaseSize") * 2.0/3);
 		return line;
 	}
 

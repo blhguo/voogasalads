@@ -1,14 +1,16 @@
 package main;
 
 import authoring.AuthoringEnvironment;
-import authoring.GameChooserScreen;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
+import authoring.loadingviews.AuthoringLoader;
+import authoring.loadingviews.PlayerLoader;
 import frontend_utilities.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,19 +38,20 @@ public class SplashScreen extends GUIGridPaneSuper{
 	private VBox makeVBox(){
 		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));		
 		Button createButton = ButtonFactory.makeButton(e -> {
-			AuthoringEnvironment ae = new AuthoringEnvironment(myStage, this);
+			AuthoringEnvironment ae = new AuthoringEnvironment(myStage);
+			
 			myStage.getScene().setRoot(ae.display());
 			myStage.show();
 		});
 		Button loadButton = ButtonFactory.makeButton(e -> {
-			GameChooserScreen gc = new GameChooserScreen(myStage);
-			myStage.getScene().setRoot(gc.display());
+			AuthoringLoader chooseauthoring = new AuthoringLoader(myStage);
+			myStage.getScene().setRoot(chooseauthoring.display());
 			myStage.show();
 		});
 		
 		Button playButton = ButtonFactory.makeButton(e -> {
-			GameChooserScreen gc = new GameChooserScreen(myStage);
-			myStage.getScene().setRoot(gc.display());
+			PlayerLoader chooseplayer = new PlayerLoader(myStage);
+			myStage.getScene().setRoot(chooseplayer.display());
 			myStage.show();
 		});
 				
@@ -60,7 +63,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 	}
 	
 	@Override
-	public void finishScene(GridPane gridpane) {
+	public Pane finishScene(GridPane gridpane) {
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
 		VBox vb = makeVBox();
