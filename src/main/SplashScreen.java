@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,7 +49,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 		});
 		
 		Button playButton = ButtonFactory.makeButton(e -> {
-			GameChooser gc = new GameChooser(myStage, "Load");
+			GameChooser gc = new GameChooser(myStage, "Play");
 			myStage.getScene().setRoot(gc.display());
 			myStage.show();
 		});
@@ -61,11 +62,12 @@ public class SplashScreen extends GUIGridPaneSuper{
 	}
 	
 	@Override
-	public void finishScene(GridPane gridpane) {
+	public Pane finishScene(GridPane gridpane) {
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
 		gridpane.add(title, 10, 80);
 		gridpane.add(makeVBox(), 50, 20);
+		return gridpane;
 	}
 
 }

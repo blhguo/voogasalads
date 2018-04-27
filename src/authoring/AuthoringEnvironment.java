@@ -100,12 +100,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		Pane canvasView = canvas.getView();
 		bp.setCenter(canvas);
 		BorderPane.setMargin(canvas, new Insets(AuthRes.getInt("Margin")));
-
-		//Build StackPane to overlay ToolBar on top
-		Pane t = new Toolbar(stage, splash).getView();
-		t.setPickOnBounds(false);
-		StackPane sp = new StackPane(bp, t);
-
+		
+		
+		//Build StackPane to integrate toolbar
+		StackPane sp = new Toolbar(stage, splash).integrateToolbar(bp);
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));

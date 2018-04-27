@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -41,9 +42,9 @@ public class GameChooser extends GUIGridPaneSuper {
 	 * gridpane, such as title and thumbnails.
 	 */
 	@Override
-	public void finishScene(GridPane gridpane) {
-		addCoreFinishingElements(gridpane);
+	public Pane finishScene(GridPane gridpane) {
 		addTitle(gridpane, myType);
+		return addCoreFinishingElements(gridpane);
 	}
 	
 	/**
@@ -51,7 +52,7 @@ public class GameChooser extends GUIGridPaneSuper {
 	 * between the Load Game for Play view and the Load Game for Edit view
 	 * @param gridpane
 	 */
-	public void addCoreFinishingElements(GridPane gridpane) {
+	public Pane addCoreFinishingElements(GridPane gridpane) {
 		double chooserWidth = AuthRes.getInt("EnvironmentX") - (AuthRes.getInt("Margin") * 10);
 		double chooserHeight = AuthRes.getInt("EnvironmentY") - (AuthRes.getInt("Margin") * 10);
 		VBox vbox = new VBox();
@@ -60,7 +61,7 @@ public class GameChooser extends GUIGridPaneSuper {
 		vbox.getStyleClass().add("chooser-back");
 		gridpane.add(vbox, 20, 13);
 		testLoad(vbox);
-//		gridpane.add(new Toolbar(myStage, new SplashScreen(myStage)).getView(), AuthRes.getInt("EnvironmentX"), AuthRes.getInt("EnvironmentY")/10); 	//why isn't this visible? need to do stackpane again or??
+		return new Toolbar(myStage, new SplashScreen(myStage)).integrateToolbar(gridpane);
 	}
 	
 	/**

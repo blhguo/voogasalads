@@ -1,6 +1,5 @@
 package authoring;
 
-import authoring.GUI_Heirarchy.GUINode;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import javafx.scene.control.Button;
@@ -8,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import main.SplashScreen;
 import resources.keys.AuthRes;
@@ -19,7 +19,7 @@ import resources.keys.AuthRes;
  * splash screen 
  */
 
-public class Toolbar implements GUINode {
+public class Toolbar extends BorderPane {
 
 	Stage stage;
 	private SplashScreen splash;
@@ -33,18 +33,9 @@ public class Toolbar implements GUINode {
 	public Toolbar(Stage stage, SplashScreen ss) {
 		this.stage = stage;
 		splash = ss;
-	}
-	
-	/**
-	 * Method from GUINode interface. Implements GUINode because it is a sub-part of a 
-	 * larger scene
-	 */
-	@Override
-	public Pane getView() {
-		BorderPane toolbar = new BorderPane();
-		toolbar.setRight(makeBackButton());
-		toolbar.getStyleClass().add("toolbar");
-		return toolbar;
+		
+		this.setRight(makeBackButton());
+		this.getStyleClass().add("toolbar");
 	}
 
 	private Button makeBackButton() {
@@ -53,6 +44,18 @@ public class Toolbar implements GUINode {
 				e -> stage.getScene().setRoot(splash.display()),
 				"button-nav");
 	}
+
+	/**
+	 * Integrates toolbar into existing root pane, by stacking panes and enabling clicks through
+	 * @param basepane	already-created pane upon which to place the toolbar
+	 * @return	StackPane consisting of toolbar and base pane
+	 */
+	public StackPane integrateToolbar(Pane basepane) {
+		this.setPickOnBounds(false);
+		return new StackPane(basepane, this);
+
+	}
+
 }
 
 
