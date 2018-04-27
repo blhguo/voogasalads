@@ -28,7 +28,7 @@ import resources.keys.AuthRes;
  * @author Liam Pulsifer
  * @author Jennifer Chin
  * @author Elizabeth Shulman
- * 
+ *
  * Main authoring environment class. Initializes all parts of the AuthoringEnvironment
  * and allows for communication between the different parts.
  */
@@ -36,9 +36,9 @@ import resources.keys.AuthRes;
 public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private Stage stage;
-	
+
 	private NavigationPane np;
-	
+
 	private BasePane base;
 	private EntityPane entity;
 	private EventPane event;
@@ -62,7 +62,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		base = new BasePane();
 		entity = new EntityPane();
 		event = new EventPane();
-		level = new LevelPane();
+		level = new LevelPane(stage);
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
 		
@@ -71,17 +71,18 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
-		LevelController lcontroller = new LevelController();
+		LevelController lcontroller = new LevelController(pcontroller);
 		
 		canvas.setController(controller);
 		entity.setController(controller);
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
+		story.setLevelController(lcontroller);
 		np.addListener(this);
 		np.addLevelController(lcontroller);
 	}
-	
+
 	/**
 	 * Abstract method inherited from the GUIBuilder super class. Returns a Pane that
 	 * becomes the root of the scene. 
@@ -89,7 +90,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	 */
 	@Override
 	public Pane display() {
-		
+
 		//Build BorderPane by setting right, center, and left
 		update(""); //calls default setting for right pane
 		bp.setLeft(np.getView());
@@ -105,7 +106,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		sp.getChildren().add(canvas.getView());
 
 		return sp;
-		
+
 	}
 
 	/**
@@ -117,8 +118,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
 			case "Entity Creator":
-			        bp.setRight(entity.getView());
-			        break;
+				bp.setRight(entity.getView());
+				break;
 			case "Actions and Events":
 			        bp.setRight(event.getView());
 			        break;

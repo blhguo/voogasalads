@@ -1,6 +1,8 @@
 package authoring;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.EntityController;
@@ -21,6 +23,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+import user_interface.GameCamera;
+import java.util.Map;
+
+
+import authoring.controllers.EntityController;
 
 /**
  * @author elizabethshulman
@@ -61,6 +68,10 @@ public class Canvas implements GUINode {
 //		mySubscene.setManaged(false);
 	}
 	
+	public void setDefaultBackground(){
+		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+	
 	/**
 	 * Allows the canvas to be updated according to the current entities in the map.
 	 * The map is created in EntityController and EntityController calls this method in
@@ -68,9 +79,14 @@ public class Canvas implements GUINode {
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
-		myRootPane.getChildren().clear();
-		entityList.stream().forEach(e -> System.out.println(e));
-		entityList.stream().forEach(e -> myRootPane.getChildren().add(e.getImageView()));
+		pane.getChildren().clear();
+		System.out.println("-----Updating Canvas------");
+		entityList.stream().forEach(e -> System.out.println("Entity " + e));
+		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
+			if (!pane.getChildren().contains(view))
+				pane.getChildren().add(view);
+		}
+		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
 	
@@ -97,6 +113,16 @@ public class Canvas implements GUINode {
 		return mySubscene;
 	}
 
+	public void listen() {
+		System.out.println("Listening");
+		pane.setOnMousePressed(e -> {
+			controller.alertEntityPane(e.getX(), e.getY());
+			System.out.println("Clicked -- Canvas line 100");
+		});
+	}
 
-
+	public void stopListen() {
+//		System.out.println("Stopped listening");
+//		pane.setOnMouseClicked(e -> {});
+	}
 }

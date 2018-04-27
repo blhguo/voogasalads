@@ -55,7 +55,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 			myStage.show();
 		});
 				
-		HBox createHB = ButtonFactory.makeHBox("Create New Level", "Authoring Environment", createButton);
+		HBox createHB = ButtonFactory.makeHBox("Create New Game", "Authoring Environment", createButton);
 		HBox loadHB = ButtonFactory.makeHBox("Load Game for Editing", "Authoring Environment", loadButton);
 		HBox playHB = ButtonFactory.makeHBox("Load Game for Play", "Game Player", playButton);
 		myVBox.getChildren().addAll(createHB, loadHB, playHB);
@@ -66,9 +66,14 @@ public class SplashScreen extends GUIGridPaneSuper{
 	public Pane finishScene(GridPane gridpane) {
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
-		gridpane.add(title, 10, 80);
-		gridpane.add(makeVBox(), 50, 20);
-		return gridpane;
+		VBox vb = makeVBox();
+		gridpane.getChildren().addAll(title, vb);
+		double width = title.getParent().getLayoutBounds().getWidth();
+		int numCols = (int) width / AuthRes.getInt("Padding");
+		double height = title.getParent().getLayoutBounds().getHeight();
+		int numRows = (int) height / AuthRes.getInt("Padding");
+		gridpane.setConstraints(title, numCols / 20, numRows * 2 / 3);
+		gridpane.setConstraints(vb, numCols / 3, numRows / 4);
 	}
 
 }

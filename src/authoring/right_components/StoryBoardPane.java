@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import authoring.controllers.LevelController;
 import frontend_utilities.ButtonFactory;
+import game_engine.level.LevelNameComponent;
 import javafx.scene.Node;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,8 @@ import resources.keys.AuthRes;
  * users to rearrange levels and toggle overall game preferences
  */
 public class StoryBoardPane extends BasePane {
+	
+	private LevelController lcontroller;
 
 	/**
 	 * GUINode method that returns the view of this Pane
@@ -44,12 +47,18 @@ public class StoryBoardPane extends BasePane {
 	private TitledPane LevelOrderer() {
 		TitledPane tp = new TitledPane();
 		tp.setExpanded(false);
-		tp.setText("Reorder Current Levels");
-		tp.setContent(new ListView<String>());
+		tp.setText("View Current Levels");
+		//tp.setContent(new ListView<String>());
 		tp.getStyleClass().add("titled-pane > .title");
+		
+		VBox levels = new VBox(AuthRes.getInt("Padding"));
+		ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
+		
 		return tp;
 	}
 	
-	
+	public void setLevelController(LevelController lc){
+		lcontroller = lc;
+	}
 	
 }
