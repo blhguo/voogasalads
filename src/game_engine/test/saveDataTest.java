@@ -206,7 +206,7 @@ public class saveDataTest extends Application {
 	public Engine loadFromData() {
 		ManipData data = new ManipData();
 		System.out.println("hi");
-		System.out.println(data.loadData("games/Mario/Mario.xml", "gameName"));
+		//System.out.println(data.loadData("games/Mario/Mario.xml", "gameName"));
 		return data.loadData("games/Mario/Mario.xml", "gameName");
 	}
 
