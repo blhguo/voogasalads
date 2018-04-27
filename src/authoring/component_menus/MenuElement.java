@@ -36,6 +36,8 @@ public abstract class MenuElement{
 	 */
 	public abstract String getValue();
 
+	public abstract void setValue(Object o);
+
 	/**
 	 *
 	 * @return the title of the element
@@ -47,19 +49,14 @@ public abstract class MenuElement{
 	}
 	public void setMyComponent(Component c){
 		myComponent = c;
-		myComponent.setMyMenuElement(this);
 	}
 
-	public abstract void updateComponent(KeyCode code, String text);
-	public abstract void alert(Object o);
-
-	public ComponentMenu getMyMenu() {
-		return myMenu;
-	}
+	public abstract void updateComponent(KeyCode code, String text, boolean alert);
 
 	public void setMyMenu(ComponentMenu myMenu) {
 		this.myMenu = myMenu;
 	}
 
 	public abstract void setComponentValue();
+
 }
