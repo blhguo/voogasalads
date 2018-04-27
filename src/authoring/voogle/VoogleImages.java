@@ -1,4 +1,4 @@
-package voogasalad.util.voogle_images;
+package authoring.voogle;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,6 +20,8 @@ import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import resources.keys.AuthRes;
+import voogasalad.util.voogle_images.ImageObserver;
 import voogasalad.util.voogle_images.view.NavigationBar;
 import voogasalad.util.voogle_images.view.download.DownloadBar;
 
@@ -46,7 +48,7 @@ public class VoogleImages {
 	 */
 	public static final String DEFAULT_START_PAGE = "http://images.search.yahoo.com/";
 	public static final Dimension2D DEFAULT_SIZE = new Dimension2D(1100, 700);
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources.keys/";
 	public static final String STYLESHEET = "voogle.css";
 	public static final String LANGUAGE = "English";
 
@@ -71,7 +73,7 @@ public class VoogleImages {
 	 */
 	public VoogleImages(ImageObserver imageObserver) {
 		myImageObserver = imageObserver;
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + LANGUAGE);
+		myResources = AuthRes.VOOGLE;
 		myNavBar = new NavigationBar(e -> back(), e -> next(), e -> home(), e -> download());
 		myDownloadBar = new DownloadBar(myResources);
 		makeFileChooser();

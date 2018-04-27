@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import voogasalad.util.voogle_images.ImageObserver;
-import voogasalad.util.voogle_images.VoogleImages;
+import authoring.voogle.VoogleImages;
 
 /**
  * A simple demo application demonstrating how to make use of the VoogleImages utility.

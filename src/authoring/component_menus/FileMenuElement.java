@@ -1,5 +1,6 @@
 package authoring.component_menus;
 
+import authoring.voogle.VoogleApp;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import game_engine.Component;
@@ -34,6 +35,7 @@ public class FileMenuElement extends MenuElement{
 		view = ButtonFactory.makeHBox(title, null, field);
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
+		view.getChildren().add(ButtonFactory.makeButton(e -> voogle()));
 	}
 
 	@Override
@@ -64,7 +66,12 @@ public class FileMenuElement extends MenuElement{
 		//image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		myMenu.alert();
 	}
-
+	public void voogle(){
+		VoogleApp app = new VoogleApp();
+		Stage stage = new Stage();
+		stage.setScene(app.getMyScene());
+		stage.show();
+	}
 	@Override
 	public void setComponentValue() {
 		myComponent.setValue(field.getText());

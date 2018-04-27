@@ -13,7 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import voogasalad.util.voogle_images.VoogleImages;
+import authoring.voogle.VoogleImages;
+import resources.keys.AuthRes;
 
 /**
  * Represents the bar at the top of the UI that the user can use to navigate through the browser and
@@ -82,7 +83,7 @@ public class NavigationBar {
 	 */
 	private Node makeNavigationPanel(EventHandler<MouseEvent> back, EventHandler<MouseEvent> next,
 			EventHandler<MouseEvent> search, EventHandler<MouseEvent> download) {
-		ResourceBundle imageBundle = ResourceBundle.getBundle(VoogleImages.DEFAULT_RESOURCE_PACKAGE + IMAGES);
+		ResourceBundle imageBundle = AuthRes.VOOGLEIMAGES;
 		HBox result = new HBox();
 		result.setId("nav-panel");
 
@@ -117,7 +118,7 @@ public class NavigationBar {
 		Button button = new Button();
 		button.setOnMouseClicked(handler);
 
-		ImageView imageView = new ImageView(VoogleImages.DEFAULT_RESOURCE_PACKAGE + filename);
+		ImageView imageView = new ImageView(filename);
 		imageView.setPreserveRatio(true);
 		imageView.setFitHeight(BUTTON_HEIGHT);
 
