@@ -17,6 +17,7 @@ import main.SplashScreen;
 import resources.keys.AuthRes;
 
 /**
+ * @author Elizabeth Shulman
  * @author Jennifer Chin
  * Extends GUIGridPaneSuper. This class is a GUIBuilder object because it has its own
  * Scene, and it extends GUIGridPaneSuper because it uses a gridpane as the root of that
@@ -50,7 +51,7 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		vbox.getStyleClass().add("chooser-back");
 		gridpane.add(vbox, 20, 13);
 		testLoad(vbox);
-		return new Toolbar(myStage, new SplashScreen(myStage)).integrateToolbar(gridpane);
+		return new Toolbar(myStage).integrateToolbar(gridpane);
 	}
 	
 	/**

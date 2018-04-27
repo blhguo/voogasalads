@@ -21,7 +21,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import main.SplashScreen;
 import observables.Listener;
 import resources.keys.AuthRes;
 
@@ -46,8 +45,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private LevelPane level;
 	private StoryBoardPane story;
 	private BorderPane bp;
-	private Canvas canvas;
-	private SplashScreen splash;	
+	private Canvas canvas;	
 	
 	/**
 	 * Constructor for the Authoring Environment. Takes in a stage and a splash screen
@@ -59,9 +57,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	 * @param ss
 	 */
 	
-	public AuthoringEnvironment(Stage stage, SplashScreen ss){
+	public AuthoringEnvironment(Stage stage){
 		this.stage = stage;
-		splash = ss;
 		base = new BasePane();
 		entity = new EntityPane();
 		event = new EventPane();
@@ -89,7 +86,6 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	 * becomes the root of the scene. 
 	 * @return Pane
 	 */
-	
 	@Override
 	public Pane display() {
 		
@@ -97,13 +93,12 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		bp = new BorderPane();
 		update(""); //calls default setting for right pane
 		bp.setLeft(np.getView());
-		Pane canvasView = canvas.getView();
 		bp.setCenter(canvas);
 		BorderPane.setMargin(canvas, new Insets(AuthRes.getInt("Margin")));
 		
 		
 		//Build StackPane to integrate toolbar
-		StackPane sp = new Toolbar(stage, splash).integrateToolbar(bp);
+		StackPane sp = new Toolbar(stage).integrateToolbar(bp);
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
@@ -127,10 +122,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 			case "Actions and Events":
 			        bp.setRight(event.getView());
 			        break;
-			case "Level Preferences": ;
+			case "Level Preferences":
 			        bp.setRight(level.getView());
 			        break;
-			case "Storyboard": ;
+			case "Storyboard":
 			        bp.setRight(story.getView());
 			        break;
 			default: 

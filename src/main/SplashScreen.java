@@ -38,7 +38,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 	private VBox makeVBox(){
 		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));		
 		Button createButton = ButtonFactory.makeButton(e -> {
-			AuthoringEnvironment ae = new AuthoringEnvironment(myStage, this);
+			AuthoringEnvironment ae = new AuthoringEnvironment(myStage);
 			
 			myStage.getScene().setRoot(ae.display());
 			myStage.show();

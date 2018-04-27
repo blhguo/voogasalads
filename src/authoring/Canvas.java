@@ -30,7 +30,7 @@ import javafx.scene.paint.Color;
  * the canvas.
  */
 
-public class Canvas extends SubScene implements GUINode {
+public class Canvas extends SubScene {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
 	private Pane myPane;
 	private Group root;
@@ -45,23 +45,11 @@ public class Canvas extends SubScene implements GUINode {
 	public Canvas(Group root){	
 		super(root, 1000,4000);	//arbitrary values, because overriden with autosize()?
 		this.root = root;
-//		autosize();
 		this.setCamera(new ParallelCamera());
 		this.setManaged(false);
-		getView();
-	}
-
-	
-	/**
-	 * Method from GUINode interface. Returns a Pane that is the view of this GUINode.
-	 * Canvas only requires a background color to start
-	 * @return Pane
-	 */
-	public Pane getView(){
 		myPane = new Pane();
 		myPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
-		root.getChildren().add(myPane);
-		return myPane;
+		this.root.getChildren().add(myPane);
 	}
 
 	
@@ -79,7 +67,7 @@ public class Canvas extends SubScene implements GUINode {
 	}
 	
 	/**
-	 * Called by LevelController in order to set the background to a specified image
+	 * Sets the background to a specified image
 	 * @param im
 	 */
 	public void updateBackground(Image im){

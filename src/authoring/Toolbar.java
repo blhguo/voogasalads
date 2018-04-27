@@ -21,8 +21,7 @@ import resources.keys.AuthRes;
 
 public class Toolbar extends BorderPane {
 
-	Stage stage;
-	private SplashScreen splash;
+	private Stage stage;
 	
 	/**
 	 * Constructor that takes in a stage and splash screen in order to change the root 
@@ -30,9 +29,8 @@ public class Toolbar extends BorderPane {
 	 * @param stage
 	 * @param ss
 	 */
-	public Toolbar(Stage stage, SplashScreen ss) {
+	public Toolbar(Stage stage) {
 		this.stage = stage;
-		splash = ss;
 		
 		this.setRight(makeBackButton());
 		this.getStyleClass().add("toolbar");
@@ -41,7 +39,7 @@ public class Toolbar extends BorderPane {
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
 				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 25),
-				e -> stage.getScene().setRoot(splash.display()),
+				e -> stage.getScene().setRoot(new SplashScreen(stage).display()),
 				"button-nav");
 	}
 
