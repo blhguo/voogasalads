@@ -61,7 +61,7 @@ public class ComponentSelectionWindow {
 	private Label generateLabel(String type, ComponentMenu menu) {
 		Label ret = new Label(type);
 		String style = "-fx-border-color: white; -fx-border-width: 3;";
-		ret.setStyle(style + "-fx-background-color: cornflowerblue");
+		ret.setStyle(style);
 		ret.prefWidthProperty().bind(myStage.widthProperty());
 		ret.setOnMouseClicked(e -> {
 			if (!activeMenus.contains(menu)) {

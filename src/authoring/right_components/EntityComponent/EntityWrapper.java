@@ -31,6 +31,7 @@ public class EntityWrapper {
 
 	private Entity entity;
 	private ImageView imageView;
+	private ImageView dummyImageView;
 	private List<ComponentMenu> menuList;
 	private EntityPane entityPane;
 	private final DropShadow ds;
@@ -46,6 +47,7 @@ public class EntityWrapper {
 		//menuList.stream().forEach(c -> c.setMyPane(pane));
 		addAllComponents(entity);
 		imageView = createImageView();
+		dummyImageView = new ImageView(imageView.getImage());
 		entityPane = pane;
 		ds = new DropShadow( 20, Color.DARKMAGENTA);
 	}
@@ -152,5 +154,13 @@ public class EntityWrapper {
 
 	public void setImageViewStyle(String s) {
 		imageView.setStyle("");
+	}
+	public ImageView getDummy(){
+		dummyImageView.setX(imageView.getX());
+		dummyImageView.setY(imageView.getY());
+		dummyImageView.setFitHeight(imageView.getFitHeight());
+		dummyImageView.setFitWidth(imageView.getFitWidth());
+		dummyImageView.setImage(imageView.getImage());
+		return dummyImageView;
 	}
 }

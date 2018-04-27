@@ -185,6 +185,9 @@ public class EntityController {
 		});
 	}
 
+	public void updateDummies(){
+		canvas.updateDummies(entityList);
+	}
 	public void listenCanvas() {
 		canvas.listen();
 	}

@@ -38,7 +38,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private Stage stage;
 
 	private NavigationPane np;
-
+	private EntityController controller;
 	private BasePane base;
 	private EntityPane entity;
 	private EventPane event;
@@ -70,11 +70,12 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 		canvas = new Canvas();
 
-		EntityController controller = new EntityController(entity, canvas);
+		controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController(pcontroller);
 		
 		canvas.setController(controller);
+		event.setController(controller);
 		entity.setController(controller);
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
@@ -129,9 +130,12 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
 			case "Entity Creator":
+				canvas.listen();
 				bp.setRight(entity.getView());
 				break;
-			case "Actions and Events":
+			case "Events":
+				canvas.stopListen();
+				controller.updateDummies();
 				bp.setRight(event.getView());
 				break;
 			case "Level Preferences": ;

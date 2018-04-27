@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import authoring.controllers.EntityController;
 import frontend_utilities.ButtonFactory;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -19,6 +20,18 @@ import resources.keys.AuthRes;
  */
 public class EventPane extends BasePane {
 	
+	
+	private EntityController myController;
+	
+	public EventPane(EntityController e){
+		myController = e;
+	}
+	public EventPane(){
+	}
+	
+	public void setController(EntityController e){
+		myController = e;
+	}
 	/**
 	 * GUINode method that returns the view of this Pane
 	 * @return Pane

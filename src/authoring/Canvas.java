@@ -84,6 +84,10 @@ public class Canvas implements GUINode {
 		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
+	public void updateDummies(List<EntityWrapper> entityList){
+		pane.getChildren().clear();
+		entityList.stream().forEach(e -> pane.getChildren().add(e.getDummy()));
+	}
 	
 	/**
 	 * Called by PaneController in order to set the background to a specified image
@@ -104,7 +108,7 @@ public class Canvas implements GUINode {
 	}
 
 	public void listen() {
-		System.out.println("Listening");
+		//System.out.println("Listening");
 		pane.setOnMousePressed(e -> {
 			controller.alertEntityPane(e.getX(), e.getY());
 			System.out.println("Clicked -- Canvas line 100");
@@ -113,6 +117,6 @@ public class Canvas implements GUINode {
 
 	public void stopListen() {
 //		System.out.println("Stopped listening");
-//		pane.setOnMouseClicked(e -> {});
+		pane.setOnMousePressed(e -> {});
 	}
 }
