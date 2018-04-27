@@ -134,7 +134,6 @@ public class PlayerView {
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 		
 		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ).forEach(this::display);
-		System.out.println();
 	}
 
 	private int compareZ(Entity a, Entity b) {
