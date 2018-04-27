@@ -8,8 +8,8 @@ import authoring.controllers.EntityController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.ParallelCamera;
-import javafx.scene.SubScene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -18,7 +18,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -34,10 +33,9 @@ import javafx.scene.paint.Color;
 
 public class Canvas implements GUINode {
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
-	private SubScene mySubscene;
 	private EntityController myController;
-	private Pane myRootPane;
-	private BorderPane parent;
+	private Pane myInfinitePane;
+	private ScrollPane myNode;
 
 	
 	/**
@@ -45,27 +43,34 @@ public class Canvas implements GUINode {
 	 * to autosize.
 	 * @param root
 	 */
-	public Canvas(BorderPane parent){	
-		myRootPane = new Pane();
-		this.parent = parent;
-		myRootPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
-		
-		mySubscene = new SubScene(myRootPane,
-//				stage.getWidth()-AuthRes.getInt("PrefBaseSize")-AuthRes.getInt("PrefNavPaneSize"), 100);
-//				myRootPane.getBoundsInParent().getWidth(),
-//				myRootPane.getBoundsInParent().getHeight());
-				600, 600);
-				
-				
-		mySubscene.autosize();
-		mySubscene.setCamera(new ParallelCamera());
-//		mySubscene.setManaged(false);
+	public Canvas(){	
+		initializeInfinitePane();
+		initializeWrapperPane();
+	}
+
+	public void setDefaultBackground(Pane pane){
+		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
-	public void setDefaultBackground(){
-		myRootPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+	private void initializeInfinitePane() {
+		myInfinitePane = new Pane();
+		myInfinitePane.setPrefSize(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		myInfinitePane.setMaxSize(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+		setDefaultBackground(myInfinitePane);
+	}
+
+	private void initializeWrapperPane() {
+		myNode = new ScrollPane();
+		myNode.setContent(myInfinitePane);
+		myNode.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myNode.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		myInfinitePane.setManaged(false);
+		myNode.setHvalue(0);
+		myNode.setVvalue(0);
+		myNode.setPickOnBounds(false);
 	}
 	
+
 	/**
 	 * Allows the canvas to be updated according to the current entities in the map.
 	 * The map is created in EntityController and EntityController calls this method in
@@ -73,12 +78,12 @@ public class Canvas implements GUINode {
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
-		myRootPane.getChildren().clear();
+		myInfinitePane.getChildren().clear();
 		System.out.println("-----Updating Canvas------");
 		entityList.stream().forEach(e -> System.out.println("Entity " + e));
 		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
-			if (!myRootPane.getChildren().contains(view))
-				myRootPane.getChildren().add(view);
+			if (!myInfinitePane.getChildren().contains(view))
+				myInfinitePane.getChildren().add(view);
 		}
 		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
@@ -89,7 +94,7 @@ public class Canvas implements GUINode {
 	 * @param im
 	 */
 	public void updateBackground(Image im){
-		myRootPane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.REPEAT,
+		myInfinitePane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 	}
 
@@ -104,12 +109,12 @@ public class Canvas implements GUINode {
 	
 	@Override
 	public Node getView() {
-		return mySubscene;
+		return myNode;
 	}
 
 	public void listen() {
 		System.out.println("Listening");
-		myRootPane.setOnMousePressed(e -> {
+		myInfinitePane.setOnMousePressed(e -> {
 			myController.alertEntityPane(e.getX(), e.getY());
 			System.out.println("Clicked -- Canvas line 100");
 		});

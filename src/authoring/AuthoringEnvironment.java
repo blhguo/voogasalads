@@ -67,7 +67,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		np = new NavigationPane(stage);
 		
 		bp = new BorderPane();
-		canvas = new Canvas(bp);
+		canvas = new Canvas();
 		
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
@@ -103,7 +103,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
-		sp.getChildren().add(canvas.getView());
+//		sp.getChildren().add(canvas.getView());
 
 		return sp;
 
@@ -115,7 +115,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	 * @param state
 	 */
 	@Override
-	public void update(String state) { //more concise/less repetitive way to write this?
+	public void update(String state) { //cleaner way to write this?
 		switch(state) {
 			case "Entity Creator":
 				bp.setRight(entity.getView());
