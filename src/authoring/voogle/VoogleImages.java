@@ -64,6 +64,7 @@ public class VoogleImages {
 	private DownloadBar myDownloadBar;
 	private FileChooser myFileChooser;
 	private ImageObserver myImageObserver;
+	private Stage stage;
 
 	/**
 	 * Creates the view of the browser object.
@@ -93,7 +94,7 @@ public class VoogleImages {
 	 * like a button click.
 	 */
 	public void go() {
-		Stage stage = new Stage();
+		stage = new Stage();
 		stage.setTitle(myResources.getString("AppTitle"));
 		stage.setScene(myScene);
 		stage.show();
@@ -198,6 +199,7 @@ public class VoogleImages {
 
 				myDownloadBar.addDownload(imageFile);
 				myImageObserver.update(imageFile);
+				stage.close();
 			}
 		} catch (Exception e) {
 			showError(myResources.getString("DownloadError"));

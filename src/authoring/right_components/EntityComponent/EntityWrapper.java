@@ -126,7 +126,8 @@ public class EntityWrapper {
 	public void updateImage(){
 		imageView.setX(entity.getComponent(XPosComponent.class).getValue());
 		imageView.setY(entity.getComponent(YPosComponent.class).getValue());
-		imageView.setImage(new Image(entity.getComponent(FilenameComponent.class).getValue()));
+		imageView.setImage(
+				new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		imageView.setFitWidth(entity.getComponent(WidthComponent.class).getValue());
 		imageView.setFitHeight(entity.getComponent(HeightComponent.class).getValue());
 		if (!entity.getComponent(VisibilityComponent.class).getValue()){

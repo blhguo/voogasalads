@@ -1,5 +1,6 @@
 package authoring.voogle;
 
+import authoring.component_menus.FileMenuElement;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -16,12 +17,16 @@ public class VoogleApp implements ImageObserver{
 
 	private Scene myScene;
 	private VBox myCol;
-	public VoogleApp(){
+	private FileMenuElement myFileMenuElement;
+
+	public VoogleApp(FileMenuElement element){
+		myFileMenuElement = element;
 		myCol = new VBox();
 		VBox main = new VBox();
 		VoogleImages voogleImages = new VoogleImages(this);
-		main.getChildren().add(new Label("Voogle Images"));
-		main.getChildren().add(createMenu(e -> voogleImages.go()));
+//		main.getChildren().add(new Label("Voogle Images"));
+//		main.getChildren().add(createMenu(e -> voogleImages.go()));
+		voogleImages.go();
 		myScene = new Scene(main);
 	}
 	public Scene getMyScene(){
@@ -43,6 +48,6 @@ public class VoogleApp implements ImageObserver{
 
 	@Override
 	public void update(File file) {
-
+		myFileMenuElement.update(file);
 	}
 }

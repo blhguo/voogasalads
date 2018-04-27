@@ -7,11 +7,13 @@ import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -35,7 +37,7 @@ public class FileMenuElement extends MenuElement{
 		view = ButtonFactory.makeHBox(title, null, field);
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
-		view.getChildren().add(ButtonFactory.makeButton(e -> voogle()));
+		view.getChildren().add(getVoogleButton());
 	}
 
 	@Override
@@ -67,13 +69,25 @@ public class FileMenuElement extends MenuElement{
 		myMenu.alert();
 	}
 	public void voogle(){
-		VoogleApp app = new VoogleApp();
-		Stage stage = new Stage();
-		stage.setScene(app.getMyScene());
-		stage.show();
+		VoogleApp app = new VoogleApp(this);
+
 	}
 	@Override
 	public void setComponentValue() {
 		myComponent.setValue(field.getText());
+	}
+
+	public Node getVoogleButton() {
+		Button voogleButton = ButtonFactory.makeButton(e -> voogle());
+		voogleButton.setText("Voogle");
+		Tooltip tip = new Tooltip("Search for Image with VoogleImages");
+		tip.setShowDelay(new Duration(0));
+		voogleButton.setTooltip(new Tooltip("Search for Image with VoogleImages"));
+		return voogleButton;
+	}
+
+	public void update(File file){
+		field.setText(file.getName());
+		setComponentValue();
 	}
 }
