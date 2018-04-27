@@ -125,14 +125,15 @@ public class PlayerView {
 
 	private void render() {
 		root.getChildren().clear();
-		myEngine.getLevel().getEntities().stream().filter(this::isInView).forEach(this::display);
-		System.out.println();
-
+		
 		gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		dataManager.setGamePlayer(gamePlayer);
 		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
 		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
+		
+		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).forEach(this::display);
+		System.out.println();
 	}
 
 	private ImageView getImageView(Entity entity) {
@@ -161,17 +162,31 @@ public class PlayerView {
 		root.getChildren().add(imageView);
 	}
 
-	private boolean isInView(Entity entity) {
-		Double xPos = entity.getComponent(XPosComponent.class).getValue();
-		Double yPos = entity.getComponent(YPosComponent.class).getValue();
-
-//		System.out.println("cam width: " + cam.getBoundsInParent().getWidth() + " height: " + cam.getBoundsInParent().getHeight());
-//		System.out.println("xMin: " + xMin + " xMax: " + xMax + " yMin: " + yMin + " yMax: " + yMax);
-//		System.out.println("entity xPos: " + xPos + " yPos: " + yPos);
-		return true;
-//		return ((xMin <= xPos && xPos <= xMax ) && (yMin <= yPos && yPos <= yMax));
+	private boolean isInView(Entity entity, double centerX, double centerY) {
+		double xPos = entity.getComponent(XPosComponent.class).getValue();
+		double yPos = entity.getComponent(YPosComponent.class).getValue();
+		double height = entity.getComponent(HeightComponent.class).getValue();
+		double width = entity.getComponent(WidthComponent.class).getValue();
+		
+		double minX = xPos - width / 2;
+		double maxX = xPos + width / 2;
+		double minY = yPos - height / 2;
+		double maxY = yPos + height / 2;
+		
+		return checkCorner(minX, minY, centerX, centerY) || 
+				checkCorner(minX, maxY, centerX, centerY) || 
+				checkCorner(maxX, minY, centerX, centerY) ||
+				checkCorner(maxX, maxY, centerX, centerY);
 	}
 	
+
+	private boolean checkCorner(double entityX, double entityY, double centerX, double centerY) {
+		double sceneMinX = centerX - ViewManager.SUBSCENE_WIDTH / 2;
+		double sceneMaxX = centerX + ViewManager.SUBSCENE_WIDTH / 2;
+		double sceneMinY = centerY - ViewManager.SUBSCENE_HEIGHT / 2;
+		double sceneMaxY = centerY + ViewManager.SUBSCENE_HEIGHT / 2;	
+		return ((sceneMinX <= entityX && entityX <= sceneMaxX) && (sceneMinY <= entityY && entityY <= sceneMaxY));
+	}
 
 	/**
 	 * method that handles reactions when buttons are pressed on Menu. Ex: When Play button is pressed,
