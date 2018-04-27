@@ -9,21 +9,22 @@ public abstract class Component<T> {
 	public Component(T val) {
 		myValue = val;
 	}
-	
+
 	public void setValue(T val) {
 		myValue = val;
+		alert();
 	}
 	
 	public T getValue() {
 		return myValue;
 	}
-//	
-//	public void setMyMenuElement(MenuElement menu){
-//		myMenuElement = menu;
-//	}
-//	
-//	public void alert(){
-//		myMenuElement.alert(this.getValue());
-//	}
+	
+	public void setMyMenuElement(MenuElement menu){
+		myMenuElement = menu;
+	}
+	
+	public void alert(){
+		myMenuElement.alert(this.getValue());
+	}
 
 }

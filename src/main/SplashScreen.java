@@ -37,7 +37,6 @@ public class SplashScreen extends GUIGridPaneSuper{
 		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));		
 		Button createButton = ButtonFactory.makeButton(e -> {
 			AuthoringEnvironment ae = new AuthoringEnvironment(myStage, this);
-			
 			myStage.getScene().setRoot(ae.display());
 			myStage.show();
 		});
@@ -64,8 +63,14 @@ public class SplashScreen extends GUIGridPaneSuper{
 	public void finishScene(GridPane gridpane) {
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
-		gridpane.add(title, 10, 80);
-		gridpane.add(makeVBox(), 50, 20);
+		VBox vb = makeVBox();
+		gridpane.getChildren().addAll(title, vb);
+		double width = title.getParent().getLayoutBounds().getWidth();
+		int numCols = (int) width / AuthRes.getInt("Padding");
+		double height = title.getParent().getLayoutBounds().getHeight();
+		int numRows = (int) height / AuthRes.getInt("Padding");
+		gridpane.setConstraints(title, numCols / 20, numRows * 2 / 3);
+		gridpane.setConstraints(vb, numCols / 3, numRows / 4);
 	}
 
 }
