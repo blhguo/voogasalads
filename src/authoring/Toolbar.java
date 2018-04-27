@@ -1,7 +1,9 @@
 package authoring;
 
+import authoring.GUI_Heirarchy.GUINode;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,9 +21,10 @@ import resources.keys.AuthRes;
  * splash screen 
  */
 
-public class Toolbar extends BorderPane {
+public class Toolbar implements GUINode {
 
 	private Stage stage;
+	private BorderPane myNode;
 	
 	/**
 	 * Constructor that takes in a stage and splash screen in order to change the root 
@@ -31,9 +34,9 @@ public class Toolbar extends BorderPane {
 	 */
 	public Toolbar(Stage stage) {
 		this.stage = stage;
-		
-		this.setRight(makeBackButton());
-		this.getStyleClass().add("toolbar");
+		myNode = new BorderPane();
+		myNode.setRight(makeBackButton());
+		myNode.getStyleClass().add("toolbar");
 	}
 
 	private Button makeBackButton() {
@@ -44,16 +47,24 @@ public class Toolbar extends BorderPane {
 	}
 
 	/**
+	 * Method inherited from GUINode; returns myNode, the core Toolbar node.
+	 * Note the method integrateToolbar(Pane basepane), which allows a user
+	 * to place myNode onto a larger pane.
+	 */
+	@Override
+	public Node getView() {
+		return myNode;
+	}
+	
+	/**
 	 * Integrates toolbar into existing root pane, by stacking panes and enabling clicks through
 	 * @param basepane	already-created pane upon which to place the toolbar
 	 * @return	StackPane consisting of toolbar and base pane
 	 */
 	public StackPane integrateToolbar(Pane basepane) {
-		this.setPickOnBounds(false);
-		return new StackPane(basepane, this);
-
+		myNode.setPickOnBounds(false);
+		return new StackPane(basepane, myNode);
 	}
-
 }
 
 

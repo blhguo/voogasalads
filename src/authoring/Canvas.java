@@ -59,7 +59,7 @@ public class Canvas implements GUINode {
 				
 		mySubscene.autosize();
 		mySubscene.setCamera(new ParallelCamera());
-		mySubscene.setManaged(false);
+//		mySubscene.setManaged(false);
 	}
 	
 	public void setDefaultBackground(){
