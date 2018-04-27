@@ -15,6 +15,8 @@ import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
+import game_engine.components.enemy.DefaultHorizontalPaceTimeComponent;
+import game_engine.components.enemy.HorizontalPaceTimeComponent;
 import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
@@ -44,7 +46,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class CollectibleTest extends Application {
+public class EnemyTest extends Application {
 
 	private Entity mainCharacter; //smol rect
 	private Entity coin; //BIG rect
@@ -219,6 +221,12 @@ public class CollectibleTest extends Application {
 		referencePoint.addComponent(new HeightComponent("500"));
 		referencePoint.addComponent(new WidthComponent("500"));
 		referencePoint.addComponent(new ZHeightComponent("0"));
+		referencePoint.addComponent(new DefaultXVelComponent("2000"));
+		referencePoint.addComponent(new XVelComponent("2000"));
+		referencePoint.addComponent(new DefaultYVelComponent("0"));
+		referencePoint.addComponent(new YVelComponent("0"));
+		referencePoint.addComponent(new DefaultHorizontalPaceTimeComponent("1"));
+		referencePoint.addComponent(new HorizontalPaceTimeComponent("0"));
 		engine.getLevel().addEntity(referencePoint);
 		ImageView referenceView = new ImageView(referencePoint.getComponent(FilenameComponent.class).getValue());
 
