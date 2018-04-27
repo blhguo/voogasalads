@@ -24,10 +24,10 @@ public class NumberMenuElement extends MenuElement{
 			}
 		}
 		field.setText(component.getValue().toString());
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		field.focusedProperty().addListener(e -> {
 			if (!field.focusedProperty().getValue()) {
-				updateComponent(KeyCode.ENTER, field.getText());
+				updateComponent(KeyCode.ENTER, field.getText(), false);
 			}
 		}
 		);
@@ -68,12 +68,12 @@ public class NumberMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
 			try {
 				myComponent.setValue(Double.parseDouble(text));
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
-				myMenu.alert();
+				if (alert) myMenu.alert();
 			} catch (NumberFormatException e) {
 				field.setText("Sorry, that's not a(n) " + title);
 				field.selectAll();

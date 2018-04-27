@@ -19,7 +19,7 @@ public class KeyMenuElement extends MenuElement{
 		field.setPrefHeight(10);
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		this.title = title;
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		view = ButtonFactory.makeHBox(title, null, field);
 	}
 
@@ -44,7 +44,7 @@ public class KeyMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		field.setText(code.toString());
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		myComponent.setValue(code.toString());
@@ -54,4 +54,5 @@ public class KeyMenuElement extends MenuElement{
 	public void setComponentValue() {
 		myComponent.setValue(field.getText());
 	}
+
 }

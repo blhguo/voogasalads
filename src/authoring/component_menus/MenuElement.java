@@ -51,11 +51,12 @@ public abstract class MenuElement{
 		myComponent = c;
 	}
 
-	public abstract void updateComponent(KeyCode code, String text);
+	public abstract void updateComponent(KeyCode code, String text, boolean alert);
 
 	public void setMyMenu(ComponentMenu myMenu) {
 		this.myMenu = myMenu;
 	}
 
 	public abstract void setComponentValue();
+
 }

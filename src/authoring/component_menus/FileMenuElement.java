@@ -33,7 +33,7 @@ public class FileMenuElement extends MenuElement{
 		field.setPrefHeight(10);
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		fileChooser = new FileChooser();
-		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title));
+		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = ButtonFactory.makeHBox(title, null, field);
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
@@ -61,12 +61,12 @@ public class FileMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		File file = fileChooser.showOpenDialog(new Stage());
 		field.setText(file.getName());
 		myComponent.setValue(field.getText());
 		//image = ImageBuilder.getImageView(field.getText(), 10, 10);
-		myMenu.alert();
+		if (alert) myMenu.alert();
 	}
 	public void voogle(){
 		VoogleApp app = new VoogleApp(this);
@@ -90,4 +90,5 @@ public class FileMenuElement extends MenuElement{
 		field.setText(file.getName());
 		setComponentValue();
 	}
+
 }
