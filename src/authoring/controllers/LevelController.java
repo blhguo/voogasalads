@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import gameData.ManipData;
 import game_engine.Entity;
-import game_engine.Level;
+import game_engine.level.Level;
 
 /**
- * @author jennychin
+ * @author Jennifer Chin
  * Maintains control of all active entities and the levels in which they reside, passes data to Data
  */
 public class LevelController {
@@ -45,11 +45,18 @@ public class LevelController {
 	}
 
 	/**
-	 *
 	 * @return the active level
 	 */
 	public Level getActiveLevel(){
-		return currentLevels.get(0);
+		return activeLevel;
+	}
+	
+	public void setActiveLevel(Level l){
+		activeLevel = l;
+	}
+	
+	public ArrayList<Level> getLevels(){
+		return currentLevels;
 	}
 	
 }

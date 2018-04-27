@@ -13,7 +13,7 @@ import voogasalad.util.voogle_images.ImageObserver;
 
 import java.io.File;
 
-public class VoogleApp implements ImageObserver{
+public class VoogleApp{
 
 	private Scene myScene;
 	private VBox myCol;
@@ -23,10 +23,10 @@ public class VoogleApp implements ImageObserver{
 		myFileMenuElement = element;
 		myCol = new VBox();
 		VBox main = new VBox();
-		VoogleImages voogleImages = new VoogleImages(this);
+		//VoogleImages voogleImages = new VoogleImages(this);
 //		main.getChildren().add(new Label("Voogle Images"));
 //		main.getChildren().add(createMenu(e -> voogleImages.go()));
-		voogleImages.go();
+		//voogleImages.go();
 		myScene = new Scene(main);
 	}
 	public Scene getMyScene(){
@@ -46,7 +46,7 @@ public class VoogleApp implements ImageObserver{
 		return vbox;
 	}
 
-	@Override
+	//@Override
 	public void update(File file) {
 		myFileMenuElement.update(file);
 	}

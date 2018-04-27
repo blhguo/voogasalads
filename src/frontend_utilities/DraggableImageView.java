@@ -39,7 +39,7 @@ public class DraggableImageView extends ImageView {
 			System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
 		});
 		this.setOnMouseDragged(event -> {
-			int margin = AuthRes.getInt("Margin");
+			int margin = 2 * AuthRes.getInt("Margin");
 			maxX = getParent().getLayoutBounds().getWidth() - margin;
 			maxY = getParent().getLayoutBounds().getHeight() - margin;
 			//System.out.println("Dragged -- Mouse X: " + mouseX + " Mouse Y: " + mouseY);
