@@ -74,6 +74,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 		int numRows = (int) height / AuthRes.getInt("Padding");
 		gridpane.setConstraints(title, numCols / 20, numRows * 2 / 3);
 		gridpane.setConstraints(vb, numCols / 3, numRows / 4);
+		return gridpane;
 	}
 
 }

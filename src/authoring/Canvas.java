@@ -1,7 +1,6 @@
 package authoring;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import authoring.GUI_Heirarchy.GUINode;
@@ -12,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.ParallelCamera;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -22,12 +22,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
-import user_interface.GameCamera;
-import java.util.Map;
-
-
-import authoring.controllers.EntityController;
 
 /**
  * @author elizabethshulman
@@ -63,13 +57,13 @@ public class Canvas implements GUINode {
 				600, 600);
 				
 				
-//		mySubscene.autosize;
+		mySubscene.autosize();
 		mySubscene.setCamera(new ParallelCamera());
-//		mySubscene.setManaged(false);
+		mySubscene.setManaged(false);
 	}
 	
 	public void setDefaultBackground(){
-		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		myRootPane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	/**
@@ -79,12 +73,12 @@ public class Canvas implements GUINode {
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
-		pane.getChildren().clear();
+		myRootPane.getChildren().clear();
 		System.out.println("-----Updating Canvas------");
 		entityList.stream().forEach(e -> System.out.println("Entity " + e));
 		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
-			if (!pane.getChildren().contains(view))
-				pane.getChildren().add(view);
+			if (!myRootPane.getChildren().contains(view))
+				myRootPane.getChildren().add(view);
 		}
 		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
@@ -115,8 +109,8 @@ public class Canvas implements GUINode {
 
 	public void listen() {
 		System.out.println("Listening");
-		pane.setOnMousePressed(e -> {
-			controller.alertEntityPane(e.getX(), e.getY());
+		myRootPane.setOnMousePressed(e -> {
+			myController.alertEntityPane(e.getX(), e.getY());
 			System.out.println("Clicked -- Canvas line 100");
 		});
 	}

@@ -11,6 +11,7 @@ import game_engine.Entity;
 import game_engine.components.sprite.FilenameComponent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
