@@ -1,31 +1,33 @@
 package authoring.right_components;
 
-import java.awt.event.KeyEvent;
-
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
-//import game_engine.Level;
+
+import frontend_utilities.UserFeedback;
+import game_engine.Component;
+import game_engine.level.LevelBackgroundComponent;
+import game_engine.level.LevelMusicComponent;
+import game_engine.level.LevelNameComponent;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
+import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
 /**
@@ -38,14 +40,22 @@ public class LevelPane extends BasePane {
 	
 	private PaneController controller;
 	private LevelController lcontroller;
+	private Stage stage;
+	private ComboBox activeLevels = new ComboBox();
+	private TextField textName = new TextField();
+	private VBox box = new VBox();
 
+	public LevelPane(Stage s){
+		stage = s;
+	}
+	
 	/**
 	 * GUINode method that returns the view of this Pane
 	 * @return Pane
 	 */
 	@Override
 	public Pane getView() {
-		VBox box = buildBasicView(AuthRes.getString("LevelTitle"));
+		box = buildBasicView(AuthRes.getString("LevelTitle"));
 		box.getChildren().addAll(getButtonArray());
 		return box;
 	}
@@ -57,58 +67,106 @@ public class LevelPane extends BasePane {
 	@Override
 	public List<Node> getButtonArray() {
 		ArrayList<Node> list = new ArrayList<>();
+		ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
+ 		
+		activeLevels = makeActiveLevelList(levelNames);
+ 		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
 		
-//		ArrayList<String> levels = lcontroller.getLevels().stream().map(l -> l.getName()).collect(Collectors.toList());
-//		ComboBox activeLevels = new ComboBox(FXCollections.observableArrayList(levels));
-//		activeLevels.setPromptText(lcontroller.getActiveLevel().getName());
-//		activeLevels.setOnAction(e -> {
-//			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
-//			//get Level object from chosenLevel name
-//			lcontroller.setActiveLevel(Level from name);
-//		});
-//		activeLevels.getStyleClass().add("combo-box-auth");
-//		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
-		
- 		ComboBox tempLevels = new ComboBox();
- 		tempLevels.getItems().addAll("Level 1", "Level 2");
- 		tempLevels.setPromptText("Active Level Name");
- 		tempLevels.getStyleClass().add("combo-box-auth");
- 		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, tempLevels));
-		
-		TextField name = new TextField(AuthRes.getString("LevelNameDefault"));
-		name.setOnKeyPressed(event -> {
-			if(event.getCode() == KeyCode.ENTER){
-				String text = name.getText();
-				//use level manager class to actually save this text as name
-			}
-		});
-		list.add(ButtonFactory.makeReverseHBox("Set Level Name: ", null, name));
+ 		textName = makeNameChooser();
+		list.add(ButtonFactory.makeReverseHBox("Set Level Name: ", null, textName));
 		
 		Button backButton = ButtonFactory.makeButton(event -> {
-			FileChooser fc = new FileChooser();
-			fc.setTitle("Choose Background Image");
-			File file = fc.showOpenDialog(null);
-			controller.setBackground(file);
+			File file = initFileChooser("Choose Background Image");
+			String fname = file.getName();
+			controller.setBackground(fname);
+			// may need to add /images in front of image name
+			lcontroller.addComp(new LevelBackgroundComponent(fname));
 		});
 		list.add(ButtonFactory.makeHBox("Select Background", null, backButton));
 		
 		Button musicButton = ButtonFactory.makeButton(event -> {
-			String musicFile = "resources/Gods Plan.mp3";
-			Media sound = new Media(new File(musicFile).toURI().toString());
-			MediaPlayer mediaPlayer = new MediaPlayer(sound);
-			mediaPlayer.setStopTime(new Duration(3000));
-			mediaPlayer.play();
+			File file = initFileChooser("Choose Background Music");
+			lcontroller.addComp(new LevelMusicComponent(file.getName()));
 		});
 		list.add(ButtonFactory.makeHBox("Add Music", null, musicButton));
 		
 		Button newLevel = ButtonFactory.makeButton(event -> {
-			lcontroller.addLevel(new Level());
-			//also needs to update activeLevel text
+			lcontroller.addLevel();
+			update();
 		});
 		list.add(ButtonFactory.makeHBox("Add New Level", null, newLevel));
 		
 		return list;
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void update(){
+		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
+		activeLevels.setValue(name);
+		// need to update options in combobox
+		ArrayList<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
+		activeLevels.setItems(FXCollections.observableArrayList(newLevels));
+		textName.setText(activeLevels.getValue().toString());
+		// need to change background to new image, sometimes no image (default)
+		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
+		if (background.equals("default")){
+			controller.resetBackground();
+		}
+		else{
+			controller.setBackground(background);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ComboBox makeActiveLevelList(ArrayList<Object> levelNames){
+		activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
+		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
+ 		activeLevels.setOnAction(e -> {
+ 			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
+ 			Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
+ 			for (Entry<Integer, List<Component<?>>> ent: map.entrySet()){
+ 				for (Component c: ent.getValue()){
+ 					if (c.getValue().equals(chosenLevel)){
+ 						Integer chosenId = ent.getKey();
+ 	 					lcontroller.getEngine().setLevel(chosenId);
+ 					}
+ 				}
+ 			}
+ 			update();
+ 		});
+ 		activeLevels.getStyleClass().add("combo-box-auth");
+ 		return activeLevels;
+	}
+	
+	private TextField makeNameChooser(){
+		textName = new TextField(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
+		textName.setOnKeyPressed(event -> {
+			if(event.getCode() == KeyCode.ENTER){
+				ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
+				String text = textName.getText();
+				int count = 0;
+				for (Object str: levelNames){
+					if (str.toString().equals(text)){
+						Alert a = UserFeedback.getErrorMessage(AuthRes.getString("SameLevelHeader"), AuthRes.getString("SameLevelContent"), stage);
+						a.showAndWait();
+						break;
+					}
+					count++;
+				}
+				if (count == levelNames.size()){
+					lcontroller.addComp(new LevelNameComponent(text));
+				}
+				update();
+			}
+		});
+		return textName;
+	}
+	
+	private File initFileChooser(String title){
+		FileChooser fc = new FileChooser();
+		fc.setTitle(title);
+		return fc.showOpenDialog(null);
 	}
 	
 	/**
@@ -130,6 +188,4 @@ public class LevelPane extends BasePane {
 		lcontroller = lc;
 	}
 	
-	//eventually we will need to have some button similar to entity
-	//pane where when clicked it initializes a new level
 }

@@ -53,7 +53,7 @@ public class MenuElementFactory {
 	}
 
 	private StringMenuElement handleString() {
-		return new StringMenuElement(entry[0], factory.createComponent(entry[0], entry[2]));
+		return new StringMenuElement(entry[0], factory.createComponent(entry[0], entry[2].toString()));
 	}
 
 	private BooleanMenuElement handleBoolean() {

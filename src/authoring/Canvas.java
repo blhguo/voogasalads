@@ -11,6 +11,7 @@ import authoring.controllers.EntityController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import game_engine.Entity;
 import javafx.geometry.Insets;
+import javafx.scene.ParallelCamera;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -48,7 +49,7 @@ public class Canvas implements GUINode {
 	 * Constructor, no parameters
 	 */
 	public Canvas(){
-		
+		pane = new Pane();
 	}
 	
 	/**
@@ -57,12 +58,15 @@ public class Canvas implements GUINode {
 	 * @return Pane
 	 */
 	public Pane getView(){
-		pane = new Pane();
-		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		setDefaultBackground();
 		//cam = new GameCamera();
 		//subScene.setCamera(cam.initCamera());
 		return pane;
 
+	}
+	
+	public void setDefaultBackground(){
+		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	/**
@@ -84,7 +88,7 @@ public class Canvas implements GUINode {
 	}
 	
 	/**
-	 * Called by LevelController in order to set the background to a specified image
+	 * Called by PaneController in order to set the background to a specified image
 	 * @param im
 	 */
 	public void updateBackground(Image im){

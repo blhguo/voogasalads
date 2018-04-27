@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -127,5 +128,12 @@ public class ButtonFactory {
 		HBox box = makeHBox(create_entity, (String) o, button);
 		box.setAlignment(center);
 		return box;
+	}
+	
+	public static Button makeThumbnail(String imagePath, String name){
+		ImageView iv = ImageBuilder.getImageView(imagePath, 60, 30);
+		Button b = new Button(name, iv);
+		b.setContentDisplay(ContentDisplay.BOTTOM);
+		return b;
 	}
 }

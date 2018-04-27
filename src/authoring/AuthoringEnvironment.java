@@ -64,7 +64,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		base = new BasePane();
 		entity = new EntityPane();
 		event = new EventPane();
-		level = new LevelPane();
+		level = new LevelPane(stage);
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
 
@@ -72,13 +72,14 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
-		LevelController lcontroller = new LevelController();
-
+		LevelController lcontroller = new LevelController(pcontroller);
+		
 		canvas.setController(controller);
 		entity.setController(controller);
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
+		story.setLevelController(lcontroller);
 		np.addListener(this);
 		np.addLevelController(lcontroller);
 	}

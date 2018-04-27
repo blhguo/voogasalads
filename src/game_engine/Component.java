@@ -1,7 +1,5 @@
 package game_engine;
 
-import authoring.component_menus.MenuElement;
-
 public abstract class Component<T> {
 	private T myValue;
 
