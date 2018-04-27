@@ -125,8 +125,8 @@ public class ManipData {
 
 	public Engine loadData(String filePath, String gameName) {
 		try {
-			File load = new File(filePath);
-			openFile(load);
+			//File load = new File(filePath);
+			openFile(file);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO
@@ -135,7 +135,7 @@ public class ManipData {
 	}
 
 	private void openFile(File file) throws ParserConfigurationException{
-		System.out.println(file);
+		// System.out.println(file);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
@@ -163,7 +163,7 @@ public class ManipData {
 				System.out.println(output);
 
 			} catch (SAXException e) {
-				System.out.println("here1");
+				// System.out.println("here1");
 				return; //TODO
 			}
 		} catch (IOException e) {
@@ -181,7 +181,7 @@ public class ManipData {
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 			t.transform(new DOMSource(node), new StreamResult(sw));
 		} catch (TransformerException te) {
-			System.out.println("exception");
+			// System.out.println("exception");
 		}
 		return sw.toString();
 	}
