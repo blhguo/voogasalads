@@ -125,20 +125,20 @@ public class EntityPane extends BasePane{
 	public void refresh(){
 		controller.updateCanvas();
 		current.updateImage();
-//		box.getChildren().remove(menuBox);
-//		ArrayList<HBox> list = new ArrayList<>();
-//		if (box.getChildren().removeAll(createButtonArray)){
-//			list.addAll(createButtonArray);
-//		}
-//		else {
-//			box.getChildren().removeAll(editButtonArray);
-//			list.addAll(editButtonArray);
-//		}
-////		box.getChildren().removeAll(createButtonArray);
-////		box.getChildren().removeAll(editButtonArray);
-//		menuBox = getMenuBox();
-//		box.getChildren().add(menuBox);
-//		box.getChildren().addAll(list);
+		box.getChildren().remove(menuBox);
+		ArrayList<HBox> list = new ArrayList<>();
+		if (box.getChildren().removeAll(createButtonArray)){
+			list.addAll(createButtonArray);
+		}
+		else {
+			box.getChildren().removeAll(editButtonArray);
+			list.addAll(editButtonArray);
+		}
+//		box.getChildren().removeAll(createButtonArray);
+//		box.getChildren().removeAll(editButtonArray);
+		menuBox = getMenuBox();
+		box.getChildren().add(menuBox);
+		box.getChildren().addAll(list);
 //		//controller.resetImageViews();
 		updateSprite();
 	}

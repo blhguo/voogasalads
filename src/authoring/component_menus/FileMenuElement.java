@@ -28,11 +28,13 @@ public class FileMenuElement extends MenuElement{
 		super.setMyComponent(component);
 		this.title = s;
 		field = new TextField();
+		field.setStyle("-fx-cursor: hand;");
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
 		field.setPrefHeight(10);
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = ButtonFactory.makeHBox(title, null, field);
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
@@ -70,6 +72,7 @@ public class FileMenuElement extends MenuElement{
 	}
 	public void voogle(){
 		VoogleApp app = new VoogleApp(this);
+		
 
 	}
 	@Override
@@ -81,7 +84,6 @@ public class FileMenuElement extends MenuElement{
 		Button voogleButton = ButtonFactory.makeButton(e -> voogle());
 		voogleButton.setText("Voogle");
 		Tooltip tip = new Tooltip("Search for Image with VoogleImages");
-		tip.setShowDelay(new Duration(0));
 		voogleButton.setTooltip(new Tooltip("Search for Image with VoogleImages"));
 		return voogleButton;
 	}
