@@ -4,7 +4,7 @@ import game_engine.Component;
 import javafx.scene.input.KeyCode;
 
 public class UpKeyboardComponent extends Component<KeyCode>{
-	public UpKeyboardComponent(String k) {
-		super(KeyCode.valueOf(k));
+	public UpKeyboardComponent(String arg) {
+		super(KeyCode.valueOf(arg));
 	}
 }

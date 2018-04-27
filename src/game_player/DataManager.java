@@ -11,10 +11,6 @@ import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.keyboard.UpKeyboardComponent;
-<<<<<<< HEAD
-import game_engine.level.Level;
-=======
->>>>>>> origin/solvingConflictsWithPlayerAndEngine
 import javafx.scene.input.KeyCode;
 
 /**
@@ -72,7 +68,6 @@ public class DataManager {
 			return;
 		}
 		if(input.equals("left")){
-
 			gamePlayer.addComponent(new LeftKeyboardComponent(k.toString()));
 		}
 		else if(input.equals("right")) {
