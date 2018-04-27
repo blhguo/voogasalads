@@ -5,14 +5,9 @@ import java.util.List;
 
 import game_engine.Component;
 import game_engine.Entity;
-import game_engine.GameSystem;
-import game_engine.components.DespawnComponent;
 import game_engine.NullType;
+import game_engine.components.DespawnComponent;
 import game_engine.components.ProjectileComponent;
-import game_engine.components.collision.edge_collided.BottomCollidedComponent;
-import game_engine.components.collision.edge_collided.LeftCollidedComponent;
-import game_engine.components.collision.edge_collided.RightCollidedComponent;
-import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.level.Level;
 import game_engine.systems.collision.CollisionResponseSystem;
 
