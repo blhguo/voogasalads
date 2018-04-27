@@ -28,7 +28,6 @@ public abstract class EnemyMovementSystem extends GameSystem {
 			Component<Double> currTime = entity.getComponent(myCurrTime);
 			Component<Double> currVel = entity.getComponent(myCurrVel);
 			currTime.setValue(currTime.getValue() + elapsedTime);
-			System.out.println(currTime.getValue());
 			
 			if (currTime.getValue() >= defaultTime.getValue()) {
 				currTime.setValue(0.0);
