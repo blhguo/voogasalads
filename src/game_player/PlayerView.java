@@ -48,7 +48,7 @@ public class PlayerView {
 	private SubScene subScene;
 	private ParallelCamera cam;
 	private DataManager dataManager;
-	private Entity gamePlayer;
+	private Entity primary;
 
 	/**
 	 * @param pdf
@@ -126,10 +126,10 @@ public class PlayerView {
 	private void render() {
 		root.getChildren().clear();
 		
-		gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		dataManager.setGamePlayer(gamePlayer);
-		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
-		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
+		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		dataManager.setGamePlayer(primary);
+		Double xPos = primary.getComponent(XPosComponent.class).getValue();
+		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 		
 		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).forEach(this::display);
