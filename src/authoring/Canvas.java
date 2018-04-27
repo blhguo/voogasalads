@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 
 
 /**
+ * @author elizabethshulman
  * @author Jennifer Chin
  * @author Liam Pulsifer
  * Canvas class for the middle portion of the Authoring Environment. Displays the current
