@@ -2,7 +2,7 @@ package game_player;
 
 import java.io.File;
 
-import authoring.loadingviews.BaseLoadView;
+import authoring.loadingviews.PlayerLoader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -177,8 +177,7 @@ public class ViewManager {
      * Display the stage for game selection.
      */ 
 	public void showGameSelectionMenu() {
-		BaseLoadView gc = new BaseLoadView(gameStage, "Play");
-		//gameStage.setScene(gc.display());
+		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
 	}
     

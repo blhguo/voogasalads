@@ -22,7 +22,7 @@ import resources.keys.AuthRes;
  * Scene, and it extends GUIGridPaneSuper because it uses a gridpane as the root of that
  * Scene. 
  */
-public abstract class BaseLoadView extends GUIGridPaneSuper {
+public abstract class BaseLoader extends GUIGridPaneSuper {
 
 	private Stage myStage;
 	
@@ -31,7 +31,7 @@ public abstract class BaseLoadView extends GUIGridPaneSuper {
 	 * the GameChooserScreen
 	 * @param stage
 	 */
-	public BaseLoadView(Stage stage){
+	public BaseLoader(Stage stage){
 		//uses stage to switch scene once game is chosen
 		myStage = stage;
 	}

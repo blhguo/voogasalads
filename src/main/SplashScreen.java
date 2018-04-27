@@ -2,8 +2,8 @@ package main;
 
 import authoring.AuthoringEnvironment;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
-import authoring.loadingviews.LoadAuthoringView;
-import authoring.loadingviews.LoadPlayerView;
+import authoring.loadingviews.AuthoringLoader;
+import authoring.loadingviews.PlayerLoader;
 import frontend_utilities.ButtonFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -44,13 +44,13 @@ public class SplashScreen extends GUIGridPaneSuper{
 			myStage.show();
 		});
 		Button loadButton = ButtonFactory.makeButton(e -> {
-			LoadAuthoringView chooseauthoring = new LoadAuthoringView(myStage);
+			AuthoringLoader chooseauthoring = new AuthoringLoader(myStage);
 			myStage.getScene().setRoot(chooseauthoring.display());
 			myStage.show();
 		});
 		
 		Button playButton = ButtonFactory.makeButton(e -> {
-			LoadPlayerView chooseplayer = new LoadPlayerView(myStage);
+			PlayerLoader chooseplayer = new PlayerLoader(myStage);
 			myStage.getScene().setRoot(chooseplayer.display());
 			myStage.show();
 		});

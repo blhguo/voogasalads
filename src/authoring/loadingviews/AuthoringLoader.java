@@ -5,16 +5,16 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
-public class LoadPlayerView extends BaseLoadView {
+public class AuthoringLoader extends BaseLoader {
 
-	public LoadPlayerView(Stage stage) {
+	public AuthoringLoader(Stage stage) {
 		super(stage);
 	}
 
 	@Override
 	public Pane finishScene(GridPane gridpane) {
-		addTitle(gridpane, AuthRes.getString("Play"));
+		addTitle(gridpane, AuthRes.getString("Edit"));
 		return addCoreFinishingElements(gridpane);
 	}
-
+	
 }
