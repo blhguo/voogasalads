@@ -23,7 +23,7 @@ public class Engine {
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
-		mySystems = new SystemInitializer().init(this);
+		//mySystems = new SystemInitializer().init(this);
 	}
 
 	public void update(double elapsedTime) {
@@ -77,6 +77,12 @@ public class Engine {
 
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
+	}
+	
+	public static void main(String[] args){
+		Engine engine = new Engine();
+		List<GameSystem> systems = (new GameSystemInitializer()).initializeSystems(engine);
+		System.out.println(systems.size());
 	}
 
 }
