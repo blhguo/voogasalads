@@ -116,7 +116,7 @@ public class NavigationPane implements Subject, GUINode {
 			prefButtons.getChildren().add(b);
 			
 		}
-		prefButtons.setLayoutY(AuthRes.getInt("EnvironmentY")*4/5);
+		prefButtons.setLayoutY(stage.getHeight()*4/5);
 		pane.getChildren().addAll(navOptions, prefButtons);
 	}
 

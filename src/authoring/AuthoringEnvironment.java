@@ -66,7 +66,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
 		
-		canvas = new Canvas(new Group());
+		bp = new BorderPane();
+		canvas = new Canvas(bp);
 		
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
@@ -90,11 +91,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public Pane display() {
 		
 		//Build BorderPane by setting right, center, and left
-		bp = new BorderPane();
 		update(""); //calls default setting for right pane
 		bp.setLeft(np.getView());
-		bp.setCenter(canvas);
-		BorderPane.setMargin(canvas, new Insets(AuthRes.getInt("Margin")));
+		bp.setCenter(canvas.getView());
+		BorderPane.setMargin(canvas.getView(), new Insets(AuthRes.getInt("Margin")));
 		
 		
 		//Build StackPane to integrate toolbar
@@ -102,7 +102,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
-		sp.getChildren().add(canvas.getRoot());
+		sp.getChildren().add(canvas.getView());
 
 		return sp;
 		
