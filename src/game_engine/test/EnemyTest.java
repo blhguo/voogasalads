@@ -31,6 +31,7 @@ import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
@@ -199,6 +200,7 @@ public class EnemyTest extends Application {
 		mainCharacter.addComponent(new HeightComponent("50"));
 		mainCharacter.addComponent(new WidthComponent("50"));
 		mainCharacter.addComponent(new ZHeightComponent("2"));
+		mainCharacter.addComponent(new SpritePolarityComponent("1"));
 		
 		// component needed for sprite component
 		coin.addComponent(new FilenameComponent("turtle.GIF"));
