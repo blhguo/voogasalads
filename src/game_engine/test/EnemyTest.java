@@ -86,11 +86,6 @@ public class EnemyTest extends Application {
 	private void step(double elapsedTime) {
 		engine.update(elapsedTime);
 		updateAllRects();
-		printOutMainCharacterScore();
-	}
-
-	private void printOutMainCharacterScore(){
-		System.out.println("Score: " + mainCharacter.getComponent(ScoreComponent.class).getValue());
 	}
 
 	private void setup(){
@@ -223,10 +218,8 @@ public class EnemyTest extends Application {
 		referencePoint.addComponent(new ZHeightComponent("0"));
 		referencePoint.addComponent(new DefaultXVelComponent("2000"));
 		referencePoint.addComponent(new XVelComponent("2000"));
-		referencePoint.addComponent(new DefaultYVelComponent("0"));
-		referencePoint.addComponent(new YVelComponent("0"));
 		referencePoint.addComponent(new DefaultHorizontalPaceTimeComponent("1"));
-		referencePoint.addComponent(new HorizontalPaceTimeComponent("0"));
+		referencePoint.addComponent(new HorizontalPaceTimeComponent("0.5"));
 		engine.getLevel().addEntity(referencePoint);
 		ImageView referenceView = new ImageView(referencePoint.getComponent(FilenameComponent.class).getValue());
 
