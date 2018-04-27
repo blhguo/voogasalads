@@ -3,47 +3,33 @@ package authoring.component_menus;
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
-/**
- * @author liampulsifer
- * A menu element for String input (i.e. file names, etc.)
- */
-public class StringMenuElement extends MenuElement{
-	private TextField field;
+public class KeyMenuElement extends MenuElement{
 	private Node view;
 	private String title;
-	public StringMenuElement(String title, Component component){
+	private TextField field;
+	public KeyMenuElement(String title, Component component){
 		setMyComponent(component);
 		field = new TextField();
+		field.setEditable(false);
 		field.setText(component.getValue().toString());
+		field.setPrefHeight(10);
+		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
-		field.focusedProperty().addListener(e -> {
-					if (!field.focusedProperty().getValue()) {
-						updateComponent(KeyCode.ENTER, field.getText(), false);
-					}
-		});
 		view = ButtonFactory.makeHBox(title, null, field);
 	}
 
-	/**
-	 *
-	 * @return the HBox with the textfield inside
-	 */
 	@Override
 	public Node getView() {
 		return view;
 	}
 
-	/**
-	 *
-	 * @return  the value of the textfield
-	 */
 	@Override
-	public String getValue(){
+	public String getValue() {
 		return field.getText();
 	}
 
@@ -52,10 +38,6 @@ public class StringMenuElement extends MenuElement{
 		field.setText(o.toString());
 	}
 
-	/**
-	 *
-	 * @return the title of the element
-	 */
 	@Override
 	public String getTitle() {
 		return title;
@@ -63,16 +45,14 @@ public class StringMenuElement extends MenuElement{
 
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
-		if (code.equals(KeyCode.ENTER)) {
-			myComponent.setValue(text);
-			if (alert) myMenu.alert();
-			System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
-		}
+		field.setText(code.toString());
+		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
+		myComponent.setValue(code.toString());
 	}
-	
 
 	@Override
 	public void setComponentValue() {
 		myComponent.setValue(field.getText());
 	}
+
 }

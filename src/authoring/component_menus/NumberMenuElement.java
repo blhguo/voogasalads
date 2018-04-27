@@ -16,19 +16,18 @@ public class NumberMenuElement extends MenuElement{
 	private String title;
 	public NumberMenuElement(String title, Component component){
 		setMyComponent(component);
-		myComponent.setMyMenuElement(this);
 		field = new TextField();
 		if (!(component.getValue() instanceof Double)) {
 			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
-//			if (component.getValue() instanceof Integer){
-//				component.setValue(((Integer) component.getValue()).doubleValue());
-//			}
+			if (component.getValue() instanceof Integer){
+				component.setValue(((Integer) component.getValue()).doubleValue());
+			}
 		}
 		field.setText(component.getValue().toString());
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		field.focusedProperty().addListener(e -> {
 			if (!field.focusedProperty().getValue()) {
-				updateComponent(KeyCode.ENTER, field.getText());
+				updateComponent(KeyCode.ENTER, field.getText(), false);
 			}
 		}
 		);
@@ -54,6 +53,11 @@ public class NumberMenuElement extends MenuElement{
 		return field.getText();
 	}
 
+	@Override
+	public void setValue(Object o) {
+		field.setText(o.toString());
+	}
+
 	/**
 	 *
 	 * @return the title of the input field
@@ -64,11 +68,12 @@ public class NumberMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
 			try {
 				myComponent.setValue(Double.parseDouble(text));
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
+				if (alert) myMenu.alert();
 			} catch (NumberFormatException e) {
 				field.setText("Sorry, that's not a(n) " + title);
 				field.selectAll();
@@ -76,12 +81,6 @@ public class NumberMenuElement extends MenuElement{
 		}
 	}
 
-	@Override
-	public void alert(Object o) {
-		field.setText(Double.toString((Double) o));
-		myWrapper.updateImage();
-		myWrapper.updateSprite();
-	}
 
 	@Override
 	public void setComponentValue() {
