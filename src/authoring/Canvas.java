@@ -46,8 +46,8 @@ private Pane myInfinitePane;
 		myNode = initializeScrollingPane();
 	}
 	
-	public void setDefaultBackground(Pane pane){
-		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+	public void setDefaultBackground(){
+		myInfinitePane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	/**
@@ -103,7 +103,7 @@ private Pane myInfinitePane;
 		myInfinitePane = new Pane();
 		myInfinitePane.setPrefSize(4000,4000);
 		myInfinitePane.setMaxSize(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
-		setDefaultBackground(myInfinitePane);
+		setDefaultBackground();
 		return myInfinitePane;
 	}
 	
