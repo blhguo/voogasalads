@@ -11,6 +11,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -21,7 +22,7 @@ import java.io.File;
 public class FileMenuElement extends MenuElement{
 	private final String title;
 	private ImageView image;
-	private HBox view;
+	private VBox view;
 	private FileChooser fileChooser;
 	private TextField field;
 	public FileMenuElement(String s, Component component) {
@@ -36,7 +37,8 @@ public class FileMenuElement extends MenuElement{
 		fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
-		view = ButtonFactory.makeReverseHBox(title, null, field);
+		view = new VBox();
+		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field));
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());

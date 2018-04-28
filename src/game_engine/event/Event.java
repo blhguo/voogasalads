@@ -1,13 +1,14 @@
 package game_engine.event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
 	private List<Action> myActions;
 	private List<Condition> myConditions;
-	public Event(List<Action> actions, List<Condition> conditions){
-		myActions = actions;
-		myConditions = conditions;
+	public Event(){
+		myActions = new ArrayList<>();
+		myConditions = new ArrayList<>();
 	}
 	
 	public void occur() {
@@ -20,5 +21,18 @@ public class Event {
 		for (Action action : myActions) {
 			action.execute();
 		}
+	}
+
+	public void addCondition(Condition condition){
+		myConditions.add(condition);
+	}
+	public void removeCondition(Condition condition){
+		myConditions.remove(condition);
+	}
+	public void addAction(Action action){
+		myActions.add(action);
+	}
+	public void removeAction(Action action){
+		myActions.remove(action);
 	}
 }

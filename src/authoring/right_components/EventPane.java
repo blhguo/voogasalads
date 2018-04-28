@@ -6,11 +6,23 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import authoring.AddActionPane;
+import authoring.component_menus.KeyMenuElement;
+import authoring.component_menus.MenuElement;
+import authoring.component_menus.StringMenuElement;
 import authoring.controllers.EntityController;
+import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
+import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
+import game_engine.Component;
+import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.components.NullComponent;
+import game_engine.event.Action;
+import game_engine.event.Condition;
+import game_engine.event.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -50,12 +62,21 @@ public class EventPane extends BasePane {
 	private HBox entityBox;
 	private int numEntities;
 	private Entity[] entityArray;
+	private List<Event> eventList;
+	private Event currentEvent;
+	private ComboBox<String> componentBox;
+	private List<MenuElement> menuElements;
+	private LevelController levelController;
+	private ArrayList<Class<Component<?>>>  compList;
 
 	public EventPane(EntityController e){
 		this();
 		myController = e;
 	}
 	public EventPane(){
+		menuElements = new ArrayList<>();
+		componentBox = new ComboBox<>();
+		eventList = new ArrayList<>();
 		numEntities = 0;
 		components = ResourceBundle.getBundle("Component");
 		bundle = ResourceBundle.getBundle("resources.keys/Conditions");
@@ -74,10 +95,21 @@ public class EventPane extends BasePane {
 		initStart();
 		initNewEvent();
 		initAddCondition();
-//		initAddAction();
+		initAddAction();
 		initViewEvents();
 		
 	}
+
+	private void initAddAction() {
+		AddActionPane pane = new AddActionPane();
+		addAction = pane.getView();
+		Button back = ButtonFactory.makeButton(e -> {
+			clearAndAdd(newEvent);
+		});
+		pane.add(ButtonFactory.makeHBox("Back", null, back));
+
+	}
+
 	private void initViewEvents() {
 		viewEvents = new Pane();
 		VBox events = new VBox();
@@ -96,7 +128,7 @@ public class EventPane extends BasePane {
 		VBox conditionBox = new VBox();
 		Label addComp = new Label("New Condition");
 		conditionBox.getChildren().add(addComp);
-		ComboBox<String> box = getComboBox(bundle.keySet().stream().filter(e -> !e.contains("Strings")).collect(Collectors.toList()));
+		ComboBox<String> box = ComboBoxBuilder.getComboBox(bundle.keySet().stream().filter(e -> !e.contains("Strings")).collect(Collectors.toList()));
 		box.valueProperty().addListener((observable, oldValue, newValue) -> {
 			updateComboBoxView(newValue);
 		});
@@ -107,6 +139,7 @@ public class EventPane extends BasePane {
 	}
 
 	private void updateComboBoxView(String newValue) {
+		compList = new ArrayList<>();
 		comboBoxView.getChildren().clear();
 		entityBox.getChildren().clear();
 
@@ -127,18 +160,77 @@ public class EventPane extends BasePane {
 		}
 		comboBoxView.getChildren().add(entityBox);
 		for (int i = 0; i < Integer.parseInt(array[1]); i++){
-			comboBoxView.getChildren().add(new Label("Component class" + (i + 1)));
-			comboBoxView.getChildren().add(getComboBox(components.keySet().stream().
-					collect(Collectors.toList())));
+			comboBoxView.getChildren().add(new Label("Choose component to assign this condition to: " + (i + 1)));
+			componentBox = ComboBoxBuilder.getComboBox(components.keySet().stream().collect(Collectors.toList()));
+			componentBox.valueProperty().addListener(((observable, oldValue, newValue1) -> {
+				tryAdd(newValue1);
+			}));
+			comboBoxView.getChildren().add(componentBox);
 		}
 		for (int i = 0; i < Integer.parseInt(array[2]); i++){
 			comboBoxView.getChildren().add(new Label(bundle.getString(newValue + "Strings").split(",")[i]));
-			comboBoxView.getChildren().add(new TextField());
+			if(newValue.equals("KeyboardInput")){
+				KeyMenuElement element = new KeyMenuElement("Key", new NullComponent(0.0));
+				menuElements.add(element);
+				comboBoxView.getChildren().add(element.getView());
+			}
+			else {
+				MenuElement element = new StringMenuElement(newValue,
+						new NullComponent(0.0));
+				menuElements.add(element);
+				comboBoxView.getChildren().add((element).getView());
+			}
 		}
 		Button reset = ButtonFactory.makeButton(e -> updateComboBoxView(newValue));	
 		reset.setText("Reset");
+		reset.setAlignment(Pos.CENTER);
 		comboBoxView.getChildren().add(reset);
+		Button addComponent = ButtonFactory.makeButton(e -> currentEvent.addCondition(newCondition(
+				newValue, Arrays.asList(entityArray),
+				compList,
+				menuElements.stream().map(c -> c.getValue()).distinct().collect(Collectors.toList()),
+				levelController.getEngine()
+		)));
+		HBox addCompBox = ButtonFactory.makeHBox("Add this component to the current Event",
+				null,
+				addComponent);
+		comboBoxView.getChildren().add(addCompBox);
 	}
+	private void tryAdd(String s){
+		if (s != null) {
+			try {
+				compList.add((Class<Component<?>>) Class.forName(components.getString(s)));
+			} catch (Exception e) {
+				System.out.println("Sorry b I didn't find that");
+				try {
+					System.out.println("Heres the string I tried" + s);
+				} catch (NullPointerException a) {
+
+				}
+			} 
+		}
+	}
+
+	private Condition newCondition(String s, List<Entity> entities, List<Class<Component<?>>> components,
+	                              List<String> args, Engine engine ) {
+		System.out.println("String: " + s);
+		System.out.println("Entities " + entities);
+		entities.stream().forEach(e -> System.out.println(e));
+		System.out.println("Component Classes " + components);
+		components.stream().forEach(b -> System.out.println(b));
+		System.out.println("Args" + args);
+		args.stream().forEach(c -> System.out.println(c));
+		System.out.println("Engine");
+		System.out.println(engine);
+		//return ConditionFactory.newInstance(s, entities, components, args, engine);
+		return new Condition() {
+			@Override
+			public boolean evaluate() {
+				return false;
+			}
+		};
+	}
+
 	public void addToEntityBox(EntityWrapper wrapper){
 		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
 		for (int i = 0; i < numEntities; i++){
@@ -154,11 +246,7 @@ public class EventPane extends BasePane {
 		}
 	}
 
-	private ComboBox<String> getComboBox(List<String> list) {
-		ComboBox<String> box = new ComboBox<>();
-		box.setItems(FXCollections.observableArrayList(list));
-		return box;
-	}
+
 
 	private void clearAndAdd(Node n){
 		subBox.getChildren().clear();
@@ -184,6 +272,7 @@ public class EventPane extends BasePane {
 		
 	}
 	private void initNewEvent() {
+		currentEvent = new Event();
 		newEvent = new Pane();
 		VBox eventBox = new VBox();
 		eventBox.setSpacing(20);
@@ -236,5 +325,9 @@ public class EventPane extends BasePane {
 		tp.setContent(new ListView<String>());
 		tp.getStyleClass().add("titled-pane > .title");
 		return tp;
+	}
+
+	public void setLevelController(LevelController levelController) {
+		this.levelController = levelController;
 	}
 }

@@ -14,5 +14,6 @@ public abstract class Component<T> {
 	public T getValue() {
 		return myValue;
 	}
+}
 
 

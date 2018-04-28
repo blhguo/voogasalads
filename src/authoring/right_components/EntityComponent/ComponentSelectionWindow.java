@@ -88,10 +88,11 @@ public class ComponentSelectionWindow {
 			if (!activeMenus.contains(menu)) {
 				activeMenus.add(menu);
 				//ret.setStyle(style + "-fx-background-color: lightblue");
+				ret.setStyle("-fx-effect: dropshadow(gaussian, #338099, 10, 0.5, 0, 0)");
 			}
 			else {
 				activeMenus.remove(menu);
-				//ret.setStyle("");
+				ret.setStyle("");
 			}
 			//ret.setStyle("-fx-background-color: lightblue");
 		});
