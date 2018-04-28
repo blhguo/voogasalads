@@ -31,7 +31,7 @@ public class Engine {
 		myIdCounter = 0;
 		myInputs = new LinkedList<>();
 		mySystems = new SystemInitializer().init(this);
-
+		System.out.println(mySystems.size());
 	}
 
 	public void update(double elapsedTime) {
@@ -59,11 +59,11 @@ public class Engine {
 	public Level getLevel() {
 		return myLevels.get(myCurrentLevel);
 	}
-	
+
 	public Level getLevel(int levelId) {
 		return myLevels.get(levelId);
 	}
-	
+
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
@@ -82,11 +82,10 @@ public class Engine {
 		return preview;
 	}
 
-
 	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
 		return myInputs.stream()
-				.filter(inputEvent -> inputEvent.getEventType() == KEY_PRESSED_EVENT
-						|| inputEvent.getEventType() == KEY_RELEASED_EVENT)
+				.filter(inputEvent -> (inputEvent.getEventType() == KEY_PRESSED_EVENT
+						|| inputEvent.getEventType() == KEY_RELEASED_EVENT))
 				.map(inputEvent -> (KeyEvent) inputEvent).filter(keyEvent -> keyInput.equals(keyEvent.getCode()))
 				.collect(Collectors.toList());
 	}

@@ -1,24 +1,21 @@
-package game_engine;
+package game_engine.test;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import gameData.ManipData;
+import game_engine.Engine;
+import game_engine.Entity;
 import game_engine.components.PrimeComponent;
 import game_engine.components.collect.CollectibleComponent;
 import game_engine.components.collect.CollectorComponent;
 import game_engine.components.collect.ScoreComponent;
 import game_engine.components.collision.CollidableComponent;
-import game_engine.components.collision.CollidedComponent;
-import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
-import game_engine.components.enemy.DefaultHorizontalPaceTimeComponent;
-import game_engine.components.enemy.HorizontalPaceTimeComponent;
 import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
@@ -37,7 +34,6 @@ import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.event.Event;
 import game_engine.event.actions.micro.DataChangeAction;
-import game_engine.event.conditions.EntityCollisionCondition;
 import game_engine.event.conditions.MouseInputCondition;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
@@ -105,7 +101,7 @@ public class MouseClickTest extends Application{
 		buildEngine();
 		initRects();
 		addMouseClickEvents();
-		
+
 		ManipData data = new ManipData();
 		Map<String, String> map = new HashMap<>();
 		map.put("dog", "cat");
@@ -131,7 +127,7 @@ public class MouseClickTest extends Application{
 
 	private void buildMainCharacterEntity(){
 		mainCharacter = new Entity();
-		
+
 		//components needed for each of the 4 keyboard movement systems
 		mainCharacter.addComponent(new DefaultXVelComponent("200"));
 		mainCharacter.addComponent(new DefaultYVelComponent("200"));
@@ -165,7 +161,7 @@ public class MouseClickTest extends Application{
 
 	private void buildCoinEntity(){
 		coin = new Entity();
-		
+
 		//component needed for collectible system
 		coin.addComponent(new CollectibleComponent("50"));
 
@@ -206,16 +202,16 @@ public class MouseClickTest extends Application{
 		mainCharacter.addComponent(new HeightComponent("50"));
 		mainCharacter.addComponent(new WidthComponent("50"));
 		mainCharacter.addComponent(new ZHeightComponent("2"));
-		
+
 		// component needed for sprite component
 		coin.addComponent(new FilenameComponent("turtle.GIF"));
 		coin.addComponent(new HeightComponent("50"));
 		coin.addComponent(new WidthComponent("50"));
 		coin.addComponent(new ZHeightComponent("1"));
-		
+
 		ImageView mainView = new ImageView(mainCharacter.getComponent(FilenameComponent.class).getValue());
 		ImageView coinView = new ImageView(coin.getComponent(FilenameComponent.class).getValue());
-		
+
 		Entity referencePoint = new Entity();
 		referencePoint.addComponent(new FilenameComponent("clouds.png"));
 		referencePoint.addComponent(new XPosComponent("500"));
@@ -223,10 +219,10 @@ public class MouseClickTest extends Application{
 		referencePoint.addComponent(new HeightComponent("500"));
 		referencePoint.addComponent(new WidthComponent("500"));
 		referencePoint.addComponent(new ZHeightComponent("0"));
-		referencePoint.addComponent(new DefaultXVelComponent("2000"));
-		referencePoint.addComponent(new XVelComponent("2000"));
-		referencePoint.addComponent(new DefaultHorizontalPaceTimeComponent("1"));
-		referencePoint.addComponent(new HorizontalPaceTimeComponent("0.5"));
+		//		referencePoint.addComponent(new DefaultXVelComponent("2000"));
+		//		referencePoint.addComponent(new XVelComponent("2000"));
+		//		referencePoint.addComponent(new DefaultHorizontalPaceTimeComponent("1"));
+		//		referencePoint.addComponent(new HorizontalPaceTimeComponent("0.5"));
 		engine.getLevel().addEntity(referencePoint);
 		ImageView referenceView = new ImageView(referencePoint.getComponent(FilenameComponent.class).getValue());
 
@@ -237,13 +233,13 @@ public class MouseClickTest extends Application{
 		root.getChildren().add(mainView);
 		root.getChildren().add(coinView);
 	}
-	
+
 	private void addMouseClickEvents() {
-	   	//Testing Mouse event on main character (Mario) - changes speed
+		//Testing Mouse event on main character (Mario) - changes speed
 		MouseInputCondition condition1 = new MouseInputCondition(engine, mainCharacter);
 		DataChangeAction action1 = new DataChangeAction(mainCharacter, DefaultXVelComponent.class, "+", 100);
-    	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
-    	engine.getLevel().addEvent(event1);
+		Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+		engine.getLevel().addEvent(event1);
 	}
 
 
@@ -254,6 +250,6 @@ public class MouseClickTest extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 
 }
