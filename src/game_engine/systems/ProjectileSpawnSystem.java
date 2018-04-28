@@ -69,7 +69,7 @@ public class ProjectileSpawnSystem extends GameSystem {
 				ENTITY_XPOS, ENTITY_YPOS, PROJ_HITBOX_X_OFFSET, PROJ_HITBOX_Y_OFFSET);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<KeyCode> keyInput = entity.getComponent(PROJ_INPUT);
-			for (InputEvent input : myEngine.getInput(keyInput)) {
+			for (InputEvent input : myEngine.getKeyInputs(keyInput.getValue())) {
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
 					Entity proj = createProjectile(entity);
 					level.addEntity(proj);

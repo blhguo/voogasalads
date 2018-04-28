@@ -18,7 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+/**
+ * 
+ * @author Brandon Dalla Rosa
+ *
+ */
 public class KeyPrefMenu {
 	private VBox keyPrefMenu;
 	private Button keyPrefButton;
@@ -76,8 +80,9 @@ public class KeyPrefMenu {
 		currentKey = code;
 		currentPrefButton.getStyleClass().add("button-keypref");
 
-		currentPrefButton.setText(""+dataManager.getKeyCode(currentPrefString));
 		dataManager.setKey(currentPrefString, code);
+		currentPrefButton.setText(""+dataManager.getKeyCode(currentPrefString));
+		setPref(new Button(),"");
 	}
 	
 	private void setPref(Button button,  String string) {
