@@ -36,7 +36,7 @@ public class FileMenuElement extends MenuElement{
 		fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = ButtonFactory.makeReverseHBox(title, null, field);
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());

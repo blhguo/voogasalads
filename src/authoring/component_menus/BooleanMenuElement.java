@@ -28,7 +28,7 @@ public class BooleanMenuElement extends MenuElement{
 			}
 		});
 		this.title = title;
-		view = ButtonFactory.makeHBox(title, null, box);
+		view = ButtonFactory.makeReverseHBox(title, null, box);
 	}
 
 	/**

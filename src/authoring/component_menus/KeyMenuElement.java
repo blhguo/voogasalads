@@ -20,7 +20,7 @@ public class KeyMenuElement extends MenuElement{
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = ButtonFactory.makeReverseHBox(title, null, field);
 	}
 
 	@Override

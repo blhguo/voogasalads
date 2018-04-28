@@ -26,7 +26,7 @@ public class StringMenuElement extends MenuElement{
 						updateComponent(KeyCode.ENTER, field.getText(), false);
 					}
 		});
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = ButtonFactory.makeReverseHBox(title, null, field);
 	}
 
 	/**

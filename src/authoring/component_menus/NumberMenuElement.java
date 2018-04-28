@@ -32,7 +32,7 @@ public class NumberMenuElement extends MenuElement{
 		}
 		);
 		this.title = title;
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = ButtonFactory.makeReverseHBox(title, null, field);
 	}
 
 	/**
