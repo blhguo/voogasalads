@@ -49,6 +49,8 @@ public class PlayerView {
 	private SubScene subScene;
 	private ParallelCamera cam;
 	private DataManager dataManager;
+	private boolean notSet;
+
 	private Entity primary;
 
 	/**
@@ -61,6 +63,7 @@ public class PlayerView {
 		pullDownFactory = pdf;
 		viewManager = view;
 		dataManager = dtm;
+		notSet = true;
 	}
 
 	public void setEngine(Engine e) {
@@ -78,9 +81,9 @@ public class PlayerView {
 		scene.setOnKeyPressed(e -> {
 			myEngine.receiveInput(e);
 		});
-		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		subScene.setOnKeyPressed(myEngine::receiveInput);
+		subScene.setOnKeyReleased(myEngine::receiveInput);
+		subScene.setOnMouseClicked(myEngine::receiveInput);
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
@@ -119,16 +122,17 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
+		//animation.stop();
 		myEngine.update(delay);
 		render();
-		handleUI();
+		//handleUI();
 	}
 
 	private void render() {
 		root.getChildren().clear();
 		
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		dataManager.setGamePlayer(primary);
+		setGamePlayerOnce();
 		Double xPos = primary.getComponent(XPosComponent.class).getValue();
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
@@ -139,6 +143,13 @@ public class PlayerView {
 	private int compareZ(Entity a, Entity b) {
 		return a.getComponent(ZHeightComponent.class).getValue()
 				.compareTo(b.getComponent(ZHeightComponent.class).getValue());
+	}
+	
+	private void setGamePlayerOnce() {
+		if(notSet) {
+			notSet = false;
+			dataManager.setGamePlayer(primary);
+		}
 	}
 
 	private ImageView getImageView(Entity entity) {
@@ -166,6 +177,7 @@ public class PlayerView {
 		}
 		root.getChildren().add(imageView);
 	}
+
 
 	private boolean isInView(Entity entity, double centerX, double centerY) {
 		double xPos = entity.getComponent(XPosComponent.class).getValue();
