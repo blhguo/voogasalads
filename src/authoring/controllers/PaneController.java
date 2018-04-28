@@ -5,6 +5,7 @@ import java.io.File;
 import authoring.Canvas;
 import authoring.right_components.LevelPane;
 import javafx.scene.image.Image;
+import resources.keys.AuthRes;
 
 /**
  * @author jennychin
@@ -26,7 +27,7 @@ public class PaneController {
 	 * @param image Sets the background to a specified image
 	 */
 	public void setBackground(String fname){
-		if (fname.equals("default")){
+		if (fname.equals(AuthRes.getString("BackgroundDefault"))){
 			canvas.setDefaultBackground();
 		}
 		else{

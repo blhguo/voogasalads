@@ -91,7 +91,6 @@ public class StoryBoardPane extends BasePane {
 		TitledPane tp = new TitledPane();
 		tp.setExpanded(false);
 		tp.setText("View Current Levels");
-		tp.getStyleClass().add("titled-pane > .title");
 		
 		VBox levels = new VBox(AuthRes.getInt("Padding"));
 		List<Class<? extends Component<?>>> backAndNames = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class);
@@ -108,7 +107,7 @@ public class StoryBoardPane extends BasePane {
 			}
 			List<Component> l = ent.getValue();
 			String backPath = (String) l.get(0).getValue();
-			if (backPath.equals("default")){
+			if (backPath.equals(AuthRes.getString("BackgroundDefault"))){
 				backPath = "mountain.png"; // hardcoded default
 			}
 			String name = (String) l.get(1).getValue();

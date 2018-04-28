@@ -11,6 +11,7 @@ import game_engine.Engine;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
+import resources.keys.AuthRes;
 
 /**
  * @author Jennifer Chin
@@ -34,8 +35,7 @@ public class LevelController {
 		// add defaults to level
 		int levelNum = newLevel.getId() + 1;
 		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(levelNum)));
-		// not actually an image - default is just a string holder 
-		newLevel.addComponent(new LevelBackgroundComponent("default"));
+		newLevel.addComponent(new LevelBackgroundComponent(AuthRes.getString("BackgroundDefault")));
 		engine.setLevel(newLevel.getId());
 	}
 	
