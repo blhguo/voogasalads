@@ -24,6 +24,7 @@ public class Engine {
 		myIdCounter = 0;
 		myInputs = new LinkedList<KeyEvent>();
 		mySystems = new SystemInitializer().init(this);
+		System.out.println(mySystems.size());
 	}
 
 	public void update(double elapsedTime) {
@@ -78,5 +79,4 @@ public class Engine {
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
 	}
-
 }
