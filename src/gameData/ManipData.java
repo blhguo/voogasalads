@@ -84,6 +84,22 @@ public class ManipData {
 	 * parts of the method are a little repetitive, could refactor a second time later
 	 * This method saves a "clean" game, not a game state. the other method signature represents the "game version", like a save file or a checkpoint to be reloaded
 	 */
+	
+	private void saveEngine(Engine engine, FileOutputStream fos) {
+		System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
+		try {
+			xml = serializer.toXML(engine);
+			fos.write("<data>".getBytes("UTF-8"));
+			fos.write(xml.getBytes("UTF-8"));
+			fos.write("</data>".getBytes("UTF-8"));
+		}
+		catch (Exception e) {
+			System.out.println("u dun goofed"); //TODO
+		}
+
+	}
+	
+
 	public void saveData(Engine engine, String gameName, Map<String, String> metaMap) {
 		File file = new File("games/"+gameName);
 		if(!file.exists()) {
@@ -93,11 +109,20 @@ public class ManipData {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (file.exists()) {
+			try {
+				//file.createNewFile();
 				FileOutputStream writer = new FileOutputStream(file);
 				String saveData = serializer.toXML(engine);
 				writer.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
 				writer.write(("<higher>").getBytes("UTF-8"));
-				saveSingleEntry(saveData, "", 0, false, writer);
+				saveEngine(engine, writer);
+				//saveSingleEntry(saveData, "", 0, false, writer);
 				writer.write(("</higher>").getBytes("UTF-8"));
 
 			} catch (IOException e) {
@@ -125,8 +150,8 @@ public class ManipData {
 
 	public Engine loadData(String filePath, String gameName) {
 		try {
-			//File load = new File(filePath);
-			openFile(file);
+			File load = new File(filePath);
+			openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //TODO
@@ -135,7 +160,7 @@ public class ManipData {
 	}
 
 	private void openFile(File file) throws ParserConfigurationException{
-		// System.out.println(file);
+		System.out.println(file);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
@@ -154,16 +179,17 @@ public class ManipData {
 				NodeList nList = doc.getElementsByTagName("higher");
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;			
-				String s = nodeToString(eElement.getElementsByTagName("data"+Integer.toString(0)).item(0).getFirstChild());
-				System.out.println(s);
-				Engine lilGuy = (Engine) deserializer.fromXML(s);
-				System.out.println(lilGuy);
-				output = lilGuy;
+					String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());
+					System.out.println(s);
+					Engine lilGuy = (Engine) deserializer.fromXML(s);
+					System.out.println(lilGuy);
+					output = lilGuy;
+
 
 				System.out.println(output);
 
 			} catch (SAXException e) {
-				// System.out.println("here1");
+				System.out.println("here1");
 				return; //TODO
 			}
 		} catch (IOException e) {
@@ -181,7 +207,7 @@ public class ManipData {
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 			t.transform(new DOMSource(node), new StreamResult(sw));
 		} catch (TransformerException te) {
-			// System.out.println("exception");
+			System.out.println("exception");
 		}
 		return sw.toString();
 	}
@@ -272,45 +298,45 @@ public class ManipData {
 	}
 
 	//temporary function before metadata gets added completely
-	public void saveData(Engine engine, String saveFileName) {
-		try {
-			File file = new File("savedata/" + saveFileName + ".xml");
-			if (!file.exists()) {
-				try {
-					file.createNewFile();
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			fos = new FileOutputStream(file);
-			try {
-				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
-				fos.write(("<higher>").getBytes("UTF-8"));
-				//saveEngine(engine);
-				fos.write("</higher>".getBytes("UTF-8"));
-
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			//saveMeta(metaMap, gameName);
-			//if(fos != null){
-			try{
-				fos.close();
-				//    fos1.close();
-			}catch (IOException e) {
-				e.printStackTrace(); //TODO
-			}
-		}
-	}
+//	public void saveData(Engine engine, String saveFileName) {
+//		try {
+//			File file = new File("savedata/" + saveFileName + ".xml");
+//			if (!file.exists()) {
+//				try {
+//					file.createNewFile();
+//				}
+//				catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			fos = new FileOutputStream(file);
+//			try {
+//				fos.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
+//				fos.write(("<higher>").getBytes("UTF-8"));
+//				//saveEngine(engine);
+//				fos.write("</higher>".getBytes("UTF-8"));
+//
+//			} catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally{
+//			//saveMeta(metaMap, gameName);
+//			//if(fos != null){
+//			try{
+//				fos.close();
+//				//    fos1.close();
+//			}catch (IOException e) {
+//				e.printStackTrace(); //TODO
+//			}
+//		}
+//	}
 
 	private ArrayList<Level> loadLevels(){
 		return levellist;

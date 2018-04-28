@@ -15,6 +15,7 @@ import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
+import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -132,8 +133,12 @@ public class PlayerView {
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 		
-		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).forEach(this::display);
-		System.out.println();
+		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ).forEach(this::display);
+	}
+
+	private int compareZ(Entity a, Entity b) {
+		return a.getComponent(ZHeightComponent.class).getValue()
+				.compareTo(b.getComponent(ZHeightComponent.class).getValue());
 	}
 
 	private ImageView getImageView(Entity entity) {
@@ -167,24 +172,21 @@ public class PlayerView {
 		double yPos = entity.getComponent(YPosComponent.class).getValue();
 		double height = entity.getComponent(HeightComponent.class).getValue();
 		double width = entity.getComponent(WidthComponent.class).getValue();
-		
+
 		double minX = xPos - width / 2;
 		double maxX = xPos + width / 2;
 		double minY = yPos - height / 2;
 		double maxY = yPos + height / 2;
-		
-		return checkCorner(minX, minY, centerX, centerY) || 
-				checkCorner(minX, maxY, centerX, centerY) || 
-				checkCorner(maxX, minY, centerX, centerY) ||
-				checkCorner(maxX, maxY, centerX, centerY);
+
+		return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
+				|| checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
 	}
-	
 
 	private boolean checkCorner(double entityX, double entityY, double centerX, double centerY) {
 		double sceneMinX = centerX - ViewManager.SUBSCENE_WIDTH / 2;
 		double sceneMaxX = centerX + ViewManager.SUBSCENE_WIDTH / 2;
 		double sceneMinY = centerY - ViewManager.SUBSCENE_HEIGHT / 2;
-		double sceneMaxY = centerY + ViewManager.SUBSCENE_HEIGHT / 2;	
+		double sceneMaxY = centerY + ViewManager.SUBSCENE_HEIGHT / 2;
 		return ((sceneMinX <= entityX && entityX <= sceneMaxX) && (sceneMinY <= entityY && entityY <= sceneMaxY));
 	}
 
