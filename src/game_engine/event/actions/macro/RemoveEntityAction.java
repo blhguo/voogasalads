@@ -19,6 +19,6 @@ public class RemoveEntityAction implements Action{
 	@Override
 	public void execute() {
 		myEngine.getLevel(myLevelId).removeEntity(myEntity);
-		myLevel.removeEntity(myEntity);
+		myEngine.getLevel(myLevelId).removeEntity(myEntity);
 	}
 }
