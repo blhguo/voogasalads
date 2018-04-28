@@ -77,4 +77,13 @@ public class Entity {
 		}
 		return false;
 	}
+	
+	public Entity copy() {
+		Entity e1 = new Entity();
+		List<Component<?>> toCopy = (List<Component<?>>) myComponents.values();
+		for(Component<?> c : toCopy) {
+			e1.addComponent(c.copy());
+		}
+		return e1;
+	}
 }
