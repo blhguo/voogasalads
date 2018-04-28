@@ -60,6 +60,10 @@ public class Engine {
 		return myLevels.get(myCurrentLevel);
 	}
 
+	public Level getLevel(int levelId) {
+		return myLevels.get(levelId);
+	}
+
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
@@ -92,7 +96,6 @@ public class Engine {
 	}
 
 	public void receiveInput(InputEvent event) {
-		System.out.println(event.getEventType());
 		myInputs.add(event);
 	}
 }
