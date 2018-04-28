@@ -4,12 +4,14 @@ import authoring.GUI_Heirarchy.GUINode;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import authoring.controllers.EntityController;
 
 import authoring.right_components.EntityComponent.EntityWrapper;
 import game_engine.Entity;
 import javafx.geometry.Insets;
+import javafx.scene.ParallelCamera;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,7 +49,7 @@ public class Canvas implements GUINode {
 	 * Constructor, no parameters
 	 */
 	public Canvas(){
-		
+		pane = new Pane();
 	}
 	
 	/**
@@ -56,12 +58,15 @@ public class Canvas implements GUINode {
 	 * @return Pane
 	 */
 	public Pane getView(){
-		pane = new Pane();
-		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		setDefaultBackground();
 		//cam = new GameCamera();
 		//subScene.setCamera(cam.initCamera());
 		return pane;
 
+	}
+	
+	public void setDefaultBackground(){
+		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	/**
@@ -72,13 +77,18 @@ public class Canvas implements GUINode {
 	 */
 	public void update(List<EntityWrapper> entityList){
 		pane.getChildren().clear();
-		entityList.stream().forEach(e -> System.out.println(e));
-		entityList.stream().forEach(e -> pane.getChildren().add(e.getImageView()));
+		System.out.println("-----Updating Canvas------");
+		entityList.stream().forEach(e -> System.out.println("Entity " + e));
+		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
+			if (!pane.getChildren().contains(view))
+				pane.getChildren().add(view);
+		}
+		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
 	
 	/**
-	 * Called by LevelController in order to set the background to a specified image
+	 * Called by PaneController in order to set the background to a specified image
 	 * @param im
 	 */
 	public void updateBackground(Image im){
@@ -93,5 +103,18 @@ public class Canvas implements GUINode {
 	 */
 	public void setController(EntityController controller) {
 		this.controller = controller;
+	}
+
+	public void listen() {
+		System.out.println("Listening");
+		pane.setOnMousePressed(e -> {
+			controller.alertEntityPane(e.getX(), e.getY());
+			System.out.println("Clicked -- Canvas line 100");
+		});
+	}
+
+	public void stopListen() {
+//		System.out.println("Stopped listening");
+//		pane.setOnMouseClicked(e -> {});
 	}
 }

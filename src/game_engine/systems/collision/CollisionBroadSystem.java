@@ -16,7 +16,6 @@ import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
-import game_engine.components.position.AngleComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.level.Level;
@@ -29,7 +28,6 @@ public class CollisionBroadSystem extends CollisionSystem {
 
 	private static final Class<? extends Component<?>> XPOS = XPosComponent.class;
 	private static final Class<? extends Component<?>> YPOS = YPosComponent.class;
-	//private static final Class<? extends Component<?>> ANGLE = AngleComponent.class;
 	private static final Class<? extends Component<?>> COLLIDABLE = CollidableComponent.class;
 	private static final Class<? extends Component<?>> HITBOX_WIDTH = HitboxWidthComponent.class;
 	private static final Class<? extends Component<?>> HITBOX_HEIGHT = HitboxHeightComponent.class;
@@ -41,7 +39,6 @@ public class CollisionBroadSystem extends CollisionSystem {
 				{
 					add(XPOS);
 					add(YPOS);
-					//add(ANGLE);
 					add(COLLIDABLE);
 					add(HITBOX_WIDTH);
 					add(HITBOX_HEIGHT);

@@ -58,7 +58,7 @@ public class KeyboardJumpSystem extends GameSystem {
 			Component<Double> yVelocity = entity.getComponent(Y_VEL);
 			Component<KeyCode> jumpInput = entity.getComponent(KEYBOARD_JUMP_INPUT);
 			Component<Double> numJumps = entity.getComponent(NUM_JUMPS);
-			for (InputEvent input : myEngine.getInput(jumpInput)) {
+			for (InputEvent input : myEngine.getKeyInputs(jumpInput.getValue())) {
 				if (!input.getEventType().getName().equals(KEY_PRESSED)) {
 					continue;
 				}
