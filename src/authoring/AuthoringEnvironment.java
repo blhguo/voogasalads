@@ -3,12 +3,13 @@ package authoring;
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
+import authoring.controllers.MetaController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
-import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EventPane;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
+import authoring.right_components.EntityComponent.EntityPane;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -73,6 +74,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController(pcontroller);
+		MetaController mcontroller = new MetaController(lcontroller);
 		
 		canvas.setController(controller);
 		entity.setController(controller);
@@ -80,8 +82,9 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
 		story.setLevelController(lcontroller);
+		story.setMetaController(mcontroller);
 		np.addListener(this);
-		np.addLevelController(lcontroller);
+		np.addMetaController(mcontroller);
 	}
 
 	/**
@@ -105,7 +108,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		Pane t = new Toolbar(stage, splash).getView();
 		t.setPickOnBounds(false);
 		bp.setPickOnBounds(false);
-		StackPane sp = new StackPane(t, bp);
+		StackPane sp = new StackPane(bp, t);
 		//StackPane sp = new StackPane(bp); // t);
 		sp.setPickOnBounds(false);
 

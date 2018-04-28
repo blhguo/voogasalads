@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.LevelController;
+import authoring.controllers.MetaController;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import game_player.PlayerMain;
@@ -35,7 +36,7 @@ public class NavigationPane implements Subject, GUINode {
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
-	private LevelController lcontroller;
+	private MetaController mcontroller;
 	private Pane pane;
 	private Stage stage;
 	
@@ -56,8 +57,8 @@ public class NavigationPane implements Subject, GUINode {
 	 * Method to add level controller so that the game can be saved from this pane
 	 * @param l
 	 */
-	public void addLevelController(LevelController l){
-		lcontroller = l;
+	public void addMetaController(MetaController mc){
+		mcontroller = mc;
 	}
 	
 	/**
@@ -101,7 +102,7 @@ public class NavigationPane implements Subject, GUINode {
 			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(prefIcons.get(i)))), 20);
 			Button b;
 			if (prefTitles.get(i).equals("save")){
-				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> lcontroller.saveGame(), "button-nav");
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> mcontroller.saveGame(), "button-nav");
 			}
 			else{
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> new PlayerMain().start(stage), "button-nav");
