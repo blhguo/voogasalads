@@ -127,7 +127,7 @@ public class PlayerView {
 		//animation.stop();
 		myEngine.update(delay);
 		render();
-		handleUI();
+		//handleUI();
 	}
 
 	private void render() {
