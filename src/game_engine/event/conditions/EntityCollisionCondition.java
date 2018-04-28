@@ -5,6 +5,10 @@ import java.util.List;
 import game_engine.Entity;
 import game_engine.components.collision.CollidedComponent;
 
+/**
+ * @author Jeremy Chen
+ * CollisionCondition that checks for the presence of a certain entity in list of collided entities of the "this" entity
+ */
 public class EntityCollisionCondition extends CollisionCondition{
 	Entity targetEntity;
 	
