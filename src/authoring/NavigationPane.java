@@ -108,7 +108,7 @@ public class NavigationPane implements Subject, GUINode {
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
 					mcontroller.saveGame();
 					// need to get filename from data?
-					String content = AuthRes.getString("SaveContent") + " filename";
+					String content = AuthRes.getString("SaveContent") + " " + mcontroller.getGameName() + ".xml";
 					Alert a = UserFeedback.getInfoMessage(AuthRes.getString("SaveHeader"), content, stage);
 					a.showAndWait();
 				}, "button-nav");
