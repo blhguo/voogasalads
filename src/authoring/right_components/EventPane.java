@@ -2,23 +2,23 @@ package authoring.right_components;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
-import com.sun.prism.paint.Color;
 
 import authoring.controllers.EntityController;
 import frontend_utilities.ButtonFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import resources.keys.AuthRes;
 
@@ -40,22 +40,27 @@ public class EventPane extends BasePane {
 	private Pane viewEvents;
 	private VBox box;
 	private VBox subBox;
-	
+	private ResourceBundle bundle;
+	private VBox comboBoxView;
 	public EventPane(EntityController e){
+		this();
 		myController = e;
 	}
 	public EventPane(){
+		bundle = ResourceBundle.getBundle("resources.keys/Conditions");
 		box = new VBox();
 		box = buildBasicView(AuthRes.getString("EventTitle"));
 		box.setAlignment(Pos.TOP_CENTER);
 		subBox = new VBox();
 		subBox.setSpacing(20);
 		box.getChildren().add(subBox);
+		comboBoxView = new VBox();
 		initStart();
 		initNewEvent();
-		//initAddCondition();
+		initAddCondition();
 //		initAddAction();
 		initViewEvents();
+		
 	}
 	private void initViewEvents() {
 		viewEvents = new Pane();
@@ -66,13 +71,49 @@ public class EventPane extends BasePane {
 		Button button = ButtonFactory.makeButton(e ->{
 			initStart();
 		});
-		events.getChildren().add(button);
-		viewEvents.getChildren().add(events);*
+		HBox buttonBox = ButtonFactory.makeHBox("Back", null, button);
+		events.getChildren().add(buttonBox);
+		viewEvents.getChildren().add(events);
 	}
 	private void initAddCondition() {
-		// TODO Auto-generated method stub
-		
+		addCondition = new Pane();
+		VBox conditionBox = new VBox();
+		Label addComp = new Label("New Condition");
+		conditionBox.getChildren().add(addComp);
+		ComboBox<String> box = getComboBox();
+		box.valueProperty().addListener((observable, oldValue, newValue) -> {
+			updateComboBoxView(newValue);
+		});
+		comboBoxView.getChildren().add(new ImageView(new Image("default.jpg")));
+		conditionBox.getChildren().add(box);
+		conditionBox.getChildren().add(comboBoxView);
+		addCondition.getChildren().add(conditionBox);
 	}
+
+	private void updateComboBoxView(String newValue) {
+		comboBoxView.getChildren().clear();
+		System.out.println(newValue);
+		System.out.println(bundle.getString(newValue));
+		String[] array = bundle.getString(newValue).split(",");
+		for (int i = 0; i < Integer.parseInt(array[0]); i++){
+			comboBoxView.getChildren().add(new Rectangle(20, 20, Color.RED));
+		}
+		for (int i = 0; i < Integer.parseInt(array[1]); i++){
+			comboBoxView.getChildren().add(new Circle());
+		}
+		for (int i = 0; i < Integer.parseInt(array[2]); i++){
+			comboBoxView.getChildren().add(new TextField());
+		}
+	}
+
+	private ComboBox<String> getComboBox() {
+		ComboBox<String> box = new ComboBox<>();
+		box.setItems(FXCollections.observableArrayList(
+				bundle.keySet().stream().collect(Collectors.toList())
+		));
+		return box;
+	}
+
 	private void clearAndAdd(Node n){
 		subBox.getChildren().clear();
 		subBox.getChildren().add(n);
