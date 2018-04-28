@@ -8,23 +8,25 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Engine {
 	private Map<Integer, Level> myLevels;
 	private int myCurrentLevel;
 	private int myIdCounter;
 	private List<GameSystem> mySystems;
-	private LinkedList<KeyEvent> myInputs;
+	private LinkedList<InputEvent> myInputs;
 
 	public Engine() {
 		myLevels = new HashMap<Integer, Level>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
-		myInputs = new LinkedList<KeyEvent>();
+		myInputs = new LinkedList<>();
 		mySystems = new SystemInitializer().init(this);
-		
+
 	}
 
 	public void update(double elapsedTime) {
@@ -71,13 +73,16 @@ public class Engine {
 		return preview;
 	}
 
-	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+	public List<KeyEvent> getInput(KeyCode keyInput) {
+		return myInputs.stream().filter((KeyEvent)keyEvent -> keyInput.equals((KeyEvent)keyEvent.getCode()))
 				.collect(Collectors.toList());
+	}
+	
+	public List<MouseEvent> getInput(MouseEvent mouseInput){
+		return 
 	}
 
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
 	}
-
 }
