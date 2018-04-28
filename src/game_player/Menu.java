@@ -2,7 +2,7 @@ package game_player;
 
 import java.util.ArrayList;
 
-import authoring.GameChooserScreen;
+import authoring.loadingviews.PlayerLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -97,8 +97,7 @@ public class Menu {
 	public void showGameSelectionMenu() {
 		//TODO Make this choose game to play, not edit
 		gameSelectionStage = new Stage();
-		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
-		//gameSelectionStage.setScene(gc.display());
+		gameSelectionStage.getScene().setRoot(new PlayerLoader(gameSelectionStage).display());
 		gameSelectionStage.show();
 	}	
 
