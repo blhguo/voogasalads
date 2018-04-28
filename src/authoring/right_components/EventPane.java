@@ -22,6 +22,7 @@ import game_engine.Entity;
 import game_engine.components.NullComponent;
 import game_engine.event.Action;
 import game_engine.event.Condition;
+import game_engine.event.ConditionFactory;
 import game_engine.event.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -126,6 +127,7 @@ public class EventPane extends BasePane {
 	private void initAddCondition() {
 		addCondition = new Pane();
 		VBox conditionBox = new VBox();
+		conditionBox.setSpacing(20);
 		Label addComp = new Label("New Condition");
 		conditionBox.getChildren().add(addComp);
 		ComboBox<String> box = ComboBoxBuilder.getComboBox(bundle.keySet().stream().filter(e -> !e.contains("Strings")).collect(Collectors.toList()));
@@ -136,6 +138,10 @@ public class EventPane extends BasePane {
 		conditionBox.getChildren().add(box);
 		conditionBox.getChildren().add(comboBoxView);
 		addCondition.getChildren().add(conditionBox);
+		Button back = ButtonFactory.makeButton(e -> {
+			clearAndAdd(newEvent);
+		});
+		conditionBox.getChildren().add(ButtonFactory.makeHBox("Back", null, back));
 	}
 
 	private void updateComboBoxView(String newValue) {
@@ -185,12 +191,13 @@ public class EventPane extends BasePane {
 		reset.setText("Reset");
 		reset.setAlignment(Pos.CENTER);
 		comboBoxView.getChildren().add(reset);
-		Button addComponent = ButtonFactory.makeButton(e -> currentEvent.addCondition(newCondition(
+		Button addComponent = ButtonFactory.makeButton(e -> {currentEvent.addCondition(newCondition(
 				newValue, Arrays.asList(entityArray),
 				compList,
 				menuElements.stream().map(c -> c.getValue()).distinct().collect(Collectors.toList()),
-				levelController.getEngine()
-		)));
+				levelController.getEngine()));
+				currentEvent.getConditions().stream().forEach(a -> System.out.println(a));
+			});
 		HBox addCompBox = ButtonFactory.makeHBox("Add this component to the current Event",
 				null,
 				addComponent);
@@ -222,13 +229,7 @@ public class EventPane extends BasePane {
 		args.stream().forEach(c -> System.out.println(c));
 		System.out.println("Engine");
 		System.out.println(engine);
-		//return ConditionFactory.newInstance(s, entities, components, args, engine);
-		return new Condition() {
-			@Override
-			public boolean evaluate() {
-				return false;
-			}
-		};
+		return ConditionFactory.createCondition(s, entities, components, args, engine);
 	}
 
 	public void addToEntityBox(EntityWrapper wrapper){
