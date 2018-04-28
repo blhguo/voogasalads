@@ -28,7 +28,7 @@ import resources.keys.AuthRes;
  * @author Liam Pulsifer
  * @author Jennifer Chin
  * @author Elizabeth Shulman
- * 
+ *
  * Main authoring environment class. Initializes all parts of the AuthoringEnvironment
  * and allows for communication between the different parts.
  */
@@ -36,9 +36,9 @@ import resources.keys.AuthRes;
 public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private Stage stage;
-	
+
 	private NavigationPane np;
-	
+
 	private BasePane base;
 	private EntityPane entity;
 	private EventPane event;
@@ -46,8 +46,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private StoryBoardPane story;
 	private BorderPane bp;
 	private Canvas canvas;
-	private SplashScreen splash;	
-	
+	private SplashScreen splash;
+
 	/**
 	 * Constructor for the Authoring Environment. Takes in a stage and a splash screen
 	 * in order to change the root of the scene of the stage as the view changes.
@@ -57,41 +57,42 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	 * @param stage
 	 * @param ss
 	 */
-	
+
 	public AuthoringEnvironment(Stage stage, SplashScreen ss){
 		this.stage = stage;
 		splash = ss;
 		base = new BasePane();
 		entity = new EntityPane();
 		event = new EventPane();
-		level = new LevelPane();
+		level = new LevelPane(stage);
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
-		
+
 		canvas = new Canvas();
-		
+
 		EntityController controller = new EntityController(entity, canvas);
 		PaneController pcontroller = new PaneController(level, canvas);
-		LevelController lcontroller = new LevelController();
+		LevelController lcontroller = new LevelController(pcontroller);
 		
 		canvas.setController(controller);
 		entity.setController(controller);
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
+		story.setLevelController(lcontroller);
 		np.addListener(this);
 		np.addLevelController(lcontroller);
 	}
-	
+
 	/**
 	 * Abstract method inherited from the GUIBuilder super class. Returns a Pane that
 	 * becomes the root of the scene. 
 	 * @return Pane
 	 */
-	
+
 	@Override
 	public Pane display() {
-		
+
 		//Build BorderPane by setting right, center, and left
 		bp = new BorderPane();
 		update(""); //calls default setting for right pane
@@ -103,14 +104,20 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		//Build StackPane to overlay ToolBar on top
 		Pane t = new Toolbar(stage, splash).getView();
 		t.setPickOnBounds(false);
-		StackPane sp = new StackPane(bp, t);
+		bp.setPickOnBounds(false);
+		StackPane sp = new StackPane(t, bp);
+		//StackPane sp = new StackPane(bp); // t);
+		sp.setPickOnBounds(false);
 
-		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
+		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT,
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
+		//Build scene from StackPane
+		//Scene scene = initScene(sp);
+		//scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 
 		return sp;
-		
+
 	}
 
 	/**
@@ -122,20 +129,20 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public void update(String state) { //more concise/less repetitive way to write this?
 		switch(state) {
 			case "Entity Creator":
-			        bp.setRight(entity.getView());
-			        break;
+				bp.setRight(entity.getView());
+				break;
 			case "Actions and Events":
-			        bp.setRight(event.getView());
-			        break;
+				bp.setRight(event.getView());
+				break;
 			case "Level Preferences": ;
-			        bp.setRight(level.getView());
-			        break;
+				bp.setRight(level.getView());
+				break;
 			case "Storyboard": ;
-			        bp.setRight(story.getView());
-			        break;
-			default: 
-					bp.setRight(base.getView());
-					break;
+				bp.setRight(story.getView());
+				break;
+			default:
+				bp.setRight(base.getView());
+				break;
 		}
 	}
 

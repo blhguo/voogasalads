@@ -5,25 +5,25 @@ import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * @author liampulsifer
  * A menu element for String input (i.e. file names, etc.)
  */
 public class StringMenuElement extends MenuElement{
-	TextField field;
+	private TextField field;
 	private Node view;
 	private String title;
 	public StringMenuElement(String title, Component component){
 		setMyComponent(component);
-		myComponent.setMyMenuElement(this);
 		field = new TextField();
-		field.setText((String) component.getValue());
+		field.setText(component.getValue().toString());
 		this.title = title;
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		field.focusedProperty().addListener(e -> {
 					if (!field.focusedProperty().getValue()) {
-						updateComponent(KeyCode.ENTER, field.getText());
+						updateComponent(KeyCode.ENTER, field.getText(), false);
 					}
 		});
 		view = ButtonFactory.makeHBox(title, null, field);
@@ -47,6 +47,11 @@ public class StringMenuElement extends MenuElement{
 		return field.getText();
 	}
 
+	@Override
+	public void setValue(Object o) {
+		field.setText(o.toString());
+	}
+
 	/**
 	 *
 	 * @return the title of the element
@@ -57,19 +62,14 @@ public class StringMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
 			myComponent.setValue(text);
+			if (alert) myMenu.alert();
 			System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 		}
 	}
-
-	@Override
-	public void alert(Object o ){
-		field.setText((String) o );
-		myWrapper.updateImage();
-		myWrapper.updateSprite();
-	}
+	
 
 	@Override
 	public void setComponentValue() {
