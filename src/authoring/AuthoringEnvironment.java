@@ -97,14 +97,12 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		bp.setCenter(canvas.getView());
 		BorderPane.setMargin(canvas.getView(), new Insets(AuthRes.getInt("Margin")));
 		
-		
 		//Build StackPane to integrate toolbar
 		StackPane sp = new Toolbar(stage).integrateToolbar(bp);
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		sp.setBackground(new Background(back));
-//		sp.getChildren().add(canvas.getView());
-
+//		sp.getChildren().add(canvas.getView());		
 		return sp;
 
 	}
