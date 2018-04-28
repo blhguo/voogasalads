@@ -102,18 +102,11 @@ public class LevelPane extends BasePane {
 	private void update(){
 		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
 		activeLevels.setValue(name);
-		// need to update options in combobox
 		ArrayList<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
 		activeLevels.setItems(FXCollections.observableArrayList(newLevels));
 		textName.setText(activeLevels.getValue().toString());
-		// need to change background to new image, sometimes no image (default)
 		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
-		if (background.equals("default")){
-			controller.resetBackground();
-		}
-		else{
-			controller.setBackground(background);
-		}
+		controller.setBackground(background);
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -196,20 +196,12 @@
     -fx-background-color: rgba(0, 0, 0, 0);
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
 .scroll-bar:horizontal, .scroll-bar:vertical {
     -fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.scroll-pane {
-	-fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.scroll-pane > .corner {
-	-fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.scroll-bar:horizontal, .scroll-bar:vertical {
-	-fx-background-color: rgba(0, 0, 0, 0);
 }
 
 .scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {

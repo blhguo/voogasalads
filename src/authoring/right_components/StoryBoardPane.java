@@ -9,15 +9,20 @@ import java.util.stream.Collectors;
 
 import authoring.controllers.LevelController;
 import authoring.controllers.MetaController;
+import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -33,6 +38,7 @@ public class StoryBoardPane extends BasePane {
 	
 	private LevelController lcontroller;
 	private MetaController mcontroller;
+	private PaneController pcontroller;
 	private Text activeLevel = new Text();
 
 	/**
@@ -62,7 +68,23 @@ public class StoryBoardPane extends BasePane {
 			}
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
+		
+		TextField author = new TextField(mcontroller.getMap().get(AuthRes.getString("author")));
+		makeText(AuthRes.getString("author"), author);
+		list.add(ButtonFactory.makeReverseHBox("Set Author: ", null, author));
+		
+		TextArea rules = new TextArea(mcontroller.getMap().get(AuthRes.getString("rules")));
+		makeText(AuthRes.getString("rules"), rules);
+		list.add(ButtonFactory.makeReverseHBox("Set Rules: ", null, rules));
 		return list;
+	}
+	
+	private void makeText(String key, TextInputControl text){
+		text.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER){
+				mcontroller.getMap().put(key, text.getText());
+			}
+		});
 	}
 	
 	private TitledPane LevelOrderer() {
@@ -93,13 +115,15 @@ public class StoryBoardPane extends BasePane {
 			Button b = ButtonFactory.makeLevelThumbnail(backPath, name, e -> {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
-				});
+				pcontroller.setBackground((String) l.get(0).getValue());
+			});
 			b.getStyleClass().add("button-story");
 			row.getChildren().add(b);
 			levels.getChildren().add(row);
 			levelCount++;
 		}
-		tp.setContent(levels);
+		ScrollPane sp = new ScrollPane(levels);
+		tp.setContent(sp);
 		return tp;
 	}
 	
@@ -109,6 +133,10 @@ public class StoryBoardPane extends BasePane {
 	
 	public void setMetaController(MetaController mc){
 		mcontroller = mc;
+	}
+	
+	public void setPaneController(PaneController pc){
+		pcontroller = pc;
 	}
 	
 }

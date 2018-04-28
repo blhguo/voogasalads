@@ -26,11 +26,13 @@ public class PaneController {
 	 * @param image Sets the background to a specified image
 	 */
 	public void setBackground(String fname){
-		Image im = new Image(fname);
-		canvas.updateBackground(im);
+		if (fname.equals("default")){
+			canvas.setDefaultBackground();
+		}
+		else{
+			Image im = new Image(fname);
+			canvas.updateBackground(im);
+		}
 	}
 	
-	public void resetBackground(){
-		canvas.setDefaultBackground();
-	}
 }
