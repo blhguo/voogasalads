@@ -1,9 +1,14 @@
 package game_engine.event.conditions;
 
+import java.util.Arrays;
 import java.util.List;
 
 import game_engine.Entity;
 import game_engine.components.collision.CollidedComponent;
+import game_engine.components.collision.edge_collided.BottomCollidedComponent;
+import game_engine.components.collision.edge_collided.LeftCollidedComponent;
+import game_engine.components.collision.edge_collided.RightCollidedComponent;
+import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.event.Condition;
 
 /**
@@ -12,12 +17,11 @@ import game_engine.event.Condition;
  * certain fields in collided entities to fulfill a condition.
  */
 public abstract class CollisionCondition implements Condition {
-	List<Class<? extends CollidedComponent>> sidesToCheck;
+	List<Class<? extends CollidedComponent>> SIDES_TO_CHECK = Arrays.asList(BottomCollidedComponent.class, LeftCollidedComponent.class, RightCollidedComponent.class, TopCollidedComponent.class);;
 	Entity myEntity;
 	
-	public CollisionCondition(Entity e1, List<Class<? extends CollidedComponent>> sides) {
+	public CollisionCondition(Entity e1) {
 		myEntity = e1;
-		sidesToCheck = sides;
 	}
 	
 	@Override
@@ -26,7 +30,7 @@ public abstract class CollisionCondition implements Condition {
 	}
 	
 	private boolean checkSides() {
-		for(Class<? extends CollidedComponent> c: sidesToCheck) {
+		for(Class<? extends CollidedComponent> c: SIDES_TO_CHECK) {
 			CollidedComponent sideComponent = (CollidedComponent) myEntity.getComponent(c);
 			if(findCollidedTarget(sideComponent)) {
 				return true;
