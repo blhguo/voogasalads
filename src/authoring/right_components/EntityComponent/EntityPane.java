@@ -157,7 +157,15 @@ public class EntityPane extends BasePane{
 	}
 
 	public void newDuplicateEntity() {
+		
+		box.getChildren().remove(menuBox);
+		box.getChildren().removeAll(createButtonArray);
+		box.getChildren().removeAll(editButtonArray);
 		current = new EntityWrapper(current, this);
-		refresh();
+		menuBox = getMenuBox();
+		box.getChildren().add(menuBox);
+		box.getChildren().addAll(createButtonArray);
+		controller.resetImageViews();
+		updateSprite();
 	}
 }

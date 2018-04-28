@@ -47,15 +47,16 @@ public class EntityWrapper {
 		//menuList.stream().forEach(c -> c.setMyPane(pane));
 		addAllComponents(entity);
 		imageView = createImageView();
-		dummyImageView = new ImageView(imageView.getImage());
+		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
 		ds = new DropShadow( 20, Color.DARKMAGENTA);
 	}
 	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
-		menuList = new ArrayList<ComponentMenu>(e.getMenuList());
+		menuList = new ArrayList<>(e.getMenuList());
 		addAllComponents(entity);
 		imageView = createImageView();
+		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
 		ds = new DropShadow( 20, Color.DARKMAGENTA);
 

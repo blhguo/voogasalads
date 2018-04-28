@@ -70,7 +70,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 		canvas = new Canvas();
 
-		controller = new EntityController(entity, canvas);
+		controller = new EntityController(entity, canvas, event);
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController(pcontroller);
 		
@@ -131,6 +131,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		switch(state) {
 			case "Entity Creator":
 				canvas.listen();
+				controller.updateCanvas();
 				bp.setRight(entity.getView());
 				break;
 			case "Events":

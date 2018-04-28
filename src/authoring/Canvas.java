@@ -86,7 +86,12 @@ public class Canvas implements GUINode {
 	}
 	public void updateDummies(List<EntityWrapper> entityList){
 		pane.getChildren().clear();
+		entityList.stream().forEach(e -> System.out.println(e.getDummy()));
 		entityList.stream().forEach(e -> pane.getChildren().add(e.getDummy()));
+		entityList.stream().forEach(e -> e.getDummy().setOnMousePressed(a -> {
+			controller.addToEventPaneBox(e);
+		}));
+
 	}
 	
 	/**

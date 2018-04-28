@@ -1,12 +1,16 @@
 package authoring.right_components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import authoring.controllers.EntityController;
+import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
+import game_engine.Entity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -41,20 +45,32 @@ public class EventPane extends BasePane {
 	private VBox box;
 	private VBox subBox;
 	private ResourceBundle bundle;
+	private ResourceBundle components;
 	private VBox comboBoxView;
+	private HBox entityBox;
+	private int numEntities;
+	private Entity[] entityArray;
+
 	public EventPane(EntityController e){
 		this();
 		myController = e;
 	}
 	public EventPane(){
+		numEntities = 0;
+		components = ResourceBundle.getBundle("Component");
 		bundle = ResourceBundle.getBundle("resources.keys/Conditions");
 		box = new VBox();
+		entityBox = new HBox();
 		box = buildBasicView(AuthRes.getString("EventTitle"));
 		box.setAlignment(Pos.TOP_CENTER);
+		box.setSpacing(20); 
 		subBox = new VBox();
 		subBox.setSpacing(20);
 		box.getChildren().add(subBox);
 		comboBoxView = new VBox();
+		comboBoxView.setSpacing(20);
+		comboBoxView.setFillWidth(true);
+		comboBoxView.setPrefWidth(150);
 		initStart();
 		initNewEvent();
 		initAddCondition();
@@ -80,11 +96,11 @@ public class EventPane extends BasePane {
 		VBox conditionBox = new VBox();
 		Label addComp = new Label("New Condition");
 		conditionBox.getChildren().add(addComp);
-		ComboBox<String> box = getComboBox();
+		ComboBox<String> box = getComboBox(bundle.keySet().stream().filter(e -> !e.contains("Strings")).collect(Collectors.toList()));
 		box.valueProperty().addListener((observable, oldValue, newValue) -> {
 			updateComboBoxView(newValue);
 		});
-		comboBoxView.getChildren().add(new ImageView(new Image("default.jpg")));
+		//comboBoxView.getChildren().add(new ImageView(new Image("default.jpg")));
 		conditionBox.getChildren().add(box);
 		conditionBox.getChildren().add(comboBoxView);
 		addCondition.getChildren().add(conditionBox);
@@ -92,25 +108,55 @@ public class EventPane extends BasePane {
 
 	private void updateComboBoxView(String newValue) {
 		comboBoxView.getChildren().clear();
+		entityBox.getChildren().clear();
+
 		System.out.println(newValue);
 		System.out.println(bundle.getString(newValue));
 		String[] array = bundle.getString(newValue).split(",");
-		for (int i = 0; i < Integer.parseInt(array[0]); i++){
-			comboBoxView.getChildren().add(new Rectangle(20, 20, Color.RED));
+		numEntities = Integer.parseInt(array[0]);
+		entityArray = new Entity[numEntities];
+		entityBox = new HBox();
+		entityBox.setSpacing(25);
+		for (int i = 0; i < numEntities; i++){
+			entityBox.getChildren().add(new Label("Entity " + (i + 1)));
+			Rectangle rect = new Rectangle(50, 50, Color.BLACK);
+			Tooltip tip = new Tooltip("Click an entity to add to this Event");
+			Tooltip.install(rect, tip);
+			entityBox.getChildren().add(rect);
+			entityArray[i] = null;
 		}
+		comboBoxView.getChildren().add(entityBox);
 		for (int i = 0; i < Integer.parseInt(array[1]); i++){
-			comboBoxView.getChildren().add(new Circle());
+			comboBoxView.getChildren().add(new Label("Component class" + (i + 1)));
+			comboBoxView.getChildren().add(getComboBox(components.keySet().stream().
+					collect(Collectors.toList())));
 		}
 		for (int i = 0; i < Integer.parseInt(array[2]); i++){
+			comboBoxView.getChildren().add(new Label(bundle.getString(newValue + "Strings").split(",")[i]));
 			comboBoxView.getChildren().add(new TextField());
+		}
+		Button reset = ButtonFactory.makeButton(e -> updateComboBoxView(newValue));	
+		reset.setText("Reset");
+		comboBoxView.getChildren().add(reset);
+	}
+	public void addToEntityBox(EntityWrapper wrapper){
+		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
+		for (int i = 0; i < numEntities; i++){
+			if (entityArray[i] == null){
+				entityArray[i] = wrapper.getEntity();
+				if(!entityBox.getChildren().contains(wrapper.getDummy())){
+					entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
+					getImage()), 50));
+				}
+				entityBox.getChildren().get(2 * i + 1).resize(50, 50);
+				break;
+			}
 		}
 	}
 
-	private ComboBox<String> getComboBox() {
+	private ComboBox<String> getComboBox(List<String> list) {
 		ComboBox<String> box = new ComboBox<>();
-		box.setItems(FXCollections.observableArrayList(
-				bundle.keySet().stream().collect(Collectors.toList())
-		));
+		box.setItems(FXCollections.observableArrayList(list));
 		return box;
 	}
 
