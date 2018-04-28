@@ -2,14 +2,18 @@ package authoring;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import authoring.GUI_Heirarchy.GUINode;
-import authoring.controllers.LevelController;
+import authoring.controllers.MetaController;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
+import frontend_utilities.UserFeedback;
 import game_player.PlayerMain;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -35,7 +39,7 @@ public class NavigationPane implements Subject, GUINode {
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
-	private LevelController lcontroller;
+	private MetaController mcontroller;
 	private Pane pane;
 	private Stage stage;
 	
@@ -56,8 +60,8 @@ public class NavigationPane implements Subject, GUINode {
 	 * Method to add level controller so that the game can be saved from this pane
 	 * @param l
 	 */
-	public void addLevelController(LevelController l){
-		lcontroller = l;
+	public void addMetaController(MetaController mc){
+		mcontroller = mc;
 	}
 	
 	/**
@@ -100,11 +104,23 @@ public class NavigationPane implements Subject, GUINode {
 		for (int i = 0; i < prefTitles.size(); i++){
 			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(prefIcons.get(i)))), 20);
 			Button b;
-			if (prefTitles.get(i).equals("save")){
-				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> lcontroller.saveGame(), "button-nav");
+			if (prefTitles.get(i).equals("Save Game")){
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
+					mcontroller.saveGame();
+					// need to get filename from data?
+					String content = AuthRes.getString("SaveContent") + " filename";
+					Alert a = UserFeedback.getInfoMessage(AuthRes.getString("SaveHeader"), content, stage);
+					a.showAndWait();
+				}, "button-nav");
 			}
 			else{
-				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> new PlayerMain().start(stage), "button-nav");
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
+					Alert a = UserFeedback.getWarningMessage(AuthRes.getString("PlayHeader"), AuthRes.getString("PlayContent"), stage);
+					Optional<ButtonType> result = a.showAndWait();
+					if (result.get() == ButtonType.OK){
+						new PlayerMain().start(stage);
+					}
+				}, "button-nav");
 			}
 			prefButtons.getChildren().add(b);
 			

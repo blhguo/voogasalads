@@ -130,10 +130,11 @@ public class ButtonFactory {
 		return box;
 	}
 	
-	public static Button makeThumbnail(String imagePath, String name){
-		ImageView iv = ImageBuilder.getImageView(imagePath, 60, 30);
+	public static Button makeLevelThumbnail(String imagePath, String name, EventHandler<ActionEvent> handler){
+		ImageView iv = ImageBuilder.getImageView(imagePath, 90, 60);
 		Button b = new Button(name, iv);
-		b.setContentDisplay(ContentDisplay.BOTTOM);
+		b.setContentDisplay(ContentDisplay.TOP);
+		b.setOnAction(handler);
 		return b;
 	}
 }

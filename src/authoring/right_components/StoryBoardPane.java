@@ -1,16 +1,27 @@
 package authoring.right_components;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import authoring.controllers.LevelController;
+import authoring.controllers.MetaController;
 import frontend_utilities.ButtonFactory;
+import game_engine.Component;
+import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import resources.keys.AuthRes;
 
 /**
@@ -21,6 +32,8 @@ import resources.keys.AuthRes;
 public class StoryBoardPane extends BasePane {
 	
 	private LevelController lcontroller;
+	private MetaController mcontroller;
+	private Text activeLevel = new Text();
 
 	/**
 	 * GUINode method that returns the view of this Pane
@@ -29,7 +42,9 @@ public class StoryBoardPane extends BasePane {
 	@Override
 	public Pane getView() {
 		VBox box = buildBasicView(AuthRes.getString("StoryTitle"));
-		box.getChildren().addAll(LevelOrderer(), newSeparator());
+		activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
+		activeLevel.getStyleClass().add("button-label");
+		box.getChildren().addAll(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevel), LevelOrderer(), newSeparator());
 		getButtonArray().stream().map((button) -> box.getChildren().add(button)).collect(Collectors.toList());
 		return box;
 	}
@@ -40,7 +55,13 @@ public class StoryBoardPane extends BasePane {
 	@Override 
 	public List<Node> getButtonArray(){
 		ArrayList<Node> list = new ArrayList<>();
-		list.add(ButtonFactory.makeHBox("Change Game Name", null));
+		TextField gameName = new TextField(mcontroller.getGameName());
+		gameName.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER){
+				mcontroller.setGameName(gameName.getText());
+			}
+		});
+		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
 		return list;
 	}
 	
@@ -48,17 +69,46 @@ public class StoryBoardPane extends BasePane {
 		TitledPane tp = new TitledPane();
 		tp.setExpanded(false);
 		tp.setText("View Current Levels");
-		//tp.setContent(new ListView<String>());
 		tp.getStyleClass().add("titled-pane > .title");
 		
 		VBox levels = new VBox(AuthRes.getInt("Padding"));
-		ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
-		
+		List<Class<? extends Component<?>>> backAndNames = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class);
+		Map<Integer, List<Component>> map = lcontroller.getEngine().getLevelPreviews(backAndNames);
+		int levelCount = 0;
+		HBox row;
+		for (Entry<Integer, List<Component>> ent: map.entrySet()){
+			if (levelCount % 2 == 1){
+				row = (HBox) levels.getChildren().get(levels.getChildren().size() - 1);
+				levels.getChildren().remove(levels.getChildren().size() - 1);
+			}
+			else{
+				row = new HBox(AuthRes.getInt("Padding"));
+			}
+			List<Component> l = ent.getValue();
+			String backPath = (String) l.get(0).getValue();
+			if (backPath.equals("default")){
+				backPath = "mountain.png"; // hardcoded default
+			}
+			String name = (String) l.get(1).getValue();
+			Button b = ButtonFactory.makeLevelThumbnail(backPath, name, e -> {
+				lcontroller.getEngine().setLevel(ent.getKey());
+				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
+				});
+			b.getStyleClass().add("button-story");
+			row.getChildren().add(b);
+			levels.getChildren().add(row);
+			levelCount++;
+		}
+		tp.setContent(levels);
 		return tp;
 	}
 	
 	public void setLevelController(LevelController lc){
 		lcontroller = lc;
+	}
+	
+	public void setMetaController(MetaController mc){
+		mcontroller = mc;
 	}
 	
 }

@@ -29,6 +29,13 @@
     -fx-font-size: 20px;
 }
 
+.button-story {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: segoeuil;
+}
+
 .button-sublabel {
     -fx-font-family:segoeui;
     -fx-font-size: 14px;

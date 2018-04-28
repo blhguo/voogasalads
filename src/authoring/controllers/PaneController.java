@@ -15,8 +15,6 @@ public class PaneController {
 
 	private LevelPane levelPane;
 	private Canvas canvas;
-	// more instance variables can be added as pane controller develops
-	// more responsibilities
 	
 	public PaneController(LevelPane lp, Canvas c){
 		levelPane = lp;
