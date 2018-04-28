@@ -47,5 +47,12 @@ public class ComponentFactory {
 			throw new ComponentNotFoundException("Component not found.");
 		}
 	}
-
+	
+	public Class <? extends Component<?>> getComponentClass(String key){
+		try { 
+			return (Class <? extends Component<?>>) Class.forName(myComponents.getString(key));
+		} catch (Exception e) {
+			throw new ComponentNotFoundException("Component class of name " + key + " not found");
+		}
+	}
 }

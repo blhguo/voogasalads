@@ -126,8 +126,8 @@ public class CollisionTest extends Application {
 		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
 		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
 		//System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
-		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
-		System.out.println("Current level: " + e.getLevel().getId());
+//		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+//		System.out.println("Current level: " + e.getLevel().getId());
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();

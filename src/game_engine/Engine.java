@@ -60,6 +60,10 @@ public class Engine {
 		return myLevels.get(myCurrentLevel);
 	}
 
+	public Level getLevel(int levelId) {
+		return myLevels.get(levelId);
+	}
+
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
@@ -80,8 +84,8 @@ public class Engine {
 
 	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
 		return myInputs.stream()
-				.filter(inputEvent -> inputEvent.getEventType() == KEY_PRESSED_EVENT
-						|| inputEvent.getEventType() == KEY_RELEASED_EVENT)
+				.filter(inputEvent -> (inputEvent.getEventType() == KEY_PRESSED_EVENT
+						|| inputEvent.getEventType() == KEY_RELEASED_EVENT))
 				.map(inputEvent -> (KeyEvent) inputEvent).filter(keyEvent -> keyInput.equals(keyEvent.getCode()))
 				.collect(Collectors.toList());
 	}
