@@ -9,6 +9,7 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.PrimeComponent;
+import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
@@ -48,7 +49,9 @@ public class PlayerView {
 	private SubScene subScene;
 	private ParallelCamera cam;
 	private DataManager dataManager;
-	private Entity primary;
+	private Entity gamePlayer;
+	private boolean notSet;
+
 
 	/**
 	 * @param pdf
@@ -60,6 +63,7 @@ public class PlayerView {
 		pullDownFactory = pdf;
 		viewManager = view;
 		dataManager = dtm;
+		notSet = true;
 	}
 
 	public void setEngine(Engine e) {
@@ -118,6 +122,7 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
+		//animation.stop();
 		myEngine.update(delay);
 		render();
 		handleUI();
@@ -125,15 +130,20 @@ public class PlayerView {
 
 	private void render() {
 		root.getChildren().clear();
-		
-		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		dataManager.setGamePlayer(primary);
-		Double xPos = primary.getComponent(XPosComponent.class).getValue();
-		Double yPos = primary.getComponent(YPosComponent.class).getValue();
-		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
-		
-		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).forEach(this::display);
-		System.out.println();
+		myEngine.getLevel().getEntities().stream().filter(this::isInView).forEach(this::display);
+		//gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(LeftKeyboardComponent.class)).get(0);
+		setGamePlayerOnce();
+		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
+		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
+		cam.relocate(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
+	}
+	
+	private void setGamePlayerOnce() {
+		if(notSet) {
+			notSet = false;
+			dataManager.setGamePlayer(gamePlayer);
+		}
 	}
 
 	private ImageView getImageView(Entity entity) {
@@ -145,6 +155,7 @@ public class PlayerView {
 	}
 
 	private void display(Entity entity) {
+		//System.out.println("entity: " + entity);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
@@ -162,21 +173,16 @@ public class PlayerView {
 		root.getChildren().add(imageView);
 	}
 
-	private boolean isInView(Entity entity, double centerX, double centerY) {
-		double xPos = entity.getComponent(XPosComponent.class).getValue();
-		double yPos = entity.getComponent(YPosComponent.class).getValue();
-		double height = entity.getComponent(HeightComponent.class).getValue();
-		double width = entity.getComponent(WidthComponent.class).getValue();
-		
-		double minX = xPos - width / 2;
-		double maxX = xPos + width / 2;
-		double minY = yPos - height / 2;
-		double maxY = yPos + height / 2;
-		
-		return checkCorner(minX, minY, centerX, centerY) || 
-				checkCorner(minX, maxY, centerX, centerY) || 
-				checkCorner(maxX, minY, centerX, centerY) ||
-				checkCorner(maxX, maxY, centerX, centerY);
+	private boolean isInView(Entity entity) {
+//		Double xPos = entity.getComponent(XPosComponent.class).getValue();
+//		Double yPos = entity.getComponent(YPosComponent.class).getValue();
+//		
+//		Double xMin = cam.getLayoutX() - SCENE_SIZE / 2;
+//		Double xMax = cam.getLayoutX() + SCENE_SIZE / 2;
+//		Double yMin = cam.getLayoutY() - SCENE_SIZE / 2;
+//		Double yMax = cam.getLayoutY() + SCENE_SIZE / 2;
+//		return ((xMin <= xPos && xMax >= xPos ) && (yMin <= yPos && yMax >= yPos));
+		return true;
 	}
 	
 
