@@ -49,7 +49,6 @@ public class KeyPrefMenu {
 		keyPrefMenu.setBackground(new Background(back));
 		keyPrefButton = new Button("", keyboardImageView);
 		keyPrefButton.setOnAction(click->{showPrefMenu();});
-		keyPrefButton.setPrefSize(160, 20);
 		keyPrefButton.getStyleClass().add("button-nav");
 		root.getChildren().add(keyPrefButton);
 		initKeyPrefMenu();

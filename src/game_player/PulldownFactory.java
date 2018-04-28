@@ -42,38 +42,38 @@ public class PulldownFactory implements ImportData {
 	 */
 	public PulldownFactory(DataManager dat) {
 		dataManager = dat;
-		speedBox =  SpeedBox();
-		statusBox =  StatusBox();
+		//speedBox =  SpeedBox();
+		//statusBox =  StatusBox();
 		saveLoadBox =  SaveLoadBox();
 
 
 	}
 
-	protected ComboBox<String> SpeedBox() {
-		speedBox =  new ComboBox<String>();
-
-		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
-		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
-				getResources(speedProperties, "SlowDownCommand"));
-		speedBox.setPrefSize(160, 20);
-		speedBox.setOnAction(click -> {
-			playerView.handleUI();
-		});
-		return speedBox;
-	}
-
-	protected ComboBox<String> StatusBox() {
-		statusBox =  new ComboBox<String>();
-
-		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
-		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"),
-				getResources(statusProperties, "PlayGameCommand"), getResources(statusProperties, "ReplayGameCommand"));
-		statusBox.setPrefSize(160, 20);
-		statusBox.setOnAction(click -> {
-			playerView.handleUI();
-		});
-		return statusBox;
-	}
+//	protected ComboBox<String> SpeedBox() {
+//		speedBox =  new ComboBox<String>();
+//
+//		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
+//		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
+//				getResources(speedProperties, "SlowDownCommand"));
+//		speedBox.setPrefSize(160, 20);
+//		speedBox.setOnAction(click -> {
+//			playerView.handleUI();
+//		});
+//		return speedBox;
+//	}
+//
+//	protected ComboBox<String> StatusBox() {
+//		statusBox =  new ComboBox<String>();
+//
+//		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
+//		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"),
+//				getResources(statusProperties, "PlayGameCommand"), getResources(statusProperties, "ReplayGameCommand"));
+//		statusBox.setPrefSize(160, 20);
+//		statusBox.setOnAction(click -> {
+//			playerView.handleUI();
+//		});
+//		return statusBox;
+//	}
 
 	protected ComboBox<String> SaveLoadBox() {
 		saveLoadBox =  new ComboBox<String>();

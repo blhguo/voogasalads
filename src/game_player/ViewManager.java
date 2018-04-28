@@ -116,15 +116,14 @@ public class ViewManager extends GUIBuilder{
 		subRoot = new Group();
 		subScene = new SubScene(subRoot, SUBSCENE_WIDTH, SUBSCENE_HEIGHT, false, null);
 		coins = createText(coins,  5, 15, "coins collected: "+coinCount, 16) ;
-		time = createText(time,  150, 15, "time: "+timeCount, 16) ;
+		time = createText(time,  150, 15, "time: "+timeCount, 16);
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
 
 		order.getChildren().add(subScene);
 		subRoot.getChildren().add(view);
-		subRoot.getChildren().add(coins);
-		subRoot.getChildren().add(time);
+		
 		
 		dimmer = new Rectangle(0,0,5000,5000);
 		dimmer.setFill(dimmerColor);
@@ -139,6 +138,8 @@ public class ViewManager extends GUIBuilder{
 		sound.setVolume(0);
 		sound.setCycleCount(sound.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		subRoot.getChildren().add(coins);
+		subRoot.getChildren().add(time);
 		return center;
 	}
 	
