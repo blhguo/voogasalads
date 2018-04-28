@@ -8,50 +8,10 @@
           <game__engine.Entity>
             <myComponents>
               <entry>
-                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
-                <game__engine.components.sprite.FilenameComponent>
-                  <myValue class="string">Mario.GIF</myValue>
-                </game__engine.components.sprite.FilenameComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.keyboard.UpKeyboardComponent</java-class>
-                <game__engine.components.keyboard.UpKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">W</myValue>
-                </game__engine.components.keyboard.UpKeyboardComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.PrimeComponent</java-class>
-                <game__engine.components.PrimeComponent/>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collision.CollidableComponent</java-class>
-                <game__engine.components.collision.CollidableComponent>
-                  <myValue class="boolean">true</myValue>
-                </game__engine.components.collision.CollidableComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.physics.XAccelComponent</java-class>
-                <game__engine.components.physics.XAccelComponent>
+                <java-class>game_engine.components.physics.YAccelComponent</java-class>
+                <game__engine.components.physics.YAccelComponent>
                   <myValue class="double">0.0</myValue>
-                </game__engine.components.physics.XAccelComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.HeightComponent</java-class>
-                <game__engine.components.sprite.HeightComponent>
-                  <myValue class="double">50.0</myValue>
-                </game__engine.components.sprite.HeightComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
-                <game__engine.components.physics.DefaultXVelComponent>
-                  <myValue class="double">200.0</myValue>
-                </game__engine.components.physics.DefaultXVelComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.WidthComponent</java-class>
-                <game__engine.components.sprite.WidthComponent>
-                  <myValue class="double">50.0</myValue>
-                </game__engine.components.sprite.WidthComponent>
+                </game__engine.components.physics.YAccelComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
@@ -60,138 +20,16 @@
                 </game__engine.components.sprite.ZHeightComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxHeightComponent>
-                  <myValue class="double">100.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxHeightComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.keyboard.LeftKeyboardComponent</java-class>
-                <game__engine.components.keyboard.LeftKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">A</myValue>
-                </game__engine.components.keyboard.LeftKeyboardComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.position.XPosComponent</java-class>
-                <game__engine.components.position.XPosComponent>
-                  <myValue class="double">500.0</myValue>
-                </game__engine.components.position.XPosComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxWidthComponent>
-                  <myValue class="double">100.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxWidthComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collect.CollectorComponent</java-class>
-                <game__engine.components.collect.CollectorComponent/>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.keyboard.RightKeyboardComponent</java-class>
-                <game__engine.components.keyboard.RightKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">D</myValue>
-                </game__engine.components.keyboard.RightKeyboardComponent>
-              </entry>
-              <entry>
                 <java-class>game_engine.components.physics.YVelComponent</java-class>
                 <game__engine.components.physics.YVelComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.physics.YVelComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.keyboard.DownKeyboardComponent</java-class>
-                <game__engine.components.keyboard.DownKeyboardComponent>
-                  <myValue class="javafx.scene.input.KeyCode">S</myValue>
-                </game__engine.components.keyboard.DownKeyboardComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.physics.YAccelComponent</java-class>
-                <game__engine.components.physics.YAccelComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.physics.YAccelComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.position.YPosComponent</java-class>
-                <game__engine.components.position.YPosComponent>
-                  <myValue class="double">300.0</myValue>
-                </game__engine.components.position.YPosComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.SpritePolarityComponent</java-class>
-                <game__engine.components.sprite.SpritePolarityComponent>
-                  <myValue class="int">1</myValue>
-                </game__engine.components.sprite.SpritePolarityComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.physics.DefaultYVelComponent</java-class>
-                <game__engine.components.physics.DefaultYVelComponent>
-                  <myValue class="double">200.0</myValue>
-                </game__engine.components.physics.DefaultYVelComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collect.ScoreComponent</java-class>
-                <game__engine.components.collect.ScoreComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.collect.ScoreComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.physics.XVelComponent</java-class>
-                <game__engine.components.physics.XVelComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.physics.XVelComponent>
-              </entry>
-            </myComponents>
-          </game__engine.Entity>
-          <game__engine.Entity>
-            <myComponents>
-              <entry>
-                <java-class>game_engine.components.sprite.WidthComponent</java-class>
-                <game__engine.components.sprite.WidthComponent>
-                  <myValue class="double">50.0</myValue>
-                </game__engine.components.sprite.WidthComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
-                <game__engine.components.sprite.FilenameComponent>
-                  <myValue class="string">turtle.GIF</myValue>
-                </game__engine.components.sprite.FilenameComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.position.YPosComponent</java-class>
-                <game__engine.components.position.YPosComponent>
-                  <myValue class="double">300.0</myValue>
-                </game__engine.components.position.YPosComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
-                  <myValue class="double">0.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
-                <game__engine.components.sprite.ZHeightComponent>
-                  <myValue class="int">1</myValue>
-                </game__engine.components.sprite.ZHeightComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
                   <myValue class="double">500.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+                </game__engine.components.position.XPosComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.collision.CollidableComponent</java-class>
@@ -200,16 +38,50 @@
                 </game__engine.components.collision.CollidableComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.position.XPosComponent</java-class>
-                <game__engine.components.position.XPosComponent>
-                  <myValue class="double">700.0</myValue>
-                </game__engine.components.position.XPosComponent>
+                <java-class>game_engine.components.keyboard.RightKeyboardComponent</java-class>
+                <game__engine.components.keyboard.RightKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">D</myValue>
+                </game__engine.components.keyboard.RightKeyboardComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxWidthComponent>
-                  <myValue class="double">100.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.DefaultYVelComponent</java-class>
+                <game__engine.components.physics.DefaultYVelComponent>
+                  <myValue class="double">200.0</myValue>
+                </game__engine.components.physics.DefaultYVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.keyboard.DownKeyboardComponent</java-class>
+                <game__engine.components.keyboard.DownKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">S</myValue>
+                </game__engine.components.keyboard.DownKeyboardComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">dot.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
+                <game__engine.components.physics.DefaultXVelComponent>
+                  <myValue class="double">200.0</myValue>
+                </game__engine.components.physics.DefaultXVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.XAccelComponent</java-class>
+                <game__engine.components.physics.XAccelComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.physics.XAccelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collect.CollectorComponent</java-class>
+                <game__engine.components.collect.CollectorComponent/>
               </entry>
               <entry>
                 <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
@@ -218,10 +90,132 @@
                 </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.physics.XVelComponent</java-class>
+                <game__engine.components.physics.XVelComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.physics.XVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.SpritePolarityComponent</java-class>
+                <game__engine.components.sprite.SpritePolarityComponent>
+                  <myValue class="int">1</myValue>
+                </game__engine.components.sprite.SpritePolarityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.PrimeComponent</java-class>
+                <game__engine.components.PrimeComponent/>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">20.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.keyboard.LeftKeyboardComponent</java-class>
+                <game__engine.components.keyboard.LeftKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">A</myValue>
+                </game__engine.components.keyboard.LeftKeyboardComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">100.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">20.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collect.ScoreComponent</java-class>
+                <game__engine.components.collect.ScoreComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collect.ScoreComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.keyboard.UpKeyboardComponent</java-class>
+                <game__engine.components.keyboard.UpKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">W</myValue>
+                </game__engine.components.keyboard.UpKeyboardComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">100.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">300.0</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="int">1</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">700.0</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.collect.CollectibleComponent</java-class>
                 <game__engine.components.collect.CollectibleComponent>
                   <myValue class="double">50.0</myValue>
                 </game__engine.components.collect.CollectibleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">100.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.sprite.HeightComponent</java-class>
@@ -229,27 +223,51 @@
                   <myValue class="double">50.0</myValue>
                 </game__engine.components.sprite.HeightComponent>
               </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">500.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">300.0</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">turtle.GIF</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
             </myComponents>
           </game__engine.Entity>
           <game__engine.Entity>
             <myComponents>
               <entry>
-                <java-class>game_engine.components.sprite.WidthComponent</java-class>
-                <game__engine.components.sprite.WidthComponent>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="int">0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
                   <myValue class="double">500.0</myValue>
-                </game__engine.components.sprite.WidthComponent>
+                </game__engine.components.sprite.HeightComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
-                <game__engine.components.physics.DefaultXVelComponent>
-                  <myValue class="double">2000.0</myValue>
-                </game__engine.components.physics.DefaultXVelComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.enemy.HorizontalPaceTimeComponent</java-class>
-                <game__engine.components.enemy.HorizontalPaceTimeComponent>
-                  <myValue class="double">0.5</myValue>
-                </game__engine.components.enemy.HorizontalPaceTimeComponent>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">500.0</myValue>
+                </game__engine.components.position.XPosComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.sprite.FilenameComponent</java-class>
@@ -264,39 +282,36 @@
                 </game__engine.components.position.YPosComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
-                <game__engine.components.sprite.ZHeightComponent>
-                  <myValue class="int">0</myValue>
-                </game__engine.components.sprite.ZHeightComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.position.XPosComponent</java-class>
-                <game__engine.components.position.XPosComponent>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
                   <myValue class="double">500.0</myValue>
-                </game__engine.components.position.XPosComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.enemy.DefaultHorizontalPaceTimeComponent</java-class>
-                <game__engine.components.enemy.DefaultHorizontalPaceTimeComponent>
-                  <myValue class="double">1.0</myValue>
-                </game__engine.components.enemy.DefaultHorizontalPaceTimeComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.HeightComponent</java-class>
-                <game__engine.components.sprite.HeightComponent>
-                  <myValue class="double">500.0</myValue>
-                </game__engine.components.sprite.HeightComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.physics.XVelComponent</java-class>
-                <game__engine.components.physics.XVelComponent>
-                  <myValue class="double">2000.0</myValue>
-                </game__engine.components.physics.XVelComponent>
+                </game__engine.components.sprite.WidthComponent>
               </entry>
             </myComponents>
           </game__engine.Entity>
         </myEntities>
-        <myEvents/>
+        <myEvents>
+          <game__engine.event.Event>
+            <myActions class="java.util.Arrays$ArrayList">
+              <a class="game_engine.event.Action-array">
+                <game__engine.event.actions.micro.DataChangeAction>
+                  <myEntity reference="../../../../../../myEntities/game__engine.Entity"/>
+                  <myComponentClass>game_engine.components.physics.DefaultXVelComponent</myComponentClass>
+                  <myValue>100.0</myValue>
+                  <myExpression>+</myExpression>
+                </game__engine.event.actions.micro.DataChangeAction>
+              </a>
+            </myActions>
+            <myConditions class="java.util.Arrays$ArrayList">
+              <a class="game_engine.event.Condition-array">
+                <game__engine.event.conditions.MouseInputCondition>
+                  <myEngine reference="../../../../../../../../.."/>
+                  <myEntity reference="../../../../../../myEntities/game__engine.Entity"/>
+                </game__engine.event.conditions.MouseInputCondition>
+              </a>
+            </myConditions>
+          </game__engine.event.Event>
+        </myEvents>
         <myId>0</myId>
       </game__engine.level.Level>
     </entry>
@@ -371,5 +386,6 @@
       <myDirection>1</myDirection>
     </game__engine.systems.keyboard.DownKeyboardMovementSystem>
   </mySystems>
-  <myInputs/>
+  <myKeyInputs class="linked-list"/>
+  <myMouseInputs class="linked-list"/>
 </game__engine.Engine></data></higher>

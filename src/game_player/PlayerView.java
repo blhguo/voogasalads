@@ -8,6 +8,7 @@ import java.util.Map;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.Vector;
 import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
@@ -26,7 +27,6 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 /**
@@ -80,13 +80,8 @@ public class PlayerView {
 		Scene scene = viewManager.getScene();
 		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
-		scene.setOnKeyPressed(e -> {
-			myEngine.receiveInput(e);
-		});
 		scene.setOnKeyReleased(myEngine::receiveInput);
 		scene.setOnKeyPressed(myEngine::receiveInput);
-//		scene.setOnMouseClicked(myEngine::receiveInput);
-		scene.setOnMousePressed(e -> calcTranslation(e));
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
@@ -107,19 +102,6 @@ public class PlayerView {
 		}
 
 		animationFrame();
-	}
-
-	private void calcTranslation(MouseEvent e) {
-		double xPosClick = e.getX();
-		double yPosClick = e.getY();
-		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		setGamePlayerOnce();
-		double xPosPrim = primary.getComponent(XPosComponent.class).getValue();
-		double yPosPrim = primary.getComponent(YPosComponent.class).getValue();
-		
-		System.out.println("Click -- x: " + xPosClick + " y: " + yPosClick);
-		System.out.println("Prim -- x: " + xPosPrim + " y: " + yPosPrim);
-		
 	}
 
 	/**
@@ -167,13 +149,22 @@ public class PlayerView {
 			dataManager.setGamePlayer(primary);
 		}
 	}
+	
+	private void clickInput(ImageView imageView) {
+		double middleX = imageView.getX() + imageView.getFitWidth() / 2;
+		double middleY = imageView.getY() + imageView.getFitHeight() / 2;
+		System.out.println(middleX + " " + middleY);
+		myEngine.receiveInput(new Vector(middleX, middleY));
+	}
 
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
 		if (!spriteMap.containsKey(filename)) {
 			spriteMap.put(filename, new ImageView(filename));
 		}
-		return spriteMap.get(filename);
+		ImageView imageView = spriteMap.get(filename);
+		imageView.setOnMousePressed(event -> clickInput(imageView));
+		return imageView;
 	}
 
 	private void display(Entity entity) {

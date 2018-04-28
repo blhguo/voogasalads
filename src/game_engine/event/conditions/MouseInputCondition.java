@@ -5,6 +5,7 @@ import java.util.Arrays;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.Vector;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.HeightComponent;
@@ -13,7 +14,6 @@ import game_engine.event.ComponentNotPresentException;
 import game_engine.event.Condition;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.scene.input.MouseEvent;
 
 public class MouseInputCondition implements Condition {
 	
@@ -41,19 +41,19 @@ public class MouseInputCondition implements Condition {
 		double width = myEntity.getComponent(WIDTH).getValue();
 		double height = myEntity.getComponent(HEIGHT).getValue();
 		
-		for (MouseEvent input : myEngine.getMouseInputs()) {
-			if (withinBounds(input, xPos, yPos, width, height)) {
+		for (Vector click : myEngine.getMouseInputs()) {
+			if (withinBounds(click, xPos, yPos, width, height)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private boolean withinBounds(MouseEvent input, double xPos, double yPos, double width, double height) {
+	private boolean withinBounds(Vector click, double xPos, double yPos, double width, double height) {
 		double minX = xPos - width / 2;
 		double minY = yPos - height / 2;
 		Bounds bounds = new BoundingBox(minX, minY, width, height);
-		return bounds.contains(input.getX(), input.getY());
+		return bounds.contains(click.getX(), click.getY());
 	}
 
 }
