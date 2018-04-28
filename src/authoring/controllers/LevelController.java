@@ -11,6 +11,7 @@ import game_engine.Engine;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
+import resources.keys.AuthRes;
 
 /**
  * @author Jennifer Chin
@@ -18,13 +19,11 @@ import game_engine.level.LevelNameComponent;
  */
 public class LevelController {
 
-	private ManipData data;
 	private Engine engine;
 	private PaneController pcontroller;
 	
 	public LevelController(PaneController pc) {
 		engine = new Engine();
-		data = new ManipData();
 		pcontroller = pc;
 		addLevel();
 	}
@@ -34,20 +33,10 @@ public class LevelController {
 	public void addLevel() {
 		Level newLevel = engine.createLevel();
 		// add defaults to level
-		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(newLevel.getId())));
-		// not actually an image - default is just a string holder 
-		newLevel.addComponent(new LevelBackgroundComponent("default"));
-		//pcontroller.resetBackground();
+		int levelNum = newLevel.getId() + 1;
+		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(levelNum)));
+		newLevel.addComponent(new LevelBackgroundComponent(AuthRes.getString("BackgroundDefault")));
 		engine.setLevel(newLevel.getId());
-	}
-
-	/**
-	 * Passes the current levels array to data
-	 */
-	public void saveGame() {
-		// need all 3 parameters
-		//data.saveData(currentLevels);
-		//or .saveData(currentLevels, currentAttributes)
 	}
 	
 	public Engine getEngine(){

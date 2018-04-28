@@ -26,8 +26,7 @@ public abstract class GUIGridPaneSuper extends GUIBuilder {
 		gridpane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		
 		setBackground(gridpane);
-		finishScene(gridpane);
-		return gridpane;
+		return finishScene(gridpane);
 	}
 	
 	/**
@@ -36,6 +35,6 @@ public abstract class GUIGridPaneSuper extends GUIBuilder {
 	 * by display. 
 	 * @param gridpane
 	 */
-	public abstract void finishScene(GridPane gridpane);
+	public abstract Pane finishScene(GridPane gridpane);
 
 }
