@@ -15,7 +15,9 @@ import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -53,10 +55,13 @@ public class StoryBoardPane extends BasePane {
 	@Override 
 	public List<Node> getButtonArray(){
 		ArrayList<Node> list = new ArrayList<>();
-		
-		
-		
-		list.add(ButtonFactory.makeHBox("Change Game Name", null));
+		TextField gameName = new TextField(mcontroller.getGameName());
+		gameName.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER){
+				mcontroller.setGameName(gameName.getText());
+			}
+		});
+		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
 		return list;
 	}
 	
