@@ -2,6 +2,7 @@ package authoring;
 
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.LevelController;
+import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
 import javafx.scene.Node;
@@ -21,6 +22,7 @@ public class AddActionPane implements GUINode {
 	private VBox actionBox;
 	private VBox comboBoxView;
 	private LevelController levelController;
+	private HBox entityBox;
 
 	public AddActionPane() {
 		myPane = new Pane();
@@ -43,7 +45,7 @@ public class AddActionPane implements GUINode {
 	}
 	private void updateComboBoxView(String newValue) {
 		comboBoxView.getChildren().clear();
-
+		entityBox = new HBox();
 	}
 
 	@Override
@@ -53,5 +55,9 @@ public class AddActionPane implements GUINode {
 
 	public void add(Node node){
 		actionBox.getChildren().add(node);
+	}
+
+	public void addToEntityBox(EntityWrapper wrapper) {
+		entityBox.getChildren().add(wrapper.getDummy());
 	}
 }

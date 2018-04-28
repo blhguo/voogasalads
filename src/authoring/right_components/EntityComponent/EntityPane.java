@@ -49,6 +49,10 @@ public class EntityPane extends BasePane{
 		menuBox = getMenuBox();
 		box.getChildren().add(menuBox);
 		box.getChildren().addAll(createButtonArray);
+		
+		//TODO: Add buttons here for default configs
+		
+		
 		return box;
 	}
 
@@ -71,6 +75,7 @@ public class EntityPane extends BasePane{
 		VBox newBox = new VBox();
 		newBox.setAlignment(Pos.CENTER);
 		newBox.setSpacing(10);
+		//TODO: Here is where you could filter the ComponentMenus
 		newBox.getChildren().addAll(current.getView());
 		HBox addBox = ButtonFactory.makeHBox("Add Component", null,
 				ButtonFactory.makeButton(e -> newComponent()));

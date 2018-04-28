@@ -96,6 +96,7 @@ public class EventPane extends BasePane {
 	public void setLevelController(LevelController controller){
 		levelController = controller;
 		addConditionPane.setLevelController(controller);
+		addActionPane.setLevelController(controller);
 	}
 
 	private void initAddAction() {
@@ -134,6 +135,7 @@ public class EventPane extends BasePane {
 
 	public void addToEntityBox(EntityWrapper wrapper){
 		addConditionPane.addToEntityBox(wrapper);
+		addActionPane.addToEntityBox(wrapper);
 	}
 
 
