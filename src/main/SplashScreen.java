@@ -64,6 +64,8 @@ public class SplashScreen extends GUIGridPaneSuper{
 	
 	@Override
 	public Pane finishScene(GridPane gridpane) {
+//		initScene(gridpane);
+		System.out.println("Finishing splash screen");
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
 		VBox vb = makeVBox();
@@ -72,8 +74,11 @@ public class SplashScreen extends GUIGridPaneSuper{
 		int numCols = (int) width / AuthRes.getInt("Padding");
 		double height = title.getParent().getLayoutBounds().getHeight();
 		int numRows = (int) height / AuthRes.getInt("Padding");
-		gridpane.setConstraints(title, numCols / 20, numRows * 2 / 3);
-		gridpane.setConstraints(vb, numCols / 3, numRows / 4);
+		GridPane.setConstraints(title, numCols / 20, numRows * 2 / 3);
+		GridPane.setConstraints(vb, numCols / 3, numRows / 4);
+		System.out.println(gridpane.getColumnIndex(vb));
+		System.out.println(gridpane.getLayoutBounds());
+		return gridpane;
 	}
 
 }
