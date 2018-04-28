@@ -14,6 +14,7 @@ import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
+import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
@@ -180,10 +181,12 @@ public class PlayerView {
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
 		Double height = entity.getComponent(HeightComponent.class).getValue();
+		Boolean visibility = entity.getComponent(VisibilityComponent.class).getValue();
 
 		ImageView imageView = getImageView(entity);
 		imageView.setX(xPos - width / 2);
 		imageView.setY(yPos - height / 2);
+		imageView.setVisible(visibility);
 
 		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
 		// changes which direction the imageview faces based off of movement direction of entity
