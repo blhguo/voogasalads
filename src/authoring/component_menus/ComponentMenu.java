@@ -122,6 +122,7 @@ public class ComponentMenu extends VBox implements Comparable{
 	}
 
 	public void alert() {
-		//myPane.updateEntity();
+		myPane.refresh();
 	}
+
 }
