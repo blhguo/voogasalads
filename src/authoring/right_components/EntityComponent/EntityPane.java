@@ -9,7 +9,6 @@ import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import game_engine.Entity;
 import game_engine.components.sprite.FilenameComponent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -18,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import resources.keys.AuthRes;
 
 public class EntityPane extends BasePane{
 
@@ -27,6 +28,7 @@ public class EntityPane extends BasePane{
 	private ImageView sprite;
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
+	private Stage stage;
 
 	public void setController(EntityController controller) {
 		this.controller = controller;
@@ -34,17 +36,16 @@ public class EntityPane extends BasePane{
 
 	private EntityController controller;
 
-	public EntityPane(){
+	public EntityPane(Stage s){
 		current = new EntityWrapper(new Entity(), this);
+		stage = s;
 	}
 
 	public Pane getView(){
 		controller.listenCanvas();
 		createButtonArray = instantiateCreateButtonArray();
 		editButtonArray = instantiateEditButtonArray();
-		box = buildBasicView("Entity Creator");
-		box.setPadding(new Insets(10,10,10,10));
-		box.setAlignment(Pos.TOP_CENTER);
+		box = buildBasicView(AuthRes.getString("EntityTitle"));
 		box.getChildren().add(getSprite());
 		menuBox = getMenuBox();
 		box.getChildren().add(menuBox);
@@ -76,15 +77,13 @@ public class EntityPane extends BasePane{
 				ButtonFactory.makeButton(e -> newComponent()));
 		addBox.setMaxHeight(20);
 		addBox.setMaxWidth(20);
-		Button addComponentButton = new Button("Add a new component");
-		addComponentButton.setOnAction(e -> newComponent());
-		newBox.getChildren().add(addComponentButton);
-
+		Button addComponentButton = ButtonFactory.makeButton(e -> newComponent());
+		newBox.getChildren().add(ButtonFactory.makeHBox("Add New Component", null, addComponentButton));
 		return newBox;
 	}
 
 	private void newComponent() {
-		ComponentSelectionWindow window = new ComponentSelectionWindow(this.getPureCurrent(), this);
+		ComponentSelectionWindow window = new ComponentSelectionWindow(this.getPureCurrent(), this, stage);
 		window.display();
 	}
 
