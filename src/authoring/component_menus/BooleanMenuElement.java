@@ -21,14 +21,14 @@ public class BooleanMenuElement extends MenuElement{
 			System.out.println("That's not a bool!");
 		}
 		box.setSelected((boolean) component.getValue());
-		box.setOnKeyPressed(e -> updateComponent(e.getCode(), Boolean.toString(box.isSelected())));
+		box.setOnKeyPressed(e -> updateComponent(e.getCode(), Boolean.toString(box.isSelected()), true));
 		box.focusedProperty().addListener(e -> {
 			if (!box.focusedProperty().getValue()) {
-				updateComponent(KeyCode.ENTER, Boolean.toString(box.isSelected()));
+				updateComponent(KeyCode.ENTER, Boolean.toString(box.isSelected()), false);
 			}
 		});
 		this.title = title;
-		view = ButtonFactory.makeHBox(title, null, box);
+		view = ButtonFactory.makeReverseHBox(title, null, box);
 	}
 
 	/**
@@ -64,11 +64,11 @@ public class BooleanMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
 			try {
 				myComponent.setValue(Boolean.parseBoolean(text));
-				myMenu.alert();
+				if (alert) myMenu.alert();
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 			} catch (Exception e){
 				System.out.println("Sorry, that's not a boolean");
@@ -80,4 +80,5 @@ public class BooleanMenuElement extends MenuElement{
 	public void setComponentValue() {
 		myComponent.setValue(box.isSelected());
 	}
+
 }

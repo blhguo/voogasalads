@@ -35,7 +35,7 @@ import resources.keys.AuthRes;
 //Left Pane
 public class NavigationPane implements Subject, GUINode {
 
-	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
+	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
 	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
 	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));

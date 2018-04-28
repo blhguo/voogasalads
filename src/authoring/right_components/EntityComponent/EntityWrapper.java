@@ -31,6 +31,7 @@ public class EntityWrapper {
 
 	private Entity entity;
 	private ImageView imageView;
+	private ImageView dummyImageView;
 	private List<ComponentMenu> menuList;
 	private EntityPane entityPane;
 	private final DropShadow ds;
@@ -46,14 +47,16 @@ public class EntityWrapper {
 		//menuList.stream().forEach(c -> c.setMyPane(pane));
 		addAllComponents(entity);
 		imageView = createImageView();
+		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
 		ds = new DropShadow( 20, Color.DARKMAGENTA);
 	}
 	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
-		menuList = new ArrayList<ComponentMenu>(e.getMenuList());
+		menuList = new ArrayList<>(e.getMenuList());
 		addAllComponents(entity);
 		imageView = createImageView();
+		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
 		ds = new DropShadow( 20, Color.DARKMAGENTA);
 
@@ -126,7 +129,8 @@ public class EntityWrapper {
 	public void updateImage(){
 		imageView.setX(entity.getComponent(XPosComponent.class).getValue());
 		imageView.setY(entity.getComponent(YPosComponent.class).getValue());
-		imageView.setImage(new Image(entity.getComponent(FilenameComponent.class).getValue()));
+		imageView.setImage(
+				new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		imageView.setFitWidth(entity.getComponent(WidthComponent.class).getValue());
 		imageView.setFitHeight(entity.getComponent(HeightComponent.class).getValue());
 		if (!entity.getComponent(VisibilityComponent.class).getValue()){
@@ -151,5 +155,13 @@ public class EntityWrapper {
 
 	public void setImageViewStyle(String s) {
 		imageView.setStyle("");
+	}
+	public ImageView getDummy(){
+		dummyImageView.setX(imageView.getX());
+		dummyImageView.setY(imageView.getY());
+		dummyImageView.setFitHeight(imageView.getFitHeight());
+		dummyImageView.setFitWidth(imageView.getFitWidth());
+		dummyImageView.setImage(imageView.getImage());
+		return dummyImageView;
 	}
 }

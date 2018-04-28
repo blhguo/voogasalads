@@ -26,7 +26,7 @@ public class CollectibleSystem extends GameSystem{
 	private static final Class<? extends Component<Double>> SCORE = ScoreComponent.class;
 	private static final Class<? extends Component<NullType>> COLLECTOR = CollectorComponent.class;
 	private static final Class<? extends Component<Double>> COLLECTIBLE = CollectibleComponent.class;
-	
+
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collidedEntities = level.getEntitiesContainingAny(Arrays.asList(TOP, RIGHT, BOTTOM, LEFT));
@@ -37,19 +37,19 @@ public class CollectibleSystem extends GameSystem{
 				if (other.hasAll(Arrays.asList(COLLECTIBLE))) {
 					Component<Double> entityScore = entity.getComponent(SCORE);
 					Component<Double> collectible = other.getComponent(CollectibleComponent.class);
-					entityScore.setValue(collectible.getValue());
+					entityScore.setValue(entityScore.getValue() + collectible.getValue());
 					Component<NullType> despawnComponent = new DespawnComponent();
 					other.addComponent(despawnComponent);
 				}
 			}
 		}
 	}
-	
-	private List<Entity> getCollidedEntitiesOn(Entity entity, List<Class<? extends Component<List<Entity>>>> sides){
+
+	private List<Entity> getCollidedEntitiesOn(Entity entity, List<Class<? extends Component<List<Entity>>>> sides) {
 		List<Entity> collidedEntities = new ArrayList<>();
-		for(Class<? extends Component<List<Entity>>> collisionSide : sides){
+		for (Class<? extends Component<List<Entity>>> collisionSide : sides) {
 			Component<List<Entity>> comp = entity.getComponent(collisionSide);
-			if(comp != null){
+			if (comp != null) {
 				collidedEntities.addAll(comp.getValue());
 			}
 		}

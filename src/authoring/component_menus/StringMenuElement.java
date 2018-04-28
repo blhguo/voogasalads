@@ -5,6 +5,7 @@ import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * @author liampulsifer
@@ -19,13 +20,13 @@ public class StringMenuElement extends MenuElement{
 		field = new TextField();
 		field.setText(component.getValue().toString());
 		this.title = title;
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		field.focusedProperty().addListener(e -> {
 					if (!field.focusedProperty().getValue()) {
-						updateComponent(KeyCode.ENTER, field.getText());
+						updateComponent(KeyCode.ENTER, field.getText(), false);
 					}
 		});
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = ButtonFactory.makeReverseHBox(title, null, field);
 	}
 
 	/**
@@ -61,10 +62,10 @@ public class StringMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
 			myComponent.setValue(text);
-			myMenu.alert();
+			if (alert) myMenu.alert();
 			System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 		}
 	}

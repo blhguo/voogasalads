@@ -82,6 +82,7 @@ public class ComponentSelectionWindow {
 //		String style = "-fx-border-color: white; -fx-border-width: 3;";
 //		ret.setStyle(style + "-fx-background-color: cornflowerblue");
 		ret.getStyleClass().add("comp-label");
+
 		ret.prefWidthProperty().bind(myStage.widthProperty());
 		ret.setOnMouseClicked(e -> {
 			if (!activeMenus.contains(menu)) {

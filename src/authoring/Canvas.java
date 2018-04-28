@@ -22,6 +22,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
+
 /**
  * @author elizabethshulman
  * @author Jennifer Chin
@@ -32,7 +33,7 @@ import javafx.scene.paint.Color;
  */
 
 public class Canvas implements GUINode {
-private Pane myInfinitePane;
+	private Pane myInfinitePane;
 	private ScrollPane myNode;
 	private EntityController myController;
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.6);
@@ -67,6 +68,15 @@ private Pane myInfinitePane;
 		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
+	public void updateDummies(List<EntityWrapper> entityList){
+		myInfinitePane.getChildren().clear();
+		entityList.stream().forEach(e -> System.out.println(e.getDummy()));
+		entityList.stream().forEach(e -> myInfinitePane.getChildren().add(e.getDummy()));
+		entityList.stream().forEach(e -> e.getDummy().setOnMousePressed(a -> {
+			myController.addToEventPaneBox(e);
+		}));
+
+	}
 	
 	/**
 	 * Sets the background to a specified image
@@ -87,7 +97,7 @@ private Pane myInfinitePane;
 	}
 	
 	public void listen() {
-		System.out.println("Listening");
+
 		myInfinitePane.setOnMousePressed(e -> {
 			myController.alertEntityPane(e.getX(), e.getY());
 			System.out.println("Clicked -- Canvas line 100");
@@ -96,7 +106,7 @@ private Pane myInfinitePane;
 	
 	public void stopListen() {
 //		System.out.println("Stopped listening");
-//		pane.setOnMouseClicked(e -> {});
+		myInfinitePane.setOnMousePressed(e -> {});
 	}
 	
 	private Pane initializeInfinitePane() {

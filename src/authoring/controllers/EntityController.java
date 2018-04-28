@@ -11,6 +11,7 @@ import java.util.Map;
 
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EntityComponent.EntityWrapper;
+import authoring.right_components.EventPane;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
@@ -38,10 +39,12 @@ public class EntityController {
 	private ImageView view;
 	private LevelController lcontroller;
 	private Button button;
+	private EventPane eventPane;
 
 	
-	public EntityController(EntityPane pane, Canvas c){
+	public EntityController(EntityPane pane, Canvas c, EventPane eventPane){
 		entityPane = pane;
+		this.eventPane = eventPane;
 		canvas = c;
 		map = new HashMap<>();
 		entityList = new ArrayList<>();
@@ -185,6 +188,9 @@ public class EntityController {
 		});
 	}
 
+	public void updateDummies(){
+		canvas.updateDummies(entityList);
+	}
 	public void listenCanvas() {
 		canvas.listen();
 	}
@@ -193,17 +199,27 @@ public class EntityController {
 	}
 
 	public void alertEntityPane(double sceneX, double sceneY) {
-		EntityWrapper wrap = entityPane.getCurrent();
+		EntityWrapper wrap = new EntityWrapper(entityPane.getPureCurrent(), entityPane);
 		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
 				sceneY - wrap.getImageView().getFitHeight() / 2);
-		entityList.add(wrap);
+		if (!entityList.contains(wrap)){
+			entityList.add(wrap);
+		}
 		canvas.update(entityList);
 		System.out.println("# of Entities " + entityList.size());
+		//entityPane.newWrapper();
+		System.out.println("About to hit it");
 		entityPane.newDuplicateEntity();
+		//entityPane.refresh();
+		this.resetImageViews();
 		//entityPane.setActiveWrapper(wrap);
 	}
 
 	public void updateCanvas() {
 		canvas.update(entityList);
+	}
+
+	public void addToEventPaneBox(EntityWrapper e) {
+		eventPane.addToEntityBox(e);
 	}
 }

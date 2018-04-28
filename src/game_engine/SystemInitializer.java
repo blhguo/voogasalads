@@ -1,16 +1,16 @@
 package game_engine;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+import voogasalad.util.reflection.Reflection;
+import voogasalad.util.reflection.ReflectionException;
+
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-
-import voogasalad.util.reflection.Reflection;
-import voogasalad.util.reflection.ReflectionException;
 
 public class SystemInitializer {
 

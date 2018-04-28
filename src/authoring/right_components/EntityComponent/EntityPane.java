@@ -42,7 +42,6 @@ public class EntityPane extends BasePane{
 	}
 
 	public Pane getView(){
-		controller.listenCanvas();
 		createButtonArray = instantiateCreateButtonArray();
 		editButtonArray = instantiateEditButtonArray();
 		box = buildBasicView(AuthRes.getString("EntityTitle"));
@@ -138,11 +137,10 @@ public class EntityPane extends BasePane{
 		menuBox = getMenuBox();
 		box.getChildren().add(menuBox);
 		box.getChildren().addAll(list);
-		//controller.resetImageViews();
+//		//controller.resetImageViews();
 		updateSprite();
 	}
 	public void newWrapper(){
-		controller.listenCanvas();
 		box.getChildren().remove(menuBox);
 		box.getChildren().removeAll(createButtonArray);
 		box.getChildren().removeAll(editButtonArray);
@@ -158,7 +156,15 @@ public class EntityPane extends BasePane{
 	}
 
 	public void newDuplicateEntity() {
+		
+		box.getChildren().remove(menuBox);
+		box.getChildren().removeAll(createButtonArray);
+		box.getChildren().removeAll(editButtonArray);
 		current = new EntityWrapper(current, this);
-		refresh();
+		menuBox = getMenuBox();
+		box.getChildren().add(menuBox);
+		box.getChildren().addAll(createButtonArray);
+		controller.resetImageViews();
+		updateSprite();
 	}
 }
