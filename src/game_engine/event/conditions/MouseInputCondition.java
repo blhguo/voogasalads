@@ -28,8 +28,9 @@ public class MouseInputCondition implements Condition{
 		double width = myEntity.getComponent(WidthComponent.class).getValue();
 		double height = myEntity.getComponent(HeightComponent.class).getValue();
 		
-		for (MouseEvent input : myEngine.getMouseInputs()){
-			if (withinBounds(input, xPos, yPos, width, height)){
+		for (MouseEvent input : myEngine.getMouseInputs()) {
+			System.out.println(input);
+			if (withinBounds(input, xPos, yPos, width, height)) {
 				return true;
 			}
 		}

@@ -47,14 +47,14 @@ public class LevelController {
 		ArrayList<Object> ret = new ArrayList<Object>();
 		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));
 		for (List<Component<?>> list: map.values()){
-			for (Component c: list){
+			for (Component<?> c: list){
 				ret.add(c.getValue());
 			}
 		}
 		return ret;
 	}
 	
-	public void addComp(Component c){
+	public void addComp(Component<?> c){
 		engine.getLevel().addComponent(c);
 	}
 	

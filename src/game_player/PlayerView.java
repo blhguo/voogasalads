@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 /**
@@ -81,9 +82,10 @@ public class PlayerView {
 		scene.setOnKeyPressed(e -> {
 			myEngine.receiveInput(e);
 		});
-		subScene.setOnKeyPressed(myEngine::receiveInput);
-		subScene.setOnKeyReleased(myEngine::receiveInput);
-		subScene.setOnMouseClicked(myEngine::receiveInput);
+		scene.setOnKeyReleased(myEngine::receiveInput);
+		scene.setOnKeyPressed(myEngine::receiveInput);
+//		scene.setOnMouseClicked(myEngine::receiveInput);
+		scene.setOnMousePressed(e -> calcTranslation(e));
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
@@ -104,6 +106,19 @@ public class PlayerView {
 		}
 
 		animationFrame();
+	}
+
+	private void calcTranslation(MouseEvent e) {
+		double xPosClick = e.getX();
+		double yPosClick = e.getY();
+		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		setGamePlayerOnce();
+		double xPosPrim = primary.getComponent(XPosComponent.class).getValue();
+		double yPosPrim = primary.getComponent(YPosComponent.class).getValue();
+		
+		System.out.println("Click -- x: " + xPosClick + " y: " + yPosClick);
+		System.out.println("Prim -- x: " + xPosPrim + " y: " + yPosPrim);
+		
 	}
 
 	/**

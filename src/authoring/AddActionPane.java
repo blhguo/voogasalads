@@ -1,6 +1,7 @@
 package authoring;
 
 import authoring.GUI_Heirarchy.GUINode;
+import authoring.controllers.LevelController;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ public class AddActionPane implements GUINode {
 	private Pane myPane;
 	private VBox actionBox;
 	private VBox comboBoxView;
+	private LevelController levelController;
 
 	public AddActionPane() {
 		myPane = new Pane();
@@ -30,16 +32,18 @@ public class AddActionPane implements GUINode {
 		actionBox.getChildren().add(addComp);
 		ComboBox<String> box = ComboBoxBuilder.getComboBox(actions.keySet().stream().collect(Collectors.toList()));
 		box.valueProperty().addListener((observable, oldValue, newValue) -> {
-			updateComboBoxView();
+			updateComboBoxView(newValue);
 		});
 		actionBox.getChildren().add(box);
 		actionBox.getChildren().add(comboBoxView);
 		myPane.getChildren().add(actionBox);
 	}
-
-	private void updateComboBoxView() {
+	public void setLevelController(LevelController controller){
+		this.levelController = controller;
+	}
+	private void updateComboBoxView(String newValue) {
 		comboBoxView.getChildren().clear();
-		comboBoxView.getChildren().add(ImageBuilder.getImageView("default.jpg", 100, 100));
+
 	}
 
 	@Override
