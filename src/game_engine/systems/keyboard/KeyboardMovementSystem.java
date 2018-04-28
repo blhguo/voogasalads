@@ -39,7 +39,7 @@ public abstract class KeyboardMovementSystem extends GameSystem {
 			Component<KeyCode> keyInput = entity.getComponent(myKeyboardMoveInput);
 			Component<Double> defaultVel = entity.getComponent(myDefaultVel);
 			Component<Double> vel = entity.getComponent(myVel);
-			for (InputEvent input : myEngine.getInput(keyInput)) {
+			for (InputEvent input : myEngine.getKeyInputs(keyInput.getValue())) {
 				if (input.getEventType().getName().equals(KEY_PRESSED)) {
 					vel.setValue(defaultVel.getValue() * myDirection);
 				} else if (input.getEventType().getName().equals(KEY_RELEASED)) {

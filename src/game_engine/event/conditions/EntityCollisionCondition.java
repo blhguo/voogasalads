@@ -1,7 +1,5 @@
 package game_engine.event.conditions;
 
-import java.util.List;
-
 import game_engine.Entity;
 import game_engine.components.collision.CollidedComponent;
 
@@ -10,15 +8,16 @@ import game_engine.components.collision.CollidedComponent;
  * CollisionCondition that checks for the presence of a certain entity in list of collided entities of the "this" entity
  */
 public class EntityCollisionCondition extends CollisionCondition{
-	Entity targetEntity;
 	
-	public EntityCollisionCondition(Entity e1, Entity e2, List<Class<? extends CollidedComponent>> sides) {
-		super(e1, sides);
-		targetEntity = e2;
+	private Entity myTargetEntity;
+	
+	public EntityCollisionCondition(Entity e1, Entity e2) {
+		super(e1);
+		myTargetEntity = e2;
 	}
 	
 	@Override
 	protected boolean findCollidedTarget(CollidedComponent sideComponent) {
-		return (sideComponent!=null) && (sideComponent.contains(targetEntity));
+		return (sideComponent != null) && (sideComponent.contains(myTargetEntity));
 	}
 }

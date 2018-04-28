@@ -3,7 +3,6 @@ package game_engine.event.actions.macro;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.event.Action;
-import game_engine.level.Level;
 
 public class RemoveEntityAction implements Action{
 	private Entity myEntity;
@@ -19,6 +18,5 @@ public class RemoveEntityAction implements Action{
 	@Override
 	public void execute() {
 		myEngine.getLevel(myLevelId).removeEntity(myEntity);
-		myLevel.removeEntity(myEntity);
 	}
 }

@@ -70,7 +70,7 @@ public class ViewManager extends GUIBuilder{
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
 		gameStage.show();
-		changeBrightness();
+//		changeBrightness();
 		changeVolume();
 	}
 
@@ -118,11 +118,11 @@ public class ViewManager extends GUIBuilder{
 		order.getChildren().add(subScene);
 		subRoot.getChildren().add(view);
 		
-		dimmer = new Rectangle(0,0,5000,5000);
-		dimmer.setFill(dimmerColor);
-		dimmer.setManaged(false);
-		dimmer.setOpacity(0.0);
-		order.getChildren().add(dimmer);
+//		dimmer = new Rectangle(0,0,5000,5000);
+//		dimmer.setFill(dimmerColor);
+//		dimmer.setManaged(false);
+//		dimmer.setOpacity(0.0);
+//		order.getChildren().add(dimmer);
 		menu.addMenu(order);
 		
 		Media soundFile = new Media(getClass().getResource("song.mp3").toExternalForm());
@@ -162,13 +162,13 @@ public class ViewManager extends GUIBuilder{
 	/**
 	 * Changes the brightness of the current program.
 	 */ 
-	public void changeBrightness() {
-		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				dimmer.opacityProperty().set(1-(double)new_val);
-			}
-		});
-	}
+//	public void changeBrightness() {
+//		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
+//			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
+//				dimmer.opacityProperty().set(1-(double)new_val);
+//			}
+//		});
+//	}
     
     /**
      * Changes the volume of the current program.

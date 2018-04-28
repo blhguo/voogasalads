@@ -36,7 +36,7 @@ public class DataManager {
 		gameInputs = new ArrayList<String>();
 		
 		String[] testInputs = {"left","right","up","down"}; //To be read in from data
-		KeyCode[] engineInputs = {KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.S};
+		KeyCode[] engineInputs = {KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.S}; //also defaults from data
 		for(int i=0;i<testInputs.length;i++) {
 			gameInputs.add(testInputs[i]);
 			engineMap.put(testInputs[i],engineInputs[i]);
