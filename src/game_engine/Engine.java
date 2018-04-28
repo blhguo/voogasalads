@@ -8,12 +8,17 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
+import javafx.event.EventType;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class Engine {
+	private static final EventType MOUSE_EVENT = MouseEvent.MOUSE_CLICKED;
+	private static final EventType KEY_PRESSED_EVENT = KeyEvent.KEY_PRESSED;
+	private static final EventType KEY_RELEASED_EVENT = KeyEvent.KEY_RELEASED;
+	
 	private Map<Integer, Level> myLevels;
 	private int myCurrentLevel;
 	private int myIdCounter;
@@ -73,13 +78,14 @@ public class Engine {
 		return preview;
 	}
 
-	public List<KeyEvent> getInput(KeyCode keyInput) {
-		return myInputs.stream().filter((KeyEvent)keyEvent -> keyInput.equals((KeyEvent)keyEvent.getCode()))
-				.collect(Collectors.toList());
+
+	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
+		return myInputs.stream().filter(ie -> ie.getEventType() == KEY_PRESSED_EVENT || ie.getEventType() == KEY_RELEASED_EVENT)
+				.map(ie -> (KeyEvent) ie).filter(keyEvent -> keyInput.equals(keyEvent.getCode())).collect(Collectors.toList());
 	}
-	
-	public List<MouseEvent> getInput(MouseEvent mouseInput){
-		return 
+
+	public List<MouseEvent> getMouseInputs() {
+		return myInputs.stream().filter(ie -> ie.getEventType() == MOUSE_EVENT).map(ie -> (MouseEvent) ie).collect(Collectors.toList());
 	}
 
 	public void receiveInput(KeyEvent event) {
