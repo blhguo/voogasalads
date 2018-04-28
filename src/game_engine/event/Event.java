@@ -3,7 +3,7 @@ package game_engine.event;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+public class Event implements AuthorableEvent, PlayableEvent{
 	private List<Action> myActions;
 	private List<Condition> myConditions;
 	public Event(){
@@ -11,28 +11,34 @@ public class Event {
 		myConditions = new ArrayList<>();
 	}
 	
+	@Override
 	public void occur() {
 		for (Condition condition : myConditions) {
-			if (! condition.evaluate()) {
+			if (!condition.evaluate()) {
 				return;
 			}
 		}
-
 		for (Action action : myActions) {
 			action.execute();
 		}
 	}
-
-	public void addCondition(Condition condition){
-		myConditions.add(condition);
-	}
-	public void removeCondition(Condition condition){
-		myConditions.remove(condition);
-	}
-	public void addAction(Action action){
+	@Override
+	public void addAction(Action action) {
 		myActions.add(action);
 	}
-	public void removeAction(Action action){
-		myActions.remove(action);
+	
+	@Override
+	public void addCondition(Condition condition) {
+		myConditions.add(condition);
+	}
+	
+	@Override
+	public List<Action> getActions(){
+		return myActions;
+	}
+	
+	@Override
+	public List<Condition> getConditions(){
+		return myConditions;
 	}
 }

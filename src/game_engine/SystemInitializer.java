@@ -9,41 +9,37 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 
 public class SystemInitializer {
-
+	private static final String SYSTEM_NAMES = "SystemNames";
+	private static final String SYSTEM_ARGS = "SystemArgs";
+	
+	private ResourceBundle mySystemNames;
+	private ResourceBundle mySystemArgs;
+	
+	public SystemInitializer(){
+		mySystemNames = ResourceBundle.getBundle(SYSTEM_NAMES);
+		mySystemArgs = ResourceBundle.getBundle(SYSTEM_ARGS);
+	}
+	
 	public List<GameSystem> init(Engine engine) {
-		Reflections reflections = new Reflections("game_engine", new SubTypesScanner(true));
-		Set<Class<? extends GameSystem>> allClasses = reflections.getSubTypesOf(GameSystem.class);
-
 		List<GameSystem> systems = new ArrayList<>();
-
-		allClasses.stream().filter(clazz -> isConcrete(clazz)).forEach(clazz -> {
-			try {
-				systems.add(createSystem(clazz, engine));
-			} catch (ReflectionException e) {
-				// Do nothing: Continue without this system.
-				// No use in adding a NullSystem or anything like that since the user doesn't see it.
-			}
-		});
-
+		for(String name : mySystemNames.keySet()){
+			systems.add(createSystem(name, engine));
+		}
 		return systems;
 	}
 
-	private GameSystem createSystem(Class<? extends GameSystem> clazz, Engine engine) {
-		Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
+	private GameSystem createSystem(String systemName, Engine engine) {
 		GameSystem system;
-		if (params.length > 0) {
-			system = (GameSystem) Reflection.createInstance(clazz.getName(), engine);
+		if (mySystemArgs.getString(systemName).equals("engine")) {
+			system = (GameSystem) Reflection.createInstance(mySystemNames.getString(systemName), engine);
 		} else {
-			system = (GameSystem) Reflection.createInstance(clazz.getName());
+			system = (GameSystem) Reflection.createInstance(mySystemNames.getString(systemName));
 		}
 		return system;
-	}
-
-	private boolean isConcrete(Class<? extends GameSystem> clazz) {
-		return !Modifier.isAbstract(clazz.getModifiers());
 	}
 }

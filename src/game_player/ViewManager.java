@@ -1,6 +1,5 @@
 package game_player;
 
-import java.io.File;
 
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.loadingviews.PlayerLoader;
@@ -36,6 +35,9 @@ import javafx.stage.Stage;
  *
  */
 public class ViewManager extends GUIBuilder{
+	public static final double SUBSCENE_WIDTH = 920;
+	public static final double SUBSCENE_HEIGHT = 660;
+	
 	private Menu menu;
 	private Stage gameStage;
 	private double sceneWidth = 1200;
@@ -108,7 +110,7 @@ public class ViewManager extends GUIBuilder{
 		view = new Pane();
 		view.setPrefSize(1000, 730);
 		subRoot = new Group();
-		subScene = new SubScene(subRoot, 920, 660, false, null);
+		subScene = new SubScene(subRoot, SUBSCENE_WIDTH, SUBSCENE_HEIGHT, false, null);
 
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);

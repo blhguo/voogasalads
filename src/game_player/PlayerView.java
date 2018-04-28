@@ -9,13 +9,13 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.PrimeComponent;
-import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
+import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,10 +40,8 @@ public class PlayerView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
-	private static final double SCENE_SIZE = 500;
 
 	private PulldownFactory pullDownFactory;
-	private ButtonMaker buttonMaker;
 	private Engine myEngine;
 	private Map<String, ImageView> spriteMap;
 	private Group root;
@@ -51,9 +49,9 @@ public class PlayerView {
 	private SubScene subScene;
 	private ParallelCamera cam;
 	private DataManager dataManager;
-	private Entity gamePlayer;
 	private boolean notSet;
 
+	private Entity primary;
 
 	/**
 	 * @param pdf
@@ -83,9 +81,9 @@ public class PlayerView {
 		scene.setOnKeyPressed(e -> {
 			myEngine.receiveInput(e);
 		});
-		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		subScene.setOnKeyPressed(myEngine::receiveInput);
+		subScene.setOnKeyReleased(myEngine::receiveInput);
+		subScene.setOnMouseClicked(myEngine::receiveInput);
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
@@ -127,24 +125,30 @@ public class PlayerView {
 		//animation.stop();
 		myEngine.update(delay);
 		render();
-		handleUI();
+		//handleUI();
 	}
 
 	private void render() {
 		root.getChildren().clear();
-		myEngine.getLevel().getEntities().stream().filter(this::isInView).forEach(this::display);
-		//gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		gamePlayer = myEngine.getLevel().getEntitiesContaining(Arrays.asList(LeftKeyboardComponent.class)).get(0);
+		
+		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		setGamePlayerOnce();
-		Double xPos = gamePlayer.getComponent(XPosComponent.class).getValue();
-		Double yPos = gamePlayer.getComponent(YPosComponent.class).getValue();
-		cam.relocate(xPos - SCENE_SIZE / 2, yPos - SCENE_SIZE / 2);
+		Double xPos = primary.getComponent(XPosComponent.class).getValue();
+		Double yPos = primary.getComponent(YPosComponent.class).getValue();
+		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
+		
+		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ).forEach(this::display);
+	}
+
+	private int compareZ(Entity a, Entity b) {
+		return a.getComponent(ZHeightComponent.class).getValue()
+				.compareTo(b.getComponent(ZHeightComponent.class).getValue());
 	}
 	
 	private void setGamePlayerOnce() {
 		if(notSet) {
 			notSet = false;
-			dataManager.setGamePlayer(gamePlayer);
+			dataManager.setGamePlayer(primary);
 		}
 	}
 
@@ -157,7 +161,6 @@ public class PlayerView {
 	}
 
 	private void display(Entity entity) {
-		//System.out.println("entity: " + entity);
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
@@ -175,25 +178,35 @@ public class PlayerView {
 		root.getChildren().add(imageView);
 	}
 
-	private boolean isInView(Entity entity) {
-//		Double xPos = entity.getComponent(XPosComponent.class).getValue();
-//		Double yPos = entity.getComponent(YPosComponent.class).getValue();
-//		
-//		Double xMin = cam.getLayoutX() - SCENE_SIZE / 2;
-//		Double xMax = cam.getLayoutX() + SCENE_SIZE / 2;
-//		Double yMin = cam.getLayoutY() - SCENE_SIZE / 2;
-//		Double yMax = cam.getLayoutY() + SCENE_SIZE / 2;
-//		return ((xMin <= xPos && xMax >= xPos ) && (yMin <= yPos && yMax >= yPos));
-		return true;
+
+	private boolean isInView(Entity entity, double centerX, double centerY) {
+		double xPos = entity.getComponent(XPosComponent.class).getValue();
+		double yPos = entity.getComponent(YPosComponent.class).getValue();
+		double height = entity.getComponent(HeightComponent.class).getValue();
+		double width = entity.getComponent(WidthComponent.class).getValue();
+
+		double minX = xPos - width / 2;
+		double maxX = xPos + width / 2;
+		double minY = yPos - height / 2;
+		double maxY = yPos + height / 2;
+
+		return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
+				|| checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
 	}
-	
+
+	private boolean checkCorner(double entityX, double entityY, double centerX, double centerY) {
+		double sceneMinX = centerX - ViewManager.SUBSCENE_WIDTH / 2;
+		double sceneMaxX = centerX + ViewManager.SUBSCENE_WIDTH / 2;
+		double sceneMinY = centerY - ViewManager.SUBSCENE_HEIGHT / 2;
+		double sceneMaxY = centerY + ViewManager.SUBSCENE_HEIGHT / 2;
+		return ((sceneMinX <= entityX && entityX <= sceneMaxX) && (sceneMinY <= entityY && entityY <= sceneMaxY));
+	}
 
 	/**
 	 * method that handles reactions when buttons are pressed on Menu. Ex: When Play button is pressed,
 	 * the method will make the game play
 	 *
 	 */
-
 	public void handleUI() {
 		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();
 		String statusAction = pullDownFactory.getStatusBox().getSelectionModel().getSelectedItem();

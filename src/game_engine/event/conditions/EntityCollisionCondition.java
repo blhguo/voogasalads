@@ -1,15 +1,17 @@
 package game_engine.event.conditions;
 
-import java.util.List;
-
 import game_engine.Entity;
 import game_engine.components.collision.CollidedComponent;
 
+/**
+ * @author Jeremy Chen
+ * CollisionCondition that checks for the presence of a certain entity in list of collided entities of the "this" entity
+ */
 public class EntityCollisionCondition extends CollisionCondition{
 	Entity targetEntity;
 	
-	public EntityCollisionCondition(Entity e1, Entity e2, List<Class<? extends CollidedComponent>> sides) {
-		super(e1, sides);
+	public EntityCollisionCondition(Entity e1, Entity e2) {
+		super(e1);
 		targetEntity = e2;
 	}
 	
