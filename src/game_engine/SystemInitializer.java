@@ -9,8 +9,6 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
-import voogasalad.util.reflection.Reflection;
-import voogasalad.util.reflection.ReflectionException;
 
 public class SystemInitializer {
 
