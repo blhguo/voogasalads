@@ -1,12 +1,13 @@
 package game_engine.event.conditions;
 
 import java.math.BigDecimal;
-
+import java.util.Arrays;
 
 import com.udojava.evalex.Expression;
 
 import game_engine.Component;
 import game_engine.Entity;
+import game_engine.event.ComponentNotPresentException;
 import game_engine.event.Condition;
 
 public class DataCondition implements Condition {
@@ -20,6 +21,10 @@ public class DataCondition implements Condition {
 		myComponentClass = componentClass;
 		myComparison = comparison;
 		myExpected = expected;
+		
+		if (! myEntity.hasAll(Arrays.asList(myComponentClass))) {
+			throw new ComponentNotPresentException(Arrays.asList(myComponentClass));
+		}
 	}
 
 	@Override
