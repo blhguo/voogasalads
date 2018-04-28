@@ -2,6 +2,7 @@ package game_player;
 
 import authoring.GameChooserScreen;
 import authoring.GUI_Heirarchy.GUIBuilder;
+import authoring.loadingviews.PlayerLoader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -186,8 +187,7 @@ public class ViewManager extends GUIBuilder{
      * Display the stage for game selection.
      */ 
 	public void showGameSelectionMenu() {
-		GameChooserScreen gc = new GameChooserScreen(gameStage);
-		//gameStage.setScene(gc.display());
+		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
 	}
     
