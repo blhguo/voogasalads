@@ -9,13 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-//import voogasalad.util.voogle_images.ImageObserver;
-import voogasalad.util.voogleimages.VoogleImages;
 import voogasalad.util.voogleimages.ImageObserver;
+import voogasalad.util.voogleimages.VoogleImages;
 
 import java.io.File;
 
-public class VoogleApp implements ImageObserver{
+public class VoogleApp implements ImageObserver {
 
 	private Scene myScene;
 	private VBox myCol;
