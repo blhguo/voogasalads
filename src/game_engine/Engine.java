@@ -51,7 +51,11 @@ public class Engine {
 	public Level getLevel() {
 		return myLevels.get(myCurrentLevel);
 	}
-
+	
+	public Level getLevel(int levelId) {
+		return myLevels.get(levelId);
+	}
+	
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
