@@ -12,7 +12,7 @@ import game_engine.level.Level;
 import game_engine.systems.collision.CollisionResponseSystem;
 
 public class ProjectileDespawnSystem extends CollisionResponseSystem{
-	private static final Class<? extends Component<Boolean>> PROJECTILE = ProjectileComponent.class;
+	private static final Class<? extends Component<NullType>> PROJECTILE = ProjectileComponent.class;
 	
 	@Override
 	public void act(double elapsedTime, Level level) {
