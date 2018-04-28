@@ -81,9 +81,9 @@ public class PlayerView {
 		scene.setOnKeyPressed(e -> {
 			myEngine.receiveInput(e);
 		});
-		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		subScene.setOnKeyPressed(myEngine::receiveInput);
+		subScene.setOnKeyReleased(myEngine::receiveInput);
+		subScene.setOnMouseClicked(myEngine::receiveInput);
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();

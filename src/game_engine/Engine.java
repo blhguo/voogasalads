@@ -87,7 +87,7 @@ public class Engine {
 		return myInputs.stream().filter(ie -> ie.getEventType() == MOUSE_EVENT).map(ie -> (MouseEvent) ie).collect(Collectors.toList());
 	}
 
-	public void receiveInput(KeyEvent event) {
+	public void receiveInput(InputEvent event) {
 		myInputs.add(event);
 	}
 }
