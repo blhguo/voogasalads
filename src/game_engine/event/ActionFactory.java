@@ -53,7 +53,7 @@ public class ActionFactory<T> {
 			case "RemoveComponentAction":
 				return new RemoveComponentAction(entities.get(0), (Class<? extends Component<?>>) components.get(0).getClass());
 			
-			default: throw new ActionNotFoundException("Did not match Action");
+			default: throw new ActionNotFoundException("Action name does not match any Actions");
 		}
 	}
 }
