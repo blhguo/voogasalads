@@ -1,6 +1,5 @@
 package game_engine.test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +15,8 @@ import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
 import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
 import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
+import game_engine.components.enemy.DefaultHorizontalPaceTimeComponent;
+import game_engine.components.enemy.HorizontalPaceTimeComponent;
 import game_engine.components.keyboard.DownKeyboardComponent;
 import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
@@ -31,6 +32,7 @@ import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.WidthComponent;
+import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -201,11 +203,13 @@ public class CollectibleTest extends Application {
 		mainCharacter.addComponent(new FilenameComponent("Mario.GIF"));
 		mainCharacter.addComponent(new HeightComponent("50"));
 		mainCharacter.addComponent(new WidthComponent("50"));
+		mainCharacter.addComponent(new ZHeightComponent("2"));
 		
 		// component needed for sprite component
 		coin.addComponent(new FilenameComponent("turtle.GIF"));
 		coin.addComponent(new HeightComponent("50"));
 		coin.addComponent(new WidthComponent("50"));
+		coin.addComponent(new ZHeightComponent("1"));
 		
 		ImageView mainView = new ImageView(mainCharacter.getComponent(FilenameComponent.class).getValue());
 		ImageView coinView = new ImageView(coin.getComponent(FilenameComponent.class).getValue());
@@ -216,6 +220,7 @@ public class CollectibleTest extends Application {
 		referencePoint.addComponent(new YPosComponent("300"));
 		referencePoint.addComponent(new HeightComponent("500"));
 		referencePoint.addComponent(new WidthComponent("500"));
+		referencePoint.addComponent(new ZHeightComponent("0"));
 		engine.getLevel().addEntity(referencePoint);
 		ImageView referenceView = new ImageView(referencePoint.getComponent(FilenameComponent.class).getValue());
 
