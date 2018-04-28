@@ -34,6 +34,7 @@ import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
+import game_engine.event.Condition;
 import game_engine.level.Level;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
