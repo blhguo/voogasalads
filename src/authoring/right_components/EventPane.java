@@ -14,6 +14,8 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,6 +24,7 @@ import resources.keys.AuthRes;
 
 /**
  * @author Elizabeth Shulman
+ * @author Liam Pulsifer
  * Event menu that extends BasePane, which implements GUINode. Menu for toggling 
  * relationships between multiple entities
  */
@@ -46,25 +49,74 @@ public class EventPane extends BasePane {
 		box = buildBasicView(AuthRes.getString("EventTitle"));
 		box.setAlignment(Pos.TOP_CENTER);
 		subBox = new VBox();
+		subBox.setSpacing(20);
 		box.getChildren().add(subBox);
 		initStart();
-//		initNewEvent();
-//		initAddCondition();
+		initNewEvent();
+		//initAddCondition();
 //		initAddAction();
-//		initViewEvents();
+		initViewEvents();
 	}
-	
+	private void initViewEvents() {
+		viewEvents = new Pane();
+		VBox events = new VBox();
+		events.setSpacing(20);
+		events.getChildren().add(new ImageView(
+				new Image("default.jpg")));
+		Button button = ButtonFactory.makeButton(e ->{
+			initStart();
+		});
+		events.getChildren().add(button);
+		viewEvents.getChildren().add(events);*
+	}
+	private void initAddCondition() {
+		// TODO Auto-generated method stub
+		
+	}
+	private void clearAndAdd(Node n){
+		subBox.getChildren().clear();
+		subBox.getChildren().add(n);
+	}
 	private void initStart() {
 		start = new Pane();
+		VBox startBox = new VBox();
+		startBox.setSpacing(20);
 		Button create = ButtonFactory.makeButton(e -> {
-			//box.getChildren().remove(subBox);
-			subBox.getChildren().clear();
-			//subBox.getChildren().add(newEvent);
-			//box.getChildren().add(subBox);
+			clearAndAdd(newEvent);
 		});
-		HBox createBox = ButtonFactory.makeHBox("Create New Entity", 
+		HBox createBox = ButtonFactory.makeHBox("Create New Event", 
 				null, create);
-		subBox.getChildren().add(createBox);
+		Button view = ButtonFactory.makeButton(a -> {
+			clearAndAdd(viewEvents);
+		});
+		HBox viewBox = ButtonFactory.makeHBox("View Existing Events", null,
+				view);
+		startBox.getChildren().addAll(createBox, viewBox);
+		start.getChildren().add(startBox);
+		clearAndAdd(start);
+		
+	}
+	private void initNewEvent() {
+		newEvent = new Pane();
+		VBox eventBox = new VBox();
+		eventBox.setSpacing(20);
+		Button condition = ButtonFactory.makeButton(e -> {
+			clearAndAdd(addCondition);
+		});
+		Button action = ButtonFactory.makeButton(f -> {
+			clearAndAdd(addAction);
+		});
+		HBox conditionBox = ButtonFactory.makeHBox("Add a new Condition", 
+				null, condition);
+		HBox actionBox = ButtonFactory.makeHBox("Add a new Action", 
+				null, action);
+		eventBox.getChildren().addAll(conditionBox, actionBox);
+		Button back = ButtonFactory.makeButton(g -> {
+			initStart();
+		});
+		HBox backBox = ButtonFactory.makeHBox("Back", null, back);
+		eventBox.getChildren().add(backBox);
+		newEvent.getChildren().add(eventBox);
 		
 	}
 	public void setController(EntityController e){
