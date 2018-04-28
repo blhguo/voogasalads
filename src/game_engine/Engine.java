@@ -15,10 +15,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class Engine {
-	private static final EventType MOUSE_EVENT = MouseEvent.MOUSE_CLICKED;
-	private static final EventType KEY_PRESSED_EVENT = KeyEvent.KEY_PRESSED;
-	private static final EventType KEY_RELEASED_EVENT = KeyEvent.KEY_RELEASED;
-	
+	private static final EventType<MouseEvent> MOUSE_EVENT = MouseEvent.MOUSE_CLICKED;
+	private static final EventType<KeyEvent> KEY_PRESSED_EVENT = KeyEvent.KEY_PRESSED;
+	private static final EventType<KeyEvent> KEY_RELEASED_EVENT = KeyEvent.KEY_RELEASED;
+
 	private Map<Integer, Level> myLevels;
 	private int myCurrentLevel;
 	private int myIdCounter;
@@ -59,7 +59,11 @@ public class Engine {
 	public Level getLevel() {
 		return myLevels.get(myCurrentLevel);
 	}
-
+	
+	public Level getLevel(int levelId) {
+		return myLevels.get(levelId);
+	}
+	
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
@@ -79,15 +83,19 @@ public class Engine {
 	}
 
 	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
-		return myInputs.stream().filter(ie -> ie.getEventType() == KEY_PRESSED_EVENT || ie.getEventType() == KEY_RELEASED_EVENT)
-				.map(ie -> (KeyEvent) ie).filter(keyEvent -> keyInput.equals(keyEvent.getCode())).collect(Collectors.toList());
+		return myInputs.stream()
+				.filter(inputEvent -> inputEvent.getEventType() == KEY_PRESSED_EVENT
+						|| inputEvent.getEventType() == KEY_RELEASED_EVENT)
+				.map(inputEvent -> (KeyEvent) inputEvent).filter(keyEvent -> keyInput.equals(keyEvent.getCode()))
+				.collect(Collectors.toList());
 	}
 
 	public List<MouseEvent> getMouseInputs() {
-		return myInputs.stream().filter(ie -> ie.getEventType() == MOUSE_EVENT).map(ie -> (MouseEvent) ie).collect(Collectors.toList());
+		return myInputs.stream().filter(inputEvent -> inputEvent.getEventType() == MOUSE_EVENT)
+				.map(inputEvent -> (MouseEvent) inputEvent).collect(Collectors.toList());
 	}
 
-	public void receiveInput(KeyEvent event) {
+	public void receiveInput(InputEvent event) {
 		myInputs.add(event);
 	}
 }
