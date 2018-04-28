@@ -14,20 +14,16 @@ import game_engine.event.actions.micro.*;
  *
  */
 
-public class ActionFactory<T> {
+public class ActionFactory {
 	private static final String ACTION_BUNDLE = "Action";
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Action createAction(String name, List<Entity> entities, List<Component<T>> components,
+	public static <T> Action createAction(String name, List<Entity> entities, List<Component<T>> components,
 			List<String> expressions, List<T> values, Engine engine) {
 		
 		switch(name) {
 			case "AddEntityAction":
 				return new AddEntityAction(entities.get(0), engine);
-				
-			//TODO: COMPLETE GAME OVER ACTION!!!!!!!!!!!!!!!!!!
-			case "GameOverAction":
-				return new GameOverAction(null);
 				
 			case "LevelChangeAction":
 				return new LevelChangeAction(engine, (int) values.get(0));
