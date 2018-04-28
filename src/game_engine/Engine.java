@@ -79,9 +79,4 @@ public class Engine {
 	public void receiveInput(KeyEvent event) {
 		myInputs.add(event);
 	}
-	public static void main(String[] args){
-		Engine engine = new Engine();
-		
-	}
-
 }
