@@ -2,11 +2,13 @@ package game_engine.systems;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
+import game_engine.Tuple;
 import game_engine.components.DamageComponent;
 import game_engine.components.ProjectileComponent;
 import game_engine.components.collision.CollidableComponent;
@@ -35,8 +37,8 @@ import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.level.Level;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class ProjectileSpawnSystem extends GameSystem {
 
@@ -69,8 +71,8 @@ public class ProjectileSpawnSystem extends GameSystem {
 				ENTITY_XPOS, ENTITY_YPOS, PROJ_HITBOX_X_OFFSET, PROJ_HITBOX_Y_OFFSET);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<KeyCode> keyInput = entity.getComponent(PROJ_INPUT);
-			for (InputEvent input : myEngine.getKeyInputs(keyInput.getValue())) {
-				if (input.getEventType().getName().equals(KEY_PRESSED)) {
+			for (Tuple<UUID, KeyEvent> input : myEngine.getKeyInputs(keyInput.getValue())) {
+				if (input.getSecond().getEventType().getName().equals(KEY_PRESSED)) {
 					Entity proj = createProjectile(entity);
 					level.addEntity(proj);
 				}

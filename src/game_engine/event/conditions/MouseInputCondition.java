@@ -1,10 +1,12 @@
 package game_engine.event.conditions;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.Tuple;
 import game_engine.Vector;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
@@ -41,8 +43,8 @@ public class MouseInputCondition implements Condition {
 		double width = myEntity.getComponent(WIDTH).getValue();
 		double height = myEntity.getComponent(HEIGHT).getValue();
 		
-		for (Vector click : myEngine.getMouseInputs()) {
-			if (withinBounds(click, xPos, yPos, width, height)) {
+		for (Tuple<UUID, Vector> click : myEngine.getMouseInputs()) {
+			if (withinBounds(click.getSecond(), xPos, yPos, width, height)) {
 				return true;
 			}
 		}
