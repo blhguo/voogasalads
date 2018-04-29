@@ -2,27 +2,34 @@ package game_engine;
 
 import java.util.List;
 
-public interface EntityInterface {
+/**
+ * 
+ * This interface specifies the methods that an Entity object must implement.
+ * 
+ * @author Andy Nguyen
+ *
+ */
+public interface EntityInterface<T> {
 	
 	/**
 	 * Adds a component for the Entity
 	 * @param component
 	 */
-	void addComponent(Component component);
+	void addComponent(Component<T> component);
 	
 	/**
 	 * Removes a component for the Entity
 	 * To be used not by front-end, but by other classes
 	 * @param component
 	 */
-	void removeComponent(Class<? extends Component> clazz);
+	void removeComponent(Class<? extends Component<T>> clazz);
 	
 	/**
 	 * Gets a Component based on Component class
 	 * @param clazz
 	 * @return
 	 */
-	Component getComponent(Class<? extends Component> clazz);
+	Component<T> getComponent(Class<? extends Component<T>> clazz);
 	
 	
 	/**
@@ -30,7 +37,7 @@ public interface EntityInterface {
 	 * @param args
 	 * @return
 	 */
-	boolean hasAll(List<Class<? extends Component>> args);
+	boolean hasAll(List<Class<? extends Component<T>>> args);
 	
 
 	/**
@@ -38,10 +45,10 @@ public interface EntityInterface {
 	 * @param args
 	 * @return
 	 */
-	boolean hasAny(List<Class<? extends Component>> args);
+	boolean hasAny(List<Class<? extends Component<T>>> args);
 	
 	/** returns all components of an entity
 	 * @return Map
 	 */
-	List<Component> getComponents();
+	List<Component<T>> getComponents();
 }

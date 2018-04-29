@@ -1,5 +1,12 @@
 package game_engine;
 
+/**
+ * 
+ * @author benhubsch
+ * 
+ * This error is thrown from within the ComponentFactory.
+ *
+ */
 public class ComponentNotFoundException extends RuntimeException {
 
 	/**

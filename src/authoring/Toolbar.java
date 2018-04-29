@@ -1,37 +1,69 @@
 package authoring;
 
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
+import authoring.GUI_Heirarchy.GUINode;
+import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import main.SplashScreen;
 import resources.keys.AuthRes;
 
+/**
+ * @author Elizabeth Shulman
+ * @author Jennifer Chin
+ * Top toolbar class that contains a back button to allow the user to get back to the 
+ * splash screen 
+ */
+
 public class Toolbar implements GUINode {
 
-	Stage stage;
+	private Stage stage;
+	private BorderPane myNode;
 	
+	/**
+	 * Constructor that takes in a stage and splash screen in order to change the root 
+	 * of the scene of the stage and change it to the splash screen
+	 * @param stage
+	 * @param ss
+	 */
 	public Toolbar(Stage stage) {
 		this.stage = stage;
-	}
-	
-	@Override
-	public Pane getView() {
-		BorderPane toolbar = new BorderPane();
-		toolbar.setRight(makeBackButton());
-		toolbar.getStyleClass().add("toolbar");
-		return toolbar;
+		myNode = new BorderPane();
+		myNode.setRight(makeBackButton());
+		myNode.getStyleClass().add("toolbar");
 	}
 
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
 				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 25),
-				e -> stage.setScene(new SplashScreen(stage).display()),
+				e -> stage.getScene().setRoot(new SplashScreen(stage).display()),
 				"button-nav");
+	}
+
+	/**
+	 * Method inherited from GUINode; returns myNode, the core Toolbar node.
+	 * Note the method integrateToolbar(Pane basepane), which allows a user
+	 * to place myNode onto a larger pane.
+	 */
+	@Override
+	public Node getView() {
+		return myNode;
+	}
+	
+	/**
+	 * Integrates toolbar into existing root pane, by stacking panes and enabling clicks through
+	 * @param basepane	already-created pane upon which to place the toolbar
+	 * @return	StackPane consisting of toolbar and base pane
+	 */
+	public StackPane integrateToolbar(Pane basepane) {
+		myNode.setPickOnBounds(false);
+		return new StackPane(basepane, myNode);
 	}
 }
 

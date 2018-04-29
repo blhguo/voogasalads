@@ -1,13 +1,16 @@
 package main;
 
 import authoring.AuthoringEnvironment;
-import authoring.GUIGridPaneSuper;
-import authoring.GameChooserScreen;
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
+import authoring.GUI_Heirarchy.GUIGridPaneSuper;
+import authoring.loadingviews.AuthoringLoader;
+import authoring.loadingviews.PlayerLoader;
+import frontend_utilities.ButtonFactory;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,29 +22,40 @@ public class SplashScreen extends GUIGridPaneSuper{
 	
 	public SplashScreen(Stage stage){
 		myStage = stage;
-//		Font myFont = Font.loadFont(getClass().getResourceAsStream("resources/Segoe fonts v1710/segoeuil.ttf"), 10);
+	}
+	
+	public Scene getScene(){
+		GridPane gridpane = new GridPane();
+		gridpane.setHgap(AuthRes.getInt("Padding"));
+		gridpane.setVgap(AuthRes.getInt("Padding"));
+		gridpane.setPadding(new Insets(AuthRes.getInt("Padding")));
+		Scene myScene = initScene(gridpane);
+		
+		finishScene(gridpane);
+		return myScene;
 	}
 	
 	private VBox makeVBox(){
 		VBox myVBox = new VBox(AuthRes.getInt("VBPadding"));		
 		Button createButton = ButtonFactory.makeButton(e -> {
 			AuthoringEnvironment ae = new AuthoringEnvironment(myStage);
-			myStage.setScene(ae.display());
+			
+			myStage.getScene().setRoot(ae.display());
 			myStage.show();
 		});
 		Button loadButton = ButtonFactory.makeButton(e -> {
-			GameChooserScreen gc = new GameChooserScreen(myStage);
-			myStage.setScene(gc.display());
+			AuthoringLoader chooseauthoring = new AuthoringLoader(myStage);
+			myStage.getScene().setRoot(chooseauthoring.display());
 			myStage.show();
 		});
 		
 		Button playButton = ButtonFactory.makeButton(e -> {
-			GameChooserScreen gc = new GameChooserScreen(myStage);
-			myStage.setScene(gc.display());
+			PlayerLoader chooseplayer = new PlayerLoader(myStage);
+			myStage.getScene().setRoot(chooseplayer.display());
 			myStage.show();
 		});
 				
-		HBox createHB = ButtonFactory.makeHBox("Create New Level", "Authoring Environment", createButton);
+		HBox createHB = ButtonFactory.makeHBox("Create New Game", "Authoring Environment", createButton);
 		HBox loadHB = ButtonFactory.makeHBox("Load Game for Editing", "Authoring Environment", loadButton);
 		HBox playHB = ButtonFactory.makeHBox("Load Game for Play", "Game Player", playButton);
 		myVBox.getChildren().addAll(createHB, loadHB, playHB);
@@ -49,11 +63,22 @@ public class SplashScreen extends GUIGridPaneSuper{
 	}
 	
 	@Override
-	public void finishScene(GridPane gridpane) {
+	public Pane finishScene(GridPane gridpane) {
+//		initScene(gridpane);
+		System.out.println("Finishing splash screen");
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
-		gridpane.add(title, 10, 80);
-		gridpane.add(makeVBox(), 50, 20);
+		VBox vb = makeVBox();
+		gridpane.getChildren().addAll(title, vb);
+		double width = title.getParent().getLayoutBounds().getWidth();
+		int numCols = (int) width / AuthRes.getInt("Padding");
+		double height = title.getParent().getLayoutBounds().getHeight();
+		int numRows = (int) height / AuthRes.getInt("Padding");
+		GridPane.setConstraints(title, numCols / 20, numRows * 2 / 3);
+		GridPane.setConstraints(vb, numCols / 3, numRows / 4);
+		System.out.println(gridpane.getColumnIndex(vb));
+		System.out.println(gridpane.getLayoutBounds());
+		return gridpane;
 	}
 
 }

@@ -1,17 +1,20 @@
 package game_engine;
 
-public abstract class GameSystem {
-	
-	protected Engine myEngine;
-	
-	public GameSystem(Engine engine) {
-		myEngine = engine;
-	}
-	
-	protected Engine getEngine() {
-		return myEngine;
-	}
-	
-	public abstract void act(double elapsedTime);
+import game_engine.level.Level;
 
+/**
+ * 
+ * @author benhubsch
+ * 
+ *         The Class GameSystem.
+ */
+public abstract class GameSystem {
+
+	/**
+	 * This is the System subclasses primary method. They implement behavior as they desire by acting on
+	 * Entity's Components.
+	 *
+	 * @param elapsedTime the elapsed time
+	 */
+	public abstract void act(double elapsedTime, Level level);
 }

@@ -3,8 +3,6 @@ package observables;
 import java.util.ArrayList;
 import java.util.List;
 
-import observables.Listener;
-
 public interface Subject {
 
 	public  List<Listener> myListeners = new ArrayList<Listener>();
