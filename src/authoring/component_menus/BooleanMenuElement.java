@@ -5,6 +5,7 @@ import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.KeyCode;
+import resources.keys.AuthRes;
 
 /**
  * @author liampulsifer
@@ -28,7 +29,7 @@ public class BooleanMenuElement extends MenuElement{
 			}
 		});
 		this.title = title;
-		view = ButtonFactory.makeReverseHBox(title, null, box);
+		view = ButtonFactory.makeReverseHBox(title, null, box, AuthRes.getInt("MenuElementWidth"));
 	}
 
 	/**

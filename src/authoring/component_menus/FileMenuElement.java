@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import resources.keys.AuthRes;
 
 import java.io.File;
 
@@ -38,7 +39,7 @@ public class FileMenuElement extends MenuElement{
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = new VBox();
-		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field));
+		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth")));
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());

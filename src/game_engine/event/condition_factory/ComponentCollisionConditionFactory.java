@@ -15,7 +15,7 @@ public class ComponentCollisionConditionFactory extends ConditionFactory{
 		Component<Entity> entity = eventArg.getComponent(FactoryEntityComponent.class);
 		Component<Component> comp = eventArg.getComponent(FactoryComponentComponent.class);
 		Component<List<Component<?>>> compList = eventArg.getComponent(CollisionListComponent.class);
-		
+
 		return new Condition()
 	}
 

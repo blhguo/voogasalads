@@ -5,7 +5,7 @@ import game_engine.NullType;
 
 public class PrimeComponent extends Component<NullType> {
 
-	public PrimeComponent() {
+	public PrimeComponent(String arg) {
 		super(null);
 	}
 
