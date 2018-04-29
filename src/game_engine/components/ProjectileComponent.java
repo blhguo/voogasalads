@@ -7,5 +7,8 @@ public class ProjectileComponent extends Component<Boolean>{
 	public ProjectileComponent(String arg) {
 		super(true);
 	}
+	public ProjectileComponent() {
+		super(true);
+	}
 
 }

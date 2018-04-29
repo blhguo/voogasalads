@@ -1,9 +1,12 @@
 package authoring.component_menus;
 
+import java.util.ResourceBundle;
+
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
 
@@ -15,6 +18,9 @@ public class NumberMenuElement extends MenuElement{
 	TextField field;
 	private Node view;
 	private String title;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public NumberMenuElement(String title, Component component){
 		setMyComponent(component);
 		field = new TextField();
@@ -41,7 +47,10 @@ public class NumberMenuElement extends MenuElement{
 		}
 		);
 		this.title = title;
-		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
+		view = ButtonFactory.makeReverseHBox(userNames.getString(title), 
+				null, field, AuthRes.getInt("MenuElementWidth"));
+		Tooltip tip = new Tooltip(tooltips.getString(title));
+		Tooltip.install(view, tip);
 	}
 
 	/**

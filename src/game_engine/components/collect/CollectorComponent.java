@@ -8,4 +8,7 @@ public class CollectorComponent extends Component<NullType>{
 	public CollectorComponent(String arg){
 		super(null);
 	}
+	public CollectorComponent(){
+		super(null);
+	}
 }
