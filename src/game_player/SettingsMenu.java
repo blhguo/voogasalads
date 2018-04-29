@@ -25,12 +25,12 @@ public class SettingsMenu {
 	private Slider brightnessSlider;
 	private Label volumeLabel;
 	private Label brightnessLabel;
-	private ViewManager viewManager;
+	private Stage gameStage;
 	
-	public SettingsMenu() {
+	public SettingsMenu(Stage stage) {
 		brightnessSlider = makeBrightnessSlider();
 		volumeSlider = makeVolumeSlider();
-		
+		gameStage = stage;
 	}
 	
 	protected void makeSettingsMenu(HBox pane) {
@@ -47,11 +47,9 @@ public class SettingsMenu {
 		settingsMenu.setBackground(new Background(back));
 		settingsButton.setOnAction(click->{showSettingsMenu();});	
 	}
-	public void setViewManager(ViewManager vm) {
-		viewManager = vm;
-	}
 	protected void makeSettingsStage() {
 		settingsStage = new Stage();
+		settingsStage.initOwner(gameStage);
 		Scene scene = new Scene(settingsMenu);
 		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		makeBrightnessSlider();
@@ -70,7 +68,7 @@ public class SettingsMenu {
 	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
-		brightnessSlider.setMin(0);
+		brightnessSlider.setMin(0.3);
 		brightnessSlider.setMax(1);
 		brightnessSlider.setValue(1);
 		return brightnessSlider;

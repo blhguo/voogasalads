@@ -3,12 +3,10 @@ package game_player;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 public class GameSelectionMenu {
 	
 	private Button gameSelectionButton;
-	private Stage gameSelectionStage;
 	private PulldownFactory pullDownFactory;
 	
 	protected void makeGameSelectionMenu(HBox pane, PulldownFactory pdf) {
@@ -27,10 +25,6 @@ public class GameSelectionMenu {
 	
 	protected void showGameSelectionMenu() {
 		pullDownFactory.importGame();
-//		gameSelectionStage = new Stage();
-//		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
-//		gameSelectionStage.getScene().setRoot(gc.display());
-//		gameSelectionStage.show();
 	}	
 
 

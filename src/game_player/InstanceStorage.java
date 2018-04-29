@@ -1,5 +1,7 @@
 package game_player;
 
+import javafx.stage.Stage;
+
 public class InstanceStorage {
 	
 	ViewManager viewManager;
@@ -8,10 +10,49 @@ public class InstanceStorage {
 	PulldownFactory pullDownFactory;
 	PlayerView playerView;
 	ButtonMaker buttonMaker;
+	Stage gameStage;
 	
-	public void storeInstance() {
-		
+	public void setStage(Stage stage) {
+		this.gameStage = stage;
 	}
-	
+	public void setViewManager(ViewManager vm) {
+		this.viewManager = vm;
+	}
+	public void setMenu(Menu m) {
+		this.menu = m;
+	}
+	public void setDataManager(DataManager dm) {
+		this.dataManager = dm;
+	}
+	public void setPullDownFactory(PulldownFactory pdf) {
+		this.pullDownFactory = pdf;
+	}
+	public void setPlayerView(PlayerView pv) {
+		this.playerView = pv;
+	}
+	public void setButtonMaker(ButtonMaker bm) {
+		this.buttonMaker = bm;
+	}
+	public ViewManager getViewManager() {
+		return this.viewManager;
+	}
+	public Menu getMenu() {
+		return this.menu;
+	}
+	public DataManager getDataManager() {
+		return this.dataManager;
+	}
+	public PulldownFactory getPullDownFactory() {
+		return this.pullDownFactory;
+	}
+	public PlayerView getPlayerView() {
+		return this.playerView;
+	}
+	public ButtonMaker getButtonMaker() {
+		return this.buttonMaker;
+	}
+	public Stage getStage() {
+		return this.gameStage;
+	}
 
 }

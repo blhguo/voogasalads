@@ -15,4 +15,3 @@ public abstract class Component<T> {
 		return myValue;
 	}
 }
-
