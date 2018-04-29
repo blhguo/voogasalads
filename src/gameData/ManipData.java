@@ -43,8 +43,7 @@ public class ManipData {
 	private static final int FILE_EXTENSION = 4;
 	private XStream serializer;
 	private XStream deserializer;
-	//public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
-
+	public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
 
 	//constructor
 	public ManipData() {
@@ -159,6 +158,20 @@ public class ManipData {
 		
 		return metaMap;
 	}
+	
+	public Map<String, String> openConfig(String filePath) {		
+		Map<String, String> configMap = new HashMap<>();
+		
+		ResourceBundle CONFIGKEYS = ResourceBundle.getBundle(filePath);
+		for (String s : CONFIGKEYS.keySet()) {
+			String buff = CONFIGKEYS.getString(AuthRes.getStringKeys(s));
+			configMap.put(AuthRes.getStringKeys(s), buff);
+		}
+		
+		return configMap;
+	}
+	
+	
 	/* This method will be used to write a single entry into XML
 	 * the type will disinguish between whether the written XML is MetaData or Objects
 	 * no longer would need fos or xml
@@ -191,7 +204,7 @@ public class ManipData {
 			Properties param = new Properties();
 			
 			for (int i = 0; i < configMap.size(); i ++) {
-//				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
+				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
 			file = new File("games/" + configLoc + "/config.xml");
@@ -261,6 +274,7 @@ public class ManipData {
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
 		String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
 		};
@@ -268,6 +282,7 @@ public class ManipData {
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
+
 			try {
 				doc = dBuilder.parse(file);
 
@@ -295,6 +310,8 @@ public class ManipData {
 		
 	}
 
+	
+	
 	private String nodeToString(Node node) {
 		StringWriter sw = new StringWriter();
 		try {

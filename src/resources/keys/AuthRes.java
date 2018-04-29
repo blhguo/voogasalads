@@ -7,7 +7,7 @@ public class AuthRes {
 	public static final ResourceBundle RESOURCEKEYS = ResourceBundle.getBundle("resources.keys/authoringResources");
 	//public static final ResourceBundle VOOGLE = ResourceBundle.getBundle("resources.keys/English");
 	//public static final ResourceBundle VOOGLEIMAGES = ResourceBundle.getBundle("resources.keys/Image");
-	//public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
+	public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
 
 
 	/**
@@ -19,9 +19,9 @@ public class AuthRes {
         return RESOURCEKEYS.getString(key);
     }
 	
-//	public static String getStringKeys(String key) {
-//		return CONFIGKEYS.getString(key);
-//	}
+	public static String getStringKeys(String key) {
+		return CONFIGKEYS.getString(key);
+	}
 
 	
 	/**
