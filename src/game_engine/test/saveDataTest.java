@@ -201,15 +201,15 @@ public class saveDataTest extends Application {
 		Map<String, String> map = new HashMap<>();
 		map.put("dog", "cat");
 		map.put("potato", "fruit");
-		data.saveData(engine, "Mario", "Mario", true);
+		data.saveData(engine, "Mario", map);
 	}
 
 	public Engine loadFromData() {
 		ManipData data = new ManipData();
-		return data.loadData("games/Mario/Mario.xml");
+		return data.loadData(new File("savedata/gameLevels.xml"), "gameName");
 	}
 
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		launch(args);
 	}
 
@@ -224,8 +224,8 @@ public class saveDataTest extends Application {
 		System.out.println("hiasdfasdf");
 		root = new Group();
 		myScene = new Scene(root, 400, 400, Color.rgb(255, 255, 255));
-		myScene.setOnKeyPressed(b -> engine.receiveKeyInput(b));
-		myScene.setOnKeyReleased(b -> engine.receiveKeyInput(b));
+		myScene.setOnKeyPressed(b -> engine.receiveInput(b));
+		myScene.setOnKeyReleased(b -> engine.receiveInput(b));
 
 		root.getChildren().add(r1);
 		stage.setScene(myScene);

@@ -93,6 +93,8 @@ public class MouseClickTest extends Application{
 	private void setup(){
 		root = new Group();
 		myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
+		myScene.setOnKeyPressed(b -> engine.receiveInput(b));
+		myScene.setOnKeyReleased(b -> engine.receiveInput(b));
 
 		buildMainCharacterEntity();
 		buildCoinEntity();

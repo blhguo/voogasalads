@@ -1,9 +1,13 @@
 package game_engine.components;
 
 import game_engine.Component;
-import game_engine.event.conditions.DataConditionable;
 
-@DataConditionable
+/**
+ * getValue() returns value of damage done to an entity (should be a negative number)
+ * @author Kevin Deng, Andy Nguyen, Jeremy Chen, Ben Hubsch
+ *
+ */
+
 public class DamageComponent extends Component<Double>{
 	
 	public DamageComponent(String arg){
