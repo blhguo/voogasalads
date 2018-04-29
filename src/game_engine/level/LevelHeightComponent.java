@@ -6,6 +6,7 @@ public class LevelHeightComponent extends Component<Double>{
 
 	public LevelHeightComponent(Double val) {
 		super(val);
+		// TODO Auto-generated constructor stub
 	}
 
 }

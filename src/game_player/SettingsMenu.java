@@ -25,7 +25,6 @@ public class SettingsMenu {
 	private Slider brightnessSlider;
 	private Label volumeLabel;
 	private Label brightnessLabel;
-	private ViewManager viewManager;
 	
 	public SettingsMenu() {
 		brightnessSlider = makeBrightnessSlider();
@@ -47,9 +46,7 @@ public class SettingsMenu {
 		settingsMenu.setBackground(new Background(back));
 		settingsButton.setOnAction(click->{showSettingsMenu();});	
 	}
-	public void setViewManager(ViewManager vm) {
-		viewManager = vm;
-	}
+	
 	protected void makeSettingsStage() {
 		settingsStage = new Stage();
 		Scene scene = new Scene(settingsMenu);
@@ -62,15 +59,13 @@ public class SettingsMenu {
 		settingsMenu.getChildren().add(brightnessSlider);
 		settingsMenu.getChildren().add(volumeLabel);
 		settingsMenu.getChildren().add(volumeSlider);
-        //settingsStage.initOwner(viewManager.getGameStage());
-
 		settingsStage.setScene(scene);
 	}
 	
 	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
-		brightnessSlider.setMin(0.3);
+		brightnessSlider.setMin(0);
 		brightnessSlider.setMax(1);
 		brightnessSlider.setValue(1);
 		return brightnessSlider;

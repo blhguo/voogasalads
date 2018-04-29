@@ -5,28 +5,31 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
+import javafx.event.EventType;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Engine {
+	private static final EventType<MouseEvent> MOUSE_EVENT = MouseEvent.MOUSE_CLICKED;
+	private static final EventType<KeyEvent> KEY_PRESSED_EVENT = KeyEvent.KEY_PRESSED;
+	private static final EventType<KeyEvent> KEY_RELEASED_EVENT = KeyEvent.KEY_RELEASED;
 
 	private Map<Integer, Level> myLevels;
 	private int myCurrentLevel;
 	private int myIdCounter;
 	private List<GameSystem> mySystems;
-	private List<Tuple<UUID, KeyEvent>> myKeyInputs;
-	private List<Tuple<UUID, Vector>> myMouseInputs;
+	private LinkedList<InputEvent> myInputs;
 
 	public Engine() {
 		myLevels = new HashMap<Integer, Level>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
-		myKeyInputs = new LinkedList<>();
-		myMouseInputs = new LinkedList<>();
+		myInputs = new LinkedList<>();
 		mySystems = new SystemInitializer().init(this);
 		System.out.println(mySystems.size());
 	}
@@ -39,12 +42,7 @@ public class Engine {
 
 		currentLevel.checkEvents();
 
-		clearInput();
-	}
-
-	private void clearInput() {
-		myKeyInputs.clear();
-		myMouseInputs.clear();
+		myInputs.clear();
 	}
 
 	public Level createLevel() {
@@ -84,20 +82,20 @@ public class Engine {
 		return preview;
 	}
 
-	public List<Tuple<UUID, KeyEvent>> getKeyInputs(KeyCode keyInput) {
-		return myKeyInputs.stream().filter(keyTuple -> keyInput.equals(keyTuple.getSecond().getCode()))
+	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
+		return myInputs.stream()
+				.filter(inputEvent -> (inputEvent.getEventType() == KEY_PRESSED_EVENT
+						|| inputEvent.getEventType() == KEY_RELEASED_EVENT))
+				.map(inputEvent -> (KeyEvent) inputEvent).filter(keyEvent -> keyInput.equals(keyEvent.getCode()))
 				.collect(Collectors.toList());
 	}
 
-	public List<Tuple<UUID, Vector>> getMouseInputs() {
-		return myMouseInputs;
+	public List<MouseEvent> getMouseInputs() {
+		return myInputs.stream().filter(inputEvent -> inputEvent.getEventType() == MOUSE_EVENT)
+				.map(inputEvent -> (MouseEvent) inputEvent).collect(Collectors.toList());
 	}
 
-	public void receiveKeyInput(Tuple<UUID, KeyEvent> event) {
-		myKeyInputs.add(event);
-	}
-
-	public void receiveMouseInput(Tuple<UUID, Vector> click) {
-		myMouseInputs.add(click);
+	public void receiveInput(InputEvent event) {
+		myInputs.add(event);
 	}
 }

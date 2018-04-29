@@ -1,7 +1,6 @@
 package game_engine.components.collision;
 
 import game_engine.Component;
-import game_engine.event.conditions.DataConditionable;
 
 /**
  * @author: Jeremy Chen
@@ -11,7 +10,6 @@ import game_engine.event.conditions.DataConditionable;
  * Passable: Signals to systems that this Entity is "tangible" (Use case: if intersectable & not passable, other entities can pass through it, but collisions are still detected)
  * Pushable: An int, whose value dictates what Entities can be pusehd by this entity (higher can push lower)
  */
-@DataConditionable
 public class CollidableComponent extends Component<Boolean> {
 	public CollidableComponent(String arg) {
 		super(Boolean.parseBoolean(arg));

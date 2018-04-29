@@ -8,16 +8,15 @@ import game_engine.components.collision.CollidedComponent;
  * CollisionCondition that checks for the presence of a certain entity in list of collided entities of the "this" entity
  */
 public class EntityCollisionCondition extends CollisionCondition{
-	
-	private Entity myTargetEntity;
+	Entity targetEntity;
 	
 	public EntityCollisionCondition(Entity e1, Entity e2) {
 		super(e1);
-		myTargetEntity = e2;
+		targetEntity = e2;
 	}
 	
 	@Override
 	protected boolean findCollidedTarget(CollidedComponent sideComponent) {
-		return (sideComponent != null) && (sideComponent.contains(myTargetEntity));
+		return (sideComponent!=null) && (sideComponent.contains(targetEntity));
 	}
 }

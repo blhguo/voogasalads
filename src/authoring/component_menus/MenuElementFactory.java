@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
  * Creates MenuElements given their Name, Type, and Value
  */
 public class MenuElementFactory {
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
 	private String[] entry;
 	private ComponentFactory factory;
 	public MenuElementFactory(){
@@ -27,6 +28,7 @@ public class MenuElementFactory {
 		factory = new ComponentFactory();
 		MenuElement ret;
 		String className = entry[0];
+		entry[0] = userNames.getString(entry[0]);
 		if(entry[1].equals("d")){
 			ret = handleDouble(className);
 		}
@@ -47,22 +49,22 @@ public class MenuElementFactory {
 	}
 
 	private MenuElement handleFile(String className) {
-		return new FileMenuElement(className, factory.createComponent(className, entry[2]));
+		return new FileMenuElement(entry[0], factory.createComponent(className, entry[2]));
 	}
 
 	private KeyMenuElement handleKey(String className) {
-		return new KeyMenuElement(className, factory.createComponent(className, entry[2]));
+		return new KeyMenuElement(entry[0], factory.createComponent(className, entry[2]));
 	}
 
 	private StringMenuElement handleString(String className) {
-		return new StringMenuElement(className, factory.createComponent(className, entry[2].toString()));
+		return new StringMenuElement(entry[0], factory.createComponent(className, entry[2].toString()));
 	}
 
 	private BooleanMenuElement handleBoolean(String className) {
-		return new BooleanMenuElement(className, factory.createComponent(className, entry[2]));
+		return new BooleanMenuElement(entry[0], factory.createComponent(className, entry[2]));
 	}
 
 	private NumberMenuElement handleDouble(String className) {
-		return new NumberMenuElement(className, factory.createComponent(className, entry[2]));
+		return new NumberMenuElement(entry[0], factory.createComponent(className, entry[2]));
 	}
 }
