@@ -1,5 +1,7 @@
 package game_player;
 
+import javafx.stage.Stage;
+
 public class InstanceStorage {
 	
 	ViewManager viewManager;
@@ -8,7 +10,11 @@ public class InstanceStorage {
 	PulldownFactory pullDownFactory;
 	PlayerView playerView;
 	ButtonMaker buttonMaker;
+	Stage gameStage;
 	
+	public void setStage(Stage stage) {
+		this.gameStage = stage;
+	}
 	public void setViewManager(ViewManager vm) {
 		this.viewManager = vm;
 	}
@@ -44,6 +50,9 @@ public class InstanceStorage {
 	}
 	public ButtonMaker getButtonMaker() {
 		return this.buttonMaker;
+	}
+	public Stage getStage() {
+		return this.gameStage;
 	}
 
 }

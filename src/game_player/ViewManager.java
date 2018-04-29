@@ -23,7 +23,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
@@ -45,7 +44,6 @@ public class ViewManager extends GUIBuilder{
 	private Paint backColor = Color.TRANSPARENT;
 	private Pane view;
 	private Scene gameScene;
-	private PulldownFactory pullDownFactory;
 	private ImageView gameImageView;
 	private Image gameBackground;
 	private BackgroundImage game;
@@ -66,15 +64,16 @@ public class ViewManager extends GUIBuilder{
 	 * @param stage: The active stage hosting the game.
 	 * @param pdf: The active pull down factory.
 	 */ 
-	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
-		this.menu = menu;
-		this.pullDownFactory = pdf;
-		pullDownFactory.setViewManager(this);
-		this.gameStage = stage;
+	public ViewManager() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
+		menu = storage.getMenu();
+		gameStage = storage.getStage();
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
 		gameStage.setFullScreen(true);
-
 		gameStage.show();
 		changeBrightness();
 		changeVolume();
@@ -194,10 +193,6 @@ public class ViewManager extends GUIBuilder{
 	public void showGameSelectionMenu() {
 		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
-	}
-
-	public Stage getGameStage() {
-		return gameStage;
 	}
 
 	/**

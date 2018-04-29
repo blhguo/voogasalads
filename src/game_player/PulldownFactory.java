@@ -9,7 +9,6 @@ import gameData.ManipData;
 import game_engine.Engine;
 import game_player_interfaces.ImportData;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -17,22 +16,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * This is the class in which the pulldown menus are created and accessed.
- * It deals with the methods required by the pulldown menu, in addition to their
- * setup and format.
+ * Manages data.
  * 
  * @author Dana Park, Brandon Dalla Rosa
  *
  */
 public class PulldownFactory implements ImportData {
 
-	private static final String DEFAULT_RESOURCE_PACKAGE = "game_player_resources/";
-
-	private ResourceBundle speedProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "speed");
-	private ResourceBundle statusProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "status");
-	private ResourceBundle saveLoadProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "save_load");
 	private Map<String, String> test = new HashMap<String, String>();
-	private ComboBox<String> saveLoadBox;
 	private Engine gameEngine;
 	private DataManager dataManager;
 	private ViewManager viewManager;
@@ -42,43 +33,19 @@ public class PulldownFactory implements ImportData {
 	private Stage aboutGameStage;
 	private File file;
 	private String dataFilePathString;
+	private Stage gameStage;
 	/**
 	 *Constructor for the pull down factory. It initializes all of the
 	 * combo boxes seen in the game player.
 	 */
-	public PulldownFactory(DataManager dat) {
-		dataManager = dat;
-		//speedBox =  SpeedBox();
-		//statusBox =  StatusBox();
-		saveLoadBox =  SaveLoadBox();
-
-
+	public PulldownFactory() {
+		//TODO something
 	}
-
-	protected ComboBox<String> SaveLoadBox() {
-		saveLoadBox =  new ComboBox<String>();
-
-		saveLoadBox.setValue(getResources(saveLoadProperties, "InitialCommand"));
-		saveLoadBox.getItems().addAll(getResources(saveLoadProperties, "SaveCommand"),
-				getResources(saveLoadProperties, "LoadCommand"));
-		saveLoadBox.setPrefSize(160, 20);
-		saveLoadBox.setOnKeyPressed(click->{});
-		saveLoadBox.setOnAction(click -> {
-			checkSaveOrLoad();
-		});
-		return saveLoadBox;
-	}
-
-	protected ComboBox<String> getSaveLoadBox() {
-		return saveLoadBox;
-	}
-
-	private void checkSaveOrLoad() {
-		if (saveLoadBox.getValue().equals("Save")) {
-			handleSave();
-		} else if (saveLoadBox.getValue().equals("Load")) {
-			importGame();
-		}
+	public void initialize(InstanceStorage storage) {
+		dataManager = storage.getDataManager();
+		viewManager = storage.getViewManager();
+		playerView = storage.getPlayerView();
+		gameStage = storage.getStage();
 	}
 
 	public void handleSave() {
@@ -87,7 +54,7 @@ public class PulldownFactory implements ImportData {
 		TextField textField = new TextField();
 		Scene tempScene = new Scene(textField);
 		tempStage.setScene(tempScene);
-		tempStage.initOwner(viewManager.getGameStage());
+		tempStage.initOwner(gameStage);
 		tempStage.show();
 		textField.setOnAction(click->{
 			manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),textField.getText(),true);
@@ -138,7 +105,7 @@ public class PulldownFactory implements ImportData {
 
 		aboutGameStage.setScene(aboutGameScene);
 		aboutGameStage.setTitle("About Game");
-        aboutGameStage.initOwner(viewManager.getGameStage());
+        aboutGameStage.initOwner(gameStage);
 
 		for (String key:test.keySet()) {
 			string=string+key+" "+test.get(key)+"\n";
@@ -158,30 +125,18 @@ public class PulldownFactory implements ImportData {
 		return gameEngine;
 	}
     
-    /**
-     * Method to pass the view manager into the pull down factory for access.
-     */ 
-	public void setViewManager(ViewManager vm) {
-		viewManager = vm;
-	}
-    
 	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choose Game File");
-		file = fileChooser.showOpenDialog(new Stage());
+		Stage fileChooserStage = new Stage();
+		fileChooserStage.setTitle("Choose Game");
+		fileChooserStage.initOwner(gameStage);
+		file = fileChooser.showOpenDialog(fileChooserStage);
 		return file;
 	}
 
 	protected String getResources(ResourceBundle bundle, String string) {
 		return bundle.getString(string);
-	}
-    
-    /**
-     * Method called to pass the playerview into the pull down factory for
-     * ease of access.
-     */ 
-	public void setPlayerView(PlayerView playerView) {
-		this.playerView = playerView;
 	}
 
 	@Override
