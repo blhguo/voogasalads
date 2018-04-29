@@ -27,7 +27,6 @@ import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -48,7 +47,7 @@ public class PlayerView {
 	private Timeline animation;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-	private Map<Entity, ImageView> spriteMap;
+	private Map<Entity, Map<String, ImageView>> spriteMap;
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
@@ -104,14 +103,7 @@ public class PlayerView {
 		List<Entity> spriteEntities = level.getEntitiesContaining(
 				Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
-			String imageName = e.getComponent(FilenameComponent.class).getValue();
-			Double height = e.getComponent(HeightComponent.class).getValue();
-			Double width = e.getComponent(WidthComponent.class).getValue();
-			Image image = new Image(imageName);
-			ImageView imageView = new ImageView(image);
-			imageView.setFitWidth(width);
-			imageView.setFitHeight(height);
-			spriteMap.put(e, imageView);
+			ImageView imageView = getImageView(e);
 			root.getChildren().add(imageView);
 		}
 
@@ -183,10 +175,17 @@ public class PlayerView {
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
 		if (!spriteMap.containsKey(entity)) {
-			spriteMap.put(entity, new ImageView(filename));
+			Map<String, ImageView> imageMap = new HashMap<>();
+			spriteMap.put(entity, imageMap);
 		}
-		ImageView imageView = spriteMap.get(entity);
-		imageView.setOnMousePressed(event -> clickInput(imageView));
+		
+		if (!spriteMap.get(entity).containsKey(filename)) {
+			ImageView imageView = new ImageView(filename);
+			imageView.setOnMousePressed(event -> clickInput(imageView));
+			spriteMap.get(entity).put(filename, imageView);
+		}
+		
+		ImageView imageView = spriteMap.get(entity).get(filename);
 		return imageView;
 	}
 
