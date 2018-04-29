@@ -123,7 +123,6 @@ public class ViewManager extends GUIBuilder{
 
 		order.getChildren().add(subScene);
 		subRoot.getChildren().add(view);
-
 		menu.addMenu(order);
 
 		Media soundFile = new Media(getClass().getResource("song.mp3").toExternalForm());
