@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import game_engine.Component;
 import game_engine.Entity;
+import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.PassableComponent;
+import game_engine.components.collision.PushableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -22,12 +24,8 @@ import game_engine.level.Level;
  * 
  */
 public class ImpassableResponseSystem extends CollisionResponseSystem {
-	
-	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
-	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
-	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
-	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
 	private static final Class<? extends Component<Boolean>> PASSABLE = PassableComponent.class;
+	private static final Class<? extends Component<Boolean>> PUSHABLE = PushableComponent.class;
 
 	/*
 	 * (non-Javadoc)
@@ -42,19 +40,21 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 				.stream()
 				.filter(e -> !(e.getComponent(PASSABLE).getValue()))
 				.collect(Collectors.toList());
+		
 		for (Entity e : impassibleEntities) {
 			XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
 			YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
-			String stopVal = Double.toString(0.0);
 
 			if (xv != null && ((e.getComponent(LEFT) != null && xv.getValue() < 0)
 					|| (e.getComponent(RIGHT) != null && xv.getValue() > 0))) {
 				xv.setValue(0.0);
 			}
 			if (yv != null && ((e.getComponent(BOTTOM) != null && yv.getValue() > 0)
-					|| (e.getComponent(TOP) != null && yv.getValue() < 0))) {
+					|| (e.getComponent(TOP) != null && yv.getValue() < 0))) {	
 				yv.setValue(0.0);
 			}
 		}
 	}
+	
+	
 }

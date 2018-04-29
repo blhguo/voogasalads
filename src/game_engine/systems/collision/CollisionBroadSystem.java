@@ -56,10 +56,10 @@ public class CollisionBroadSystem extends CollisionSystem {
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collideableEntities = level.getEntitiesContaining(TARGET_COMPONENTS);
-		collideableEntities.forEach((entity) -> entity.removeComponent(TopCollidedComponent.class));
-		collideableEntities.forEach((entity) -> entity.removeComponent(LeftCollidedComponent.class));
-		collideableEntities.forEach((entity) -> entity.removeComponent(BottomCollidedComponent.class));
-		collideableEntities.forEach((entity) -> entity.removeComponent(RightCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(TopCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(LeftCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(BottomCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(RightCollidedComponent.class));
 
 		for (int i = 0; i < collideableEntities.size(); i++) {
 			for (int j = 0; j < collideableEntities.size(); j++) {
@@ -84,19 +84,19 @@ public class CollisionBroadSystem extends CollisionSystem {
 	protected void checkIntersect(Entity e1, Entity e2, double elapsedTime) {
 		double[] aabb1 = getExtrema(e1, elapsedTime);
 		double[] aabb2 = getExtrema(e2, elapsedTime);
-
-		boolean xOverlap = Math.max(aabb1[0], aabb2[0]) <= Math.min(aabb1[1], aabb2[1]);
-		boolean yOverlap = Math.max(aabb1[2], aabb2[2]) <= Math.min(aabb1[3], aabb2[3]);
+		double xMin1 = aabb1[0];
+		double xMin2 = aabb2[0];
+		double xMax1 = aabb1[1];
+		double xMax2 = aabb2[1];
+		double yMin1 = aabb1[2];
+		double yMin2 = aabb2[2];
+		double yMax1 = aabb1[3];
+		double yMax2 = aabb2[3];
+		
+		boolean xOverlap = Math.max(xMin1, xMin2) <= Math.min(xMax1, xMax2);
+		boolean yOverlap = Math.max(yMin1, yMin2) <= Math.min(yMax1, yMax2);
 
 		if (xOverlap && yOverlap) {
-			double xMin1 = aabb1[0];
-			double xMin2 = aabb2[0];
-			double xMax1 = aabb1[1];
-			double xMax2 = aabb2[1];
-			double yMin1 = aabb1[2];
-			double yMin2 = aabb2[2];
-			double yMax1 = aabb1[3];
-			double yMax2 = aabb2[3];
 
 			boolean right = xMin2 <= xMax1 && xMax2 >= xMax1;
 			boolean left = xMin2 <= xMin1 && xMax2 >= xMin1;
@@ -132,7 +132,7 @@ public class CollisionBroadSystem extends CollisionSystem {
 					collidedToAdd.add(b);
 					collidedToAdd.add(l);
 				}
-			} else if (bottom & right) {
+			} else if (bottom && right) {
 				double dx = Math.abs(xMax1 - xMin2);
 				double dy = Math.abs(yMax1 - yMin2);
 				if (dx > dy) {
@@ -166,7 +166,6 @@ public class CollisionBroadSystem extends CollisionSystem {
 					collidedToAdd.add(r);
 				}
 			}
-
 			for (CollidedComponent c : collidedToAdd) {
 				c.addEntity(e2);
 				e1.addComponent(c);
