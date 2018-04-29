@@ -69,11 +69,11 @@ public class StoryBoardPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
 		
-		TextField author = new TextField(mcontroller.getMap().get(AuthRes.getString("author")));
+		TextField author = new TextField(mcontroller.getPrintMap().get(AuthRes.getString("author")));
 		makeText(AuthRes.getString("author"), author);
 		list.add(ButtonFactory.makeReverseHBox("Set Author: ", null, author));
 		
-		TextArea rules = new TextArea(mcontroller.getMap().get(AuthRes.getString("rules")));
+		TextArea rules = new TextArea(mcontroller.getPrintMap().get(AuthRes.getString("rules")));
 		makeText(AuthRes.getString("rules"), rules);
 		list.add(ButtonFactory.makeReverseHBox("Set Rules: ", null, rules));
 		return list;
@@ -82,7 +82,7 @@ public class StoryBoardPane extends BasePane {
 	private void makeText(String key, TextInputControl text){
 		text.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.ENTER){
-				mcontroller.getMap().put(key, text.getText());
+				mcontroller.getPrintMap().put(key, text.getText());
 			}
 		});
 	}
@@ -115,7 +115,6 @@ public class StoryBoardPane extends BasePane {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 				pcontroller.setBackground((String) l.get(0).getValue());
-				//pcontroller.setCanvasLevel(lcontroller.getEngine().getLevel().getId());
 				pcontroller.updateCanvas(lcontroller.getEngine().getLevel().getId());
 			});
 			b.getStyleClass().add("button-story");
