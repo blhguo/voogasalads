@@ -95,8 +95,6 @@ public class EnemyTest extends Application {
 	private void setup(){
 		root = new Group();
 		myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
-		myScene.setOnKeyPressed(b -> engine.receiveInput(b));
-		myScene.setOnKeyReleased(b -> engine.receiveInput(b));
 
 		buildMainCharacterEntity();
 		buildCoinEntity();
@@ -140,6 +138,7 @@ public class EnemyTest extends Application {
 		mainCharacter.addComponent(new XVelComponent("0"));
 		mainCharacter.addComponent(new YVelComponent("0"));
 		mainCharacter.addComponent(new PrimeComponent());
+		mainCharacter.addComponent(new VisibilityComponent("true"));
 
 		//extra components needed for velocity system
 		mainCharacter.addComponent(new XAccelComponent("0"));
