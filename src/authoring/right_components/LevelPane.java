@@ -10,12 +10,12 @@ import java.util.Map.Entry;
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
-
 import frontend_utilities.UserFeedback;
 import game_engine.Component;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelMusicComponent;
 import game_engine.level.LevelNameComponent;
+import game_engine.level.LevelThumbComponent;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -83,6 +83,12 @@ public class LevelPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeHBox("Select Background", null, backButton));
 		
+		Button thumbButton = ButtonFactory.makeButton(event -> {
+			File file = initFileChooser("Choose Thumbnail Image");
+			lcontroller.addComp(new LevelThumbComponent(file.getName()));
+		});
+		list.add(ButtonFactory.makeHBox("Select Thumbnail", null, thumbButton));
+		
 		Button musicButton = ButtonFactory.makeButton(event -> {
 			File file = initFileChooser("Choose Background Music");
 			lcontroller.addComp(new LevelMusicComponent(file.getName()));
@@ -95,9 +101,26 @@ public class LevelPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeHBox("Add New Level", null, newLevel));
 		
+//		Button splash = ButtonFactory.makeButton(event -> {
+//			// need to set current level to splash screen
+//			
+//		});
+//		list.add(ButtonFactory.makeHBox("Edit Game Splash Screen", null, splash));
 		return list;
 
 	}
+	
+//	private TitledPane makeSplash(){
+//		TitledPane tp = new TitledPane();
+//		tp.setExpanded(false);
+//		tp.setText("Splash Screen Buttons");
+//		
+//		VBox buttons = new VBox(AuthRes.getInt("Padding"));
+//		Button start = ButtonFactory.makeButton(event -> {
+//			
+//		});
+//		return null;
+//	}
 	
 	@SuppressWarnings("unchecked")
 	private void update(){
@@ -108,6 +131,7 @@ public class LevelPane extends BasePane {
 		textName.setText(activeLevels.getValue().toString());
 		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
 		controller.setBackground(background);
+		controller.updateCanvas(lcontroller.getEngine().getLevel().getId());
 	}
 	
 	@SuppressWarnings("unchecked")

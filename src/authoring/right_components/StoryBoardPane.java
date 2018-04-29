@@ -1,5 +1,6 @@
 package authoring.right_components;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
+import game_engine.level.LevelThumbComponent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,11 +24,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import resources.keys.AuthRes;
 
 /**
@@ -69,20 +71,28 @@ public class StoryBoardPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
 		
-		TextField author = new TextField(mcontroller.getMap().get(AuthRes.getString("author")));
-		makeText(AuthRes.getString("author"), author);
+		TextField author = new TextField(mcontroller.getPrintMap().get(AuthRes.getString("Author")));
+		makeText(AuthRes.getString("Author"), author);
 		list.add(ButtonFactory.makeReverseHBox("Set Author: ", null, author));
 		
-		TextArea rules = new TextArea(mcontroller.getMap().get(AuthRes.getString("rules")));
-		makeText(AuthRes.getString("rules"), rules);
+		TextArea rules = new TextArea(mcontroller.getPrintMap().get(AuthRes.getString("Rules")));
+		makeText(AuthRes.getString("Rules"), rules);
 		list.add(ButtonFactory.makeReverseHBox("Set Rules: ", null, rules));
+		
+		Button thumbButton = ButtonFactory.makeButton(event -> {
+			FileChooser fc = new FileChooser();
+			fc.setTitle("Choose Thumbnail Image");
+			File file = fc.showOpenDialog(null);
+			mcontroller.getConfigMap().put(AuthRes.getStringKeys("key1"), file.getName());
+		});
+		list.add(ButtonFactory.makeHBox("Select Game Thumbnail", null, thumbButton));
 		return list;
 	}
 	
 	private void makeText(String key, TextInputControl text){
 		text.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.ENTER){
-				mcontroller.getMap().put(key, text.getText());
+				mcontroller.getPrintMap().put(key, text.getText());
 			}
 		});
 	}
@@ -93,8 +103,8 @@ public class StoryBoardPane extends BasePane {
 		tp.setText("View Current Levels");
 		
 		VBox levels = new VBox(AuthRes.getInt("Padding"));
-		List<Class<? extends Component<?>>> backAndNames = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class);
-		Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(backAndNames);
+		List<Class<? extends Component<?>>> backNamesThumbs = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class, LevelThumbComponent.class);
+		Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(backNamesThumbs);
 		int levelCount = 0;
 		HBox row;
 		for (Entry<Integer, List<Component<?>>> ent: map.entrySet()){
@@ -106,15 +116,19 @@ public class StoryBoardPane extends BasePane {
 				row = new HBox(AuthRes.getInt("Padding"));
 			}
 			List<Component<?>> l = ent.getValue();
-			String backPath = (String) l.get(0).getValue();
-			if (backPath.equals(AuthRes.getString("BackgroundDefault"))){
-				backPath = "mountain.png"; // hardcoded default
+			String backPath = (String) l.get(2).getValue();
+			if (backPath.equals(AuthRes.getString("ThumbDefault"))){
+				backPath = (String) l.get(0).getValue();
+				if (backPath.equals(AuthRes.getString("BackgroundDefault"))){
+					backPath = "mountain.png"; // hardcoded default
+				}
 			}
 			String name = (String) l.get(1).getValue();
 			Button b = ButtonFactory.makeLevelThumbnail(backPath, name, e -> {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 				pcontroller.setBackground((String) l.get(0).getValue());
+				pcontroller.updateCanvas(lcontroller.getEngine().getLevel().getId());
 			});
 			b.getStyleClass().add("button-story");
 			row.getChildren().add(b);

@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import gameData.ManipData;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.event.Event;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
+import game_engine.level.LevelThumbComponent;
 import resources.keys.AuthRes;
 
 /**
@@ -32,11 +32,13 @@ public class LevelController {
 	 * Adds a new level to the engine
 	 */
 	public void addLevel() {
+		// need to have splash screen also
 		Level newLevel = engine.createLevel();
 		// add defaults to level
 		int levelNum = newLevel.getId() + 1;
 		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(levelNum)));
 		newLevel.addComponent(new LevelBackgroundComponent(AuthRes.getString("BackgroundDefault")));
+		newLevel.addComponent(new LevelThumbComponent(AuthRes.getString("ThumbDefault")));
 		engine.setLevel(newLevel.getId());
 	}
 	

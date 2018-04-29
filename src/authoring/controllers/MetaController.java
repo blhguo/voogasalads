@@ -11,39 +11,52 @@ public class MetaController {
 	private ManipData data;
 	private LevelController lcontroller;
 	private String gameName;
-	private Map<String, String> metaMap;
+	private Map<String, String> printMap;
+	private Map<String, String> configMap;
 	
 	public MetaController(LevelController lc){
 		data = new ManipData();
 		lcontroller = lc;
-		initMap();
+		initMaps();
 	}
 	
 	/**
 	 * Passes the current levels array to data
 	 */
 	public void saveGame() {
-		data.saveData(lcontroller.getEngine(), gameName, metaMap);
+		//data.saveData(lcontroller.getEngine(), gameName, printMap);
+		data.saveData(lcontroller.getEngine(), gameName, gameName, printMap, configMap);
 	}
 	
 	public void setGameName(String name){
 		gameName = name;
-		metaMap.put("Name", name);
+		printMap.put(AuthRes.getString("Name"), name);
+		configMap.put(AuthRes.getString("Name"), name);
 	}
 	
 	public String getGameName(){
 		return gameName;
 	}
 	
-	public Map<String, String> getMap(){
-		return metaMap;
+	public Map<String, String> getPrintMap(){
+		return printMap;
 	}
 	
-	private void initMap(){
-		metaMap = new HashMap<String, String>();
-		setGameName("Game Name");
-		metaMap.put(AuthRes.getString("author"), AuthRes.getString("author"));
-		metaMap.put(AuthRes.getString("rules"), AuthRes.getString("rules"));
+	public Map<String, String> getConfigMap(){
+		return configMap;
+	}
+	
+	private void initMaps(){
+		printMap = new HashMap<String, String>();
+		configMap = new HashMap<String, String>();
+		
+		setGameName(AuthRes.getString("NameDefault"));
+		configMap.put(AuthRes.getString("Author"), AuthRes.getString("AuthorDefault"));
+		printMap.put(AuthRes.getString("Author"), AuthRes.getString("AuthorDefault"));
+		printMap.put(AuthRes.getString("Rules"), AuthRes.getString("RulesDefault"));
+	
+		
+		
 	}
 
 }
