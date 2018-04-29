@@ -28,6 +28,7 @@ public class PlayerMain extends Application{
 		this.viewManager = new ViewManager(menu, stage, pullDownFactory);
 		this.playerView = new PlayerView(pullDownFactory, viewManager, dataManager);
 		this.pullDownFactory.setPlayerView(playerView);
+		menu.setPlayerView(playerView);
 	}
 	
 	public Scene getScene() {

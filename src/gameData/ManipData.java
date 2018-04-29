@@ -161,10 +161,12 @@ public class ManipData {
 
 	private void openFile(File file) throws ParserConfigurationException{
 		System.out.println(file);
+
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
 		String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
 		};
@@ -172,14 +174,17 @@ public class ManipData {
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
+
 			try {
 				doc = dBuilder.parse(file);
 
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("higher");
 				Node nNode = nList.item(0);
-				Element eElement = (Element) nNode;			
+				Element eElement = (Element) nNode;	
+
 					String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());
+
 					System.out.println(s);
 					Engine lilGuy = (Engine) deserializer.fromXML(s);
 					System.out.println(lilGuy);
@@ -199,6 +204,8 @@ public class ManipData {
 		}
 	}
 
+	
+	
 	private String nodeToString(Node node) {
 		StringWriter sw = new StringWriter();
 		try {
@@ -228,8 +235,9 @@ public class ManipData {
 //	}
 
 	public Map<String, String> openMeta(File file) {
+		System.out.println("HELLOOOOOOOOOOOOOOOOO");
+
 		Map<String, String> metaMap = new HashMap<>();
-		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {

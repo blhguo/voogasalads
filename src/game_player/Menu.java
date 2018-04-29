@@ -28,9 +28,6 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
 	private ButtonMaker buttonMaker;
-	private Button gameSelectionButton;
-	private Button pausePlayButton;
-	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
@@ -46,9 +43,8 @@ public class Menu {
 		settings.makeSettingsMenu(pane);
 		settings.makeSettingsStage();
 		gameMenu = new GameSelectionMenu();
-		gameMenu.makeGameSelectionMenu(pane);
+		gameMenu.makeGameSelectionMenu(pane,pdf);
 		kpm = new KeyPrefMenu(dataManager,pane);
-		getPullDown();
 		
 
 	}
@@ -61,16 +57,11 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
-	public void getPullDown(){
-		pane.getChildren().add(pullDownFactory.SaveLoadBox());
-	}
-	
     /**
 	 * Method to add ComboBoxes from PulldownFactory to Menu
 	 * 
 	 */
 
-	
 	private void makeButtons() {
 		buttonMaker = new ButtonMaker();
 //		pane.getChildren().add(buttonMaker.pausePlayButton());
@@ -82,6 +73,9 @@ public class Menu {
 			pane.getChildren().add(buttonMaker.makeMenuButton().get(i));
 		}
 
+	}
+	public void setPlayerView(PlayerView pv) {
+		buttonMaker.setPlayerView(pv);
 	}
 	
 	/**
