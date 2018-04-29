@@ -39,13 +39,13 @@ import javafx.util.Duration;
  */
 public class PlayerView {
 
-	private Timeline animation;
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
 
+	private Timeline animation;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
 	private Map<Entity, ImageView> spriteMap;
