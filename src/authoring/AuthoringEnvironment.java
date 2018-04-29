@@ -11,7 +11,6 @@ import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import authoring.right_components.EntityComponent.EntityPane;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
