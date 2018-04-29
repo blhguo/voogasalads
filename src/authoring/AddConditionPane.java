@@ -109,13 +109,13 @@ public class AddConditionPane implements GUINode {
 		for (int i = 0; i < Integer.parseInt(array[2]); i++){
 			comboBoxView.getChildren().add(new Label(conditions.getString(newValue + "Strings").split(",")[i]));
 			if(newValue.equals("KeyboardInput")){
-				KeyMenuElement element = new KeyMenuElement("Key", new NullComponent(0.0));
+				KeyMenuElement element = new KeyMenuElement("Key", new NullComponent(""));
 				menuElements.add(element);
 				comboBoxView.getChildren().add(element.getView());
 			}
 			else {
 				MenuElement element = new StringMenuElement(newValue,
-						new NullComponent(0.0));
+						new NullComponent(""));
 				menuElements.add(element);
 				comboBoxView.getChildren().add((element).getView());
 			}

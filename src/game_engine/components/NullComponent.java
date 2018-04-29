@@ -2,9 +2,9 @@ package game_engine.components;
 
 import game_engine.Component;
 
-public class NullComponent extends Component<Double> {
+public class NullComponent extends Component<String> {
 
-	public NullComponent(Double val) {
+	public NullComponent(String val) {
 		super(val);
 	}
 }

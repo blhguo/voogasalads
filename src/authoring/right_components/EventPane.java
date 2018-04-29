@@ -100,7 +100,7 @@ public class EventPane extends BasePane {
 	}
 
 	private void initAddAction() {
-		addActionPane = new AddActionPane();
+		addActionPane = new AddActionPane(currentEvent);
 		addAction = addActionPane.getView();
 		Button back = ButtonFactory.makeButton(e -> {
 			clearAndAdd(newEvent);
