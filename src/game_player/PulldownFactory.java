@@ -1,12 +1,17 @@
 package game_player;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import gameData.ManipData;
 import game_engine.Engine;
 import game_player_interfaces.ImportData;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -25,7 +30,9 @@ public class PulldownFactory implements ImportData {
 	private ResourceBundle speedProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "speed");
 	private ResourceBundle statusProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "status");
 	private ResourceBundle saveLoadProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "save_load");
-
+	private Map<String, String> test = new HashMap<String, String>();
+	
+	
 	private ComboBox<String> speedBox;
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
@@ -33,45 +40,49 @@ public class PulldownFactory implements ImportData {
 	private DataManager dataManager;
 	private ViewManager viewManager;
 	private PlayerView playerView;
-	
+	private VBox aboutGameBox;
+	private Scene aboutGameScene;
+	private Stage aboutGameStage;
+	private File file;
+	private ButtonMaker buttonMaker = new ButtonMaker();
 	/**
 	 *Constructor for the pull down factory. It initializes all of the
 	 * combo boxes seen in the game player.
 	 */
 	public PulldownFactory(DataManager dat) {
 		dataManager = dat;
-		speedBox =  SpeedBox();
-		statusBox =  StatusBox();
+		//speedBox =  SpeedBox();
+		//statusBox =  StatusBox();
 		saveLoadBox =  SaveLoadBox();
 
 
 	}
 
-	protected ComboBox<String> SpeedBox() {
-		speedBox =  new ComboBox<String>();
-
-		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
-		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
-				getResources(speedProperties, "SlowDownCommand"));
-		speedBox.setPrefSize(160, 20);
-		speedBox.setOnAction(click -> {
-			playerView.handleUI();
-		});
-		return speedBox;
-	}
-
-	protected ComboBox<String> StatusBox() {
-		statusBox =  new ComboBox<String>();
-
-		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
-		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"),
-				getResources(statusProperties, "PlayGameCommand"), getResources(statusProperties, "ReplayGameCommand"));
-		statusBox.setPrefSize(160, 20);
-		statusBox.setOnAction(click -> {
-			playerView.handleUI();
-		});
-		return statusBox;
-	}
+//	protected ComboBox<String> SpeedBox() {
+//		speedBox =  new ComboBox<String>();
+//
+//		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
+//		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
+//				getResources(speedProperties, "SlowDownCommand"));
+//		speedBox.setPrefSize(160, 20);
+//		speedBox.setOnAction(click -> {
+//			playerView.handleUI();
+//		});
+//		return speedBox;
+//	}
+//
+//	protected ComboBox<String> StatusBox() {
+//		statusBox =  new ComboBox<String>();
+//
+//		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
+//		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"),
+//				getResources(statusProperties, "PlayGameCommand"), getResources(statusProperties, "ReplayGameCommand"));
+//		statusBox.setPrefSize(160, 20);
+//		statusBox.setOnAction(click -> {
+//			playerView.handleUI();
+//		});
+//		return statusBox;
+//	}
 
 	protected ComboBox<String> SaveLoadBox() {
 		saveLoadBox =  new ComboBox<String>();
@@ -112,7 +123,6 @@ public class PulldownFactory implements ImportData {
 		ManipData manipData = new ManipData();
 		manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
-
 	@Override
 	public void importGame() {
 		ManipData manipData = new ManipData();
@@ -123,6 +133,33 @@ public class PulldownFactory implements ImportData {
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
+	}
+	
+	public void aboutGame() {
+		test.put("Hello", "World");
+		test.put("Homework", "Much");
+		test.put("author", "Dana");
+		TextArea text = new TextArea();
+		String string = new String();
+		aboutGameBox = new VBox(text);
+		aboutGameStage = new Stage();
+		aboutGameScene = new Scene(aboutGameBox);
+
+		aboutGameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
+
+		aboutGameStage.setScene(aboutGameScene);
+		aboutGameStage.setTitle("About Game");
+        aboutGameStage.initOwner(viewManager.getGameStage());
+
+		for (String key:test.keySet()) {
+			string=string+key+" "+test.get(key)+"\n";
+			
+		}
+		text.setText(string);
+
+		//manipData.openMeta(file);
+		aboutGameStage.show();
+		
 	}
     
     /**
@@ -141,7 +178,7 @@ public class PulldownFactory implements ImportData {
     
 	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
-		File file = fileChooser.showOpenDialog(new Stage());
+		file = fileChooser.showOpenDialog(new Stage());
 		return file;
 	}
 

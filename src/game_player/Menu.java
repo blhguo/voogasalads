@@ -28,9 +28,6 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
 	private ButtonMaker buttonMaker;
-	private Button gameSelectionButton;
-	private Button pausePlayButton;
-	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
@@ -70,7 +67,6 @@ public class Menu {
 	 * 
 	 */
 
-	
 	private void makeButtons() {
 		buttonMaker = new ButtonMaker();
 //		pane.getChildren().add(buttonMaker.pausePlayButton());
@@ -82,6 +78,9 @@ public class Menu {
 			pane.getChildren().add(buttonMaker.makeMenuButton().get(i));
 		}
 
+	}
+	public void setPlayerView(PlayerView pv) {
+		buttonMaker.setPlayerView(pv);
 	}
 	
 	/**
