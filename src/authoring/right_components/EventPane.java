@@ -160,6 +160,14 @@ public class EventPane extends BasePane {
 		startBox.getChildren().addAll(createBox, viewBox);
 		start.getChildren().add(startBox);
 		clearAndAdd(start);
+
+		Button addEvent = ButtonFactory.makeButton(e -> {
+			levelController.addEvent(currentEvent);
+			currentEvent = new Event();
+		});
+		startBox.getChildren().add(ButtonFactory.makeHBox("Add this event to the level",
+				null,
+				addEvent));
 		
 	}
 	private void initNewEvent() {

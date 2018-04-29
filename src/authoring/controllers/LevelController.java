@@ -8,6 +8,7 @@ import java.util.Map;
 import gameData.ManipData;
 import game_engine.Component;
 import game_engine.Engine;
+import game_engine.event.Event;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
@@ -56,6 +57,12 @@ public class LevelController {
 	
 	public void addComp(Component<?> c){
 		engine.getLevel().addComponent(c);
+	}
+
+	public void addEvent(Event event){
+		engine.getLevel().addEvent(event);
+		System.out.println(event.getActions());
+		System.out.println(event.getConditions());
 	}
 	
 }

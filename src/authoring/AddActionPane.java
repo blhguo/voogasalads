@@ -81,7 +81,7 @@ public class AddActionPane implements GUINode {
 		});
 		actionBox.getChildren().add(box);
 		actionBox.getChildren().add(comboBoxView);
-		myPane.getChildren().add(actionBox);
+		myPane.getChildren().add(actionBox);	
 	}
 	public void setLevelController(LevelController controller){
 		this.levelController = controller;
