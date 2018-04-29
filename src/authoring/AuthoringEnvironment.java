@@ -84,6 +84,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story.setLevelController(lcontroller);
 		story.setMetaController(mcontroller);
 		story.setPaneController(pcontroller);
+		pcontroller.setEntityController(controller);
 		np.addListener(this);
 		np.addMetaController(mcontroller);
 

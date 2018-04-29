@@ -115,6 +115,8 @@ public class StoryBoardPane extends BasePane {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 				pcontroller.setBackground((String) l.get(0).getValue());
+				//pcontroller.setCanvasLevel(lcontroller.getEngine().getLevel().getId());
+				pcontroller.updateCanvas(lcontroller.getEngine().getLevel().getId());
 			});
 			b.getStyleClass().add("button-story");
 			row.getChildren().add(b);

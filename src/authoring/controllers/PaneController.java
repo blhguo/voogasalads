@@ -16,6 +16,7 @@ public class PaneController {
 
 	private LevelPane levelPane;
 	private Canvas canvas;
+	private EntityController econtroller;
 	
 	public PaneController(LevelPane lp, Canvas c){
 		levelPane = lp;
@@ -34,6 +35,19 @@ public class PaneController {
 			Image im = new Image(fname);
 			canvas.updateBackground(im);
 		}
+	}
+	
+//	private void setCanvasLevel(int id){
+//		canvas.setLevel(id);
+//	}
+	
+	public void updateCanvas(int id){
+		canvas.setLevel(id);
+		canvas.update(econtroller.getEntities());
+	}
+	
+	public void setEntityController(EntityController ec){
+		econtroller = ec;
 	}
 	
 }

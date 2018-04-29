@@ -37,6 +37,7 @@ public class Canvas implements GUINode {
 	private ScrollPane myNode;
 	private EntityController myController;
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.6);
+	private int currLevel;
 
 	/**
 	 * Constructor that creates new internal canvas
@@ -45,6 +46,7 @@ public class Canvas implements GUINode {
 	public Canvas() {
 		myInfinitePane = initializeInfinitePane();
 		myNode = initializeScrollingPane();
+		currLevel = 0;
 	}
 	
 	public void setDefaultBackground(){
@@ -61,10 +63,17 @@ public class Canvas implements GUINode {
 		myInfinitePane.getChildren().clear();
 		System.out.println("-----Updating Canvas------");
 		entityList.stream().forEach(e -> System.out.println("Entity " + e));
-		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
-			if (!myInfinitePane.getChildren().contains(view))
-				myInfinitePane.getChildren().add(view);
+		
+		for (EntityWrapper e: entityList){
+			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getImageView())){
+				myInfinitePane.getChildren().add(e.getImageView());
+			}
 		}
+		
+//		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
+//			if (!myInfinitePane.getChildren().contains(view))
+//				myInfinitePane.getChildren().add(view);
+//		}
 		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
 	}
@@ -139,5 +148,9 @@ public class Canvas implements GUINode {
 	@Override
 	public Node getView() {
 		return myNode;
+	}
+	
+	public void setLevel(int id){
+		currLevel = id;
 	}
 }

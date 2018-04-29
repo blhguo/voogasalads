@@ -108,6 +108,8 @@ public class LevelPane extends BasePane {
 		textName.setText(activeLevels.getValue().toString());
 		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
 		controller.setBackground(background);
+		//controller.setCanvasLevel(lcontroller.getEngine().getLevel().getId());
+		controller.updateCanvas(lcontroller.getEngine().getLevel().getId());
 	}
 	
 	@SuppressWarnings("unchecked")
