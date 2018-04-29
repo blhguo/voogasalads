@@ -11,6 +11,7 @@ import game_player_interfaces.ImportData;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -82,7 +83,16 @@ public class PulldownFactory implements ImportData {
 
 	public void handleSave() {
 		ManipData manipData = new ManipData();
-		manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
+		Stage tempStage = new Stage();
+		TextField textField = new TextField();
+		Scene tempScene = new Scene(textField);
+		tempStage.setScene(tempScene);
+		tempStage.initOwner(viewManager.getGameStage());
+		tempStage.show();
+		textField.setOnAction(click->{
+			manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),textField.getText(),true);
+			tempStage.hide();
+			});
 	}
 	@Override
 	public void importGame() {
@@ -108,7 +118,7 @@ public class PulldownFactory implements ImportData {
 		System.out.println(dataFilePathString);
 		
 		viewManager.changeBackground();
-		gameEngine = manipData.loadData(file.getAbsolutePath(),"ExampleGame");
+		gameEngine = manipData.loadData(file.getAbsolutePath());
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
@@ -157,6 +167,7 @@ public class PulldownFactory implements ImportData {
     
 	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose Game File");
 		file = fileChooser.showOpenDialog(new Stage());
 		return file;
 	}

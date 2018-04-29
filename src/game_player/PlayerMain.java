@@ -22,13 +22,18 @@ public class PlayerMain extends Application{
 	 * Method called to initialize the Game Player
 	 */
 	public void start(Stage stage) {
+		
 		this.dataManager = new DataManager();
-		this.pullDownFactory = new PulldownFactory(dataManager);
-		this.menu = new Menu(dataManager, pullDownFactory);
-		this.viewManager = new ViewManager(menu, stage, pullDownFactory);
-		this.playerView = new PlayerView(pullDownFactory, viewManager, dataManager);
-		this.pullDownFactory.setPlayerView(playerView);
-		menu.setPlayerView(playerView);
+		this.pullDownFactory = new PulldownFactory();
+		this.menu = new Menu();
+		this.viewManager = new ViewManager();
+		this.playerView = new PlayerView();
+		InstanceStorage dataStorage = new InstanceStorage();
+		dataStorage.setDataManager(dataManager);
+		dataStorage.setPullDownFactory(pullDownFactory);
+		dataStorage.setMenu(menu);
+		dataStorage.setViewManager(viewManager);
+		dataStorage.setPlayerView(playerView);
 	}
 	
 	public Scene getScene() {
