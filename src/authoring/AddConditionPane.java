@@ -100,7 +100,11 @@ public class AddConditionPane implements GUINode {
 		comboBoxView.getChildren().add(entityBox);
 		for (int i = 0; i < Integer.parseInt(array[1]); i++){
 			comboBoxView.getChildren().add(new Label("Choose component to assign this condition to: " + (i + 1)));
-			componentBox = ComboBoxBuilder.getComboBox(components.keySet().stream().collect(Collectors.toList()));
+			componentBox = ComboBoxBuilder.getComboBox(components.keySet()
+					.stream()
+					.filter(e -> Boolean.parseBoolean(ResourceBundle.getBundle("Dateable").getString(e)))
+					.map(a -> ResourceBundle.getBundle("UserFriendlyNames").getString(a))
+					.collect(Collectors.toList()));
 			componentBox.valueProperty().addListener(((observable, oldValue, newValue1) -> {
 				tryAdd(newValue1);
 			}));

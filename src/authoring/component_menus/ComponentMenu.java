@@ -79,7 +79,8 @@ public class ComponentMenu extends VBox implements Comparable{
 	 */
 	public void addMenuElement(MenuElement element){
 		elements.add(element);
-		this.getChildren().add(element.getView());
+		if (element.isDateable())
+			this.getChildren().add(element.getView());
 	}
 
 	/**
@@ -125,4 +126,7 @@ public class ComponentMenu extends VBox implements Comparable{
 		myPane.refresh();
 	}
 
+	public void unInclude() {
+		included = false;
+	}
 }

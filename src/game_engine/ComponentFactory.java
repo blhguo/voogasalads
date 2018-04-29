@@ -38,7 +38,6 @@ public class ComponentFactory {
 
 	@SuppressWarnings("unchecked")
 	public <T> Component<T> createComponent(String key, String arg) {
-		System.out.println("Key: " + key + " Arg: " + arg);
 		try {
 			Class<?> clazz = Class.forName(myComponents.getString(key));
 			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);
