@@ -74,6 +74,9 @@ public class EntityPane extends BasePane{
 		for (String key : bundle.keySet()){
 			Button def = ButtonFactory.makeButton(e -> {
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
+				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
+				current.updateImage();
+				updateSprite();
 				refresh();
 			});
 			def.setText(key);
