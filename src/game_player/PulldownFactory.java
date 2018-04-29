@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import game_player_interfaces.ImportData;
+
 import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.level.Level;
@@ -131,16 +131,20 @@ public class PulldownFactory implements ImportData {
 	}
 
 	private void handleSave() {
-		ManipData turd = new ManipData();
-		turd.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
+		ManipData manipData = new ManipData();
+		manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
 
 	@Override
 	public void importGame() {
-		ManipData turd = new ManipData();
+		ManipData manipData = new ManipData();
+		
+		
+		
+		
 		File file = getFile();
 		viewManager.changeBackground();
-		gameEngine = turd.loadData(file.getAbsolutePath(),"ExampleGame");
+		gameEngine = manipData.loadData(file.getAbsolutePath(),"ExampleGame");
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();

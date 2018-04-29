@@ -2,7 +2,7 @@ package game_player;
 
 import java.util.ArrayList;
 
-import authoring.GameChooserScreen;
+import authoring.loadingviews.PlayerLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;

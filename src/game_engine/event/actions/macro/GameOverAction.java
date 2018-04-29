@@ -1,4 +1,4 @@
-package game_engine.event.actions;
+package game_engine.event.actions.macro;
 
 import game_engine.event.Action;
 import game_player.PlayerView;

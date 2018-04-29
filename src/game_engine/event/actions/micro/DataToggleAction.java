@@ -4,7 +4,7 @@ import game_engine.Component;
 import game_engine.Entity;
 import game_engine.event.Action;
 
-public class DataToggleAction implements Action{
+public class DataToggleAction<T> implements Action{
 	private Entity myEntity;
 	private Class<? extends Component<Boolean>> myComponentClass;
 	

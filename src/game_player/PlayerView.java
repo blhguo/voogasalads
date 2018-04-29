@@ -4,16 +4,20 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.Tuple;
+import game_engine.Vector;
 import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
+import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
@@ -25,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 /**
@@ -43,13 +48,14 @@ public class PlayerView {
 
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-	private Map<String, ImageView> spriteMap;
+	private Map<Entity, ImageView> spriteMap;
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
 	private ParallelCamera cam;
 	private DataManager dataManager;
 	private boolean notSet;
+	private UUID myId;
 
 	private Entity primary;
 
@@ -64,6 +70,7 @@ public class PlayerView {
 		viewManager = view;
 		dataManager = dtm;
 		notSet = true;
+		myId = UUID.randomUUID();
 	}
 
 	public void setEngine(Engine e) {
@@ -78,15 +85,20 @@ public class PlayerView {
 		Scene scene = viewManager.getScene();
 		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
-		scene.setOnKeyPressed(e -> {
-			myEngine.receiveInput(e);
-		});
-		scene.setOnKeyReleased(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyPressed(e -> myEngine.receiveInput(e));
-		subScene.setOnKeyReleased(e -> myEngine.receiveInput(e));
+		scene.setOnKeyReleased(event -> myEngine.receiveKeyInput(new Tuple<UUID, KeyEvent>(myId, event)));
+		scene.setOnKeyPressed(event -> myEngine.receiveKeyInput(new Tuple<UUID, KeyEvent>(myId, event)));
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
+		
+		if (!assignId(level)) {
+			System.out.println("no one assigned");
+			// no players remaining to be claimed...error?
+			return;
+		}
+		
+		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		setGamePlayerOnce();
 
 		spriteMap = new HashMap<>();
 		List<Entity> spriteEntities = level.getEntitiesContaining(
@@ -99,11 +111,21 @@ public class PlayerView {
 			ImageView imageView = new ImageView(image);
 			imageView.setFitWidth(width);
 			imageView.setFitHeight(height);
-			spriteMap.put(imageName, imageView);
+			spriteMap.put(e, imageView);
 			root.getChildren().add(imageView);
 		}
 
 		animationFrame();
+	}
+
+	private boolean assignId(Level level) {
+		for (Entity entity : level.getEntities()) {
+			if (entity.hasAll(Arrays.asList(PrimeComponent.class)) && (entity.getComponent(PrimeComponent.class).getValue() == null)) {
+				entity.getComponent(PrimeComponent.class).setValue(myId);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -122,42 +144,50 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
-		//animation.stop();
 		myEngine.update(delay);
 		render();
-		//handleUI();
 	}
 
 	private void render() {
 		root.getChildren().clear();
-		
-		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		setGamePlayerOnce();
+
 		Double xPos = primary.getComponent(XPosComponent.class).getValue();
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
-		
-		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ).forEach(this::display);
+
+		// render level background
+
+		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
+				.forEach(this::display);
 	}
 
 	private int compareZ(Entity a, Entity b) {
 		return a.getComponent(ZHeightComponent.class).getValue()
 				.compareTo(b.getComponent(ZHeightComponent.class).getValue());
 	}
-	
+
 	private void setGamePlayerOnce() {
-		if(notSet) {
+		if (notSet) {
 			notSet = false;
 			dataManager.setGamePlayer(primary);
 		}
 	}
 
+	private void clickInput(ImageView imageView) {
+		double middleX = imageView.getX() + imageView.getFitWidth() / 2;
+		double middleY = imageView.getY() + imageView.getFitHeight() / 2;
+		Vector click = new Vector(middleX, middleY);
+		myEngine.receiveMouseInput(new Tuple<UUID, Vector>(myId, click));
+	}
+
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
-		if (!spriteMap.containsKey(filename)) {
-			spriteMap.put(filename, new ImageView(filename));
+		if (!spriteMap.containsKey(entity)) {
+			spriteMap.put(entity, new ImageView(filename));
 		}
-		return spriteMap.get(filename);
+		ImageView imageView = spriteMap.get(entity);
+		imageView.setOnMousePressed(event -> clickInput(imageView));
+		return imageView;
 	}
 
 	private void display(Entity entity) {
@@ -165,10 +195,12 @@ public class PlayerView {
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
 		Double height = entity.getComponent(HeightComponent.class).getValue();
+		Boolean visibility = entity.getComponent(VisibilityComponent.class).getValue();
 
 		ImageView imageView = getImageView(entity);
 		imageView.setX(xPos - width / 2);
 		imageView.setY(yPos - height / 2);
+		imageView.setVisible(visibility);
 
 		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
 		// changes which direction the imageview faces based off of movement direction of entity
@@ -177,7 +209,6 @@ public class PlayerView {
 		}
 		root.getChildren().add(imageView);
 	}
-
 
 	private boolean isInView(Entity entity, double centerX, double centerY) {
 		double xPos = entity.getComponent(XPosComponent.class).getValue();
