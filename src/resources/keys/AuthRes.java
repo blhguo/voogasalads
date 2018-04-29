@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 public class AuthRes {
 
 	public static final ResourceBundle RESOURCEKEYS = ResourceBundle.getBundle("resources.keys/authoringResources");
-	
+
 	/**
 	 * Returns the corresponding String of a given String key
 	 * @param key

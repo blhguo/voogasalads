@@ -1,12 +1,12 @@
 package game_engine.systems.collision;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import game_engine.Component;
 import game_engine.Entity;
-import game_engine.GameSystem;
+import game_engine.components.collision.PassableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -27,6 +27,7 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
+	private static final Class<? extends Component<Boolean>> PASSABLE = PassableComponent.class;
 
 	/*
 	 * (non-Javadoc)
@@ -37,8 +38,11 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collidedEntities = getCollidedEntities(level);
-		System.out.println(collidedEntities.size());
-		for (Entity e : collidedEntities) {
+		List<Entity> impassibleEntities = level.getEntitiesContaining(collidedEntities, Arrays.asList(PASSABLE))
+				.stream()
+				.filter(e -> !(e.getComponent(PASSABLE).getValue()))
+				.collect(Collectors.toList());
+		for (Entity e : impassibleEntities) {
 			XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
 			YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
 			String stopVal = Double.toString(0.0);

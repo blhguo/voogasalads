@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,6 +55,21 @@ public class ButtonFactory {
 		}
 		return vb;
 	}
+	private static VBox makeVBox(String title, String subtitle, double wrapWidth){
+		VBox vb = new VBox(AuthRes.getInt("Padding"));
+		vb.setMaxHeight(30);
+		Text label = new Text(title);
+		label.getStyleClass().add("button-label");
+		vb.getChildren().add(label);
+		vb.setAlignment(Pos.CENTER_LEFT);
+
+		if(subtitle!=null) {
+			Text subLabel = new Text(subtitle);
+			subLabel.getStyleClass().add("button-sublabel");
+			vb.getChildren().add(subLabel);
+		}
+		return vb;
+	}
 	
 	public static HBox makeReverseHBox(String title, String subtitle, Node node){
 		if (node instanceof Button)
@@ -62,6 +78,16 @@ public class ButtonFactory {
 		HBox hb = new HBox(AuthRes.getInt("HBPadding"));
 		hb.setAlignment(Pos.CENTER_LEFT);
 		hb.getChildren().addAll(vb, node);
+		return hb;
+	}
+	public static HBox makeReverseHBox(String title, String subtitle, Node node, double wrapWidth){
+		if (node instanceof Button)
+			node.getStyleClass().add("button-splash");
+		VBox vb = makeVBox(title, subtitle);
+		HBox hb = new HBox(AuthRes.getInt("HBPadding"));
+		hb.setAlignment(Pos.CENTER_LEFT);
+		hb.getChildren().addAll(vb, node);
+		hb.setMaxWidth(wrapWidth);
 		return hb;
 	}
 
@@ -127,5 +153,13 @@ public class ButtonFactory {
 		HBox box = makeHBox(create_entity, (String) o, button);
 		box.setAlignment(center);
 		return box;
+	}
+	
+	public static Button makeLevelThumbnail(String imagePath, String name, EventHandler<ActionEvent> handler){
+		ImageView iv = ImageBuilder.getImageView(imagePath, 90, 60);
+		Button b = new Button(name, iv);
+		b.setContentDisplay(ContentDisplay.TOP);
+		b.setOnAction(handler);
+		return b;
 	}
 }
