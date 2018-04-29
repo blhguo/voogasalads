@@ -90,13 +90,13 @@ public class PlayerView {
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
-		
+
 		if (!assignId(level)) {
 			System.out.println("no one assigned");
 			// no players remaining to be claimed...error?
 			return;
 		}
-		
+
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		setGamePlayerOnce();
 
@@ -158,7 +158,7 @@ public class PlayerView {
 		// render level background
 
 		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
-				.forEach(this::display);
+		.forEach(this::display);
 	}
 
 	private int compareZ(Entity a, Entity b) {
@@ -239,27 +239,30 @@ public class PlayerView {
 	 *
 	 */
 	public void handleUI(int index) {
-		
+
 
 		if (index==0) {
 			animation.stop();
 
-			
+
 		}
 		if (index==1) {
 			animation.play();
-			
+
 		}
 		if (index==2) {
 			animation.setRate(animation.getRate() * HALF_RATE);
-			
+
 		}
 		if (index==3) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
-			
+
+		}
+		if(index==5) {
+			pullDownFactory.handleSave();
 		}
 		if (index==6) {
-		pullDownFactory.aboutGame();
+			pullDownFactory.aboutGame();
 		}
 	}
 

@@ -31,10 +31,6 @@ public class PulldownFactory implements ImportData {
 	private ResourceBundle statusProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "status");
 	private ResourceBundle saveLoadProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "save_load");
 	private Map<String, String> test = new HashMap<String, String>();
-	
-	
-	private ComboBox<String> speedBox;
-	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
 	private Engine gameEngine;
 	private DataManager dataManager;
@@ -44,7 +40,7 @@ public class PulldownFactory implements ImportData {
 	private Scene aboutGameScene;
 	private Stage aboutGameStage;
 	private File file;
-	private ButtonMaker buttonMaker = new ButtonMaker();
+	private String dataFilePathString;
 	/**
 	 *Constructor for the pull down factory. It initializes all of the
 	 * combo boxes seen in the game player.
@@ -58,32 +54,6 @@ public class PulldownFactory implements ImportData {
 
 	}
 
-//	protected ComboBox<String> SpeedBox() {
-//		speedBox =  new ComboBox<String>();
-//
-//		speedBox.setValue(getResources(speedProperties, "InitialCommand"));
-//		speedBox.getItems().addAll(getResources(speedProperties, "SpeedUpCommand"),
-//				getResources(speedProperties, "SlowDownCommand"));
-//		speedBox.setPrefSize(160, 20);
-//		speedBox.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return speedBox;
-//	}
-//
-//	protected ComboBox<String> StatusBox() {
-//		statusBox =  new ComboBox<String>();
-//
-//		statusBox.setValue(getResources(statusProperties, "InitialCommand"));
-//		statusBox.getItems().addAll(getResources(statusProperties, "PauseGameCommand"),
-//				getResources(statusProperties, "PlayGameCommand"), getResources(statusProperties, "ReplayGameCommand"));
-//		statusBox.setPrefSize(160, 20);
-//		statusBox.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return statusBox;
-//	}
-
 	protected ComboBox<String> SaveLoadBox() {
 		saveLoadBox =  new ComboBox<String>();
 
@@ -91,6 +61,7 @@ public class PulldownFactory implements ImportData {
 		saveLoadBox.getItems().addAll(getResources(saveLoadProperties, "SaveCommand"),
 				getResources(saveLoadProperties, "LoadCommand"));
 		saveLoadBox.setPrefSize(160, 20);
+		saveLoadBox.setOnKeyPressed(click->{});
 		saveLoadBox.setOnAction(click -> {
 			checkSaveOrLoad();
 		});
@@ -99,16 +70,6 @@ public class PulldownFactory implements ImportData {
 
 	protected ComboBox<String> getSaveLoadBox() {
 		return saveLoadBox;
-	}
-	
-	protected ComboBox<String>getStatusBox(){
-		return statusBox;
-		
-	}
-	
-	protected ComboBox<String>getSpeedBox(){
-		return speedBox;
-		
 	}
 
 	private void checkSaveOrLoad() {
@@ -119,7 +80,7 @@ public class PulldownFactory implements ImportData {
 		}
 	}
 
-	private void handleSave() {
+	public void handleSave() {
 		ManipData manipData = new ManipData();
 		manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
@@ -127,7 +88,25 @@ public class PulldownFactory implements ImportData {
 	public void importGame() {
 		ManipData manipData = new ManipData();
 		File file = getFile();
-		System.out.println(file.getAbsolutePath());
+		if(file==null) {
+			return;
+		}
+		String toParse = file.getAbsolutePath();
+		int loc = toParse.indexOf("games");
+		int endLoc = 0;
+		int numberSlashes = 0;
+		for(int i=loc;i<toParse.length();i++) {
+			if(toParse.charAt(i)=='\\') {
+				numberSlashes++;
+			}
+			if(numberSlashes==2) {
+				endLoc = i;
+				numberSlashes++;
+			}
+		}
+		dataFilePathString = toParse.substring(loc+6,endLoc);
+		System.out.println(dataFilePathString);
+		
 		viewManager.changeBackground();
 		gameEngine = manipData.loadData(file.getAbsolutePath(),"ExampleGame");
 		playerView.setEngine(gameEngine);

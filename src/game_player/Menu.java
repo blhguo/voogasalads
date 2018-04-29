@@ -43,9 +43,8 @@ public class Menu {
 		settings.makeSettingsMenu(pane);
 		settings.makeSettingsStage();
 		gameMenu = new GameSelectionMenu();
-		gameMenu.makeGameSelectionMenu(pane);
+		gameMenu.makeGameSelectionMenu(pane,pdf);
 		kpm = new KeyPrefMenu(dataManager,pane);
-		getPullDown();
 		
 
 	}
@@ -56,10 +55,6 @@ public class Menu {
 	 */
 	public void addMenu(Pane root) {
 		root.getChildren().add(pane);
-	}
-	
-	public void getPullDown(){
-		pane.getChildren().add(pullDownFactory.SaveLoadBox());
 	}
 	
     /**

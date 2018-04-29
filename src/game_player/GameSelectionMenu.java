@@ -9,8 +9,10 @@ public class GameSelectionMenu {
 	
 	private Button gameSelectionButton;
 	private Stage gameSelectionStage;
+	private PulldownFactory pullDownFactory;
 	
-	protected void makeGameSelectionMenu(HBox pane) {
+	protected void makeGameSelectionMenu(HBox pane, PulldownFactory pdf) {
+		this.pullDownFactory = pdf;
 		ImageView gameImageView = new ImageView( getClass().getResource( "/game_player_resources/game.png").toExternalForm());
 		gameImageView.setFitHeight(30);
 		gameImageView.setFitWidth(30);
@@ -24,10 +26,11 @@ public class GameSelectionMenu {
 	
 	
 	protected void showGameSelectionMenu() {
-		gameSelectionStage = new Stage();
+		pullDownFactory.importGame();
+//		gameSelectionStage = new Stage();
 //		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
 //		gameSelectionStage.getScene().setRoot(gc.display());
-		gameSelectionStage.show();
+//		gameSelectionStage.show();
 	}	
 
 
