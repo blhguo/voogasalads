@@ -116,11 +116,8 @@ public class PulldownFactory implements ImportData {
 	@Override
 	public void importGame() {
 		ManipData manipData = new ManipData();
-		
-		
-		
-		
 		File file = getFile();
+		System.out.println(file.getAbsolutePath());
 		viewManager.changeBackground();
 		gameEngine = manipData.loadData(file.getAbsolutePath(),"ExampleGame");
 		playerView.setEngine(gameEngine);
