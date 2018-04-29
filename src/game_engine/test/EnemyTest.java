@@ -106,7 +106,7 @@ public class EnemyTest extends Application {
 		Map<String, String> map = new HashMap<>();
 		map.put("dog", "cat");
 		map.put("potato", "fruit");
-		data.saveData(engine, "Mario", map);
+		data.saveData(engine, "Mario","Mario", true);
 	}
 
 	private void updateAllRects() {
@@ -133,7 +133,7 @@ public class EnemyTest extends Application {
 		mainCharacter.addComponent(new DefaultYVelComponent("200"));
 		mainCharacter.addComponent(new LeftKeyboardComponent(KeyCode.A.toString()));
 		mainCharacter.addComponent(new RightKeyboardComponent(KeyCode.D.toString()));
-		mainCharacter.addComponent(new UpKeyboardComponent(KeyCode.W.toString()));
+		mainCharacter.addComponent(new UpKeyboardComponent(KeyCode.F.toString()));
 		mainCharacter.addComponent(new DownKeyboardComponent(KeyCode.S.toString()));
 		mainCharacter.addComponent(new XVelComponent("0"));
 		mainCharacter.addComponent(new YVelComponent("0"));
