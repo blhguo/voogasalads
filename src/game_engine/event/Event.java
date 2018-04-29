@@ -1,13 +1,14 @@
 package game_engine.event;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event implements AuthorableEvent, PlayableEvent{
 	private List<Action> myActions;
 	private List<Condition> myConditions;
-	public Event(List<Action> actions, List<Condition> conditions){
-		myActions = actions;
-		myConditions = conditions;
+	public Event(){
+		myActions = new ArrayList<>();
+		myConditions = new ArrayList<>();
 	}
 	
 	@Override
@@ -21,7 +22,6 @@ public class Event implements AuthorableEvent, PlayableEvent{
 			action.execute();
 		}
 	}
-	
 	@Override
 	public void addAction(Action action) {
 		myActions.add(action);

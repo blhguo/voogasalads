@@ -3,6 +3,7 @@ package authoring;
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
+import authoring.controllers.MetaController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
 import authoring.right_components.EventPane;
@@ -38,7 +39,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	private Stage stage;
 
 	private NavigationPane np;
-
+	private EntityController controller;
 	private BasePane base;
 	private EntityPane entity;
 	private EventPane event;
@@ -54,13 +55,12 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	 * different menus, canvas, and controllers necessary for the Authoring Environment
 	 * to run
 	 * @param stage
-	 * @param ss
 	 */
 	
 	public AuthoringEnvironment(Stage stage){
 		this.stage = stage;
 		base = new BasePane();
-		entity = new EntityPane();
+		entity = new EntityPane(stage);
 		event = new EventPane();
 		level = new LevelPane(stage);
 		story = new StoryBoardPane();
@@ -68,19 +68,25 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		
 		bp = new BorderPane();
 		canvas = new Canvas();
-		
-		EntityController controller = new EntityController(entity, canvas);
+
+		controller = new EntityController(entity, canvas, event);
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController(pcontroller);
+		MetaController mcontroller = new MetaController(lcontroller);
 		
 		canvas.setController(controller);
+		event.setController(controller);
+		event.setLevelController(lcontroller);
 		entity.setController(controller);
 		level.setController(pcontroller);
 		level.setLevelController(lcontroller);
 		controller.setLevelController(lcontroller);
 		story.setLevelController(lcontroller);
+		story.setMetaController(mcontroller);
+		story.setPaneController(pcontroller);
 		np.addListener(this);
-		np.addLevelController(lcontroller);
+		np.addMetaController(mcontroller);
+
 	}
 
 	/**
@@ -116,20 +122,25 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 	public void update(String state) { //cleaner way to write this?
 		switch(state) {
 			case "Entity Creator":
+				canvas.listen();
+				controller.updateCanvas();
 				bp.setRight(entity.getView());
 				break;
-			case "Actions and Events":
-			        bp.setRight(event.getView());
-			        break;
-			case "Level Preferences":
-			        bp.setRight(level.getView());
-			        break;
-			case "Storyboard":
-			        bp.setRight(story.getView());
-			        break;
-			default: 
-					bp.setRight(base.getView());
-					break;
+			case "Events":
+				canvas.stopListen();
+				controller.updateDummies();
+				bp.setRight(event.getView());
+				break;
+			case "Level Preferences": ;
+				bp.setRight(level.getView());
+				break;
+			case "Storyboard": ;
+				bp.setRight(story.getView());
+				break;
+			default:
+				bp.setRight(base.getView());
+				break;
+
 		}
 	}
 

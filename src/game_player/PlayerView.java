@@ -65,10 +65,14 @@ public class PlayerView {
 	 * @param view constructor for PlayerView
 	 *
 	 */
-	public PlayerView(PulldownFactory pdf, ViewManager view, DataManager dtm) {
-		pullDownFactory = pdf;
-		viewManager = view;
-		dataManager = dtm;
+	public PlayerView() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
+		pullDownFactory = storage.getPullDownFactory();
+		viewManager = storage.getViewManager();
+		dataManager = storage.getDataManager();
 		notSet = true;
 		myId = UUID.randomUUID();
 	}
@@ -126,13 +130,6 @@ public class PlayerView {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * @param vm method that sets viewManager as the param
-	 */
-	public void setViewManager(ViewManager vm) {
-		viewManager = vm;
 	}
 
 	private void animationFrame() {
@@ -243,20 +240,15 @@ public class PlayerView {
 
 		if (index==0) {
 			animation.stop();
-
-
 		}
 		if (index==1) {
 			animation.play();
-
 		}
 		if (index==2) {
 			animation.setRate(animation.getRate() * HALF_RATE);
-
 		}
 		if (index==3) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
-
 		}
 		if(index==5) {
 			pullDownFactory.handleSave();

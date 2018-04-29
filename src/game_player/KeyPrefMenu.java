@@ -30,14 +30,12 @@ public class KeyPrefMenu {
 	private Stage keyPrefStage;
 	private Button currentPrefButton;
 	private String currentPrefString;
-	private KeyCode currentKey;
 	
 	/**
 	 * Method to make the keyPref Stage with keyPref options
 	 * 
 	 */
 	public KeyPrefMenu(DataManager data, Pane root) {
-		currentKey = KeyCode.ENTER;
 		ImageView keyboardImageView = new ImageView( getClass().getResource( "/game_player_resources/keyboard.png").toExternalForm());
 		keyboardImageView.setFitHeight(30);
 		keyboardImageView.setFitWidth(30);
@@ -57,6 +55,7 @@ public class KeyPrefMenu {
 		scene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		scene.setOnKeyPressed(click->checkForInput(click.getCode()));
 		keyPrefStage.setScene(scene);
+		keyPrefStage.initOwner(dataManager.getStage());
 	}
 	
 	private void initKeyPrefMenu() {
@@ -76,7 +75,6 @@ public class KeyPrefMenu {
 	}
 	
 	private void checkForInput(KeyCode code) {
-		currentKey = code;
 		currentPrefButton.getStyleClass().add("button-keypref");
 
 		dataManager.setKey(currentPrefString, code);
