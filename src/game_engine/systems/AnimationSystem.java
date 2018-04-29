@@ -34,14 +34,15 @@ public class AnimationSystem extends GameSystem {
 			Component<Double> xVel = entity.getComponent(X_VEL);
 			Component<Double> yVel = entity.getComponent(Y_VEL);
 			
+			if (yVel.getValue().intValue() > 0) {
+				displayed.setValue(jump.getValue());
+				break;
+			}
+			
 			if (Math.abs(xVel.getValue().intValue()) > 0) {
 				displayed.setValue(run.getValue());
 			} else {
 				displayed.setValue(stand.getValue());
-			}
-			
-			if (yVel.getValue().intValue() > 0) {
-				displayed.setValue(jump.getValue());
 			}
 		}
 	}
