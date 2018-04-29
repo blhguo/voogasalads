@@ -28,8 +28,26 @@ public class PushableResponseSystem extends CollisionResponseSystem {
 	}
 	
 	private void pushingByAxis(Entity pushed, Entity pusher1, Entity pusher2, Class<? extends Component<Double>> velClass) {
+		double vel1 = 0.0;
+		double vel2 = 0.0;
 		
+		boolean empty1 = pusher1 == null;
+		boolean empty2 = pusher2 == null;
 		
+		if(!empty1) {
+			vel1 = pusher1.getComponent(velClass).getValue();
+		}
+		if(!empty2) {
+			vel2 = pusher2. getComponent(velClass).getValue();
+		}
+		boolean wall1 = !empty1 && vel1
+		// axis decision-making
+					// check for null
+						// if both null, do nothing
+						// if one null, one pushing, set vel to that of pushing
+						// if neither null
+							// if one == 0, and one pushing do not move
+							// if both pushing, don't move? or you're fucked
 	}
 
 	@Override
@@ -51,14 +69,8 @@ public class PushableResponseSystem extends CollisionResponseSystem {
 			Entity leftEntity = getPushingEntity(leftEntities, XVelComponent.class, 1);
 			Entity rightEntity = getPushingEntity(rightEntities, XVelComponent.class, -1);
 			
+			pushingByAxis(e, topEntity, b)
 			
-			// axis decision-making
-			// check for null
-				// if both null, do nothing
-				// if one null, one pushing, set vel to that of pushing
-				// if neither null
-					// if one == 0, and one pushing do not move
-					// if both pushing, don't move? or you're fucked
 			
 		}
 		
