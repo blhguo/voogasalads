@@ -1,3 +1,7 @@
+/*
+ * DEPRECATED: CURRENTLY UNUSED
+ */
+
 //package game_engine.event.conditions;
 //
 //import java.util.List;

@@ -82,15 +82,17 @@ public class ComponentSelectionWindow {
 //		String style = "-fx-border-color: white; -fx-border-width: 3;";
 //		ret.setStyle(style + "-fx-background-color: cornflowerblue");
 		ret.getStyleClass().add("comp-label");
+
 		ret.prefWidthProperty().bind(myStage.widthProperty());
 		ret.setOnMouseClicked(e -> {
 			if (!activeMenus.contains(menu)) {
 				activeMenus.add(menu);
 				//ret.setStyle(style + "-fx-background-color: lightblue");
+				ret.setStyle("-fx-effect: dropshadow(gaussian, #338099, 10, 0.5, 0, 0)");
 			}
 			else {
 				activeMenus.remove(menu);
-				//ret.setStyle("");
+				ret.setStyle("");
 			}
 			//ret.setStyle("-fx-background-color: lightblue");
 		});

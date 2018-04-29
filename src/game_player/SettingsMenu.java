@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -25,10 +26,18 @@ public class SettingsMenu {
 	private Label volumeLabel;
 	private Label brightnessLabel;
 	
+	public SettingsMenu() {
+		brightnessSlider = makeBrightnessSlider();
+		volumeSlider = makeVolumeSlider();
+		
+	}
+	
 	protected void makeSettingsMenu(HBox pane) {
-		settingsButton = new Button("Settings");
+		ImageView settingsImageView = new ImageView( getClass().getResource( "/game_player_resources/settings.png").toExternalForm());
+		settingsImageView.setFitHeight(30);
+		settingsImageView.setFitWidth(30);
+		settingsButton = new Button("", settingsImageView);
 		settingsButton.getStyleClass().add("button-nav");
-		settingsButton.setOnAction(click->{showSettingsMenu();});
 		pane.getChildren().add(settingsButton);
 		settingsMenu = new VBox(50);
 		settingsMenu.setPrefWidth(300);
@@ -37,6 +46,7 @@ public class SettingsMenu {
 		settingsMenu.setBackground(new Background(back));
 		settingsButton.setOnAction(click->{showSettingsMenu();});	
 	}
+	
 	protected void makeSettingsStage() {
 		settingsStage = new Stage();
 		Scene scene = new Scene(settingsMenu);
@@ -52,19 +62,23 @@ public class SettingsMenu {
 		settingsStage.setScene(scene);
 	}
 	
-	private void makeBrightnessSlider() {
+	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
-		brightnessSlider.setMin(-1);
+		brightnessSlider.setMin(0);
 		brightnessSlider.setMax(1);
+		brightnessSlider.setValue(1);
+		return brightnessSlider;
 		
 	}
 	
-	private void makeVolumeSlider() {
+	private Slider makeVolumeSlider() {
 		volumeSlider = new Slider();
 		volumeSlider.getStyleClass().add("slider");
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
+		volumeSlider.setValue(0);
+		return volumeSlider;
 	}
 	
 	private void makeBrightnessLabel() {

@@ -1,5 +1,6 @@
 package game_engine.test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +45,8 @@ import game_engine.components.projectile.ProjectileYVelComponent;
 import game_engine.level.Level;
 import game_engine.systems.DespawnSystem;
 import game_engine.systems.HealthSystem;
-import game_engine.systems.PositionSystem;
 import game_engine.systems.ProjectileDespawnSystem;
 import game_engine.systems.ProjectileSpawnSystem;
-import game_engine.systems.VelocitySystem;
 import game_engine.systems.collision.CollisionBroadSystem;
 import game_engine.systems.collision.ImpassableResponseSystem;
 import game_engine.systems.keyboard.DownKeyboardMovementSystem;
@@ -55,6 +54,8 @@ import game_engine.systems.keyboard.KeyboardJumpSystem;
 import game_engine.systems.keyboard.LeftKeyboardMovementSystem;
 import game_engine.systems.keyboard.RightKeyboardMovementSystem;
 import game_engine.systems.keyboard.UpKeyboardMovementSystem;
+import game_engine.systems.position.PositionSystem;
+import game_engine.systems.velocity.VelocitySystem;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -205,7 +206,7 @@ public class saveDataTest extends Application {
 
 	public Engine loadFromData() {
 		ManipData data = new ManipData();
-		return data.loadData("savedata/gameLevels.xml", "gameName");
+		return data.loadData(new File("savedata/gameLevels.xml"), "gameName");
 	}
 
 	public static void main(String[] args) {

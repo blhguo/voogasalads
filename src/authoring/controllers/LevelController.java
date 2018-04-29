@@ -8,6 +8,7 @@ import java.util.Map;
 import gameData.ManipData;
 import game_engine.Component;
 import game_engine.Engine;
+import game_engine.event.Event;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
 import game_engine.level.LevelNameComponent;
@@ -28,7 +29,7 @@ public class LevelController {
 		addLevel();
 	}
 	/**
-	 * @param l Adds the specifed level to current levels
+	 * Adds a new level to the engine
 	 */
 	public void addLevel() {
 		Level newLevel = engine.createLevel();
@@ -45,17 +46,23 @@ public class LevelController {
 	
 	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
-		Map<Integer, List<Component>> map = engine.getLevelPreviews(Arrays.asList(comp));
-		for (List<Component> list: map.values()){
-			for (Component c: list){
+		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));
+		for (List<Component<?>> list: map.values()){
+			for (Component<?> c: list){
 				ret.add(c.getValue());
 			}
 		}
 		return ret;
 	}
 	
-	public void addComp(Component c){
+	public void addComp(Component<?> c){
 		engine.getLevel().addComponent(c);
+	}
+
+	public void addEvent(Event event){
+		engine.getLevel().addEvent(event);
+		System.out.println(event.getActions());
+		System.out.println(event.getConditions());
 	}
 	
 }

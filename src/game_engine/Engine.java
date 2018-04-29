@@ -1,36 +1,37 @@
 package game_engine;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-
 import game_engine.level.Level;
+import javafx.event.EventType;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Engine {
+	private static final EventType<MouseEvent> MOUSE_EVENT = MouseEvent.MOUSE_CLICKED;
+	private static final EventType<KeyEvent> KEY_PRESSED_EVENT = KeyEvent.KEY_PRESSED;
+	private static final EventType<KeyEvent> KEY_RELEASED_EVENT = KeyEvent.KEY_RELEASED;
+
 	private Map<Integer, Level> myLevels;
 	private int myCurrentLevel;
 	private int myIdCounter;
 	private List<GameSystem> mySystems;
-	private LinkedList<KeyEvent> myInputs;
+	private LinkedList<InputEvent> myInputs;
 
 	public Engine() {
 		myLevels = new HashMap<Integer, Level>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
-		myInputs = new LinkedList<KeyEvent>();
-		mySystems = initSystems();
+		myInputs = new LinkedList<>();
+		mySystems = new SystemInitializer().init(this);
+		System.out.println(mySystems.size());
 	}
 
 	public void update(double elapsedTime) {
@@ -59,17 +60,21 @@ public class Engine {
 		return myLevels.get(myCurrentLevel);
 	}
 
+	public Level getLevel(int levelId) {
+		return myLevels.get(levelId);
+	}
+
 	public void setLevel(int dex) {
 		myCurrentLevel = dex;
 	}
-	
-	public Map<Integer, List<Component>> getLevelPreviews(List<Class<? extends Component<?>>> args){
-		Map<Integer, List<Component>> preview = new HashMap<Integer, List<Component>>();
-		List<Component> previewComponents;
-		for(Integer key: myLevels.keySet()) {
-			previewComponents = new ArrayList<Component>();
+
+	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
+		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
+		List<Component<?>> previewComponents;
+		for (Integer key : myLevels.keySet()) {
+			previewComponents = new ArrayList<Component<?>>();
 			Level lvl = myLevels.get(key);
-			for(Class<? extends Component<?>> c: args) {
+			for (Class<? extends Component<?>> c : args) {
 				previewComponents.add(lvl.getComponent(c));
 			}
 			preview.put(key, previewComponents);
@@ -77,41 +82,20 @@ public class Engine {
 		return preview;
 	}
 
-	public List<KeyEvent> getInput(Component<KeyCode> keyInput) {
-		return myInputs.stream().filter(keyEvent -> keyInput.getValue().equals(keyEvent.getCode()))
+	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
+		return myInputs.stream()
+				.filter(inputEvent -> (inputEvent.getEventType() == KEY_PRESSED_EVENT
+						|| inputEvent.getEventType() == KEY_RELEASED_EVENT))
+				.map(inputEvent -> (KeyEvent) inputEvent).filter(keyEvent -> keyInput.equals(keyEvent.getCode()))
 				.collect(Collectors.toList());
 	}
 
-	public void receiveInput(KeyEvent event) {
+	public List<MouseEvent> getMouseInputs() {
+		return myInputs.stream().filter(inputEvent -> inputEvent.getEventType() == MOUSE_EVENT)
+				.map(inputEvent -> (MouseEvent) inputEvent).collect(Collectors.toList());
+	}
+
+	public void receiveInput(InputEvent event) {
 		myInputs.add(event);
 	}
-
-	private List<GameSystem> initSystems() {
-		Reflections reflections = new Reflections("game_engine", new SubTypesScanner(true));
-		Set<Class<? extends GameSystem>> allClasses = reflections.getSubTypesOf(GameSystem.class);
-
-		List<GameSystem> systems = new ArrayList<>();
-
-		allClasses.stream().filter(clazz -> !Modifier.isAbstract(clazz.getModifiers())).forEach(clazz -> {
-			try {
-				Parameter[] params = clazz.getDeclaredConstructors()[0].getParameters();
-				Constructor<?> ctor;
-				GameSystem system;
-				if (params.length > 0) {
-					ctor = clazz.getDeclaredConstructor(new Class[] { Engine.class });
-					system = (GameSystem) ctor.newInstance(this);
-				} else {
-					ctor = clazz.getDeclaredConstructor(new Class[] {});
-					system = (GameSystem) ctor.newInstance();
-				}
-				systems.add(system);
-				System.out.println(system);
-			} catch (Exception e) {
-				// do nothing: just continue without this system
-			}
-		});
-
-		return systems;
-	}
-
 }

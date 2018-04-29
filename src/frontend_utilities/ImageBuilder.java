@@ -1,6 +1,7 @@
 package frontend_utilities;
 
 import frontend_utilities.DraggableImageView;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -31,7 +32,7 @@ public class ImageBuilder {
      */
     public static ImageView getImageView(String path, int width, int height){
         Image image = new Image(path, width, height, false, true);
-        ImageView view = new DraggableImageView(image);
+        ImageView view = new ImageView(image);
         return view;
     }
     
@@ -72,5 +73,10 @@ public class ImageBuilder {
         view.setFitWidth(size);
         return view;
     }
+
+	public static ImageView resizeReturn(ImageView imageView, int size) {
+		ImageView view = resize(imageView, size);
+		return view;
+	}
     
 }

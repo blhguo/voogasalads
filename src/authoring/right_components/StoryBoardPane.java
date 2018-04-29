@@ -94,10 +94,10 @@ public class StoryBoardPane extends BasePane {
 		
 		VBox levels = new VBox(AuthRes.getInt("Padding"));
 		List<Class<? extends Component<?>>> backAndNames = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class);
-		Map<Integer, List<Component>> map = lcontroller.getEngine().getLevelPreviews(backAndNames);
+		Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(backAndNames);
 		int levelCount = 0;
 		HBox row;
-		for (Entry<Integer, List<Component>> ent: map.entrySet()){
+		for (Entry<Integer, List<Component<?>>> ent: map.entrySet()){
 			if (levelCount % 2 == 1){
 				row = (HBox) levels.getChildren().get(levels.getChildren().size() - 1);
 				levels.getChildren().remove(levels.getChildren().size() - 1);
@@ -105,7 +105,7 @@ public class StoryBoardPane extends BasePane {
 			else{
 				row = new HBox(AuthRes.getInt("Padding"));
 			}
-			List<Component> l = ent.getValue();
+			List<Component<?>> l = ent.getValue();
 			String backPath = (String) l.get(0).getValue();
 			if (backPath.equals(AuthRes.getString("BackgroundDefault"))){
 				backPath = "mountain.png"; // hardcoded default

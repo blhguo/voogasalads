@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import resources.keys.AuthRes;
 
 public class KeyMenuElement extends MenuElement{
 	private Node view;
@@ -19,8 +20,8 @@ public class KeyMenuElement extends MenuElement{
 		field.setPrefHeight(10);
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		this.title = title;
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
-		view = ButtonFactory.makeHBox(title, null, field);
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
+		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class KeyMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		field.setText(code.toString());
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		myComponent.setValue(code.toString());
@@ -54,4 +55,5 @@ public class KeyMenuElement extends MenuElement{
 	public void setComponentValue() {
 		myComponent.setValue(field.getText());
 	}
+
 }

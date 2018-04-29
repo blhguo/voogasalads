@@ -2,9 +2,12 @@ package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import resources.keys.AuthRes;
 
 /**
  * @author liampulsifer
@@ -17,15 +20,21 @@ public class StringMenuElement extends MenuElement{
 	public StringMenuElement(String title, Component component){
 		setMyComponent(component);
 		field = new TextField();
-		field.setText(component.getValue().toString());
+		if (!(component.getValue() == null)){
+			field.setText(component.getValue().toString());
+		}
+		else { 
+			field.setText("IMMUTABLE");
+			field.setEditable(false);
+		}
 		this.title = title;
-		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText()));
+		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		field.focusedProperty().addListener(e -> {
 					if (!field.focusedProperty().getValue()) {
-						updateComponent(KeyCode.ENTER, field.getText());
+						updateComponent(KeyCode.ENTER, field.getText(), false);
 					}
 		});
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
 	}
 
 	/**
@@ -61,17 +70,21 @@ public class StringMenuElement extends MenuElement{
 	}
 
 	@Override
-	public void updateComponent(KeyCode code, String text) {
+	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
-			myComponent.setValue(text);
-			myMenu.alert();
-			System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
+			if (!text.equals("IMMUTABLE")) {
+				myComponent.setValue(text);
+				if (alert) myMenu.alert();
+				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
+
+			}
+
 		}
 	}
-	
 
 	@Override
 	public void setComponentValue() {
-		myComponent.setValue(field.getText());
+		if (!field.getText().equals("IMMUTABLE"))
+			myComponent.setValue(field.getText());
 	}
 }

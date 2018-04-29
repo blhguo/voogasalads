@@ -21,25 +21,6 @@ public abstract class CollidedComponent extends Component<List<Entity>> {
     	super(new ArrayList<Entity>());
     }
 
-    //COMMENTED OUT BY KEVIN 4/18/18 - question: why are there 3 constructors?
-//    /**
-//     * @param e
-//     * If instantiated with the entity this Entity has collided with
-//     */
-//    public CollidedComponent(Entity e){
-//        this();
-//        addEntity(e);
-//    }
-//
-//    /**
-//     * @param es
-//     * If instantiated with a list of entities that have collided with the entity containing the component
-//     */
-//    public CollidedComponent(List<Entity> es){
-//        this();
-//        addEntities(es);
-//    }
-
     /**
      * @param e
      * Setter allowing System to add an entity to the list of entities contained in the component
@@ -60,15 +41,27 @@ public abstract class CollidedComponent extends Component<List<Entity>> {
         }
     }
     
+    /**
+     * @param e
+     * @return
+     * 
+     * Checks to see if the entity holding this component has collided with a specific entity
+     */
     public boolean contains(Entity e) {
     	return getValue().contains(e);
     }
     
+    /**
+     * @param c
+     * @return
+     * 
+     * Checks to see if the entity holding this component has collided with an entity containing a specific type of component
+     */
     public boolean contains(Class<? extends Component<?>> c) {
     	for(Entity e: getValue()) {
-//    		if(e.getComponent(c)!=null) {
-//    			return true;
-//    		}
+    		if(e.getComponent(c)!=null) {
+    			return true;
+    		}
     	}
     	return false;
     }
