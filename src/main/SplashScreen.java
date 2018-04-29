@@ -71,8 +71,14 @@ public class SplashScreen extends GUIGridPaneSuper{
 		VBox vb = makeVBox();
 		gridpane.getChildren().addAll(title, vb);
 		double width = title.getParent().getLayoutBounds().getWidth();
+//		double width = myStage.getScene().getRoot().getLayoutBounds().getWidth();
 		int numCols = (int) width / AuthRes.getInt("Padding");
+		System.out.println("Height"+ width);
 		double height = title.getParent().getLayoutBounds().getHeight();
+//		double height = myStage.getHeight();
+//		double height = myStage.getScene().getRoot().getLayoutBounds().getHeight();
+
+		System.out.println("Height" + height);
 		int numRows = (int) height / AuthRes.getInt("Padding");
 		GridPane.setConstraints(title, numCols / 20, numRows * 2 / 3);
 		GridPane.setConstraints(vb, numCols / 3, numRows / 4);

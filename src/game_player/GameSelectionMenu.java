@@ -1,6 +1,6 @@
 package game_player;
 
-import authoring.GameChooserScreen;
+import authoring.loadingviews.PlayerLoader;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -27,8 +27,8 @@ public class GameSelectionMenu {
 	protected void showGameSelectionMenu() {
 		//TODO Make this choose game to play, not edit
 		gameSelectionStage = new Stage();
-		GameChooserScreen gc = new GameChooserScreen(gameSelectionStage);
-		gameSelectionStage.getScene().setRoot(gc.display());
+		PlayerLoader playerload = new PlayerLoader(gameSelectionStage);
+		gameSelectionStage.getScene().setRoot(playerload.display());
 		gameSelectionStage.show();
 	}	
 
