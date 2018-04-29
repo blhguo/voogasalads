@@ -159,13 +159,14 @@ public class ManipData {
 		return metaMap;
 	}
 	
-	public Map<String, String> openConfig(String filePath) {		
+	public Map<String, String> openConfig(String filePath) {
 		Map<String, String> configMap = new HashMap<>();
 		
-		ResourceBundle CONFIGKEYS = ResourceBundle.getBundle(filePath);
-		for (String s : CONFIGKEYS.keySet()) {
-			String buff = CONFIGKEYS.getString(AuthRes.getStringKeys(s));
-			configMap.put(AuthRes.getStringKeys(s), buff);
+		ResourceBundle configkeys = ResourceBundle.getBundle(filePath);
+		System.out.println(configkeys);
+		for (String s : configkeys.keySet()) {
+			//String buff = configkeys.getString(AuthRes.getStringKeys(s));
+			configMap.put(s, configkeys.getString(s));
 		}
 		
 		return configMap;
@@ -194,7 +195,7 @@ public class ManipData {
 		} 
 	}
 
-	private void saveConfig(String configLoc, Map<String, String> configMap) {
+	public void saveConfig(String configLoc, Map<String, String> configMap) {
 		
 		File file = new File("games/"+configLoc);
 		if(!file.exists()) {
@@ -207,7 +208,7 @@ public class ManipData {
 				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
-			file = new File("games/" + configLoc + "/config.xml");
+			file = new File("games/" + configLoc + "/config.properties");
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
