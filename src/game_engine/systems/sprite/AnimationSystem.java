@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.sprite;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,14 +15,14 @@ import game_engine.components.sprite.StandFilenameComponent;
 import game_engine.level.Level;
 
 public class AnimationSystem extends GameSystem {
-	
+
 	private static final Class<? extends Component<String>> DISPLAYED = FilenameComponent.class;
 	private static final Class<? extends Component<String>> RUN = RunFilenameComponent.class;
 	private static final Class<? extends Component<String>> JUMP = JumpFilenameComponent.class;
 	private static final Class<? extends Component<String>> STAND = StandFilenameComponent.class;
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
-	
+
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(DISPLAYED, RUN, STAND, X_VEL, Y_VEL);
@@ -32,14 +32,15 @@ public class AnimationSystem extends GameSystem {
 			Component<String> stand = entity.getComponent(STAND);
 			Component<Double> xVel = entity.getComponent(X_VEL);
 			Component<Double> yVel = entity.getComponent(Y_VEL);
-			
+
 			if (entity.hasAll(Arrays.asList(JUMP)) && yVel.getValue().intValue() > 0) {
 				Component<String> jump = entity.getComponent(JUMP);
 				displayed.setValue(jump.getValue());
 				break;
 			}
-			
-			if (Math.abs(xVel.getValue().intValue()) > 0) {
+
+			if (Math.abs(xVel.getValue().intValue()) > 0
+					|| (!entity.hasAll(Arrays.asList(JUMP)) && Math.abs(entity.getComponent(Y_VEL).getValue()) > 0.0)) {
 				displayed.setValue(run.getValue());
 			} else {
 				displayed.setValue(stand.getValue());

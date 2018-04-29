@@ -30,7 +30,10 @@ import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.JumpFilenameComponent;
+import game_engine.components.sprite.RunFilenameComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
+import game_engine.components.sprite.StandFilenameComponent;
 import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
@@ -195,7 +198,9 @@ public class EnemyTest extends Application {
 
 	private void initRects(){
 		// components needed for sprite component
-		mainCharacter.addComponent(new FilenameComponent("mario_run.gif"));
+		mainCharacter.addComponent(new FilenameComponent("mario_stand.png"));
+		mainCharacter.addComponent(new StandFilenameComponent("mario_stand.png"));
+		mainCharacter.addComponent(new RunFilenameComponent("mario_run.gif"));
 		mainCharacter.addComponent(new HeightComponent("200"));
 		mainCharacter.addComponent(new WidthComponent("200"));
 		mainCharacter.addComponent(new ZHeightComponent("2"));

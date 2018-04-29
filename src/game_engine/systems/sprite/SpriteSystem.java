@@ -1,4 +1,4 @@
-package game_engine.systems;
+package game_engine.systems.sprite;
 
 import java.util.Arrays;
 import java.util.List;

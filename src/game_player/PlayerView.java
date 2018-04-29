@@ -92,7 +92,6 @@ public class PlayerView {
 		
 		if (!assignId(level)) {
 			System.out.println("no one assigned");
-			// no players remaining to be claimed...error?
 			return;
 		}
 		
