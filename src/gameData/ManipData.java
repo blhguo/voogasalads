@@ -45,6 +45,7 @@ public class ManipData {
 	private XStream deserializer;
 	//public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
 
+
 	//constructor
 	public ManipData() {
 		//given a list of levels

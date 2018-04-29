@@ -9,6 +9,7 @@ public class AuthRes {
 	//public static final ResourceBundle VOOGLEIMAGES = ResourceBundle.getBundle("resources.keys/Image");
 	//public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
 
+
 	/**
 	 * Returns the corresponding String of a given String key
 	 * @param key
@@ -21,6 +22,7 @@ public class AuthRes {
 //	public static String getStringKeys(String key) {
 //		return CONFIGKEYS.getString(key);
 //	}
+
 	
 	/**
 	 * Returns the corresponding int of a given String key
