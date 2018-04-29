@@ -1,9 +1,10 @@
 package game_engine.components;
 
-import game_engine.Component;
-import game_engine.NullType;
+import java.util.UUID;
 
-public class PrimeComponent extends Component<NullType> {
+import game_engine.Component;
+
+public class PrimeComponent extends Component<UUID> {
 
 	public PrimeComponent() {
 		super(null);

@@ -11,4 +11,5 @@ public class CollectorComponent extends Component<NullType>{
 	public CollectorComponent(){
 		super(null);
 	}
+	
 }
