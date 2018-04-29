@@ -260,6 +260,7 @@ public class ManipData {
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
 		String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
 		};
@@ -267,6 +268,7 @@ public class ManipData {
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
+
 			try {
 				doc = dBuilder.parse(file);
 
@@ -294,6 +296,8 @@ public class ManipData {
 		
 	}
 
+	
+	
 	private String nodeToString(Node node) {
 		StringWriter sw = new StringWriter();
 		try {

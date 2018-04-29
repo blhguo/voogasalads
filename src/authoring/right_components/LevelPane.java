@@ -19,7 +19,6 @@ import game_engine.level.LevelNameComponent;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -104,18 +103,11 @@ public class LevelPane extends BasePane {
 	private void update(){
 		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
 		activeLevels.setValue(name);
-		// need to update options in combobox
 		ArrayList<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
 		activeLevels.setItems(FXCollections.observableArrayList(newLevels));
 		textName.setText(activeLevels.getValue().toString());
-		// need to change background to new image, sometimes no image (default)
 		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
-		if (background.equals("default")){
-			controller.resetBackground();
-		}
-		else{
-			controller.setBackground(background);
-		}
+		controller.setBackground(background);
 	}
 	
 	@SuppressWarnings("unchecked")

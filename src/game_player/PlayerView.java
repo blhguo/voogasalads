@@ -90,13 +90,13 @@ public class PlayerView {
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
-		
+
 		if (!assignId(level)) {
 			System.out.println("no one assigned");
 			// no players remaining to be claimed...error?
 			return;
 		}
-		
+
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		setGamePlayerOnce();
 
@@ -158,7 +158,7 @@ public class PlayerView {
 		// render level background
 
 		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
-				.forEach(this::display);
+		.forEach(this::display);
 	}
 
 	private int compareZ(Entity a, Entity b) {
@@ -238,22 +238,31 @@ public class PlayerView {
 	 * the method will make the game play
 	 *
 	 */
-	public void handleUI() {
-		String selectedAction = pullDownFactory.getSpeedBox().getSelectionModel().getSelectedItem();
-		String statusAction = pullDownFactory.getStatusBox().getSelectionModel().getSelectedItem();
+	public void handleUI(int index) {
 
-		if (selectedAction.equals("Speed Up")) {
 
-			animation.setRate(animation.getRate() * DOUBLE_RATE);
-		}
-		if (selectedAction.equals("Slow Down")) {
-			animation.setRate(animation.getRate() * HALF_RATE);
-		}
-		if (statusAction.equals("Pause Game")) {
+		if (index==0) {
 			animation.stop();
+
+
 		}
-		if (statusAction.equals("Play Game")) {
+		if (index==1) {
 			animation.play();
+
+		}
+		if (index==2) {
+			animation.setRate(animation.getRate() * HALF_RATE);
+
+		}
+		if (index==3) {
+			animation.setRate(animation.getRate() * DOUBLE_RATE);
+
+		}
+		if(index==5) {
+			pullDownFactory.handleSave();
+		}
+		if (index==6) {
+			pullDownFactory.aboutGame();
 		}
 	}
 
