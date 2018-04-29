@@ -153,7 +153,23 @@
     -fx-font-family: segoeuil;
     -fx-font-size: 20px;
     -fx-text-fill: white;
+    -fx-background-color: black;
+    
+   
+}
 
+.text-area {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+
+}
+
+.text-area .content {
+	-fx-text-alignment: center;
+	
+    -fx-background-image: url("background.png");
+    
 }
 
 .combo-box
