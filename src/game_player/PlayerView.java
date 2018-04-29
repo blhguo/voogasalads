@@ -227,6 +227,9 @@ public class PlayerView {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
 			
 		}
+		if (index==6) {
+		pullDownFactory.aboutGame();
+		}
 	}
 
 }

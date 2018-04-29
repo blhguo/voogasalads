@@ -59,6 +59,7 @@ public class ViewManager extends GUIBuilder{
 	private Text time;
 	private int coinCount=3;
 	private int timeCount=60;
+
 	
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -74,6 +75,8 @@ public class ViewManager extends GUIBuilder{
 		this.gameStage = stage;
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
+		gameStage.setFullScreen(true);
+
 		gameStage.show();
 		changeBrightness();
 		changeVolume();
@@ -190,6 +193,8 @@ public class ViewManager extends GUIBuilder{
 			}
 		});
 	}
+	
+
     
     /**
      * Display the stage for game selection.
@@ -198,6 +203,10 @@ public class ViewManager extends GUIBuilder{
 		GameChooserScreen gc = new GameChooserScreen(gameStage);
 		//gameStage.setScene(gc.display());
 		gameStage.show();
+	}
+	
+	public Stage getGameStage() {
+		return gameStage;
 	}
     
     /**

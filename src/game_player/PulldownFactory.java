@@ -2,13 +2,26 @@ package game_player;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import game_player_interfaces.ImportData;
 import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.level.Level;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,7 +40,9 @@ public class PulldownFactory implements ImportData {
 	private ResourceBundle speedProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "speed");
 	private ResourceBundle statusProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "status");
 	private ResourceBundle saveLoadProperties = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "save_load");
-
+	private Map<String, String> test = new HashMap<String, String>();
+	
+	
 	private ComboBox<String> speedBox;
 	private ComboBox<String> statusBox;
 	private ComboBox<String> saveLoadBox;
@@ -35,7 +50,12 @@ public class PulldownFactory implements ImportData {
 	private DataManager dataManager;
 	private ViewManager viewManager;
 	private PlayerView playerView;
-	
+	private ManipData manipData;
+	private VBox aboutGameBox;
+	private Scene aboutGameScene;
+	private Stage aboutGameStage;
+	private File file;
+	private ButtonMaker buttonMaker = new ButtonMaker();
 	/**
 	 *Constructor for the pull down factory. It initializes all of the
 	 * combo boxes seen in the game player.
@@ -118,16 +138,39 @@ public class PulldownFactory implements ImportData {
 	@Override
 	public void importGame() {
 		ManipData turd = new ManipData();
-		
-		
-		
-		
 		File file = getFile();
 		viewManager.changeBackground();
 		gameEngine = turd.loadData(file.getAbsolutePath(),"ExampleGame");
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
+	}
+	
+	public void aboutGame() {
+		test.put("Hello", "World");
+		test.put("Homework", "Much");
+		test.put("author", "Dana");
+		TextArea text = new TextArea();
+		String string = new String();
+		aboutGameBox = new VBox(text);
+		aboutGameStage = new Stage();
+		aboutGameScene = new Scene(aboutGameBox);
+
+		aboutGameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
+
+		aboutGameStage.setScene(aboutGameScene);
+		aboutGameStage.setTitle("About Game");
+        aboutGameStage.initOwner(viewManager.getGameStage());
+
+		for (String key:test.keySet()) {
+			string=string+key+" "+test.get(key)+"\n";
+			
+		}
+		text.setText(string);
+
+		//manipData.openMeta(file);
+		aboutGameStage.show();
+		
 	}
     
     /**
@@ -146,7 +189,7 @@ public class PulldownFactory implements ImportData {
     
 	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
-		File file = fileChooser.showOpenDialog(new Stage());
+		file = fileChooser.showOpenDialog(new Stage());
 		return file;
 	}
 

@@ -22,9 +22,10 @@ public class ButtonMaker {
 	private Button slowControl;
 	private Button replay;
 	private Button save;
+	private Button about;
 	private PlayerView playerView;
-	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png"));
-	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(pause, play, slowControl, speedControl, replay, save));
+	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png", "about.png"));
+	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(pause, play, slowControl, speedControl, replay, save, about));
 
 	public ButtonMaker() {
 		// TODO Auto-generated constructor stub
