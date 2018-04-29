@@ -92,6 +92,16 @@ public class Menu {
 	public Slider getVolumeSlider() {
 		return settings.getVolumeSlider();
 	}
-	
+
+	/**
+	 * method to show new Stage when gameSelectionButton is pressed
+	 * 
+	 */
+	public void showGameSelectionMenu() {
+		//TODO Make this choose game to play, not edit
+//		gameSelectionStage = new Stage();
+//		gameSelectionStage.getScene().setRoot(new PlayerLoader(gameSelectionStage).display());
+//		gameSelectionStage.show();
+	}
 
 }

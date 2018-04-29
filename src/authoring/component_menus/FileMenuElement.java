@@ -11,33 +11,45 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import resources.keys.AuthRes;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 
 public class FileMenuElement extends MenuElement{
 	private final String title;
 	private ImageView image;
-	private HBox view;
+	private VBox view;
 	private FileChooser fileChooser;
 	private TextField field;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public FileMenuElement(String s, Component component) {
 		super.setMyComponent(component);
 		this.title = s;
 		field = new TextField();
+		field.setStyle("-fx-cursor: hand;");
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
 		field.setPrefHeight(10);
 		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
 		fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
-		view = ButtonFactory.makeHBox(title, null, field);
+		view = new VBox();
+		view.getChildren().add(ButtonFactory.makeReverseHBox(userNames.getString(title), 
+				null, field, AuthRes.getInt("MenuElementWidth")));
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());
+		Tooltip tip = new Tooltip(tooltips.getString(title));
+		Tooltip.install(view, tip);
 	}
 
 	@Override
@@ -70,6 +82,7 @@ public class FileMenuElement extends MenuElement{
 	}
 	public void voogle(){
 		VoogleApp app = new VoogleApp(this);
+		
 
 	}
 	@Override
@@ -81,7 +94,6 @@ public class FileMenuElement extends MenuElement{
 		Button voogleButton = ButtonFactory.makeButton(e -> voogle());
 		voogleButton.setText("Voogle");
 		Tooltip tip = new Tooltip("Search for Image with VoogleImages");
-		tip.setShowDelay(new Duration(0));
 		voogleButton.setTooltip(new Tooltip("Search for Image with VoogleImages"));
 		return voogleButton;
 	}

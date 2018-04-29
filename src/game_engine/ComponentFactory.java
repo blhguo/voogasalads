@@ -27,7 +27,7 @@ public class ComponentFactory {
 	 *
 	 * @param entity the entity
 	 * @param key the key
-	 * @param args the args
+	 * @param arg the args
 	 * @return Component
 	 */
 	public <T> Component<T> addComponent(Entity entity, String key, String arg) {
@@ -38,7 +38,7 @@ public class ComponentFactory {
 
 	@SuppressWarnings("unchecked")
 	public <T> Component<T> createComponent(String key, String arg) {
-		System.out.println();
+		System.out.println("Key: " + key + " Arg: " + arg);
 		try {
 			Class<?> clazz = Class.forName(myComponents.getString(key));
 			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);

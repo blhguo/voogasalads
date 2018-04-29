@@ -58,7 +58,7 @@ public class BasePane implements GUINode {
 	}
 	
 	/**
-	 * Method that adds space between each of the Nodes 
+	 * Method that adds lines
 	 * @return Separator
 	 */
 	public Separator newSeparator() {
