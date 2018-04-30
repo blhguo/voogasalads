@@ -46,6 +46,20 @@
     -fx-border-insets: 50px;
 }
 
+.check-box {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.check-box .box {
+    -fx-background-color: rgba(128, 128, 128, 0.7);
+    -fx-border-color: rgba(0, 0, 0, 0);
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
 .chooser-back {
     -fx-fill: rgba(0, 0, 0, 0.5);
 }

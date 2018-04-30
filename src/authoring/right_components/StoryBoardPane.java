@@ -72,7 +72,13 @@ public class StoryBoardPane extends BasePane {
 		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
 		
 		TextField author = new TextField(mcontroller.getPrintMap().get(AuthRes.getString("Author")));
-		makeText(AuthRes.getString("Author"), author);
+		//makeText(AuthRes.getString("Author"), author);
+		author.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.ENTER){
+				mcontroller.getPrintMap().put(AuthRes.getString("Author"), author.getText());
+				mcontroller.getConfigMap().put(AuthRes.getStringKeys("key2"), author.getText());
+			}
+		});
 		list.add(ButtonFactory.makeReverseHBox("Set Author: ", null, author));
 		
 		TextArea rules = new TextArea(mcontroller.getPrintMap().get(AuthRes.getString("Rules")));

@@ -1,9 +1,8 @@
 package authoring.controllers;
 
-import java.io.File;
-
 import authoring.Canvas;
 import authoring.right_components.LevelPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import resources.keys.AuthRes;
 
@@ -41,6 +40,10 @@ public class PaneController {
 //		canvas.setLevel(id);
 //	}
 	
+	public void updateCanvas(){
+		canvas.update(econtroller.getEntities());
+	}
+	
 	public void updateCanvas(int id){
 		canvas.setLevel(id);
 		canvas.update(econtroller.getEntities());
@@ -48,6 +51,10 @@ public class PaneController {
 	
 	public void setEntityController(EntityController ec){
 		econtroller = ec;
+	}
+	
+	public void changeScrolling(boolean hscroll, boolean vscroll){
+		canvas.changeScrolling(hscroll, vscroll);
 	}
 	
 }
