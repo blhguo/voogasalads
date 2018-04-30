@@ -206,6 +206,7 @@ public class EntityController {
 				sceneY - wrap.getImageView().getFitHeight() / 2);
 		if (!entityList.contains(wrap)){
 			entityList.add(wrap);
+			add(wrap);
 		}
 		canvas.update(entityList);
 		System.out.println("# of Entities " + entityList.size());

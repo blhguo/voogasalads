@@ -193,17 +193,11 @@ public class ViewManager extends GUIBuilder{
 		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
 	}
-<<<<<<< HEAD
-    
-    /**
-     * Return the root node of the view manager.
-     */ 
-=======
+
 
 	/**
 	 * Return the root node of the view manager.
 	 */ 
->>>>>>> fedb40b36f17858458f756fc8a2800400304ebcc
 	public Pane getNode() {
 		return view;
 	}

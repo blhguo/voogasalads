@@ -87,7 +87,7 @@ public class EntityPane extends BasePane{
 				
 				//current.updateImage();
 				updateSprite();
-				//refresh();
+				refresh();
 			});
 			def.setText(key);
 			box.getChildren().add(def);
@@ -99,6 +99,7 @@ public class EntityPane extends BasePane{
 
 
 	private void includeAll(List<String> list){
+		newWrapper();
 		current.getMenuList().stream().forEach(e -> e.unInclude());
 		current.getMenuList().stream().filter(e -> list.contains(e.getType()
 				.replaceAll(" ", "")))

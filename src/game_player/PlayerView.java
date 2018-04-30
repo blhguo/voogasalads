@@ -9,7 +9,6 @@ import java.util.UUID;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Tuple;
 import game_engine.Vector;
 import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
@@ -21,6 +20,7 @@ import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
+import game_engine.Tuple;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -125,7 +125,7 @@ public class PlayerView {
 	private boolean assignId(Level level) {
 		for (Entity entity : level.getEntities()) {
 			if (entity.hasAll(Arrays.asList(PrimeComponent.class)) && (entity.getComponent(PrimeComponent.class).getValue() == null)) {
-				entity.getComponent(PrimeComponent.class).setValue(myId);
+				//entity.getComponent(PrimeComponent.class).setValue(myId);
 				return true;
 			}
 		}
