@@ -180,7 +180,7 @@ public class AddConditionPane implements GUINode {
 		args.stream().forEach(c -> System.out.println(c));
 		System.out.println("Engine");
 		System.out.println(engine);
-		return ConditionFactory.createCondition(s, entities, components, args, engine);
+		return ConditionFactory.createCondition(s + "Condition", entities, components, args, engine);
 	}
 	@Override
 	public Pane getView() {

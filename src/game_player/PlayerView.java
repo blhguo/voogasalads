@@ -48,7 +48,7 @@ public class PlayerView {
 
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-	private Map<Entity, Map<String, ImageView>> spriteMap;
+	private Map<Entity, ImageView> spriteMap;
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;

@@ -289,6 +289,9 @@ public class AddActionPane implements GUINode {
 		return box;
 	}
 	public void addToEntityBox(EntityWrapper wrapper){
+		if (entityBox == null){
+			entityBox = new HBox();
+		}
 		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
 		for (int i = 0; i < numEntities; i++){
 			if (entityArray[i] == null){
