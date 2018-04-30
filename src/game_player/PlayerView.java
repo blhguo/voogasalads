@@ -209,18 +209,19 @@ public class PlayerView {
 	}
 
 	private boolean isInView(Entity entity, double centerX, double centerY) {
-		double xPos = entity.getComponent(XPosComponent.class).getValue();
-		double yPos = entity.getComponent(YPosComponent.class).getValue();
-		double height = entity.getComponent(HeightComponent.class).getValue();
-		double width = entity.getComponent(WidthComponent.class).getValue();
-
-		double minX = xPos - width / 2;
-		double maxX = xPos + width / 2;
-		double minY = yPos - height / 2;
-		double maxY = yPos + height / 2;
-
-		return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
-				|| checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
+		return true;
+//		double xPos = entity.getComponent(XPosComponent.class).getValue();
+//		double yPos = entity.getComponent(YPosComponent.class).getValue();
+//		double height = entity.getComponent(HeightComponent.class).getValue();
+//		double width = entity.getComponent(WidthComponent.class).getValue();
+//
+//		double minX = xPos - width / 2;
+//		double maxX = xPos + width / 2;
+//		double minY = yPos - height / 2;
+//		double maxY = yPos + height / 2;
+//
+//		return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
+//				|| checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
 	}
 
 	private boolean checkCorner(double entityX, double entityY, double centerX, double centerY) {
