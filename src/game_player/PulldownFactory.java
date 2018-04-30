@@ -1,11 +1,13 @@
 package game_player;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
+import game_player_interfaces.ImportData;
 import gameData.ManipData;
 import game_engine.Engine;
-import game_player_interfaces.ImportData;
+import game_engine.level.Level;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -109,20 +111,20 @@ public class PulldownFactory implements ImportData {
 	}
 
 	private void handleSave() {
-		ManipData manipData = new ManipData();
-		manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
+		ManipData turd = new ManipData();
+		turd.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),dataManager.getGameMetadata());
 	}
 
 	@Override
 	public void importGame() {
-		ManipData manipData = new ManipData();
+		ManipData turd = new ManipData();
 		
 		
 		
 		
 		File file = getFile();
 		viewManager.changeBackground();
-		gameEngine = manipData.loadData(file.getAbsolutePath(),"ExampleGame");
+		gameEngine = turd.loadData(file.getAbsolutePath(),"ExampleGame");
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();

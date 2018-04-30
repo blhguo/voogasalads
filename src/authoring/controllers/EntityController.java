@@ -68,6 +68,8 @@ public class EntityController {
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
 		//canvas.update(entityList);
 		addToLevel(wrapper.getEntity());
+		int currLevel = lcontroller.getEngine().getLevel().getId();
+		wrapper.setLevel(currLevel);
 	}
 
 	/**
@@ -221,5 +223,9 @@ public class EntityController {
 
 	public void addToEventPaneBox(EntityWrapper e) {
 		eventPane.addToEntityBox(e);
+	}
+	
+	public List<EntityWrapper> getEntities(){
+		return entityList;
 	}
 }

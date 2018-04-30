@@ -18,7 +18,6 @@ import javafx.util.Duration;
 import resources.keys.AuthRes;
 
 import java.io.File;
-import java.util.ResourceBundle;
 
 
 public class FileMenuElement extends MenuElement{
@@ -27,9 +26,6 @@ public class FileMenuElement extends MenuElement{
 	private VBox view;
 	private FileChooser fileChooser;
 	private TextField field;
-	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
-	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
-
 	public FileMenuElement(String s, Component component) {
 		super.setMyComponent(component);
 		this.title = s;
@@ -43,13 +39,10 @@ public class FileMenuElement extends MenuElement{
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = new VBox();
-		view.getChildren().add(ButtonFactory.makeReverseHBox(userNames.getString(title), 
-				null, field, AuthRes.getInt("MenuElementWidth")));
+		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth")));
 		image = ImageBuilder.getImageView(field.getText(), 10, 10);
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());
-		Tooltip tip = new Tooltip(tooltips.getString(title));
-		Tooltip.install(view, tip);
 	}
 
 	@Override
