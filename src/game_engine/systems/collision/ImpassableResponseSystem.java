@@ -16,7 +16,7 @@ import game_engine.components.physics.YVelComponent;
 import game_engine.level.Level;
 
 /**
- * @author: Jeremy Chen A GameSystem that provides generic behavior for entities that posses a
+ * @author: Jeremy Chen A GameSystem that provides generic behavior for entities that possess a
  *          CollidedComponent (have been collided) Describes very basic collision behavior (stopping
  *          & pushing)
  * 
@@ -45,7 +45,6 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 		for (Entity e : impassibleEntities) {
 			XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
 			YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
-			String stopVal = Double.toString(0.0);
 
 			if (xv != null && ((e.getComponent(LEFT) != null && xv.getValue() < 0)
 					|| (e.getComponent(RIGHT) != null && xv.getValue() > 0))) {
