@@ -36,6 +36,7 @@ import javafx.stage.Stage;
 public class ViewManager extends GUIBuilder{
 	public static final double SUBSCENE_WIDTH = 920;
 	public static final double SUBSCENE_HEIGHT = 660;
+	private static final int FONTSIZE = 16;
 
 	private Menu menu;
 	private Stage gameStage;
@@ -51,11 +52,6 @@ public class ViewManager extends GUIBuilder{
 	private Group subRoot;
 	private Pane mainHBox;
 	private MediaPlayer sound;
-	private Text coins;
-	private Text time;
-	private int coinCount=3;
-	private int timeCount=60;
-
 
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -115,8 +111,6 @@ public class ViewManager extends GUIBuilder{
 		view.setPrefSize(1000, 730);
 		subRoot = new Group();
 		subScene = new SubScene(subRoot, SUBSCENE_WIDTH, SUBSCENE_HEIGHT, false, null);
-		coins = createText(coins,  5, 15, "coins collected: "+coinCount, 16) ;
-		time = createText(time,  150, 15, "time: "+timeCount, 16);
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
@@ -132,8 +126,6 @@ public class ViewManager extends GUIBuilder{
 		sound.setVolume(0);
 		sound.setCycleCount(MediaPlayer.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
-		subRoot.getChildren().add(coins);
-		subRoot.getChildren().add(time);
 		return center;
 	}
 
@@ -208,13 +200,13 @@ public class ViewManager extends GUIBuilder{
 	}
 
 
-	private Text createText(Text txt, int x, int y, String message, int fontSize) {
-		txt = new Text();
+	public Text createText(int x, int y, String message) {
+		Text txt = new Text(message);
 		txt.setX(x);
 		txt.setY(y);
 		txt.setFill(Color.WHITE);
-		txt.setText(message);
-		txt.setFont(Font.font("Segouei", fontSize));
+		txt.setFont(Font.font("Segouei", FONTSIZE));
+		subRoot.getChildren().add(txt);
 		return txt;
 	}
 

@@ -29,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
@@ -55,6 +56,12 @@ public class PlayerView {
 	private DataManager dataManager;
 	private boolean notSet;
 	private UUID myId;
+	private Text score;
+	private Text health;
+	private Text highScore;
+	private Integer scoreData = 0;
+	private Integer healthData = 0;
+	private int highScoreData = 0;
 
 	private Entity primary;
 
@@ -109,7 +116,7 @@ public class PlayerView {
 			getImageView(e);
 		}
 
-		animationFrame();
+		animationFrame();	
 	}
 
 	private boolean assignId(Level level) {
@@ -141,6 +148,12 @@ public class PlayerView {
 	private void step(double delay) {
 		myEngine.update(delay);
 		render();
+//		scoreData = myEngine.getScore();
+//		healthData = myEngine.getHealth();
+//		highScoreData = myEngine.getHighScore();
+		score = viewManager.createText(5, 15, "Score: "+scoreData) ;
+		health = viewManager.createText(150, 15, "Health: "+healthData);
+		highScore = viewManager.createText(150,40,"HighScore: "+highScoreData);	
 	}
 
 	private void render() {
@@ -257,6 +270,9 @@ public class PlayerView {
 		}
 		if (index==3) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
+		}
+		if(index==4) {
+			pullDownFactory.handleReplay();
 		}
 		if(index==5) {
 			pullDownFactory.handleSave();
