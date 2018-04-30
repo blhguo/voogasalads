@@ -163,8 +163,6 @@ public class PlayerView {
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 
-		// render level background
-
 		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
 				.forEach(this::display);
 	}
@@ -232,27 +230,10 @@ public class PlayerView {
 
 	private boolean isInView(Entity entity, double centerX, double centerY) {
 		return true;
-		// // calculations broken for some reason
-		// double xPos = entity.getComponent(XPosComponent.class).getValue();
-		// double yPos = entity.getComponent(YPosComponent.class).getValue();
-		// double height = entity.getComponent(HeightComponent.class).getValue();
-		// double width = entity.getComponent(WidthComponent.class).getValue();
-		//
-		// double minX = xPos - width / 2;
-		// double maxX = xPos + width / 2;
-		// double minY = yPos - height / 2;
-		// double maxY = yPos + height / 2;
-		//
-		// return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
-		// || checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
-	}
-
-	private boolean checkCorner(double entityX, double entityY, double centerX, double centerY) {
-		double sceneMinX = centerX - ViewManager.SUBSCENE_WIDTH / 2;
-		double sceneMaxX = centerX + ViewManager.SUBSCENE_WIDTH / 2;
-		double sceneMinY = centerY - ViewManager.SUBSCENE_HEIGHT / 2;
-		double sceneMaxY = centerY + ViewManager.SUBSCENE_HEIGHT / 2;
-		return ((sceneMinX <= entityX && entityX <= sceneMaxX) && (sceneMinY <= entityY && entityY <= sceneMaxY));
+//		calculations broken for some reason
+//		Bounds cameraBounds = new BoundingBox(centerX - ViewManager.SUBSCENE_WIDTH / 2, centerY - ViewManager.SUBSCENE_HEIGHT / 2, ViewManager.SUBSCENE_WIDTH, ViewManager.SUBSCENE_HEIGHT);
+//		ImageView entityView = getImageView(entity);
+//		return cameraBounds.intersects(entityView.getBoundsInParent());
 	}
 
 	/**
