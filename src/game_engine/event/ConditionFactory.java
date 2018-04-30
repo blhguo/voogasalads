@@ -17,8 +17,8 @@ import game_engine.event.conditions.MouseInputCondition;
  *
  */
 public class ConditionFactory {
-	public static Condition createCondition(String name, List<Entity> entities, List<Class<Component<?>>> components, List<String> args, Engine engine){
-		switch(name + "Condition"){
+	public Condition createCondition(String name, List<Entity> entities, List<Class<Component<?>>> components, List<String> args, Engine engine){
+		switch(name){
 		case "ComponentCollisionCondition":
 			return new ComponentCollisionCondition(entities.get(0), components.get(0));
 		case "DataCondition":

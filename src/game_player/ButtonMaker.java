@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
 /**
  * 
@@ -22,26 +19,27 @@ public class ButtonMaker {
 	private Button slowControl;
 	private Button replay;
 	private Button save;
+	private Button about;
 	private PlayerView playerView;
-	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png"));
-	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(play, pause, slowControl, speedControl, replay, save));
+	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png", "about.png"));
+	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(pause, play, slowControl, speedControl, replay, save, about));
 
 	public ButtonMaker() {
 		// TODO Auto-generated constructor stub
 	}
-/**
- * 
- * @param button
- * @param bundle
- * @param string
- * This short method just makes a generic button
- *
- */
+	/**
+	 * 
+	 * @param button
+	 * @param bundle
+	 * @param string
+	 * This short method just makes a generic button
+	 *
+	 */
 	protected Button makeButton(Button button, ResourceBundle bundle, String string) {
 		button = new Button(bundle.getString(string));
 		return button;
 	}
-	
+
 	protected List<Button> makeMenuButton() {
 		List<Button>buttonList = new ArrayList<Button>();
 
@@ -51,22 +49,25 @@ public class ButtonMaker {
 
 			buttonImageView.setFitHeight(30);
 			buttonImageView.setFitWidth(30);
-	
+
 			Button button = buttons.get(i);
 			button = new Button("", buttonImageView);
 			button.getStyleClass().add("button-nav");
+			String temp = ""+i;
 			button.setOnAction(click -> {
-				playerView.handleUI();
+				playerView.handleUI(Integer.decode(temp));
 			});
 			buttonList.add(button);
 
-			}
+		}
 		return buttonList;
 
-		}
-		
 	}
-	
+	public void setPlayerView(PlayerView pv) {
+		playerView = pv;
+	}
+}
+
 //	protected Button pausePlayButton() {
 //	
 //		ImageView pauseImageView = new ImageView( getClass().getResource( "/game_player_resources/pause.png").toExternalForm());
