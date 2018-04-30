@@ -11,8 +11,8 @@ public class Event implements AuthorableEvent, PlayableEvent{
 		myConditions = conditions;
 	}
 	public Event(){
-		myActions = new ArrayList<Action>();
-		myConditions = new ArrayList<Condition>();
+		myActions = new ArrayList<>();
+		myConditions = new ArrayList<>();
 	}
 	
 	@Override

@@ -10,8 +10,6 @@ import game_engine.event.Condition;
  *
  */
 public class ConditionFactory {
-	private static final String CONDITION_BUNDLE = "Condition";
-	
 	
 	public Condition createCondition(List<Component<?>> components) {
 		
