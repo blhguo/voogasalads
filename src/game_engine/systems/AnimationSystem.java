@@ -14,7 +14,7 @@ import game_engine.components.sprite.RunFilenameComponent;
 import game_engine.components.sprite.StandFilenameComponent;
 import game_engine.level.Level;
 
-public class AnimationSystem extends GameSystem {
+public class AnimationSystem implements GameSystem {
 	
 	private static final Class<? extends Component<String>> DISPLAYED = FilenameComponent.class;
 	private static final Class<? extends Component<String>> RUN = RunFilenameComponent.class;

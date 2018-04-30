@@ -11,7 +11,7 @@ import game_engine.components.NumberOfJumpsAllowedComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.level.Level;
 
-public class JumpResetSystem extends GameSystem{
+public class JumpResetSystem implements GameSystem{
 	private static final Class<? extends Component<Double>> DEFAULT_JUMPS = DefaultNumberOfJumpsComponent.class;
 	private static final Class<? extends Component<Double>> NUM_JUMPS_ALLOWED = NumberOfJumpsAllowedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;

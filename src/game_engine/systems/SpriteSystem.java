@@ -14,7 +14,7 @@ import game_engine.level.Level;
  * @author Jeremy Chen
  *
  */
-public class SpriteSystem extends GameSystem {
+public class SpriteSystem implements GameSystem {
 	private static final Class<? extends Component<Integer>> POLARITY = SpritePolarityComponent.class;
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 

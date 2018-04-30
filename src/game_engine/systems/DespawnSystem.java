@@ -10,7 +10,7 @@ import game_engine.components.DespawnComponent;
 import game_engine.NullType;
 import game_engine.level.Level;
 
-public class DespawnSystem extends GameSystem{
+public class DespawnSystem implements GameSystem {
 	private static final Class<? extends Component<NullType>> DESPAWN = DespawnComponent.class;
 	
 	@Override

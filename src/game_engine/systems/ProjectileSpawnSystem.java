@@ -40,7 +40,7 @@ import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class ProjectileSpawnSystem extends GameSystem {
+public class ProjectileSpawnSystem implements GameSystem {
 
 	private static final Class<? extends Component<Double>> PROJ_YVEL = ProjectileYVelComponent.class;
 	private static final Class<? extends Component<Double>> PROJ_XVEL = ProjectileXVelComponent.class;

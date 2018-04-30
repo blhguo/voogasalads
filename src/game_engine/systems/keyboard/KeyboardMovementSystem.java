@@ -16,7 +16,7 @@ import javafx.scene.input.KeyEvent;
 /*
  * @author Kevin Deng, Andy Nguyen, REFACTORED by Jeremy Chen
  */
-public abstract class KeyboardMovementSystem extends GameSystem {
+public abstract class KeyboardMovementSystem implements GameSystem {
 
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	private static final String KEY_RELEASED = "KEY_RELEASED";

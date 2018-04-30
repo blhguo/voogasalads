@@ -8,7 +8,7 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.level.Level;
 
-public abstract class VelocitySystem extends GameSystem {
+public abstract class VelocitySystem implements GameSystem {
 	
 	private Class<? extends Component<Double>> myVelocity;
 	private Class<? extends Component<Double>> myAcceleration;

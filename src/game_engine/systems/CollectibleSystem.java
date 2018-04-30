@@ -18,7 +18,7 @@ import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.level.Level;
 
-public class CollectibleSystem extends GameSystem{
+public class CollectibleSystem implements GameSystem {
 	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;

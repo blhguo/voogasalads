@@ -28,7 +28,7 @@ import javafx.scene.input.KeyEvent;
  *         these respective Entities.
  *
  */
-public class KeyboardJumpSystem extends GameSystem {
+public class KeyboardJumpSystem implements GameSystem {
 
 	private static final Class<? extends Component<Double>> DEFAULT_Y_VEL = DefaultYVelComponent.class;
 	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;

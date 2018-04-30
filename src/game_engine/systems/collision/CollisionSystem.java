@@ -18,7 +18,7 @@ import javafx.geometry.Point2D;
  * @author Jeremy Chen Superclass for all GameSystems that contain logic for collisions Contains
  *         shared method signature / several sharedutility methods
  */
-public abstract class CollisionSystem extends GameSystem {
+public abstract class CollisionSystem implements GameSystem {
 
 	private static final int RIGHT_ANGLE = 90;
 

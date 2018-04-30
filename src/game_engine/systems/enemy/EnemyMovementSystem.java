@@ -8,7 +8,7 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.level.Level;
 
-public abstract class EnemyMovementSystem extends GameSystem {
+public abstract class EnemyMovementSystem implements GameSystem {
 	
 	private Class<? extends Component<Double>> myDefaultTime;
 	private Class<? extends Component<Double>> myCurrTime;

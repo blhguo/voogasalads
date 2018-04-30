@@ -17,7 +17,7 @@ import game_engine.level.Level;
  * stored in these respective components.
  *
  */
-public abstract class PositionSystem extends GameSystem {
+public abstract class PositionSystem implements GameSystem {
 	
 	private Class<? extends Component<Double>> myPosition;
 	private Class<? extends Component<Double>> myVelocity;

@@ -13,7 +13,7 @@ import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.level.Level;
 
-public abstract class CollisionResponseSystem extends GameSystem {
+public abstract class CollisionResponseSystem implements GameSystem {
 	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
