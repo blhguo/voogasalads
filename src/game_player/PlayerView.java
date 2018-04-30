@@ -228,6 +228,7 @@ public class PlayerView {
 
 	private boolean isInView(Entity entity, double centerX, double centerY) {
 		return true;
+//		// calculations broken for some reason
 //		double xPos = entity.getComponent(XPosComponent.class).getValue();
 //		double yPos = entity.getComponent(YPosComponent.class).getValue();
 //		double height = entity.getComponent(HeightComponent.class).getValue();
