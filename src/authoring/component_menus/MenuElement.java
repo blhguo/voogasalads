@@ -4,9 +4,6 @@ import authoring.right_components.EntityComponent.EntityWrapper;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import observables.Listener;
-import observables.Subject;
 
 /**
  * @author liampulsifer
@@ -16,6 +13,16 @@ import observables.Subject;
 public abstract class MenuElement{
 	protected ComponentMenu myMenu;
 	protected Component myComponent;
+
+	public boolean isDateable() {
+		return dateable;
+	}
+
+	public void setDateable(boolean dateable) {
+		this.dateable = dateable;
+	}
+
+	protected boolean dateable = false;
 
 	public void setMyWrapper(EntityWrapper myWrapper) {
 		this.myWrapper = myWrapper;

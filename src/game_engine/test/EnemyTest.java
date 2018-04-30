@@ -195,9 +195,15 @@ public class EnemyTest extends Application {
 		double hw3 = coin.getComponent(HitboxWidthComponent.class).getValue();
 
 		// components needed for sprite component
+<<<<<<< HEAD
+		mainCharacter.addComponent(new FilenameComponent("mario_run.gif"));
+		mainCharacter.addComponent(new HeightComponent("200"));
+		mainCharacter.addComponent(new WidthComponent("200"));
+=======
 		mainCharacter.addComponent(new FilenameComponent("Mario.GIF"));
 		mainCharacter.addComponent(new HeightComponent("50"));
 		mainCharacter.addComponent(new WidthComponent("50"));
+>>>>>>> 75b38619c7b070687ab53b35519ef751d7cbcaa1
 		mainCharacter.addComponent(new ZHeightComponent("2"));
 		
 		// component needed for sprite component
