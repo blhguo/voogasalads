@@ -44,6 +44,7 @@ public class LevelController {
 		newLevel.addComponent(new LevelHScrollComponent(true));
 		newLevel.addComponent(new LevelVScrollComponent(true));
 		engine.setLevel(newLevel.getId());
+		System.out.println("BEFORE SAVE: " + engine.getLevel());
 	}
 	
 	public Engine getEngine(){

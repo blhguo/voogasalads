@@ -113,7 +113,7 @@ public class LevelPane extends BasePane {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void update(){
+	public void update(){
 		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
 		activeLevels.setValue(name);
 		ArrayList<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
@@ -129,6 +129,7 @@ public class LevelPane extends BasePane {
 	@SuppressWarnings("unchecked")
 	private ComboBox makeActiveLevelList(ArrayList<Object> levelNames){
 		activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
+		//System.out.println(lcontroller.getEngine().getLevel());
 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
  		activeLevels.setOnAction(e -> {
  			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();

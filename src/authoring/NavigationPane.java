@@ -125,7 +125,7 @@ public class NavigationPane implements Subject, GUINode {
 					FileChooser fc = new FileChooser();
 					fc.setTitle("Choose Game to Load");
 					File file = fc.showOpenDialog(null);
-					loader.loadGame(file.getName());
+					loader.loadGame(file.getPath());
 				}, "button-nav");
 			}
 			else{

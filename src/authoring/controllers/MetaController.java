@@ -53,6 +53,7 @@ public class MetaController {
 		
 		setGameName(AuthRes.getString("NameDefault"));
 		configMap.put(AuthRes.getStringKeys("key2"), AuthRes.getString("AuthorDefault"));
+		configMap.put(AuthRes.getStringKeys("key1"), AuthRes.getString("ThumbnailDefault"));
 		printMap.put(AuthRes.getString("Author"), AuthRes.getString("AuthorDefault"));
 		printMap.put(AuthRes.getString("Rules"), AuthRes.getString("RulesDefault"));
 	
