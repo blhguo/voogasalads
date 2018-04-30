@@ -72,9 +72,9 @@ public class PlayerView {
 	 *
 	 */
 	public PlayerView() {
-		//TODO something
+		// TODO something
 	}
-	
+
 	public void initialize(InstanceStorage storage) {
 		pullDownFactory = storage.getPullDownFactory();
 		viewManager = storage.getViewManager();
@@ -100,12 +100,12 @@ public class PlayerView {
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
-		
+
 		if (!assignId(level)) {
 			System.out.println("no one assigned");
 			return;
 		}
-		
+
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		setGamePlayerOnce();
 
@@ -116,12 +116,13 @@ public class PlayerView {
 			getImageView(e);
 		}
 
-		animationFrame();	
+		animationFrame();
 	}
 
 	private boolean assignId(Level level) {
 		for (Entity entity : level.getEntities()) {
-			if (entity.hasAll(Arrays.asList(PrimeComponent.class)) && (entity.getComponent(PrimeComponent.class).getValue() == null)) {
+			if (entity.hasAll(Arrays.asList(PrimeComponent.class))
+					&& (entity.getComponent(PrimeComponent.class).getValue() == null)) {
 				entity.getComponent(PrimeComponent.class).setValue(myId);
 				return true;
 			}
@@ -147,12 +148,12 @@ public class PlayerView {
 	private void step(double delay) {
 		myEngine.update(delay);
 		render();
-//		scoreData = myEngine.getScore();
-//		healthData = myEngine.getHealth();
-//		highScoreData = myEngine.getHighScore();
-		score = viewManager.createText(5, 15, "Score: "+scoreData) ;
-		health = viewManager.createText(150, 15, "Health: "+healthData);
-		highScore = viewManager.createText(150,40,"HighScore: "+highScoreData);	
+		// scoreData = myEngine.getScore();
+		// healthData = myEngine.getHealth();
+		// highScoreData = myEngine.getHighScore();
+		score = viewManager.createText(5, 15, "Score: " + scoreData);
+		health = viewManager.createText(150, 15, "Health: " + healthData);
+		highScore = viewManager.createText(150, 40, "HighScore: " + highScoreData);
 	}
 
 	private void render() {
@@ -164,13 +165,16 @@ public class PlayerView {
 
 		// render level background
 
-		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos))//.sorted(this::compareZ)
+		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
 				.forEach(this::display);
 	}
 
 	private int compareZ(Entity a, Entity b) {
-		return a.getComponent(ZHeightComponent.class).getValue()
-				.compareTo(b.getComponent(ZHeightComponent.class).getValue());
+		Component<Integer> zCompA = a.getComponent(ZHeightComponent.class);
+		Component<Integer> zCompB = b.getComponent(ZHeightComponent.class);
+		Integer zHeightA = (zCompA == null) ? 0 : zCompA.getValue();
+		Integer zHeightB = (zCompB == null) ? 0 : zCompB.getValue();
+		return zHeightA.compareTo(zHeightB);
 	}
 
 	private void setGamePlayerOnce() {
@@ -193,13 +197,13 @@ public class PlayerView {
 			Map<String, ImageView> imageMap = new HashMap<>();
 			spriteMap.put(entity, imageMap);
 		}
-		
+
 		if (!spriteMap.get(entity).containsKey(filename)) {
 			ImageView imageView = new ImageView(filename);
 			imageView.setOnMousePressed(event -> clickInput(imageView));
 			spriteMap.get(entity).put(filename, imageView);
 		}
-		
+
 		ImageView imageView = spriteMap.get(entity).get(filename);
 		return imageView;
 	}
@@ -228,19 +232,19 @@ public class PlayerView {
 
 	private boolean isInView(Entity entity, double centerX, double centerY) {
 		return true;
-//		// calculations broken for some reason
-//		double xPos = entity.getComponent(XPosComponent.class).getValue();
-//		double yPos = entity.getComponent(YPosComponent.class).getValue();
-//		double height = entity.getComponent(HeightComponent.class).getValue();
-//		double width = entity.getComponent(WidthComponent.class).getValue();
-//
-//		double minX = xPos - width / 2;
-//		double maxX = xPos + width / 2;
-//		double minY = yPos - height / 2;
-//		double maxY = yPos + height / 2;
-//
-//		return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
-//				|| checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
+		// // calculations broken for some reason
+		// double xPos = entity.getComponent(XPosComponent.class).getValue();
+		// double yPos = entity.getComponent(YPosComponent.class).getValue();
+		// double height = entity.getComponent(HeightComponent.class).getValue();
+		// double width = entity.getComponent(WidthComponent.class).getValue();
+		//
+		// double minX = xPos - width / 2;
+		// double maxX = xPos + width / 2;
+		// double minY = yPos - height / 2;
+		// double maxY = yPos + height / 2;
+		//
+		// return checkCorner(minX, minY, centerX, centerY) || checkCorner(minX, maxY, centerX, centerY)
+		// || checkCorner(maxX, minY, centerX, centerY) || checkCorner(maxX, maxY, centerX, centerY);
 	}
 
 	private boolean checkCorner(double entityX, double entityY, double centerX, double centerY) {
@@ -258,26 +262,25 @@ public class PlayerView {
 	 */
 	public void handleUI(int index) {
 
-
-		if (index==0) {
+		if (index == 0) {
 			animation.stop();
 		}
-		if (index==1) {
+		if (index == 1) {
 			animation.play();
 		}
-		if (index==2) {
+		if (index == 2) {
 			animation.setRate(animation.getRate() * HALF_RATE);
 		}
-		if (index==3) {
+		if (index == 3) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
 		}
-		if(index==4) {
+		if (index == 4) {
 			pullDownFactory.handleReplay();
 		}
-		if(index==5) {
+		if (index == 5) {
 			pullDownFactory.handleSave();
 		}
-		if (index==6) {
+		if (index == 6) {
 			pullDownFactory.aboutGame();
 		}
 	}
