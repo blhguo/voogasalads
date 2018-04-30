@@ -2,6 +2,7 @@ package authoring.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import gameData.ManipData;
 import resources.keys.AuthRes;
@@ -31,7 +32,7 @@ public class MetaController {
 	public void setGameName(String name){
 		gameName = name;
 		printMap.put(AuthRes.getString("Name"), name);
-		configMap.put(AuthRes.getString("Name"), name);
+		configMap.put(AuthRes.getStringKeys("key0"), name);
 	}
 	
 	public String getGameName(){
@@ -51,7 +52,7 @@ public class MetaController {
 		configMap = new HashMap<String, String>();
 		
 		setGameName(AuthRes.getString("NameDefault"));
-		configMap.put(AuthRes.getString("Author"), AuthRes.getString("AuthorDefault"));
+		configMap.put(AuthRes.getStringKeys("key2"), AuthRes.getString("AuthorDefault"));
 		printMap.put(AuthRes.getString("Author"), AuthRes.getString("AuthorDefault"));
 		printMap.put(AuthRes.getString("Rules"), AuthRes.getString("RulesDefault"));
 	

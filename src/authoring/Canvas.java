@@ -44,7 +44,7 @@ public class Canvas implements GUINode {
 	 * and sets up ScrollPane
 	 */
 	public Canvas() {
-		myInfinitePane = initializeInfinitePane();
+		myInfinitePane = initializeInfinitePane(4000, 4000);
 		myNode = initializeScrollingPane();
 		currLevel = 0;
 	}
@@ -60,6 +60,7 @@ public class Canvas implements GUINode {
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
+		//myInfinitePane = initializeInfinitePane(myInfinitePane.getMaxWidth(), myInfinitePane.getMaxHeight());
 		myInfinitePane.getChildren().clear();
 		System.out.println("-----Updating Canvas------");
 		entityList.stream().forEach(e -> System.out.println("Entity " + e));
@@ -118,9 +119,9 @@ public class Canvas implements GUINode {
 		myInfinitePane.setOnMousePressed(e -> {});
 	}
 	
-	private Pane initializeInfinitePane() {
+	private Pane initializeInfinitePane(double prefX, double prefY) {
 		myInfinitePane = new Pane();
-		myInfinitePane.setPrefSize(4000,4000);
+		myInfinitePane.setPrefSize(prefX,prefY);
 		myInfinitePane.setMaxSize(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
 		setDefaultBackground();
 		return myInfinitePane;
@@ -152,5 +153,23 @@ public class Canvas implements GUINode {
 	
 	public void setLevel(int id){
 		currLevel = id;
+	}
+	
+	public void changeScrolling(boolean hscroll, boolean vscroll){
+		if (! hscroll){
+			myInfinitePane.setMaxWidth(myNode.getWidth());
+			myInfinitePane.setPrefWidth(myNode.getWidth());
+			System.out.println(myInfinitePane.getMaxWidth());
+			System.out.println(myInfinitePane.getWidth());
+		}
+		else {
+			myInfinitePane.setPrefWidth(Double.POSITIVE_INFINITY);
+		}
+		if (! vscroll){
+			myInfinitePane.setPrefHeight(myNode.getHeight());
+		}
+		else {
+			myInfinitePane.setPrefHeight(Double.POSITIVE_INFINITY);
+		}
 	}
 }
