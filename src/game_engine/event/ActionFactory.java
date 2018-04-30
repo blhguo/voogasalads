@@ -15,7 +15,6 @@ import game_engine.event.actions.micro.*;
  */
 
 public class ActionFactory<T> {
-	private static final String ACTION_BUNDLE = "Action";
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Action createAction(String name, List<Entity> entities, List<Component<T>> components,
@@ -24,10 +23,6 @@ public class ActionFactory<T> {
 		switch(name) {
 			case "AddEntityAction":
 				return new AddEntityAction(entities.get(0), engine);
-				
-			//TODO: COMPLETE GAME OVER ACTION!!!!!!!!!!!!!!!!!!
-			case "GameOverAction":
-				return new GameOverAction(null);
 				
 			case "LevelChangeAction":
 				return new LevelChangeAction(engine, (int) values.get(0));

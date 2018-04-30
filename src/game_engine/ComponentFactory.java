@@ -49,6 +49,7 @@ public class ComponentFactory {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Class <? extends Component<?>> getComponentClass(String key){
 		try { 
 			return (Class <? extends Component<?>>) Class.forName(myComponents.getString(key));
