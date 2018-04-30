@@ -65,24 +65,24 @@ public class PulldownFactory implements ImportData {
 	public void importGame() {
 		ManipData manipData = new ManipData();
 		File file = getFile();
-		if(file==null) {
-			return;
-		}
-		String toParse = file.getAbsolutePath();
-		int loc = toParse.indexOf("games");
-		int endLoc = 0;
-		int numberSlashes = 0;
-		for(int i=loc;i<toParse.length();i++) {
-			if(toParse.charAt(i)=='\\') {
-				numberSlashes++;
-			}
-			if(numberSlashes==2) {
-				endLoc = i;
-				numberSlashes++;
-			}
-		}
-		dataFilePathString = toParse.substring(loc+6,endLoc);
-		System.out.println(dataFilePathString);
+//		if(file==null) {
+//			return;
+//		}
+//		String toParse = file.getAbsolutePath();
+//		int loc = toParse.indexOf("games");
+//		int endLoc = 0;
+//		int numberSlashes = 0;
+//		for(int i=loc;i<toParse.length();i++) {
+//			if(toParse.charAt(i)=='\\') {
+//				numberSlashes++;
+//			}
+//			if(numberSlashes==2) {
+//				endLoc = i;
+//				numberSlashes++;
+//			}
+//		}
+//		dataFilePathString = toParse.substring(loc+6,endLoc);
+//		System.out.println(dataFilePathString);
 		
 		viewManager.changeBackground();
 		gameEngine = manipData.loadData(file.getAbsolutePath());

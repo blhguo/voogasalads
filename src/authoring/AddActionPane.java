@@ -65,6 +65,7 @@ public class AddActionPane implements GUINode {
 	private List<StringMenuElement> stringElements;
 	private ComboBox<String> expressionBox;
 	public AddActionPane(Event currentEvent) {
+		entityBox = new HBox();
 		numberElements = new ArrayList<>();
 		stringElements = new ArrayList<>();
 		this.currentEvent = currentEvent;
