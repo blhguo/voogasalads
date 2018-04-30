@@ -158,6 +158,21 @@ public class ManipData {
 		
 		return metaMap;
 	}
+	
+	public Map<String, String> openConfig(String filePath) {
+		Map<String, String> configMap = new HashMap<>();
+		
+		ResourceBundle configkeys = ResourceBundle.getBundle(filePath);
+		System.out.println(configkeys);
+		for (String s : configkeys.keySet()) {
+			//String buff = configkeys.getString(AuthRes.getStringKeys(s));
+			configMap.put(s, configkeys.getString(s));
+		}
+		
+		return configMap;
+	}
+	
+	
 	/* This method will be used to write a single entry into XML
 	 * the type will disinguish between whether the written XML is MetaData or Objects
 	 * no longer would need fos or xml
@@ -180,7 +195,7 @@ public class ManipData {
 		} 
 	}
 
-	private void saveConfig(String configLoc, Map<String, String> configMap) {
+	public void saveConfig(String configLoc, Map<String, String> configMap) {
 		
 		File file = new File("games/"+configLoc);
 		if(!file.exists()) {
@@ -193,7 +208,7 @@ public class ManipData {
 				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
-			file = new File("games/" + configLoc + "/config.xml");
+			file = new File("games/" + configLoc + "/config.properties");
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
@@ -260,6 +275,7 @@ public class ManipData {
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
 		String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
 		};
@@ -267,6 +283,7 @@ public class ManipData {
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
+
 			try {
 				doc = dBuilder.parse(file);
 
@@ -294,6 +311,8 @@ public class ManipData {
 		
 	}
 
+	
+	
 	private String nodeToString(Node node) {
 		StringWriter sw = new StringWriter();
 		try {

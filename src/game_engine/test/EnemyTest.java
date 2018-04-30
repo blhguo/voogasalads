@@ -106,7 +106,7 @@ public class EnemyTest extends Application {
 		Map<String, String> map = new HashMap<>();
 		map.put("dog", "cat");
 		map.put("potato", "fruit");
-		data.saveData(engine, "Mario", map);
+		data.saveData(engine, "Mario", "mario", true);
 	}
 
 	private void updateAllRects() {
@@ -180,7 +180,9 @@ public class EnemyTest extends Application {
 		//Testing Mouse event on main character (Mario) - changes speed
 		MouseInputCondition condition1 = new MouseInputCondition(engine, mainCharacter);
 		DataChangeAction action1 = new DataChangeAction(mainCharacter, DefaultXVelComponent.class, "+", 100);
-		Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
+		Event event1 = new Event();
+		event1.addAction(action1);
+		event1.addCondition(condition1);
 		engine.getLevel().addEvent(event1);
 	}
 
