@@ -12,5 +12,4 @@ public class PrimeComponent extends Component<UUID> {
 	public PrimeComponent(String arg) {
 		super(null);
 	}
-
 }

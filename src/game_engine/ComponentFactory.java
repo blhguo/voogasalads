@@ -27,7 +27,7 @@ public class ComponentFactory {
 	 *
 	 * @param entity the entity
 	 * @param key the key
-	 * @param arg the args
+	 * @param args the args
 	 * @return Component
 	 */
 	public <T> Component<T> addComponent(Entity entity, String key, String arg) {
@@ -38,12 +38,14 @@ public class ComponentFactory {
 
 	@SuppressWarnings("unchecked")
 	public <T> Component<T> createComponent(String key, String arg) {
+		System.out.println();
 		try {
 			Class<?> clazz = Class.forName(myComponents.getString(key));
 			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);
 			return (Component<T>) ctor.newInstance(arg);
 		} catch (Exception e) {
-			throw new ComponentNotFoundException("Component not found.");
+			throw new ComponentNotFoundException("Component " + key + " " 
+					+ arg);
 		}
 	}
 	

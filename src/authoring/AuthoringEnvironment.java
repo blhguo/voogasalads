@@ -3,6 +3,7 @@ package authoring;
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
+import authoring.controllers.Loader;
 import authoring.controllers.MetaController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
@@ -11,7 +12,6 @@ import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import authoring.right_components.EntityComponent.EntityPane;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -73,6 +73,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController(pcontroller);
 		MetaController mcontroller = new MetaController(lcontroller);
+		Loader loader = new Loader(lcontroller, canvas, level);
 		
 		canvas.setController(controller);
 		event.setController(controller);
@@ -84,9 +85,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story.setLevelController(lcontroller);
 		story.setMetaController(mcontroller);
 		story.setPaneController(pcontroller);
+		pcontroller.setEntityController(controller);
 		np.addListener(this);
 		np.addMetaController(mcontroller);
-
+		np.setLoader(loader);
 	}
 
 	/**

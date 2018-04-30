@@ -1,10 +1,9 @@
 package test;
 
-import java.util.Set;
-
+import game_engine.event.conditions.DataConditionable;
 import org.reflections.Reflections;
 
-import game_engine.event.conditions.DataConditionable;
+import java.util.Set;
 
 public class Tester {
 	

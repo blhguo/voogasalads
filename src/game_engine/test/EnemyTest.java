@@ -197,9 +197,9 @@ public class EnemyTest extends Application {
 
 	private void initRects(){
 		// components needed for sprite component
-		mainCharacter.addComponent(new FilenameComponent("dot.png"));
-		mainCharacter.addComponent(new HeightComponent("20"));
-		mainCharacter.addComponent(new WidthComponent("20"));
+		mainCharacter.addComponent(new FilenameComponent("mario_run.gif"));
+		mainCharacter.addComponent(new HeightComponent("200"));
+		mainCharacter.addComponent(new WidthComponent("200"));
 		mainCharacter.addComponent(new ZHeightComponent("2"));
 		mainCharacter.addComponent(new SpritePolarityComponent("1"));
 		mainCharacter.addComponent(new VisibilityComponent("true"));

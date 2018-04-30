@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -45,7 +46,9 @@ public class ButtonMaker {
 
 		for (int i=0; i<images.size(); i++) {
 			System.out.println(images.get(i));
-			ImageView buttonImageView = new ImageView( getClass().getResource( "/game_player_resources/"+images.get(i)).toExternalForm());
+			Image im = new Image("game_player_resources/" + images.get(i));
+			ImageView buttonImageView = new ImageView(im);
+			//ImageView buttonImageView = new ImageView( getClass().getResource( "/game_player_resources/"+images.get(i)).toExternalForm());
 
 			buttonImageView.setFitHeight(30);
 			buttonImageView.setFitWidth(30);

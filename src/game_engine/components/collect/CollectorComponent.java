@@ -5,10 +5,10 @@ import game_engine.NullType;
 
 public class CollectorComponent extends Component<NullType>{
 
-	public CollectorComponent(String arg){
+	public CollectorComponent(){
 		super(null);
 	}
-	public CollectorComponent(){
+	public CollectorComponent(String arg){
 		super(null);
 	}
 	

@@ -12,6 +12,7 @@ import static test.Tester.reflections;
  * Creates MenuElements given their Name, Type, and Value
  */
 public class MenuElementFactory {
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
 	private String[] entry;
 	private ComponentFactory factory;
 	private ResourceBundle bundle = ResourceBundle.getBundle("Component");
@@ -29,7 +30,6 @@ public class MenuElementFactory {
 		factory = new ComponentFactory();
 		MenuElement ret;
 		String className = entry[0];
-
 		if(entry[1].equals("d")){
 			ret = handleDouble(className);
 		}

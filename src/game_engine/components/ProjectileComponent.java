@@ -5,10 +5,10 @@ import game_engine.NullType;
 
 public class ProjectileComponent extends Component<NullType>{
 
-	public ProjectileComponent(String arg) {
+	public ProjectileComponent() {
 		super(null);
 	}
-	public ProjectileComponent() {
+	public ProjectileComponent(String val) {
 		super(null);
 	}
 

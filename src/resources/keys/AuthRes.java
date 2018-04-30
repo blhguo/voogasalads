@@ -3,7 +3,6 @@ package resources.keys;
 import java.util.ResourceBundle;
 
 public class AuthRes {
-
 	public static final ResourceBundle RESOURCEKEYS = ResourceBundle.getBundle("resources.keys/authoringResources");
 	//public static final ResourceBundle VOOGLE = ResourceBundle.getBundle("resources.keys/English");
 	//public static final ResourceBundle VOOGLEIMAGES = ResourceBundle.getBundle("resources.keys/Image");
