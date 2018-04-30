@@ -9,7 +9,6 @@ import game_engine.event.Condition;
 
 public class ComponentCollisionConditionFactory extends ConditionFactory{
 
-
 	@Override
 	public Condition createCondition(Entity eventArg) {
 		Component<Entity> entity = eventArg.getComponent(FactoryEntityComponent.class);

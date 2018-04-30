@@ -1,16 +1,24 @@
 package authoring.right_components.EntityComponent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import authoring.component_menus.ComponentMenu;
+import authoring.component_menus.MenuElement;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import game_engine.Entity;
 import game_engine.components.sprite.FilenameComponent;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -46,6 +54,8 @@ public class EntityPane extends BasePane{
 		editButtonArray = instantiateEditButtonArray();
 		box = buildBasicView(AuthRes.getString("EntityTitle"));
 		box.getChildren().add(getSprite());
+		VBox defaultBox = buildDefaultBox();
+		box.getChildren().add(defaultBox);
 		menuBox = getMenuBox();
 		box.getChildren().add(menuBox);
 		box.getChildren().addAll(createButtonArray);
@@ -56,6 +66,44 @@ public class EntityPane extends BasePane{
 		return box;
 	}
 
+	private VBox buildDefaultBox() {
+		ResourceBundle bundle = ResourceBundle.getBundle("Defaults");
+		VBox vbox = new VBox();
+		vbox.setSpacing(10);
+		vbox.getChildren().add(new Label("Default Entities"));
+		HBox box = new HBox();
+		box.setSpacing(10);
+		for (String key : bundle.keySet()){
+			Button def = ButtonFactory.makeButton(e -> {
+				includeAll(Arrays.asList(bundle.getString(key).split(",")));
+				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
+				for (ComponentMenu menu : current.getMenuList()){
+					for (MenuElement element : menu.getElements()){
+						if (element.getTitle().equals("Filename")){
+							element.setValue(key + ".png");
+						}
+					}
+				}
+				
+				//current.updateImage();
+				updateSprite();
+				//refresh();
+			});
+			def.setText(key);
+			box.getChildren().add(def);
+			box.getChildren().add(new Separator(Orientation.VERTICAL));
+		}
+		vbox.getChildren().add(box);
+		return vbox;
+	}
+
+
+	private void includeAll(List<String> list){
+		current.getMenuList().stream().forEach(e -> e.unInclude());
+		current.getMenuList().stream().filter(e -> list.contains(e.getType()
+				.replaceAll(" ", "")))
+				.forEach(a -> a.Include());
+	}
 	private List<HBox> instantiateCreateButtonArray() {
 		List<HBox> list = new ArrayList<>();
 		list.add(ButtonFactory.makeHBox("Create Entity", null,

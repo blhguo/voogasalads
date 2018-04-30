@@ -23,7 +23,6 @@ import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
@@ -35,16 +34,20 @@ import javafx.util.Duration;
  */
 public class PlayerView {
 
-	private Timeline animation;
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
 
+	private Timeline animation;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
+<<<<<<< HEAD
+	private Map<Entity, Map<String, ImageView>> spriteMap;
+=======
 	private Map<String, ImageView> spriteMap;
+>>>>>>> 75b38619c7b070687ab53b35519ef751d7cbcaa1
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
@@ -94,6 +97,9 @@ public class PlayerView {
 		List<Entity> spriteEntities = level.getEntitiesContaining(
 				Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
+<<<<<<< HEAD
+			ImageView imageView = getImageView(e);
+=======
 			String imageName = e.getComponent(FilenameComponent.class).getValue();
 			Double height = e.getComponent(HeightComponent.class).getValue();
 			Double width = e.getComponent(WidthComponent.class).getValue();
@@ -102,6 +108,7 @@ public class PlayerView {
 			imageView.setFitWidth(width);
 			imageView.setFitHeight(height);
 			spriteMap.put(imageName, imageView);
+>>>>>>> 75b38619c7b070687ab53b35519ef751d7cbcaa1
 			root.getChildren().add(imageView);
 		}
 
@@ -169,10 +176,26 @@ public class PlayerView {
 
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
+<<<<<<< HEAD
+		if (!spriteMap.containsKey(entity)) {
+			Map<String, ImageView> imageMap = new HashMap<>();
+			spriteMap.put(entity, imageMap);
+		}
+		
+		if (!spriteMap.get(entity).containsKey(filename)) {
+			ImageView imageView = new ImageView(filename);
+			imageView.setOnMousePressed(event -> clickInput(imageView));
+			spriteMap.get(entity).put(filename, imageView);
+		}
+		
+		ImageView imageView = spriteMap.get(entity).get(filename);
+		return imageView;
+=======
 		if (!spriteMap.containsKey(filename)) {
 			spriteMap.put(filename, new ImageView(filename));
 		}
 		return spriteMap.get(filename);
+>>>>>>> 75b38619c7b070687ab53b35519ef751d7cbcaa1
 	}
 
 	private void display(Entity entity) {
