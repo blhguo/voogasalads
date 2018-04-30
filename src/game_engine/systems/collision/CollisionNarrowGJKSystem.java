@@ -52,7 +52,7 @@ public class CollisionNarrowGJKSystem extends CollisionNarrowSystem {
 
 	@Override
 	protected void checkIntersect(Entity e1, Entity e2, double elapsedTime) {
-
+		// TODO: unimplemented
 	}
 
 	private Point2D supportFunct() {
@@ -69,8 +69,8 @@ public class CollisionNarrowGJKSystem extends CollisionNarrowSystem {
 		List<Entity> broadCollidedEntities = level.getEntitiesContainingAny(gjkEntities, TARGET_COMPONENTS);
 		for (int i = 0; i < broadCollidedEntities.size(); i++) {
 			Entity e1 = broadCollidedEntities.get(i);
-			List<Entity> others = new CopyOnWriteArrayList<Entity>();
-			List<Class<? extends Component<List<Entity>>>> collidedClasses = new ArrayList<Class<? extends Component<List<Entity>>>>();
+			List<Entity> others = new CopyOnWriteArrayList<>();
+			List<Class<? extends Component<List<Entity>>>> collidedClasses = new ArrayList<>();
 			for (Class<? extends Component<?>> c : TARGET_COMPONENTS) {
 				Component<List<Entity>> comp = (Component<List<Entity>>) e1.getComponent(c);
 				if (comp != null) {
@@ -96,7 +96,7 @@ public class CollisionNarrowGJKSystem extends CollisionNarrowSystem {
 		double angle = e.getComponent(AngleComponent.class).getValue();
 		List<Double[]> relativeVertices = e.getComponent(GJKHitboxComponent.class).getValue();
 		Polygon polygon = new Polygon();
-		List<Point2D> transformedVertices = new ArrayList<Point2D>();
+		List<Point2D> transformedVertices = new ArrayList<>();
 
 		for (int i = 0; i < relativeVertices.size(); i++) {
 			double absoluteX = xPos + relativeVertices.get(i)[0];

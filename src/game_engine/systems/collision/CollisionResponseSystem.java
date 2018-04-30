@@ -19,27 +19,24 @@ public abstract class CollisionResponseSystem extends GameSystem {
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
 	private static final List<Class<? extends Component<?>>> COLLIDED_ARGS = Arrays.asList(TOP, BOTTOM, RIGHT, LEFT);
-	
-	
-	protected List<Entity> getCollidedEntities(Level level){
+
+	protected List<Entity> getCollidedEntities(Level level) {
 		return level.getEntitiesContainingAny(COLLIDED_ARGS);
 	}
-	
-	protected List<Entity> getCollidedEntities(List<Entity> entities, Level level){
+
+	protected List<Entity> getCollidedEntities(List<Entity> entities, Level level) {
 		return level.getEntitiesContainingAny(entities, COLLIDED_ARGS);
 	}
-	
-	protected List<Entity> getAllCollidedWith(Entity e){
-		List<Entity> entitiesCollidedWith = new ArrayList<Entity>();
-		
-		COLLIDED_ARGS
-	    .stream()
-	    .forEach(cc -> {
-	    	List<Entity> others = (List<Entity>) e.getComponent(cc).getValue();
-	    	if(others!=null) {
-	    		entitiesCollidedWith.addAll(others);
-	    	}
-	    });
+
+	protected List<Entity> getAllCollidedWith(Entity e) {
+		List<Entity> entitiesCollidedWith = new ArrayList<>();
+
+		COLLIDED_ARGS.stream().forEach(cc -> {
+			List<Entity> others = (List<Entity>) e.getComponent(cc).getValue();
+			if (others != null) {
+				entitiesCollidedWith.addAll(others);
+			}
+		});
 		return entitiesCollidedWith;
 	}
 }
