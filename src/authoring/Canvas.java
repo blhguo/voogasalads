@@ -1,7 +1,6 @@
 package authoring;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.EntityController;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;

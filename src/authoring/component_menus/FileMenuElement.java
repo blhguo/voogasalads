@@ -1,5 +1,7 @@
 package authoring.component_menus;
 
+import java.io.File;
+
 import authoring.voogle.VoogleApp;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
@@ -10,14 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import resources.keys.AuthRes;
-
-import java.io.File;
 
 
 public class FileMenuElement extends MenuElement{

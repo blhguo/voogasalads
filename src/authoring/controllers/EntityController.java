@@ -1,17 +1,16 @@
 package authoring.controllers;
 
 
-import authoring.Canvas;
-import authoring.component_menus.ComponentMenu;
-import authoring.component_menus.ComponentMenuFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring.Canvas;
+import authoring.component_menus.ComponentMenu;
+import authoring.right_components.EventPane;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EntityComponent.EntityWrapper;
-import authoring.right_components.EventPane;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
@@ -23,8 +22,6 @@ import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.WidthComponent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-
-import java.util.stream.Collectors;
 /**
  * @author liampulsifer
  * manages interaction between EntityPane and Canvas

@@ -3,7 +3,6 @@ package authoring.component_menus;
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;

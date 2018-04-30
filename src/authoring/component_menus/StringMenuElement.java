@@ -2,11 +2,9 @@ package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import resources.keys.AuthRes;
 
 /**

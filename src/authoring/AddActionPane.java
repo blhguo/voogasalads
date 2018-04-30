@@ -1,7 +1,11 @@
 package authoring;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import authoring.GUI_Heirarchy.GUINode;
-import authoring.component_menus.MenuElement;
 import authoring.component_menus.NumberMenuElement;
 import authoring.component_menus.StringMenuElement;
 import authoring.controllers.LevelController;
@@ -13,10 +17,8 @@ import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import game_engine.components.NullComponent;
-import game_engine.event.Action;
 import game_engine.event.Event;
 import game_engine.event.actions.macro.AddEntityAction;
-import game_engine.event.actions.macro.GameOverAction;
 import game_engine.event.actions.macro.LevelChangeAction;
 import game_engine.event.actions.macro.PlayMusicAction;
 import game_engine.event.actions.macro.RemoveEntityAction;
@@ -38,12 +40,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AddActionPane implements GUINode {
 	private static final ResourceBundle actions = ResourceBundle.getBundle("resources.keys/Actions");
@@ -101,13 +97,6 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getEntityInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new AddEntityAction(entityArray[0], levelController.getEngine()));
-				});
-				comboBoxView.getChildren().add(createButton);
-				break;
-
-			case "GameOverAction":
-				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new GameOverAction(null));
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;

@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
-import authoring.component_menus.ComponentMenu;
-import authoring.component_menus.MenuElement;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import frontend_utilities.ButtonFactory;

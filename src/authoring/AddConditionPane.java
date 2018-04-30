@@ -1,5 +1,11 @@
 package authoring;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.component_menus.KeyMenuElement;
 import authoring.component_menus.MenuElement;
@@ -13,11 +19,9 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.NullComponent;
-import game_engine.event.AuthorableEvent;
 import game_engine.event.Condition;
 import game_engine.event.ConditionFactory;
 import game_engine.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -30,12 +34,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AddConditionPane implements GUINode {
 	private static final ResourceBundle conditions = ResourceBundle.getBundle("resources.keys/Conditions");
