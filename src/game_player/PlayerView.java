@@ -120,7 +120,6 @@ public class PlayerView {
 	}
 
 	private boolean assignId(Level level) {
-		System.out.println(level.getEntities().size());
 		for (Entity entity : level.getEntities()) {
 			if (entity.hasAll(Arrays.asList(PrimeComponent.class)) && (entity.getComponent(PrimeComponent.class).getValue() == null)) {
 				entity.getComponent(PrimeComponent.class).setValue(myId);
