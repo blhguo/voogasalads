@@ -1,10 +1,10 @@
 package game_player;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-
+import game_player_interfaces.ImportData;
 import gameData.ManipData;
 import game_engine.Engine;
 import game_player_interfaces.ImportData;
@@ -61,31 +61,17 @@ public class PulldownFactory implements ImportData {
 			tempStage.hide();
 			});
 	}
+
 	@Override
 	public void importGame() {
-		ManipData manipData = new ManipData();
-		File file = getFile();
-		if(file==null) {
-			return;
-		}
-		String toParse = file.getAbsolutePath();
-		int loc = toParse.indexOf("games");
-		int endLoc = 0;
-		int numberSlashes = 0;
-		for(int i=loc;i<toParse.length();i++) {
-			if(toParse.charAt(i)=='\\') {
-				numberSlashes++;
-			}
-			if(numberSlashes==2) {
-				endLoc = i;
-				numberSlashes++;
-			}
-		}
-		dataFilePathString = toParse.substring(loc+6,endLoc);
-		System.out.println(dataFilePathString);
+		ManipData turd = new ManipData();
 		
+		
+		
+		
+		File file = getFile();
 		viewManager.changeBackground();
-		gameEngine = manipData.loadData(file.getAbsolutePath());
+		gameEngine = turd.loadData(file.getAbsolutePath(),"ExampleGame");
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();

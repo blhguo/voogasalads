@@ -77,7 +77,7 @@ public class EventPane extends BasePane {
 		bundle = ResourceBundle.getBundle("resources.keys/Conditions");
 		box = new VBox();
 		box = buildBasicView(AuthRes.getString("EventTitle"));
-		box.setAlignment(Pos.TOP_CENTER);
+		//box.setAlignment(Pos.TOP_CENTER);
 		box.setSpacing(20); 
 		subBox = new VBox();
 		subBox.setSpacing(20);

@@ -16,6 +16,9 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
 	private ButtonMaker buttonMaker;
+	private Button gameSelectionButton;
+	private Button pausePlayButton;
+	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
@@ -48,11 +51,16 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
+	public void getPullDown(){
+		pane.getChildren().add(pullDownFactory.SaveLoadBox());
+	}
+	
     /**
 	 * Method to add ComboBoxes from PulldownFactory to Menu
 	 * 
 	 */
 
+	
 	private void makeButtons() {
 		buttonMaker = new ButtonMaker();
 		buttonMaker.setPlayerView(playerView);

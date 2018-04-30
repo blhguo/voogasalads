@@ -35,6 +35,8 @@ public class EntityWrapper {
 	private List<ComponentMenu> menuList;
 	private EntityPane entityPane;
 	private final DropShadow ds;
+	private int levelId = 0;
+	
 	public EntityWrapper(Entity e, EntityPane pane){
 		entity = e;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
@@ -163,5 +165,13 @@ public class EntityWrapper {
 		dummyImageView.setFitWidth(imageView.getFitWidth());
 		dummyImageView.setImage(imageView.getImage());
 		return dummyImageView;
+	}
+	
+	public void setLevel(int id){
+		levelId = id;
+	}
+	
+	public int getLevel(){
+		return levelId;
 	}
 }

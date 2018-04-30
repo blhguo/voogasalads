@@ -24,7 +24,6 @@ public class SpriteSystem extends GameSystem {
 		for(Entity e : level.getEntitiesContaining(args)) {
 			setPolarity(e);
 		}
-
 	}
 	
 	private void setPolarity(Entity e){

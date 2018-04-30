@@ -9,7 +9,6 @@ import java.util.UUID;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Tuple;
 import game_engine.Vector;
 import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
@@ -21,13 +20,13 @@ import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
+import groovy.lang.Tuple;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -39,16 +38,16 @@ import javafx.util.Duration;
  */
 public class PlayerView {
 
-	private Timeline animation;
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
 
+	private Timeline animation;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-	private Map<Entity, ImageView> spriteMap;
+	private Map<Entity, Map<String, ImageView>> spriteMap;
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
@@ -94,13 +93,13 @@ public class PlayerView {
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
-
+		
 		if (!assignId(level)) {
 			System.out.println("no one assigned");
 			// no players remaining to be claimed...error?
 			return;
 		}
-
+		
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		setGamePlayerOnce();
 
@@ -108,14 +107,7 @@ public class PlayerView {
 		List<Entity> spriteEntities = level.getEntitiesContaining(
 				Arrays.asList(FilenameComponent.class, HeightComponent.class, WidthComponent.class));
 		for (Entity e : spriteEntities) {
-			String imageName = e.getComponent(FilenameComponent.class).getValue();
-			Double height = e.getComponent(HeightComponent.class).getValue();
-			Double width = e.getComponent(WidthComponent.class).getValue();
-			Image image = new Image(imageName);
-			ImageView imageView = new ImageView(image);
-			imageView.setFitWidth(width);
-			imageView.setFitHeight(height);
-			spriteMap.put(e, imageView);
+			ImageView imageView = getImageView(e);
 			root.getChildren().add(imageView);
 		}
 
@@ -155,7 +147,7 @@ public class PlayerView {
 		// render level background
 
 		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
-		.forEach(this::display);
+				.forEach(this::display);
 	}
 
 	private int compareZ(Entity a, Entity b) {
@@ -180,10 +172,17 @@ public class PlayerView {
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
 		if (!spriteMap.containsKey(entity)) {
-			spriteMap.put(entity, new ImageView(filename));
+			Map<String, ImageView> imageMap = new HashMap<>();
+			spriteMap.put(entity, imageMap);
 		}
-		ImageView imageView = spriteMap.get(entity);
-		imageView.setOnMousePressed(event -> clickInput(imageView));
+		
+		if (!spriteMap.get(entity).containsKey(filename)) {
+			ImageView imageView = new ImageView(filename);
+			imageView.setOnMousePressed(event -> clickInput(imageView));
+			spriteMap.get(entity).put(filename, imageView);
+		}
+		
+		ImageView imageView = spriteMap.get(entity).get(filename);
 		return imageView;
 	}
 
@@ -244,7 +243,7 @@ public class PlayerView {
 		if (index==1) {
 			animation.play();
 		}
-		if (index==2) {
+		if (selectedAction.equals("Slow Down")) {
 			animation.setRate(animation.getRate() * HALF_RATE);
 		}
 		if (index==3) {
@@ -253,8 +252,8 @@ public class PlayerView {
 		if(index==5) {
 			pullDownFactory.handleSave();
 		}
-		if (index==6) {
-			pullDownFactory.aboutGame();
+		if (statusAction.equals("Play Game")) {
+			animation.play();
 		}
 	}
 

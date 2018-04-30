@@ -43,8 +43,7 @@ public class ManipData {
 	private static final int FILE_EXTENSION = 4;
 	private XStream serializer;
 	private XStream deserializer;
-	//public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
-
+	public static final ResourceBundle CONFIGKEYS = ResourceBundle.getBundle("gameData/configMap");
 
 	//constructor
 	public ManipData() {
@@ -191,7 +190,7 @@ public class ManipData {
 			Properties param = new Properties();
 			
 			for (int i = 0; i < configMap.size(); i ++) {
-//				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
+				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
 			file = new File("games/" + configLoc + "/config.xml");
