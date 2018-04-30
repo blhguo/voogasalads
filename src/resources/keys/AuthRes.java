@@ -15,11 +15,11 @@ public class AuthRes {
 	public static String getString(String key) {
         return RESOURCEKEYS.getString(key);
     }
-	
+
 	public static String getStringKeys(String key) {
 		return CONFIGKEYS.getString(key);
 	}
-	
+
 	/**
 	 * Returns the corresponding int of a given String key
 	 * @param key

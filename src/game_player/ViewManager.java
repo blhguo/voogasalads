@@ -45,7 +45,6 @@ public class ViewManager extends GUIBuilder{
 	private Paint backColor = Color.TRANSPARENT;
 	private Pane view;
 	private Scene gameScene;
-	private PulldownFactory pullDownFactory;
 	private ImageView gameImageView;
 	private Image gameBackground;
 	private BackgroundImage game;
@@ -63,13 +62,17 @@ public class ViewManager extends GUIBuilder{
 	 * @param stage: The active stage hosting the game.
 	 * @param pdf: The active pull down factory.
 	 */ 
-	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
-		this.menu = menu;
-		this.pullDownFactory = pdf;
-		pullDownFactory.setViewManager(this);
-		this.gameStage = stage;
+	public ViewManager() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
+		menu = storage.getMenu();
+		gameStage = storage.getStage();
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
+		gameStage.setFullScreen(true);
+
 		gameStage.show();
 		changeBrightness();
 		changeVolume();
@@ -190,10 +193,17 @@ public class ViewManager extends GUIBuilder{
 		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
 	}
+<<<<<<< HEAD
     
     /**
      * Return the root node of the view manager.
      */ 
+=======
+
+	/**
+	 * Return the root node of the view manager.
+	 */ 
+>>>>>>> fedb40b36f17858458f756fc8a2800400304ebcc
 	public Pane getNode() {
 		return view;
 	}
