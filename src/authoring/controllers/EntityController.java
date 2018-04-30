@@ -70,6 +70,8 @@ public class EntityController {
 		addToLevel(wrapper.getEntity());
 		int currLevel = lcontroller.getEngine().getLevel().getId();
 		wrapper.setLevel(currLevel);
+		System.out.println("Entity Components at Add");
+		wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class EntityController {
 	 * @param entity
 	 */
 	private void addToLevel(Entity entity) {
-		lcontroller.getEngine().getLevel().addEntity(entity);
+		lcontroller.addEntity(entity);
 	}
 	/**
 	 *
@@ -110,6 +112,7 @@ public class EntityController {
 	 */
 	public void removeEntity(){
 		entityList.remove(entityPane.getPureCurrent());
+		lcontroller.getEngine().getLevel().removeEntity(entityPane.getPureCurrent().getEntity());
 		canvas.update(entityList);
 		entityPane.newWrapper();
 	}
@@ -170,6 +173,7 @@ public class EntityController {
 		this.add(entityPane.getCurrent());
 		canvas.update(entityList);
 		entityPane.newWrapper();
+		
 	}
 
 	/**
@@ -205,7 +209,9 @@ public class EntityController {
 		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
 				sceneY - wrap.getImageView().getFitHeight() / 2);
 		if (!entityList.contains(wrap)){
+			System.out.println("Added entity"	);
 			entityList.add(wrap);
+			add(wrap);
 		}
 		canvas.update(entityList);
 		System.out.println("# of Entities " + entityList.size());

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import game_engine.Component;
 import game_engine.Engine;
+import game_engine.Entity;
 import game_engine.event.Event;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
@@ -68,6 +69,14 @@ public class LevelController {
 	
 	public void addComp(Component<?> c){
 		engine.getLevel().addComponent(c);
+	}
+	
+	public void addEntity(Entity e){
+		System.out.println("Entity: " + e);
+		engine.getLevel().addEntity(e);
+		System.out.println("------ Entities in the level ------");
+		engine.getLevel().getEntities().stream().forEach(a -> 
+			System.out.println(a));
 	}
 
 	public void addEvent(Event event){

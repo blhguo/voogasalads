@@ -77,17 +77,17 @@ public class EntityPane extends BasePane{
 			Button def = ButtonFactory.makeButton(e -> {
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
 				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
-				for (ComponentMenu menu : current.getMenuList()){
-					for (MenuElement element : menu.getElements()){
-						if (element.getTitle().equals("Filename")){
-							element.setValue(key + ".png");
-						}
-					}
-				}
+//				for (ComponentMenu menu : current.getMenuList()){
+//					for (MenuElement element : menu.getElements()){
+//						if (element.getTitle().equals("Filename")){
+//							element.setValue(key + ".png");
+//						}
+//					}
+//				}
 				
 				//current.updateImage();
 				updateSprite();
-				//refresh();
+				refresh();
 			});
 			def.setText(key);
 			box.getChildren().add(def);
