@@ -1,38 +1,30 @@
 package authoring.controllers;
 
-import authoring.AuthoringEnvironment;
+
 import authoring.Canvas;
-import authoring.NavigationPane;
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
-import authoring.right_components.BasePane;
-import authoring.right_components.EntityComponent.EntityPane;
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.DraggableImageView;
-import authoring.utilities.ImageBuilder;
-import game_engine.Entity;
-import game_engine.components.PositionComponent;
-import game_engine.components.SpriteComponent;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import resources.keys.AuthRes;
-
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import authoring.right_components.EntityComponent.EntityPane;
+import authoring.right_components.EntityComponent.EntityWrapper;
+import authoring.right_components.EventPane;
+import frontend_utilities.ButtonFactory;
+import frontend_utilities.DraggableImageView;
+import frontend_utilities.ImageBuilder;
+import game_engine.Entity;
+import game_engine.components.position.XPosComponent;
+import game_engine.components.position.YPosComponent;
+import game_engine.components.sprite.FilenameComponent;
+import game_engine.components.sprite.HeightComponent;
+import game_engine.components.sprite.WidthComponent;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+
+import java.util.stream.Collectors;
 /**
  * @author liampulsifer
  * manages interaction between EntityPane and Canvas
@@ -40,36 +32,46 @@ import java.util.stream.Collectors;
  */
 public class EntityController {
 	Map<ImageView, Entity> map;
-	List<Entity> entityList;
+	List<EntityWrapper> entityList;
 	Map<Entity, List<ComponentMenu>> menuMap;
 	private EntityPane entityPane;
 	private Canvas canvas;
 	private ImageView view;
 	private LevelController lcontroller;
 	private Button button;
+	private EventPane eventPane;
 
 	
-	public EntityController(EntityPane pane, Canvas c){
+	public EntityController(EntityPane pane, Canvas c, EventPane eventPane){
 		entityPane = pane;
+		this.eventPane = eventPane;
 		canvas = c;
 		map = new HashMap<>();
 		entityList = new ArrayList<>();
 		menuMap = new HashMap<>();
+		button = ButtonFactory.makeButton(e -> removeEntity());
 	}
 
 	/**
 	 * Adds the passed Entity to the local map of imageviews to entities
 	 * calls setUpImageView to make the imageview of the entity
 	 * adds the entity to the levelController
-	 * @param entity the entity to be added to the map
+	 * @param wrapper the entityWrapper to be added to the map
 	 */
-	public void add(Entity entity){
+	public void add(EntityWrapper wrapper){
 		//entityList.add(entity);
-		map.put(setUpImageView(entity), entity);
-		menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
-			stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
+		map.put(wrapper.getImageView(), wrapper.getEntity());
+		entityList.add(wrapper);
+		System.out.println("Wrapper added: " + entityList.size());
+		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
+			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
-		addToLevel(entity);
+		//canvas.update(entityList);
+		addToLevel(wrapper.getEntity());
+		int currLevel = lcontroller.getEngine().getLevel().getId();
+		wrapper.setLevel(currLevel);
+		System.out.println("Entity Components at Add");
+		wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
 	}
 
 	/**
@@ -79,14 +81,12 @@ public class EntityController {
 	 * @return ImageView
 	 */
 	private ImageView setUpImageView(Entity entity){
-		SpriteComponent comp = (SpriteComponent) entity.getComponent(SpriteComponent.class);
-		PositionComponent pos = (PositionComponent) entity.getComponent(PositionComponent.class);
-		DraggableImageView iv = ImageBuilder.getDraggableImageView(comp.getFileName(),
-				(int) comp.getWidth(), (int) comp.getHeight());
-		iv.setX(pos.getX());
-		iv.setY(pos.getY());
-		iv.setOnMouseClicked(e -> UpdateMenus(iv, entity));
-		iv.setOnMouseReleased(e -> setPos(iv.getX(), iv.getY(), pos, entity, iv));
+		DraggableImageView iv = ImageBuilder.getDraggableImageView(entity.getComponent(FilenameComponent.class).getValue(),
+				entity.getComponent(WidthComponent.class).getValue().intValue(),
+				entity.getComponent(HeightComponent.class).getValue().intValue());
+		iv.setX(entity.getComponent(XPosComponent.class).getValue());
+		iv.setY(entity.getComponent(YPosComponent.class).getValue());
+		iv.setOnMouseDragReleased(e -> setPos(iv.getX(), iv.getY(), entity, iv));
 		return iv;
 
 	}
@@ -96,7 +96,7 @@ public class EntityController {
 	 * @param entity
 	 */
 	private void addToLevel(Entity entity) {
-		lcontroller.getActiveLevel().addEntity(entity);
+		lcontroller.addEntity(entity);
 	}
 	/**
 	 *
@@ -109,33 +109,24 @@ public class EntityController {
 
 	/**
 	 *  Removes this entity and imageview from the map and updates the canvas to show the deleted entity
-	 * @param e
-	 * @param iv
 	 */
-	public void removeEntity(Entity e, ImageView iv){
-		map.remove(iv, e);
-		lcontroller.getActiveLevel().remove(e);
-		canvas.update(map);
+	public void removeEntity(){
+		entityList.remove(entityPane.getPureCurrent());
+		lcontroller.getEngine().getLevel().removeEntity(entityPane.getPureCurrent().getEntity());
+		canvas.update(entityList);
+		entityPane.newWrapper();
 	}
 
 	/**
 	 * Sets the position component of an entity to be that of its imageview, and updates the map
 	 * @param x -- ImageView x
 	 * @param y -- ImageView y
-	 * @param pos -- the entity's position component
 	 * @param ent
 	 * @param iv
 	 */
-	public void setPos(double x, double y, PositionComponent pos, Entity ent, ImageView iv){
-		pos.setX(x);
-		pos.setY(y);
-		ComponentMenu menu = (ComponentMenu) menuMap.get(ent).stream().filter(e -> e.getType().equals("Position"))
-				.collect(Collectors.toList()).get(0);
-		menuMap.get(ent).remove(menu);
-		String[] arr = {"xPos,d," + x, "yPos,d," + y, "Angle,d,0.0"};
-		menu = new ComponentMenuFactory().newComponentMenu(arr, "Position");
-		menuMap.get(ent).add(menu);
-		UpdateMenus(iv, ent);
+	public void setPos(double x, double y, Entity ent, ImageView iv){
+		ent.getComponent(XPosComponent.class).setValue(x);
+		ent.getComponent(YPosComponent.class).setValue(y);
 
 	}
 
@@ -144,9 +135,10 @@ public class EntityController {
 	 * @return the default sprite for display at the top of the EntityPane
 	 */
 	public ImageView getSprite(){
-		SpriteComponent comp = (SpriteComponent) entityPane.getEntity().getComponent(SpriteComponent.class);
-		ImageView iv = ImageBuilder.getImageView(comp.getFileName(), 135, 135);
-		return iv;
+//		ImageView iv = ImageBuilder.getImageView(entityPane.getEntity().getComponent(FilenameComponent.class)
+//				.getValue(), 135, 135);
+//		return iv;
+		return new ImageView();
 	}
 	@Deprecated
 	public Map<Entity, List<ComponentMenu>> getMenuMap(){
@@ -178,19 +170,10 @@ public class EntityController {
 	 * Creates a new Entity and updates the canvas to display it
 	 */
 	private void newEntity(){
-		this.add(entityPane.getEntity());
-		canvas.update(map);
-	}
-
-	/**
-	 * Updates the menus in EntityPane to reflect a change in the displayed Entity
-	 * @param iv
-	 * @param entity
-	 */
-	public void UpdateMenus(ImageView iv, Entity entity){
-		button = ButtonFactory.makeButton(e -> removeEntity(entity, iv));
-		toggleStyle(iv);
-		entityPane.updateMenus(entity);
+		this.add(entityPane.getCurrent());
+		canvas.update(entityList);
+		entityPane.newWrapper();
+		
 	}
 
 	/**
@@ -201,20 +184,54 @@ public class EntityController {
 		lcontroller = lc;
 	}
 
-	/**
-	 * Makes a given ImageView translucent to indicate clicked-on
-	 * @param iv
-	 */
-	private void toggleStyle(ImageView iv) {
-		resetImageViews();
-		iv.setStyle("-fx-opacity: .5;");
-	}
 
 	/**
 	 * Makes all imageviews set to their default style
 	 */
 	public void resetImageViews(){
-		map.keySet().stream().forEach(image -> image.setStyle(""));
+		entityList.stream().forEach(e -> {
+			e.getImageView().setEffect(null);
+		});
 	}
 
+	public void updateDummies(){
+		canvas.updateDummies(entityList);
+	}
+	public void listenCanvas() {
+		canvas.listen();
+	}
+	public void stopListenCanvas(){
+		canvas.stopListen();
+	}
+
+	public void alertEntityPane(double sceneX, double sceneY) {
+		EntityWrapper wrap = new EntityWrapper(entityPane.getPureCurrent(), entityPane);
+		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
+				sceneY - wrap.getImageView().getFitHeight() / 2);
+		if (!entityList.contains(wrap)){
+			System.out.println("Added entity"	);
+			entityList.add(wrap);
+			add(wrap);
+		}
+		canvas.update(entityList);
+		System.out.println("# of Entities " + entityList.size());
+		//entityPane.newWrapper();
+		System.out.println("About to hit it");
+		entityPane.newDuplicateEntity();
+		//entityPane.refresh();
+		this.resetImageViews();
+		//entityPane.setActiveWrapper(wrap);
+	}
+
+	public void updateCanvas() {
+		canvas.update(entityList);
+	}
+
+	public void addToEventPaneBox(EntityWrapper e) {
+		eventPane.addToEntityBox(e);
+	}
+	
+	public List<EntityWrapper> getEntities(){
+		return entityList;
+	}
 }

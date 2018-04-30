@@ -1,55 +1,88 @@
 package authoring.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-import gameData.ManipData;
+import game_engine.Component;
+import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Level;
+import game_engine.event.Event;
+import game_engine.level.Level;
+import game_engine.level.LevelBackgroundComponent;
+import game_engine.level.LevelHScrollComponent;
+import game_engine.level.LevelNameComponent;
+import game_engine.level.LevelThumbComponent;
+import game_engine.level.LevelVScrollComponent;
+import resources.keys.AuthRes;
 
 /**
- * @author jennychin
+ * @author Jennifer Chin
  * Maintains control of all active entities and the levels in which they reside, passes data to Data
  */
 public class LevelController {
 
-	private ArrayList<Level> currentLevels;	
-	private ManipData data;
-	private Level activeLevel;
+	private Engine engine;
+	private PaneController pcontroller;
 	
-	public LevelController() {
-		currentLevels = new ArrayList<Level>();
-		Level initLevel = new Level();
-		addLevel(initLevel);
-		activeLevel = initLevel;
-		data = new ManipData();
+	public LevelController(PaneController pc) {
+		engine = new Engine();
+		pcontroller = pc;
+		addLevel();
 	}
 	/**
-	 * @param l Adds the specifed level to current levels
+	 * Adds a new level to the engine
 	 */
-	public void addLevel(Level l) {
-		currentLevels.add(l);
-		activeLevel = l;
+	public void addLevel() {
+		// need to have splash screen also
+		Level newLevel = engine.createLevel();
+		// add defaults to level
+		int levelNum = newLevel.getId() + 1;
+		newLevel.addComponent(new LevelNameComponent("Level " + String.valueOf(levelNum)));
+		newLevel.addComponent(new LevelBackgroundComponent(AuthRes.getString("BackgroundDefault")));
+		newLevel.addComponent(new LevelThumbComponent(AuthRes.getString("ThumbDefault")));
+		newLevel.addComponent(new LevelHScrollComponent(true));
+		newLevel.addComponent(new LevelVScrollComponent(true));
+		engine.setLevel(newLevel.getId());
+		System.out.println("BEFORE SAVE: " + engine.getLevel());
 	}
-
-	/**
-	 * Passes the current levels array to data
-	 */
-	public void saveGame() {
-		currentLevels.stream().forEach(e -> System.out.println(e));
-		for (Entity e : currentLevels.get(0).getEntities()){
-			System.out.println(e);
+	
+	public Engine getEngine(){
+		return engine;
+	}
+	
+	public void setEngine(Engine e){
+		engine = e;
+	}
+	
+	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
+		ArrayList<Object> ret = new ArrayList<Object>();
+		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));
+		for (List<Component<?>> list: map.values()){
+			for (Component<?> c: list){
+				ret.add(c.getValue());
+			}
 		}
-		System.out.println("currentLevels: " + currentLevels);
-		data.saveData(currentLevels);
-		//or .saveData(currentLevels, currentAttributes)
+		return ret;
+	}
+	
+	public void addComp(Component<?> c){
+		engine.getLevel().addComponent(c);
+	}
+	
+	public void addEntity(Entity e){
+		System.out.println("Entity: " + e);
+		engine.getLevel().addEntity(e);
+		System.out.println("------ Entities in the level ------");
+		engine.getLevel().getEntities().stream().forEach(a -> 
+			System.out.println(a));
 	}
 
-	/**
-	 *
-	 * @return the active level
-	 */
-	public Level getActiveLevel(){
-		return currentLevels.get(0);
+	public void addEvent(Event event){
+		engine.getLevel().addEvent(event);
+		System.out.println(event.getActions());
+		System.out.println(event.getConditions());
 	}
 	
 }

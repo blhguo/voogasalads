@@ -1,7 +1,15 @@
 package authoring;
 
-import game_engine.Entity;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import authoring.GUI_Heirarchy.GUINode;
+import authoring.controllers.EntityController;
+import authoring.right_components.EntityComponent.EntityWrapper;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -12,18 +20,11 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
-import java.util.Map;
-
-
-import authoring.controllers.EntityController;
 
 /**
+ * @author elizabethshulman
  * @author Jennifer Chin
  * @author Liam Pulsifer
  * Canvas class for the middle portion of the Authoring Environment. Displays the current
@@ -32,61 +33,143 @@ import authoring.controllers.EntityController;
  */
 
 public class Canvas implements GUINode {
-	private Color backgroundColor = Color.rgb(179, 179, 179, 0.7);
+	private Pane myInfinitePane;
+	private ScrollPane myNode;
+	private EntityController myController;
+	private Color backgroundColor = Color.rgb(179, 179, 179, 0.6);
+	private int currLevel;
 
-	private Pane pane;
-	private EntityController controller;
-	
 	/**
-	 * Constructor, no parameters
+	 * Constructor that creates new internal canvas
+	 * and sets up ScrollPane
 	 */
-	public Canvas(){
-		
+	public Canvas() {
+		myInfinitePane = initializeInfinitePane(4000, 4000);
+		myNode = initializeScrollingPane();
+		currLevel = 0;
 	}
 	
-	/**
-	 * Method from GUINode interface. Returns a Pane that is the view of this GUINode.
-	 * Canvas only requires a background color to start
-	 * @return Pane
-	 */
-	public Pane getView(){
-		pane = new Pane();
-		pane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
-		return pane;
-
+	public void setDefaultBackground(){
+		myInfinitePane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	/**
 	 * Allows the canvas to be updated according to the current entities in the map.
 	 * The map is created in EntityController and EntityController calls this method in
 	 * order to update the canvas. 
-	 * @param map
+	 * @param entityList
 	 */
-	public void update(Map<ImageView, Entity> map){
-		pane.getChildren().clear();
-		for (ImageView view : map.keySet()){
-			System.out.println("Current view");
-			pane.getChildren().add(view);
-			view.toFront();
+	public void update(List<EntityWrapper> entityList){
+		//myInfinitePane = initializeInfinitePane(myInfinitePane.getMaxWidth(), myInfinitePane.getMaxHeight());
+		myInfinitePane.getChildren().clear();
+		System.out.println("-----Updating Canvas------");
+		entityList.stream().forEach(e -> System.out.println("Entity " + e));
+		
+		for (EntityWrapper e: entityList){
+			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getImageView())){
+				myInfinitePane.getChildren().add(e.getImageView());
+			}
 		}
+		
+//		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
+//			if (!myInfinitePane.getChildren().contains(view))
+//				myInfinitePane.getChildren().add(view);
+//		}
+		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
 		System.out.println("Canvas updated");
+	}
+	public void updateDummies(List<EntityWrapper> entityList){
+		myInfinitePane.getChildren().clear();
+		entityList.stream().forEach(e -> System.out.println(e.getDummy()));
+		entityList.stream().forEach(e -> myInfinitePane.getChildren().add(e.getDummy()));
+		entityList.stream().forEach(e -> e.getDummy().setOnMousePressed(a -> {
+			myController.addToEventPaneBox(e);
+		}));
+
 	}
 	
 	/**
-	 * Called by LevelController in order to set the background to a specified image
+	 * Sets the background to a specified image
 	 * @param im
 	 */
 	public void updateBackground(Image im){
-		pane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
-				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+		myInfinitePane.setBackground(new Background(new BackgroundImage(im, BackgroundRepeat.REPEAT,
+				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 	}
-
+	
 	/**
 	 * Sets the EntityController of the Canvas. Called by AuthoringEnvironment to give 
 	 * the correct EntityController object to the Canvas.
 	 * @param controller
 	 */
 	public void setController(EntityController controller) {
-		this.controller = controller;
+		myController = controller;
+	}
+	
+	public void listen() {
+
+		myInfinitePane.setOnMousePressed(e -> {
+			myController.alertEntityPane(e.getX(), e.getY());
+			System.out.println("Clicked -- Canvas line 100");
+		});
+	}
+	
+	public void stopListen() {
+//		System.out.println("Stopped listening");
+		myInfinitePane.setOnMousePressed(e -> {});
+	}
+	
+	private Pane initializeInfinitePane(double prefX, double prefY) {
+		myInfinitePane = new Pane();
+		myInfinitePane.setPrefSize(prefX,prefY);
+		myInfinitePane.setMaxSize(Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+		setDefaultBackground();
+		return myInfinitePane;
+	}
+	
+	/**
+	 * Method to initialize scrolling window
+	 * Always show scrolling bars.
+	 * Sets view to the center of internal canvas,
+	 * as turtle is initialized in center
+	 * 
+	 */
+	private ScrollPane initializeScrollingPane() {
+		myNode = new ScrollPane();
+		myNode.setContent(myInfinitePane);
+		myNode.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myNode.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		myInfinitePane.setManaged(false);
+		myNode.setHvalue(0);
+		myNode.setVvalue(0);
+//		myNode.setPrefSize(400, 800);
+		return myNode;
+	}
+
+	@Override
+	public Node getView() {
+		return myNode;
+	}
+	
+	public void setLevel(int id){
+		currLevel = id;
+	}
+	
+	public void changeScrolling(boolean hscroll, boolean vscroll){
+		if (! hscroll){
+			myInfinitePane.setMaxWidth(myNode.getWidth());
+			myInfinitePane.setPrefWidth(myNode.getWidth());
+			System.out.println(myInfinitePane.getMaxWidth());
+			System.out.println(myInfinitePane.getWidth());
+		}
+		else {
+			myInfinitePane.setPrefWidth(Double.POSITIVE_INFINITY);
+		}
+		if (! vscroll){
+			myInfinitePane.setPrefHeight(myNode.getHeight());
+		}
+		else {
+			myInfinitePane.setPrefHeight(Double.POSITIVE_INFINITY);
+		}
 	}
 }

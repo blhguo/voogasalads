@@ -1,15 +1,13 @@
 package game_player;
 
-import java.io.File;
-
-import authoring.GameChooserScreen;
+import authoring.GUI_Heirarchy.GUIBuilder;
+import authoring.loadingviews.PlayerLoader;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -25,6 +23,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 /**
@@ -34,22 +33,30 @@ import javafx.stage.Stage;
  * @author Brandon Dalla Rosa, Dana Park
  *
  */
-public class ViewManager {
+public class ViewManager extends GUIBuilder{
+	public static final double SUBSCENE_WIDTH = 920;
+	public static final double SUBSCENE_HEIGHT = 660;
+
 	private Menu menu;
 	private Stage gameStage;
 	private double sceneWidth = 1200;
 	private double sceneHeight = 900;
-	private Paint backColor = Color.BLACK;
+	private Paint backColor = Color.TRANSPARENT;
 	private Pane view;
 	private Scene gameScene;
-	private PulldownFactory pullDownFactory;
 	private ImageView gameImageView;
 	private Image gameBackground;
 	private BackgroundImage game;
 	private SubScene subScene;
 	private Group subRoot;
-	private ColorAdjust colorAdjust = new ColorAdjust();
-	
+	private Pane mainHBox;
+	private MediaPlayer sound;
+	private Text coins;
+	private Text time;
+	private int coinCount=3;
+	private int timeCount=60;
+
+
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
 	 * seen in the game player and organizes them efficiently.
@@ -57,13 +64,16 @@ public class ViewManager {
 	 * @param stage: The active stage hosting the game.
 	 * @param pdf: The active pull down factory.
 	 */ 
-	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
-		this.menu = menu;
-		this.pullDownFactory = pdf;
-		pullDownFactory.setViewManager(this);
-		this.gameStage = stage;
+	public ViewManager() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
+		menu = storage.getMenu();
+		gameStage = storage.getStage();
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
+		gameStage.setFullScreen(true);
 		gameStage.show();
 		changeBrightness();
 		changeVolume();
@@ -74,11 +84,12 @@ public class ViewManager {
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
+		mainHBox = pane;
 	}
-    
-    /**
-     * Returns the scene of the game for ease of access.
-     */ 
+
+	/**
+	 * Returns the scene of the game for ease of access.
+	 */ 
 	public Scene getScene() {
 		return gameScene;
 	}
@@ -86,7 +97,7 @@ public class ViewManager {
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
-		
+
 		gameBackground = new Image("gray.png");
 		gameImageView = new ImageView();
 		gameImageView.setImage(gameBackground);
@@ -96,48 +107,57 @@ public class ViewManager {
 		center.setBackground(new Background(back));
 
 		VBox order = new VBox(20);
-		order.getStyleClass().add("pane-back");
 
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
-		
-		menu.addMenu(order);
+
 		view = new Pane();
 		view.setPrefSize(1000, 730);
 		subRoot = new Group();
-		subScene = new SubScene(subRoot, 770, 530, false, null);
-
+		subScene = new SubScene(subRoot, SUBSCENE_WIDTH, SUBSCENE_HEIGHT, false, null);
+		coins = createText(coins,  5, 15, "coins collected: "+coinCount, 16) ;
+		time = createText(time,  150, 15, "time: "+timeCount, 16);
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
 
 		order.getChildren().add(subScene);
 		subRoot.getChildren().add(view);
+
+		menu.addMenu(order);
+
+		Media soundFile = new Media(getClass().getResource("song.mp3").toExternalForm());
+		sound = new MediaPlayer(soundFile);
+		sound.play();
+		sound.setVolume(0);
+		sound.setCycleCount(MediaPlayer.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		subRoot.getChildren().add(coins);
+		subRoot.getChildren().add(time);
 		return center;
 	}
-	
+
 	/**
 	 * Returns the subscene in which the current active game can be found.
 	 */ 
 	public SubScene getSubScene() {
 		return subScene;
 	}
-	
+
 	/**
 	 * Returns the root of the subscene, for entities to be added to.
 	 */ 
 	public Group getSubRoot() {
 		return subRoot;
 	}
-	
-	
+
+
 	/**
 	 * Changes the background image of the subscene to the desired image.
 	 */ 
 	public void changeBackground() {
 		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.REPEAT,
-		BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(back));
 	}
 
@@ -148,44 +168,55 @@ public class ViewManager {
 	public void changeBrightness() {
 		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				
-				colorAdjust.setBrightness((double) new_val);
-				gameImageView.setEffect(colorAdjust);
-				System.out.println(new_val);
+				gameStage.opacityProperty().set((double)new_val);
 			}
 		});
 	}
-    
-    /**
-     * Changes the volume of the current program.
-     */ 
+
+	/**
+	 * Changes the volume of the current program.
+	 */ 
 	public void changeVolume() {
 		this.menu.getVolumeSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				String path = "/resources/baby.mp3";
-				Media media = new Media(new File(path).toURI().toString());
-
-				MediaPlayer mediaPlayer = new MediaPlayer(media);
-				mediaPlayer.setVolume((double) new_val);
-				mediaPlayer.play();
+				sound.setVolume((double) new_val);
 
 			}
 		});
 	}
-    
-    /**
-     * Display the stage for game selection.
-     */ 
+
+
+
+	/**
+	 * Display the stage for game selection.
+	 */ 
 	public void showGameSelectionMenu() {
-		GameChooserScreen gc = new GameChooserScreen(gameStage);
-		//gameStage.setScene(gc.display());
+		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
 	}
-    
-    /**
-     * Return the root node of the view manager.
-     */ 
+
+	/**
+	 * Return the root node of the view manager.
+	 */ 
 	public Pane getNode() {
 		return view;
 	}
+
+	@Override
+	public Pane display() {
+		return mainHBox;
+	}
+
+
+	private Text createText(Text txt, int x, int y, String message, int fontSize) {
+		txt = new Text();
+		txt.setX(x);
+		txt.setY(y);
+		txt.setFill(Color.WHITE);
+		txt.setText(message);
+		txt.setFont(Font.font("Segouei", fontSize));
+		return txt;
+	}
+
+
 }

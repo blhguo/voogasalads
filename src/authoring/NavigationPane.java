@@ -1,19 +1,26 @@
 package authoring;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
-import authoring.controllers.LevelController;
-import authoring.utilities.ButtonFactory;
-import authoring.utilities.ImageBuilder;
+import authoring.GUI_Heirarchy.GUINode;
+import authoring.controllers.Loader;
+import authoring.controllers.MetaController;
+import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
+import frontend_utilities.UserFeedback;
 import game_player.PlayerMain;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import observables.Listener;
 import observables.Subject;
@@ -31,13 +38,14 @@ import resources.keys.AuthRes;
 //Left Pane
 public class NavigationPane implements Subject, GUINode {
 
-	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Actions and Events", "Level Preferences", "Storyboard"));
+	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
-	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
-	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
-	private LevelController lcontroller;
+	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game", "Load Game"));
+	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save", "load"));
+	private MetaController mcontroller;
 	private Pane pane;
 	private Stage stage;
+	private Loader loader;
 	
 	/**
 	 * Constructor. Takes in a stage so that the play button can launch Player Main 
@@ -52,12 +60,16 @@ public class NavigationPane implements Subject, GUINode {
 		initializeButtons();
 	}
 	
+	public void setLoader(Loader l){
+		loader = l;
+	}
+	
 	/**
 	 * Method to add level controller so that the game can be saved from this pane
 	 * @param l
 	 */
-	public void addLevelController(LevelController l){
-		lcontroller = l;
+	public void addMetaController(MetaController mc){
+		mcontroller = mc;
 	}
 	
 	/**
@@ -91,32 +103,44 @@ public class NavigationPane implements Subject, GUINode {
 		for(int i = 0; i < menuTitles.size(); i++) {
 			String s = menuTitles.get(i);
 			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(compIcons.get(i)))), 20, 20);
-			Button b = ButtonFactory.makeButton(s, iv, e -> np.notifyListeners(s),
-					"button-nav");
+			Button b = ButtonFactory.makeButton(s, iv, e -> np.notifyListeners(s), "button-nav");
 			navOptions.getChildren().add(b);
 		}
-		navOptions.setLayoutY(AuthRes.getInt("EnvironmentY")/10);
+		navOptions.setLayoutY(stage.getHeight()/10);
 		
 		VBox prefButtons = new VBox(AuthRes.getInt("NavPadding"));
 		for (int i = 0; i < prefTitles.size(); i++){
-			ImageView iv = new ImageView(new Image(AuthRes.getString(prefIcons.get(i))));
-			iv = ImageBuilder.resize(iv, 20);
+			ImageView iv = ImageBuilder.resize(new ImageView(new Image(AuthRes.getString(prefIcons.get(i)))), 20);
 			Button b;
-			if (i == 1){
+			if (prefTitles.get(i).equals("Save Game")){
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					lcontroller.saveGame();
+					mcontroller.saveGame();
+					String content = AuthRes.getString("SaveContent") + " " + mcontroller.getGameName() + ".xml";
+					Alert a = UserFeedback.getInfoMessage(AuthRes.getString("SaveHeader"), content, stage);
+					a.showAndWait();
+				}, "button-nav");
+			}
+			else if (prefTitles.get(i).equals("Load Game")){
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
+					FileChooser fc = new FileChooser();
+					fc.setTitle("Choose Game to Load");
+					File file = fc.showOpenDialog(null);
+					loader.loadGame(file.getPath());
 				}, "button-nav");
 			}
 			else{
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					new PlayerMain().start(stage);
+					Alert a = UserFeedback.getWarningMessage(AuthRes.getString("PlayHeader"), AuthRes.getString("PlayContent"), stage);
+					Optional<ButtonType> result = a.showAndWait();
+					if (result.get() == ButtonType.OK){
+						new PlayerMain().start(stage);
+					}
 				}, "button-nav");
-				
 			}
 			prefButtons.getChildren().add(b);
 			
 		}
-		prefButtons.setLayoutY(AuthRes.getInt("EnvironmentY")*4/5);
+		prefButtons.setLayoutY(stage.getHeight()*4/5);
 		pane.getChildren().addAll(navOptions, prefButtons);
 	}
 

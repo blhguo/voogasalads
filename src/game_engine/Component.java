@@ -1,11 +1,18 @@
 package game_engine;
 
+public abstract class Component<T> {
+	private T myValue;
 
-/**
- * The Interface Component is just a flag interface.
- * Example: http://www.w3processing.com/index.php?subMenuLoad=java/oop/InterfaceFlag.php
- */
-public interface Component {
-	String getValues();
-	String getName();
+	public Component(T val) {
+		myValue = val;
+	}
+
+	public void setValue(T val) {
+		myValue = val;
+	}
+	
+	public T getValue() {
+		return myValue;
+	}
+
 }

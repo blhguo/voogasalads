@@ -1,16 +1,10 @@
 package authoring.controllers;
 
-import java.io.File;
-
 import authoring.Canvas;
 import authoring.right_components.LevelPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import resources.keys.AuthRes;
 
 /**
  * @author jennychin
@@ -21,8 +15,7 @@ public class PaneController {
 
 	private LevelPane levelPane;
 	private Canvas canvas;
-	// more instance variables can be added as pane controller develops
-	// more responsibilities
+	private EntityController econtroller;
 	
 	public PaneController(LevelPane lp, Canvas c){
 		levelPane = lp;
@@ -33,10 +26,35 @@ public class PaneController {
 	 *
 	 * @param image Sets the background to a specified image
 	 */
-	public void setBackground(File image){
-		System.out.println(image.getPath());
-		System.out.println(image.getName());
-		Image im = new Image(image.getName());
-		canvas.updateBackground(im);
+	public void setBackground(String fname){
+		if (fname.equals(AuthRes.getString("BackgroundDefault"))){
+			canvas.setDefaultBackground();
+		}
+		else{
+			Image im = new Image(fname);
+			canvas.updateBackground(im);
+		}
 	}
+	
+//	private void setCanvasLevel(int id){
+//		canvas.setLevel(id);
+//	}
+	
+	public void updateCanvas(){
+		canvas.update(econtroller.getEntities());
+	}
+	
+	public void updateCanvas(int id){
+		canvas.setLevel(id);
+		canvas.update(econtroller.getEntities());
+	}
+	
+	public void setEntityController(EntityController ec){
+		econtroller = ec;
+	}
+	
+	public void changeScrolling(boolean hscroll, boolean vscroll){
+		canvas.changeScrolling(hscroll, vscroll);
+	}
+	
 }

@@ -1,71 +1,45 @@
 package game_engine.systems.collision;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import game_engine.Component;
-import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
-import game_engine.components.physics.XPhysicsComponent;
-import game_engine.components.physics.YPhysicsComponent;
+import game_engine.level.Level;
 
-/**
- * @author: Jeremy Chen
- * A GameSystem that provides generic behavior for entites that posses a CollidedComponent (have been collided)
- * Describes very basic collision behavior (stopping & pushing)
- * 
- */
-
-public class CollisionResponseSystem extends GameSystem{
-
-    private static final Class<? extends Component> LEFT = LeftCollidedComponent.class;
-    private static final Class<? extends Component> BOTTOM = BottomCollidedComponent.class;
-    private static final Class<? extends Component> RIGHT = RightCollidedComponent.class;
-    private static final Class<? extends Component> TOP = TopCollidedComponent.class;
-
-    private static final List<Class<? extends Component>> TARGET_COMPONENTS = Collections.unmodifiableList(
-            new ArrayList<Class<? extends Component>>() {{
-                add(LEFT);
-                add(RIGHT);
-                add(BOTTOM);
-                add(TOP);
-            }});
-
-    /**
-     * @param engine
-     * Constructor
-     */
-    public CollisionResponseSystem(Engine engine) {
-        super(engine);
-    }
-
-    /* (non-Javadoc)
-     * @see game_engine.GameSystem#act(double)
-     * Main loop: checks for matching velocity/collision direction, as to stop/push entities in appropraite cases
-     */
-    @Override
-    public void act(double elapsedTime) {
-        List<Entity> collidedEntities = getEngine().getEntitiesContainingAny(TARGET_COMPONENTS);
-        for (Entity e: collidedEntities){
-            XPhysicsComponent xp = (XPhysicsComponent) e.getComponent(XPhysicsComponent.class);
-            YPhysicsComponent yp = (YPhysicsComponent) e.getComponent(YPhysicsComponent.class);
-                        
-
-            if(xp!=null && ((e.getComponent(LEFT) != null && xp.getCurrVel() > 0) ||
-                    (e.getComponent(RIGHT) != null && xp.getCurrVel() < 0))){
-                xp.setCurrVel(0.0);
-
-            }
-            if(yp!=null && ((e.getComponent(BOTTOM) != null && yp.getCurrVel() > 0) ||
-                    (e.getComponent(TOP) != null && yp.getCurrVel() < 0))){
-                yp.setCurrVel(0.0);
-            }
-        }
-    }
+public abstract class CollisionResponseSystem extends GameSystem {
+	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
+	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
+	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
+	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
+	private static final List<Class<? extends Component<?>>> COLLIDED_ARGS = Arrays.asList(TOP, BOTTOM, RIGHT, LEFT);
+	
+	
+	protected List<Entity> getCollidedEntities(Level level){
+		return level.getEntitiesContainingAny(COLLIDED_ARGS);
+	}
+	
+	protected List<Entity> getCollidedEntities(List<Entity> entities, Level level){
+		return level.getEntitiesContainingAny(entities, COLLIDED_ARGS);
+	}
+	
+	protected List<Entity> getAllCollidedWith(Entity e){
+		List<Entity> entitiesCollidedWith = new ArrayList<Entity>();
+		
+		COLLIDED_ARGS
+	    .stream()
+	    .forEach(cc -> {
+	    	List<Entity> others = (List<Entity>) e.getComponent(cc).getValue();
+	    	if(others!=null) {
+	    		entitiesCollidedWith.addAll(others);
+	    	}
+	    });
+		return entitiesCollidedWith;
+	}
 }

@@ -29,6 +29,13 @@
     -fx-font-size: 20px;
 }
 
+.button-story {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: segoeuil;
+}
+
 .button-sublabel {
     -fx-font-family:segoeui;
     -fx-font-size: 14px;
@@ -37,6 +44,20 @@
 
 .canvas {
     -fx-border-insets: 50px;
+}
+
+.check-box {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.check-box .box {
+    -fx-background-color: rgba(128, 128, 128, 0.7);
+    -fx-border-color: rgba(0, 0, 0, 0);
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
 }
 
 .chooser-back {
@@ -71,6 +92,19 @@
     -fx-prompt-text-fill: white ;
 }
 
+.comp-back {
+    -fx-background-color: black;
+}
+
+.comp-label {
+    /*-fx-text-fill: rgb(230, 230, 230);*/
+    -fx-text-fill: lightgray;
+}
+
+.comp-label:hover {
+    -fx-effect: dropshadow(gaussian, #338099, 10, 0.5, 0, 0);
+}
+
 .game-chooser {
     -fx-font-family: segoeuil;
     -fx-font-size: 15px;
@@ -84,7 +118,7 @@
 
 .pane-title {
     -fx-font: 20px segoeuil;
-    -fx-fill: #b3b3b3;
+    -fx-fill: white;
     -fx-text-fill: white;
 }
 
@@ -102,6 +136,12 @@
     -fx-fill: rgba(255, 255, 255, 0.7);
 }
 
+.title3 {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 14px;
+    -fx-fill: white;
+}
+
 
 .titled-pane > .title {
     -fx-font-size: 14px;
@@ -117,6 +157,7 @@
 .titled-pane > *.content {
     -fx-background-color: rgba(0, 0, 0, 0);
     -fx-stroke: rgba(0,0,0,0.5);
+    -fx-border-color: rgba(0, 0, 0, 0);
 }
 
 .titled-pane > .title > .arrow-button{
@@ -139,6 +180,16 @@
     -fx-prompt-text-fill: white;
     -fx-background-color: rgba(0, 0, 0, 0.5);
 
+}
+
+.combo-box-base .text {
+    -fx-fill: white;
+}
+
+.combo-box-auth {
+    -fx-font-family:segoeui;
+    -fx-font-size: 14px;
+    -fx-min-height: 28;
 }
 
 .slider {
@@ -172,20 +223,12 @@
     -fx-background-color: rgba(0, 0, 0, 0);
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
 .scroll-bar:horizontal, .scroll-bar:vertical {
     -fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.scroll-pane {
-	-fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.scroll-pane > .corner {
-	-fx-background-color: rgba(0, 0, 0, 0);
-}
-
-.scroll-bar:horizontal, .scroll-bar:vertical {
-	-fx-background-color: rgba(0, 0, 0, 0);
 }
 
 .scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {

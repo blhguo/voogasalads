@@ -1,113 +1,103 @@
 package game_engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-import game_engine.systems.InputGarbageCollectionSystem;
-import game_engine.systems.MovementSystem;
-import game_engine.systems.collision.CollisionBroadSystem;
-import game_engine.systems.collision.CollisionResponseSystem;
-import game_engine.systems.keyboard.KeyboardJumpSystem;
-import game_engine.systems.keyboard.KeyboardMovementSystem;
-import javafx.scene.input.InputEvent;
+import game_engine.level.Level;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-/**
- * The Class Engine.
- *
- * @author benhubsch, Kevin Deng, Jeremy Chen, Andy Nguyen
- * 
- *         This class is the main logic distributor of the backend. It receives user input from the
- *         Game Player and also handles the GameSystem update looping, which happens every time our
- *         game loops in Game Player. Lastly, it exposes methods that allow the GameSystem objects
- *         easy access to the Entity objects they need to do their work.
- */
 public class Engine {
 
-	private List<Entity> myEntities = new ArrayList<>();
-	private List<GameSystem> mySystems = new ArrayList<>();
-	private LinkedList<InputEvent> myInputs = new LinkedList<>();
+	private Map<Integer, Level> myLevels;
+	private int myCurrentLevel;
+	private int myIdCounter;
+	private List<GameSystem> mySystems;
+	private List<Tuple<UUID, KeyEvent>> myKeyInputs;
+	private List<Tuple<UUID, Vector>> myMouseInputs;
 
-	/**
-	 * Instantiates a new Engine object.
-	 */
 	public Engine() {
-		mySystems.add(new MovementSystem(this));
-		mySystems.add(new KeyboardMovementSystem(this));
-		mySystems.add(new KeyboardJumpSystem(this));
-		mySystems.add(new InputGarbageCollectionSystem(this));
-		mySystems.add(new CollisionBroadSystem(this));
-		mySystems.add(new CollisionResponseSystem(this));
+		myLevels = new HashMap<Integer, Level>();
+		myCurrentLevel = 0;
+		myIdCounter = 0;
+		myKeyInputs = new LinkedList<>();
+		myMouseInputs = new LinkedList<>();
+		mySystems = new SystemInitializer().init(this);
+		System.out.println(mySystems.size());
 	}
 
-	/**
-	 * Allows each of the GameSystems to update the entities that contain the Components that the
-	 * GameSystem is looking for.
-	 *
-	 * @param elapsedTime the elapsed time
-	 */
 	public void update(double elapsedTime) {
+		Level currentLevel = getLevel();
 		for (GameSystem system : mySystems) {
-			system.act(elapsedTime);
+			system.act(elapsedTime, currentLevel);
 		}
+
+		currentLevel.checkEvents();
+
+		clearInput();
 	}
 
-	/**
-	 * Gets the List<Entity> object containing all Entities with only these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContaining(List<Class<? extends Component>> args) {
-		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
+	private void clearInput() {
+		myKeyInputs.clear();
+		myMouseInputs.clear();
 	}
 
-	/**
-	 * Gets the List<Entity> object containing all Entities with these Components.
-	 *
-	 * @param args the args
-	 * @return List<Entity>
-	 */
-	public List<Entity> getEntitiesContainingAny(List<Class<? extends Component>> args) {
-		return myEntities.stream().filter(e -> e.hasAny(args)).collect(Collectors.toList());
+	public Level createLevel() {
+		Level createdLevel = new Level(myIdCounter);
+		myLevels.put(myIdCounter, createdLevel);
+		myIdCounter++;
+		return createdLevel;
 	}
 
-	/**
-	 * Receives input from Game Player.
-	 *
-	 * @param input the input
-	 */
-	public void receiveInput(InputEvent input) {
-		myInputs.addFirst(input);
+	public void removeLevel(int id) {
+		myLevels.remove(id);
 	}
 
-	/**
-	 * Gets the List<InputEvent> object, which some of the Systems use to act on their Entity objects.
-	 *
-	 * @return List<InputEvent>
-	 */
-	public List<InputEvent> getInput() {
-		return myInputs;
+	public Level getLevel() {
+		return myLevels.get(myCurrentLevel);
 	}
 
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param e the e
-	 */
-	public void addEntity(Entity e) {
-		myEntities.add(e);
+	public Level getLevel(int levelId) {
+		return myLevels.get(levelId);
 	}
 
-	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
-	 *
-	 * @param entities the entities
-	 */
-	public void addEntities(List<Entity> entities) {
-		for (Entity e : entities) {
-			myEntities.add(e);
+	public void setLevel(int dex) {
+		myCurrentLevel = dex;
+	}
+
+	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
+		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
+		List<Component<?>> previewComponents;
+		for (Integer key : myLevels.keySet()) {
+			previewComponents = new ArrayList<Component<?>>();
+			Level lvl = myLevels.get(key);
+			for (Class<? extends Component<?>> c : args) {
+				previewComponents.add(lvl.getComponent(c));
+			}
+			preview.put(key, previewComponents);
 		}
+		return preview;
+	}
+
+	public List<Tuple<UUID, KeyEvent>> getKeyInputs(KeyCode keyInput) {
+		return myKeyInputs.stream().filter(keyTuple -> keyInput.equals(keyTuple.getSecond().getCode()))
+				.collect(Collectors.toList());
+	}
+
+	public List<Tuple<UUID, Vector>> getMouseInputs() {
+		return myMouseInputs;
+	}
+
+	public void receiveKeyInput(Tuple<UUID, KeyEvent> event) {
+		myKeyInputs.add(event);
+	}
+
+	public void receiveMouseInput(Tuple<UUID, Vector> click) {
+		myMouseInputs.add(click);
 	}
 }

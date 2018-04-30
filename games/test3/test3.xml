@@ -1,0 +1,120 @@
+<?xml version="1.0"?><higher><data><game__engine.Engine>
+  <myLevels>
+    <entry>
+      <int>0</int>
+      <game__engine.level.Level>
+        <myComponents>
+          <entry>
+            <java-class>game_engine.level.LevelVScrollComponent</java-class>
+            <game__engine.level.LevelVScrollComponent>
+              <myValue class="boolean">true</myValue>
+            </game__engine.level.LevelVScrollComponent>
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelNameComponent</java-class>
+            <game__engine.level.LevelNameComponent>
+              <myValue class="string">Level 1</myValue>
+            </game__engine.level.LevelNameComponent>
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelHScrollComponent</java-class>
+            <game__engine.level.LevelHScrollComponent>
+              <myValue class="boolean">true</myValue>
+            </game__engine.level.LevelHScrollComponent>
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelBackgroundComponent</java-class>
+            <game__engine.level.LevelBackgroundComponent>
+              <myValue class="string">clouds.png</myValue>
+            </game__engine.level.LevelBackgroundComponent>
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelThumbComponent</java-class>
+            <game__engine.level.LevelThumbComponent>
+              <myValue class="string">default</myValue>
+            </game__engine.level.LevelThumbComponent>
+          </entry>
+        </myComponents>
+        <myEntities/>
+        <myEvents/>
+        <myId>0</myId>
+      </game__engine.level.Level>
+    </entry>
+  </myLevels>
+  <myCurrentLevel>0</myCurrentLevel>
+  <myIdCounter>1</myIdCounter>
+  <mySystems>
+    <game__engine.systems.position.HorizontalPositionSystem>
+      <myPosition>game_engine.components.position.XPosComponent</myPosition>
+      <myVelocity>game_engine.components.physics.XVelComponent</myVelocity>
+    </game__engine.systems.position.HorizontalPositionSystem>
+    <game__engine.systems.keyboard.LeftKeyboardMovementSystem>
+      <myEngine reference="../../.."/>
+      <myKeyboardMoveInput>game_engine.components.keyboard.LeftKeyboardComponent</myKeyboardMoveInput>
+      <myDefaultVel>game_engine.components.physics.DefaultXVelComponent</myDefaultVel>
+      <myVel>game_engine.components.physics.XVelComponent</myVel>
+      <myPrime>game_engine.components.PrimeComponent</myPrime>
+      <myDirection>-1</myDirection>
+    </game__engine.systems.keyboard.LeftKeyboardMovementSystem>
+    <game__engine.systems.DespawnSystem/>
+    <game__engine.systems.ProjectileSpawnSystem>
+      <myEngine reference="../../.."/>
+    </game__engine.systems.ProjectileSpawnSystem>
+    <game__engine.systems.position.VerticalPositionSystem>
+      <myPosition>game_engine.components.position.YPosComponent</myPosition>
+      <myVelocity>game_engine.components.physics.YVelComponent</myVelocity>
+    </game__engine.systems.position.VerticalPositionSystem>
+    <game__engine.systems.CollectibleSystem/>
+    <game__engine.systems.velocity.VerticalVelocitySystem>
+      <myVelocity>game_engine.components.physics.YVelComponent</myVelocity>
+      <myAcceleration>game_engine.components.physics.YAccelComponent</myAcceleration>
+    </game__engine.systems.velocity.VerticalVelocitySystem>
+    <game__engine.systems.keyboard.RightKeyboardMovementSystem>
+      <myEngine reference="../../.."/>
+      <myKeyboardMoveInput>game_engine.components.keyboard.RightKeyboardComponent</myKeyboardMoveInput>
+      <myDefaultVel>game_engine.components.physics.DefaultXVelComponent</myDefaultVel>
+      <myVel>game_engine.components.physics.XVelComponent</myVel>
+      <myPrime>game_engine.components.PrimeComponent</myPrime>
+      <myDirection>1</myDirection>
+    </game__engine.systems.keyboard.RightKeyboardMovementSystem>
+    <game__engine.systems.velocity.HorizontalVelocitySystem>
+      <myVelocity>game_engine.components.physics.XVelComponent</myVelocity>
+      <myAcceleration>game_engine.components.physics.XAccelComponent</myAcceleration>
+    </game__engine.systems.velocity.HorizontalVelocitySystem>
+    <game__engine.systems.ProjectileDespawnSystem/>
+    <game__engine.systems.collision.CollisionBroadSystem/>
+    <game__engine.systems.enemy.VerticalEnemyMovementSystem>
+      <myDefaultTime>game_engine.components.enemy.DefaultVerticalPaceTimeComponent</myDefaultTime>
+      <myCurrTime>game_engine.components.enemy.VerticalPaceTimeComponent</myCurrTime>
+      <myCurrVel>game_engine.components.physics.YVelComponent</myCurrVel>
+    </game__engine.systems.enemy.VerticalEnemyMovementSystem>
+    <game__engine.systems.keyboard.UpKeyboardMovementSystem>
+      <myEngine reference="../../.."/>
+      <myKeyboardMoveInput>game_engine.components.keyboard.UpKeyboardComponent</myKeyboardMoveInput>
+      <myDefaultVel>game_engine.components.physics.DefaultYVelComponent</myDefaultVel>
+      <myVel>game_engine.components.physics.YVelComponent</myVel>
+      <myPrime>game_engine.components.PrimeComponent</myPrime>
+      <myDirection>-1</myDirection>
+    </game__engine.systems.keyboard.UpKeyboardMovementSystem>
+    <game__engine.systems.enemy.HorizontalEnemyMovementSystem>
+      <myDefaultTime>game_engine.components.enemy.DefaultHorizontalPaceTimeComponent</myDefaultTime>
+      <myCurrTime>game_engine.components.enemy.HorizontalPaceTimeComponent</myCurrTime>
+      <myCurrVel>game_engine.components.physics.XVelComponent</myCurrVel>
+    </game__engine.systems.enemy.HorizontalEnemyMovementSystem>
+    <game__engine.systems.HealthSystem/>
+    <game__engine.systems.collision.ImpassableResponseSystem/>
+    <game__engine.systems.JumpResetSystem/>
+    <game__engine.systems.TimerSystem/>
+    <game__engine.systems.SpriteSystem/>
+    <game__engine.systems.keyboard.DownKeyboardMovementSystem>
+      <myEngine reference="../../.."/>
+      <myKeyboardMoveInput>game_engine.components.keyboard.DownKeyboardComponent</myKeyboardMoveInput>
+      <myDefaultVel>game_engine.components.physics.DefaultYVelComponent</myDefaultVel>
+      <myVel>game_engine.components.physics.YVelComponent</myVel>
+      <myPrime>game_engine.components.PrimeComponent</myPrime>
+      <myDirection>1</myDirection>
+    </game__engine.systems.keyboard.DownKeyboardMovementSystem>
+  </mySystems>
+  <myKeyInputs class="linked-list"/>
+  <myMouseInputs class="linked-list"/>
+</game__engine.Engine></data></higher>
