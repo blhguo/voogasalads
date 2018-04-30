@@ -282,7 +282,7 @@ public class AddActionPane implements GUINode {
 		numExpressions = 1;
 		VBox box = new VBox();
 		for (int i = 0; i < numExpressions; i++){
-			NumberMenuElement element = new NumberMenuElement("Value: ", new NullComponent(""));
+			NumberMenuElement element = new NumberMenuElement("Value: ", new NullComponent("4"));
 			numberElements.add(element);
 			box.getChildren().add(element.getView());
 		}

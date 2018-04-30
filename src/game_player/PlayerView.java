@@ -43,11 +43,7 @@ public class PlayerView {
 	private Timeline animation;
 	private PulldownFactory pullDownFactory;
 	private Engine myEngine;
-<<<<<<< HEAD
 	private Map<Entity, Map<String, ImageView>> spriteMap;
-=======
-	private Map<String, ImageView> spriteMap;
->>>>>>> 75b38619c7b070687ab53b35519ef751d7cbcaa1
 	private Group root;
 	private ViewManager viewManager;
 	private SubScene subScene;
