@@ -1,10 +1,11 @@
 package authoring.component_menus;
 
-import game_engine.Component;
 import game_engine.ComponentFactory;
+import game_engine.event.conditions.DataConditionable;
 
-import java.awt.*;
 import java.util.ResourceBundle;
+
+import static test.Tester.reflections;
 
 /**
  * @author liampulsifer
@@ -14,6 +15,7 @@ public class MenuElementFactory {
 	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
 	private String[] entry;
 	private ComponentFactory factory;
+	private ResourceBundle bundle = ResourceBundle.getBundle("Component");
 	public MenuElementFactory(){
 
 	}
@@ -28,7 +30,6 @@ public class MenuElementFactory {
 		factory = new ComponentFactory();
 		MenuElement ret;
 		String className = entry[0];
-		entry[0] = userNames.getString(entry[0]);
 		if(entry[1].equals("d")){
 			ret = handleDouble(className);
 		}
@@ -45,26 +46,34 @@ public class MenuElementFactory {
 			ret = handleString(className);
 		}
 		ret.setMyMenu(menu);
+//		try {
+//			ret.setDateable(reflections.getTypesAnnotatedWith(DataConditionable.class).
+//					contains(Class.forName(bundle.getString(className))));
+//			System.out.println(className + " : " + ret.isDateable());
+//		} catch (Exception e){
+//			System.out.println("Sorry, class machine broke");
+//		}
+		ret.setDateable(Boolean.parseBoolean(ResourceBundle.getBundle("Editable").getString(className)));
 		return ret;
 	}
 
 	private MenuElement handleFile(String className) {
-		return new FileMenuElement(entry[0], factory.createComponent(className, entry[2]));
+		return new FileMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 
 	private KeyMenuElement handleKey(String className) {
-		return new KeyMenuElement(entry[0], factory.createComponent(className, entry[2]));
+		return new KeyMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 
 	private StringMenuElement handleString(String className) {
-		return new StringMenuElement(entry[0], factory.createComponent(className, entry[2].toString()));
+		return new StringMenuElement(className, factory.createComponent(className, entry[2].toString()));
 	}
 
 	private BooleanMenuElement handleBoolean(String className) {
-		return new BooleanMenuElement(entry[0], factory.createComponent(className, entry[2]));
+		return new BooleanMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 
 	private NumberMenuElement handleDouble(String className) {
-		return new NumberMenuElement(entry[0], factory.createComponent(className, entry[2]));
+		return new NumberMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 }

@@ -26,7 +26,7 @@ public class NumberMenuElement extends MenuElement{
 			}
 		}
 
-		if (Boolean.valueOf(component.getValue().toString())) {
+		if (component.getValue() == null) {
 			field.setText("IMMUTABLE");
 			field.setEditable(false);
 		}

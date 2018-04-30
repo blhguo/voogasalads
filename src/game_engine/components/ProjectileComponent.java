@@ -5,7 +5,7 @@ import game_engine.Component;
 public class ProjectileComponent extends Component<Boolean>{
 
 	public ProjectileComponent(String arg) {
-		super(true);
+		super(null);
 	}
 
 }
