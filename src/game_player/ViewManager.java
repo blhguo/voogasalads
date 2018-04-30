@@ -24,7 +24,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 /**
@@ -45,7 +45,6 @@ public class ViewManager extends GUIBuilder{
 	private Paint backColor = Color.TRANSPARENT;
 	private Pane view;
 	private Scene gameScene;
-	private PulldownFactory pullDownFactory;
 	private ImageView gameImageView;
 	private Image gameBackground;
 	private BackgroundImage game;
@@ -63,13 +62,16 @@ public class ViewManager extends GUIBuilder{
 	 * @param stage: The active stage hosting the game.
 	 * @param pdf: The active pull down factory.
 	 */ 
-	public ViewManager(Menu menu, Stage stage, PulldownFactory pdf) {
-		this.menu = menu;
-		this.pullDownFactory = pdf;
-		pullDownFactory.setViewManager(this);
-		this.gameStage = stage;
+	public ViewManager() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
+		menu = storage.getMenu();
+		gameStage = storage.getStage();
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
+		gameStage.setFullScreen(true);
 		gameStage.show();
 		changeBrightness();
 		changeVolume();
@@ -118,12 +120,6 @@ public class ViewManager extends GUIBuilder{
 
 		order.getChildren().add(subScene);
 		subRoot.getChildren().add(view);
-		
-		dimmer = new Rectangle(0,0,5000,5000);
-		dimmer.setFill(dimmerColor);
-		dimmer.setManaged(false);
-		dimmer.setOpacity(0.0);
-		order.getChildren().add(dimmer);
 		menu.addMenu(order);
 		
 		Media soundFile = new Media(getClass().getResource("song.mp3").toExternalForm());
@@ -190,10 +186,10 @@ public class ViewManager extends GUIBuilder{
 		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
 		gameStage.show();
 	}
-    
-    /**
-     * Return the root node of the view manager.
-     */ 
+
+	/**
+	 * Return the root node of the view manager.
+	 */ 
 	public Pane getNode() {
 		return view;
 	}
