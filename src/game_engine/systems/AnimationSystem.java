@@ -25,16 +25,16 @@ public class AnimationSystem extends GameSystem {
 	
 	@Override
 	public void act(double elapsedTime, Level level) {
-		List<Class<? extends Component<?>>> args = Arrays.asList(DISPLAYED, RUN, STAND, X_VEL, Y_VEL);
+		List<Class<? extends Component<?>>> args = Arrays.asList(DISPLAYED, RUN, JUMP, STAND, X_VEL, Y_VEL);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<String> displayed = entity.getComponent(DISPLAYED);
 			Component<String> run = entity.getComponent(RUN);
+			Component<String> jump = entity.getComponent(JUMP);
 			Component<String> stand = entity.getComponent(STAND);
 			Component<Double> xVel = entity.getComponent(X_VEL);
 			Component<Double> yVel = entity.getComponent(Y_VEL);
 			
-			if (entity.hasAll(Arrays.asList(JUMP)) && yVel.getValue().intValue() > 0) {
-				Component<String> jump = entity.getComponent(JUMP);
+			if (yVel.getValue().intValue() > 0) {
 				displayed.setValue(jump.getValue());
 				break;
 			}

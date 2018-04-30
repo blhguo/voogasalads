@@ -1,6 +1,5 @@
 package game_engine.test;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -206,7 +205,7 @@ public class saveDataTest extends Application {
 
 	public Engine loadFromData() {
 		ManipData data = new ManipData();
-		return data.loadData(new File("savedata/gameLevels.xml"), "gameName");
+		return data.loadData("savedata/gameLevels.xml", "gameName");
 	}
 
 	public static void main(String[] args) {

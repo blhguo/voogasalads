@@ -1,21 +1,9 @@
 package game_player;
 
-import java.util.ArrayList;
-
-import authoring.loadingviews.PlayerLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  * 
@@ -28,29 +16,28 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
 	private ButtonMaker buttonMaker;
-	private Button gameSelectionButton;
-	private Button pausePlayButton;
-	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
-	private KeyPrefMenu kpm;
+	private PlayerView playerView;
 	
-	public Menu(DataManager data, PulldownFactory pdf) {
+	public Menu() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
 		pane = new HBox(35);
 		pane.setAlignment(Pos.TOP_CENTER);
-		dataManager = data;
-		pullDownFactory = pdf;
+		dataManager = storage.getDataManager();
+		playerView = storage.getPlayerView();
+		pullDownFactory = storage.getPullDownFactory();
 		makeButtons();
-		settings = new SettingsMenu();
+		settings = new SettingsMenu(storage.getStage());
 		settings.makeSettingsMenu(pane);
 		settings.makeSettingsStage();
 		gameMenu = new GameSelectionMenu();
-		gameMenu.makeGameSelectionMenu(pane);
-		kpm = new KeyPrefMenu(dataManager,pane);
-		getPullDown();
-		
-
+		gameMenu.makeGameSelectionMenu(pane,pullDownFactory);
+		new KeyPrefMenu(dataManager,pane);
 	}
 	/**
 	 * Method to add the menu into the VBox for the View Manager
@@ -61,23 +48,14 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
-	public void getPullDown(){
-		pane.getChildren().add(pullDownFactory.SaveLoadBox());
-	}
-	
     /**
 	 * Method to add ComboBoxes from PulldownFactory to Menu
 	 * 
 	 */
 
-	
 	private void makeButtons() {
 		buttonMaker = new ButtonMaker();
-//		pane.getChildren().add(buttonMaker.pausePlayButton());
-//		pane.getChildren().add(buttonMaker.replayButton());
-//		pane.getChildren().add(buttonMaker.saveButton());
-//		pane.getChildren().add(buttonMaker.slowControlButton());
-//		pane.getChildren().add(buttonMaker.speedControlButton());
+		buttonMaker.setPlayerView(playerView);
 		for (int i = 0; i < buttonMaker.makeMenuButton().size(); i++) {
 			pane.getChildren().add(buttonMaker.makeMenuButton().get(i));
 		}
@@ -97,17 +75,6 @@ public class Menu {
 	 */
 	public Slider getVolumeSlider() {
 		return settings.getVolumeSlider();
-	}
-
-	/**
-	 * method to show new Stage when gameSelectionButton is pressed
-	 * 
-	 */
-	public void showGameSelectionMenu() {
-		//TODO Make this choose game to play, not edit
-		gameSelectionStage = new Stage();
-		gameSelectionStage.getScene().setRoot(new PlayerLoader(gameSelectionStage).display());
-		gameSelectionStage.show();
 	}
 
 }
