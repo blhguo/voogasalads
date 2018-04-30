@@ -50,6 +50,10 @@ public class LevelController {
 		return engine;
 	}
 	
+	public void setEngine(Engine e){
+		engine = e;
+	}
+	
 	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
 		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));

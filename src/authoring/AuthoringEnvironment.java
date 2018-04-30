@@ -3,6 +3,7 @@ package authoring;
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
+import authoring.controllers.Loader;
 import authoring.controllers.MetaController;
 import authoring.controllers.PaneController;
 import authoring.right_components.BasePane;
@@ -72,6 +73,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		PaneController pcontroller = new PaneController(level, canvas);
 		LevelController lcontroller = new LevelController(pcontroller);
 		MetaController mcontroller = new MetaController(lcontroller);
+		Loader loader = new Loader(lcontroller, canvas);
 		
 		canvas.setController(controller);
 		event.setController(controller);
@@ -86,7 +88,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		pcontroller.setEntityController(controller);
 		np.addListener(this);
 		np.addMetaController(mcontroller);
-
+		np.setLoader(loader);
 	}
 
 	/**

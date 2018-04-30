@@ -1,10 +1,12 @@
 package authoring;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
 import authoring.GUI_Heirarchy.GUINode;
+import authoring.controllers.Loader;
 import authoring.controllers.MetaController;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
@@ -18,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import observables.Listener;
 import observables.Subject;
@@ -37,11 +40,12 @@ public class NavigationPane implements Subject, GUINode {
 
 	private ArrayList<String> menuTitles = new ArrayList<String>(Arrays.asList("Entity Creator", "Events", "Level Preferences", "Storyboard"));
 	private ArrayList<String> compIcons = new ArrayList<String>(Arrays.asList("entity", "event", "level", "story"));
-	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game"));
-	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save"));
+	private ArrayList<String> prefTitles = new ArrayList<String>(Arrays.asList("Play Game", "Save Game", "Load Game"));
+	private ArrayList<String> prefIcons = new ArrayList<String>(Arrays.asList("play", "save", "load"));
 	private MetaController mcontroller;
 	private Pane pane;
 	private Stage stage;
+	private Loader loader;
 	
 	/**
 	 * Constructor. Takes in a stage so that the play button can launch Player Main 
@@ -54,6 +58,10 @@ public class NavigationPane implements Subject, GUINode {
 		pane.getStyleClass().add("pane-back");
 		pane.setPadding(new Insets(AuthRes.getInt("Padding")));
 		initializeButtons();
+	}
+	
+	public void setLoader(Loader l){
+		loader = l;
 	}
 	
 	/**
@@ -107,10 +115,17 @@ public class NavigationPane implements Subject, GUINode {
 			if (prefTitles.get(i).equals("Save Game")){
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
 					mcontroller.saveGame();
-					// need to get filename from data?
 					String content = AuthRes.getString("SaveContent") + " " + mcontroller.getGameName() + ".xml";
 					Alert a = UserFeedback.getInfoMessage(AuthRes.getString("SaveHeader"), content, stage);
 					a.showAndWait();
+				}, "button-nav");
+			}
+			else if (prefTitles.get(i).equals("Load Game")){
+				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
+					FileChooser fc = new FileChooser();
+					fc.setTitle("Choose Game to Load");
+					File file = fc.showOpenDialog(null);
+					loader.loadGame(file.getName());
 				}, "button-nav");
 			}
 			else{
