@@ -1,9 +1,11 @@
 package game_player;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -16,9 +18,6 @@ public class Menu {
 	private HBox pane;
 	private PulldownFactory pullDownFactory;
 	private ButtonMaker buttonMaker;
-	private Button gameSelectionButton;
-	private Button pausePlayButton;
-	private Stage gameSelectionStage;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
@@ -51,10 +50,6 @@ public class Menu {
 		root.getChildren().add(pane);
 	}
 	
-	public void getPullDown(){
-		pane.getChildren().add(pullDownFactory.SaveLoadBox());
-	}
-	
     /**
 	 * Method to add ComboBoxes from PulldownFactory to Menu
 	 * 
@@ -67,7 +62,6 @@ public class Menu {
 		for (int i = 0; i < buttonMaker.makeMenuButton().size(); i++) {
 			pane.getChildren().add(buttonMaker.makeMenuButton().get(i));
 		}
-
 	}
 	
 	/**

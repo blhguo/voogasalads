@@ -51,9 +51,11 @@ public class ViewManager extends GUIBuilder{
 	private SubScene subScene;
 	private Group subRoot;
 	private Pane mainHBox;
-	private Rectangle dimmer;
-	private Paint dimmerColor = Color.BLACK;
 	private MediaPlayer sound;
+	private Text coins;
+	private Text time;
+	private int coinCount=3;
+	private int timeCount=60;
 	
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -113,7 +115,8 @@ public class ViewManager extends GUIBuilder{
 		view.setPrefSize(1000, 730);
 		subRoot = new Group();
 		subScene = new SubScene(subRoot, SUBSCENE_WIDTH, SUBSCENE_HEIGHT, false, null);
-
+		coins = createText(coins,5,15,"coins collected: "+coinCount, 16);
+		time = createText(time, 150, 15, "time: "+timeCount,16);
 		game = new BackgroundImage(gameBackground, BackgroundRepeat.REPEAT, 
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(game));
@@ -126,8 +129,10 @@ public class ViewManager extends GUIBuilder{
 		sound = new MediaPlayer(soundFile);
 		sound.play();
 		sound.setVolume(0);
-		sound.setCycleCount(sound.INDEFINITE);
+		sound.setCycleCount(MediaPlayer.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
+		subRoot.getChildren().add(coins);
+		subRoot.getChildren().add(time);
 		return center;
 	}
 	
@@ -162,7 +167,7 @@ public class ViewManager extends GUIBuilder{
 	public void changeBrightness() {
 		this.menu.getBrightnessSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				dimmer.opacityProperty().set(1-(double)new_val);
+				gameStage.opacityProperty().set((double)new_val);
 			}
 		});
 	}
@@ -197,5 +202,15 @@ public class ViewManager extends GUIBuilder{
 	@Override
 	public Pane display() {
 		return mainHBox;
+	}
+	
+	private Text createText(Text txt, int x, int y, String message, int fontSize) {
+		txt = new Text();
+		txt.setX(x);
+		txt.setY(y);
+		txt.setFill(Color.WHITE);
+		txt.setText(message);
+		txt.setFont(Font.font("Segouei", fontSize));
+		return txt;
 	}
 }

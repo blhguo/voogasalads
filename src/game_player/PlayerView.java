@@ -9,6 +9,7 @@ import java.util.UUID;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
+import game_engine.Tuple;
 import game_engine.Vector;
 import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
@@ -20,7 +21,6 @@ import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
 import game_engine.level.Level;
-import groovy.lang.Tuple;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -243,7 +243,7 @@ public class PlayerView {
 		if (index==1) {
 			animation.play();
 		}
-		if (selectedAction.equals("Slow Down")) {
+		if (index==2) {
 			animation.setRate(animation.getRate() * HALF_RATE);
 		}
 		if (index==3) {
@@ -252,8 +252,8 @@ public class PlayerView {
 		if(index==5) {
 			pullDownFactory.handleSave();
 		}
-		if (statusAction.equals("Play Game")) {
-			animation.play();
+		if(index==6) {
+			pullDownFactory.aboutGame();
 		}
 	}
 

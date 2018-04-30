@@ -2,7 +2,9 @@ package game_player;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import game_player_interfaces.ImportData;
 import gameData.ManipData;
@@ -31,7 +33,6 @@ public class PulldownFactory implements ImportData {
 	private VBox aboutGameBox;
 	private Scene aboutGameScene;
 	private Stage aboutGameStage;
-	private File file;
 	private String dataFilePathString;
 	private Stage gameStage;
 	/**
@@ -64,14 +65,10 @@ public class PulldownFactory implements ImportData {
 
 	@Override
 	public void importGame() {
-		ManipData turd = new ManipData();
-		
-		
-		
-		
+		ManipData manipData = new ManipData();
 		File file = getFile();
 		viewManager.changeBackground();
-		gameEngine = turd.loadData(file.getAbsolutePath(),"ExampleGame");
+		gameEngine = manipData.loadData(file.getAbsolutePath());
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
@@ -117,7 +114,7 @@ public class PulldownFactory implements ImportData {
 		Stage fileChooserStage = new Stage();
 		fileChooserStage.setTitle("Choose Game");
 		fileChooserStage.initOwner(gameStage);
-		file = fileChooser.showOpenDialog(fileChooserStage);
+		File file = fileChooser.showOpenDialog(fileChooserStage);
 		return file;
 	}
 
