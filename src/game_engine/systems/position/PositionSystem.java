@@ -30,7 +30,7 @@ public abstract class PositionSystem implements GameSystem {
 	/**
 	 * Given the elapsed time within the current iteration of the game loop, this method gets all entities that contain the 
 	 * necessary components and updates each of their Position component's attributes to reflect movement described in the
-	 * velocities of their respective XPhysics and YPhysics components.
+	 * velocities of their respective position and velocity components.
 	 */
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(myPosition, myVelocity);
