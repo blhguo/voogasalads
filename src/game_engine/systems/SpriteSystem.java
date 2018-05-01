@@ -12,12 +12,16 @@ import game_engine.level.Level;
 
 /**
  * @author Jeremy Chen
- *
+ * The purpose of this class is to change the polarity (direction that the sprite is facing) of a given entity
+ * depending on the sign of its x-velocity.
  */
 public class SpriteSystem implements GameSystem {
 	private static final Class<? extends Component<Integer>> POLARITY = SpritePolarityComponent.class;
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 
+	/**
+	 * sets the polarity of a given entity based off of its x-velocity
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(POLARITY, X_VEL);

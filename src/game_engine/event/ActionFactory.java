@@ -18,11 +18,22 @@ import game_engine.event.actions.micro.RemoveComponentAction;
 /**
  * @author Jeremy Chen, Kevin Deng, Andy Nguyen, Ben Hubsch
  * @param <T>
- *
+ * The purpose of this class is to provide the Authoring environment a way to create actions.
  */
 
 public class ActionFactory<T> {
 	
+	/**
+	 * This method takes in the name of the action Authoring is interested in creation, as well as a general set of
+	 * values needed to make all Actions. This method then returns the specified action using these other parameters.
+	 * @param name
+	 * @param entities
+	 * @param components
+	 * @param expressions
+	 * @param values
+	 * @param engine
+	 * @return
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Action createAction(String name, List<Entity> entities, List<Component<T>> components,
 			List<String> expressions, List<T> values, Engine engine) {
