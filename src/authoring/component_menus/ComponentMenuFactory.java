@@ -4,7 +4,6 @@ package authoring.component_menus;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -44,7 +43,6 @@ public class ComponentMenuFactory {
 		ComponentMenu newMenu = new ComponentMenu(title);
 		for (String attr : attributes) {
 			String[] attrSplit = attr.split(ATTRIBUTE_DELIM);
-			System.out.println("here: " + Arrays.toString(attrSplit));
 			newMenu.addMenuElement(factory.getElement(attrSplit, newMenu));
 		}
 		return newMenu;

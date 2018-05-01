@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 public class EntityWrapper {
 	public Entity getEntity() {
+		System.out.println("ENTITY: " + entity);
 		return entity;
 	}
 

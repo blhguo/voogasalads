@@ -35,16 +35,13 @@ public class AnimationSystem implements GameSystem {
 			Component<Double> yVel = entity.getComponent(Y_VEL);
 			
 			if (yVel.getValue().intValue() > 0) {
-				System.out.println("jumping");
 				displayed.setValue(jump.getValue());
 				break;
 			}
 			
 			if (Math.abs(xVel.getValue().intValue()) > 0) {
-				System.out.println("running");
 				displayed.setValue(run.getValue());
 			} else {
-				System.out.println("standing");
 				displayed.setValue(stand.getValue());
 			}
 		}
