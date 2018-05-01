@@ -9,9 +9,9 @@ import game_engine.GameSystem;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YVelComponent;
 import game_engine.components.sprite.FilenameComponent;
-import game_engine.components.sprite.JumpFilenameComponent;
-import game_engine.components.sprite.RunFilenameComponent;
-import game_engine.components.sprite.StandFilenameComponent;
+import game_engine.components.sprite.animation.JumpFilenameComponent;
+import game_engine.components.sprite.animation.RunFilenameComponent;
+import game_engine.components.sprite.animation.StandFilenameComponent;
 import game_engine.level.Level;
 
 public class AnimationSystem implements GameSystem {
@@ -35,13 +35,16 @@ public class AnimationSystem implements GameSystem {
 			Component<Double> yVel = entity.getComponent(Y_VEL);
 			
 			if (yVel.getValue().intValue() > 0) {
+				System.out.println("jumping");
 				displayed.setValue(jump.getValue());
 				break;
 			}
 			
 			if (Math.abs(xVel.getValue().intValue()) > 0) {
+				System.out.println("running");
 				displayed.setValue(run.getValue());
 			} else {
+				System.out.println("standing");
 				displayed.setValue(stand.getValue());
 			}
 		}

@@ -1,4 +1,4 @@
-package game_engine.components.sprite;
+package game_engine.components.sprite.animation;
 
 import game_engine.Component;
 

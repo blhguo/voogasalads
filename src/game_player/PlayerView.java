@@ -168,10 +168,10 @@ public class PlayerView {
 	}
 
 	private int compareZ(Entity a, Entity b) {
-		Component<Integer> zCompA = a.getComponent(ZHeightComponent.class);
-		Component<Integer> zCompB = b.getComponent(ZHeightComponent.class);
-		Integer zHeightA = (zCompA == null) ? 0 : zCompA.getValue();
-		Integer zHeightB = (zCompB == null) ? 0 : zCompB.getValue();
+		Component<Double> zCompA = a.getComponent(ZHeightComponent.class);
+		Component<Double> zCompB = b.getComponent(ZHeightComponent.class);
+		Double zHeightA = (zCompA == null) ? 0.0 : zCompA.getValue();
+		Double zHeightB = (zCompB == null) ? 0.0 : zCompB.getValue();
 		return zHeightA.compareTo(zHeightB);
 	}
 
