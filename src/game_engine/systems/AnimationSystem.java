@@ -14,8 +14,14 @@ import game_engine.components.sprite.animation.RunFilenameComponent;
 import game_engine.components.sprite.animation.StandFilenameComponent;
 import game_engine.level.Level;
 
+/**
+ * 
+ * @author Ben Hubsch
+ * The purpose of this system is to change the images of entities based on whether or not an entity is
+ * running, jumping, or standing still. This provides animation to the game.
+ *
+ */
 public class AnimationSystem implements GameSystem {
-	
 	private static final Class<? extends Component<String>> DISPLAYED = FilenameComponent.class;
 	private static final Class<? extends Component<String>> RUN = RunFilenameComponent.class;
 	private static final Class<? extends Component<String>> JUMP = JumpFilenameComponent.class;
@@ -23,6 +29,10 @@ public class AnimationSystem implements GameSystem {
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
 	
+	/**
+	 * Changes the images of entities by using their x and y velocities to determine whether
+	 * the given entity should display the running, jumping, or standing image.
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(DISPLAYED, RUN, JUMP, STAND, X_VEL, Y_VEL);

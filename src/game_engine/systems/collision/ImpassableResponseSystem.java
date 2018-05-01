@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import game_engine.Component;
 import game_engine.Entity;
+import game_engine.components.collision.CollidedComponent;
 import game_engine.components.collision.PassableComponent;
+import game_engine.components.collision.PushableComponent;
 import game_engine.components.collision.edge_collided.BottomCollidedComponent;
 import game_engine.components.collision.edge_collided.LeftCollidedComponent;
 import game_engine.components.collision.edge_collided.RightCollidedComponent;
@@ -16,13 +18,12 @@ import game_engine.components.physics.YVelComponent;
 import game_engine.level.Level;
 
 /**
- * @author: Jeremy Chen A GameSystem that provides generic behavior for entities that possess a
+ * @author: Jeremy Chen A GameSystem that provides generic behavior for entities that posses a
  *          CollidedComponent (have been collided) Describes very basic collision behavior (stopping
  *          & pushing)
  * 
  */
 public class ImpassableResponseSystem extends CollisionResponseSystem {
-	
 	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
@@ -42,6 +43,7 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 				.stream()
 				.filter(e -> !(e.getComponent(PASSABLE).getValue()))
 				.collect(Collectors.toList());
+		
 		for (Entity e : impassibleEntities) {
 			XVelComponent xv = (XVelComponent) (e.getComponent(XVelComponent.class));
 			YVelComponent yv = (YVelComponent) (e.getComponent(YVelComponent.class));
@@ -51,9 +53,11 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 				xv.setValue(0.0);
 			}
 			if (yv != null && ((e.getComponent(BOTTOM) != null && yv.getValue() > 0)
-					|| (e.getComponent(TOP) != null && yv.getValue() < 0))) {
+					|| (e.getComponent(TOP) != null && yv.getValue() < 0))) {	
 				yv.setValue(0.0);
 			}
 		}
 	}
+	
+	
 }
