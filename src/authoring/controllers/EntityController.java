@@ -60,8 +60,8 @@ public class EntityController {
 		map.put(wrapper.getImageView(), wrapper.getEntity());
 		if (!entityList.contains(wrapper))
 			entityList.add(wrapper);
-		System.out.println("Wrapper Added: " + wrapper);
-		System.out.println("\tWrapper's Entity: " + wrapper.getEntity());
+		//System.out.println("Wrapper Added: " + wrapper);
+		//System.out.println("\tWrapper's Entity: " + wrapper.getEntity());
 		//System.out.println("Wrapper added: " + entityList.size());
 		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
 			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
@@ -210,13 +210,13 @@ public class EntityController {
 				sceneY - wrap.getImageView().getFitHeight() / 2);
 		if (!entityList.contains(wrap)){
 			System.out.println("Added entity"	);
-			entityList.add(wrap);
+			//entityList.add(wrap);
 			add(wrap);
 		}
 		canvas.update(entityList);
-		System.out.println("# of Entities " + entityList.size());
+		//System.out.println("# of Entities " + entityList.size());
 		//entityPane.newWrapper();
-		System.out.println("About to hit it");
+		//System.out.println("About to hit it");
 		entityPane.newDuplicateEntity();
 		//entityPane.refresh();
 		this.resetImageViews();

@@ -60,9 +60,10 @@ public class Canvas implements GUINode {
 	public void update(List<EntityWrapper> entityList){
 		//myInfinitePane = initializeInfinitePane(myInfinitePane.getMaxWidth(), myInfinitePane.getMaxHeight());
 		myInfinitePane.getChildren().clear();
-		System.out.println("-----Updating Canvas------");
-		entityList.stream().forEach(e -> System.out.println("Entity " + e));
-		
+//		System.out.println("-----Updating Canvas------");
+//		entityList.stream().forEach(e -> System.out.println("Entity " + e));
+//		entityList.stream().forEach(a -> System.out.println("Entity " + a.getEntity()));
+//		entityList.stream().forEach(b -> System.out.println("Image" + b.getImageView()));
 		for (EntityWrapper e: entityList){
 			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getImageView())){
 				myInfinitePane.getChildren().add(e.getImageView());

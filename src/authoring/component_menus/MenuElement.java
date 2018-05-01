@@ -66,4 +66,5 @@ public abstract class MenuElement{
 
 	public abstract void setComponentValue();
 
+	public abstract MenuElement copy();
 }

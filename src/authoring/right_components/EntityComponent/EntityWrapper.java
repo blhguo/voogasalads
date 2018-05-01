@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 public class EntityWrapper {
 	public Entity getEntity() {
-		System.out.println("ENTITY: " + entity);
+		//System.out.println("ENTITY: " + entity);
 		return entity;
 	}
 
@@ -56,13 +56,21 @@ public class EntityWrapper {
 	}
 	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
-		menuList = new ArrayList<>(e.getMenuList());
+		menuList = copyMenuList(e.getMenuList());
 		addAllComponents(entity);
 		imageView = createImageView();
 		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
 		ds = new DropShadow( 20, Color.DARKMAGENTA);
 
+	}
+
+	private List<ComponentMenu> copyMenuList(List<ComponentMenu> menus) {
+		List<ComponentMenu> newList = new ArrayList<>();
+		for (ComponentMenu menu : menus){
+			newList.add(menu.copy());
+		}
+		return newList;
 	}
 
 	private void addAllComponents(Entity entity) {

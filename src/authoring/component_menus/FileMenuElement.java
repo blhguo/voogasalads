@@ -6,6 +6,7 @@ import authoring.voogle.VoogleApp;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import game_engine.Component;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -92,6 +93,21 @@ public class FileMenuElement extends MenuElement{
 	public void update(File file){
 		field.setText(file.getName());
 		setComponentValue();
+	}
+
+	@Override
+	public FileMenuElement copy(){
+		Component comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue().toString());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					(String) myComponent.getValue());
+		}
+		FileMenuElement element = new FileMenuElement(title, comp);
+		return element;
 	}
 
 }

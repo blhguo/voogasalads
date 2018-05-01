@@ -2,6 +2,7 @@ package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -84,5 +85,19 @@ public class StringMenuElement extends MenuElement{
 	public void setComponentValue() {
 		if (!field.getText().equals("IMMUTABLE"))
 			myComponent.setValue(field.getText());
+	}
+	@Override
+	public StringMenuElement copy(){
+		Component comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue().toString());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					(String) myComponent.getValue());
+		}
+		StringMenuElement element = new StringMenuElement(title, comp);
+		return element;
 	}
 }
