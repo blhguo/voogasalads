@@ -29,7 +29,6 @@ public class ButtonMaker {
 		// TODO Auto-generated constructor stub
 	}
 	/**
-	 *
 	 * @param button
 	 * @param bundle
 	 * @param string
@@ -45,10 +44,8 @@ public class ButtonMaker {
 		List<Button>buttonList = new ArrayList<Button>();
 
 		for (int i=0; i<images.size(); i++) {
-			System.out.println(images.get(i));
 			Image im = new Image("game_player_resources/" + images.get(i));
 			ImageView buttonImageView = new ImageView(im);
-			//ImageView buttonImageView = new ImageView( getClass().getResource( "/game_player_resources/"+images.get(i)).toExternalForm());
 
 			buttonImageView.setFitHeight(30);
 			buttonImageView.setFitWidth(30);
@@ -69,7 +66,9 @@ public class ButtonMaker {
 	public void setPlayerView(PlayerView pv) {
 		playerView = pv;
 	}
+
 }
+
 
 //	protected Button pausePlayButton() {
 //	
@@ -146,3 +145,4 @@ public class ButtonMaker {
 //	
 //	
 //}
+

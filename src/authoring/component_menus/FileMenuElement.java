@@ -1,23 +1,22 @@
 package authoring.component_menus;
 
+import java.io.File;
+
 import authoring.voogle.VoogleApp;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ImageBuilder;
 import game_engine.Component;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import resources.keys.AuthRes;
-
-import java.io.File;
 
 
 public class FileMenuElement extends MenuElement{
@@ -94,6 +93,21 @@ public class FileMenuElement extends MenuElement{
 	public void update(File file){
 		field.setText(file.getName());
 		setComponentValue();
+	}
+
+	@Override
+	public FileMenuElement copy(){
+		Component comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue().toString());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					(String) myComponent.getValue());
+		}
+		FileMenuElement element = new FileMenuElement(title, comp);
+		return element;
 	}
 
 }

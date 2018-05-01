@@ -60,13 +60,15 @@ public class SettingsMenu {
 		settingsMenu.getChildren().add(brightnessSlider);
 		settingsMenu.getChildren().add(volumeLabel);
 		settingsMenu.getChildren().add(volumeSlider);
+        //settingsStage.initOwner(viewManager.getGameStage());
+
 		settingsStage.setScene(scene);
 	}
 	
 	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
-		brightnessSlider.setMin(0);
+		brightnessSlider.setMin(0.3);
 		brightnessSlider.setMax(1);
 		brightnessSlider.setValue(1);
 		return brightnessSlider;

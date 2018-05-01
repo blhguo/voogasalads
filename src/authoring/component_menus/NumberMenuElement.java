@@ -1,7 +1,10 @@
 package authoring.component_menus;
 
+import java.util.ResourceBundle;
+
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -97,6 +100,21 @@ public class NumberMenuElement extends MenuElement{
 	public void setComponentValue() {
 		if (!field.getText().equals("IMMUTABLE"))
 			myComponent.setValue(Double.parseDouble(field.getText()));
+	}
+
+	@Override
+	public NumberMenuElement copy(){
+		Component comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue().toString());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					(String) myComponent.getValue());
+		}
+		NumberMenuElement element = new NumberMenuElement(title, comp);
+		return element;
 	}
 
 }

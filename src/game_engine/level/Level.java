@@ -20,6 +20,10 @@ public class Level extends Entity {
 	private List<Event> myEvents = new ArrayList<>();
 	private int myId;
 
+	/**
+	 * instantitates a new Level object with a given id
+	 * @param id
+	 */
 	public Level(int id) {
 		myId = id;
 	}
@@ -83,7 +87,7 @@ public class Level extends Entity {
 	}
 
 	/**
-	 * Adds the entity to the backend. This is used during the various instantiation phases.
+	 * Removes the entity from the backend. This is used during the various instantiation phases.
 	 *
 	 * @param e the e
 	 */
@@ -91,24 +95,43 @@ public class Level extends Entity {
 		myEntities.remove(e);
 	}
 
+	/**
+	 * gets the current list of entities in the level
+	 * @return
+	 */
 	public List<Entity> getEntities() {
 		return myEntities;
 	}
 
+	/**
+	 * checks/executes all events in the current list of events
+	 */
 	public void checkEvents() {
 		for (Event event : myEvents) {
 			event.occur();
 		}
 	}
 
+	/**
+	 * returns the id of this level
+	 * @return
+	 */
 	public int getId() {
 		return myId;
 	}
 
+	/**
+	 * adds an event to the current list of events
+	 * @param event
+	 */
 	public void addEvent(Event event) {
 		myEvents.add(event);
 	}
 
+	/**
+	 * removes the events from the current list of events
+	 * @param event
+	 */
 	public void removeEvent(Event event) {
 		myEvents.remove(event);
 	}

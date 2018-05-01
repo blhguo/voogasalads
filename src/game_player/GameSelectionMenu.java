@@ -8,7 +8,6 @@ public class GameSelectionMenu {
 
 	private Button gameSelectionButton;
 	private PulldownFactory pullDownFactory;
-
 	protected void makeGameSelectionMenu(HBox pane, PulldownFactory pdf) {
 		this.pullDownFactory = pdf;
 		ImageView gameImageView = new ImageView( getClass().getResource( "/game_player_resources/game.png").toExternalForm());

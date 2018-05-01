@@ -9,13 +9,19 @@ import game_engine.GameSystem;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YVelComponent;
 import game_engine.components.sprite.FilenameComponent;
-import game_engine.components.sprite.JumpFilenameComponent;
-import game_engine.components.sprite.RunFilenameComponent;
-import game_engine.components.sprite.StandFilenameComponent;
+import game_engine.components.sprite.animation.JumpFilenameComponent;
+import game_engine.components.sprite.animation.RunFilenameComponent;
+import game_engine.components.sprite.animation.StandFilenameComponent;
 import game_engine.level.Level;
 
-public class AnimationSystem extends GameSystem {
-	
+/**
+ * 
+ * @author Ben Hubsch
+ * The purpose of this system is to change the images of entities based on whether or not an entity is
+ * running, jumping, or standing still. This provides animation to the game.
+ *
+ */
+public class AnimationSystem implements GameSystem {
 	private static final Class<? extends Component<String>> DISPLAYED = FilenameComponent.class;
 	private static final Class<? extends Component<String>> RUN = RunFilenameComponent.class;
 	private static final Class<? extends Component<String>> JUMP = JumpFilenameComponent.class;
@@ -23,18 +29,22 @@ public class AnimationSystem extends GameSystem {
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 	private static final Class<? extends Component<Double>> Y_VEL = YVelComponent.class;
 	
+	/**
+	 * Changes the images of entities by using their x and y velocities to determine whether
+	 * the given entity should display the running, jumping, or standing image.
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
-		List<Class<? extends Component<?>>> args = Arrays.asList(DISPLAYED, RUN, STAND, X_VEL, Y_VEL);
+		List<Class<? extends Component<?>>> args = Arrays.asList(DISPLAYED, RUN, JUMP, STAND, X_VEL, Y_VEL);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<String> displayed = entity.getComponent(DISPLAYED);
 			Component<String> run = entity.getComponent(RUN);
+			Component<String> jump = entity.getComponent(JUMP);
 			Component<String> stand = entity.getComponent(STAND);
 			Component<Double> xVel = entity.getComponent(X_VEL);
 			Component<Double> yVel = entity.getComponent(Y_VEL);
 			
-			if (entity.hasAll(Arrays.asList(JUMP)) && yVel.getValue().intValue() > 0) {
-				Component<String> jump = entity.getComponent(JUMP);
+			if (yVel.getValue().intValue() > 0) {
 				displayed.setValue(jump.getValue());
 				break;
 			}

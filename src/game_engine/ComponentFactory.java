@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
  * 
  * @author benhubsch
  * 
- * A factory for creating Component objects.
+ *         A factory for creating Component objects.
  */
 public class ComponentFactory {
 
@@ -27,7 +27,7 @@ public class ComponentFactory {
 	 *
 	 * @param entity the entity
 	 * @param key the key
-	 * @param arg the args
+	 * @param args the args
 	 * @return Component
 	 */
 	public <T> Component<T> addComponent(Entity entity, String key, String arg) {
@@ -43,13 +43,14 @@ public class ComponentFactory {
 			Constructor<?> ctor = clazz.getDeclaredConstructor(String.class);
 			return (Component<T>) ctor.newInstance(arg);
 		} catch (Exception e) {
-			throw new ComponentNotFoundException("Component not found.");
+			throw new ComponentNotFoundException("Component " + key + " " + arg);
 		}
 	}
-	
-	public Class <? extends Component<?>> getComponentClass(String key){
-		try { 
-			return (Class <? extends Component<?>>) Class.forName(myComponents.getString(key));
+
+	@SuppressWarnings("unchecked")
+	public Class<? extends Component<?>> getComponentClass(String key) {
+		try {
+			return (Class<? extends Component<?>>) Class.forName(myComponents.getString(key));
 		} catch (Exception e) {
 			throw new ComponentNotFoundException("Component class of name " + key + " not found");
 		}

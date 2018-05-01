@@ -1,11 +1,8 @@
 package authoring.component_menus;
 
-import game_engine.ComponentFactory;
-import game_engine.event.conditions.DataConditionable;
-
 import java.util.ResourceBundle;
 
-import static test.Tester.reflections;
+import game_engine.ComponentFactory;
 
 /**
  * @author liampulsifer

@@ -2,8 +2,8 @@ package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
@@ -56,4 +56,18 @@ public class KeyMenuElement extends MenuElement{
 		myComponent.setValue(field.getText());
 	}
 
+	@Override
+	public KeyMenuElement copy(){
+		Component comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue().toString());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					(String) myComponent.getValue());
+		}
+		KeyMenuElement element = new KeyMenuElement(title, comp);
+		return element;
+	}
 }

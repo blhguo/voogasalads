@@ -47,7 +47,6 @@ public class Menu {
 	public void addMenu(Pane root) {
 		root.getChildren().add(pane);
 	}
-
 	/**
 	 * Method to add ComboBoxes from PulldownFactory to Menu
 	 *
