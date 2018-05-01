@@ -58,8 +58,11 @@ public class EntityController {
 	public void add(EntityWrapper wrapper){
 		//entityList.add(entity);
 		map.put(wrapper.getImageView(), wrapper.getEntity());
-		entityList.add(wrapper);
-		System.out.println("Wrapper added: " + entityList.size());
+		if (!entityList.contains(wrapper))
+			entityList.add(wrapper);
+		System.out.println("Wrapper Added: " + wrapper);
+		System.out.println("\tWrapper's Entity: " + wrapper.getEntity());
+		//System.out.println("Wrapper added: " + entityList.size());
 		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
 			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
@@ -67,8 +70,8 @@ public class EntityController {
 		addToLevel(wrapper.getEntity());
 		int currLevel = lcontroller.getEngine().getLevel().getId();
 		wrapper.setLevel(currLevel);
-		System.out.println("Entity Components at Add");
-		wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
+		//System.out.println("Entity Components at Add");
+		//wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
 	}
 
 	/**

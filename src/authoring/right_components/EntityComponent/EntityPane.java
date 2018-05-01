@@ -72,6 +72,7 @@ public class EntityPane extends BasePane{
 		box.setSpacing(10);
 		for (String key : bundle.keySet()){
 			Button def = ButtonFactory.makeButton(e -> {
+				newWrapper();
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
 				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
 //				for (ComponentMenu menu : current.getMenuList()){
