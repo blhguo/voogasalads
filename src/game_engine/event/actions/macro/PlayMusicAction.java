@@ -4,8 +4,7 @@ import java.io.File;
 
 import game_engine.event.Action;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
+import java.net.URL;
 
 /**
  * 
@@ -46,13 +45,12 @@ public class PlayMusicAction implements Action {
 	 */
 	@Override
 	public void execute() {
-		System.out.println("MUSIC FILE: resources/" + myMusicFile);
-		AudioClip media = new AudioClip(new File("game_player/song.mp3").toURI().toASCIIString());
-//		if (myDuration != -1) {
-//			mediaPlayer.setStopTime(new Duration(myDuration));
-//		}
-		media.play(1.0);
-		System.out.println("playing: " + media.getSource());
+		System.out.println("CLIP NAME: " + myMusicFile);
+//		URL musicPath = getClass().getResource(myMusicFile);
+//		System.out.println("CLIP PATH: " + musicPath.toString());
+		AudioClip myClip = new AudioClip(myMusicFile);
+		myClip.play();
+		System.out.println("playing: " + myClip.getSource());
 	}
 
 }

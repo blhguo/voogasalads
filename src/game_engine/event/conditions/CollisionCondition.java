@@ -34,8 +34,10 @@ public abstract class CollisionCondition implements Condition {
         for (Class<? extends CollidedComponent> c : SIDES_TO_CHECK) {
             if (c != null) {
                 CollidedComponent sideComponent = (CollidedComponent) myEntity.getComponent(c);
-                if (findCollidedTarget(sideComponent)) {
-                    return true;
+                if(sideComponent!=null) {
+                    if (findCollidedTarget(sideComponent)) {
+                        return true;
+                    }
                 }
             }
         }
