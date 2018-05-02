@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
 
-public class KeyMenuElement extends MenuElement{
+public class KeyMenuElement extends MenuElement<String>{
 	private Node view;
 	private String title;
 	private TextField field;
@@ -18,7 +18,7 @@ public class KeyMenuElement extends MenuElement{
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
 		field.setPrefHeight(10);
-		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
+		field.setPrefWidth(field.getText().length() * 10 + 20 );
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
@@ -47,7 +47,7 @@ public class KeyMenuElement extends MenuElement{
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
 		field.setText(code.toString());
-		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
+		field.setPrefWidth(field.getText().length() * 10 + 20 );
 		myComponent.setValue(code.toString());
 	}
 
@@ -61,11 +61,11 @@ public class KeyMenuElement extends MenuElement{
 		Component comp;
 		try {
 			comp = new ComponentFactory().createComponent(
-					title, myComponent.getValue().toString());
+					title, myComponent.getValue());
 		}
 		catch (NullPointerException e){
 			comp = new ComponentFactory().createComponent(title, 
-					(String) myComponent.getValue());
+					myComponent.getValue());
 		}
 		KeyMenuElement element = new KeyMenuElement(title, comp);
 		return element;

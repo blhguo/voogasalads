@@ -10,9 +10,9 @@ import javafx.scene.input.KeyCode;
  * Defines an Element of a ComponentMenu
  * Which creates an input field of the correct type based on a Component's parameters
  */
-public abstract class MenuElement{
+public abstract class MenuElement<T>{
 	protected ComponentMenu myMenu;
-	protected Component myComponent;
+	protected Component<T> myComponent;
 
 	public boolean isDateable() {
 		return dateable;
@@ -51,10 +51,10 @@ public abstract class MenuElement{
 	 */
 	public abstract String getTitle();
 
-	public Component getComponent() {
+	public Component<T> getComponent() {
 		return myComponent;
 	}
-	public void setMyComponent(Component c){
+	public void setMyComponent(Component<T> c){
 		myComponent = c;
 	}
 

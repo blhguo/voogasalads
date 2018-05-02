@@ -12,7 +12,7 @@ import resources.keys.AuthRes;
  * @author liampulsifer
  * A menu element for String input (i.e. file names, etc.)
  */
-public class StringMenuElement extends MenuElement{
+public class StringMenuElement extends MenuElement<String>{
 	private TextField field;
 	private Node view;
 	private String title;
@@ -91,11 +91,11 @@ public class StringMenuElement extends MenuElement{
 		Component comp;
 		try {
 			comp = new ComponentFactory().createComponent(
-					title, myComponent.getValue().toString());
+					title, myComponent.getValue());
 		}
 		catch (NullPointerException e){
 			comp = new ComponentFactory().createComponent(title, 
-					(String) myComponent.getValue());
+					myComponent.getValue());
 		}
 		StringMenuElement element = new StringMenuElement(title, comp);
 		return element;

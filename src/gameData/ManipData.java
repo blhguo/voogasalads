@@ -83,7 +83,7 @@ public class ManipData {
 				file.createNewFile();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		if (file.exists()) {
@@ -111,7 +111,7 @@ public class ManipData {
 			return openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); //TODO
+//			e.printStackTrace(); //TODO
 		}
 		return null;
 		}
@@ -142,14 +142,14 @@ public class ManipData {
 				}
 			} catch (SAXException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 		return metaMap;
@@ -208,7 +208,6 @@ public class ManipData {
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
-					e.printStackTrace();
 				}
 				
 			}
@@ -217,10 +216,10 @@ public class ManipData {
 			fos.close();
 		}
 		catch(FileNotFoundException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		catch(IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 	}
@@ -246,7 +245,7 @@ public class ManipData {
 				file.createNewFile();
 			}
 			catch (IOException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		try {
