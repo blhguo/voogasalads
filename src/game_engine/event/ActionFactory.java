@@ -49,7 +49,7 @@ public class ActionFactory<T> {
 				return new PlayMusicAction((String)values.get(0), (int)values.get(1)); 
 				
 			case "RemoveEntityAction":
-				return new RemoveEntityAction(entities.get(0), engine, (int)values.get(0));
+				return new RemoveEntityAction(entities.get(0), engine);
 				
 			case "AddComponentAction":
 				return new AddComponentAction(entities.get(0), components.get(0));
