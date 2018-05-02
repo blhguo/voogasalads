@@ -24,4 +24,3 @@
 	<classpathentry kind="lib" path="lib/xstream-1.4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
-
