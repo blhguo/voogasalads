@@ -16,10 +16,12 @@ public class StringMenuElement extends MenuElement<String>{
 	private TextField field;
 	private Node view;
 	private String title;
-	public StringMenuElement(String title, Component component){
+	public StringMenuElement(String title, Component<String> component){
 		setMyComponent(component);
 		field = new TextField();
 		if (!(component.getValue() == null)){
+			System.out.println(component);
+			System.out.println(component.getValue());
 			field.setText(component.getValue().toString());
 		}
 		else { 
@@ -88,7 +90,7 @@ public class StringMenuElement extends MenuElement<String>{
 	}
 	@Override
 	public StringMenuElement copy(){
-		Component comp;
+		Component<String> comp;
 		try {
 			comp = new ComponentFactory().createComponent(
 					title, myComponent.getValue());

@@ -103,7 +103,7 @@ public class ProjectileSpawnSystem implements GameSystem {
 		projectile.addComponent(new ProjectileComponent());
 		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
 		
-		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
+		Component<Double> polarity = entity.getComponent(SpritePolarityComponent.class);
 		Double projectileXVel = entity.getComponent(PROJ_XVEL).getValue();
 		
 		double spawnXOffset = 0;

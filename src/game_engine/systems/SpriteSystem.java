@@ -16,7 +16,7 @@ import game_engine.level.Level;
  * depending on the sign of its x-velocity.
  */
 public class SpriteSystem implements GameSystem {
-	private static final Class<? extends Component<Integer>> POLARITY = SpritePolarityComponent.class;
+	private static final Class<? extends Component<Double>> POLARITY = SpritePolarityComponent.class;
 	private static final Class<? extends Component<Double>> X_VEL = XVelComponent.class;
 
 	/**
@@ -32,7 +32,7 @@ public class SpriteSystem implements GameSystem {
 	
 	private void setPolarity(Entity e){
 		double xVel = e.getComponent(X_VEL).getValue();
-		int polarity = e.getComponent(POLARITY).getValue();
+		double polarity = e.getComponent(POLARITY).getValue();
 		if(xVel*polarity < 0){
 			e.getComponent(POLARITY).setValue(-1*polarity);
 		}

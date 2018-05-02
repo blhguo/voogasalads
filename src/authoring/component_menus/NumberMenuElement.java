@@ -1,7 +1,5 @@
 package authoring.component_menus;
 
-import java.util.ResourceBundle;
-
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
 import game_engine.ComponentFactory;
@@ -14,11 +12,11 @@ import resources.keys.AuthRes;
  * @author liampulsifer
  * A menu element for numeric input
  */
-public class NumberMenuElement extends MenuElement<Double>{
+public class NumberMenuElement extends MenuElement<Number>{
 	TextField field;
 	private Node view;
 	private String title;
-	public NumberMenuElement(String title, Component component){
+	public NumberMenuElement(String title, Component<Number> component){
 		setMyComponent(component);
 		field = new TextField();
 		if (!(component.getValue() instanceof Double)) {
@@ -104,8 +102,9 @@ public class NumberMenuElement extends MenuElement<Double>{
 
 	@Override
 	public NumberMenuElement copy(){
-		Component comp;
+		Component<Number> comp;
 		try {
+			System.out.println(myComponent);
 			comp = new ComponentFactory().createComponent(
 					title, myComponent.getValue().toString());
 		}

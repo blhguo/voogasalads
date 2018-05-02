@@ -8,11 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
 
-public class KeyMenuElement extends MenuElement<String>{
+public class KeyMenuElement extends MenuElement<KeyCode>{
 	private Node view;
 	private String title;
 	private TextField field;
-	public KeyMenuElement(String title, Component component){
+	public KeyMenuElement(String title, Component<KeyCode> component){
 		setMyComponent(component);
 		field = new TextField();
 		field.setEditable(false);
@@ -48,24 +48,24 @@ public class KeyMenuElement extends MenuElement<String>{
 	public void updateComponent(KeyCode code, String text, boolean alert) {
 		field.setText(code.toString());
 		field.setPrefWidth(field.getText().length() * 10 + 20 );
-		myComponent.setValue(code.toString());
+		myComponent.setValue(code);
 	}
 
 	@Override
 	public void setComponentValue() {
-		myComponent.setValue(field.getText());
+		myComponent.setValue(KeyCode.valueOf(field.getText()));
 	}
 
 	@Override
 	public KeyMenuElement copy(){
-		Component comp;
+		Component<KeyCode> comp;
 		try {
 			comp = new ComponentFactory().createComponent(
-					title, myComponent.getValue());
+					title, myComponent.getValue().toString());
 		}
 		catch (NullPointerException e){
 			comp = new ComponentFactory().createComponent(title, 
-					myComponent.getValue());
+					myComponent.getValue().toString());
 		}
 		KeyMenuElement element = new KeyMenuElement(title, comp);
 		return element;
