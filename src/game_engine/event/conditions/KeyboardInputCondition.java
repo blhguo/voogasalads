@@ -1,21 +1,33 @@
 package game_engine.event.conditions;
 
-import game_engine.Engine;
-import game_engine.event.Condition;
-import javafx.scene.input.KeyCode;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
-public class KeyboardInputCondition implements Condition{
-	
+import game_engine.Engine;
+import game_engine.Tuple;
+import game_engine.event.Condition;
+import javafx.event.EventType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
+public class KeyboardInputCondition implements Condition {
+
+	private static final EventType<KeyEvent> KEY_PRESSED = KeyEvent.KEY_PRESSED;
+
 	private Engine myEngine;
 	private KeyCode myKey;
-	
-	public KeyboardInputCondition(Engine engine, String key){
+
+	public KeyboardInputCondition(Engine engine, String key) {
 		myEngine = engine;
 		myKey = KeyCode.valueOf(key);
 	}
-	
+
 	@Override
 	public boolean evaluate() {
-		return myEngine.getKeyInputs(myKey).size() > 0;
+		return myEngine.getKeyInputs(myKey).stream().filter(this::isPressed).collect(Collectors.toList()).size() > 0;
+	}
+
+	private boolean isPressed(Tuple<UUID, KeyEvent> input) {
+		return input.getSecond().getEventType().equals(KEY_PRESSED);
 	}
 }
