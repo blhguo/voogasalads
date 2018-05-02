@@ -21,7 +21,7 @@ public class Level extends Entity {
 	private int myId;
 
 	/**
-	 * instantitates a new Level object with a given id
+	 * instantiates a new Level object with a given id
 	 * @param id
 	 */
 	public Level(int id) {
