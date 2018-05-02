@@ -47,7 +47,7 @@ public class PlayMusicAction implements Action {
 	@Override
 	public void execute() {
 		System.out.println("MUSIC FILE: resources/" + myMusicFile);
-		AudioClip media = new AudioClip(new File("resources/" + myMusicFile).toURI().toASCIIString());
+		AudioClip media = new AudioClip(new File("game_player/song.mp3").toURI().toASCIIString());
 //		if (myDuration != -1) {
 //			mediaPlayer.setStopTime(new Duration(myDuration));
 //		}
