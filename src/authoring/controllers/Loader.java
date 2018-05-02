@@ -4,7 +4,6 @@ import authoring.Canvas;
 import authoring.right_components.LevelPane;
 import gameData.ManipData;
 import game_engine.Engine;
-import game_engine.level.Level;
 
 public class Loader {
 

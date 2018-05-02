@@ -8,7 +8,7 @@ import game_engine.level.Level;
  * 
  *         The Class GameSystem.
  */
-public abstract class GameSystem {
+public interface GameSystem {
 
 	/**
 	 * This is the System subclasses primary method. They implement behavior as they desire by acting on

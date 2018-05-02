@@ -1,43 +1,23 @@
 package authoring.right_components;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import authoring.AddActionPane;
 import authoring.AddConditionPane;
-import authoring.component_menus.KeyMenuElement;
-import authoring.component_menus.MenuElement;
-import authoring.component_menus.StringMenuElement;
 import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
-import frontend_utilities.ComboBoxBuilder;
-import frontend_utilities.ImageBuilder;
-import game_engine.Component;
-import game_engine.Engine;
-import game_engine.Entity;
-import game_engine.components.NullComponent;
-import game_engine.event.Action;
-import game_engine.event.Condition;
-import game_engine.event.ConditionFactory;
 import game_engine.event.Event;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import resources.keys.AuthRes;
 
 /**

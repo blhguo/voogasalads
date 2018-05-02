@@ -109,11 +109,11 @@ public class StoryBoardPane extends BasePane {
 		tp.setText("View Current Levels");
 		
 		VBox levels = new VBox(AuthRes.getInt("Padding"));
-		List<Class<? extends Component<?>>> backNamesThumbs = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class, LevelThumbComponent.class);
-		Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(backNamesThumbs);
+		List<Class<? extends Component<String>>> backNamesThumbs = Arrays.asList(LevelBackgroundComponent.class, LevelNameComponent.class, LevelThumbComponent.class);
+		Map<Integer, List<Component<String>>> map = lcontroller.getEngine().getLevelPreviews(backNamesThumbs);
 		int levelCount = 0;
 		HBox row;
-		for (Entry<Integer, List<Component<?>>> ent: map.entrySet()){
+		for (Entry<Integer, List<Component<String>>> ent: map.entrySet()){
 			if (levelCount % 2 == 1){
 				row = (HBox) levels.getChildren().get(levels.getChildren().size() - 1);
 				levels.getChildren().remove(levels.getChildren().size() - 1);
@@ -121,19 +121,19 @@ public class StoryBoardPane extends BasePane {
 			else{
 				row = new HBox(AuthRes.getInt("Padding"));
 			}
-			List<Component<?>> l = ent.getValue();
-			String backPath = (String) l.get(2).getValue();
+			List<Component<String>> l = ent.getValue();
+			String backPath =  l.get(2).getValue();
 			if (backPath.equals(AuthRes.getString("ThumbDefault"))){
-				backPath = (String) l.get(0).getValue();
+				backPath = l.get(0).getValue();
 				if (backPath.equals(AuthRes.getString("BackgroundDefault"))){
 					backPath = "mountain.png"; // hardcoded default
 				}
 			}
-			String name = (String) l.get(1).getValue();
+			String name = l.get(1).getValue();
 			Button b = ButtonFactory.makeLevelThumbnail(backPath, name, e -> {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
-				pcontroller.setBackground((String) l.get(0).getValue());
+				pcontroller.setBackground(l.get(0).getValue());
 				pcontroller.updateCanvas(lcontroller.getEngine().getLevel().getId());
 			});
 			b.getStyleClass().add("button-story");

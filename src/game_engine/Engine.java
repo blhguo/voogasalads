@@ -5,31 +5,28 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
-import javafx.event.EventType;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 public class Engine {
-	private static final EventType<MouseEvent> MOUSE_EVENT = MouseEvent.MOUSE_CLICKED;
-	private static final EventType<KeyEvent> KEY_PRESSED_EVENT = KeyEvent.KEY_PRESSED;
-	private static final EventType<KeyEvent> KEY_RELEASED_EVENT = KeyEvent.KEY_RELEASED;
 
 	private Map<Integer, Level> myLevels;
 	private int myCurrentLevel;
 	private int myIdCounter;
 	private List<GameSystem> mySystems;
-	private LinkedList<InputEvent> myInputs;
+	private List<Tuple<UUID, KeyEvent>> myKeyInputs;
+	private List<Tuple<UUID, Vector>> myMouseInputs;
 
 	public Engine() {
-		myLevels = new HashMap<Integer, Level>();
+		myLevels = new HashMap<>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
-		myInputs = new LinkedList<>();
+		myKeyInputs = new LinkedList<>();
+		myMouseInputs = new LinkedList<>();
 		mySystems = new SystemInitializer().init(this);
 		System.out.println(mySystems.size());
 	}
@@ -42,7 +39,12 @@ public class Engine {
 
 		currentLevel.checkEvents();
 
-		myInputs.clear();
+		clearInput();
+	}
+
+	private void clearInput() {
+		myKeyInputs.clear();
+		myMouseInputs.clear();
 	}
 
 	public Level createLevel() {
@@ -68,34 +70,35 @@ public class Engine {
 		myCurrentLevel = dex;
 	}
 
-	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
-		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
-		List<Component<?>> previewComponents;
-		for (Integer key : myLevels.keySet()) {
-			previewComponents = new ArrayList<Component<?>>();
-			Level lvl = myLevels.get(key);
-			for (Class<? extends Component<?>> c : args) {
-				previewComponents.add(lvl.getComponent(c));
+	public <T> Map<Integer, List<Component<T>>> getLevelPreviews(List<Class<? extends Component<T>>> args) {
+		Map<Integer, List<Component<T>>> preview = new HashMap<>();
+		List<Component<T>> previewComponents;
+		for (Map.Entry<Integer, Level> levelMapping : myLevels.entrySet()) {
+			int id = levelMapping.getKey();
+			Level level = levelMapping.getValue();
+			previewComponents = new ArrayList<>();
+			for (Class<? extends Component<T>> c : args) {
+				previewComponents.add(level.getComponent(c));
 			}
-			preview.put(key, previewComponents);
+			preview.put(id, previewComponents);
 		}
 		return preview;
 	}
 
-	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
-		return myInputs.stream()
-				.filter(inputEvent -> (inputEvent.getEventType() == KEY_PRESSED_EVENT
-						|| inputEvent.getEventType() == KEY_RELEASED_EVENT))
-				.map(inputEvent -> (KeyEvent) inputEvent).filter(keyEvent -> keyInput.equals(keyEvent.getCode()))
+	public List<Tuple<UUID, KeyEvent>> getKeyInputs(KeyCode keyInput) {
+		return myKeyInputs.stream().filter(keyTuple -> keyInput.equals(keyTuple.getSecond().getCode()))
 				.collect(Collectors.toList());
 	}
 
-	public List<MouseEvent> getMouseInputs() {
-		return myInputs.stream().filter(inputEvent -> inputEvent.getEventType() == MOUSE_EVENT)
-				.map(inputEvent -> (MouseEvent) inputEvent).collect(Collectors.toList());
+	public List<Tuple<UUID, Vector>> getMouseInputs() {
+		return myMouseInputs;
 	}
 
-	public void receiveInput(InputEvent event) {
-		myInputs.add(event);
+	public void receiveKeyInput(Tuple<UUID, KeyEvent> event) {
+		myKeyInputs.add(event);
+	}
+
+	public void receiveMouseInput(Tuple<UUID, Vector> click) {
+		myMouseInputs.add(click);
 	}
 }

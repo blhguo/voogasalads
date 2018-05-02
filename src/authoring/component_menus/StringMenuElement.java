@@ -2,25 +2,26 @@ package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
-import javafx.scene.Group;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import resources.keys.AuthRes;
 
 /**
  * @author liampulsifer
  * A menu element for String input (i.e. file names, etc.)
  */
-public class StringMenuElement extends MenuElement{
+public class StringMenuElement extends MenuElement<String>{
 	private TextField field;
 	private Node view;
 	private String title;
-	public StringMenuElement(String title, Component component){
+	public StringMenuElement(String title, Component<String> component){
 		setMyComponent(component);
 		field = new TextField();
 		if (!(component.getValue() == null)){
+			System.out.println(component);
+			System.out.println(component.getValue());
 			field.setText(component.getValue().toString());
 		}
 		else { 
@@ -86,5 +87,19 @@ public class StringMenuElement extends MenuElement{
 	public void setComponentValue() {
 		if (!field.getText().equals("IMMUTABLE"))
 			myComponent.setValue(field.getText());
+	}
+	@Override
+	public StringMenuElement copy(){
+		Component<String> comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					myComponent.getValue());
+		}
+		StringMenuElement element = new StringMenuElement(title, comp);
+		return element;
 	}
 }

@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import voogasalad.util.reflection.Reflection;
 
-
 public class SystemInitializer {
 	private static final String SYSTEM_NAMES = "SystemNames";
 	private static final String SYSTEM_ARGS = "SystemArgs";

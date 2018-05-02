@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -87,7 +83,7 @@ public class ManipData {
 				file.createNewFile();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		if (file.exists()) {
@@ -115,7 +111,7 @@ public class ManipData {
 			return openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); //TODO
+//			e.printStackTrace(); //TODO
 		}
 		return null;
 		}
@@ -146,18 +142,33 @@ public class ManipData {
 				}
 			} catch (SAXException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 		return metaMap;
 	}
+	
+	public Map<String, String> openConfig(String filePath) {
+		Map<String, String> configMap = new HashMap<>();
+		
+		ResourceBundle configkeys = ResourceBundle.getBundle(filePath);
+		System.out.println(configkeys);
+		for (String s : configkeys.keySet()) {
+			//String buff = configkeys.getString(AuthRes.getStringKeys(s));
+			configMap.put(s, configkeys.getString(s));
+		}
+		
+		return configMap;
+	}
+	
+	
 	/* This method will be used to write a single entry into XML
 	 * the type will disinguish between whether the written XML is MetaData or Objects
 	 * no longer would need fos or xml
@@ -180,7 +191,7 @@ public class ManipData {
 		} 
 	}
 
-	private void saveConfig(String configLoc, Map<String, String> configMap) {
+	public void saveConfig(String configLoc, Map<String, String> configMap) {
 		
 		File file = new File("games/"+configLoc);
 		if(!file.exists()) {
@@ -193,11 +204,10 @@ public class ManipData {
 				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
-			file = new File("games/" + configLoc + "/config.xml");
+			file = new File("games/" + configLoc + "/config.properties");
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
-					e.printStackTrace();
 				}
 				
 			}
@@ -206,10 +216,10 @@ public class ManipData {
 			fos.close();
 		}
 		catch(FileNotFoundException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		catch(IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 	}
@@ -235,7 +245,7 @@ public class ManipData {
 				file.createNewFile();
 			}
 			catch (IOException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		try {
@@ -260,6 +270,7 @@ public class ManipData {
 		DocumentBuilder dBuilder;
 		String filePath = file.getAbsolutePath();
 		String fileType = filePath.substring(filePath.length()-FILE_EXTENSION);
+
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
 		};
@@ -267,6 +278,7 @@ public class ManipData {
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
+
 			try {
 				doc = dBuilder.parse(file);
 
@@ -294,6 +306,8 @@ public class ManipData {
 		
 	}
 
+	
+	
 	private String nodeToString(Node node) {
 		StringWriter sw = new StringWriter();
 		try {

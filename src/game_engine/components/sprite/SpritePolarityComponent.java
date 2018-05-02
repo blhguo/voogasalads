@@ -1,11 +1,13 @@
 package game_engine.components.sprite;
 
 import game_engine.Component;
+import game_engine.event.conditions.DataConditionable;
 
-public class SpritePolarityComponent extends Component<Integer>{
+@DataConditionable
+public class SpritePolarityComponent extends Component<Double>{
 
 	public SpritePolarityComponent(String val) {
-		super(Integer.parseInt(val));
+		super(Double.parseDouble(val));
 	}
 
 }

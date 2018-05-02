@@ -119,15 +119,8 @@ public class CollisionTest extends Application {
      */
     private void step(double elapsedTime) {
     	Level currentLevel = e.getLevel();
-		//despawnSys.act(elapsedTime, currentLevel);
-        //event1.occur();
-        //event2.occur();
-
-		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
-		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
-		//System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
-//		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
-//		System.out.println("Current level: " + e.getLevel().getId());
+		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+		System.out.println("Current level: " + e.getLevel().getId());
 		updateAllEntities();
         //updateRectPos();
         updateRectColor();
@@ -136,8 +129,14 @@ public class CollisionTest extends Application {
     private void setup(){
         root = new Group();
         myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
-        myScene.setOnKeyPressed(b -> e.receiveInput(b));
-		myScene.setOnKeyReleased(b -> e.receiveInput(b));
+
+        UUID u1 = new UUID(0,0);
+        UUID u2 = new UUID(0,1);
+        UUID u3 = new UUID(0,2);
+
+
+        myScene.setOnKeyPressed(b -> e.receiveKeyInput(b));
+		myScene.setOnKeyReleased(b -> e.receiveKeyInput(b));
 
     	buildEntities();
         initRects();
@@ -335,7 +334,7 @@ public class CollisionTest extends Application {
     private Event testEvents() {
     	//Testing Score event - When e1 collides with e3, e1's score increases by 10
     	List<Class<? extends CollidedComponent>> rightSide = Arrays.asList(RightCollidedComponent.class);
-    	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3, rightSide);
+    	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3);
     	DataChangeAction action1 = new DataChangeAction(e1, DefaultXVelComponent.class, "+", 100);
     	
     	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));

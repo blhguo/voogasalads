@@ -12,6 +12,7 @@ import game_engine.components.keyboard.LeftKeyboardComponent;
 import game_engine.components.keyboard.RightKeyboardComponent;
 import game_engine.components.keyboard.UpKeyboardComponent;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -26,10 +27,16 @@ public class DataManager {
 	private Engine gameEngine;
 	private Entity gamePlayer;
 	private String gameTitle;
+	private Stage gameStage;
 	private Map<String,String> gameMetadata;
 	
 	
 	public DataManager() {
+		//TODO something
+	}
+	
+	public void initialize(InstanceStorage storage) {
+		gameStage = storage.getStage();
 		keyPrefs = new HashMap<KeyCode,String>();
 		keyPrefsReversed = new HashMap<String,KeyCode>();
 		engineMap = new HashMap<String,KeyCode>();
@@ -138,5 +145,9 @@ public class DataManager {
 	
 	public List<String> getInputCommands(){
 		return gameInputs;
+	}
+	
+	public Stage getStage() {
+		return this.gameStage;
 	}
 }

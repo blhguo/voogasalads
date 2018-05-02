@@ -18,7 +18,16 @@ import game_engine.components.collision.edge_collided.RightCollidedComponent;
 import game_engine.components.collision.edge_collided.TopCollidedComponent;
 import game_engine.level.Level;
 
-public class CollectibleSystem extends GameSystem{
+/**
+ * 
+ * @author Andy Nguyen
+ * The purpose of this system is to provide default behavior to entities containing the collectors and collectibles within
+ * the game. An example of this system being put into action would be with Mario (entity containing the Score and Collector component)
+ * collecting a coin (Entity containing collectible component). This system despawns collectible entities from the level upon collision
+ * and also adds the collectible's value to the score of the collector entity.
+ *
+ */
+public class CollectibleSystem implements GameSystem {
 	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
 	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
@@ -27,6 +36,10 @@ public class CollectibleSystem extends GameSystem{
 	private static final Class<? extends Component<NullType>> COLLECTOR = CollectorComponent.class;
 	private static final Class<? extends Component<Double>> COLLECTIBLE = CollectibleComponent.class;
 
+	/**
+	 * Despawns entities containing the collectible component upon collision with a collector and adds that 
+	 * component's value to the score component of the collector entity it is colliding with.
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collidedEntities = level.getEntitiesContainingAny(Arrays.asList(TOP, RIGHT, BOTTOM, LEFT));

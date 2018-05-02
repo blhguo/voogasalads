@@ -1,18 +1,17 @@
 package authoring.voogle;
 
+import java.io.File;
+
 import authoring.component_menus.FileMenuElement;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import voogasalad.util.voogleimages.ImageObserver;
 import voogasalad.util.voogleimages.VoogleImages;
-
-import java.io.File;
 
 public class VoogleApp implements ImageObserver {
 
