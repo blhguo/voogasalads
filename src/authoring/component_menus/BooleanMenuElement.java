@@ -12,7 +12,7 @@ import resources.keys.AuthRes;
  * @author liampulsifer
  * Boolean checkbox input element
  */
-public class BooleanMenuElement extends MenuElement{
+public class BooleanMenuElement extends MenuElement<Boolean>{
 	private CheckBox box;
 	private Node view;
 	private String title;
@@ -92,7 +92,7 @@ public class BooleanMenuElement extends MenuElement{
 		}
 		catch (NullPointerException e){
 			comp = new ComponentFactory().createComponent(title, 
-					(String) myComponent.getValue());
+					myComponent.getValue().toString());
 		}
 		BooleanMenuElement element = new BooleanMenuElement(title, comp);
 		return element;

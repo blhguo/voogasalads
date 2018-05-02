@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
 
-public class FileMenuElement extends MenuElement{
+public class FileMenuElement extends MenuElement<String>{
 	private final String title;
 	private ImageView image;
 	private VBox view;
@@ -33,7 +33,7 @@ public class FileMenuElement extends MenuElement{
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
 		field.setPrefHeight(10);
-		field.setPrefWidth(field.getText().toString().length() * 10 + 20 );
+		field.setPrefWidth(field.getText().length() * 10 + 20 );
 		fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
@@ -100,11 +100,11 @@ public class FileMenuElement extends MenuElement{
 		Component comp;
 		try {
 			comp = new ComponentFactory().createComponent(
-					title, myComponent.getValue().toString());
+					title, myComponent.getValue());
 		}
 		catch (NullPointerException e){
 			comp = new ComponentFactory().createComponent(title, 
-					(String) myComponent.getValue());
+					myComponent.getValue());
 		}
 		FileMenuElement element = new FileMenuElement(title, comp);
 		return element;

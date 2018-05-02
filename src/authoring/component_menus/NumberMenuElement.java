@@ -14,7 +14,7 @@ import resources.keys.AuthRes;
  * @author liampulsifer
  * A menu element for numeric input
  */
-public class NumberMenuElement extends MenuElement{
+public class NumberMenuElement extends MenuElement<Double>{
 	TextField field;
 	private Node view;
 	private String title;
@@ -111,7 +111,7 @@ public class NumberMenuElement extends MenuElement{
 		}
 		catch (NullPointerException e){
 			comp = new ComponentFactory().createComponent(title, 
-					(String) myComponent.getValue());
+					myComponent.getValue().toString());
 		}
 		NumberMenuElement element = new NumberMenuElement(title, comp);
 		return element;

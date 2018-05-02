@@ -149,7 +149,6 @@ public class AddActionPane implements GUINode {
 					}
 					catch (Exception a) {
 						System.out.println(a.getCause());
-						a.printStackTrace();
 						System.out.println("Sorry, Class machine broke");
 					}
 				});
@@ -187,7 +186,7 @@ public class AddActionPane implements GUINode {
 								Class.forName(components.getString(compBox.getValue()))));
 							
 					} catch (Exception a){
-						a.printStackTrace();
+//						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
 				});
@@ -207,7 +206,7 @@ public class AddActionPane implements GUINode {
 								numberElements.get(0).getValue()));
 							
 					} catch (Exception a){
-						a.printStackTrace();
+//						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
 				});

@@ -24,10 +24,10 @@ import game_engine.level.Level;
  * 
  */
 public class ImpassableResponseSystem extends CollisionResponseSystem {
-	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
-	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
-	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
-	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
+//	private static final Class<? extends Component<List<Entity>>> TOP = TopCollidedComponent.class;
+//	private static final Class<? extends Component<List<Entity>>> BOTTOM = BottomCollidedComponent.class;
+//	private static final Class<? extends Component<List<Entity>>> RIGHT = RightCollidedComponent.class;
+//	private static final Class<? extends Component<List<Entity>>> LEFT = LeftCollidedComponent.class;
 	private static final Class<? extends Component<Boolean>> PASSABLE = PassableComponent.class;
 
 	/*
