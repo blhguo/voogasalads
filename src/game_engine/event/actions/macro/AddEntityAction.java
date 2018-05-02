@@ -14,7 +14,7 @@ import game_engine.event.Action;
 public class AddEntityAction implements Action{
 	private Entity myEntity;
 	private Engine myEngine;
-	
+
 	/**
 	 * instantiates a new AddEntityAction with a reference to the engine it is adding the given entity to
 	 * @param entity
@@ -22,13 +22,17 @@ public class AddEntityAction implements Action{
 	 */
 	public AddEntityAction(Entity entity, Engine engine){
 		myEntity = entity;
+		myEngine = engine;
+		myEngine.getLevel().removeEntity(entity);
 	}
-	
+
 	/**
 	 * adds the given entity to the current level of the engine
 	 */
 	@Override
 	public void execute() {
-		myEngine.getLevel().addEntity(myEntity);
+		if (! myEngine.getLevel().getEntities().contains(myEntity)) {
+			myEngine.getLevel().addEntity(myEntity);
+		}
 	}
 }
