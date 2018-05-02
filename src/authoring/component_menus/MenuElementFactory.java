@@ -70,7 +70,7 @@ public class MenuElementFactory {
 		return new BooleanMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 
-	private NumberMenuElement handleDouble(String className) {
-		return new NumberMenuElement(className, factory.createComponent(className, entry[2]));
+	private DoubleMenuElement handleDouble(String className) {
+		return new DoubleMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 }

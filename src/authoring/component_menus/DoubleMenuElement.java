@@ -12,20 +12,20 @@ import resources.keys.AuthRes;
  * @author liampulsifer
  * A menu element for numeric input
  */
-public class NumberMenuElement extends MenuElement<Number>{
+public class DoubleMenuElement extends MenuElement<Double>{
 	TextField field;
 	private Node view;
 	private String title;
-	public NumberMenuElement(String title, Component<Number> component){
+	public DoubleMenuElement(String title, Component<Double> component){
 		setMyComponent(component);
 		field = new TextField();
-		if (!(component.getValue() instanceof Double)) {
-			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
-			System.out.println(component.getValue());
-			if (component.getValue() instanceof Integer){
-				component.setValue(((Integer) component.getValue()).doubleValue());
-			}
-		}
+//		if (!(component.getValue() instanceof Double)) {
+//			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
+//			System.out.println(component.getValue());
+//			if (component.getValue() instanceof Integer){
+//				component.setValue(((Integer) component.getValue()).doubleValue());
+//			}
+//		}
 
 		if (component.getValue() == null) {
 			field.setText("IMMUTABLE");
@@ -101,10 +101,9 @@ public class NumberMenuElement extends MenuElement<Number>{
 	}
 
 	@Override
-	public NumberMenuElement copy(){
-		Component<Number> comp;
+	public DoubleMenuElement copy(){
+		Component<Double> comp;
 		try {
-			System.out.println(myComponent);
 			comp = new ComponentFactory().createComponent(
 					title, myComponent.getValue().toString());
 		}
@@ -112,7 +111,7 @@ public class NumberMenuElement extends MenuElement<Number>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue().toString());
 		}
-		NumberMenuElement element = new NumberMenuElement(title, comp);
+		DoubleMenuElement element = new DoubleMenuElement(title, comp);
 		return element;
 	}
 

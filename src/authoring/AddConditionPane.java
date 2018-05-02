@@ -19,6 +19,7 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.NullComponent;
+import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.event.Condition;
 import game_engine.event.ConditionFactory;
 import game_engine.event.Event;
@@ -47,7 +48,7 @@ public class AddConditionPane implements GUINode {
 	private int numEntities;
 	private Entity[] entityArray;
 	private ComboBox<String> componentBox;
-	private List<MenuElement> menuElements;
+	private List<MenuElement<?>> menuElements;
 	private Event currentEvent;
 
 
@@ -111,12 +112,13 @@ public class AddConditionPane implements GUINode {
 		for (int i = 0; i < Integer.parseInt(array[2]); i++){
 			comboBoxView.getChildren().add(new Label(conditions.getString(newValue + "Strings").split(",")[i]));
 			if(newValue.equals("KeyboardInput")){
-				KeyMenuElement element = new KeyMenuElement("Key", new NullComponent(""));
+				// negative chance that this instantiation of the KeyMenuElement is right...revisit and fix later
+				KeyMenuElement element = new KeyMenuElement("Key", new KeyboardJumpInputComponent("W"));
 				menuElements.add(element);
 				comboBoxView.getChildren().add(element.getView());
 			}
 			else {
-				MenuElement element = new StringMenuElement(newValue,
+				MenuElement<String> element = new StringMenuElement(newValue,
 						new NullComponent(""));
 				menuElements.add(element);
 				comboBoxView.getChildren().add((element).getView());
