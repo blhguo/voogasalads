@@ -1,7 +1,6 @@
 package authoring.GUI_Heirarchy;
 
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 
 /**
  * @author Jennifer Chin

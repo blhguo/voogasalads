@@ -1,7 +1,5 @@
 package frontend_utilities;
 
-import frontend_utilities.DraggableImageView;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 

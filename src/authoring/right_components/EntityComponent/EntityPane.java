@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
-import authoring.component_menus.ComponentMenu;
-import authoring.component_menus.MenuElement;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import frontend_utilities.ButtonFactory;
@@ -75,6 +72,7 @@ public class EntityPane extends BasePane{
 		box.setSpacing(10);
 		for (String key : bundle.keySet()){
 			Button def = ButtonFactory.makeButton(e -> {
+				newWrapper();
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
 				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
 //				for (ComponentMenu menu : current.getMenuList()){

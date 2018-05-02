@@ -7,8 +7,6 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
-import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
-import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.AngleComponent;
@@ -20,7 +18,9 @@ import javafx.geometry.Point2D;
  * @author Jeremy Chen Superclass for all GameSystems that contain logic for collisions Contains
  *         shared method signature / several sharedutility methods
  */
-public abstract class CollisionSystem extends GameSystem {
+public abstract class CollisionSystem implements GameSystem {
+
+	private static final int RIGHT_ANGLE = 90;
 
 	/**
 	 *
@@ -49,8 +49,6 @@ public abstract class CollisionSystem extends GameSystem {
 		double centerX = e.getComponent(XPosComponent.class).getValue();
 		double centerY = e.getComponent(YPosComponent.class).getValue();
 
-		double xOffset = e.getComponent(HitboxXOffsetComponent.class).getValue();
-		double yOffset = e.getComponent(HitboxYOffsetComponent.class).getValue();
 		double width = e.getComponent(HitboxWidthComponent.class).getValue();
 		double height = e.getComponent(HitboxHeightComponent.class).getValue();
 
@@ -64,14 +62,13 @@ public abstract class CollisionSystem extends GameSystem {
 		if (yVel != null) {
 			centerY += yVel.getValue() * elapsedTime;
 		}
-		if (currAngle == null || (currAngle != null && currAngle.getValue() % 90 == 0)) {
+		if (currAngle == null || (currAngle != null && currAngle.getValue() % RIGHT_ANGLE == 0)) {
 			return new double[] { centerX - width / 2, centerX + width / 2, centerY - height / 2,
 					centerY + height / 2 };
 		}
 
-		// TODO: fixed rotation/transformed coordinates
-		ArrayList<Double> xCoords = new ArrayList<Double>();
-		ArrayList<Double> yCoords = new ArrayList<Double>();
+		ArrayList<Double> xCoords = new ArrayList<>();
+		ArrayList<Double> yCoords = new ArrayList<>();
 		for (int i = -1; i <= 1; i += 2) {
 			for (int j = -1; j <= 1; j += 2) {
 				double origX = i * width + centerX;
@@ -112,26 +109,4 @@ public abstract class CollisionSystem extends GameSystem {
 
 		return new Point2D(transRelative.getX() + origin.getX(), transRelative.getY() + origin.getY());
 	}
-
-	// /**
-	// * @param e1
-	// * @param e2
-	// * @param colSide
-	// * Method that allows for injection of the CollidedComponetn
-	// * NEEDS REFACTORING
-	// */
-	// protected void addCollided(Entity e1, Entity e2, Class colSide){
-	// CollidedComponent colComp = (CollidedComponent) e1.getComponent(colSide);
-	// if(colComp == null) {
-	// try {
-	// Constructor<?> colCon = colSide.getConstructor();
-	// colComp = (CollidedComponent) colCon.newInstance();
-	// e1.addComponent(colComp);
-	// } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
-	// InvocationTargetException e) {
-	// System.out.println("temp err msg");
-	// }
-	// }
-	// colComp.addEntity(e2);
-	// }
 }

@@ -5,7 +5,10 @@ import game_engine.event.conditions.DataConditionable;
 
 @DataConditionable
 public class NumberOfJumpsAllowedComponent extends Component<Double> {
+	
+	private static final double STARTING_JUMPS = 0.0;
+	
 	public NumberOfJumpsAllowedComponent(String arg){
-		super(Double.parseDouble(arg));
+		super(STARTING_JUMPS);
 	}
 }

@@ -1,5 +1,12 @@
 package game_engine.event;
 
+/**
+ * 
+ * @author Jeremy Chen, Kevin Deng, Andy Nguyen, Ben Hubsch
+ * The purpose of this class is to provide a way to throw an exception in the case where Authoring
+ * tries to create an incorrect/invalid Action that doesn't exist within the game engine.
+ *
+ */
 public class ActionNotFoundException extends RuntimeException {
 
 	/**

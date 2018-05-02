@@ -22,7 +22,7 @@ public class Engine {
 	private List<Tuple<UUID, Vector>> myMouseInputs;
 
 	public Engine() {
-		myLevels = new HashMap<Integer, Level>();
+		myLevels = new HashMap<>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myKeyInputs = new LinkedList<>();
@@ -70,16 +70,17 @@ public class Engine {
 		myCurrentLevel = dex;
 	}
 
-	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
-		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
-		List<Component<?>> previewComponents;
-		for (Integer key : myLevels.keySet()) {
-			previewComponents = new ArrayList<Component<?>>();
-			Level lvl = myLevels.get(key);
-			for (Class<? extends Component<?>> c : args) {
-				previewComponents.add(lvl.getComponent(c));
+	public <T> Map<Integer, List<Component<T>>> getLevelPreviews(List<Class<? extends Component<T>>> args) {
+		Map<Integer, List<Component<T>>> preview = new HashMap<>();
+		List<Component<T>> previewComponents;
+		for (Map.Entry<Integer, Level> levelMapping : myLevels.entrySet()) {
+			int id = levelMapping.getKey();
+			Level level = levelMapping.getValue();
+			previewComponents = new ArrayList<>();
+			for (Class<? extends Component<T>> c : args) {
+				previewComponents.add(level.getComponent(c));
 			}
-			preview.put(key, previewComponents);
+			preview.put(id, previewComponents);
 		}
 		return preview;
 	}

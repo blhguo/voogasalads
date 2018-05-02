@@ -1,17 +1,16 @@
 package authoring.controllers;
 
 
-import authoring.Canvas;
-import authoring.component_menus.ComponentMenu;
-import authoring.component_menus.ComponentMenuFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring.Canvas;
+import authoring.component_menus.ComponentMenu;
+import authoring.right_components.EventPane;
 import authoring.right_components.EntityComponent.EntityPane;
 import authoring.right_components.EntityComponent.EntityWrapper;
-import authoring.right_components.EventPane;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
@@ -23,8 +22,6 @@ import game_engine.components.sprite.HeightComponent;
 import game_engine.components.sprite.WidthComponent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-
-import java.util.stream.Collectors;
 /**
  * @author liampulsifer
  * manages interaction between EntityPane and Canvas
@@ -61,8 +58,11 @@ public class EntityController {
 	public void add(EntityWrapper wrapper){
 		//entityList.add(entity);
 		map.put(wrapper.getImageView(), wrapper.getEntity());
-		entityList.add(wrapper);
-		System.out.println("Wrapper added: " + entityList.size());
+		if (!entityList.contains(wrapper))
+			entityList.add(wrapper);
+		//System.out.println("Wrapper Added: " + wrapper);
+		//System.out.println("\tWrapper's Entity: " + wrapper.getEntity());
+		//System.out.println("Wrapper added: " + entityList.size());
 		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
 			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
 		//iv.setClick(entityPane.showMenu(entity.getMenu()));
@@ -70,8 +70,8 @@ public class EntityController {
 		addToLevel(wrapper.getEntity());
 		int currLevel = lcontroller.getEngine().getLevel().getId();
 		wrapper.setLevel(currLevel);
-		System.out.println("Entity Components at Add");
-		wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
+		//System.out.println("Entity Components at Add");
+		//wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
 	}
 
 	/**
@@ -210,13 +210,13 @@ public class EntityController {
 				sceneY - wrap.getImageView().getFitHeight() / 2);
 		if (!entityList.contains(wrap)){
 			System.out.println("Added entity"	);
-			entityList.add(wrap);
+			//entityList.add(wrap);
 			add(wrap);
 		}
 		canvas.update(entityList);
-		System.out.println("# of Entities " + entityList.size());
+		//System.out.println("# of Entities " + entityList.size());
 		//entityPane.newWrapper();
-		System.out.println("About to hit it");
+		//System.out.println("About to hit it");
 		entityPane.newDuplicateEntity();
 		//entityPane.refresh();
 		this.resetImageViews();

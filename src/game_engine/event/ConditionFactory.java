@@ -1,7 +1,6 @@
 package game_engine.event;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import game_engine.Component;
 import game_engine.Engine;
