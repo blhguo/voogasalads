@@ -21,7 +21,7 @@ import game_engine.event.actions.micro.RemoveComponentAction;
  * The purpose of this class is to provide the Authoring environment a way to create actions.
  */
 
-public class ActionFactory<T> {
+public class ActionFactory {
 	
 	/**
 	 * This method takes in the name of the action Authoring is interested in creation, as well as a general set of
@@ -34,8 +34,8 @@ public class ActionFactory<T> {
 	 * @param engine
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Action createAction(String name, List<Entity> entities, List<Component<T>> components,
+	@SuppressWarnings("unchecked")
+	public <T> Action createAction(String name, List<Entity> entities, List<Component<T>> components,
 			List<String> expressions, List<T> values, Engine engine) {
 		
 		switch(name) {
@@ -58,10 +58,11 @@ public class ActionFactory<T> {
 				return new DataChangeAction(entities.get(0), (Class<? extends Component<Double>>) components.get(0).getClass(), expressions.get(0), (double) values.get(0));
 			
 			case "DataSetAction":
-				return new DataSetAction(entities.get(0), components.getClass(), values.get(0));
+				return null;
+//				return new DataSetAction(entities.get(0), components.getClass(), values.get(0));
 				
 			case "DataToggleAction":
-				return new DataToggleAction(entities.get(0), components.get(0).getClass());
+				return new DataToggleAction(entities.get(0), (Class<? extends Component<Boolean>>) components.get(0).getClass());
 				
 			case "RemoveComponentAction":
 				return new RemoveComponentAction(entities.get(0), (Class<? extends Component<?>>) components.get(0).getClass());
