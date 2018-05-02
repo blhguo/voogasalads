@@ -1,10 +1,8 @@
 package game_engine.event.conditions;
 
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import game_engine.Engine;
-import game_engine.Tuple;
 import game_engine.event.Condition;
 import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
@@ -27,7 +25,7 @@ public class KeyboardInputCondition implements Condition {
 		return myEngine.getKeyInputs(myKey).stream().filter(this::isPressed).collect(Collectors.toList()).size() > 0;
 	}
 
-	private boolean isPressed(Tuple<UUID, KeyEvent> input) {
-		return input.getSecond().getEventType().equals(KEY_PRESSED);
+	private boolean isPressed(KeyEvent input) {
+		return input.getEventType().equals(KEY_PRESSED);
 	}
 }

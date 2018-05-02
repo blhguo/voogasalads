@@ -24,6 +24,7 @@ public class MetaController {
 	 * Passes the current levels array to data
 	 */
 	public void saveGame() {
+		lcontroller.getEngine().setLevel(0);
 		//data.saveData(lcontroller.getEngine(), gameName, printMap);
 		data.saveData(lcontroller.getEngine(), gameName, gameName, printMap, configMap);
 	}

@@ -45,12 +45,8 @@ public class PlayMusicAction implements Action {
 	 */
 	@Override
 	public void execute() {
-		System.out.println("CLIP NAME: " + myMusicFile);
-//		URL musicPath = getClass().getResource(myMusicFile);
-//		System.out.println("CLIP PATH: " + musicPath.toString());
 		AudioClip myClip = new AudioClip(myMusicFile);
 		myClip.play();
-		System.out.println("playing: " + myClip.getSource());
 	}
 
 }
