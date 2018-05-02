@@ -32,9 +32,12 @@ public abstract class CollisionResponseSystem implements GameSystem {
 		List<Entity> entitiesCollidedWith = new ArrayList<>();
 
 		COLLIDED_ARGS.stream().forEach(cc -> {
-			List<Entity> others = (List<Entity>) e.getComponent((Class <? extends Component<T>>)cc).getValue();
-			if (others != null) {
-				entitiesCollidedWith.addAll(others);
+			Component<T> collidedComponent =  e.getComponent((Class <? extends Component<T>>)cc);
+			if(collidedComponent!=null) {
+				List<Entity> others = (List<Entity>) collidedComponent.getValue();
+				if (others != null) {
+					entitiesCollidedWith.addAll(others);
+				}
 			}
 		});
 		return entitiesCollidedWith;
