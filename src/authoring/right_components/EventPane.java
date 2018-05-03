@@ -11,6 +11,8 @@ import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
+import game_engine.event.Action;
+import game_engine.event.Condition;
 import game_engine.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -94,7 +96,7 @@ public class EventPane extends BasePane {
 		viewEvents = new Pane();
 		VBox events = new VBox();
 		events.setSpacing(20);
-		events.getChildren().addAll(getPrettyList(eventList.stream().map(e -> e.toString()).collect(Collectors.toList())));
+		events.getChildren().addAll(getPrettyList(eventList));
 		System.out.println("Events + " + events.getChildren());
 		Button button = ButtonFactory.makeButton(e ->{
 			initStart();
@@ -103,13 +105,34 @@ public class EventPane extends BasePane {
 		events.getChildren().add(buttonBox);
 		viewEvents.getChildren().add(events);
 	}
-	private List<Label> getPrettyList(List<String> list){
-		List<Label> labelList = new ArrayList<>();
-		box.setSpacing(10);
-		for (String element : list){
-			Label label = new Label(element);
-			label.setStyle("-fx-background-color: lightblue;");
-			labelList.add(label);
+	private VBox getPrettyList(List<Event> list){
+		VBox labelList = new VBox();
+		//box.setSpacing(10);
+		for (Event element : list){
+			VBox box = new VBox();
+			box.setStyle("-fx-border-width: 2px; -fx-border-color: blue");
+			Label eventLabel = new Label("Event:");
+			eventLabel.setStyle("-fx-background-color: blue;");
+			box.getChildren().add(eventLabel);
+
+			Label conditionLabel = new Label("Conditions");
+			conditionLabel.setStyle("-fx-background-color: lightblue");
+			box.getChildren().add(conditionLabel);
+
+			for (Condition condition : element.getConditions()){
+				Label label = new Label(condition.toString());
+				box.getChildren().add(label);
+			}
+
+			Label actionLabel = new Label("Actions:");
+			actionLabel.setStyle("-fx-background-color: lightblue;");
+			box.getChildren().add(actionLabel);
+
+			for (Action action : element.getActions()){
+				Label label = new Label(action.toString());
+				box.getChildren().add(label);
+			}
+			labelList.getChildren().add(box);
 		}
 		return labelList;
 	}
