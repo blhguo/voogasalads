@@ -7,6 +7,7 @@ import java.util.Map;
 
 import game_engine.Component;
 import game_engine.Engine;
+import game_engine.Entity;
 import game_engine.event.Event;
 import game_engine.level.Level;
 import game_engine.level.LevelBackgroundComponent;
@@ -55,11 +56,11 @@ public class LevelController {
 		engine = e;
 	}
 	
-	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
+	public <T> ArrayList<Object> getSingleCompList(Class<? extends Component<T>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
-		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));
-		for (List<Component<?>> list: map.values()){
-			for (Component<?> c: list){
+		Map<Integer, List<Component<T>>> map = engine.getLevelPreviews(Arrays.asList(comp));
+		for (List<Component<T>> list: map.values()){
+			for (Component<T> c: list){
 				ret.add(c.getValue());
 			}
 		}
@@ -68,6 +69,14 @@ public class LevelController {
 	
 	public void addComp(Component<?> c){
 		engine.getLevel().addComponent(c);
+	}
+	
+	public void addEntity(Entity e){
+		System.out.println("Entity: " + e);
+		engine.getLevel().addEntity(e);
+		System.out.println("------ Entities in the level ------");
+		engine.getLevel().getEntities().stream().forEach(a -> 
+			System.out.println(a));
 	}
 
 	public void addEvent(Event event){

@@ -25,13 +25,14 @@ public class HealthSystem extends CollisionResponseSystem {
 	private static final Class<? extends Component<Double>> HEALTH = HealthComponent.class;
 	private static final Class<? extends Component<Double>> DAMAGE = DamageComponent.class;
 
+	/**
+	 * checks collisions with entities containing the health component and decreases its health depending on whether
+	 * an entity with a damage component has collided with it
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
-		//Loops through entities with HealthComponent
 		List<Class<? extends Component<?>>> args = Arrays.asList(HEALTH);
 		List<Entity> healthyEntities = level.getEntitiesContaining(args);
-
-		//Loops through entities with HealthComponent AND one of the Collided Components
 		List<Entity> collidedEntities = getCollidedEntities(healthyEntities, level);
 				
 		for (Entity e : collidedEntities) {

@@ -1,0 +1,12 @@
+package authoring.liveediting;
+
+import game_engine.Engine;
+
+public class LiveEditorController {
+
+	private Engine myEngine;
+	
+	public LiveEditorController(Engine e) {
+		myEngine = e;
+	}
+}

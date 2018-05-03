@@ -2,6 +2,7 @@ package authoring.component_menus;
 
 import frontend_utilities.ButtonFactory;
 import game_engine.Component;
+import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -11,20 +12,20 @@ import resources.keys.AuthRes;
  * @author liampulsifer
  * A menu element for numeric input
  */
-public class NumberMenuElement extends MenuElement{
+public class DoubleMenuElement extends MenuElement<Double>{
 	TextField field;
 	private Node view;
 	private String title;
-	public NumberMenuElement(String title, Component component){
+	public DoubleMenuElement(String title, Component<Double> component){
 		setMyComponent(component);
 		field = new TextField();
-		if (!(component.getValue() instanceof Double)) {
-			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
-			System.out.println(component.getValue());
-			if (component.getValue() instanceof Integer){
-				component.setValue(((Integer) component.getValue()).doubleValue());
-			}
-		}
+//		if (!(component.getValue() instanceof Double)) {
+//			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
+//			System.out.println(component.getValue());
+//			if (component.getValue() instanceof Integer){
+//				component.setValue(((Integer) component.getValue()).doubleValue());
+//			}
+//		}
 
 		if (component.getValue() == null) {
 			field.setText("IMMUTABLE");
@@ -97,6 +98,21 @@ public class NumberMenuElement extends MenuElement{
 	public void setComponentValue() {
 		if (!field.getText().equals("IMMUTABLE"))
 			myComponent.setValue(Double.parseDouble(field.getText()));
+	}
+
+	@Override
+	public DoubleMenuElement copy(){
+		Component<Double> comp;
+		try {
+			comp = new ComponentFactory().createComponent(
+					title, myComponent.getValue().toString());
+		}
+		catch (NullPointerException e){
+			comp = new ComponentFactory().createComponent(title, 
+					myComponent.getValue().toString());
+		}
+		DoubleMenuElement element = new DoubleMenuElement(title, comp);
+		return element;
 	}
 
 }

@@ -13,10 +13,16 @@ import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-/*
- * @author Kevin Deng, Andy Nguyen, REFACTORED by Jeremy Chen
+
+/**
+ * 
+ * @author Andy Nguyen, Kevin Deng, Ben Hubsch, Jeremy Chen
+ *
+ * The purpose of this system class is to act on all entities that contain the specific physics and keyboard input components.
+ * This system loops over all keypresses taken from the input queue in engine and maps these keypresses to the corresponding movement
+ * within these respective Entities.
  */
-public abstract class KeyboardMovementSystem extends GameSystem {
+public abstract class KeyboardMovementSystem implements GameSystem {
 
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	private static final String KEY_RELEASED = "KEY_RELEASED";
@@ -39,6 +45,10 @@ public abstract class KeyboardMovementSystem extends GameSystem {
 		myPrime = prime;
 	}
 
+	/**
+	 * Listens for specific keyboard movement input from the engine and then moves entities correspondingly
+	 * upon receiving the correct input
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(myKeyboardMoveInput, myDefaultVel, myVel, myPrime);

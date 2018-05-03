@@ -8,10 +8,10 @@ import game_engine.components.collision.CollidedComponent;
  * @author Jeremy Chen
  * Collision condition that checks the existence of a certain type of component attached to a collided Entity
  */
-public class ComponentCollisionCondition extends CollisionCondition{
-	private Class<Component<?>> targetComponent;
+public class ComponentCollisionCondition<T> extends CollisionCondition{
+	private Class<Component<T>> targetComponent;
 	
-	public ComponentCollisionCondition(Entity e1, Class<Component<?>>comp) {
+	public ComponentCollisionCondition(Entity e1, Class<Component<T>>comp) {
 		super(e1);
 		targetComponent = comp;
 	}

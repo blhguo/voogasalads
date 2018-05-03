@@ -40,7 +40,6 @@ public class ComponentMenuFactory {
 	 * @return
 	 */
 	public ComponentMenu newComponentMenu(String[] attributes, String title){
-
 		ComponentMenu newMenu = new ComponentMenu(title);
 		for (String attr : attributes) {
 			String[] attrSplit = attr.split(ATTRIBUTE_DELIM);

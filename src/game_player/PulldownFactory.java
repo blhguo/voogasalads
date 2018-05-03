@@ -34,6 +34,7 @@ public class PulldownFactory implements ImportData {
 	private File file;
 	private String dataFilePathString;
 	private Stage gameStage;
+	private File replayPath;
 	/**
 	 *Constructor for the pull down factory. It initializes all of the
 	 * combo boxes seen in the game player.
@@ -68,21 +69,22 @@ public class PulldownFactory implements ImportData {
 		if(file==null) {
 			return;
 		}
-		String toParse = file.getAbsolutePath();
-		int loc = toParse.indexOf("games");
-		int endLoc = 0;
-		int numberSlashes = 0;
-		for(int i=loc;i<toParse.length();i++) {
-			if(toParse.charAt(i)=='\\') {
-				numberSlashes++;
-			}
-			if(numberSlashes==2) {
-				endLoc = i;
-				numberSlashes++;
-			}
-		}
-		dataFilePathString = toParse.substring(loc+6,endLoc);
-		System.out.println(dataFilePathString);
+		replayPath = file;
+//		String toParse = file.getAbsolutePath();
+//		int loc = toParse.indexOf("games");
+//		int endLoc = 0;
+//		int numberSlashes = 0;
+//		for(int i=loc;i<toParse.length();i++) {
+//			if(toParse.charAt(i)=='\\') {
+//				numberSlashes++;
+//			}
+//			if(numberSlashes==2) {
+//				endLoc = i;
+//				numberSlashes++;
+//			}
+//		}
+//		dataFilePathString = toParse.substring(loc+6,endLoc);
+//		System.out.println(dataFilePathString);
 		
 		viewManager.changeBackground();
 		gameEngine = manipData.loadData(file.getAbsolutePath());
@@ -137,6 +139,14 @@ public class PulldownFactory implements ImportData {
 
 	protected String getResources(ResourceBundle bundle, String string) {
 		return bundle.getString(string);
+	}
+	
+	public void handleReplay() {
+		ManipData manipData = new ManipData();
+		gameEngine = manipData.loadData(replayPath.getAbsolutePath());
+		playerView.setEngine(gameEngine);
+		dataManager.setGameEngine(gameEngine);
+		playerView.instantiate();
 	}
 
 	@Override

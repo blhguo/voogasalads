@@ -133,8 +133,8 @@ public class LevelPane extends BasePane {
 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
  		activeLevels.setOnAction(e -> {
  			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
- 			Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
- 			for (Entry<Integer, List<Component<?>>> ent: map.entrySet()){
+ 			Map<Integer, List<Component<String>>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
+ 			for (Entry<Integer, List<Component<String>>> ent: map.entrySet()){
  				for (Component c: ent.getValue()){
  					if (c.getValue().equals(chosenLevel)){
  						Integer chosenId = ent.getKey();

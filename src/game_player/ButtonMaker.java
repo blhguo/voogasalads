@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -44,8 +45,8 @@ public class ButtonMaker {
 		List<Button>buttonList = new ArrayList<Button>();
 
 		for (int i=0; i<images.size(); i++) {
-			System.out.println(images.get(i));
-			ImageView buttonImageView = new ImageView( getClass().getResource( "/game_player_resources/"+images.get(i)).toExternalForm());
+			Image im = new Image("game_player_resources/" + images.get(i));
+			ImageView buttonImageView = new ImageView(im);
 
 			buttonImageView.setFitHeight(30);
 			buttonImageView.setFitWidth(30);
@@ -67,79 +68,3 @@ public class ButtonMaker {
 		playerView = pv;
 	}
 }
-
-//	protected Button pausePlayButton() {
-//	
-//		ImageView pauseImageView = new ImageView( getClass().getResource( "/game_player_resources/pause.png").toExternalForm());
-//        ImageView playImageView = new ImageView( getClass().getResource( "/game_player_resources/play.png").toExternalForm());
-//
-//		pauseImageView.setFitHeight(30);
-//		pauseImageView.setFitWidth(30);
-//		playImageView.setFitHeight(30);
-//		playImageView.setFitWidth(30);
-//        HBox hBox = new HBox();
-//        hBox.getChildren().addAll(playImageView,pauseImageView);
-//
-//		pausePlay = new Button("", hBox);
-//		pausePlay.getStyleClass().add("button-nav");
-//		pausePlay.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return pausePlay;
-//		
-//	}
-//	
-//	protected Button speedControlButton() {
-//		ImageView speedImageView = new ImageView( getClass().getResource( "/game_player_resources/fast.png").toExternalForm());
-//
-//		speedImageView.setFitHeight(30);
-//		speedImageView.setFitWidth(30);
-//		speedControl = new Button("", speedImageView);
-//		speedControl.getStyleClass().add("button-nav");
-//		speedControl.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return speedControl;
-//		
-//	}
-//	protected Button slowControlButton() {
-//		ImageView slowImageView = new ImageView( getClass().getResource( "/game_player_resources/slow.png").toExternalForm());
-//
-//		slowImageView.setFitHeight(30);
-//		slowImageView.setFitWidth(30);
-//		slowControl = new Button("", slowImageView);
-//		slowControl.getStyleClass().add("button-nav");
-//		slowControl.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return slowControl;
-//		
-//	}
-//	
-//	protected Button replayButton() {
-//		ImageView replayImageView = new ImageView( getClass().getResource( "/game_player_resources/replay.png").toExternalForm());
-//		replayImageView.setFitHeight(30);
-//		replayImageView.setFitWidth(30);
-//		replay = new Button("", replayImageView);
-//		replay.getStyleClass().add("button-nav");
-//		replay.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return replay;
-//		
-//	}
-//	protected Button saveButton() {
-//		ImageView saveImageView = new ImageView( getClass().getResource( "/game_player_resources/save.png").toExternalForm());
-//		saveImageView.setFitHeight(30);
-//		saveImageView.setFitWidth(30);
-//		save = new Button("", saveImageView);
-//		save.getStyleClass().add("button-nav");
-//		save.setOnAction(click -> {
-//			playerView.handleUI();
-//		});
-//		return save;
-//		
-//	}
-//	
-//	
-//}

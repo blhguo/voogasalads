@@ -265,7 +265,7 @@
                   </myComponents>
                 </myEntity>
                 <myComponentClass>game_engine.components.position.XPosComponent</myComponentClass>
-                <myComparison>&gt;</myComparison>
+                <myComparison></myComparison>
                 <myExpected>400</myExpected>
               </game__engine.event.conditions.DataCondition>
               <game__engine.event.conditions.ComponentCollisionCondition>

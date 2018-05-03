@@ -2,7 +2,6 @@ package authoring.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import gameData.ManipData;
 import resources.keys.AuthRes;
