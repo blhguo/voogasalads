@@ -7,39 +7,45 @@ import javafx.stage.Stage;
  * 
  * @author Brandon Dalla Rosa
  *
+ * Upper level class which creates the other classes found in the
+ * game player.
  */
 public class PlayerMain extends Application{
 	ViewManager viewManager;
 	Menu menu;
 	DataManager dataManager;
-	PulldownFactory pullDownFactory;
+	DataConnect dataConnect;
 	PlayerView playerView;
 	
 	
 	
 	/**
-	 * Method called to initialize the Game Player
+	 * Method called to initialize the Game Player.
 	 */
 	public void start(Stage stage) {
 		InstanceStorage dataStorage = new InstanceStorage();
 		this.dataManager = new DataManager();
-		this.pullDownFactory = new PulldownFactory();
+		this.dataConnect = new DataConnect();
 		this.menu = new Menu();
 		this.viewManager = new ViewManager();
 		this.playerView = new PlayerView();
 		dataStorage.setDataManager(dataManager);
-		dataStorage.setPullDownFactory(pullDownFactory);
+		dataStorage.setDataConnect(dataConnect);
 		dataStorage.setMenu(menu);
 		dataStorage.setViewManager(viewManager);
 		dataStorage.setPlayerView(playerView);
 		dataStorage.setStage(stage);
 		dataManager.initialize(dataStorage);
-		pullDownFactory.initialize(dataStorage);
+		dataConnect.initialize(dataStorage);
 		menu.initialize(dataStorage);
 		viewManager.initialize(dataStorage);
 		playerView.initialize(dataStorage);
 	}
 	
+	/**
+	 * Method to return the current scene of the game player.
+	 * @return
+	 */
 	public Scene getScene() {
 		return viewManager.getScene();
 	}

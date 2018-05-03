@@ -8,39 +8,46 @@ import javafx.scene.layout.Pane;
 /**
  * 
  * @author Brandon Dalla Rosa, Dana Park
- *Class that represents all Menu items contained in HBox on top of the screen
+ *Class that represents all Menu items contained in HBox on bottom of the screen
  */
 
 public class Menu {
 	
 	private HBox pane;
-	private PulldownFactory pullDownFactory;
+	private DataConnect dataConnect;
 	private ButtonMaker buttonMaker;
 	private DataManager dataManager;
 	private SettingsMenu settings;
 	private GameSelectionMenu gameMenu;
 	private PlayerView playerView;
 	
+	/**
+	 * Constructor to create instance prior to initialization.
+	 */
 	public Menu() {
 		//TODO something
 	}
-	
+	/**
+	 * Method called to initialize class after creation.
+	 * 
+	 * @param storage
+	 */
 	public void initialize(InstanceStorage storage) {
 		pane = new HBox(35);
 		pane.setAlignment(Pos.TOP_CENTER);
 		dataManager = storage.getDataManager();
 		playerView = storage.getPlayerView();
-		pullDownFactory = storage.getPullDownFactory();
+		dataConnect = storage.getDataConnect();
 		makeButtons();
 		settings = new SettingsMenu(storage.getStage());
 		settings.makeSettingsMenu(pane);
 		settings.makeSettingsStage();
 		gameMenu = new GameSelectionMenu();
-		gameMenu.makeGameSelectionMenu(pane,pullDownFactory);
+		gameMenu.makeGameSelectionMenu(pane,dataConnect);
 		new KeyPrefMenu(dataManager,pane);
 	}
 	/**
-	 * Method to add the menu into the VBox for the View Manager
+	 * Method to add the menu into the VBox for the View Manager.
 	 * 
 	 * @param root
 	 */
@@ -49,7 +56,7 @@ public class Menu {
 	}
 	
     /**
-	 * Method to add ComboBoxes from PulldownFactory to Menu
+	 * Method to add buttons from the button maker into Menu.
 	 * 
 	 */
 
@@ -63,14 +70,14 @@ public class Menu {
 	}
 	
 	/**
-	 * getter method for the Brightness Slider on the Settings Stage
+	 * Getter method for the Brightness Slider on the Settings Stage.
 	 * 
 	 */
 	public Slider getBrightnessSlider() {
 		return settings.getBrightnessSlider();
 	}
 	/**
-	 * getter method for the Volume Slider on the Settings Stage
+	 * Getter method for the Volume Slider on the Settings Stage.
 	 * 
 	 */
 	public Slider getVolumeSlider() {

@@ -26,15 +26,21 @@ public class DataManager {
 	private List<String> gameInputs;
 	private Engine gameEngine;
 	private Entity gamePlayer;
-	private String gameTitle;
+	private String gameTitle = "VOOGA"; //TODO get from config data
 	private Stage gameStage;
-	private Map<String,String> gameMetadata;
 	
-	
+	/**
+	 * Constructor to create an instance prior to initialization.
+	 */
 	public DataManager() {
 		//TODO something
 	}
 	
+	/**
+	 * Method called to initialize the class after creation.
+	 * 
+	 * @param storage
+	 */
 	public void initialize(InstanceStorage storage) {
 		gameStage = storage.getStage();
 		keyPrefs = new HashMap<KeyCode,String>();
@@ -50,6 +56,12 @@ public class DataManager {
 		}
 		initializeInputs();
 	}
+	/**
+	 * Method called to set the entity which the player can control
+	 * for access by the key preferences.
+	 * 
+	 * @param gp
+	 */
 	public void setGamePlayer(Entity gp) {
 		gamePlayer = gp;
 		initializeInputs();
@@ -65,7 +77,12 @@ public class DataManager {
 		keyPrefsReversed.put(input, key);
 		addGameDirection(key,input);
 	}
-	
+	/**
+	 * Method called to change the key preferences for the actions in the game.
+	 * 
+	 * @param k
+	 * @param input
+	 */
 	private void addGameDirection(KeyCode k, String input) {
 		if(gamePlayer==null) {
 			for(String s : gameInputs) {
@@ -108,7 +125,7 @@ public class DataManager {
 	}
 	
 	/**
-	 * Initialize the keys for all commands to be enter.
+	 * Initialize the keys for all commands to be the default w-a-s-d.
 	 */
 	private void initializeInputs() {
 		for(String s : gameInputs) {
@@ -126,27 +143,47 @@ public class DataManager {
 		gameEngine = e;
 	}
 	
+	/**
+	 * Returns the current game engine.
+	 * 
+	 * @return
+	 */
 	public Engine getGameEngine(){
 		return gameEngine;
 	}
 	
+	/**
+	 * Returns the current game title.
+	 * 
+	 * @return
+	 */
 	public String getGameTitle() {
 		return gameTitle;
 	}
+	/**
+	 * Sets the current game title.
+	 * 
+	 * @param gt
+	 */
 	public void setGameTitle(String gt) {
 		this.gameTitle = gt;
 	}
-	public Map<String,String> getGameMetadata(){
-		return this.gameMetadata;
-	}
-	public void setGameMetadata(Map<String,String> gm) {
-		this.gameMetadata = gm;
-	}
 	
+	/**
+	 * Returns the list of inputs which the user
+	 * can provide.
+	 * 
+	 * @return
+	 */
 	public List<String> getInputCommands(){
 		return gameInputs;
 	}
 	
+	/**
+	 * Sets the current game stage.
+	 * 
+	 * @return
+	 */
 	public Stage getStage() {
 		return this.gameStage;
 	}

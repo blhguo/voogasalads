@@ -16,13 +16,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
- * Manages data.
+ * Class which handles the connections to the game data, including saving 
+ * and loading the game engine for use.
  * 
  * @author Dana Park, Brandon Dalla Rosa
  *
  */
-public class PulldownFactory implements ImportData {
+public class DataConnect implements ImportData {
 
+	private static final String INPUT_TITLE = "Enter save file name";
 	private Map<String, String> test = new HashMap<String, String>();
 	private Engine gameEngine;
 	private DataManager dataManager;
@@ -32,36 +34,51 @@ public class PulldownFactory implements ImportData {
 	private Scene aboutGameScene;
 	private Stage aboutGameStage;
 	private File file;
-	private String dataFilePathString;
 	private Stage gameStage;
 	private File replayPath;
 	/**
-	 *Constructor for the pull down factory. It initializes all of the
-	 * combo boxes seen in the game player.
+	 * Constructor for the data connector. It creates the instance prior to initialization.
 	 */
-	public PulldownFactory() {
+	public DataConnect() {
 		//TODO something
 	}
+	/**
+	 * Function called to initialize the class after creation to reduce dependency issues.
+	 * 
+	 * @param storage
+	 */
 	public void initialize(InstanceStorage storage) {
 		dataManager = storage.getDataManager();
 		viewManager = storage.getViewManager();
 		playerView = storage.getPlayerView();
 		gameStage = storage.getStage();
 	}
-
+	
+	/**
+	 * Method called to save the current game state. It gives the user
+	 * an opportunity to name the file.
+	 */
 	public void handleSave() {
+		if(dataManager.getGameEngine()==null) {
+			return;
+		}
 		ManipData manipData = new ManipData();
 		Stage tempStage = new Stage();
 		TextField textField = new TextField();
 		Scene tempScene = new Scene(textField);
 		tempStage.setScene(tempScene);
 		tempStage.initOwner(gameStage);
+		tempStage.setTitle(INPUT_TITLE);
 		tempStage.show();
 		textField.setOnAction(click->{
 			manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),textField.getText(),true);
 			tempStage.hide();
 			});
 	}
+	/**
+	 * Method called to load a game from a saved file. The user is able 
+	 * to select the file.
+	 */
 	@Override
 	public void importGame() {
 		ManipData manipData = new ManipData();
@@ -69,23 +86,7 @@ public class PulldownFactory implements ImportData {
 		if(file==null) {
 			return;
 		}
-		replayPath = file;
-//		String toParse = file.getAbsolutePath();
-//		int loc = toParse.indexOf("games");
-//		int endLoc = 0;
-//		int numberSlashes = 0;
-//		for(int i=loc;i<toParse.length();i++) {
-//			if(toParse.charAt(i)=='\\') {
-//				numberSlashes++;
-//			}
-//			if(numberSlashes==2) {
-//				endLoc = i;
-//				numberSlashes++;
-//			}
-//		}
-//		dataFilePathString = toParse.substring(loc+6,endLoc);
-//		System.out.println(dataFilePathString);
-		
+		replayPath = file;		
 		viewManager.changeBackground();
 		gameEngine = manipData.loadData(file.getAbsolutePath());
 		playerView.setEngine(gameEngine);
@@ -93,10 +94,14 @@ public class PulldownFactory implements ImportData {
 		playerView.instantiate();
 	}
 	
+	/**
+	 * Method called to set the about game information provided by the
+	 * authoring environment.
+	 */
 	public void aboutGame() {
-		test.put("Hello", "World");
-		test.put("Homework", "Much");
-		test.put("author", "Dana");
+		test.put("Vooga", "Salad");
+		test.put("Year", "2019");
+		test.put("Call Us", "Salad");
 		TextArea text = new TextArea();
 		String string = new String();
 		aboutGameBox = new VBox(text);
@@ -121,12 +126,16 @@ public class PulldownFactory implements ImportData {
 	}
     
     /**
-     * Method to return the list of levels loaded from data.
+     * Method to return the desired game engine loaded from data.
      */ 
 	public Engine getGameEngine() {
 		return gameEngine;
 	}
     
+	/**
+	 * Method to create the file chooser for the user to interact with.
+	 * @return: User desired file.
+	 */
 	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choose Game File");
@@ -141,7 +150,13 @@ public class PulldownFactory implements ImportData {
 		return bundle.getString(string);
 	}
 	
+	/**
+	 * Method called to replay the game from the most recently loaded file.
+	 */
 	public void handleReplay() {
+		if(replayPath==null) {
+			return;
+		}
 		ManipData manipData = new ManipData();
 		gameEngine = manipData.loadData(replayPath.getAbsolutePath());
 		playerView.setEngine(gameEngine);
