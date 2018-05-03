@@ -10,13 +10,15 @@ import game_engine.event.Condition;
  *
  */
 public class ConditionFactory {
-	private static final String CONDITION_BUNDLE = "Condition";
-	
-	
+
+	private ConditionFactory() {
+		// not called
+	}
+
 	public Condition createCondition(List<Component<?>> components) {
-		
+
 		return null;
-		
+
 	}
 
 }

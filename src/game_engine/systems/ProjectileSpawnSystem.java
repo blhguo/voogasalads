@@ -2,13 +2,11 @@ package game_engine.systems;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Tuple;
 import game_engine.components.DamageComponent;
 import game_engine.components.ProjectileComponent;
 import game_engine.components.collision.CollidableComponent;
@@ -40,8 +38,14 @@ import game_engine.level.Level;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class ProjectileSpawnSystem extends GameSystem {
-
+/**
+ * 
+ * @author Andy Nguyen, Jeremy Chen, Ben Hubsch, Kevin Deng
+ * The purpose of this system is to allow entities to shoot projectiles upon user input. The system spawns projectiles
+ * from an entity, with the projectiles having the attributes defined within the Projectile...Components. 
+ *
+ */
+public class ProjectileSpawnSystem implements GameSystem {
 	private static final Class<? extends Component<Double>> PROJ_YVEL = ProjectileYVelComponent.class;
 	private static final Class<? extends Component<Double>> PROJ_XVEL = ProjectileXVelComponent.class;
 	private static final Class<? extends Component<Double>> PROJ_WIDTH = ProjectileWidthComponent.class;
@@ -60,10 +64,17 @@ public class ProjectileSpawnSystem extends GameSystem {
 	
 	private Engine myEngine;
 	
+	/**
+	 * instantiates a new ProjectileSpawnSystem with the given reference to Engine
+	 * @param engine
+	 */
 	public ProjectileSpawnSystem(Engine engine) {
 		myEngine = engine;
 	}
 	
+	/**
+	 * Listens for specific shooting input from the engine and then spawns projectile Entities upon receiving the correct input
+	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(PROJ_YVEL, PROJ_XVEL, PROJ_WIDTH, PROJ_HEIGHT,
@@ -71,8 +82,8 @@ public class ProjectileSpawnSystem extends GameSystem {
 				ENTITY_XPOS, ENTITY_YPOS, PROJ_HITBOX_X_OFFSET, PROJ_HITBOX_Y_OFFSET);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<KeyCode> keyInput = entity.getComponent(PROJ_INPUT);
-			for (Tuple<UUID, KeyEvent> input : myEngine.getKeyInputs(keyInput.getValue())) {
-				if (input.getSecond().getEventType().getName().equals(KEY_PRESSED)) {
+			for (KeyEvent input : myEngine.getKeyInputs(keyInput.getValue())) {
+				if (input.getEventType().getName().equals(KEY_PRESSED)) {
 					Entity proj = createProjectile(entity);
 					level.addEntity(proj);
 				}
@@ -80,12 +91,17 @@ public class ProjectileSpawnSystem extends GameSystem {
 		}
 	}
 	
+	/**
+	 * creates a Projectile entity from the given values described withhin the Projectile...Components
+	 * @param entity
+	 * @return
+	 */
 	private Entity createProjectile(Entity entity) {
 		Entity projectile = new Entity();
 		projectile.addComponent(new ProjectileComponent());
 		projectile.addComponent(new YVelComponent(entity.getComponent(PROJ_YVEL).getValue().toString()));
 		
-		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
+		Component<Double> polarity = entity.getComponent(SpritePolarityComponent.class);
 		Double projectileXVel = entity.getComponent(PROJ_XVEL).getValue();
 		
 		double spawnXOffset = 0;

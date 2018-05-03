@@ -30,13 +30,12 @@ import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
 import game_engine.components.sprite.HeightComponent;
-import game_engine.components.sprite.JumpFilenameComponent;
-import game_engine.components.sprite.RunFilenameComponent;
 import game_engine.components.sprite.SpritePolarityComponent;
-import game_engine.components.sprite.StandFilenameComponent;
 import game_engine.components.sprite.VisibilityComponent;
 import game_engine.components.sprite.WidthComponent;
 import game_engine.components.sprite.ZHeightComponent;
+import game_engine.components.sprite.animation.RunFilenameComponent;
+import game_engine.components.sprite.animation.StandFilenameComponent;
 import game_engine.event.Event;
 import game_engine.event.actions.micro.DataChangeAction;
 import game_engine.event.conditions.MouseInputCondition;
@@ -109,7 +108,7 @@ public class EnemyTest extends Application {
 		Map<String, String> map = new HashMap<>();
 		map.put("dog", "cat");
 		map.put("potato", "fruit");
-		data.saveData(engine, "Mario", map);
+//		data.saveData(engine, "Mario", map);
 	}
 
 	private void updateAllRects() {

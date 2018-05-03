@@ -1,32 +1,32 @@
 package authoring.voogle;
 
+import java.io.File;
+
 import authoring.component_menus.FileMenuElement;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import voogasalad.util.voogle_images.ImageObserver;
+import voogasalad.util.voogleimages.ImageObserver;
+import voogasalad.util.voogleimages.VoogleImages;
 
-import java.io.File;
-
-public class VoogleApp{
+public class VoogleApp implements ImageObserver {
 
 	private Scene myScene;
 	private VBox myCol;
 	private FileMenuElement myFileMenuElement;
 
-	public VoogleApp(FileMenuElement element){
+	public VoogleApp(FileMenuElement element) {
 		myFileMenuElement = element;
 		myCol = new VBox();
 		VBox main = new VBox();
-		//VoogleImages voogleImages = new VoogleImages(this);
+		VoogleImages voogleImages = new VoogleImages(this);
 //		main.getChildren().add(new Label("Voogle Images"));
 //		main.getChildren().add(createMenu(e -> voogleImages.go()));
-		//voogleImages.go();
+		voogleImages.go();
 		myScene = new Scene(main);
 	}
 	public Scene getMyScene(){

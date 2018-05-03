@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import game_engine.level.Level;
@@ -18,17 +17,16 @@ public class Engine {
 	private int myCurrentLevel;
 	private int myIdCounter;
 	private List<GameSystem> mySystems;
-	private List<Tuple<UUID, KeyEvent>> myKeyInputs;
-	private List<Tuple<UUID, Vector>> myMouseInputs;
+	private List<KeyEvent> myKeyInputs;
+	private List<Vector> myMouseInputs;
 
 	public Engine() {
-		myLevels = new HashMap<Integer, Level>();
+		myLevels = new HashMap<>();
 		myCurrentLevel = 0;
 		myIdCounter = 0;
 		myKeyInputs = new LinkedList<>();
 		myMouseInputs = new LinkedList<>();
 		mySystems = new SystemInitializer().init(this);
-		System.out.println(mySystems.size());
 	}
 
 	public void update(double elapsedTime) {
@@ -70,34 +68,35 @@ public class Engine {
 		myCurrentLevel = dex;
 	}
 
-	public Map<Integer, List<Component<?>>> getLevelPreviews(List<Class<? extends Component<?>>> args) {
-		Map<Integer, List<Component<?>>> preview = new HashMap<Integer, List<Component<?>>>();
-		List<Component<?>> previewComponents;
-		for (Integer key : myLevels.keySet()) {
-			previewComponents = new ArrayList<Component<?>>();
-			Level lvl = myLevels.get(key);
-			for (Class<? extends Component<?>> c : args) {
-				previewComponents.add(lvl.getComponent(c));
+	public <T> Map<Integer, List<Component<T>>> getLevelPreviews(List<Class<? extends Component<T>>> args) {
+		Map<Integer, List<Component<T>>> preview = new HashMap<>();
+		List<Component<T>> previewComponents;
+		for (Map.Entry<Integer, Level> levelMapping : myLevels.entrySet()) {
+			int id = levelMapping.getKey();
+			Level level = levelMapping.getValue();
+			previewComponents = new ArrayList<>();
+			for (Class<? extends Component<T>> c : args) {
+				previewComponents.add(level.getComponent(c));
 			}
-			preview.put(key, previewComponents);
+			preview.put(id, previewComponents);
 		}
 		return preview;
 	}
 
-	public List<Tuple<UUID, KeyEvent>> getKeyInputs(KeyCode keyInput) {
-		return myKeyInputs.stream().filter(keyTuple -> keyInput.equals(keyTuple.getSecond().getCode()))
+	public List<KeyEvent> getKeyInputs(KeyCode keyInput) {
+		return myKeyInputs.stream().filter(event -> keyInput.equals(event.getCode()))
 				.collect(Collectors.toList());
 	}
 
-	public List<Tuple<UUID, Vector>> getMouseInputs() {
+	public List<Vector> getMouseInputs() {
 		return myMouseInputs;
 	}
 
-	public void receiveKeyInput(Tuple<UUID, KeyEvent> event) {
+	public void receiveKeyInput(KeyEvent event) {
 		myKeyInputs.add(event);
 	}
 
-	public void receiveMouseInput(Tuple<UUID, Vector> click) {
+	public void receiveMouseInput(Vector click) {
 		myMouseInputs.add(click);
 	}
 }

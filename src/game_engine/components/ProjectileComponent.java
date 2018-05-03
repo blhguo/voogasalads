@@ -8,5 +8,8 @@ public class ProjectileComponent extends Component<NullType>{
 	public ProjectileComponent() {
 		super(null);
 	}
+	public ProjectileComponent(String val) {
+		super(null);
+	}
 
 }

@@ -10,13 +10,13 @@ import game_engine.Entity;
 import game_engine.event.ComponentNotPresentException;
 import game_engine.event.Condition;
 
-public class DataCondition implements Condition {
+public class DataCondition<T> implements Condition {
 	private Entity myEntity;
-	private Class<? extends Component<?>> myComponentClass;
+	private Class<? extends Component<T>> myComponentClass;
 	private String myComparison;
 	private String myExpected;
 
-	public DataCondition(Entity entity, Class<? extends Component<?>> componentClass, String comparison, String expected) {
+	public DataCondition(Entity entity, Class<? extends Component<T>> componentClass, String comparison, String expected) {
 		myEntity = entity;
 		myComponentClass = componentClass;
 		myComparison = comparison;
@@ -29,9 +29,8 @@ public class DataCondition implements Condition {
 
 	@Override
 	public boolean evaluate() {
-		String expression = myEntity.getComponent(myComponentClass).getValue() + myComparison + myExpected; 
+		String expression = myEntity.getComponent(myComponentClass).getValue().toString() + myComparison + myExpected;
 		BigDecimal result =  new Expression(expression).eval();
 		return result.equals(BigDecimal.ONE);
 	}
-
 }

@@ -4,18 +4,25 @@ import authoring.right_components.EntityComponent.EntityWrapper;
 import game_engine.Component;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import observables.Listener;
-import observables.Subject;
 
 /**
  * @author liampulsifer
  * Defines an Element of a ComponentMenu
  * Which creates an input field of the correct type based on a Component's parameters
  */
-public abstract class MenuElement{
+public abstract class MenuElement<T>{
 	protected ComponentMenu myMenu;
-	protected Component myComponent;
+	protected Component<T> myComponent;
+
+	public boolean isDateable() {
+		return dateable;
+	}
+
+	public void setDateable(boolean dateable) {
+		this.dateable = dateable;
+	}
+
+	protected boolean dateable = false;
 
 	public void setMyWrapper(EntityWrapper myWrapper) {
 		this.myWrapper = myWrapper;
@@ -44,10 +51,10 @@ public abstract class MenuElement{
 	 */
 	public abstract String getTitle();
 
-	public Component getComponent() {
+	public Component<T> getComponent() {
 		return myComponent;
 	}
-	public void setMyComponent(Component c){
+	public void setMyComponent(Component<T> c){
 		myComponent = c;
 	}
 
@@ -59,4 +66,5 @@ public abstract class MenuElement{
 
 	public abstract void setComponentValue();
 
+	public abstract MenuElement copy();
 }

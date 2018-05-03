@@ -10,19 +10,22 @@ import java.util.Map.Entry;
 import authoring.controllers.LevelController;
 import authoring.controllers.PaneController;
 import frontend_utilities.ButtonFactory;
-
 import frontend_utilities.UserFeedback;
 import game_engine.Component;
 import game_engine.level.LevelBackgroundComponent;
+import game_engine.level.LevelHScrollComponent;
 import game_engine.level.LevelMusicComponent;
 import game_engine.level.LevelNameComponent;
+import game_engine.level.LevelThumbComponent;
+import game_engine.level.LevelVScrollComponent;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -43,6 +46,8 @@ public class LevelPane extends BasePane {
 	private Stage stage;
 	private ComboBox activeLevels = new ComboBox();
 	private TextField textName = new TextField();
+	private CheckBox hscroll = new CheckBox();
+	private CheckBox vscroll = new CheckBox();
 	private VBox box = new VBox();
 
 	public LevelPane(Stage s){
@@ -84,6 +89,12 @@ public class LevelPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeHBox("Select Background", null, backButton));
 		
+		Button thumbButton = ButtonFactory.makeButton(event -> {
+			File file = initFileChooser("Choose Thumbnail Image");
+			lcontroller.addComp(new LevelThumbComponent(file.getName()));
+		});
+		list.add(ButtonFactory.makeHBox("Select Thumbnail", null, thumbButton));
+		
 		Button musicButton = ButtonFactory.makeButton(event -> {
 			File file = initFileChooser("Choose Background Music");
 			lcontroller.addComp(new LevelMusicComponent(file.getName()));
@@ -96,36 +107,34 @@ public class LevelPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeHBox("Add New Level", null, newLevel));
 		
+		list.add(makeScrollBoxes());
 		return list;
 
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void update(){
+	public void update(){
 		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
 		activeLevels.setValue(name);
-		// need to update options in combobox
 		ArrayList<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
 		activeLevels.setItems(FXCollections.observableArrayList(newLevels));
 		textName.setText(activeLevels.getValue().toString());
-		// need to change background to new image, sometimes no image (default)
 		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
-		if (background.equals("default")){
-			controller.resetBackground();
-		}
-		else{
-			controller.setBackground(background);
-		}
+		controller.setBackground(background);
+		controller.updateCanvas(lcontroller.getEngine().getLevel().getId());
+		hscroll.setSelected(lcontroller.getEngine().getLevel().getComponent(LevelHScrollComponent.class).getValue());
+		vscroll.setSelected(lcontroller.getEngine().getLevel().getComponent(LevelVScrollComponent.class).getValue());
 	}
 	
 	@SuppressWarnings("unchecked")
 	private ComboBox makeActiveLevelList(ArrayList<Object> levelNames){
 		activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
+		//System.out.println(lcontroller.getEngine().getLevel());
 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
  		activeLevels.setOnAction(e -> {
  			String chosenLevel = activeLevels.getSelectionModel().getSelectedItem().toString();
- 			Map<Integer, List<Component<?>>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
- 			for (Entry<Integer, List<Component<?>>> ent: map.entrySet()){
+ 			Map<Integer, List<Component<String>>> map = lcontroller.getEngine().getLevelPreviews(Arrays.asList(LevelNameComponent.class));
+ 			for (Entry<Integer, List<Component<String>>> ent: map.entrySet()){
  				for (Component c: ent.getValue()){
  					if (c.getValue().equals(chosenLevel)){
  						Integer chosenId = ent.getKey();
@@ -161,6 +170,41 @@ public class LevelPane extends BasePane {
 			}
 		});
 		return textName;
+	}
+	
+	private TitledPane makeScrollBoxes(){
+		TitledPane tp = new TitledPane();
+		tp.setExpanded(false);
+		tp.setText("Choose Scrolling Direction");
+		
+		VBox checkBoxes = new VBox(AuthRes.getInt("Padding"));
+//		hscroll.setText("Toggle Horizontal Scrolling");
+//		hscroll.setAllowIndeterminate(false);
+		hscroll.setSelected(lcontroller.getEngine().getLevel().getComponent(LevelHScrollComponent.class).getValue());
+		scrollHelper(hscroll, "Toggle Horizontal Scrolling");
+//		vscroll.setText("Toggle Vertical Scrolling");
+//		vscroll.setAllowIndeterminate(false);
+		vscroll.setSelected(lcontroller.getEngine().getLevel().getComponent(LevelVScrollComponent.class).getValue());
+		scrollHelper(vscroll, "Toggle Vertical Scrolling");
+		hscroll.setOnMouseClicked(event -> {
+			lcontroller.addComp(new LevelHScrollComponent(hscroll.isSelected()));
+			controller.changeScrolling(hscroll.isSelected(), vscroll.isSelected());
+			controller.updateCanvas();
+		});
+		vscroll.setOnMouseClicked(event -> {
+			lcontroller.addComp(new LevelVScrollComponent(vscroll.isSelected()));
+			controller.changeScrolling(hscroll.isSelected(), vscroll.isSelected());
+			//controller.updateCanvas();
+		});
+		checkBoxes.getChildren().addAll(hscroll, vscroll);
+		tp.setContent(checkBoxes);
+		return tp;
+	}
+	
+	private CheckBox scrollHelper(CheckBox scroll, String title){
+		scroll.setText(title);
+		scroll.setAllowIndeterminate(false);
+		return scroll;
 	}
 	
 	private File initFileChooser(String title){

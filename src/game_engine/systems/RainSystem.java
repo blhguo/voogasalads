@@ -5,7 +5,7 @@ import java.util.Random;
 import game_engine.GameSystem;
 import game_engine.level.Level;
 
-public class RainSystem extends GameSystem {
+public class RainSystem implements GameSystem {
 	
 	private static final double CREATE_PERCENTAGE = 0.05;
 	

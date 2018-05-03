@@ -1,6 +1,6 @@
 package authoring.GUI_Heirarchy;
 
-import javafx.scene.layout.Pane;
+import javafx.scene.Node;
 
 /**
  * @author Jennifer Chin
@@ -19,6 +19,6 @@ public interface GUINode {
 	 * provide functionality. This method is where the front end portion is separated. 
 	 * @return Pane
 	 */
-	public Pane getView();
+	public Node getView();
 	
 }

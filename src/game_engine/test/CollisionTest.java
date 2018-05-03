@@ -71,9 +71,9 @@
 //public class CollisionTest extends Application {
 //
 //    private Entity e1; //smol rect
-//    private Entity e2; 
+//    private Entity e2;
 //    private Entity e3; //BIG rect
-//    
+//
 //    Map<Entity, Rectangle> spritesMap = new HashMap<Entity, Rectangle>();
 //
 //    private Engine e;
@@ -84,7 +84,7 @@
 //
 //    private static final int FRAMES_PER_SECOND = 60;
 //    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-//    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;    
+//    private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 //    private static final String GRAVITY = "0";
 //	private static final String JUMP_VELOCITY = "500"; //effects of how high you jump
 //
@@ -95,7 +95,7 @@
 //
 //    private Group root;
 //    private Scene myScene;
-//    
+//
 //    private Event event1;
 //    private Event event2;
 //
@@ -119,15 +119,8 @@
 //     */
 //    private void step(double elapsedTime) {
 //    	Level currentLevel = e.getLevel();
-//		//despawnSys.act(elapsedTime, currentLevel);
-//        //event1.occur();
-//        //event2.occur();
-//
-//		//System.out.println("Health of smol Rect: " + e1.getComponent(HealthComponent.class).getValue());
-//		//System.out.println("Health of Big Rect: " + e3.getComponent(HealthComponent.class).getValue());
-//		//System.out.println("Score of smol rect: " + e1.getComponent(ScoreComponent.class).getValue());
-////		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
-////		System.out.println("Current level: " + e.getLevel().getId());
+//		System.out.println("DefaultXVel of smol rect: " + e1.getComponent(DefaultXVelComponent.class).getValue());
+//		System.out.println("Current level: " + e.getLevel().getId());
 //		updateAllEntities();
 //        //updateRectPos();
 //        updateRectColor();
@@ -136,14 +129,20 @@
 //    private void setup(){
 //        root = new Group();
 //        myScene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
-//        myScene.setOnKeyPressed(b -> e.receiveInput(b));
-//		myScene.setOnKeyReleased(b -> e.receiveInput(b));
+//
+//        UUID u1 = new UUID(0,0);
+//        UUID u2 = new UUID(0,1);
+//        UUID u3 = new UUID(0,2);
+//
+//
+//        myScene.setOnKeyPressed(b -> e.receiveKeyInput(b));
+//		myScene.setOnKeyReleased(b -> e.receiveKeyInput(b));
 //
 //    	buildEntities();
 //        initRects();
-//        
+//
 //    }
-//    
+//
 //    private void updateAllEntities() {
 //    	for (Entity entity : e.getLevel().getEntities()) {
 //    		if (!spritesMap.containsKey(entity)) {
@@ -173,7 +172,7 @@
 //        double y = e1.getComponent(YPosComponent.class).getValue();
 //        double width = e1.getComponent(HitboxWidthComponent.class).getValue();
 //		double height = e1.getComponent(HitboxHeightComponent.class).getValue();
-//        
+//
 //        double theta = e1.getComponent(AngleComponent.class).getValue();
 //
 //        r1.setX(x - width/2);
@@ -209,57 +208,57 @@
 //    	e1.addComponent(keyUpComp);
 //    	e1.addComponent(keyDownComp);
 //    	e1.addComponent(new SpritePolarityComponent("1"));
-//    	
+//
 //    	e1.addComponent(new YAccelComponent(GRAVITY));
 //    	e1.addComponent(new DefaultYVelComponent(JUMP_VELOCITY));
 //    	e1.addComponent(new YVelComponent("0"));
-//    	
+//
 //    	e1.addComponent(new XVelComponent("0"));
 //    	e1.addComponent(new DefaultXVelComponent("400"));
 //    	e1.addComponent(new XAccelComponent("0"));
-//    	
+//
 //    	e1.addComponent(new XPosComponent("500"));
 //    	e1.addComponent(new YPosComponent("350"));
 //    	e1.addComponent(new AngleComponent("0"));
-//    	
+//
 //    	e2.addComponent(new XPosComponent("100"));
 //    	e2.addComponent(new YPosComponent("100"));
 //    	e2.addComponent(new AngleComponent("0"));
-//    	
+//
 //    	e3.addComponent(new XPosComponent("800"));
 //    	e3.addComponent(new YPosComponent("300"));
 //    	e3.addComponent(new AngleComponent("0"));
-//    	
-//    	
+//
+//
 //    	e1.addComponent(new HitboxHeightComponent("100.0"));
 //    	e1.addComponent(new HitboxWidthComponent("100.0"));
 //    	e1.addComponent(new HitboxXOffsetComponent("0.0"));
 //    	e1.addComponent(new HitboxYOffsetComponent("0.0"));
-//    	
+//
 //    	e2.addComponent(new HitboxHeightComponent("20.0"));
 //    	e2.addComponent(new HitboxWidthComponent("20.0"));
 //    	e2.addComponent(new HitboxXOffsetComponent("0.0"));
 //    	e2.addComponent(new HitboxYOffsetComponent("0.0"));
-//    	
+//
 //    	e3.addComponent(new HitboxHeightComponent("500.0"));
 //    	e3.addComponent(new HitboxWidthComponent("100.0"));
 //    	e3.addComponent(new HitboxXOffsetComponent("0.0"));
 //    	e3.addComponent(new HitboxYOffsetComponent("0.0"));
-//    	
+//
 //    	e1.addComponent(new CollidableComponent("true"));
 //    	//e1.addComponent(new PassableComponent("true"));
-//    	
+//
 //    	e2.addComponent(new CollidableComponent("true"));
 //    	e2.addComponent(new PassableComponent("true"));
-//    	
+//
 //    	e3.addComponent(new CollidableComponent("true"));
 //    	//e3.addComponent(new PassableComponent("true"));
-//    	
+//
 //    	//Add Health Component
 //    	e1.addComponent(new HealthComponent("1000")); //100 health points for e1
 //    	e3.addComponent(new HealthComponent("2000"));
 //    	e3.addComponent(new DamageComponent("100")); //e3 does 100 damage
-//    	
+//
 //    	//Add Project Components to Entity e1
 //    	e1.addComponent(new ProjectileWidthComponent("20.0"));
 //    	e1.addComponent(new ProjectileHeightComponent("20.0"));
@@ -273,24 +272,24 @@
 //    	e1.addComponent(new ProjectileXVelComponent("200"));
 //    	e1.addComponent(new ProjectileYVelComponent("0"));
 //    	e1.addComponent(new ProjectileFilenameComponent("Mario.GIF"));
-//    	
+//
 //    	//Add Collectible/Collector components
 //    	e1.addComponent(new CollectorComponent());
 //    	e3.addComponent(new CollectibleComponent("50"));
-//    	
+//
 //    	//Add Score component to entity1
 //    	e1.addComponent(new ScoreComponent("0")); // 0 is default score
-//    	
-//    	
+//
+//
 //    	e = new Engine();
-//    	
+//
 //    	Level lvl0 = e.createLevel();
 //    	//asdf.addEntity(e2);
 //    	lvl0.addEntity(e1);
 //    	lvl0.addEntity(e3);
-//    	
+//
 //    	Level lvl1 = e.createLevel();
-//    	
+//
 //    	List<Level> levels = new ArrayList<Level>();
 //    	levels.add(lvl0);
 //    	levels.add(lvl1);
@@ -301,53 +300,53 @@
 //    private void initRects(){
 //        double x1 = e1.getComponent(XPosComponent.class).getValue();
 //        double y1 = e1.getComponent(YPosComponent.class).getValue();
-//        
+//
 //        double x2 = e2.getComponent(XPosComponent.class).getValue();
 //        double y2 = e2.getComponent(YPosComponent.class).getValue();
-//        
+//
 //        double x3 = e3.getComponent(XPosComponent.class).getValue();
 //        double y3 = e3.getComponent(YPosComponent.class).getValue();
-//        
+//
 //        double hh1 = e1.getComponent(HitboxHeightComponent.class).getValue();
 //        double hw1 = e1.getComponent(HitboxWidthComponent.class).getValue();
-//        
+//
 //        double hh2 = e2.getComponent(HitboxHeightComponent.class).getValue();
 //        double hw2 = e2.getComponent(HitboxWidthComponent.class).getValue();
-//        
+//
 //        double hh3 = e3.getComponent(HitboxHeightComponent.class).getValue();
 //        double hw3 = e3.getComponent(HitboxWidthComponent.class).getValue();
 //
 //        r1 = new Rectangle(x1 - hw1/2, y1 - hh1/2, hw1, hh1);
 //        //r2 = new Rectangle(x2 - hw2/2, y2 - hh2/2, hw2, hh2);
 //        r3 = new Rectangle(x3 - hw3/2, y3 - hh3/2, hw3, hh3);
-//        
+//
 //        spritesMap.put(e1, r1);
 //        //spritesMap.put(e2, r2);
 //        spritesMap.put(e3, r3);
 //
-//        
-//        
+//
+//
 //        root.getChildren().add(r1);
 //        //root.getChildren().add(r2);
 //        root.getChildren().add(r3);
 //    }
-//    
+//
 //    private Event testEvents() {
 //    	//Testing Score event - When e1 collides with e3, e1's score increases by 10
 //    	List<Class<? extends CollidedComponent>> rightSide = Arrays.asList(RightCollidedComponent.class);
-//    	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3, rightSide);
+//    	EntityCollisionCondition condition1 = new EntityCollisionCondition(e1, e3);
 //    	DataChangeAction action1 = new DataChangeAction(e1, DefaultXVelComponent.class, "+", 100);
-//    	
+//
 //    	Event event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
-//    	
+//
 //    	event1 = new Event(Arrays.asList(action1), Arrays.asList(condition1));
-//    	
+//
 //    	//Event: Change level from 0 to 1 when DefaultXVel == 500
 //    	DataCondition condition2 = new DataCondition(e1, DefaultXVelComponent.class, "==", "500");
 //    	LevelChangeAction action2 = new LevelChangeAction(e, 1);
 //    	event2 = new Event(Arrays.asList(action2), Arrays.asList(condition2));
 //    	return null;
-//    	
+//
 //    }
 //
 //    /**
