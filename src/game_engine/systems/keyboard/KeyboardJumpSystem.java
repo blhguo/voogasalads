@@ -69,6 +69,7 @@ public class KeyboardJumpSystem implements GameSystem {
 				double currNumberJumps = numJumps.getValue();
 				if (currNumberJumps != 0) {
 					double changedVel = defaultYVel.getValue();
+					System.out.println("changedVel: " + changedVel);
 					yVelocity.setValue(changedVel);
 					numJumps.setValue(currNumberJumps - 1);
 				}
