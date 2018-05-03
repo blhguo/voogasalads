@@ -100,6 +100,7 @@ public class EntityPane extends BasePane{
 
 
 	private void includeAll(List<String> list){
+		newWrapper();
 		current.getMenuList().stream().forEach(e -> e.unInclude());
 		current.getMenuList().stream().filter(e -> list.contains(e.getType()
 				.replaceAll(" ", "")))
@@ -198,6 +199,8 @@ public class EntityPane extends BasePane{
 	public void load(List<EntityWrapper> newEntList){
 		newEntList.stream().forEach(e -> controller.add(e));
 		controller.updateCanvas(controller.getEntities());
+		getView();
+		controller.updateDummies();
 	}
 	
 	public void newWrapper(){

@@ -26,7 +26,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 public class EntityWrapper {
+
 	public Entity getEntity() {
 		//System.out.println("ENTITY: " + entity);
 		return entity;
@@ -69,7 +75,6 @@ public class EntityWrapper {
 		entity = e;
 		entityPane = pane;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
-		//addAllComponents(entity);
 		for (ComponentMenu menu : menuList) {
 			for (MenuElement element : menu.getElements()) {
 				for (Component c : e.getComponents()){
@@ -85,7 +90,6 @@ public class EntityWrapper {
 		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 	}
 
-
 	private List<ComponentMenu> copyMenuList(List<ComponentMenu> menus) {
 		List<ComponentMenu> newList = new ArrayList<>();
 		for (ComponentMenu menu : menus){
@@ -94,11 +98,17 @@ public class EntityWrapper {
 		return newList;
 	}
 
+
+	@SuppressWarnings("unchecked")
 	public void addAllComponents(Entity entity) {
 		for (ComponentMenu menu : menuList){
 			for(MenuElement element : menu.getElements()){
 				if (menu.isIncluded())
 					entity.addComponent(element.getComponent());
+				else {
+					entity.removeComponent((Class<? extends Component<?>>)
+							element.getComponent().getClass());
+				}
 			}
 		}
 	}

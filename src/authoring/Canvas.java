@@ -81,10 +81,17 @@ public class Canvas implements GUINode {
 	public void updateDummies(List<EntityWrapper> entityList){
 		myInfinitePane.getChildren().clear();
 		entityList.stream().forEach(e -> System.out.println(e.getDummy()));
-		entityList.stream().forEach(e -> myInfinitePane.getChildren().add(e.getDummy()));
-		entityList.stream().forEach(e -> e.getDummy().setOnMousePressed(a -> {
-			myController.addToEventPaneBox(e);
-		}));
+		for (EntityWrapper e: entityList){
+			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getDummy())){
+				myInfinitePane.getChildren().add(e.getDummy());
+				//System.out.println("ADDED TO CANVAS: " + e.getImageView().toString());
+				e.getDummy().setOnMousePressed(a -> {
+			         myController.addToEventPaneBox(e);
+		        });
+			}
+		}
+		
+	
 
 	}
 	
