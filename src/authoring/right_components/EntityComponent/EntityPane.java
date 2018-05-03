@@ -194,7 +194,10 @@ public class EntityPane extends BasePane{
 	}
 	
 	public void load(List<EntityWrapper> newEntList){
-		controller.updateCanvas(newEntList);
+		newEntList.stream().forEach(e -> controller.add(e));
+		controller.updateCanvas(controller.getEntities());
+		getView();
+		controller.updateDummies();
 	}
 	
 	public void newWrapper(){

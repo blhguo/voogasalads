@@ -110,6 +110,7 @@ public class ComponentSelectionWindow {
 
 	private void unDisplay() {
 		myStage.close();
+		wrapper.addAllComponents(wrapper.getEntity());
 		myPane.refresh();
 	}
 }

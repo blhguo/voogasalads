@@ -1,12 +1,16 @@
 package authoring.right_components.EntityComponent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+
 import authoring.component_menus.ComponentMenu;
 import authoring.component_menus.ComponentMenuFactory;
 import authoring.component_menus.MenuElement;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
 import game_engine.Component;
-import game_engine.ComponentFactory;
 import game_engine.Entity;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
@@ -71,12 +75,12 @@ public class EntityWrapper {
 		entity = e;
 		entityPane = pane;
 		menuList = new ComponentMenuFactory().getDefaultMenus();
-		addAllComponents(entity);
 		for (ComponentMenu menu : menuList) {
 			for (MenuElement element : menu.getElements()) {
 				for (Component c : e.getComponents()){
 					if (element.getComponent().getClass() == c.getClass()){
 						element.setMyComponent(c);
+						entity.addComponent(c);
 					}
 				}
 			}
@@ -85,6 +89,7 @@ public class EntityWrapper {
 		imageView = createImageView();
 		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 	}
+
 	private List<ComponentMenu> copyMenuList(List<ComponentMenu> menus) {
 		List<ComponentMenu> newList = new ArrayList<>();
 		for (ComponentMenu menu : menus){
@@ -93,17 +98,21 @@ public class EntityWrapper {
 		return newList;
 	}
 
-	private void addAllComponents(Entity entity) {
+	@SuppressWarnings("unchecked")
+	public void addAllComponents(Entity entity) {
 		for (ComponentMenu menu : menuList){
 			for(MenuElement element : menu.getElements()){
 				if (menu.isIncluded())
 					entity.addComponent(element.getComponent());
+				else {
+					entity.removeComponent((Class<? extends Component<?>>)
+							element.getComponent().getClass());
+				}
 			}
 		}
 	}
 
 	private ImageView createImageView() {
-		System.out.println("MAKE IMAGEVIEW: " + entity.getComponent(FilenameComponent.class).getValue());
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(
 				entity.getComponent(FilenameComponent.class).getValue(),
 				entity.getComponent(WidthComponent.class).getValue().intValue(),

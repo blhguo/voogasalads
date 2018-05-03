@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -159,6 +160,14 @@ public class ButtonFactory {
 		ImageView iv = ImageBuilder.getImageView(imagePath, 90, 60);
 		Button b = new Button(name, iv);
 		b.setContentDisplay(ContentDisplay.TOP);
+		b.setOnAction(handler);
+		return b;
+	}
+
+	public static Button makeSubtractButton(EventHandler<ActionEvent> handler) {
+		ImageView view = new ImageView(new Image("subtract.png"));
+		view.resize(10, 10);
+		Button b = new Button("", view);
 		b.setOnAction(handler);
 		return b;
 	}
