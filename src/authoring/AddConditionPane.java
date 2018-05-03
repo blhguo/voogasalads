@@ -156,19 +156,31 @@ public class AddConditionPane implements GUINode {
 		}
 	}
 	private void tryAdd(String s){
+		String actual = translateFriendly(s);
 		if (s != null) {
 			try {
-				compList.add((Class<Component<?>>) Class.forName(components.getString(s)));
+				compList.add((Class<Component<?>>) Class.forName(components.getString(actual)));
 			} catch (Exception e) {
 				System.out.println("Sorry b I didn't find that");
 				try {
-					System.out.println("Heres the string I tried" + s);
+					System.out.println("Heres the string I tried" + actual);
 				} catch (NullPointerException a) {
 
 				}
 			}
 		}
 	}
+	
+	private String translateFriendly(String s) {
+		ResourceBundle friendly = ResourceBundle.getBundle("UserFriendlyNames");
+		for (String current : friendly.keySet()) {
+			if (friendly.getString(current).equals(s)) {
+				return current;
+			}
+		}
+		return "";
+	}
+	
 	private Condition newCondition(String s, List<Entity> entities, List<Class<Component<?>>> components,
 	                               List<String> args, Engine engine ) {
 		System.out.println("String: " + s);

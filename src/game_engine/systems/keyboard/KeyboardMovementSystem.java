@@ -8,70 +8,61 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Tuple;
+import game_engine.components.PrimeComponent;
 import game_engine.level.Level;
+import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
 
 /**
  * 
  * @author Andy Nguyen, Kevin Deng, Ben Hubsch, Jeremy Chen
  *
- * The purpose of this system class is to act on all entities that contain the specific physics and keyboard input components.
- * This system loops over all keypresses taken from the input queue in engine and maps these keypresses to the corresponding movement
- * within these respective Entities.
+ *         The purpose of this system class is to act on all entities that contain the specific
+ *         physics and keyboard input components. This system loops over all keypresses taken from
+ *         the input queue in engine and maps these keypresses to the corresponding movement within
+ *         these respective Entities.
  */
 public abstract class KeyboardMovementSystem implements GameSystem {
 
-	private static final String KEY_PRESSED = "KEY_PRESSED";
-	private static final String KEY_RELEASED = "KEY_RELEASED";
+	private static Class<? extends Component<UUID>> PRIME = PrimeComponent.class;
+	private static final EventType<KeyEvent> PRESSED = KeyEvent.KEY_PRESSED;
+	private static final EventType<KeyEvent> RELEASED = KeyEvent.KEY_RELEASED;
 
 	private Engine myEngine;
 	private Class<? extends Component<KeyCode>> myKeyboardMoveInput;
 	private Class<? extends Component<Double>> myDefaultVel;
 	private Class<? extends Component<Double>> myVel;
-	private Class<? extends Component<UUID>> myPrime;
 	private int myDirection;
 
 	public KeyboardMovementSystem(Engine engine, int direction, Class<? extends Component<KeyCode>> keyMoveInput,
-			Class<? extends Component<Double>> defaultVel, Class<? extends Component<Double>> vel,
-			Class<? extends Component<UUID>> prime) {
+			Class<? extends Component<Double>> defaultVel, Class<? extends Component<Double>> vel) {
 		myEngine = engine;
 		myDirection = direction;
 		myKeyboardMoveInput = keyMoveInput;
 		myDefaultVel = defaultVel;
 		myVel = vel;
-		myPrime = prime;
 	}
 
 	/**
-	 * Listens for specific keyboard movement input from the engine and then moves entities correspondingly
-	 * upon receiving the correct input
+	 * Listens for specific keyboard movement input from the engine and then moves entities
+	 * correspondingly upon receiving the correct input
 	 */
 	@Override
 	public void act(double elapsedTime, Level level) {
-		List<Class<? extends Component<?>>> args = Arrays.asList(myKeyboardMoveInput, myDefaultVel, myVel, myPrime);
+		List<Class<? extends Component<?>>> args = Arrays.asList(myKeyboardMoveInput, myDefaultVel, myVel, PRIME);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<KeyCode> keyInput = entity.getComponent(myKeyboardMoveInput);
 			Component<Double> defaultVel = entity.getComponent(myDefaultVel);
 			Component<Double> vel = entity.getComponent(myVel);
-			Component<UUID> prime = entity.getComponent(myPrime);
-			for (Tuple<UUID, KeyEvent> input : myEngine.getKeyInputs(keyInput.getValue())) {	
-				if (!checkEquals(prime.getValue(), input.getFirst())) {
-					continue;
-				}
-				
-				if (input.getSecond().getEventType().getName().equals(KEY_PRESSED)) {
+			for (KeyEvent input : myEngine.getKeyInputs(keyInput.getValue())) {
+				if (input.getEventType().equals(PRESSED)) {
 					vel.setValue(defaultVel.getValue() * myDirection);
-				} else if (input.getSecond().getEventType().getName().equals(KEY_RELEASED)) {
+				} else if (input.getEventType().equals(RELEASED)) {
 					vel.setValue(0.0);
 				}
 			}
 		}
 	}
-	
-	private boolean checkEquals(UUID first, UUID second) {
-		return first.equals(second);
-	}
+
 }

@@ -12,7 +12,7 @@ import game_engine.event.Action;
  * from being passable to impassable. This action is defined/instantiated within the authoring environment.
  * @param <T>
  */
-public class DataToggleAction<T> implements Action{
+public class DataToggleAction implements Action {
 	private Entity myEntity;
 	private Class<? extends Component<Boolean>> myComponentClass;
 	
@@ -32,7 +32,8 @@ public class DataToggleAction<T> implements Action{
 	@Override
 	public void execute() {
 		Component<Boolean> comp = myEntity.getComponent(myComponentClass);
-		comp.setValue(!comp.getValue());
+		Boolean flipped = !comp.getValue();
+		comp.setValue(flipped);
 	}
 
 }
