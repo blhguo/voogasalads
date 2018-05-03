@@ -3,6 +3,7 @@ package authoring.right_components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import authoring.AddActionPane;
 import authoring.AddConditionPane;
@@ -10,9 +11,12 @@ import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
+import game_engine.event.Action;
+import game_engine.event.Condition;
 import game_engine.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -92,14 +96,45 @@ public class EventPane extends BasePane {
 		viewEvents = new Pane();
 		VBox events = new VBox();
 		events.setSpacing(20);
-		events.getChildren().add(new ImageView(
-				new Image("default.jpg")));
+		events.getChildren().addAll(getPrettyList(eventList));
+		System.out.println("Events + " + events.getChildren());
 		Button button = ButtonFactory.makeButton(e ->{
 			initStart();
 		});
 		HBox buttonBox = ButtonFactory.makeHBox("Back", null, button);
 		events.getChildren().add(buttonBox);
 		viewEvents.getChildren().add(events);
+	}
+	private VBox getPrettyList(List<Event> list){
+		VBox labelList = new VBox();
+		//box.setSpacing(10);
+		for (Event element : list){
+			VBox box = new VBox();
+			box.setStyle("-fx-border-width: 2px; -fx-border-color: blue");
+			Label eventLabel = new Label("Event:");
+			eventLabel.setStyle("-fx-background-color: blue;");
+			box.getChildren().add(eventLabel);
+
+			Label conditionLabel = new Label("Conditions");
+			conditionLabel.setStyle("-fx-background-color: lightblue");
+			box.getChildren().add(conditionLabel);
+
+			for (Condition condition : element.getConditions()){
+				Label label = new Label(condition.toString());
+				box.getChildren().add(label);
+			}
+
+			Label actionLabel = new Label("Actions:");
+			actionLabel.setStyle("-fx-background-color: lightblue;");
+			box.getChildren().add(actionLabel);
+
+			for (Action action : element.getActions()){
+				Label label = new Label(action.toString());
+				box.getChildren().add(label);
+			}
+			labelList.getChildren().add(box);
+		}
+		return labelList;
 	}
 	private void initAddCondition() {
 		addConditionPane = new AddConditionPane(currentEvent, levelController);
@@ -142,7 +177,10 @@ public class EventPane extends BasePane {
 
 		Button addEvent = ButtonFactory.makeButton(e -> {
 			levelController.addEvent(currentEvent);
+			eventList.add(currentEvent);
 			currentEvent = new Event();
+			initViewEvents();
+
 		});
 		startBox.getChildren().add(ButtonFactory.makeHBox("Add this event to the level",
 				null,

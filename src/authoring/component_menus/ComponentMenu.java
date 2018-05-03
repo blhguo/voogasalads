@@ -119,6 +119,8 @@ public class ComponentMenu extends VBox implements Comparable{
 		pane.setExpanded(false);
 		Button button = ButtonFactory.makeButton(e -> {
 			this.unInclude();
+//			System.out.println(myPane.getPureCurrent());
+//			System.out.println(myPane.getPureCurrent().getEntity());
 			myPane.getPureCurrent().addAllComponents(myPane.getPureCurrent().getEntity());
 			myPane.refresh();
 		});

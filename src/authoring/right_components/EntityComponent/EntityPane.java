@@ -98,8 +98,9 @@ public class EntityPane extends BasePane{
 	}
 	private List<HBox> instantiateCreateButtonArray() {
 		List<HBox> list = new ArrayList<>();
-		list.add(ButtonFactory.makeHBox("Create Entity", null,
-				controller.getButton()));
+		HBox newBox = new HBox();
+		newBox.getChildren().add(new Label("Click the screen \nto create a new entity!"));
+		list.add(newBox);
 		return list;
 	}
 	private List<HBox> instantiateEditButtonArray() {
@@ -188,7 +189,10 @@ public class EntityPane extends BasePane{
 	}
 	
 	public void load(List<EntityWrapper> newEntList){
-		newEntList.stream().forEach(e -> controller.add(e));
+		newEntList.stream().forEach(				e -> {
+			e.getMenuList().stream().forEach(a -> a.setMyPane(this));
+			controller.add(e);
+		});
 		controller.updateCanvas(controller.getEntities());
 		getView();
 		controller.updateDummies();
