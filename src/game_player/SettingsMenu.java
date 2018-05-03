@@ -118,7 +118,7 @@ public class SettingsMenu {
 	 * Creates the label for the volume slider.
 	 */
 	private void makeVolumeLabel() {
-		volumeLabel = new Label("Change Volume:");
+		volumeLabel = new Label("Change Volume for Default Song:");
 		volumeLabel.getStyleClass().add("button-nav");
 		
 	}
