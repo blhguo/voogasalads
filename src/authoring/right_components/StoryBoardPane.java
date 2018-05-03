@@ -138,12 +138,12 @@ public class StoryBoardPane extends BasePane {
 				}
 			}
 			String name = l.get(1).getValue();
-			Button b = ButtonFactory.makeLevelThumbnail(backPath, name, e -> {
+			Button b = ButtonFactory.makeThumbnail(backPath, name, e -> {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 				pcontroller.setBackground(l.get(0).getValue());
 				pcontroller.updateCanvas(lcontroller.getEngine().getLevel().getId());
-			});
+			}, 90, 60);
 			b.getStyleClass().add("button-story");
 			row.getChildren().add(b);
 			levels.getChildren().add(row);

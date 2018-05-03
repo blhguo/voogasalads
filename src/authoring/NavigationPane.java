@@ -125,8 +125,18 @@ public class NavigationPane implements Subject, GUINode {
 					DirectoryChooser dc = new DirectoryChooser();
 					dc.setTitle("Choose Game to Load");
 					File file = dc.showDialog(null);
-					File[] files = file.listFiles();
-					loader.loadGame(files[1].getPath(), files[2].getPath());
+					//File[] files = file.listFiles();
+					File gameFile = new File("games");
+					File metaFile = new File("games");
+					for (File f: file.listFiles()){
+						if (!f.getName().contains("config.properties") && !f.getName().contains("metaData")){
+							gameFile = f;
+						}
+						else if (f.getName().equals("metaData.xml")){
+							metaFile = f;
+						}
+					}
+					loader.loadGame(gameFile.getPath(), metaFile.getPath());
 				}, "button-nav");
 			}
 			else{

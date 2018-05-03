@@ -17,12 +17,6 @@
             </game__engine.level.LevelBackgroundComponent>
           </entry>
           <entry>
-            <java-class>game_engine.level.LevelThumbComponent</java-class>
-            <game__engine.level.LevelThumbComponent>
-              <myValue class="string">default</myValue>
-            </game__engine.level.LevelThumbComponent>
-          </entry>
-          <entry>
             <java-class>game_engine.level.LevelNameComponent</java-class>
             <game__engine.level.LevelNameComponent>
               <myValue class="string">Level 1</myValue>
@@ -34,14 +28,38 @@
               <myValue class="boolean">true</myValue>
             </game__engine.level.LevelHScrollComponent>
           </entry>
+          <entry>
+            <java-class>game_engine.level.LevelThumbComponent</java-class>
+            <game__engine.level.LevelThumbComponent>
+              <myValue class="string">default</myValue>
+            </game__engine.level.LevelThumbComponent>
+          </entry>
         </myComponents>
         <myEntities>
           <game__engine.Entity>
             <myComponents>
               <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">mario_stand.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.position.XPosComponent</java-class>
                 <game__engine.components.position.XPosComponent>
-                  <myValue class="double">0.0</myValue>
+                  <myValue class="double">303.0</myValue>
                 </game__engine.components.position.XPosComponent>
               </entry>
               <entry>
@@ -51,16 +69,56 @@
                 </game__engine.components.sprite.VisibilityComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.position.AngleComponent</java-class>
                 <game__engine.components.position.AngleComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.position.AngleComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">297.0</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.sprite.FilenameComponent</java-class>
                 <game__engine.components.sprite.FilenameComponent>
-                  <myValue class="string">Mario.gif</myValue>
+                  <myValue class="string">mario_stand.png</myValue>
                 </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">616.0</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
               </entry>
               <entry>
                 <java-class>game_engine.components.sprite.HeightComponent</java-class>
@@ -69,16 +127,68 @@
                 </game__engine.components.sprite.HeightComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.position.YPosComponent</java-class>
                 <game__engine.components.position.YPosComponent>
-                  <myValue class="double">0.0</myValue>
+                  <myValue class="double">267.0</myValue>
                 </game__engine.components.position.YPosComponent>
               </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
               <entry>
                 <java-class>game_engine.components.sprite.WidthComponent</java-class>
                 <game__engine.components.sprite.WidthComponent>
                   <myValue class="double">50.0</myValue>
                 </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">mario_stand.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">635.0</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">552.0</myValue>
+                </game__engine.components.position.YPosComponent>
               </entry>
             </myComponents>
           </game__engine.Entity>
@@ -110,6 +220,7 @@
       <myPosition>game_engine.components.position.YPosComponent</myPosition>
       <myVelocity>game_engine.components.physics.YVelComponent</myVelocity>
     </game__engine.systems.position.VerticalPositionSystem>
+    <game__engine.systems.AnimationSystem/>
     <game__engine.systems.CollectibleSystem/>
     <game__engine.systems.velocity.VerticalVelocitySystem>
       <myVelocity>game_engine.components.physics.YVelComponent</myVelocity>
@@ -158,5 +269,6 @@
       <myDirection>1</myDirection>
     </game__engine.systems.keyboard.DownKeyboardMovementSystem>
   </mySystems>
-  <myInputs/>
+  <myKeyInputs class="linked-list"/>
+  <myMouseInputs class="linked-list"/>
 </game__engine.Engine></data></higher>
