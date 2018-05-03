@@ -42,8 +42,6 @@ public class Canvas implements GUINode {
 	 * Constructor that creates new internal canvas and initializes outer ScrollPane
 	 */
 	public Canvas() {
-//	public Canvas(BorderPane bp) {
-//		this.bp = bp;
 		myInfinitePane = initializeInfinitePane(4000, 4000);
 		myNode = initializeScrollingPane();
 		currLevel = 0;
