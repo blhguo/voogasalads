@@ -98,8 +98,9 @@ public class EntityPane extends BasePane{
 	}
 	private List<HBox> instantiateCreateButtonArray() {
 		List<HBox> list = new ArrayList<>();
-//		list.add(ButtonFactory.makeHBox("Create Entity", null,
-//				controller.getButton()));
+		HBox newBox = new HBox();
+		newBox.getChildren().add(new Label("Click the screen \nto create a new entity!"));
+		list.add(newBox);
 		return list;
 	}
 	private List<HBox> instantiateEditButtonArray() {
