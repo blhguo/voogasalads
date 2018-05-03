@@ -40,6 +40,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private NavigationPane np;
 	private EntityController controller;
+	private PaneController pcontroller;
+	private LevelController lcontroller;
+	private MetaController mcontroller;
+	private Loader loader;
 	private BasePane base;
 	private EntityPane entity;
 	private EventPane event;
@@ -70,10 +74,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		canvas = new Canvas();
 
 		controller = new EntityController(entity, canvas, event);
-		PaneController pcontroller = new PaneController(level, canvas);
-		LevelController lcontroller = new LevelController(pcontroller);
-		MetaController mcontroller = new MetaController(lcontroller);
-		Loader loader = new Loader(canvas, level, story, entity);
+		pcontroller = new PaneController(level, canvas);
+		lcontroller = new LevelController(pcontroller);
+		mcontroller = new MetaController(lcontroller);
+		loader = new Loader(level, story, entity);
 		
 		canvas.setController(controller);
 		event.setController(controller);
@@ -92,6 +96,14 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		np.addMetaController(mcontroller);
 		np.setLoader(loader);
 	}
+	
+//	public AuthoringEnvironment(Stage stage, Loader l){
+//		this.stage = stage;
+//		Loader loader = l;
+//		entity = l.getEntityPane();
+//		level = l.getLevelPane();
+//		story = l.getStoryPane();
+//	}
 
 	/**
 	 * Abstract method inherited from the GUIBuilder super class. Returns a Pane that
@@ -146,6 +158,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 				break;
 
 		}
+	}
+	
+	public Loader getLoader(){
+		return loader;
 	}
 
 }

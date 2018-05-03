@@ -1,10 +1,11 @@
 package authoring.loadingviews;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.groovy.util.SingleKeyHashMap.Entry;
-
+import authoring.AuthoringEnvironment;
 import authoring.Toolbar;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
 import gameData.ManipData;
@@ -26,7 +27,8 @@ import resources.keys.AuthRes;
  */
 public abstract class BaseLoader extends GUIGridPaneSuper {
 
-	private Stage myStage;
+	protected Stage myStage;
+	protected AuthoringEnvironment ae;
 	private ManipData data;
 	
 	/**
@@ -37,6 +39,7 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 	public BaseLoader(Stage stage){
 		//uses stage to switch scene once game is chosen
 		myStage = stage;
+		ae = new AuthoringEnvironment(stage);
 		data = new ManipData();
 	}
 
@@ -53,31 +56,35 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		vbox.setPrefHeight(chooserHeight);
 		vbox.getStyleClass().add("chooser-back");
 		gridpane.add(vbox, 20, 13);
-		//testLoad(vbox);
 		File folder = new File("games");
-		//System.out.println(games.listFiles());
-//		for (File f: games.listFiles()){
-//			System.out.println(f.getPath());
-//		}
 		File[] games = folder.listFiles();
+		ArrayList<Map<String, String>> gameInfo = new ArrayList<Map<String, String>>();
 		for (File game: games){
-			//System.out.println(game.getPath());
 			if (! game.getPath().equals("games/.DS_Store")){
-				//System.out.println(game.getPath());
+				Map<String, String> map = new HashMap<String, String>();
 				String filePath = game.getName() + "/" + game.getName() + "config";
-				//System.out.println(game.getPath());
-//				for (File f: game.listFiles()){
-//					System.out.println(f.getPath());
-//				}
 				Map<String, String> configMap = data.openConfig(filePath);
-				for (String key: configMap.keySet()){
-					System.out.println("key: " + key + " value: " + configMap.get(key));
-				}
+				String name = configMap.get(AuthRes.getStringKeys("key0"));
 				String thumbPath = configMap.get(AuthRes.getStringKeys("key1"));
+				map.put(AuthRes.getString("ThumbName"), name);
+				map.put(AuthRes.getString("ThumbImage"), thumbPath);
+				File gameFile = new File("games");
+				File metaFile = new File("games");
+				for (File f: game.listFiles()){
+					if (!f.getName().contains("config.properties") && !f.getName().contains("metaData")){
+						gameFile = f;
+					}
+					else if (f.getName().equals("metaData.xml")){
+						metaFile = f;
+					}
+				}
+				map.put(AuthRes.getString("ThumbGame"), gameFile.getPath());
+				map.put(AuthRes.getString("ThumbMeta"), metaFile.getPath());
+				gameInfo.add(map);
 			}
 
 		}
-		buildThumbnails(vbox);
+		buildThumbnails(vbox, gameInfo);
 		return new Toolbar(myStage).integrateToolbar(gridpane);
 	}
 	
@@ -99,7 +106,7 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		}
 	}
 	
-	public abstract void buildThumbnails(VBox vb);
+	public abstract void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo);
 	
 	
 	//TEST LOADING
