@@ -74,8 +74,8 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		canvas = new Canvas();
 
 		controller = new EntityController(entity, canvas, event);
-		pcontroller = new PaneController(level, canvas);
-		lcontroller = new LevelController(pcontroller);
+		pcontroller = new PaneController(canvas);
+		lcontroller = new LevelController();
 		mcontroller = new MetaController(lcontroller);
 		loader = new Loader(level, story, entity);
 		

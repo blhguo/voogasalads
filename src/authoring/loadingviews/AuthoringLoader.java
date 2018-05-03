@@ -1,6 +1,6 @@
 package authoring.loadingviews;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import frontend_utilities.ButtonFactory;
@@ -25,7 +25,7 @@ public class AuthoringLoader extends BaseLoader {
 	}
 
 	@Override
-	public void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo) {
+	public void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo) {
 		int gameCount = 0;
 		HBox row;
 		for (Map<String, String> game: gameInfo){

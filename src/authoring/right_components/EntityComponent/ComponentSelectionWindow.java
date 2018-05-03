@@ -65,10 +65,11 @@ public class ComponentSelectionWindow {
 		
 		//wrap.getChildren().add(title);
 		VBox labelList = new VBox();
-		labelList.setSpacing(5);
+		labelList.setSpacing(AuthRes.getInt("Padding"));
 		for (ComponentMenu menu : wrapper.getMenuList()){
-			if (!menu.isIncluded())
+			if (!menu.isIncluded()) {
 				labelList.getChildren().add(generateLabel(menu.getType(), menu));
+			}
 		}
 		ScrollPane pane = new ScrollPane(labelList);
 		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -100,12 +101,11 @@ public class ComponentSelectionWindow {
 	}
 
 	private Node getButton() {
-		HBox box = ButtonFactory.makeHBox("Add selected component", null,
+		return ButtonFactory.makeHBox("Add selected component", null,
 				ButtonFactory.makeButton(e -> {
 					activeMenus.stream().forEach(a -> a.Include());
 					unDisplay();
 				}));
-		return box;
 	}
 
 	private void unDisplay() {
