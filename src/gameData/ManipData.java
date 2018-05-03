@@ -56,7 +56,7 @@ public class ManipData {
 	public void saveData(Engine engine, String gameFolderName, String saveFileName, Map<String, String> metaMap, Map<String, String> ConfigMap) {
 		saveData(engine, gameFolderName, saveFileName, false);
 
-		saveConfig(gameFolderName, ConfigMap);
+		saveConfig(gameFolderName, ConfigMap, saveFileName);
 		
 		saveMeta(gameFolderName, metaMap);
 	}
@@ -198,7 +198,7 @@ public class ManipData {
 		} 
 	}
 
-	public void saveConfig(String configLoc, Map<String, String> configMap) {
+	public void saveConfig(String configLoc, Map<String, String> configMap, String configName) {
 		
 		File file = new File("games/"+configLoc);
 		if(!file.exists()) {
@@ -211,7 +211,7 @@ public class ManipData {
 				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
-			file = new File("games/" + configLoc + "/config.properties");
+			file = new File("games/" + configLoc + "/" + configName + "config.properties");
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
