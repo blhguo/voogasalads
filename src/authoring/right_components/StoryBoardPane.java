@@ -43,6 +43,10 @@ public class StoryBoardPane extends BasePane {
 	private PaneController pcontroller;
 	private Text activeLevel = new Text();
 
+	public StoryBoardPane() {
+		super();
+	}
+	
 	/**
 	 * GUINode method that returns the view of this Pane
 	 * @return Pane

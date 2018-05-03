@@ -67,6 +67,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		np = new NavigationPane(stage);
 		
 		bp = new BorderPane();
+//		canvas = new Canvas(bp);
 		canvas = new Canvas();
 
 		controller = new EntityController(entity, canvas, event);
