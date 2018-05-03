@@ -54,8 +54,8 @@ public class MetaController {
 	}
 	
 	private void initMaps(){
-		printMap = new HashMap<String, String>();
-		configMap = new HashMap<String, String>();
+		printMap = new HashMap<>();
+		configMap = new HashMap<>();
 		
 		setGameName(AuthRes.getString("NameDefault"));
 		configMap.put(AuthRes.getStringKeys("key2"), AuthRes.getString("AuthorDefault"));

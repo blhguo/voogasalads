@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import authoring.Canvas;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import authoring.right_components.EntityComponent.EntityPane;
@@ -12,7 +11,6 @@ import authoring.right_components.EntityComponent.EntityWrapper;
 import gameData.ManipData;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.level.LevelNameComponent;
 
 public class Loader {
 

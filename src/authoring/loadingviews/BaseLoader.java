@@ -3,6 +3,7 @@ package authoring.loadingviews;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironment;
@@ -49,8 +50,10 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 	 * @param gridpane
 	 */
 	public Pane addCoreFinishingElements(GridPane gridpane) {
-		double chooserWidth = AuthRes.getInt("EnvironmentX") - (AuthRes.getInt("Margin") * 10);
-		double chooserHeight = AuthRes.getInt("EnvironmentY") - (AuthRes.getInt("Margin") * 10);
+		double chooserWidth = AuthRes.getInt("EnvironmentX") 
+				- (AuthRes.getInt("Margin") * AuthRes.getInt("FieldMultiplier"));
+		double chooserHeight = AuthRes.getInt("EnvironmentY") 
+				- (AuthRes.getInt("Margin") * AuthRes.getInt("FieldMultiplier"));
 		VBox vbox = new VBox();
 		vbox.setPrefWidth(chooserWidth);
 		vbox.setPrefHeight(chooserHeight);
@@ -106,7 +109,7 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		}
 	}
 	
-	public abstract void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo);
+	public abstract void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo);
 	
 	
 	//TEST LOADING
