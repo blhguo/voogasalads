@@ -31,7 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 /**
- * 
+ *
  * @author Dana Park, Brandon Dalla Rosa
  * 
  *         Class that handles animations and updating of animations in game. Holds the game scene
