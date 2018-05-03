@@ -65,8 +65,8 @@ public class NavigationPane implements Subject, GUINode {
 	}
 	
 	/**
-	 * Method to add level controller so that the game can be saved from this pane
-	 * @param l
+	 * Method to add meta controller so that the game can be saved from this pane
+	 * @param mc Metacontroller
 	 */
 	public void addMetaController(MetaController mc){
 		mcontroller = mc;

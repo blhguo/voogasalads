@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring.component_menus.ComponentMenu;
+import authoring.component_menus.MenuElement;
 import authoring.controllers.EntityController;
 import authoring.right_components.BasePane;
 import frontend_utilities.ButtonFactory;
@@ -75,6 +77,7 @@ public class EntityPane extends BasePane{
 				newWrapper();
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
 				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
+				//current.addAllComponents(current.getEntity());
 //				for (ComponentMenu menu : current.getMenuList()){
 //					for (MenuElement element : menu.getElements()){
 //						if (element.getTitle().equals("Filename")){
@@ -201,7 +204,7 @@ public class EntityPane extends BasePane{
 		box.getChildren().remove(menuBox);
 		box.getChildren().removeAll(createButtonArray);
 		box.getChildren().removeAll(editButtonArray);
-		current = new EntityWrapper(new Entity(), this);
+		current = new EntityWrapper(this);
 		menuBox = getMenuBox();
 		box.getChildren().add(menuBox);
 		box.getChildren().addAll(createButtonArray);
