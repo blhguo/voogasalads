@@ -83,6 +83,7 @@ public class EntityWrapper {
 	}
 
 	private ImageView createImageView() {
+		System.out.println("MAKE IMAGEVIEW: " + entity.getComponent(FilenameComponent.class).getValue());
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(
 				entity.getComponent(FilenameComponent.class).getValue(),
 				entity.getComponent(WidthComponent.class).getValue().intValue(),

@@ -122,9 +122,7 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getEntityInput());
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine(), 
-							(int) Double.parseDouble((
-							numberElements.get(0).getValue()))));
+					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -183,7 +181,7 @@ public class AddActionPane implements GUINode {
 					try{
 						currentEvent.addAction(new DataToggleAction(
 								entityArray[0],
-								(Class<? extends Component<Double>>) 
+								(Class<? extends Component<Boolean>>) 
 								Class.forName(components.getString(compBox.getValue()))));
 							
 					} catch (Exception a){
@@ -204,7 +202,7 @@ public class AddActionPane implements GUINode {
 								entityArray[0],
 								(Class<? extends Component<Double>>) 
 								Class.forName(components.getString(compBox.getValue())),
-								numberElements.get(0).getValue()));
+								Double.parseDouble(numberElements.get(0).getValue())));
 							
 					} catch (Exception a){
 //						a.printStackTrace();
