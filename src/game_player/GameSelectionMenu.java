@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class GameSelectionMenu {
-	
+
 	private Button gameSelectionButton;
 	private DataConnect dataConnect;
 	
@@ -18,14 +18,14 @@ public class GameSelectionMenu {
 		gameSelectionButton.getStyleClass().add("button-nav");
 		gameSelectionButton.setOnAction(click->{showGameSelectionMenu();});
 		pane.getChildren().add(gameSelectionButton);
-		
+
 	}
-	
-	
-	
+
+
+
 	protected void showGameSelectionMenu() {
 		dataConnect.importGame();
-	}	
+	}
 
 
 }

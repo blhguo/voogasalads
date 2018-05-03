@@ -73,6 +73,7 @@ public class ViewManager extends GUIBuilder{
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
 		gameStage.setFullScreen(true);
+
 		gameStage.show();
 		changeBrightness();
 		changeVolume();
