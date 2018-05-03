@@ -68,6 +68,7 @@ public class Canvas implements GUINode {
 		for (EntityWrapper e: entityList){
 			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getImageView())){
 				myInfinitePane.getChildren().add(e.getImageView());
+				//System.out.println("ADDED TO CANVAS: " + e.getImageView().toString());
 			}
 		}
 		

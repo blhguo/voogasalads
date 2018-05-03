@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 /**
  * 
  * @author Dana Park, Brandon Dalla Rosa
- *Class that makes a generic button
+ * Class that makes the buttons which are used for user interface.
  */
 public class ButtonMaker {
 	private Button play;
@@ -25,6 +25,9 @@ public class ButtonMaker {
 	private ArrayList<String> images = new ArrayList<String>(Arrays.asList("pause.png", "play.png", "slow.png","fast.png", "replay.png", "save.png", "about.png"));
 	private ArrayList<Button> buttons =new ArrayList<Button>(Arrays.asList(pause, play, slowControl, speedControl, replay, save, about));
 
+	/**
+	 * Constructor which creates the instance prior to initialization.
+	 */
 	public ButtonMaker() {
 		// TODO Auto-generated constructor stub
 	}
@@ -33,7 +36,7 @@ public class ButtonMaker {
 	 * @param button
 	 * @param bundle
 	 * @param string
-	 * This short method just makes a generic button
+	 * This short method just makes a generic button.
 	 *
 	 */
 	protected Button makeButton(Button button, ResourceBundle bundle, String string) {
@@ -64,6 +67,12 @@ public class ButtonMaker {
 		return buttonList;
 
 	}
+	
+	/**
+	 * This method is used to set the playerview, so that the buttons may access and alter it.
+	 * 
+	 * @param pv
+	 */
 	public void setPlayerView(PlayerView pv) {
 		playerView = pv;
 	}

@@ -1,7 +1,5 @@
 package game_player;
 
-import java.io.File;
-
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.loadingviews.PlayerLoader;
 import javafx.beans.value.ChangeListener;
@@ -22,8 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -58,7 +54,7 @@ public class ViewManager extends GUIBuilder{
 	private AudioClip sound;
 
 	/**
-	 * Constructor for the view manager. It initializes all of the structures
+	 * Constructor for the view manager. Does not initialize immediately.
 	 * seen in the game player and organizes them efficiently.
 	 * @param menu: The current menu of the program.
 	 * @param stage: The active stage hosting the game.
@@ -67,7 +63,10 @@ public class ViewManager extends GUIBuilder{
 	public ViewManager() {
 		//TODO something
 	}
-	
+	/**
+	 * Method called to initialize the class after creation.
+	 * @param storage
+	 */
 	public void initialize(InstanceStorage storage) {
 		menu = storage.getMenu();
 		gameStage = storage.getStage();
@@ -78,7 +77,9 @@ public class ViewManager extends GUIBuilder{
 		changeBrightness();
 		changeVolume();
 	}
-
+	/**
+	 * Method called to set the scene of the game.
+	 */
 	private void setScene() {
 		Pane pane = setObjects();
 		gameScene = new Scene(pane,sceneWidth,sceneHeight);
@@ -93,7 +94,10 @@ public class ViewManager extends GUIBuilder{
 	public Scene getScene() {
 		return gameScene;
 	}
-
+	/**
+	 * Sets the desired layout for all the visible aspects of the game player.
+	 * @return
+	 */
 	private Pane setObjects() {
 		HBox center = new HBox(30);
 		center.setAlignment(Pos.CENTER);
@@ -124,9 +128,6 @@ public class ViewManager extends GUIBuilder{
 
 		menu.addMenu(order);
 
-		sound = new AudioClip(getClass().getResource("song.mp3").toExternalForm());
-//		sound.play(1.0);
-//		sound.setCycleCount(MediaPlayer.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
 	}
@@ -195,14 +196,23 @@ public class ViewManager extends GUIBuilder{
 	public Pane getNode() {
 		return view;
 	}
-
+	
+	/**
+	 * Returns the main display for use in other packages.
+	 */
 	@Override
 	public Pane display() {
 		return mainHBox;
 	}
 
-
-	public Text createText(int x, int y, String message) {
+	/**
+	 * Method to create the HUD text on the screen.
+	 * @param x
+	 * @param y
+	 * @param message
+	 * @return
+	 */
+	public Text createText(double x, double y, String message) {
 		Text txt = new Text(message);
 		txt.setX(x);
 		txt.setY(y);
