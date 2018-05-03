@@ -271,7 +271,7 @@ public class ManipData {
 	}
 
 	private Engine openFile(File file) throws ParserConfigurationException{
-		//System.out.println(file);
+		System.out.println("FILE: " + file);
 		Engine lilGuy = new Engine();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -291,6 +291,7 @@ public class ManipData {
 
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("higher");
+				System.out.println();
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;			
 				String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());

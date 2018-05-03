@@ -101,7 +101,7 @@ public class AddConditionPane implements GUINode {
 			ComboBox<String> componentBox = ComboBoxBuilder.getComboBox(components.keySet()
 					.stream()
 					.filter(e -> Boolean.parseBoolean(ResourceBundle.getBundle("Dateable").getString(e)))
-					.map(a -> ResourceBundle.getBundle("UserFriendlyNames").getString(a))
+					//.map(a -> ResourceBundle.getBundle("UserFriendlyNames").getString(a))
 					.collect(Collectors.toList()));
 			componentBox.valueProperty().addListener(((observable, oldValue, newValue1) -> {
 				tryAdd(newValue1);

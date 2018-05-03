@@ -74,19 +74,9 @@ public class EntityPane extends BasePane{
 		box.setSpacing(10);
 		for (String key : bundle.keySet()){
 			Button def = ButtonFactory.makeButton(e -> {
-				newWrapper();
+				//newWrapper();
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
 				current.getEntity().getComponent(FilenameComponent.class).setValue(key + ".png");
-				//current.addAllComponents(current.getEntity());
-//				for (ComponentMenu menu : current.getMenuList()){
-//					for (MenuElement element : menu.getElements()){
-//						if (element.getTitle().equals("Filename")){
-//							element.setValue(key + ".png");
-//						}
-//					}
-//				}
-				
-				//current.updateImage();
 				updateSprite();
 				refresh();
 			});
@@ -100,6 +90,7 @@ public class EntityPane extends BasePane{
 
 
 	private void includeAll(List<String> list){
+		newWrapper();
 		current.getMenuList().stream().forEach(e -> e.unInclude());
 		current.getMenuList().stream().filter(e -> list.contains(e.getType()
 				.replaceAll(" ", "")))
@@ -175,6 +166,7 @@ public class EntityPane extends BasePane{
 		updateSprite();
 	}
 	public void refresh(){
+		current.addAllComponents(current.getEntity());
 		controller.updateCanvas();
 		current.updateImage();
 		box.getChildren().remove(menuBox);
@@ -198,6 +190,8 @@ public class EntityPane extends BasePane{
 	public void load(List<EntityWrapper> newEntList){
 		newEntList.stream().forEach(e -> controller.add(e));
 		controller.updateCanvas(controller.getEntities());
+		getView();
+		controller.updateDummies();
 	}
 	
 	public void newWrapper(){

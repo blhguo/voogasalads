@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 /**
- * 
+ *
  * @author Brandon Dalla Rosa
  *
  * Upper level class which creates the other classes found in the
@@ -16,9 +16,9 @@ public class PlayerMain extends Application{
 	DataManager dataManager;
 	DataConnect dataConnect;
 	PlayerView playerView;
-	
-	
-	
+
+
+
 	/**
 	 * Method called to initialize the Game Player.
 	 */
@@ -41,7 +41,7 @@ public class PlayerMain extends Application{
 		viewManager.initialize(dataStorage);
 		playerView.initialize(dataStorage);
 	}
-	
+
 	/**
 	 * Method to return the current scene of the game player.
 	 * @return

@@ -128,11 +128,13 @@ public class AddActionPane implements GUINode {
 			case "AddComponentAction":
 				comboBoxView.getChildren().add(getEntityInput());
 				comboBoxView.getChildren().add(getClassInput());
+				comboBoxView.getChildren().add(getDoubleInput());
+
 				//return new AddComponentAction(entities.get(0), components.get(0));
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new AddComponentAction(entityArray[0],
 							new ComponentFactory().createComponent(compBox.getValue(),
-									componentargs.getString(compBox.getValue()))));
+									numberElements.get(0).getValue())));
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -276,6 +278,9 @@ public class AddActionPane implements GUINode {
 		return box;
 	}
 	public void addToEntityBox(EntityWrapper wrapper){
+		if (entityBox == null){
+			entityBox = new HBox();
+		}
 		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
 		for (int i = 0; i < numEntities; i++){
 			if (entityArray[i] == null){
