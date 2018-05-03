@@ -2,7 +2,6 @@ package authoring.controllers;
 
 import authoring.Canvas;
 import authoring.right_components.LevelPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import resources.keys.AuthRes;
 

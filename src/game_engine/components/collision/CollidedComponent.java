@@ -57,7 +57,7 @@ public abstract class CollidedComponent extends Component<List<Entity>> {
      * 
      * Checks to see if the entity holding this component has collided with an entity containing a specific type of component
      */
-    public boolean contains(Class<? extends Component<?>> c) {
+    public <T> boolean contains(Class<? extends Component<T>> c) {
     	for(Entity e: getValue()) {
     		if(e.getComponent(c)!=null) {
     			return true;

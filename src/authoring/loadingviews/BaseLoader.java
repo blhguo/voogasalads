@@ -1,19 +1,21 @@
 package authoring.loadingviews;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import authoring.AuthoringEnvironment;
 import authoring.Toolbar;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
-import frontend_utilities.ButtonFactory;
-import game_player.PlayerMain;
+import gameData.ManipData;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import main.SplashScreen;
 import resources.keys.AuthRes;
 
 /**
@@ -25,7 +27,9 @@ import resources.keys.AuthRes;
  */
 public abstract class BaseLoader extends GUIGridPaneSuper {
 
-	private Stage myStage;
+	protected Stage myStage;
+	protected AuthoringEnvironment ae;
+	private ManipData data;
 	
 	/**
 	 * Constructor that takes in a Stage in order to change the scene of the stage to 
@@ -35,6 +39,8 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 	public BaseLoader(Stage stage){
 		//uses stage to switch scene once game is chosen
 		myStage = stage;
+		ae = new AuthoringEnvironment(stage);
+		data = new ManipData();
 	}
 
 	/**
@@ -50,7 +56,35 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		vbox.setPrefHeight(chooserHeight);
 		vbox.getStyleClass().add("chooser-back");
 		gridpane.add(vbox, 20, 13);
-		testLoad(vbox);
+		File folder = new File("games");
+		File[] games = folder.listFiles();
+		ArrayList<Map<String, String>> gameInfo = new ArrayList<Map<String, String>>();
+		for (File game: games){
+			if (! game.getPath().equals("games/.DS_Store")){
+				Map<String, String> map = new HashMap<String, String>();
+				String filePath = game.getName() + "/" + game.getName() + "config";
+				Map<String, String> configMap = data.openConfig(filePath);
+				String name = configMap.get(AuthRes.getStringKeys("key0"));
+				String thumbPath = configMap.get(AuthRes.getStringKeys("key1"));
+				map.put(AuthRes.getString("ThumbName"), name);
+				map.put(AuthRes.getString("ThumbImage"), thumbPath);
+				File gameFile = new File("games");
+				File metaFile = new File("games");
+				for (File f: game.listFiles()){
+					if (!f.getName().contains("config.properties") && !f.getName().contains("metaData")){
+						gameFile = f;
+					}
+					else if (f.getName().equals("metaData.xml")){
+						metaFile = f;
+					}
+				}
+				map.put(AuthRes.getString("ThumbGame"), gameFile.getPath());
+				map.put(AuthRes.getString("ThumbMeta"), metaFile.getPath());
+				gameInfo.add(map);
+			}
+
+		}
+		buildThumbnails(vbox, gameInfo);
 		return new Toolbar(myStage).integrateToolbar(gridpane);
 	}
 	
@@ -72,6 +106,8 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		}
 	}
 	
+	public abstract void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo);
+	
 	
 	//TEST LOADING
 	//class also needs to load saved games to be edited/played - each game needs thumbnail
@@ -81,12 +117,12 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 	 * @param vbox
 	 */
 	//test loader
-	public void testLoad(VBox vbox) {
-		Text mtncap = new Text("   Mountain ~vIbes~");
-		mtncap.getStyleClass().add("game-chooser");
-		vbox.getChildren().addAll(
-				ButtonFactory.makeButton(null,new ImageView(new Image(AuthRes.getString("mtnthumb"))), 
-						e -> new PlayerMain().start(myStage), "button-nav"),
-				mtncap);
-	}
+//	public void testLoad(VBox vbox) {
+//		Text mtncap = new Text("   Mountain ~vIbes~");
+//		mtncap.getStyleClass().add("game-chooser");
+//		vbox.getChildren().addAll(
+//				ButtonFactory.makeButton(null,new ImageView(new Image(AuthRes.getString("mtnthumb"))), 
+//						e -> new PlayerMain().start(myStage), "button-nav"),
+//				mtncap);
+//	}
 }

@@ -5,9 +5,11 @@ import game_engine.event.conditions.DataConditionable;
 
 @DataConditionable
 public class YVelComponent extends Component<Double> {
+	
+	private static final double STARTING_VEL = 0.0;
 
 	public YVelComponent(String arg) {
-		super(Double.parseDouble(arg));
+		super(STARTING_VEL);
 	}
 
 }

@@ -78,8 +78,9 @@ public class ComponentMenu extends VBox implements Comparable{
 	 * @param element the menuElement (i.e. entry field) to be added
 	 */
 	public void addMenuElement(MenuElement element){
+		element.setMyMenu(this);
 		elements.add(element);
-		if (element.isDateable())
+		//if (element.isDateable())
 			this.getChildren().add(element.getView());
 	}
 
@@ -128,5 +129,18 @@ public class ComponentMenu extends VBox implements Comparable{
 
 	public void unInclude() {
 		included = false;
+	}
+
+	public ComponentMenu copy(){
+		ComponentMenu newMenu = new ComponentMenu(this.getType());
+		newMenu.setMyPane(myPane);
+		if (included){
+			newMenu.Include();
+		}
+		for(MenuElement element: this.getElements()){
+			newMenu.addMenuElement(element.copy());
+			//System.out.println("Added element");
+		}
+		return newMenu;
 	}
 }

@@ -80,7 +80,7 @@ public class SettingsMenu {
 		volumeSlider.getStyleClass().add("slider");
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
-		volumeSlider.setValue(0);
+		volumeSlider.setValue(1);
 		return volumeSlider;
 	}
 	

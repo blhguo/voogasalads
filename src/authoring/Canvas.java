@@ -1,7 +1,6 @@
 package authoring;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import authoring.GUI_Heirarchy.GUINode;
 import authoring.controllers.EntityController;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -62,12 +60,14 @@ public class Canvas implements GUINode {
 	public void update(List<EntityWrapper> entityList){
 		//myInfinitePane = initializeInfinitePane(myInfinitePane.getMaxWidth(), myInfinitePane.getMaxHeight());
 		myInfinitePane.getChildren().clear();
-		System.out.println("-----Updating Canvas------");
-		entityList.stream().forEach(e -> System.out.println("Entity " + e));
-		
+//		System.out.println("-----Updating Canvas------");
+//		entityList.stream().forEach(e -> System.out.println("Entity " + e));
+//		entityList.stream().forEach(a -> System.out.println("Entity " + a.getEntity()));
+//		entityList.stream().forEach(b -> System.out.println("Image" + b.getImageView()));
 		for (EntityWrapper e: entityList){
 			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getImageView())){
 				myInfinitePane.getChildren().add(e.getImageView());
+				//System.out.println("ADDED TO CANVAS: " + e.getImageView().toString());
 			}
 		}
 		
