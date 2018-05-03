@@ -82,7 +82,7 @@ public class DragResizeMod {
 		}
 	};
 
-	public static enum S {
+	public enum S {
 		DEFAULT,
 		DRAG,
 		NW_RESIZE,
