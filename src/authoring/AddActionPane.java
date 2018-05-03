@@ -119,7 +119,6 @@ public class AddActionPane implements GUINode {
 				break;
 			case "RemoveEntityAction":
 				comboBoxView.getChildren().add(getEntityInput());
-				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
 				});
