@@ -1,7 +1,5 @@
 package game_player;
 
-import java.io.File;
-
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.loadingviews.PlayerLoader;
 import javafx.beans.value.ChangeListener;
@@ -22,8 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -124,9 +120,6 @@ public class ViewManager extends GUIBuilder{
 
 		menu.addMenu(order);
 
-		sound = new AudioClip(getClass().getResource("song.mp3").toExternalForm());
-//		sound.play(1.0);
-//		sound.setCycleCount(MediaPlayer.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
 	}

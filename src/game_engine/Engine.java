@@ -57,7 +57,7 @@ public class Engine {
 	}
 
 	public Level getLevel() {
-		return myLevels.get(myCurrentLevel);
+		return getLevel(myCurrentLevel);
 	}
 
 	public Level getLevel(int levelId) {
