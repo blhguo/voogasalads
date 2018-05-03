@@ -66,7 +66,7 @@ public class StoryBoardPane extends BasePane {
 	@Override 
 	public List<Node> getButtonArray(){
 		ArrayList<Node> list = new ArrayList<>();
-		gameName = new TextField(mcontroller.getGameName());
+		gameName.setPromptText(mcontroller.getGameName());
 		gameName.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.ENTER){
 				mcontroller.setGameName(gameName.getText());
@@ -74,8 +74,7 @@ public class StoryBoardPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Game Name: ", null, gameName));
 		
-		author = new TextField(mcontroller.getPrintMap().get(AuthRes.getString("Author")));
-		//makeText(AuthRes.getString("Author"), author);
+		author.setPromptText(mcontroller.getPrintMap().get(AuthRes.getString("Author")));
 		author.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.ENTER){
 				mcontroller.getPrintMap().put(AuthRes.getString("Author"), author.getText());
@@ -84,7 +83,7 @@ public class StoryBoardPane extends BasePane {
 		});
 		list.add(ButtonFactory.makeReverseHBox("Set Author: ", null, author));
 		
-		rules = new TextArea(mcontroller.getPrintMap().get(AuthRes.getString("Rules")));
+		rules.setPromptText(mcontroller.getPrintMap().get(AuthRes.getString("Rules")));
 		makeText(AuthRes.getString("Rules"), rules);
 		list.add(ButtonFactory.makeReverseHBox("Set Rules: ", null, rules));
 		

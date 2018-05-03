@@ -28,7 +28,7 @@ public class Engine {
 		myKeyInputs = new LinkedList<>();
 		myMouseInputs = new LinkedList<>();
 		mySystems = new SystemInitializer().init(this);
-		System.out.println(mySystems.size());
+		//System.out.println(mySystems.size());
 	}
 
 	public void update(double elapsedTime) {
