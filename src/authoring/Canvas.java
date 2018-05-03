@@ -16,6 +16,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -27,25 +28,25 @@ import javafx.scene.paint.Color;
  * @author Liam Pulsifer
  * Canvas class for the middle portion of the Authoring Environment. Displays the current
  * level and all Entities in that level. Allows the user to drag and drop images around
- * the canvas.
+ * the view.
  */
-
 public class Canvas implements GUINode {
 	private Pane myInfinitePane;
 	private ScrollPane myNode;
+	private BorderPane bp;
 	private EntityController myController;
 	private Color backgroundColor = Color.rgb(179, 179, 179, 0.6);
 	private int currLevel;
 
 	/**
-	 * Constructor that creates new internal canvas
-	 * and sets up ScrollPane
+	 * Constructor that creates new internal canvas and initializes outer ScrollPane
 	 */
 	public Canvas() {
 		myInfinitePane = initializeInfinitePane(4000, 4000);
 		myNode = initializeScrollingPane();
 		currLevel = 0;
 	}
+	
 	
 	public void setDefaultBackground(){
 		myInfinitePane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -164,13 +165,19 @@ public class Canvas implements GUINode {
 	
 	public void changeScrolling(boolean hscroll, boolean vscroll){
 		if (! hscroll){
-			myInfinitePane.setMaxWidth(myNode.getWidth());
 			myInfinitePane.setPrefWidth(myNode.getWidth());
+			myNode.setHbarPolicy(ScrollBarPolicy.NEVER);
+			myNode.setContent(myInfinitePane);
+//			bp.setCenter(this.getView());
+			System.out.println("limited horizontal");
 			System.out.println(myInfinitePane.getMaxWidth());
 			System.out.println(myInfinitePane.getWidth());
+			System.out.println();
 		}
 		else {
 			myInfinitePane.setPrefWidth(Double.POSITIVE_INFINITY);
+			myNode.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+			System.out.println();
 		}
 		if (! vscroll){
 			myInfinitePane.setPrefHeight(myNode.getHeight());
