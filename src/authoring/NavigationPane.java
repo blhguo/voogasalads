@@ -144,7 +144,7 @@ public class NavigationPane implements Subject, GUINode {
 					Alert a = UserFeedback.getWarningMessage(AuthRes.getString("PlayHeader"), AuthRes.getString("PlayContent"), stage);
 					Optional<ButtonType> result = a.showAndWait();
 					if (result.get() == ButtonType.OK){
-						new PlayerMain().launchFromAuthoring(stage, new File(mcontroller.getGameName()+".xml"));
+						new PlayerMain().start(stage);
 					}
 				}, "button-nav");
 			}

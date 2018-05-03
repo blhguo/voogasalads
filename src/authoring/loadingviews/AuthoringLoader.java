@@ -29,7 +29,7 @@ public class AuthoringLoader extends BaseLoader {
 		int gameCount = 0;
 		HBox row;
 		for (Map<String, String> game: gameInfo){
-			if (gameCount % AuthRes.getInt("ThumbnailSpacing") != 0){
+			if (gameCount % 4 != 0){
 				row = (HBox) vb.getChildren().get(vb.getChildren().size() - 1);
 				vb.getChildren().remove(vb.getChildren().size() - 1);
 			}
@@ -40,7 +40,7 @@ public class AuthoringLoader extends BaseLoader {
 						ae.getLoader().loadGame(game.get(AuthRes.getString("ThumbGame")), game.get(AuthRes.getString("ThumbMeta")));
 						myStage.getScene().setRoot(ae.display());
 						myStage.show();
-					}, AuthRes.getInt("ThumbnailWidth"), AuthRes.getInt("ThumbnailHeight"));
+					}, 250, 150);
 			b.getStyleClass().add("button-thumb");
 			row.getChildren().add(b);
 			vb.getChildren().add(row);

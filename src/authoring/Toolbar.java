@@ -44,8 +44,7 @@ public class Toolbar implements GUINode {
 
 	private Button makeFullScreenButton() {
 		return ButtonFactory.makeButton(null,
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("full"))), 
-						AuthRes.getInt("ToolbarButton")),
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("full"))), 25),
 				e -> {
 					stage.setFullScreen(!stage.isFullScreen());
 				}, "button-nav");
@@ -53,8 +52,7 @@ public class Toolbar implements GUINode {
 	
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 
-						AuthRes.getInt("ToolbarButton")),
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 25),
 				e -> {
 					stage.getScene().setRoot(new SplashScreen(stage).display());
 				}, "button-nav");

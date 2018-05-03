@@ -72,21 +72,21 @@ public class StringMenuElement extends MenuElement<String>{
 
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
-		if (code.equals(KeyCode.ENTER) && !text.equals("IMMUTABLE")) {
+		if (code.equals(KeyCode.ENTER)) {
+			if (!text.equals("IMMUTABLE")) {
 				myComponent.setValue(text);
-				if (alert) {
-					myMenu.alert();
-				}
+				if (alert) myMenu.alert();
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 
 			}
+
+		}
 	}
 
 	@Override
 	public void setComponentValue() {
-		if (!field.getText().equals("IMMUTABLE")) {
+		if (!field.getText().equals("IMMUTABLE"))
 			myComponent.setValue(field.getText());
-		}
 	}
 	@Override
 	public StringMenuElement copy(){
@@ -99,6 +99,7 @@ public class StringMenuElement extends MenuElement<String>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue());
 		}
-		return new StringMenuElement(title, comp);
+		StringMenuElement element = new StringMenuElement(title, comp);
+		return element;
 	}
 }

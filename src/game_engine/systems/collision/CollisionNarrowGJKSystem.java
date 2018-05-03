@@ -1,3 +1,21 @@
+package game_engine.systems.collision;
+import game_engine.Entity;
+import game_engine.level.Level;
+
+@Deprecated
+public class CollisionNarrowGJKSystem extends CollisionNarrowSystem {
+
+    @Override
+    protected void checkIntersect(Entity e1, Entity e2, double elapsedTime) {
+
+    }
+
+    @Override
+    public void act(double elapsedTime, Level level) {
+
+    }
+}
+
 //package game_engine.systems.collision;
 //
 //import java.util.ArrayList;

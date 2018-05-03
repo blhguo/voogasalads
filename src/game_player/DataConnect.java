@@ -136,7 +136,7 @@ public class DataConnect implements ImportData {
 	 * Method to create the file chooser for the user to interact with.
 	 * @return: User desired file.
 	 */
-	protected File getFile() {
+	private File getFile() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choose Game File");
 		Stage fileChooserStage = new Stage();
@@ -163,7 +163,6 @@ public class DataConnect implements ImportData {
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
 	}
-	
 
 	@Override
 	public void importPreferences() {

@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="images"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="voogasalad_util/src"/>
+	<classpathentry excluding="voogasalad/util/voogadropbox/|voogasalad/example/voogadropbox/" kind="src" path="voogasalad_util/src"/>
 	<classpathentry kind="src" path="games"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
