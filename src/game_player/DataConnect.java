@@ -89,8 +89,8 @@ public class DataConnect implements ImportData {
 			return;
 		}
 		replayPath = file;
-		viewManager.changeBackground();
 		gameEngine = manipData.loadData(file.getAbsolutePath());
+		viewManager.changeBackground();
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();

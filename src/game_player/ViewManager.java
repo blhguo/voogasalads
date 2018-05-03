@@ -2,6 +2,7 @@ package game_player;
 
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.loadingviews.PlayerLoader;
+import game_engine.level.LevelBackgroundComponent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -52,7 +53,7 @@ public class ViewManager extends GUIBuilder{
 	private Group subRoot;
 	private Pane mainHBox;
 	private AudioClip sound;
-
+	private DataConnect dataConnect;
 	/**
 	 * Constructor for the view manager. Does not initialize immediately.
 	 * seen in the game player and organizes them efficiently.
@@ -70,6 +71,7 @@ public class ViewManager extends GUIBuilder{
 	public void initialize(InstanceStorage storage) {
 		menu = storage.getMenu();
 		gameStage = storage.getStage();
+		dataConnect = storage.getDataConnect();
 		setScene();
 		gameStage.setTitle("CALL US SALAD");
 		gameStage.setFullScreen(true);
@@ -152,7 +154,8 @@ public class ViewManager extends GUIBuilder{
 	 * Changes the background image of the subscene to the desired image.
 	 */ 
 	public void changeBackground() {
-		BackgroundImage back = new BackgroundImage(new Image("mountain.png"), BackgroundRepeat.REPEAT,
+		Image im = new Image(dataConnect.getGameEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue());
+		BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(back));
 	}

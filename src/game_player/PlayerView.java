@@ -162,6 +162,7 @@ public class PlayerView {
 			healthData = primary.getComponent(HealthComponent.class).getValue();
 			viewManager.createText(x + HEALTH_POS[0] - camInX, y + HEALTH_POS[1] - camInY, "Health: " + healthData);
 		}
+		//viewManager.changeBackground();
 	}
 
 	/**
