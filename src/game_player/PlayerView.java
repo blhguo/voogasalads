@@ -123,7 +123,6 @@ public class PlayerView {
 
 	private void step(double delay) {
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		System.out.println(primary);
 		setGamePlayerOnce();
 		myEngine.update(delay);
 		render();
