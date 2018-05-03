@@ -22,6 +22,7 @@ import javafx.stage.Stage;
  * 
  * @author Brandon Dalla Rosa
  *
+ * Manages the user key preferences through various maps and listeners.
  */
 public class KeyPrefMenu {
 	private VBox keyPrefMenu;
@@ -32,7 +33,7 @@ public class KeyPrefMenu {
 	private String currentPrefString;
 	
 	/**
-	 * Method to make the keyPref Stage with keyPref options
+	 * Method to make the keyPref Stage with keyPref options.
 	 * 
 	 */
 	public KeyPrefMenu(DataManager data, Pane root) {
@@ -57,7 +58,9 @@ public class KeyPrefMenu {
 		keyPrefStage.setScene(scene);
 		keyPrefStage.initOwner(dataManager.getStage());
 	}
-	
+	/**
+	 * Method to populate the keypref stage.
+	 */
 	private void initKeyPrefMenu() {
 		ArrayList<String> inputs = (ArrayList<String>) dataManager.getInputCommands();
 		for(String s : inputs) {
@@ -73,7 +76,10 @@ public class KeyPrefMenu {
 			keyPrefMenu.getChildren().add(toAdd);
 		}
 	}
-	
+	/**
+	 * Method called to check for the current key input.
+	 * @param code
+	 */
 	private void checkForInput(KeyCode code) {
 		currentPrefButton.getStyleClass().add("button-keypref");
 
@@ -81,12 +87,18 @@ public class KeyPrefMenu {
 		currentPrefButton.setText(""+dataManager.getKeyCode(currentPrefString));
 		setPref(new Button(),"");
 	}
-	
+	/**
+	 * Method to set the current button and input.
+	 * @param button
+	 * @param string
+	 */
 	private void setPref(Button button,  String string) {
 		currentPrefButton = button;
 		currentPrefString = string;
 	}
-	
+	/**
+	 * Method to show the preference menu.
+	 */
 	private void showPrefMenu() {
 		keyPrefStage.show();
 	}

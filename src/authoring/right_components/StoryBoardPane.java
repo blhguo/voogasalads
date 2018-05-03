@@ -46,6 +46,10 @@ public class StoryBoardPane extends BasePane {
 	private TextField author = new TextField();
 	private TextArea rules = new TextArea();
 
+	public StoryBoardPane() {
+		super();
+	}
+	
 	/**
 	 * GUINode method that returns the view of this Pane
 	 * @return Pane
