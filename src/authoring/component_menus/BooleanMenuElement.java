@@ -70,7 +70,9 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 		if (code.equals(KeyCode.ENTER)) {
 			try {
 				myComponent.setValue(Boolean.parseBoolean(text));
-				if (alert) myMenu.alert();
+				if (alert) {
+					myMenu.alert();
+				}
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 			} catch (Exception e){
 				System.out.println("Sorry, that's not a boolean");
@@ -94,7 +96,6 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue().toString());
 		}
-		BooleanMenuElement element = new BooleanMenuElement(title, comp);
-		return element;
+		return new BooleanMenuElement(title, comp);
 	}
 }
