@@ -94,7 +94,7 @@ public class EntityWrapper {
 		return newList;
 	}
 
-	private void addAllComponents(Entity entity) {
+	public void addAllComponents(Entity entity) {
 		for (ComponentMenu menu : menuList){
 			for(MenuElement element : menu.getElements()){
 				if (menu.isIncluded())
