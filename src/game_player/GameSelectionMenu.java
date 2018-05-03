@@ -7,10 +7,10 @@ import javafx.scene.layout.HBox;
 public class GameSelectionMenu {
 	
 	private Button gameSelectionButton;
-	private PulldownFactory pullDownFactory;
+	private DataConnect dataConnect;
 	
-	protected void makeGameSelectionMenu(HBox pane, PulldownFactory pdf) {
-		this.pullDownFactory = pdf;
+	protected void makeGameSelectionMenu(HBox pane, DataConnect dc) {
+		this.dataConnect = dc;
 		ImageView gameImageView = new ImageView( getClass().getResource( "/game_player_resources/game.png").toExternalForm());
 		gameImageView.setFitHeight(30);
 		gameImageView.setFitWidth(30);
@@ -24,7 +24,7 @@ public class GameSelectionMenu {
 	
 	
 	protected void showGameSelectionMenu() {
-		pullDownFactory.importGame();
+		dataConnect.importGame();
 	}	
 
 
