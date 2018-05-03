@@ -75,7 +75,10 @@ public class EntityWrapper {
 				for (Component c : e.getComponents()){
 					if (element.getComponent().getClass() == c.getClass()){
 						element.setMyComponent(c);
+						if (c.getValue() != null)
+							element.setValue(c.getValue());
 						entity.addComponent(c);
+						menu.Include();
 					}
 				}
 			}

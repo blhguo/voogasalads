@@ -261,7 +261,8 @@ public class PlayerView {
 		if (polarity != null) {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
-		root.getChildren().add(imageView);
+		if (! root.getChildren().contains(imageView))
+			root.getChildren().add(imageView);
 	}
 
 	/**
