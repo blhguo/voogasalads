@@ -84,7 +84,9 @@ public class DoubleMenuElement extends MenuElement<Double>{
 				if (!text.equals("IMMUTABLE")) {
 					myComponent.setValue(Double.parseDouble(text));
 					System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
-					if (alert) myMenu.alert();
+					if (alert) {
+						myMenu.alert();
+					}
 				}
 			} catch (NumberFormatException e) {
 				field.setText("Sorry, that's not a(n) " + title);
@@ -96,8 +98,9 @@ public class DoubleMenuElement extends MenuElement<Double>{
 
 	@Override
 	public void setComponentValue() {
-		if (!field.getText().equals("IMMUTABLE"))
+		if (!field.getText().equals("IMMUTABLE")) {
 			myComponent.setValue(Double.parseDouble(field.getText()));
+		}
 	}
 
 	@Override
@@ -111,8 +114,7 @@ public class DoubleMenuElement extends MenuElement<Double>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue().toString());
 		}
-		DoubleMenuElement element = new DoubleMenuElement(title, comp);
-		return element;
+		return new DoubleMenuElement(title, comp);
 	}
 
 }

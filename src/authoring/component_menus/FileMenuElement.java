@@ -32,14 +32,18 @@ public class FileMenuElement extends MenuElement<String>{
 		field.setStyle("-fx-cursor: hand;");
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
-		field.setPrefHeight(10);
-		field.setPrefWidth(field.getText().length() * 10 + 20 );
+		field.setPrefHeight(AuthRes.getInt("FieldHSpacing"));
+		field.setPrefWidth(field.getText().length() 
+				* AuthRes.getInt("FieldMultiplier") 
+				+ AuthRes.getInt("FieldWSpacing"));
 		fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = new VBox();
 		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth")));
-		image = ImageBuilder.getImageView(field.getText(), 10, 10);
+		image = ImageBuilder.getImageView(field.getText(), 
+				AuthRes.getInt("FMEImageSize"), 
+				AuthRes.getInt("FMEImageSize"));
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());
 	}
@@ -70,7 +74,9 @@ public class FileMenuElement extends MenuElement<String>{
 		field.setText(file.getName());
 		myComponent.setValue(field.getText());
 		//image = ImageBuilder.getImageView(field.getText(), 10, 10);
-		if (alert) myMenu.alert();
+		if (alert) {
+			myMenu.alert();
+		}
 	}
 	public void voogle(){
 		VoogleApp app = new VoogleApp(this);
@@ -106,8 +112,7 @@ public class FileMenuElement extends MenuElement<String>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue());
 		}
-		FileMenuElement element = new FileMenuElement(title, comp);
-		return element;
+		return new FileMenuElement(title, comp);
 	}
 
 }

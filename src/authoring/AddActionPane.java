@@ -41,6 +41,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import resources.keys.AuthRes;
 
 public class AddActionPane implements GUINode {
 	private static final ResourceBundle actions = ResourceBundle.getBundle("resources.keys/Actions");
@@ -69,7 +70,7 @@ public class AddActionPane implements GUINode {
 		actionBox = new VBox();
 		actionBox.setSpacing(20);
 		comboBoxView = new VBox();
-		comboBoxView.setSpacing(20);
+		comboBoxView.setSpacing(AuthRes.getInt("Margin"));
 		Label addComp = new Label("New Action");
 		actionBox.getChildren().add(addComp);
 		ComboBox<String> box = ComboBoxBuilder.getComboBox(actions.keySet().stream().collect(Collectors.toList()));
