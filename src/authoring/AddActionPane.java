@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import authoring.GUI_Heirarchy.GUINode;
-import authoring.component_menus.NumberMenuElement;
+import authoring.component_menus.DoubleMenuElement;
 import authoring.component_menus.StringMenuElement;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
@@ -17,6 +17,7 @@ import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
 import game_engine.components.NullComponent;
+import game_engine.components.sprite.ZHeightComponent;
 import game_engine.event.Event;
 import game_engine.event.actions.macro.AddEntityAction;
 import game_engine.event.actions.macro.LevelChangeAction;
@@ -57,7 +58,7 @@ public class AddActionPane implements GUINode {
 	private int numComponents;
 	private int numExpressions;
 	private Event currentEvent;
-	private List<NumberMenuElement> numberElements;
+	private List<DoubleMenuElement> numberElements;
 	private List<StringMenuElement> stringElements;
 	private ComboBox<String> expressionBox;
 	public AddActionPane(Event currentEvent) {
@@ -121,9 +122,7 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getEntityInput());
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine(), 
-							(int) Double.parseDouble((
-							numberElements.get(0).getValue()))));
+					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -149,7 +148,6 @@ public class AddActionPane implements GUINode {
 					}
 					catch (Exception a) {
 						System.out.println(a.getCause());
-						a.printStackTrace();
 						System.out.println("Sorry, Class machine broke");
 					}
 				});
@@ -183,11 +181,11 @@ public class AddActionPane implements GUINode {
 					try{
 						currentEvent.addAction(new DataToggleAction(
 								entityArray[0],
-								(Class<? extends Component<Double>>) 
+								(Class<? extends Component<Boolean>>) 
 								Class.forName(components.getString(compBox.getValue()))));
 							
 					} catch (Exception a){
-						a.printStackTrace();
+//						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
 				});
@@ -204,10 +202,10 @@ public class AddActionPane implements GUINode {
 								entityArray[0],
 								(Class<? extends Component<Double>>) 
 								Class.forName(components.getString(compBox.getValue())),
-								numberElements.get(0).getValue()));
+								Double.parseDouble(numberElements.get(0).getValue())));
 							
 					} catch (Exception a){
-						a.printStackTrace();
+//						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
 				});
@@ -272,7 +270,7 @@ public class AddActionPane implements GUINode {
 		numExpressions = 1;
 		VBox box = new VBox();
 		for (int i = 0; i < numExpressions; i++){
-			NumberMenuElement element = new NumberMenuElement("Value: ", new NullComponent(""));
+			DoubleMenuElement element = new DoubleMenuElement("Value: ", new ZHeightComponent("-1"));
 			numberElements.add(element);
 			box.getChildren().add(element.getView());
 		}

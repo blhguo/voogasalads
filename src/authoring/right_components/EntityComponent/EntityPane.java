@@ -42,7 +42,7 @@ public class EntityPane extends BasePane{
 	private EntityController controller;
 
 	public EntityPane(Stage s){
-		current = new EntityWrapper(new Entity(), this);
+		current = new EntityWrapper(this);
 		stage = s;
 	}
 
@@ -192,11 +192,16 @@ public class EntityPane extends BasePane{
 //		//controller.resetImageViews();
 		updateSprite();
 	}
+	
+	public void load(List<EntityWrapper> newEntList){
+		controller.updateCanvas(newEntList);
+	}
+	
 	public void newWrapper(){
 		box.getChildren().remove(menuBox);
 		box.getChildren().removeAll(createButtonArray);
 		box.getChildren().removeAll(editButtonArray);
-		current = new EntityWrapper(new Entity(), this);
+		current = new EntityWrapper(this);
 		menuBox = getMenuBox();
 		box.getChildren().add(menuBox);
 		box.getChildren().addAll(createButtonArray);

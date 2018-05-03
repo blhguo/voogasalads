@@ -21,7 +21,6 @@ public class AuthRes {
 		return CONFIGKEYS.getString(key);
 	}
 
-
 	/**
 	 * Returns the corresponding int of a given String key
 	 * @param key

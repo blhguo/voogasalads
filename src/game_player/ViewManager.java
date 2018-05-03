@@ -1,5 +1,7 @@
 package game_player;
 
+import java.io.File;
+
 import authoring.GUI_Heirarchy.GUIBuilder;
 import authoring.loadingviews.PlayerLoader;
 import javafx.beans.value.ChangeListener;
@@ -19,11 +21,13 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -51,7 +55,7 @@ public class ViewManager extends GUIBuilder{
 	private SubScene subScene;
 	private Group subRoot;
 	private Pane mainHBox;
-	private MediaPlayer sound;
+	private AudioClip sound;
 
 	/**
 	 * Constructor for the view manager. It initializes all of the structures
@@ -121,11 +125,9 @@ public class ViewManager extends GUIBuilder{
 
 		menu.addMenu(order);
 
-		Media soundFile = new Media(getClass().getResource("song.mp3").toExternalForm());
-		sound = new MediaPlayer(soundFile);
-		sound.play();
-		sound.setVolume(0);
-		sound.setCycleCount(MediaPlayer.INDEFINITE);
+		sound = new AudioClip(getClass().getResource("song.mp3").toExternalForm());
+//		sound.play(1.0);
+//		sound.setCycleCount(MediaPlayer.INDEFINITE);
 		order.setBackground(new Background(new BackgroundFill(backColor,null,null)));
 		return center;
 	}

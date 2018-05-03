@@ -4,12 +4,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
-import game_engine.Tuple;
 import game_engine.Vector;
 import game_engine.components.PrimeComponent;
 import game_engine.components.position.XPosComponent;
@@ -28,7 +26,6 @@ import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -55,7 +52,6 @@ public class PlayerView {
 	private ParallelCamera cam;
 	private DataManager dataManager;
 	private boolean notSet;
-	private UUID myId;
 	private Text score;
 	private Text health;
 	private Text highScore;
@@ -77,7 +73,6 @@ public class PlayerView {
 		viewManager = storage.getViewManager();
 		dataManager = storage.getDataManager();
 		notSet = true;
-		myId = UUID.randomUUID();
 	}
 
 	public void setEngine(Engine e) {
@@ -92,19 +87,11 @@ public class PlayerView {
 		Scene scene = viewManager.getScene();
 		subScene = viewManager.getSubScene();
 		root = viewManager.getSubRoot();
-		scene.setOnKeyReleased(event -> myEngine.receiveKeyInput(new Tuple<UUID, KeyEvent>(myId, event)));
-		scene.setOnKeyPressed(event -> myEngine.receiveKeyInput(new Tuple<UUID, KeyEvent>(myId, event)));
+		scene.setOnKeyReleased(event -> myEngine.receiveKeyInput(event));
+		scene.setOnKeyPressed(event -> myEngine.receiveKeyInput(event));
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
 		Level level = myEngine.getLevel();
-
-		if (!assignId(level)) {
-			System.out.println("no one assigned");
-			return;
-		}
-
-		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
-		setGamePlayerOnce();
 
 		spriteMap = new HashMap<>();
 		List<Entity> spriteEntities = level.getEntitiesContaining(
@@ -114,17 +101,6 @@ public class PlayerView {
 		}
 
 		animationFrame();
-	}
-
-	private boolean assignId(Level level) {
-		for (Entity entity : level.getEntities()) {
-			if (entity.hasAll(Arrays.asList(PrimeComponent.class))
-					&& (entity.getComponent(PrimeComponent.class).getValue() == null)) {
-				entity.getComponent(PrimeComponent.class).setValue(myId);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -143,6 +119,8 @@ public class PlayerView {
 	}
 
 	private void step(double delay) {
+		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
+		setGamePlayerOnce();
 		myEngine.update(delay);
 		render();
 		// scoreData = myEngine.getScore();
@@ -160,7 +138,7 @@ public class PlayerView {
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 
-		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
+		myEngine.getLevel().getEntities().stream().sorted(this::compareZ)
 				.forEach(this::display);
 	}
 
@@ -183,7 +161,7 @@ public class PlayerView {
 		double middleX = imageView.getX() + imageView.getFitWidth() / 2;
 		double middleY = imageView.getY() + imageView.getFitHeight() / 2;
 		Vector click = new Vector(middleX, middleY);
-		myEngine.receiveMouseInput(new Tuple<UUID, Vector>(myId, click));
+		myEngine.receiveMouseInput(click);
 	}
 
 	private ImageView getImageView(Entity entity) {
@@ -217,20 +195,12 @@ public class PlayerView {
 		imageView.setY(yPos - height / 2);
 		imageView.setVisible(visibility);
 
-		Component<Integer> polarity = entity.getComponent(SpritePolarityComponent.class);
+		Component<Double> polarity = entity.getComponent(SpritePolarityComponent.class);
 		// changes which direction the imageview faces based off of movement direction of entity
 		if (polarity != null) {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
 		root.getChildren().add(imageView);
-	}
-
-	private boolean isInView(Entity entity, double centerX, double centerY) {
-		return true;
-//		calculations broken for some reason
-//		Bounds cameraBounds = new BoundingBox(centerX - ViewManager.SUBSCENE_WIDTH / 2, centerY - ViewManager.SUBSCENE_HEIGHT / 2, ViewManager.SUBSCENE_WIDTH, ViewManager.SUBSCENE_HEIGHT);
-//		ImageView entityView = getImageView(entity);
-//		return cameraBounds.intersects(entityView.getBoundsInParent());
 	}
 
 	/**

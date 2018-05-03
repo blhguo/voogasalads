@@ -83,7 +83,7 @@ public class ManipData {
 				file.createNewFile();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		if (file.exists()) {
@@ -111,7 +111,7 @@ public class ManipData {
 			return openFile(load);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); //TODO
+//			e.printStackTrace(); //TODO
 		}
 		return null;
 		}
@@ -131,25 +131,32 @@ public class ManipData {
 				doc = dBuilder.parse(file);
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("stuff");
+				NodeList actualList = nList.item(0).getChildNodes();
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;
-				String keys = eElement.getElementsByTagName("key0").item(0).getTextContent();
-				String vals = eElement.getElementsByTagName("value0").item(0).getTextContent();
-				String[] keyArr = keys.split(",");
-				String[] valArr = vals.split(",");
+				String[] keyArr = new String[actualList.getLength() / 2];
+				String[] valArr = new String[actualList.getLength() / 2];
+				for (int i = 0; i < actualList.getLength() / 2; i++){
+					String kTagName = "key" + i;
+					String vTagName = "value" + i;
+					String key = eElement.getElementsByTagName(kTagName).item(0).getTextContent();
+					String value = eElement.getElementsByTagName(vTagName).item(0).getTextContent();
+					keyArr[i] = key;
+					valArr[i] = value;
+				}
 				for (int i = 0; i < keyArr.length; i++) {
 					metaMap.put(keyArr[i], valArr[i]);
 				}
 			} catch (SAXException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 		return metaMap;
@@ -208,7 +215,6 @@ public class ManipData {
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
-					e.printStackTrace();
 				}
 				
 			}
@@ -217,10 +223,10 @@ public class ManipData {
 			fos.close();
 		}
 		catch(FileNotFoundException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		catch(IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 	}
@@ -246,7 +252,7 @@ public class ManipData {
 				file.createNewFile();
 			}
 			catch (IOException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 		}
 		try {

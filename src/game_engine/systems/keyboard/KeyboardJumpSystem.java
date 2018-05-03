@@ -8,7 +8,6 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
-import game_engine.Tuple;
 import game_engine.components.NumberOfJumpsAllowedComponent;
 import game_engine.components.PrimeComponent;
 import game_engine.components.keyboard.KeyboardJumpInputComponent;
@@ -62,9 +61,8 @@ public class KeyboardJumpSystem implements GameSystem {
 			Component<Double> yVelocity = entity.getComponent(Y_VEL);
 			Component<KeyCode> jumpInput = entity.getComponent(KEYBOARD_JUMP_INPUT);
 			Component<Double> numJumps = entity.getComponent(NUM_JUMPS);
-			Component<UUID> prime = entity.getComponent(PRIME);
-			for (Tuple<UUID, KeyEvent> input : myEngine.getKeyInputs(jumpInput.getValue())) {
-				if (!checkEquals(input.getSecond(), KEY_PRESSED) || !checkEquals(prime.getValue(), input.getFirst())) {
+			for (KeyEvent input : myEngine.getKeyInputs(jumpInput.getValue())) {
+				if (!checkEquals(input, KEY_PRESSED)) {
 					continue;
 				}
 				
@@ -82,7 +80,4 @@ public class KeyboardJumpSystem implements GameSystem {
 		return event.getEventType().getName().equals(eventType);
 	}
 	
-	private boolean checkEquals(UUID first, UUID second) {
-		return first.equals(second);
-	}
 }

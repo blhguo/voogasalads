@@ -56,11 +56,11 @@ public class LevelController {
 		engine = e;
 	}
 	
-	public ArrayList<Object> getSingleCompList(Class<? extends Component<?>> comp){
+	public <T> ArrayList<Object> getSingleCompList(Class<? extends Component<T>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
-		Map<Integer, List<Component<?>>> map = engine.getLevelPreviews(Arrays.asList(comp));
-		for (List<Component<?>> list: map.values()){
-			for (Component<?> c: list){
+		Map<Integer, List<Component<T>>> map = engine.getLevelPreviews(Arrays.asList(comp));
+		for (List<Component<T>> list: map.values()){
+			for (Component<T> c: list){
 				ret.add(c.getValue());
 			}
 		}

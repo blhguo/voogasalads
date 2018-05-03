@@ -19,6 +19,7 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.components.NullComponent;
+import game_engine.components.keyboard.KeyboardJumpInputComponent;
 import game_engine.event.Condition;
 import game_engine.event.ConditionFactory;
 import game_engine.event.Event;
@@ -47,7 +48,7 @@ public class AddConditionPane implements GUINode {
 	private int numEntities;
 	private Entity[] entityArray;
 	private ComboBox<String> componentBox;
-	private List<MenuElement> menuElements;
+	private List<MenuElement<?>> menuElements;
 	private Event currentEvent;
 
 
@@ -101,7 +102,7 @@ public class AddConditionPane implements GUINode {
 			componentBox = ComboBoxBuilder.getComboBox(components.keySet()
 					.stream()
 					.filter(e -> Boolean.parseBoolean(ResourceBundle.getBundle("Dateable").getString(e)))
-					.map(a -> ResourceBundle.getBundle("UserFriendlyNames").getString(a))
+					//.map(a -> ResourceBundle.getBundle("UserFriendlyNames").getString(a))
 					.collect(Collectors.toList()));
 			componentBox.valueProperty().addListener(((observable, oldValue, newValue1) -> {
 				tryAdd(newValue1);
@@ -111,12 +112,13 @@ public class AddConditionPane implements GUINode {
 		for (int i = 0; i < Integer.parseInt(array[2]); i++){
 			comboBoxView.getChildren().add(new Label(conditions.getString(newValue + "Strings").split(",")[i]));
 			if(newValue.equals("KeyboardInput")){
-				KeyMenuElement element = new KeyMenuElement("Key", new NullComponent(""));
+				// negative chance that this instantiation of the KeyMenuElement is right...revisit and fix later
+				KeyMenuElement element = new KeyMenuElement("Key", new KeyboardJumpInputComponent("W"));
 				menuElements.add(element);
 				comboBoxView.getChildren().add(element.getView());
 			}
 			else {
-				MenuElement element = new StringMenuElement(newValue,
+				MenuElement<String> element = new StringMenuElement(newValue,
 						new NullComponent(""));
 				menuElements.add(element);
 				comboBoxView.getChildren().add((element).getView());
@@ -154,19 +156,31 @@ public class AddConditionPane implements GUINode {
 		}
 	}
 	private void tryAdd(String s){
+		String actual = translateFriendly(s);
 		if (s != null) {
 			try {
-				compList.add((Class<Component<?>>) Class.forName(components.getString(s)));
+				compList.add((Class<Component<?>>) Class.forName(components.getString(actual)));
 			} catch (Exception e) {
 				System.out.println("Sorry b I didn't find that");
 				try {
-					System.out.println("Heres the string I tried" + s);
+					System.out.println("Heres the string I tried" + actual);
 				} catch (NullPointerException a) {
 
 				}
 			}
 		}
 	}
+	
+	private String translateFriendly(String s) {
+		ResourceBundle friendly = ResourceBundle.getBundle("UserFriendlyNames");
+		for (String current : friendly.keySet()) {
+			if (friendly.getString(current).equals(s)) {
+				return current;
+			}
+		}
+		return "";
+	}
+	
 	private Condition newCondition(String s, List<Entity> entities, List<Class<Component<?>>> components,
 	                               List<String> args, Engine engine ) {
 		System.out.println("String: " + s);

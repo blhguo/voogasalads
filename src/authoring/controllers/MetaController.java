@@ -24,6 +24,7 @@ public class MetaController {
 	 * Passes the current levels array to data
 	 */
 	public void saveGame() {
+		lcontroller.getEngine().setLevel(0);
 		//data.saveData(lcontroller.getEngine(), gameName, printMap);
 		data.saveData(lcontroller.getEngine(), gameName, gameName, printMap, configMap);
 	}
@@ -42,6 +43,12 @@ public class MetaController {
 		return printMap;
 	}
 	
+	public void setPrintMap(Map<String, String> newMap){
+		printMap = newMap;
+		System.out.println("MAP NAME: " + printMap.get(AuthRes.getString("Name")));
+		setGameName(printMap.get(AuthRes.getString("Name")));
+	}
+	
 	public Map<String, String> getConfigMap(){
 		return configMap;
 	}
@@ -55,9 +62,6 @@ public class MetaController {
 		configMap.put(AuthRes.getStringKeys("key1"), AuthRes.getString("ThumbnailDefault"));
 		printMap.put(AuthRes.getString("Author"), AuthRes.getString("AuthorDefault"));
 		printMap.put(AuthRes.getString("Rules"), AuthRes.getString("RulesDefault"));
-	
-		
-		
 	}
 
 }

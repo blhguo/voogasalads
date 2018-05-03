@@ -5,6 +5,8 @@ import authoring.component_menus.ComponentMenuFactory;
 import authoring.component_menus.MenuElement;
 import frontend_utilities.DraggableImageView;
 import frontend_utilities.ImageBuilder;
+import game_engine.Component;
+import game_engine.ComponentFactory;
 import game_engine.Entity;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
@@ -22,9 +24,11 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class EntityWrapper {
+
 	public Entity getEntity() {
 		//System.out.println("ENTITY: " + entity);
 		return entity;
@@ -35,11 +39,11 @@ public class EntityWrapper {
 	private ImageView dummyImageView;
 	private List<ComponentMenu> menuList;
 	private EntityPane entityPane;
-	private final DropShadow ds;
+	private final DropShadow ds = new DropShadow( 20, Color.DARKMAGENTA);
 	private int levelId = 0;
 	
-	public EntityWrapper(Entity e, EntityPane pane){
-		entity = e;
+	public EntityWrapper(EntityPane pane){
+		entity = new Entity();
 		menuList = new ComponentMenuFactory().getDefaultMenus();
 		menuList.stream().forEach(d -> d.setMyPane(pane));
 		for (ComponentMenu menu : menuList){
@@ -52,7 +56,6 @@ public class EntityWrapper {
 		imageView = createImageView();
 		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
-		ds = new DropShadow( 20, Color.DARKMAGENTA);
 	}
 	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
@@ -61,10 +64,27 @@ public class EntityWrapper {
 		imageView = createImageView();
 		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
-		ds = new DropShadow( 20, Color.DARKMAGENTA);
 
 	}
+	public EntityWrapper(Entity e, EntityPane pane) {
+		ResourceBundle componentBundle = ResourceBundle.getBundle("Component");
+		entity = e;
+		entityPane = pane;
+		menuList = new ComponentMenuFactory().getDefaultMenus();
+		addAllComponents(entity);
+		for (ComponentMenu menu : menuList) {
+			for (MenuElement element : menu.getElements()) {
+				for (Component c : e.getComponents()){
+					if (element.getComponent().getClass() == c.getClass()){
+						element.setMyComponent(c);
+					}
+				}
+			}
 
+		}
+		imageView = createImageView();
+		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
+	}
 	private List<ComponentMenu> copyMenuList(List<ComponentMenu> menus) {
 		List<ComponentMenu> newList = new ArrayList<>();
 		for (ComponentMenu menu : menus){
@@ -83,6 +103,7 @@ public class EntityWrapper {
 	}
 
 	private ImageView createImageView() {
+		System.out.println("MAKE IMAGEVIEW: " + entity.getComponent(FilenameComponent.class).getValue());
 		DraggableImageView iv = ImageBuilder.getDraggableImageView(
 				entity.getComponent(FilenameComponent.class).getValue(),
 				entity.getComponent(WidthComponent.class).getValue().intValue(),

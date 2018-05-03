@@ -17,12 +17,12 @@ public class MenuElementFactory {
 
 	}
 
-	/**
+	/**www
 	 *
 	 * @param entry -- an array with 3 elements, ElementName, Type, and value
 	 * @return A new MenuElement with the correct type and value
 	 */
-	public MenuElement getElement(String[] entry, ComponentMenu menu){
+	public <T> MenuElement<T> getElement(String[] entry, ComponentMenu menu){
 		this.entry = entry;
 		factory = new ComponentFactory();
 		MenuElement ret;
@@ -54,7 +54,7 @@ public class MenuElementFactory {
 		return ret;
 	}
 
-	private MenuElement handleFile(String className) {
+	private MenuElement<String> handleFile(String className) {
 		return new FileMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 
@@ -70,7 +70,7 @@ public class MenuElementFactory {
 		return new BooleanMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 
-	private NumberMenuElement handleDouble(String className) {
-		return new NumberMenuElement(className, factory.createComponent(className, entry[2]));
+	private DoubleMenuElement handleDouble(String className) {
+		return new DoubleMenuElement(className, factory.createComponent(className, entry[2]));
 	}
 }
