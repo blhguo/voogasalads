@@ -131,12 +131,19 @@ public class ManipData {
 				doc = dBuilder.parse(file);
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("stuff");
+				NodeList actualList = nList.item(0).getChildNodes();
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;
-				String keys = eElement.getElementsByTagName("key0").item(0).getTextContent();
-				String vals = eElement.getElementsByTagName("value0").item(0).getTextContent();
-				String[] keyArr = keys.split(",");
-				String[] valArr = vals.split(",");
+				String[] keyArr = new String[actualList.getLength() / 2];
+				String[] valArr = new String[actualList.getLength() / 2];
+				for (int i = 0; i < actualList.getLength() / 2; i++){
+					String kTagName = "key" + i;
+					String vTagName = "value" + i;
+					String key = eElement.getElementsByTagName(kTagName).item(0).getTextContent();
+					String value = eElement.getElementsByTagName(vTagName).item(0).getTextContent();
+					keyArr[i] = key;
+					valArr[i] = value;
+				}
 				for (int i = 0; i < keyArr.length; i++) {
 					metaMap.put(keyArr[i], valArr[i]);
 				}

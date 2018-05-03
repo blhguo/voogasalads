@@ -226,6 +226,10 @@ public class EntityController {
 	public void updateCanvas() {
 		canvas.update(entityList);
 	}
+	
+	public void updateCanvas(List<EntityWrapper> entList){
+		canvas.update(entList);
+	}
 
 	public void addToEventPaneBox(EntityWrapper e) {
 		eventPane.addToEntityBox(e);

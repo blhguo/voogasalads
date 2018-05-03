@@ -191,6 +191,11 @@ public class EntityPane extends BasePane{
 //		//controller.resetImageViews();
 		updateSprite();
 	}
+	
+	public void load(List<EntityWrapper> newEntList){
+		controller.updateCanvas(newEntList);
+	}
+	
 	public void newWrapper(){
 		box.getChildren().remove(menuBox);
 		box.getChildren().removeAll(createButtonArray);

@@ -20,7 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import observables.Listener;
 import observables.Subject;
@@ -122,10 +122,11 @@ public class NavigationPane implements Subject, GUINode {
 			}
 			else if (prefTitles.get(i).equals("Load Game")){
 				b = ButtonFactory.makeButton(prefTitles.get(i), iv, e -> {
-					FileChooser fc = new FileChooser();
-					fc.setTitle("Choose Game to Load");
-					File file = fc.showOpenDialog(null);
-					loader.loadGame(file.getPath());
+					DirectoryChooser dc = new DirectoryChooser();
+					dc.setTitle("Choose Game to Load");
+					File file = dc.showDialog(null);
+					File[] files = file.listFiles();
+					loader.loadGame(files[1].getPath(), files[2].getPath());
 				}, "button-nav");
 			}
 			else{
