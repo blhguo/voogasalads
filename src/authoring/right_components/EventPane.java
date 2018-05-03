@@ -3,6 +3,7 @@ package authoring.right_components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import authoring.AddActionPane;
 import authoring.AddConditionPane;
@@ -13,6 +14,7 @@ import frontend_utilities.ButtonFactory;
 import game_engine.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -92,14 +94,24 @@ public class EventPane extends BasePane {
 		viewEvents = new Pane();
 		VBox events = new VBox();
 		events.setSpacing(20);
-		events.getChildren().add(new ImageView(
-				new Image("default.jpg")));
+		events.getChildren().addAll(getPrettyList(eventList.stream().map(e -> e.toString()).collect(Collectors.toList())));
+		System.out.println("Events + " + events.getChildren());
 		Button button = ButtonFactory.makeButton(e ->{
 			initStart();
 		});
 		HBox buttonBox = ButtonFactory.makeHBox("Back", null, button);
 		events.getChildren().add(buttonBox);
 		viewEvents.getChildren().add(events);
+	}
+	private List<Label> getPrettyList(List<String> list){
+		List<Label> labelList = new ArrayList<>();
+		box.setSpacing(10);
+		for (String element : list){
+			Label label = new Label(element);
+			label.setStyle("-fx-background-color: lightblue;");
+			labelList.add(label);
+		}
+		return labelList;
 	}
 	private void initAddCondition() {
 		addConditionPane = new AddConditionPane(currentEvent, levelController);
@@ -142,7 +154,10 @@ public class EventPane extends BasePane {
 
 		Button addEvent = ButtonFactory.makeButton(e -> {
 			levelController.addEvent(currentEvent);
+			eventList.add(currentEvent);
 			currentEvent = new Event();
+			initViewEvents();
+
 		});
 		startBox.getChildren().add(ButtonFactory.makeHBox("Add this event to the level",
 				null,

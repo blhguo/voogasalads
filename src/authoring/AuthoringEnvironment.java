@@ -148,9 +148,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 				bp.setRight(event.getView());
 				break;
 			case "Level Preferences": ;
+				controller.updateDummies();
 				bp.setRight(level.getView());
 				break;
 			case "Storyboard": ;
+				controller.updateDummies();
 				bp.setRight(story.getView());
 				break;
 			default:

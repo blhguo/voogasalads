@@ -31,7 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 /**
- * 
+ *
  * @author Dana Park, Brandon Dalla Rosa
  * 
  *         Class that handles animations and updating of animations in game. Holds the game scene
@@ -261,7 +261,8 @@ public class PlayerView {
 		if (polarity != null) {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
-		root.getChildren().add(imageView);
+		if (! root.getChildren().contains(imageView))
+			root.getChildren().add(imageView);
 	}
 
 	/**

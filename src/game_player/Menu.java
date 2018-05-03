@@ -6,13 +6,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 /**
- * 
+ *
  * @author Brandon Dalla Rosa, Dana Park
  *Class that represents all Menu items contained in HBox on bottom of the screen
  */
 
 public class Menu {
-	
+
 	private HBox pane;
 	private DataConnect dataConnect;
 	private ButtonMaker buttonMaker;
@@ -47,8 +47,13 @@ public class Menu {
 		new KeyPrefMenu(dataManager,pane);
 	}
 	/**
+<<<<<<< HEAD
 	 * Method to add the menu into the VBox for the View Manager.
 	 * 
+=======
+	 * Method to add the menu into the VBox for the View Manager
+	 *
+>>>>>>> jenny
 	 * @param root
 	 */
 	public void addMenu(Pane root) {
@@ -57,7 +62,7 @@ public class Menu {
 	
     /**
 	 * Method to add buttons from the button maker into Menu.
-	 * 
+	 *
 	 */
 
 	private void makeButtons() {
@@ -68,17 +73,17 @@ public class Menu {
 		}
 
 	}
-	
+
 	/**
 	 * Getter method for the Brightness Slider on the Settings Stage.
-	 * 
+	 *
 	 */
 	public Slider getBrightnessSlider() {
 		return settings.getBrightnessSlider();
 	}
 	/**
 	 * Getter method for the Volume Slider on the Settings Stage.
-	 * 
+	 *
 	 */
 	public Slider getVolumeSlider() {
 		return settings.getVolumeSlider();
