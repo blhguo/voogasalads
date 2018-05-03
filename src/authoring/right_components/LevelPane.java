@@ -48,8 +48,7 @@ public class LevelPane extends BasePane {
 	private TextField textName = new TextField();
 	private CheckBox hscroll = new CheckBox();
 	private CheckBox vscroll = new CheckBox();
-	private VBox box = new VBox();
-
+	
 	public LevelPane(Stage s){
 		stage = s;
 	}
@@ -60,7 +59,7 @@ public class LevelPane extends BasePane {
 	 */
 	@Override
 	public Pane getView() {
-		box = buildBasicView(AuthRes.getString("LevelTitle"));
+		VBox box = buildBasicView(AuthRes.getString("LevelTitle"));
 		box.getChildren().addAll(getButtonArray());
 		return box;
 	}
@@ -72,7 +71,7 @@ public class LevelPane extends BasePane {
 	@Override
 	public List<Node> getButtonArray() {
 		ArrayList<Node> list = new ArrayList<>();
-		ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
+		List<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
  		
 		activeLevels = makeActiveLevelList(levelNames);
  		list.add(ButtonFactory.makeReverseHBox("Active Level: ", null, activeLevels));
@@ -116,7 +115,7 @@ public class LevelPane extends BasePane {
 	public void update(){
 		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
 		activeLevels.setValue(name);
-		ArrayList<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
+		List<Object> newLevels = lcontroller.getSingleCompList(LevelNameComponent.class);
 		activeLevels.setItems(FXCollections.observableArrayList(newLevels));
 		textName.setText(activeLevels.getValue().toString());
 		String background = lcontroller.getEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
@@ -127,7 +126,7 @@ public class LevelPane extends BasePane {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private ComboBox makeActiveLevelList(ArrayList<Object> levelNames){
+	private ComboBox makeActiveLevelList(List<Object> levelNames){
 		activeLevels = new ComboBox(FXCollections.observableArrayList(levelNames));
 		//System.out.println(lcontroller.getEngine().getLevel());
 		activeLevels.setPromptText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
@@ -152,7 +151,7 @@ public class LevelPane extends BasePane {
 		textName = new TextField(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 		textName.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.ENTER){
-				ArrayList<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
+				List<Object> levelNames = lcontroller.getSingleCompList(LevelNameComponent.class);
 				String text = textName.getText();
 				int count = 0;
 				for (Object str: levelNames){
