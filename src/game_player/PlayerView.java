@@ -141,7 +141,7 @@ public class PlayerView {
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 
-		myEngine.getLevel().getEntities().stream().filter(entity -> isInView(entity, xPos, yPos)).sorted(this::compareZ)
+		myEngine.getLevel().getEntities().stream().sorted(this::compareZ)
 				.forEach(this::display);
 	}
 
@@ -204,14 +204,6 @@ public class PlayerView {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
 		root.getChildren().add(imageView);
-	}
-
-	private boolean isInView(Entity entity, double centerX, double centerY) {
-		return true;
-//		calculations broken for some reason
-//		Bounds cameraBounds = new BoundingBox(centerX - ViewManager.SUBSCENE_WIDTH / 2, centerY - ViewManager.SUBSCENE_HEIGHT / 2, ViewManager.SUBSCENE_WIDTH, ViewManager.SUBSCENE_HEIGHT);
-//		ImageView entityView = getImageView(entity);
-//		return cameraBounds.intersects(entityView.getBoundsInParent());
 	}
 
 	/**
