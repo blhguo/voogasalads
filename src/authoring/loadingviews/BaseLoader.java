@@ -3,6 +3,8 @@ package authoring.loadingviews;
 import java.io.File;
 import java.util.Map;
 
+import org.codehaus.groovy.util.SingleKeyHashMap.Entry;
+
 import authoring.Toolbar;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
 import gameData.ManipData;
@@ -61,12 +63,17 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		for (File game: games){
 			//System.out.println(game.getPath());
 			if (! game.getPath().equals("games/.DS_Store")){
-				String filePath = game.getName() + "config.properties";
+				//System.out.println(game.getPath());
+				String filePath = game.getName() + "/" + game.getName() + "config";
 				//System.out.println(game.getPath());
 //				for (File f: game.listFiles()){
 //					System.out.println(f.getPath());
 //				}
 				Map<String, String> configMap = data.openConfig(filePath);
+				for (String key: configMap.keySet()){
+					System.out.println("key: " + key + " value: " + configMap.get(key));
+				}
+				String thumbPath = configMap.get(AuthRes.getStringKeys("key1"));
 			}
 
 		}

@@ -48,7 +48,7 @@ public class Loader {
 			EntityWrapper ew = new EntityWrapper(e, entityp);
 			ew.setLevel(engine.getLevel().getId());
 			ewList.add(ew);
-			System.out.println("ENTITY: " + e.toString());
+			//System.out.println("ENTITY: " + e.toString());
 		}
 		
 		entityp.load(ewList);

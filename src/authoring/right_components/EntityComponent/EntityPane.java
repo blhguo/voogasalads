@@ -42,7 +42,7 @@ public class EntityPane extends BasePane{
 	private EntityController controller;
 
 	public EntityPane(Stage s){
-		current = new EntityWrapper(new Entity(), this);
+		current = new EntityWrapper(this);
 		stage = s;
 	}
 
@@ -193,7 +193,8 @@ public class EntityPane extends BasePane{
 	}
 	
 	public void load(List<EntityWrapper> newEntList){
-		controller.updateCanvas(newEntList);
+		newEntList.stream().forEach(e -> controller.add(e));
+		controller.updateCanvas(controller.getEntities());
 	}
 	
 	public void newWrapper(){
