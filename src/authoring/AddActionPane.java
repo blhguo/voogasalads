@@ -55,7 +55,6 @@ public class AddActionPane implements GUINode {
 	private Entity[] entityArray;
 	private ComboBox<String> compBox;
 	private int numValue;
-	private int numComponents;
 	private int numExpressions;
 	private Event currentEvent;
 	private List<DoubleMenuElement> numberElements;
@@ -237,7 +236,7 @@ public class AddActionPane implements GUINode {
 		return entityBox;
 	}
 	public Node getClassInput(){
-		numComponents = 1;
+		int numComponents = 1;
 		VBox box = new VBox();
 		for (int i = 0; i < numComponents; i++) {
 			box.getChildren().add(new Label("Enter Component to act on: "));

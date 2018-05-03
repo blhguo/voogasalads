@@ -31,7 +31,6 @@ public class EventPane extends BasePane {
 	
 	private EntityController myController;
 	
-	private Pane start;
 	private Pane newEvent;
 	private Pane addCondition;
 	private Pane addAction;
@@ -124,7 +123,7 @@ public class EventPane extends BasePane {
 		subBox.getChildren().add(n);
 	}
 	private void initStart() {
-		start = new Pane();
+		Pane start = new Pane();
 		VBox startBox = new VBox();
 		startBox.setSpacing(20);
 		Button create = ButtonFactory.makeButton(e -> {
