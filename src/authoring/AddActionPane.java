@@ -1,6 +1,7 @@
 package authoring;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ import game_engine.event.actions.micro.DataToggleAction;
 import game_engine.event.actions.micro.RemoveComponentAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -85,6 +87,9 @@ public class AddActionPane implements GUINode {
 	}
 	private void updateComboBoxView(String newValue) {
 		comboBoxView.getChildren().clear();
+		numberElements.clear();
+		stringElements.clear();
+
 //		String[] array = actions.getString(newValue).split(",");
 //		numEntities = Integer.parseInt(array[0]);
 //		numComponents = Integer.parseInt(array[1]);
@@ -212,7 +217,10 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(createButton);
 				break;
 		}
-		
+		Button reset = ButtonFactory.makeButton(e -> updateComboBoxView(newValue));
+		reset.setText("Reset");
+		reset.setAlignment(Pos.CENTER);
+		comboBoxView.getChildren().add(reset);
 
 	}
 

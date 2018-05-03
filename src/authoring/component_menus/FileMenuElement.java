@@ -56,7 +56,7 @@ public class FileMenuElement extends MenuElement<String>{
 
 	@Override
 	public void setValue(Object o) {
-		field.setText("Hello");
+		field.setText(o.toString());
 	}
 
 	@Override
