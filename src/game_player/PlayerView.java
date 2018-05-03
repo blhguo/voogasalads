@@ -152,12 +152,16 @@ public class PlayerView {
 		setGamePlayerOnce();
 		myEngine.update(delay);
 		render();
-		scoreData = primary.getComponent(ScoreComponent.class).getValue();
-		healthData = primary.getComponent(HealthComponent.class).getValue();
 		double x = cam.getLayoutX();
 		double y = cam.getLayoutY();
-		viewManager.createText(x + SCORE_POS[0] - camInX, y + SCORE_POS[1] - camInY, "Score: " + scoreData);
-		viewManager.createText(x + HEALTH_POS[0] - camInX, y + HEALTH_POS[1] - camInY, "Health: " + healthData);
+		if(primary.getComponent(ScoreComponent.class)!=null) {
+			scoreData = primary.getComponent(ScoreComponent.class).getValue();
+			viewManager.createText(x + SCORE_POS[0] - camInX, y + SCORE_POS[1] - camInY, "Score: " + scoreData);
+		}
+		if(primary.getComponent(HealthComponent.class)!=null) {
+			healthData = primary.getComponent(HealthComponent.class).getValue();
+			viewManager.createText(x + HEALTH_POS[0] - camInX, y + HEALTH_POS[1] - camInY, "Health: " + healthData);
+		}
 	}
 
 	/**
