@@ -25,6 +25,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import resources.keys.AuthRes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class EntityWrapper {
 		dummyImageView = new ImageView(new Image(entity.getComponent(FilenameComponent.class).getValue()));
 		entityPane = pane;
 	}
+	
 	public EntityWrapper(EntityWrapper e, EntityPane pane){
 		entity = new Entity();
 		menuList = copyMenuList(e.getMenuList());
@@ -70,6 +72,7 @@ public class EntityWrapper {
 		entityPane = pane;
 
 	}
+	
 	public EntityWrapper(Entity e, EntityPane pane) {
 		ResourceBundle componentBundle = ResourceBundle.getBundle("Component");
 		entity = e;
@@ -106,7 +109,7 @@ public class EntityWrapper {
 	public void addAllComponents(Entity entity) {
 		for (ComponentMenu menu : menuList){
 			for(MenuElement element : menu.getElements()){
-				if (menu.isIncluded())
+				if (menu.isIncluded()) {
 					entity.addComponent(element.getComponent());
 				else {
 					entity.removeComponent((Class<? extends Component<?>>)
@@ -167,8 +170,8 @@ public class EntityWrapper {
 		ScrollPane pane = new ScrollPane(acc);
 		pane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		pane.setStyle("-fx-background: transparent;");
-		pane.setPrefHeight(200);
-		pane.setPrefWidth(150);
+		pane.setPrefHeight(AuthRes.getInt("PrefWrapperHeight"));
+		pane.setPrefWidth(AuthRes.getInt("PrefWrapperWidth"));
 		return pane;
 	}
 	public void updateImage(){
@@ -179,10 +182,10 @@ public class EntityWrapper {
 		imageView.setFitWidth(entity.getComponent(WidthComponent.class).getValue());
 		imageView.setFitHeight(entity.getComponent(HeightComponent.class).getValue());
 		if (!entity.getComponent(VisibilityComponent.class).getValue()){
-			imageView.setOpacity(.2);
+			imageView.setOpacity(AuthRes.getInt("FadedOpacity"));
 		}
 		else {
-			imageView.setOpacity(1);
+			imageView.setOpacity(AuthRes.getInt("ActiveOpacity"));
 		}
 	}
 

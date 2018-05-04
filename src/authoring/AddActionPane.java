@@ -80,7 +80,7 @@ public class AddActionPane extends Pane implements GUINode {
 		actionBox = new VBox();
 		actionBox.setSpacing(20);
 		comboBoxView = new VBox();
-		comboBoxView.setSpacing(20);
+		comboBoxView.setSpacing(AuthRes.getInt("Margin"));
 		Label addComp = new Label("New Action");
 		actionBox.getChildren().add(addComp);
 		ComboBox<String> box = ComboBoxBuilder.getComboBox(actions.keySet().stream().collect(Collectors.toList()));

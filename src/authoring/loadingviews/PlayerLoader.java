@@ -1,6 +1,6 @@
 package authoring.loadingviews;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import frontend_utilities.ButtonFactory;
@@ -27,7 +27,7 @@ public class PlayerLoader extends BaseLoader {
 	}
 
 	@Override
-	public void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo) {
+	public void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo) {
 		Text mtncap = new Text("   Mountain ~vIbes~");
 		mtncap.getStyleClass().add("game-chooser");
 		vb.getChildren().addAll(

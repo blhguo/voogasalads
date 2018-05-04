@@ -1,6 +1,6 @@
 package authoring.loadingviews;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import frontend_utilities.ButtonFactory;
@@ -25,11 +25,11 @@ public class AuthoringLoader extends BaseLoader {
 	}
 
 	@Override
-	public void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo) {
+	public void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo) {
 		int gameCount = 0;
 		HBox row;
 		for (Map<String, String> game: gameInfo){
-			if (gameCount % 4 != 0){
+			if (gameCount % AuthRes.getInt("ThumbnailSpacing") != 0){
 				row = (HBox) vb.getChildren().get(vb.getChildren().size() - 1);
 				vb.getChildren().remove(vb.getChildren().size() - 1);
 			}
@@ -40,7 +40,7 @@ public class AuthoringLoader extends BaseLoader {
 						ae.getLoader().loadGame(game.get(AuthRes.getString("ThumbGame")), game.get(AuthRes.getString("ThumbMeta")));
 						myStage.getScene().setRoot(ae.display());
 						myStage.show();
-					}, 250, 150);
+					}, AuthRes.getInt("ThumbnailWidth"), AuthRes.getInt("ThumbnailHeight"));
 			b.getStyleClass().add("button-thumb");
 			row.getChildren().add(b);
 			vb.getChildren().add(row);

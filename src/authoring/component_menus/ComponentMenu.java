@@ -29,12 +29,8 @@ public class ComponentMenu extends VBox implements Comparable{
 	private List<MenuElement> elements;
 	private String myType;
 	private boolean included;
-
-	public void setMyPane(EntityPane myPane) {
-		this.myPane = myPane;
-	}
-
 	private EntityPane myPane;
+
 	public ComponentMenu(String type){
 		myType = type;
 		elements = new ArrayList<>();
@@ -46,6 +42,11 @@ public class ComponentMenu extends VBox implements Comparable{
 		}
 		//this.setOnMousePressed(e -> Include());
 	}
+	
+	public void setMyPane(EntityPane myPane) {
+		this.myPane = myPane;
+	}
+	
 	public String getMyType() {
 		return myType;
 	}

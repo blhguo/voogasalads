@@ -12,12 +12,10 @@ import resources.keys.AuthRes;
  */
 public class PaneController {
 
-	private LevelPane levelPane;
 	private Canvas canvas;
 	private EntityController econtroller;
 	
-	public PaneController(LevelPane lp, Canvas c){
-		levelPane = lp;
+	public PaneController(Canvas c){
 		canvas = c;
 	}
 
