@@ -243,7 +243,13 @@ public class PlayerView {
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
 		Double width = entity.getComponent(WidthComponent.class).getValue();
 		Double height = entity.getComponent(HeightComponent.class).getValue();
-		Boolean visibility = entity.getComponent(VisibilityComponent.class).getValue();
+		Boolean visibility;
+		try {
+			visibility = entity.getComponent(VisibilityComponent.class).getValue();
+		} catch (Exception e) {
+			System.out.println(xPos);
+			visibility = true;
+		}
 
 		ImageView imageView = getImageView(entity);
 		imageView.setFitHeight(height);

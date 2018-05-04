@@ -2,12 +2,14 @@ package game_engine.systems;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.DamageComponent;
+import game_engine.components.PrimeComponent;
 import game_engine.components.ProjectileComponent;
 import game_engine.components.collision.CollidableComponent;
 import game_engine.components.collision.hitbox.HitboxHeightComponent;
@@ -60,6 +62,7 @@ public class ProjectileSpawnSystem implements GameSystem {
 	private static final Class<? extends Component<KeyCode>> PROJ_INPUT = ProjectileKeyboardInputComponent.class;
 	private static final Class<? extends Component<Double>> ENTITY_XPOS = XPosComponent.class;
 	private static final Class<? extends Component<Double>> ENTITY_YPOS = YPosComponent.class;
+	private static final Class<? extends Component<UUID>> PRIME = PrimeComponent.class;
 	private static final String KEY_PRESSED = "KEY_PRESSED";
 	
 	private Engine myEngine;
@@ -79,7 +82,7 @@ public class ProjectileSpawnSystem implements GameSystem {
 	public void act(double elapsedTime, Level level) {
 		List<Class<? extends Component<?>>> args = Arrays.asList(PROJ_YVEL, PROJ_XVEL, PROJ_WIDTH, PROJ_HEIGHT,
 				PROJ_HITBOX_HEIGHT, PROJ_HITBOX_WIDTH, PROJ_DAMAGE, PROJ_COLLIDABLE, PROJ_FILENAME, PROJ_INPUT, 
-				ENTITY_XPOS, ENTITY_YPOS, PROJ_HITBOX_X_OFFSET, PROJ_HITBOX_Y_OFFSET);
+				ENTITY_XPOS, ENTITY_YPOS, PROJ_HITBOX_X_OFFSET, PROJ_HITBOX_Y_OFFSET, PRIME);
 		for (Entity entity : level.getEntitiesContaining(args)) {
 			Component<KeyCode> keyInput = entity.getComponent(PROJ_INPUT);
 			for (KeyEvent input : myEngine.getKeyInputs(keyInput.getValue())) {
@@ -128,10 +131,9 @@ public class ProjectileSpawnSystem implements GameSystem {
 		projectile.addComponent(new HitboxXOffsetComponent(entity.getComponent(PROJ_HITBOX_X_OFFSET).getValue().toString()));
 		projectile.addComponent(new HitboxYOffsetComponent(entity.getComponent(PROJ_HITBOX_Y_OFFSET).getValue().toString()));
 		
-		
 		projectile.addComponent(new YPosComponent(entity.getComponent(ENTITY_YPOS).getValue().toString()));
 		projectile.addComponent(new XPosComponent(Double.toString(entity.getComponent(ENTITY_XPOS).getValue()+spawnXOffset)));
-		
+		System.out.println("projectile: " + projectile);
 
 		return projectile;
 	}
