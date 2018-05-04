@@ -202,7 +202,23 @@ public class EventPane extends BasePane {
 				null, condition);
 		HBox actionBox = ButtonFactory.makeHBox("Add a new Action", 
 				null, action);
-		eventBox.getChildren().addAll(conditionBox, actionBox);
+		//eventBox.getChildren().addAll(conditionBox, actionBox);
+		initAddAction();
+		initAddCondition();
+		eventBox.getChildren().add(addCondition);
+		addCondition.setOnMousePressed(e -> {
+			addCondition.setStyle("-fx-border-width: 2px; -fx-border-color: lightblue");
+			addConditionPane.setSelected(true);
+			addActionPane.setSelected(false);
+			System.out.println("Hit add condition");
+		});
+		eventBox.getChildren().add(addAction);
+		addAction.setOnMousePressed(e -> {
+			addAction.setStyle("-fx-border-width: 2px; -fx-border-color: lightblue");
+			addActionPane.setSelected(true);
+			addConditionPane.setSelected(false);
+			System.out.println("Hit add action");
+		});
 		Button back = ButtonFactory.makeButton(g -> {
 			initStart();
 		});

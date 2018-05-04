@@ -36,7 +36,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class AddConditionPane implements GUINode {
+public class AddConditionPane extends Pane implements GUINode {
 	private static final ResourceBundle conditions = ResourceBundle.getBundle("resources.keys/Conditions");
 	private LevelController levelController;
 	private ResourceBundle components = ResourceBundle.getBundle("Component");
@@ -49,9 +49,11 @@ public class AddConditionPane implements GUINode {
 	private Entity[] entityArray;
 	private List<MenuElement<?>> menuElements;
 	private Event currentEvent;
+	private boolean selected;
 
 
 	public AddConditionPane(Event current, LevelController levelController) {
+		selected = false;
 		this.levelController = levelController;
 		entityBox = new HBox();
 		currentEvent = current;
@@ -141,16 +143,18 @@ public class AddConditionPane implements GUINode {
 		comboBoxView.getChildren().add(addCompBox);
 	}
 	public void addToEntityBox(EntityWrapper wrapper){
-		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
-		for (int i = 0; i < numEntities; i++){
-			if (entityArray[i] == null){
-				entityArray[i] = wrapper.getEntity();
-				if(!entityBox.getChildren().contains(wrapper.getDummy())){
-					entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
-							getImage()), 50));
+		if (selected) {
+			entityBox.getChildren().stream().forEach(e -> System.out.println(e));
+			for (int i = 0; i < numEntities; i++) {
+				if (entityArray[i] == null) {
+					entityArray[i] = wrapper.getEntity();
+					if (!entityBox.getChildren().contains(wrapper.getDummy())) {
+						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
+								getImage()), 50));
+					}
+					entityBox.getChildren().get(2 * i + 1).resize(50, 50);
+					break;
 				}
-				entityBox.getChildren().get(2 * i + 1).resize(50, 50);
-				break;
 			}
 		}
 	}
@@ -200,5 +204,9 @@ public class AddConditionPane implements GUINode {
 
 	public void add(Node node){
 		actionBox.getChildren().add(node);
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 }

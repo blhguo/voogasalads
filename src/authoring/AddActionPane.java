@@ -44,7 +44,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class AddActionPane implements GUINode {
+public class AddActionPane extends Pane implements GUINode {
 	private static final ResourceBundle actions = ResourceBundle.getBundle("resources.keys/Actions");
 	private static final ResourceBundle components = ResourceBundle.getBundle("Component");
 	private static final ResourceBundle componentargs = ResourceBundle.getBundle("CompArguments");
@@ -62,7 +62,9 @@ public class AddActionPane implements GUINode {
 	private List<DoubleMenuElement> numberElements;
 	private List<StringMenuElement> stringElements;
 	private ComboBox<String> expressionBox;
+	private boolean selected;
 	public AddActionPane(Event currentEvent) {
+		selected = false;
 		entityBox = new HBox();
 		numberElements = new ArrayList<>();
 		stringElements = new ArrayList<>();
@@ -212,6 +214,7 @@ public class AddActionPane implements GUINode {
 					} catch (Exception a){
 //						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
+
 					}
 				});
 				comboBoxView.getChildren().add(createButton);
@@ -285,20 +288,25 @@ public class AddActionPane implements GUINode {
 		return box;
 	}
 	public void addToEntityBox(EntityWrapper wrapper){
-		if (entityBox == null){
-			entityBox = new HBox();
-		}
-		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
-		for (int i = 0; i < numEntities; i++){
-			if (entityArray[i] == null){
-				entityArray[i] = wrapper.getEntity();
-				if(!entityBox.getChildren().contains(wrapper.getDummy())){
-					entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
-							getImage()), 50));
-				}
-				entityBox.getChildren().get(2 * i + 1).resize(50, 50);
-				break;
+		if (selected) {
+			if (entityBox == null) {
+				entityBox = new HBox();
 			}
+			entityBox.getChildren().stream().forEach(e -> System.out.println(e));
+			for (int i = 0; i < numEntities; i++) {
+				if (entityArray[i] == null) {
+					entityArray[i] = wrapper.getEntity();
+					if (!entityBox.getChildren().contains(wrapper.getDummy())) {
+						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
+								getImage()), 50));
+					}
+					entityBox.getChildren().get(2 * i + 1).resize(50, 50);
+					break;
+				}
+			}
+		}
+		else {
+			System.out.println("No focus -- Add Action Pane");
 		}
 	}
 	@Override
@@ -310,4 +318,7 @@ public class AddActionPane implements GUINode {
 		actionBox.getChildren().add(node);
 	}
 
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 }
