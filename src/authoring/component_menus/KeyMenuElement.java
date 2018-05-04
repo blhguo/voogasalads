@@ -17,8 +17,10 @@ public class KeyMenuElement extends MenuElement<KeyCode>{
 		field = new TextField();
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
-		field.setPrefHeight(10);
-		field.setPrefWidth(field.getText().length() * 10 + 20 );
+		field.setPrefHeight(AuthRes.getInt("FieldHSpacing"));
+		field.setPrefWidth(field.getText().length() 
+				* AuthRes.getInt("FieldMultiplier") 
+				+ AuthRes.getInt("FieldWSpacing"));
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
 		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
@@ -47,7 +49,9 @@ public class KeyMenuElement extends MenuElement<KeyCode>{
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
 		field.setText(code.toString());
-		field.setPrefWidth(field.getText().length() * 10 + 20 );
+		field.setPrefWidth(field.getText().length() 
+				* AuthRes.getInt("FieldMultiplier") 
+				+ AuthRes.getInt("FieldWSpacing"));
 		myComponent.setValue(code);
 	}
 
@@ -67,7 +71,6 @@ public class KeyMenuElement extends MenuElement<KeyCode>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue().toString());
 		}
-		KeyMenuElement element = new KeyMenuElement(title, comp);
-		return element;
+		return new KeyMenuElement(title, comp);
 	}
 }

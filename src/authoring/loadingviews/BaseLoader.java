@@ -3,6 +3,7 @@ package authoring.loadingviews;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import authoring.AuthoringEnvironment;
@@ -49,13 +50,15 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 	 * @param gridpane
 	 */
 	public Pane addCoreFinishingElements(GridPane gridpane) {
-		double chooserWidth = AuthRes.getInt("EnvironmentX") - (AuthRes.getInt("Margin") * 10);
-		double chooserHeight = AuthRes.getInt("EnvironmentY") - (AuthRes.getInt("Margin") * 10);
+		double chooserWidth = AuthRes.getInt("EnvironmentX") 
+				- (AuthRes.getInt("Margin") * AuthRes.getInt("FieldMultiplier"));
+		double chooserHeight = AuthRes.getInt("EnvironmentY") 
+				- (AuthRes.getInt("Margin") * AuthRes.getInt("FieldMultiplier"));
 		VBox vbox = new VBox();
 		vbox.setPrefWidth(chooserWidth);
 		vbox.setPrefHeight(chooserHeight);
 		vbox.getStyleClass().add("chooser-back");
-		gridpane.add(vbox, 20, 13);
+		gridpane.add(vbox, AuthRes.getInt("BaseLoadCol"), AuthRes.getInt("BaseLoadRow"));
 		File folder = new File("games");
 		File[] games = folder.listFiles();
 		ArrayList<Map<String, String>> gameInfo = new ArrayList<Map<String, String>>();
@@ -98,7 +101,7 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		try {
 			Text title = new Text(AuthRes.getString("ChooserTitle") + AuthRes.getString(type));
 			title.getStyleClass().add("title2");
-			gridpane.add(title, 20, 10);
+			gridpane.add(title, AuthRes.getInt("BaseLoadCol"), AuthRes.getInt("DefaultSpacing"));
 		} catch (NullPointerException e) {
 			Alert noType = new Alert(AlertType.ERROR);
 			noType.setContentText(AuthRes.getString("NoChooserType"));
@@ -106,23 +109,6 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		}
 	}
 	
-	public abstract void buildThumbnails(VBox vb, ArrayList<Map<String, String>> gameInfo);
-	
-	
-	//TEST LOADING
-	//class also needs to load saved games to be edited/played - each game needs thumbnail
-	/**
-	 * Loads a thumbnail for a game. Creates a button out of the thumbnail so that when
-	 * pressed, user can play that game
-	 * @param vbox
-	 */
-	//test loader
-//	public void testLoad(VBox vbox) {
-//		Text mtncap = new Text("   Mountain ~vIbes~");
-//		mtncap.getStyleClass().add("game-chooser");
-//		vbox.getChildren().addAll(
-//				ButtonFactory.makeButton(null,new ImageView(new Image(AuthRes.getString("mtnthumb"))), 
-//						e -> new PlayerMain().start(myStage), "button-nav"),
-//				mtncap);
-//	}
+	public abstract void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo);
+
 }

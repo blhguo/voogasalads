@@ -36,16 +36,15 @@ public class EntityPane extends BasePane{
 	private List<HBox> createButtonArray;
 	private List<HBox> editButtonArray;
 	private Stage stage;
-
-	public void setController(EntityController controller) {
-		this.controller = controller;
-	}
-
 	private EntityController controller;
 
 	public EntityPane(Stage s){
 		current = new EntityWrapper(this);
 		stage = s;
+	}
+	
+	public void setController(EntityController controller) {
+		this.controller = controller;
 	}
 
 	public Pane getView(){
@@ -68,10 +67,10 @@ public class EntityPane extends BasePane{
 	private VBox buildDefaultBox() {
 		ResourceBundle bundle = ResourceBundle.getBundle("Defaults");
 		VBox vbox = new VBox();
-		vbox.setSpacing(10);
+		vbox.setSpacing(AuthRes.getInt("VBPadding"));
 		vbox.getChildren().add(new Label("Default Entities"));
 		HBox box = new HBox();
-		box.setSpacing(10);
+		box.setSpacing(AuthRes.getInt("HBPadding"));
 		for (String key : bundle.keySet()){
 			Button def = ButtonFactory.makeButton(e -> {
 				//newWrapper();
@@ -115,13 +114,13 @@ public class EntityPane extends BasePane{
 	public VBox getMenuBox(){
 		VBox newBox = new VBox();
 		newBox.setAlignment(Pos.CENTER);
-		newBox.setSpacing(10);
+		newBox.setSpacing(AuthRes.getInt("HBPadding"));
 		//TODO: Here is where you could filter the ComponentMenus
 		newBox.getChildren().addAll(current.getView());
 		HBox addBox = ButtonFactory.makeHBox("Add Component", null,
 				ButtonFactory.makeButton(e -> newComponent()));
-		addBox.setMaxHeight(20);
-		addBox.setMaxWidth(20);
+		addBox.setMaxHeight(AuthRes.getInt("MenuBoxSizing"));
+		addBox.setMaxWidth(AuthRes.getInt("MenuBoxSizing"));
 		Button addComponentButton = ButtonFactory.makeButton(e -> newComponent());
 		newBox.getChildren().add(ButtonFactory.makeHBox("Add New Component", null, addComponentButton));
 		return newBox;
@@ -133,14 +132,17 @@ public class EntityPane extends BasePane{
 	}
 
 	public void updateSprite() {
-		sprite.setImage(new Image(current.getEntity().getComponent(FilenameComponent.class).getValue(), 130, 130, true, true));
-		ImageBuilder.resize(sprite, 130);
+		sprite.setImage(new Image(current.getEntity().getComponent(FilenameComponent.class).getValue(), 
+				AuthRes.getInt("EntityPaneSprite"), 
+				AuthRes.getInt("EntityPaneSprite"), true, true));
+		ImageBuilder.resize(sprite, AuthRes.getInt("EntityPaneSprite"));
 	}
 
 	public Pane getSprite(){
 		StackPane pane = new StackPane();
 		sprite = ImageBuilder.getImageView(current.getEntity().getComponent(FilenameComponent.class).getValue(),
-				130, 130);
+				AuthRes.getInt("EntityPaneSprite"), 
+				AuthRes.getInt("EntityPaneSprite"));
 		pane.getChildren().add(sprite);
 		return pane;
 	}

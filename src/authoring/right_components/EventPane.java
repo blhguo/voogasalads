@@ -74,10 +74,12 @@ public class EventPane extends BasePane {
 		comboBoxView.setSpacing(20);
 		comboBoxView.setFillWidth(true);
 		comboBoxView.setPrefWidth(150);
+		currentEvent = new Event();
 		initStart();
-		initNewEvent();
+
 		initAddCondition();
 		initAddAction();
+		initNewEvent();
 		initViewEvents();
 		
 	}
@@ -88,7 +90,7 @@ public class EventPane extends BasePane {
 	}
 
 	private void initAddAction() {
-		addActionPane = new AddActionPane(currentEvent, stage);
+		addActionPane = new AddActionPane(currentEvent, stage, this);
 		addAction = addActionPane.getView();
 		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
@@ -181,10 +183,14 @@ public class EventPane extends BasePane {
 		clearAndAdd(start);
 
 		Button addEvent = ButtonFactory.makeButton(e -> {
+			System.out.println("Current Event: " + currentEvent);
+			System.out.println("Current Event, actions size: " + currentEvent.getActions().size());
+			System.out.println("Current Event, conditions size: " + currentEvent.getConditions().size());
 			levelController.addEvent(currentEvent);
 			eventList.add(currentEvent);
-			currentEvent = new Event();
+			eventList.stream().forEach(b -> System.out.println(b));
 			initViewEvents();
+			currentEvent = new Event();
 			Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddEventHeader"), AuthRes.getString("AddEventContent"), stage);
 			a.showAndWait();
 		});
@@ -209,18 +215,20 @@ public class EventPane extends BasePane {
 		HBox actionBox = ButtonFactory.makeHBox("Add a new Action", 
 				null, action);
 		//eventBox.getChildren().addAll(conditionBox, actionBox);
-		initAddAction();
-		initAddCondition();
+		//initAddAction();
+		//initAddCondition();
+		addConditionPane.setLevelController(levelController);
+		addActionPane.setLevelController(levelController);
 		eventBox.getChildren().add(addCondition);
 		addCondition.setOnMousePressed(e -> {
-			addCondition.setStyle("-fx-border-width: 2px; -fx-border-color: lightblue");
+			addConditionPane.setStyle("-fx-border-width: 2px; -fx-border-color: lightblue");
 			addConditionPane.setSelected(true);
 			addActionPane.setSelected(false);
 			System.out.println("Hit add condition");
 		});
 		eventBox.getChildren().add(addAction);
 		addAction.setOnMousePressed(e -> {
-			addAction.setStyle("-fx-border-width: 2px; -fx-border-color: lightblue");
+			addActionPane.setStyle("-fx-border-width: 2px; -fx-border-color: lightblue");
 			addActionPane.setSelected(true);
 			addConditionPane.setSelected(false);
 			System.out.println("Hit add action");
@@ -245,6 +253,9 @@ public class EventPane extends BasePane {
 	public Pane getView() {
 		return box;
 	}
-	
 
+
+	public Event getCurrentEvent() {
+		return currentEvent;
+	}
 }

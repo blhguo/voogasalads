@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
@@ -75,27 +76,25 @@ public class SplashScreen extends GUIGridPaneSuper{
 		myVBox.getChildren().addAll(createHB, loadHB, playHB);
 		return myVBox;
 	}
-	
+
 	@Override
 	public Pane finishScene(GridPane gridpane) {
-//		initScene(gridpane);
-		//System.out.println("Finishing splash screen");
+
 		Text title = new Text(AuthRes.getString("SplashTitle"));
 		title.getStyleClass().add("title");
 		VBox vb = makeVBox();
 		gridpane.getChildren().addAll(title, vb);
-		double width = title.getParent().getLayoutBounds().getWidth();
-//		double width = myStage.getScene().getRoot().getLayoutBounds().getWidth();
+		
+//		double width = title.getParent().getLayoutBounds().getWidth();
+		double width = Screen.getPrimary().getVisualBounds().getWidth();
 		int numCols = (int) width / AuthRes.getInt("Padding");
-		//System.out.println("Height"+ width);
-		double height = title.getParent().getLayoutBounds().getHeight();
-//		double height = myStage.getHeight();
-//		double height = myStage.getScene().getRoot().getLayoutBounds().getHeight();
-
-		//System.out.println("Height" + height);
+		
+//		double height = title.getParent().getLayoutBounds().getHeight();
+		double height = Screen.getPrimary().getVisualBounds().getHeight();
 		int numRows = (int) height / AuthRes.getInt("Padding");
-		GridPane.setConstraints(title, numCols / 20, numRows * 2 / 3);
-		GridPane.setConstraints(vb, numCols / 3, numRows / 4);
+		
+		GridPane.setConstraints(title, numCols / 20, numRows * 3 / 5);
+		GridPane.setConstraints(vb, numCols * 7 / 24, numRows / 5);
 		return gridpane;
 	}
 

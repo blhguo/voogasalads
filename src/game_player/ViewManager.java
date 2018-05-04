@@ -26,6 +26,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import resources.keys.AuthRes;
 
 /**
  * This class initializes the layout for the game player, and manages the
@@ -154,8 +155,14 @@ public class ViewManager extends GUIBuilder{
 	 * Changes the background image of the subscene to the desired image.
 	 */ 
 	public void changeBackground() {
-		Image im = new Image(dataConnect.getGameEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue());
-		BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.REPEAT,
+		//String imagePath = dataConnect.getGameEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue();
+		Image im;
+		try {
+			im = new Image(dataConnect.getGameEngine().getLevel().getComponent(LevelBackgroundComponent.class).getValue());
+		} catch ( Exception e){
+			im = new Image("mountain.png");
+		}
+			BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.REPEAT,
 				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		view.setBackground(new Background(back));
 	}

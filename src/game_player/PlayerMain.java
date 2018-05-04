@@ -1,5 +1,9 @@
 package game_player;
 
+import java.io.File;
+
+import gameData.ManipData;
+import game_engine.Engine;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,9 +20,10 @@ public class PlayerMain extends Application{
 	DataManager dataManager;
 	DataConnect dataConnect;
 	PlayerView playerView;
-
-
-
+	Engine engine;
+	
+	
+	
 	/**
 	 * Method called to initialize the Game Player.
 	 */
@@ -41,7 +46,18 @@ public class PlayerMain extends Application{
 		viewManager.initialize(dataStorage);
 		playerView.initialize(dataStorage);
 	}
-
+	
+	public void launchFromAuthoring(Stage stage, File file) {
+		start(stage);
+		ManipData manipData = new ManipData();
+		file = dataConnect.getFile();
+		engine=dataConnect.getGameEngine();
+		engine = manipData.loadData(file.getAbsolutePath());
+		playerView.setEngine(engine);
+		dataManager.setGameEngine(engine);
+		playerView.instantiate();
+	}
+	
 	/**
 	 * Method to return the current scene of the game player.
 	 * @return
@@ -49,6 +65,7 @@ public class PlayerMain extends Application{
 	public Scene getScene() {
 		return viewManager.getScene();
 	}
+	
 	/**
 	 * Method called by JavaFX to launch the program.
 	 * @param args
