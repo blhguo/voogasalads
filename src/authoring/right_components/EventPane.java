@@ -10,6 +10,7 @@ import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
+import frontend_utilities.ImageBuilder;
 import frontend_utilities.UserFeedback;
 import game_engine.event.Action;
 import game_engine.event.Condition;
@@ -18,6 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -87,11 +90,11 @@ public class EventPane extends BasePane {
 	private void initAddAction() {
 		addActionPane = new AddActionPane(currentEvent, stage);
 		addAction = addActionPane.getView();
-		Button back = ButtonFactory.makeButton(e -> {
+		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
+		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-		addActionPane.add(ButtonFactory.makeHBox("Back", null, back));
-
+		addActionPane.add(buttonBox);
 	}
 
 	private void initViewEvents() {
@@ -100,10 +103,10 @@ public class EventPane extends BasePane {
 		events.setSpacing(20);
 		events.getChildren().addAll(getPrettyList(eventList));
 		System.out.println("Events + " + events.getChildren());
-		Button button = ButtonFactory.makeButton(e ->{
+		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
+		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			initStart();
 		});
-		HBox buttonBox = ButtonFactory.makeHBox("Back", null, button);
 		events.getChildren().add(buttonBox);
 		viewEvents.getChildren().add(events);
 	}
@@ -140,12 +143,12 @@ public class EventPane extends BasePane {
 	}
 	private void initAddCondition() {
 		addConditionPane = new AddConditionPane(currentEvent, levelController, stage);
-		addCondition = (Pane) addConditionPane.getView();
-
-		Button back = ButtonFactory.makeButton(e -> {
+		addCondition = (Pane) addConditionPane.getView();		
+		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
+		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-		addConditionPane.add(ButtonFactory.makeHBox("Back", null, back));
+		addConditionPane.add(buttonBox);
 	}
 
 
@@ -222,10 +225,11 @@ public class EventPane extends BasePane {
 			addConditionPane.setSelected(false);
 			System.out.println("Hit add action");
 		});
-		Button back = ButtonFactory.makeButton(g -> {
-			initStart();
+	
+		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
+		Button backBox = ButtonFactory.makeIconButton("Back", iv, e -> {
+			clearAndAdd(newEvent);
 		});
-		HBox backBox = ButtonFactory.makeHBox("Back", null, back);
 		eventBox.getChildren().add(backBox);
 		newEvent.getChildren().add(eventBox);
 		
