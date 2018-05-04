@@ -13,6 +13,9 @@ import javafx.scene.input.KeyCode;
 public abstract class MenuElement<T>{
 	protected ComponentMenu myMenu;
 	protected Component<T> myComponent;
+	protected boolean dateable = false;
+	protected EntityWrapper myWrapper;
+
 
 	public boolean isDateable() {
 		return dateable;
@@ -22,13 +25,10 @@ public abstract class MenuElement<T>{
 		this.dateable = dateable;
 	}
 
-	protected boolean dateable = false;
 
 	public void setMyWrapper(EntityWrapper myWrapper) {
 		this.myWrapper = myWrapper;
 	}
-
-	protected EntityWrapper myWrapper;
 
 	/**
 	 *

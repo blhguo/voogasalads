@@ -24,11 +24,9 @@ import resources.keys.AuthRes;
 public class LevelController {
 
 	private Engine engine;
-	private PaneController pcontroller;
 	
-	public LevelController(PaneController pc) {
+	public LevelController() {
 		engine = new Engine();
-		pcontroller = pc;
 		addLevel();
 	}
 	/**
@@ -57,7 +55,7 @@ public class LevelController {
 	}
 	
 	public <T> List<Object> getSingleCompList(Class<? extends Component<T>> comp){
-		ArrayList<Object> ret = new ArrayList<Object>();
+		List<Object> ret = new ArrayList<Object>();
 		Map<Integer, List<Component<T>>> map = engine.getLevelPreviews(Arrays.asList(comp));
 		for (List<Component<T>> list: map.values()){
 			for (Component<T> c: list){
@@ -74,9 +72,9 @@ public class LevelController {
 	public void addEntity(Entity e){
 		System.out.println("Entity: " + e);
 		engine.getLevel().addEntity(e);
-		System.out.println("------ Entities in the level ------");
-		engine.getLevel().getEntities().stream().forEach(a -> 
-			System.out.println(a));
+//		System.out.println("------ Entities in the level ------");
+//		engine.getLevel().getEntities().stream().forEach(a ->
+//			System.out.println(a));
 	}
 
 	public void addEvent(Event event){

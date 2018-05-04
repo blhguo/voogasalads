@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -101,6 +102,13 @@ public class ButtonFactory {
 		Button button = new Button("+");
 		return makeHBox(title, subtitle, button);
 	}
+	
+	public static Button makeIconButton(String title, ImageView iv, EventHandler<ActionEvent> handler){
+		Button b = new Button(title, iv);
+		b.setOnAction(handler);
+		b.getStyleClass().add("button-event");
+		return b;
+	}
 
 	/**
 	 * Defines a new button with a specified on-action behavior
@@ -163,4 +171,5 @@ public class ButtonFactory {
 		return b;
 	}
 	
+
 }

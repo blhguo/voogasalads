@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 /**
  * Class which handles the connections to the game data, including saving 
  * and loading the game engine for use.
- * 
+ *
  * @author Dana Park, Brandon Dalla Rosa
  *
  */
@@ -74,6 +74,7 @@ public class DataConnect implements ImportData {
 			manipData.saveData(dataManager.getGameEngine(),dataManager.getGameTitle(),textField.getText(),true);
 			tempStage.hide();
 			});
+
 	}
 	/**
 	 * Method called to load a game from a saved file. The user is able 
@@ -83,17 +84,18 @@ public class DataConnect implements ImportData {
 	public void importGame() {
 		ManipData manipData = new ManipData();
 		File file = getFile();
+
 		if(file==null) {
 			return;
 		}
-		replayPath = file;		
-		viewManager.changeBackground();
+		replayPath = file;
 		gameEngine = manipData.loadData(file.getAbsolutePath());
+		viewManager.changeBackground();
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
 	}
-	
+
 	/**
 	 * Method called to set the about game information provided by the
 	 * authoring environment.
@@ -112,18 +114,19 @@ public class DataConnect implements ImportData {
 
 		aboutGameStage.setScene(aboutGameScene);
 		aboutGameStage.setTitle("About Game");
-        aboutGameStage.initOwner(gameStage);
+		aboutGameStage.initOwner(gameStage);
 
 		for (String key:test.keySet()) {
 			string=string+key+" "+test.get(key)+"\n";
-			
+
 		}
 		text.setText(string);
 
 		//manipData.openMeta(file);
 		aboutGameStage.show();
-		
+
 	}
+
     
     /**
      * Method to return the desired game engine loaded from data.
@@ -136,7 +139,7 @@ public class DataConnect implements ImportData {
 	 * Method to create the file chooser for the user to interact with.
 	 * @return: User desired file.
 	 */
-	private File getFile() {
+	protected File getFile() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choose Game File");
 		Stage fileChooserStage = new Stage();
@@ -163,17 +166,18 @@ public class DataConnect implements ImportData {
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
 	}
+	
 
 	@Override
 	public void importPreferences() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void importGameState() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

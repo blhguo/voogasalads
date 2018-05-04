@@ -5,6 +5,7 @@
       <game__engine.level.Level>
         <myComponents>
           <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
             <java-class>game_engine.level.LevelVScrollComponent</java-class>
             <game__engine.level.LevelVScrollComponent>
               <myValue class="boolean">false</myValue>
@@ -15,6 +16,18 @@
             <game__engine.level.LevelHScrollComponent>
               <myValue class="boolean">true</myValue>
             </game__engine.level.LevelHScrollComponent>
+=======
+            <java-class>game_engine.level.LevelBackgroundComponent</java-class>
+            <game__engine.level.LevelBackgroundComponent>
+              <myValue class="string">default</myValue>
+            </game__engine.level.LevelBackgroundComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelNameComponent</java-class>
+            <game__engine.level.LevelNameComponent>
+              <myValue class="string">Level 1</myValue>
+            </game__engine.level.LevelNameComponent>
           </entry>
           <entry>
             <java-class>game_engine.level.LevelThumbComponent</java-class>
@@ -23,10 +36,16 @@
             </game__engine.level.LevelThumbComponent>
           </entry>
           <entry>
-            <java-class>game_engine.level.LevelNameComponent</java-class>
-            <game__engine.level.LevelNameComponent>
-              <myValue class="string">Level 1</myValue>
-            </game__engine.level.LevelNameComponent>
+            <java-class>game_engine.level.LevelHScrollComponent</java-class>
+            <game__engine.level.LevelHScrollComponent>
+              <myValue class="boolean">true</myValue>
+            </game__engine.level.LevelHScrollComponent>
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelVScrollComponent</java-class>
+            <game__engine.level.LevelVScrollComponent>
+              <myValue class="boolean">true</myValue>
+            </game__engine.level.LevelVScrollComponent>
           </entry>
           <entry>
             <java-class>game_engine.level.LevelBackgroundComponent</java-class>
@@ -39,15 +58,753 @@
           <game__engine.Entity>
             <myComponents>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
+=======
+                <java-class>game_engine.components.physics.YAccelComponent</java-class>
+                <game__engine.components.physics.YAccelComponent>
+                  <myValue class="double">-500.0</myValue>
+                </game__engine.components.physics.YAccelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.PrimeComponent</java-class>
+                <game__engine.components.PrimeComponent/>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.DefaultYVelComponent</java-class>
+                <game__engine.components.physics.DefaultYVelComponent>
+                  <myValue class="double">300.0</myValue>
+                </game__engine.components.physics.DefaultYVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">355.80000000000007</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.animation.RunFilenameComponent</java-class>
+                <game__engine.components.sprite.animation.RunFilenameComponent>
+                  <myValue class="string">mario_run.gif</myValue>
+                </game__engine.components.sprite.animation.RunFilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.keyboard.LeftKeyboardComponent</java-class>
+                <game__engine.components.keyboard.LeftKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">A</myValue>
+                </game__engine.components.keyboard.LeftKeyboardComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Player.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.XVelComponent</java-class>
+                <game__engine.components.physics.XVelComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.physics.XVelComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
                 <game__engine.components.sprite.ZHeightComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.sprite.ZHeightComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.keyboard.RightKeyboardComponent</java-class>
+                <game__engine.components.keyboard.RightKeyboardComponent>
+                  <myValue class="javafx.scene.input.KeyCode">D</myValue>
+                </game__engine.components.keyboard.RightKeyboardComponent>
+              </entry>
+              <entry>
                 <java-class>game_engine.components.position.YPosComponent</java-class>
                 <game__engine.components.position.YPosComponent>
+                  <myValue class="double">330.6</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.XAccelComponent</java-class>
+                <game__engine.components.physics.XAccelComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.physics.XAccelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.animation.StandFilenameComponent</java-class>
+                <game__engine.components.sprite.animation.StandFilenameComponent>
+                  <myValue class="string">mario_stand.png</myValue>
+                </game__engine.components.sprite.animation.StandFilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.YVelComponent</java-class>
+                <game__engine.components.physics.YVelComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.physics.YVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
+                <game__engine.components.physics.DefaultXVelComponent>
+                  <myValue class="double">300.0</myValue>
+                </game__engine.components.physics.DefaultXVelComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.SpritePolarityComponent</java-class>
+                <game__engine.components.sprite.SpritePolarityComponent>
+                  <myValue class="double">1.0</myValue>
+                </game__engine.components.sprite.SpritePolarityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.animation.JumpFilenameComponent</java-class>
+                <game__engine.components.sprite.animation.JumpFilenameComponent>
+                  <myValue class="string">mario_stand.png</myValue>
+                </game__engine.components.sprite.animation.JumpFilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">446.6</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">253.8</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">445.40000000000003</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">294.6</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">445.4</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">344.19999999999993</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">444.59999999999997</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">393.0</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">445.8</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">475.4</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">445.80000000000007</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">441.80000000000007</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+<<<<<<< HEAD:games/pertel/pertel.xml
+=======
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+<<<<<<< HEAD:games/pertel/pertel.xml
                   <myValue class="double">697.7777777777777</myValue>
+=======
+                  <myValue class="double">444.6</myValue>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
                 </game__engine.components.position.YPosComponent>
               </entry>
               <entry>
@@ -57,6 +814,7 @@
                 </game__engine.components.sprite.HeightComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.position.AngleComponent</java-class>
                 <game__engine.components.position.AngleComponent>
                   <myValue class="double">0.0</myValue>
@@ -67,6 +825,36 @@
                 <game__engine.components.position.XPosComponent>
                   <myValue class="double">536.8888888888889</myValue>
                 </game__engine.components.position.XPosComponent>
+=======
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">523.4</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
               <entry>
                 <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
@@ -81,6 +869,7 @@
                 </game__engine.components.sprite.WidthComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.sprite.FilenameComponent</java-class>
                 <game__engine.components.sprite.FilenameComponent>
                   <myValue class="string">portal-floor.png</myValue>
@@ -105,16 +894,37 @@
                 </game__engine.components.collision.hitbox.HitboxHeightComponent>
               </entry>
               <entry>
+=======
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
                 <java-class>game_engine.components.position.AngleComponent</java-class>
                 <game__engine.components.position.AngleComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.position.AngleComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.collision.PushableComponent</java-class>
                 <game__engine.components.collision.PushableComponent>
                   <myValue class="boolean">false</myValue>
                 </game__engine.components.collision.PushableComponent>
+=======
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
               <entry>
                 <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
@@ -123,10 +933,39 @@
                 </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.collision.CollidableComponent</java-class>
                 <game__engine.components.collision.CollidableComponent>
                   <myValue class="boolean">true</myValue>
                 </game__engine.components.collision.CollidableComponent>
+=======
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">445.8</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
               <entry>
                 <java-class>game_engine.components.physics.YVelComponent</java-class>
@@ -141,10 +980,17 @@
                 </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.collision.PassableComponent</java-class>
                 <game__engine.components.collision.PassableComponent>
                   <myValue class="boolean">false</myValue>
                 </game__engine.components.collision.PassableComponent>
+=======
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">572.1999999999999</myValue>
+                </game__engine.components.position.XPosComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
             </myComponents>
           </game__engine.Entity>
@@ -157,18 +1003,38 @@
                 </game__engine.components.collision.hitbox.HitboxWidthComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.sprite.animation.RunFilenameComponent</java-class>
                 <game__engine.components.sprite.animation.RunFilenameComponent>
                   <myValue class="string">mario_run.gif</myValue>
                 </game__engine.components.sprite.animation.RunFilenameComponent>
+=======
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
-                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
                   <myValue class="double">50.0</myValue>
-                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+                </game__engine.components.sprite.WidthComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">Brick.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.position.AngleComponent</java-class>
                 <game__engine.components.position.AngleComponent>
                   <myValue class="double">0.0</myValue>
@@ -197,6 +1063,40 @@
                 <game__engine.components.physics.YVelComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.physics.YVelComponent>
+=======
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">445.0</myValue>
+                </game__engine.components.position.YPosComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
               <entry>
                 <java-class>game_engine.components.physics.XAccelComponent</java-class>
@@ -205,24 +1105,32 @@
                 </game__engine.components.physics.XAccelComponent>
               </entry>
               <entry>
+                <java-class>game_engine.components.collision.PushableComponent</java-class>
+                <game__engine.components.collision.PushableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PushableComponent>
+              </entry>
+              <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
+                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
+                <game__engine.components.physics.DefaultXVelComponent>
+                  <myValue class="double">300.0</myValue>
+                </game__engine.components.physics.DefaultXVelComponent>
+=======
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
+              </entry>
+              <entry>
                 <java-class>game_engine.components.sprite.HeightComponent</java-class>
                 <game__engine.components.sprite.HeightComponent>
                   <myValue class="double">50.0</myValue>
                 </game__engine.components.sprite.HeightComponent>
               </entry>
               <entry>
-                <java-class>game_engine.components.physics.DefaultXVelComponent</java-class>
-                <game__engine.components.physics.DefaultXVelComponent>
-                  <myValue class="double">300.0</myValue>
-                </game__engine.components.physics.DefaultXVelComponent>
-              </entry>
-              <entry>
-                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
-                <game__engine.components.sprite.VisibilityComponent>
-                  <myValue class="boolean">true</myValue>
-                </game__engine.components.sprite.VisibilityComponent>
-              </entry>
-              <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
                 <game__engine.components.sprite.ZHeightComponent>
                   <myValue class="double">0.0</myValue>
@@ -239,6 +1147,18 @@
                 <game__engine.components.sprite.animation.JumpFilenameComponent>
                   <myValue class="string">mario_stand.png</myValue>
                 </game__engine.components.sprite.animation.JumpFilenameComponent>
+=======
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">616.1999999999999</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
               <entry>
                 <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
@@ -277,6 +1197,7 @@
                 </game__engine.components.sprite.FilenameComponent>
               </entry>
               <entry>
+<<<<<<< HEAD:games/pertel/pertel.xml
                 <java-class>game_engine.components.physics.YAccelComponent</java-class>
                 <game__engine.components.physics.YAccelComponent>
                   <myValue class="double">-500.0</myValue>
@@ -287,6 +1208,18 @@
                 <game__engine.components.physics.XVelComponent>
                   <myValue class="double">0.0</myValue>
                 </game__engine.components.physics.XVelComponent>
+=======
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+>>>>>>> 317ed1229233a177b3c7b9a5a86345bd22c80c52:games/Set Game Name/Set Game Name.xml
               </entry>
               <entry>
                 <java-class>game_engine.components.collision.PassableComponent</java-class>
@@ -316,6 +1249,12 @@
                   <myValue class="double">50.0</myValue>
                 </game__engine.components.sprite.WidthComponent>
               </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">50.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
             </myComponents>
           </game__engine.Entity>
         </myEntities>
@@ -339,13 +1278,13 @@
       <myDirection>-1</myDirection>
     </game__engine.systems.keyboard.LeftKeyboardMovementSystem>
     <game__engine.systems.DespawnSystem/>
+    <game__engine.systems.ProjectileSpawnSystem>
+      <myEngine reference="../../.."/>
+    </game__engine.systems.ProjectileSpawnSystem>
     <game__engine.systems.position.VerticalPositionSystem>
       <myPosition>game_engine.components.position.YPosComponent</myPosition>
       <myVelocity>game_engine.components.physics.YVelComponent</myVelocity>
     </game__engine.systems.position.VerticalPositionSystem>
-    <game__engine.systems.ProjectileSpawnSystem>
-      <myEngine reference="../../.."/>
-    </game__engine.systems.ProjectileSpawnSystem>
     <game__engine.systems.AnimationSystem/>
     <game__engine.systems.CollectibleSystem/>
     <game__engine.systems.velocity.VerticalVelocitySystem>
@@ -385,8 +1324,8 @@
     <game__engine.systems.HealthSystem/>
     <game__engine.systems.collision.ImpassableResponseSystem/>
     <game__engine.systems.JumpResetSystem/>
-    <game__engine.systems.SpriteSystem/>
     <game__engine.systems.TimerSystem/>
+    <game__engine.systems.SpriteSystem/>
     <game__engine.systems.keyboard.DownKeyboardMovementSystem>
       <myEngine reference="../../.."/>
       <myKeyboardMoveInput>game_engine.components.keyboard.DownKeyboardComponent</myKeyboardMoveInput>

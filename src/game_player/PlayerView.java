@@ -31,7 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 /**
- * 
+ *
  * @author Dana Park, Brandon Dalla Rosa
  * 
  *         Class that handles animations and updating of animations in game. Holds the game scene
@@ -162,6 +162,7 @@ public class PlayerView {
 			healthData = primary.getComponent(HealthComponent.class).getValue();
 			viewManager.createText(x + HEALTH_POS[0] - camInX, y + HEALTH_POS[1] - camInY, "Health: " + healthData);
 		}
+		//viewManager.changeBackground();
 	}
 
 	/**
@@ -261,7 +262,8 @@ public class PlayerView {
 		if (polarity != null) {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
-		root.getChildren().add(imageView);
+		if (! root.getChildren().contains(imageView))
+			root.getChildren().add(imageView);
 	}
 
 	/**

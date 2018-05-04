@@ -128,14 +128,16 @@ public class NavigationPane implements Subject, GUINode {
 					//File[] files = file.listFiles();
 					File gameFile = new File("games");
 					File metaFile = new File("games");
-					for (File f: file.listFiles()){
-						if (!f.getName().contains("config.properties") && !f.getName().contains("metaData")){
-							gameFile = f;
+
+						for (File f : file.listFiles()) {
+							if (!f.getName().contains("config.properties") && !f.getName().contains("metaData")) {
+								gameFile = f;
+							} else if (f.getName().equals("metaData.xml")) {
+								metaFile = f;
+							}
 						}
-						else if (f.getName().equals("metaData.xml")){
-							metaFile = f;
-						}
-					}
+
+
 					loader.loadGame(gameFile.getPath(), metaFile.getPath());
 				}, "button-nav");
 			}
@@ -144,7 +146,7 @@ public class NavigationPane implements Subject, GUINode {
 					Alert a = UserFeedback.getWarningMessage(AuthRes.getString("PlayHeader"), AuthRes.getString("PlayContent"), stage);
 					Optional<ButtonType> result = a.showAndWait();
 					if (result.get() == ButtonType.OK){
-						new PlayerMain().start(stage);
+						new PlayerMain().launchFromAuthoring(stage, new File(mcontroller.getGameName()+".xml"));
 					}
 				}, "button-nav");
 			}
