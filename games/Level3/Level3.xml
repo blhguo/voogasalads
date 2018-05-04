@@ -1812,8 +1812,39 @@
               </game__engine.event.conditions.EntityCollisionCondition>
             </myConditions>
           </game__engine.event.Event>
-        
-        
+          <game__engine.event.Event>
+            <myActions>
+            	  <game__engine.event.actions.micro.DataSetAction>
+                <myEntity reference="../../../../../myEntities/game__engine.Entity"/>
+                <myComponentClass>game_engine.components.physics.XVelComponent</myComponentClass>
+                <myValue>-300.0</myValue>
+              </game__engine.event.actions.micro.DataSetAction>
+              <game__engine.event.actions.micro.DataSetAction>
+                <myEntity reference="../../../../../myEntities/game__engine.Entity"/>
+                <myComponentClass>game_engine.components.position.XPosComponent</myComponentClass>
+                <myValue>3025.0</myValue>
+              </game__engine.event.actions.micro.DataSetAction>
+              <game__engine.event.actions.micro.DataSetAction>
+                <myEntity reference="../../../../../myEntities/game__engine.Entity"/>
+                <myComponentClass>game_engine.components.position.YPosComponent</myComponentClass>
+                <myValue>-1225.0</myValue>
+              </game__engine.event.actions.micro.DataSetAction>
+            </myActions>
+            <myConditions>
+              <game__engine.event.conditions.EntityCollisionCondition>
+                <SIDES__TO__CHECK class="java.util.Arrays$ArrayList">
+                  <a class="java-class-array">
+                    <java-class>game_engine.components.collision.edge_collided.BottomCollidedComponent</java-class>
+                    <java-class>game_engine.components.collision.edge_collided.LeftCollidedComponent</java-class>
+                    <java-class>game_engine.components.collision.edge_collided.RightCollidedComponent</java-class>
+                    <java-class>game_engine.components.collision.edge_collided.TopCollidedComponent</java-class>
+                  </a>
+                </SIDES__TO__CHECK>
+                <myEntity reference="../../../../../myEntities/game__engine.Entity"/>
+                <myTargetEntity reference="../../../../../myEntities/game__engine.Entity[5]"/>
+              </game__engine.event.conditions.EntityCollisionCondition>
+            </myConditions>
+          </game__engine.event.Event>
         </myEvents>
         <myId>0</myId>
       </game__engine.level.Level>

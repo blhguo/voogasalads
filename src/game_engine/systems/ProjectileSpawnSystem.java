@@ -133,7 +133,6 @@ public class ProjectileSpawnSystem implements GameSystem {
 		
 		projectile.addComponent(new YPosComponent(entity.getComponent(ENTITY_YPOS).getValue().toString()));
 		projectile.addComponent(new XPosComponent(Double.toString(entity.getComponent(ENTITY_XPOS).getValue()+spawnXOffset)));
-		System.out.println("projectile: " + projectile);
 
 		return projectile;
 	}
