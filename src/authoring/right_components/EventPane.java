@@ -144,7 +144,7 @@ public class EventPane extends BasePane {
 		return labelList;
 	}
 	private void initAddCondition() {
-		addConditionPane = new AddConditionPane(currentEvent, levelController, stage);
+		addConditionPane = new AddConditionPane(currentEvent, levelController, stage, this);
 		addCondition = (Pane) addConditionPane.getView();		
 		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {

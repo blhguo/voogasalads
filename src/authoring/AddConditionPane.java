@@ -76,12 +76,12 @@ public class AddConditionPane extends Pane implements GUINode {
 		actionBox.getChildren().add(addComp);
 		conditionBox = ComboBoxBuilder.getComboBox(conditions.keySet().stream()
 				.filter(e -> !e.contains("String")).collect(Collectors.toList()));
-		box.setPromptText("Select Condition");
-		box.valueProperty().addListener((observable, oldValue, newValue) -> {
+		conditionBox.setPromptText("Select Condition");
+		conditionBox.valueProperty().addListener((observable, oldValue, newValue) -> {
 			updateComboBoxView(newValue);
 		});
-		box.getStyleClass().add("combo-box-auth");
-		actionBox.getChildren().add(box);
+		conditionBox.getStyleClass().add("combo-box-auth");
+		actionBox.getChildren().add(conditionBox);
 		actionBox.getChildren().add(comboBoxView);
 		myPane.getChildren().add(actionBox);
 	}
@@ -112,7 +112,7 @@ public class AddConditionPane extends Pane implements GUINode {
 		}
 		comboBoxView.getChildren().add(entityBox);
 		for (int i = 0; i < Integer.parseInt(array[1]); i++){
-			Label l = new Label("Choose component to assign condition to: " + (i + 1));
+			Label l = new Label("Choose component to assign condition to: ");
 			l.getStyleClass().add("event-label2");
 			comboBoxView.getChildren().add(l);
 			ComboBox<String> componentBox = ComboBoxBuilder.getComboBox(components.keySet()
