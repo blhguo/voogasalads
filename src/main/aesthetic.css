@@ -21,7 +21,14 @@
     -fx-font-size: 14px;
     -fx-font-family: segoeuil;
 }
-
+.button-remove {
+    -fx-background-radius: 5em;
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+    -fx-background-color: red;
+}
 .button-splash {
     -fx-background-radius: 50%;
     -fx-background-color: rgba(128, 128, 128, 0.7);

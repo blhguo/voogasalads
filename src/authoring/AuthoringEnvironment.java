@@ -65,7 +65,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		this.stage = stage;
 		base = new BasePane();
 		entity = new EntityPane(stage);
-		event = new EventPane();
+		event = new EventPane(stage);
 		level = new LevelPane(stage);
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
@@ -148,9 +148,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 				bp.setRight(event.getView());
 				break;
 			case "Level Preferences": ;
+				controller.updateDummies();
 				bp.setRight(level.getView());
 				break;
 			case "Storyboard": ;
+				controller.updateDummies();
 				bp.setRight(story.getView());
 				break;
 			default:

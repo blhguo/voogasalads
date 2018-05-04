@@ -1,6 +1,7 @@
 package authoring;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
+import frontend_utilities.UserFeedback;
 import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
@@ -30,7 +32,9 @@ import game_engine.event.actions.micro.DataToggleAction;
 import game_engine.event.actions.micro.RemoveComponentAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -41,9 +45,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
-public class AddActionPane implements GUINode {
+public class AddActionPane extends Pane implements GUINode {
 	private static final ResourceBundle actions = ResourceBundle.getBundle("resources.keys/Actions");
 	private static final ResourceBundle components = ResourceBundle.getBundle("Component");
 	private static final ResourceBundle componentargs = ResourceBundle.getBundle("CompArguments");
@@ -61,7 +66,12 @@ public class AddActionPane implements GUINode {
 	private List<DoubleMenuElement> numberElements;
 	private List<StringMenuElement> stringElements;
 	private ComboBox<String> expressionBox;
-	public AddActionPane(Event currentEvent) {
+	private Stage stage;
+	private boolean selected;
+
+	public AddActionPane(Event currentEvent, Stage s) {
+		stage = s;
+
 		entityBox = new HBox();
 		numberElements = new ArrayList<>();
 		stringElements = new ArrayList<>();
@@ -86,6 +96,9 @@ public class AddActionPane implements GUINode {
 	}
 	private void updateComboBoxView(String newValue) {
 		comboBoxView.getChildren().clear();
+		numberElements.clear();
+		stringElements.clear();
+
 //		String[] array = actions.getString(newValue).split(",");
 //		numEntities = Integer.parseInt(array[0]);
 //		numComponents = Integer.parseInt(array[1]);
@@ -98,6 +111,7 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getEntityInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new AddEntityAction(entityArray[0], levelController.getEngine()));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -107,6 +121,7 @@ public class AddActionPane implements GUINode {
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new PlayMusicAction(stringElements.get(0).getValue(),
 							Double.parseDouble(numberElements.get(0).getValue())));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -114,26 +129,30 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new LevelChangeAction(levelController.getEngine(),
-							Integer.parseInt(numberElements.get(0).getValue())));
+							Double.parseDouble(((numberElements.get(0).getValue())))));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
 			case "RemoveEntityAction":
 				comboBoxView.getChildren().add(getEntityInput());
-				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
 			case "AddComponentAction":
 				comboBoxView.getChildren().add(getEntityInput());
 				comboBoxView.getChildren().add(getClassInput());
+				comboBoxView.getChildren().add(getDoubleInput());
+
 				//return new AddComponentAction(entities.get(0), components.get(0));
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new AddComponentAction(entityArray[0],
 							new ComponentFactory().createComponent(compBox.getValue(),
-									componentargs.getString(compBox.getValue()))));
+									numberElements.get(0).getValue())));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -145,8 +164,10 @@ public class AddActionPane implements GUINode {
 					try {
 						currentEvent.addAction(new RemoveComponentAction(entityArray[0],
 								(Class<? extends Component<?>>)	Class.forName(components.getString(compBox.getValue()))));
+						createAlert();
 					}
 					catch (Exception a) {
+						createError();
 						System.out.println(a.getCause());
 						System.out.println("Sorry, Class machine broke");
 					}
@@ -168,7 +189,9 @@ public class AddActionPane implements GUINode {
 									expressionBox.getValue(),
 									Double.parseDouble(numberElements.get(0).getValue())
 						));
+						createAlert();
 					} catch (Exception a){
+						createError();
 						System.out.println("Sorry, class machine broke");
 					}
 				});
@@ -183,8 +206,9 @@ public class AddActionPane implements GUINode {
 								entityArray[0],
 								(Class<? extends Component<Boolean>>) 
 								Class.forName(components.getString(compBox.getValue()))));
-							
+						createAlert();	
 					} catch (Exception a){
+						createError();
 //						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
@@ -203,17 +227,32 @@ public class AddActionPane implements GUINode {
 								(Class<? extends Component<Double>>) 
 								Class.forName(components.getString(compBox.getValue())),
 								Double.parseDouble(numberElements.get(0).getValue())));
-							
+						createAlert();	
 					} catch (Exception a){
+						createError();
 //						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
+
 					}
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
 		}
-		
+		Button reset = ButtonFactory.makeButton(e -> updateComboBoxView(newValue));
+		reset.setText("Reset");
+		reset.setAlignment(Pos.CENTER);
+		comboBoxView.getChildren().add(reset);
 
+	}
+	
+	private void createAlert(){
+		Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddActionHeader"), AuthRes.getString("AddActionContent"), stage);
+		a.showAndWait();
+	}
+	
+	private void createError(){
+		Alert a = UserFeedback.getErrorMessage(AuthRes.getString("ActionErrorHeader"), AuthRes.getString("ActionErrorContent"), stage);
+		a.showAndWait();
 	}
 
 	public void newAction(){
@@ -277,17 +316,25 @@ public class AddActionPane implements GUINode {
 		return box;
 	}
 	public void addToEntityBox(EntityWrapper wrapper){
-		entityBox.getChildren().stream().forEach(e -> System.out.println(e));
-		for (int i = 0; i < numEntities; i++){
-			if (entityArray[i] == null){
-				entityArray[i] = wrapper.getEntity();
-				if(!entityBox.getChildren().contains(wrapper.getDummy())){
-					entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
-							getImage()), 50));
-				}
-				entityBox.getChildren().get(2 * i + 1).resize(50, 50);
-				break;
+		if (selected) {
+			if (entityBox == null) {
+				entityBox = new HBox();
 			}
+			entityBox.getChildren().stream().forEach(e -> System.out.println(e));
+			for (int i = 0; i < numEntities; i++) {
+				if (entityArray[i] == null) {
+					entityArray[i] = wrapper.getEntity();
+					if (!entityBox.getChildren().contains(wrapper.getDummy())) {
+						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
+								getImage()), 50));
+					}
+					entityBox.getChildren().get(2 * i + 1).resize(50, 50);
+					break;
+				}
+			}
+		}
+		else {
+			System.out.println("No focus -- Add Action Pane");
 		}
 	}
 	@Override
@@ -299,4 +346,7 @@ public class AddActionPane implements GUINode {
 		actionBox.getChildren().add(node);
 	}
 
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 }

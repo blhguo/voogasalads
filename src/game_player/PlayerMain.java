@@ -8,7 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 /**
- * 
+ *
  * @author Brandon Dalla Rosa
  *
  * Upper level class which creates the other classes found in the

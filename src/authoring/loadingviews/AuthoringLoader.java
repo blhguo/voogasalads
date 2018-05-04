@@ -46,7 +46,7 @@ public class AuthoringLoader extends BaseLoader {
 			vb.getChildren().add(row);
 			gameCount++;
 		}
-		System.out.println("HEIGHT: " + myStage.getHeight());
+		//System.out.println("HEIGHT: " + myStage.getHeight());
 	}
 	
 }

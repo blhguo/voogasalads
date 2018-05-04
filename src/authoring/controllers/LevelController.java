@@ -72,9 +72,9 @@ public class LevelController {
 	public void addEntity(Entity e){
 		System.out.println("Entity: " + e);
 		engine.getLevel().addEntity(e);
-		System.out.println("------ Entities in the level ------");
-		engine.getLevel().getEntities().stream().forEach(a -> 
-			System.out.println(a));
+//		System.out.println("------ Entities in the level ------");
+//		engine.getLevel().getEntities().stream().forEach(a ->
+//			System.out.println(a));
 	}
 
 	public void addEvent(Event event){
