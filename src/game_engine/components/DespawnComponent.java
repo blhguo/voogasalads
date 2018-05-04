@@ -9,4 +9,8 @@ public class DespawnComponent extends Component<NullType>{
 		super(null);
 	}
 
+	public DespawnComponent(String val) {
+		this();
+	}
+
 }
