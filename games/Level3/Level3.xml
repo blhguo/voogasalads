@@ -113,7 +113,7 @@
               <entry>
                 <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
                 <game__engine.components.sprite.ZHeightComponent>
-                  <myValue class="double">0.0</myValue>
+                  <myValue class="double">10.0</myValue>
                 </game__engine.components.sprite.ZHeightComponent>
               </entry>
               <entry>
@@ -300,8 +300,6 @@
               </entry>
             </myComponents>
           </game__engine.Entity>
-          
-          
           <game__engine.Entity>
             <myComponents>
               <entry>
@@ -350,6 +348,60 @@
                 <java-class>game_engine.components.sprite.WidthComponent</java-class>
                 <game__engine.components.sprite.WidthComponent>
                   <myValue class="double">270.0</myValue>
+                </game__engine.components.sprite.WidthComponent>
+              </entry>
+            </myComponents>
+          </game__engine.Entity>
+          
+          
+          <game__engine.Entity>
+            <myComponents>
+              <entry>
+                <java-class>game_engine.components.sprite.ZHeightComponent</java-class>
+                <game__engine.components.sprite.ZHeightComponent>
+                  <myValue class="double">-1.0</myValue>
+                </game__engine.components.sprite.ZHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.FilenameComponent</java-class>
+                <game__engine.components.sprite.FilenameComponent>
+                  <myValue class="string">work-sign.png</myValue>
+                </game__engine.components.sprite.FilenameComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.XPosComponent</java-class>
+                <game__engine.components.position.XPosComponent>
+                  <myValue class="double">700.0</myValue>
+                </game__engine.components.position.XPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.HeightComponent</java-class>
+                <game__engine.components.sprite.HeightComponent>
+                  <myValue class="double">277.5</myValue>
+                </game__engine.components.sprite.HeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.YPosComponent</java-class>
+                <game__engine.components.position.YPosComponent>
+                  <myValue class="double">150.0</myValue>
+                </game__engine.components.position.YPosComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.position.AngleComponent</java-class>
+                <game__engine.components.position.AngleComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.position.AngleComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.VisibilityComponent</java-class>
+                <game__engine.components.sprite.VisibilityComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.sprite.VisibilityComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.sprite.WidthComponent</java-class>
+                <game__engine.components.sprite.WidthComponent>
+                  <myValue class="double">296.5</myValue>
                 </game__engine.components.sprite.WidthComponent>
               </entry>
             </myComponents>
