@@ -11,6 +11,7 @@ import authoring.component_menus.DoubleMenuElement;
 import authoring.component_menus.StringMenuElement;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
+import authoring.right_components.EventPane;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
@@ -62,20 +63,20 @@ public class AddActionPane extends Pane implements GUINode {
 	private ComboBox<String> compBox;
 	private int numValue;
 	private int numExpressions;
-	private Event currentEvent;
 	private List<DoubleMenuElement> numberElements;
 	private List<StringMenuElement> stringElements;
 	private ComboBox<String> expressionBox;
 	private Stage stage;
 	private boolean selected;
+	private EventPane eventPane;
 
-	public AddActionPane(Event currentEvent, Stage s) {
+	public AddActionPane(Event current, Stage s, EventPane ep) {
+		eventPane = ep;
 		stage = s;
-
+		numEntities = 0;
 		entityBox = new HBox();
 		numberElements = new ArrayList<>();
 		stringElements = new ArrayList<>();
-		this.currentEvent = currentEvent;
 		myPane = new Pane();
 		actionBox = new VBox();
 		actionBox.setSpacing(20);
@@ -110,7 +111,7 @@ public class AddActionPane extends Pane implements GUINode {
 			case "AddEntityAction":
 				comboBoxView.getChildren().add(getEntityInput());
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new AddEntityAction(entityArray[0], levelController.getEngine()));
+					eventPane.getCurrentEvent().addAction(new AddEntityAction(entityArray[0], levelController.getEngine()));
 					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
@@ -119,7 +120,7 @@ public class AddActionPane extends Pane implements GUINode {
 				comboBoxView.getChildren().add(getStringInput());
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new PlayMusicAction(stringElements.get(0).getValue(),
+					eventPane.getCurrentEvent().addAction(new PlayMusicAction(stringElements.get(0).getValue(),
 							Double.parseDouble(numberElements.get(0).getValue())));
 					createAlert();
 				});
@@ -128,7 +129,7 @@ public class AddActionPane extends Pane implements GUINode {
 			case "LevelChangeAction":
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new LevelChangeAction(levelController.getEngine(),
+					eventPane.getCurrentEvent().addAction(new LevelChangeAction(levelController.getEngine(),
 							Double.parseDouble(((numberElements.get(0).getValue())))));
 					createAlert();
 				});
@@ -137,7 +138,7 @@ public class AddActionPane extends Pane implements GUINode {
 			case "RemoveEntityAction":
 				comboBoxView.getChildren().add(getEntityInput());
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
+					eventPane.getCurrentEvent().addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
 					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
@@ -149,7 +150,7 @@ public class AddActionPane extends Pane implements GUINode {
 
 				//return new AddComponentAction(entities.get(0), components.get(0));
 				createButton = ButtonFactory.makeButton(e -> {
-					currentEvent.addAction(new AddComponentAction(entityArray[0],
+					eventPane.getCurrentEvent().addAction(new AddComponentAction(entityArray[0],
 							new ComponentFactory().createComponent(compBox.getValue(),
 									numberElements.get(0).getValue())));
 					createAlert();
@@ -162,7 +163,7 @@ public class AddActionPane extends Pane implements GUINode {
 				//return new AddComponentAction(entities.get(0), components.get(0));
 				createButton = ButtonFactory.makeButton(e -> {
 					try {
-						currentEvent.addAction(new RemoveComponentAction(entityArray[0],
+						eventPane.getCurrentEvent().addAction(new RemoveComponentAction(entityArray[0],
 								(Class<? extends Component<?>>)	Class.forName(components.getString(compBox.getValue()))));
 						createAlert();
 					}
@@ -182,7 +183,7 @@ public class AddActionPane extends Pane implements GUINode {
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					try {
-						currentEvent.addAction(new DataChangeAction(
+						eventPane.getCurrentEvent().addAction(new DataChangeAction(
 										entityArray[0],
 										(Class<? extends Component<Double>>)
 												Class.forName(components.getString(compBox.getValue())),
@@ -202,7 +203,7 @@ public class AddActionPane extends Pane implements GUINode {
 				comboBoxView.getChildren().add(getClassInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					try{
-						currentEvent.addAction(new DataToggleAction(
+						eventPane.getCurrentEvent().addAction(new DataToggleAction(
 								entityArray[0],
 								(Class<? extends Component<Boolean>>) 
 								Class.forName(components.getString(compBox.getValue()))));
@@ -222,7 +223,7 @@ public class AddActionPane extends Pane implements GUINode {
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					try{
-						currentEvent.addAction(new DataSetAction(
+						eventPane.getCurrentEvent().addAction(new DataSetAction(
 								entityArray[0],
 								(Class<? extends Component<Double>>) 
 								Class.forName(components.getString(compBox.getValue())),
