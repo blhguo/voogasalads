@@ -7,6 +7,8 @@ import game_engine.Entity;
 import game_engine.GameSystem;
 import game_engine.components.collision.hitbox.HitboxHeightComponent;
 import game_engine.components.collision.hitbox.HitboxWidthComponent;
+import game_engine.components.collision.hitbox.HitboxXOffsetComponent;
+import game_engine.components.collision.hitbox.HitboxYOffsetComponent;
 import game_engine.components.physics.XVelComponent;
 import game_engine.components.physics.YVelComponent;
 import game_engine.components.position.AngleComponent;
@@ -46,8 +48,11 @@ public abstract class CollisionSystem implements GameSystem {
 	 *         TODO: NEEDS UPDATE TO TRANSFORMED AABB
 	 */
 	protected double[] getExtrema(Entity e, double elapsedTime) {
-		double centerX = e.getComponent(XPosComponent.class).getValue();
-		double centerY = e.getComponent(YPosComponent.class).getValue();
+		double xOffset = e.getComponent(HitboxXOffsetComponent.class).getValue();
+		double yOffset = e.getComponent(HitboxYOffsetComponent.class).getValue();
+		
+		double centerX = e.getComponent(XPosComponent.class).getValue() + xOffset;
+		double centerY = e.getComponent(YPosComponent.class).getValue() + yOffset;
 
 		double width = e.getComponent(HitboxWidthComponent.class).getValue();
 		double height = e.getComponent(HitboxHeightComponent.class).getValue();
