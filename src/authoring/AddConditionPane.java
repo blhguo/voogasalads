@@ -15,6 +15,7 @@ import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
+import frontend_utilities.UserFeedback;
 import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
@@ -25,6 +26,7 @@ import game_engine.event.ConditionFactory;
 import game_engine.event.Event;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -35,6 +37,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import resources.keys.AuthRes;
 
 public class AddConditionPane extends Pane implements GUINode {
 	private static final ResourceBundle conditions = ResourceBundle.getBundle("resources.keys/Conditions");
@@ -50,10 +54,10 @@ public class AddConditionPane extends Pane implements GUINode {
 	private List<MenuElement<?>> menuElements;
 	private Event currentEvent;
 	private boolean selected;
+	private Stage stage;
 
-
-	public AddConditionPane(Event current, LevelController levelController) {
-		selected = false;
+	public AddConditionPane(Event current, LevelController levelController, Stage s) {
+		stage = s;
 		this.levelController = levelController;
 		entityBox = new HBox();
 		currentEvent = current;
@@ -136,9 +140,11 @@ public class AddConditionPane extends Pane implements GUINode {
 				menuElements.stream().map(c -> c.getValue()).distinct().collect(Collectors.toList()),
 				levelController.getEngine()));
 			currentEvent.getConditions().stream().forEach(a -> System.out.println(a));
+			Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddCondHeader"), AuthRes.getString("AddCondContent"), stage);
+			a.showAndWait();
 		});
-		HBox addCompBox = ButtonFactory.makeHBox("Add this component to the current Event",
-				null,
+		HBox addCompBox = ButtonFactory.makeHBox("Add Condition",
+				"to the current Event",
 				addComponent);
 		comboBoxView.getChildren().add(addCompBox);
 	}
