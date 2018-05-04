@@ -112,7 +112,7 @@ public class AddConditionPane extends Pane implements GUINode {
 		}
 		comboBoxView.getChildren().add(entityBox);
 		for (int i = 0; i < Integer.parseInt(array[1]); i++){
-			Label l = new Label("Choose component to assign condition to: " + (i + 1));
+			Label l = new Label("Choose component to assign condition to: ");
 			l.getStyleClass().add("event-label2");
 			comboBoxView.getChildren().add(l);
 			ComboBox<String> componentBox = ComboBoxBuilder.getComboBox(components.keySet()
@@ -147,11 +147,11 @@ public class AddConditionPane extends Pane implements GUINode {
 		Button reset = ButtonFactory.makeIconButton("Reset", iv, e -> updateComboBoxView(newValue));
 		comboBoxView.getChildren().add(reset);
 		System.out.println("Level Controller is " + levelController);
-		Button addComponent = ButtonFactory.makeButton(e -> {
-			System.out.println("Current event: " + eventPane.getCurrentEvent());
-			System.out.println("New Value: " + newValue);
-			System.out.println("EntityArray: " + entityArray);
-			System.out.println("MenuElements: " + menuElements);
+		Button addComponent = ButtonFactory.makeIconButton("+ Add Condition to Event", null, e -> {
+//			System.out.println("Current event: " + eventPane.getCurrentEvent());
+//			System.out.println("New Value: " + newValue);
+//			System.out.println("EntityArray: " + entityArray);
+//			System.out.println("MenuElements: " + menuElements);
 			eventPane.getCurrentEvent().addCondition(newCondition(
 				newValue, Arrays.asList(entityArray),
 				compList,
@@ -161,10 +161,10 @@ public class AddConditionPane extends Pane implements GUINode {
 			Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddCondHeader"), AuthRes.getString("AddCondContent"), stage);
 			a.showAndWait();
 		});
-		HBox addCompBox = ButtonFactory.makeHBox("Add Condition to Event",
-				null,
-				addComponent);
-		comboBoxView.getChildren().add(addCompBox);
+//		HBox addCompBox = ButtonFactory.makeHBox("Add Condition to Event",
+//				null,
+//				addComponent);
+		comboBoxView.getChildren().add(addComponent);
 	}
 	public void addToEntityBox(EntityWrapper wrapper){
 		if (selected) {

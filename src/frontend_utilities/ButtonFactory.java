@@ -109,6 +109,13 @@ public class ButtonFactory {
 		b.getStyleClass().add("button-event");
 		return b;
 	}
+	
+	public static Button makeRemoveButton(String title, EventHandler<ActionEvent> handler){
+		Button b = new Button(title);
+		b.getStyleClass().add("button-remove");
+		b.setOnAction(handler);
+		return b;
+	}
 
 	/**
 	 * Defines a new button with a specified on-action behavior
