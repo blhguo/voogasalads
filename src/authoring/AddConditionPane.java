@@ -12,6 +12,7 @@ import authoring.component_menus.MenuElement;
 import authoring.component_menus.StringMenuElement;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
+import authoring.right_components.EventPane;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
@@ -52,15 +53,17 @@ public class AddConditionPane extends Pane implements GUINode {
 	private int numEntities;
 	private Entity[] entityArray;
 	private List<MenuElement<?>> menuElements;
-	private Event currentEvent;
 	private boolean selected;
+	private ComboBox<String> conditionBox;
 	private Stage stage;
+	private EventPane eventPane;
 
-	public AddConditionPane(Event current, LevelController levelController, Stage s) {
+	public AddConditionPane(Event current, LevelController levelController, Stage s, EventPane ep) {
+		eventPane = ep;
+		numEntities = 0;
 		stage = s;
 		this.levelController = levelController;
 		entityBox = new HBox();
-		currentEvent = current;
 		menuElements = new ArrayList<>();
 		myPane = new Pane();
 		actionBox = new VBox();
@@ -69,12 +72,12 @@ public class AddConditionPane extends Pane implements GUINode {
 		comboBoxView.setSpacing(20);
 		Label addComp = new Label("New Condition");
 		actionBox.getChildren().add(addComp);
-		ComboBox<String> box = ComboBoxBuilder.getComboBox(conditions.keySet().stream()
+		conditionBox = ComboBoxBuilder.getComboBox(conditions.keySet().stream()
 				.filter(e -> !e.contains("String")).collect(Collectors.toList()));
-		box.valueProperty().addListener((observable, oldValue, newValue) -> {
+		conditionBox.valueProperty().addListener((observable, oldValue, newValue) -> {
 			updateComboBoxView(newValue);
 		});
-		actionBox.getChildren().add(box);
+		actionBox.getChildren().add(conditionBox);
 		actionBox.getChildren().add(comboBoxView);
 		myPane.getChildren().add(actionBox);
 	}
@@ -134,12 +137,17 @@ public class AddConditionPane extends Pane implements GUINode {
 		reset.setAlignment(Pos.CENTER);
 		comboBoxView.getChildren().add(reset);
 		System.out.println("Level Controller is " + levelController);
-		Button addComponent = ButtonFactory.makeButton(e -> {currentEvent.addCondition(newCondition(
+		Button addComponent = ButtonFactory.makeButton(e -> {
+			System.out.println("Current event: " + eventPane.getCurrentEvent());
+			System.out.println("New Value: " + newValue);
+			System.out.println("EntityArray: " + entityArray);
+			System.out.println("MenuElements: " + menuElements);
+			eventPane.getCurrentEvent().addCondition(newCondition(
 				newValue, Arrays.asList(entityArray),
 				compList,
 				menuElements.stream().map(c -> c.getValue()).distinct().collect(Collectors.toList()),
 				levelController.getEngine()));
-			currentEvent.getConditions().stream().forEach(a -> System.out.println(a));
+			eventPane.getCurrentEvent().getConditions().stream().forEach(a -> System.out.println("Conditions: " + a));
 			Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddCondHeader"), AuthRes.getString("AddCondContent"), stage);
 			a.showAndWait();
 		});
@@ -162,6 +170,9 @@ public class AddConditionPane extends Pane implements GUINode {
 					break;
 				}
 			}
+		}
+		else {
+			System.out.println("No focus -- Add Condition Pane");
 		}
 	}
 	private void tryAdd(String s){
