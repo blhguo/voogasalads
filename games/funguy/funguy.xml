@@ -2998,7 +2998,7 @@
               <entry>
                 <java-class>game_engine.components.sprite.animation.RunFilenameComponent</java-class>
                 <game__engine.components.sprite.animation.RunFilenameComponent>
-                  <myValue class="string">mario_run.gif</myValue>
+                  <myValue class="string">funguy-right.png</myValue>
                 </game__engine.components.sprite.animation.RunFilenameComponent>
               </entry>
               <entry>
@@ -3010,7 +3010,7 @@
               <entry>
                 <java-class>game_engine.components.sprite.animation.StandFilenameComponent</java-class>
                 <game__engine.components.sprite.animation.StandFilenameComponent>
-                  <myValue class="string">mario_stand.png</myValue>
+                  <myValue class="string">funguy.gif</myValue>
                 </game__engine.components.sprite.animation.StandFilenameComponent>
               </entry>
               <entry>
@@ -3100,7 +3100,7 @@
               <entry>
                 <java-class>game_engine.components.sprite.animation.JumpFilenameComponent</java-class>
                 <game__engine.components.sprite.animation.JumpFilenameComponent>
-                  <myValue class="string">mario_stand.png</myValue>
+                  <myValue class="string">funguy-jump-right.png</myValue>
                 </game__engine.components.sprite.animation.JumpFilenameComponent>
               </entry>
               <entry>
