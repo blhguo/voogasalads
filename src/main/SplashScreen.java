@@ -2,13 +2,9 @@ package main;
 
 import authoring.AuthoringEnvironment;
 import authoring.GUI_Heirarchy.GUIGridPaneSuper;
-import authoring.controllers.Loader;
 import authoring.loadingviews.AuthoringLoader;
-import authoring.loadingviews.PlayerLoader;
-import authoring.right_components.LevelPane;
-import authoring.right_components.StoryBoardPane;
-import authoring.right_components.EntityComponent.EntityPane;
 import frontend_utilities.ButtonFactory;
+import game_player.PlayerMain;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,19 +20,10 @@ import resources.keys.AuthRes;
 public class SplashScreen extends GUIGridPaneSuper{
 
 	private Stage myStage;
-	private Loader myLoader;
-	private EntityPane myEP;
-	private LevelPane myLP;
-	private StoryBoardPane mySB;
-	//private AuthoringEnvironment ae;
+
 	
 	public SplashScreen(Stage stage){
 		myStage = stage;
-//		myEP = new EntityPane(stage);
-//		myLP = new LevelPane(stage);
-//		mySB = new StoryBoardPane();
-//		myLoader = new Loader(myLP, mySB, myEP);
-		//ae = new AuthoringEnvironment(myStage);
 	}
 	
 	public Scene getScene(){
@@ -65,8 +52,7 @@ public class SplashScreen extends GUIGridPaneSuper{
 		});
 		
 		Button playButton = ButtonFactory.makeButton(e -> {
-			PlayerLoader chooseplayer = new PlayerLoader(myStage);
-			myStage.getScene().setRoot(chooseplayer.display());
+			new PlayerMain().start(myStage);
 			myStage.show();
 		});
 				
@@ -85,11 +71,9 @@ public class SplashScreen extends GUIGridPaneSuper{
 		VBox vb = makeVBox();
 		gridpane.getChildren().addAll(title, vb);
 		
-//		double width = title.getParent().getLayoutBounds().getWidth();
 		double width = Screen.getPrimary().getVisualBounds().getWidth();
 		int numCols = (int) width / AuthRes.getInt("Padding");
 		
-//		double height = title.getParent().getLayoutBounds().getHeight();
 		double height = Screen.getPrimary().getVisualBounds().getHeight();
 		int numRows = (int) height / AuthRes.getInt("Padding");
 		
@@ -97,5 +81,4 @@ public class SplashScreen extends GUIGridPaneSuper{
 		GridPane.setConstraints(vb, numCols * 7 / 24, numRows / 5);
 		return gridpane;
 	}
-
 }
