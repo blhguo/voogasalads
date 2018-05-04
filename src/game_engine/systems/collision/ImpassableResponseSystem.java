@@ -55,7 +55,6 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 				boolean leftImpassible = xv.getValue() < 0 && otherHasImpassible(e, LEFT);
 				boolean rightImpassible = xv.getValue() > 0 && otherHasImpassible(e, RIGHT);
 				if(leftImpassible || rightImpassible){
-					System.out.println("SHOULDN'T HAPPEN FUCK right left");
 					xv.setValue(STOP);
 				}
 			}
@@ -63,13 +62,18 @@ public class ImpassableResponseSystem extends CollisionResponseSystem {
 				boolean bottomImpassible = yv.getValue() > 0 && otherHasImpassible(e, BOTTOM);
 				boolean topImpassible = yv.getValue() < 0 && otherHasImpassible(e, TOP);
 				if(bottomImpassible || topImpassible){
-					System.out.println("SHOULDN'T HAPPEN FUCK UP DOWN");
 					yv.setValue(STOP);
 				}
 			}
 		}
 	}
 
+	/**
+	 * Helper method that checks if there exists an impassible entity that this entity has collided with
+	 * @param e
+	 * @param cc
+	 * @return
+	 */
 	private boolean otherHasImpassible(Entity e, Class<? extends Component<List<Entity>>> cc){
 		Component<List<Entity>> collidedComponent = e.getComponent(cc);
 		if(collidedComponent == null){
