@@ -156,7 +156,7 @@ public class PlayerView {
 //		healthData = primary.getComponent(HealthComponent.class).getValue();
 		double x = cam.getLayoutX();
 		double y = cam.getLayoutY();
-//		viewManager.createText(x + SCORE_POS[0] - camInX, y + SCORE_POS[1] - camInY, "Score: " + scoreData);
+//		viewManager.createText(x + aSCORE_POS[0] - camInX, y + SCORE_POS[1] - camInY, "Score: " + scoreData);
 //		viewManager.createText(x + HEALTH_POS[0] - camInX, y + HEALTH_POS[1] - camInY, "Health: " + healthData);
 	}
 

@@ -594,6 +594,42 @@
                   <myValue class="double">176.0</myValue>
                 </game__engine.components.sprite.WidthComponent>
               </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxYOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+                  <myValue class="double">30.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxYOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxXOffsetComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+                  <myValue class="double">0.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxXOffsetComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.CollidableComponent</java-class>
+                <game__engine.components.collision.CollidableComponent>
+                  <myValue class="boolean">true</myValue>
+                </game__engine.components.collision.CollidableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.PassableComponent</java-class>
+                <game__engine.components.collision.PassableComponent>
+                  <myValue class="boolean">false</myValue>
+                </game__engine.components.collision.PassableComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxHeightComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxHeightComponent>
+                  <myValue class="double">233.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxHeightComponent>
+              </entry>
+              <entry>
+                <java-class>game_engine.components.collision.hitbox.HitboxWidthComponent</java-class>
+                <game__engine.components.collision.hitbox.HitboxWidthComponent>
+                  <myValue class="double">176.0</myValue>
+                </game__engine.components.collision.hitbox.HitboxWidthComponent>
+              </entry>
             </myComponents>
           </game__engine.Entity>
           <game__engine.Entity>
@@ -1842,6 +1878,28 @@
                 </SIDES__TO__CHECK>
                 <myEntity reference="../../../../../myEntities/game__engine.Entity"/>
                 <myTargetEntity reference="../../../../../myEntities/game__engine.Entity[5]"/>
+              </game__engine.event.conditions.EntityCollisionCondition>
+            </myConditions>
+          </game__engine.event.Event>
+          <game__engine.event.Event>
+            <myActions>
+              <game__engine.event.actions.macro.LevelChangeAction>
+                <myEngine reference="../../../../../../../.."/>
+                <myChangeTo>333</myChangeTo>
+              </game__engine.event.actions.macro.LevelChangeAction>
+            </myActions>
+            <myConditions>
+              <game__engine.event.conditions.EntityCollisionCondition>
+                <SIDES__TO__CHECK class="java.util.Arrays$ArrayList">
+                  <a class="java-class-array">
+                    <java-class>game_engine.components.collision.edge_collided.BottomCollidedComponent</java-class>
+                    <java-class>game_engine.components.collision.edge_collided.LeftCollidedComponent</java-class>
+                    <java-class>game_engine.components.collision.edge_collided.RightCollidedComponent</java-class>
+                    <java-class>game_engine.components.collision.edge_collided.TopCollidedComponent</java-class>
+                  </a>
+                </SIDES__TO__CHECK>
+                <myEntity reference="../../../../../myEntities/game__engine.Entity"/>
+                <myTargetEntity reference="../../../../../myEntities/game__engine.Entity[7]"/>
               </game__engine.event.conditions.EntityCollisionCondition>
             </myConditions>
           </game__engine.event.Event>
