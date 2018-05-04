@@ -18,7 +18,6 @@ import game_engine.event.Condition;
  */
 public abstract class CollisionCondition implements Condition {
     List<Class<? extends CollidedComponent>> SIDES_TO_CHECK = Arrays.asList(BottomCollidedComponent.class, LeftCollidedComponent.class, RightCollidedComponent.class, TopCollidedComponent.class);
-    ;
     Entity myEntity;
 
     public CollisionCondition(Entity e1) {

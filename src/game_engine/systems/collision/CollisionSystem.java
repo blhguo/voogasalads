@@ -86,6 +86,8 @@ public abstract class CollisionSystem implements GameSystem {
 	 * @param origin
 	 * @param angle
 	 * @return
+	 *
+	 * Alternative signature for transforming point by angle
 	 */
 	public Point2D transformPoint(Point2D point, Point2D origin, double angle) {
 		Point2D relativeCoord = new Point2D(point.getX() - origin.getX(), point.getY() - origin.getY());
