@@ -65,7 +65,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		this.stage = stage;
 		base = new BasePane();
 		entity = new EntityPane(stage);
-		event = new EventPane();
+		event = new EventPane(stage);
 		level = new LevelPane(stage);
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);

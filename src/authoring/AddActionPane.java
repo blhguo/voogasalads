@@ -13,6 +13,7 @@ import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
 import frontend_utilities.ComboBoxBuilder;
 import frontend_utilities.ImageBuilder;
+import frontend_utilities.UserFeedback;
 import game_engine.Component;
 import game_engine.ComponentFactory;
 import game_engine.Entity;
@@ -31,6 +32,7 @@ import game_engine.event.actions.micro.RemoveComponentAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -41,6 +43,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import resources.keys.AuthRes;
 
 public class AddActionPane implements GUINode {
 	private static final ResourceBundle actions = ResourceBundle.getBundle("resources.keys/Actions");
@@ -60,7 +64,9 @@ public class AddActionPane implements GUINode {
 	private List<DoubleMenuElement> numberElements;
 	private List<StringMenuElement> stringElements;
 	private ComboBox<String> expressionBox;
-	public AddActionPane(Event currentEvent) {
+	private Stage stage;
+	public AddActionPane(Event currentEvent, Stage s) {
+		stage = s;
 		entityBox = new HBox();
 		numberElements = new ArrayList<>();
 		stringElements = new ArrayList<>();
@@ -97,6 +103,7 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getEntityInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new AddEntityAction(entityArray[0], levelController.getEngine()));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -106,6 +113,7 @@ public class AddActionPane implements GUINode {
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new PlayMusicAction(stringElements.get(0).getValue(),
 							Double.parseDouble(numberElements.get(0).getValue())));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -113,7 +121,8 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getDoubleInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new LevelChangeAction(levelController.getEngine(),
-							Integer.parseInt(numberElements.get(0).getValue())));
+							Double.parseDouble(((numberElements.get(0).getValue())))));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -121,6 +130,7 @@ public class AddActionPane implements GUINode {
 				comboBoxView.getChildren().add(getEntityInput());
 				createButton = ButtonFactory.makeButton(e -> {
 					currentEvent.addAction(new RemoveEntityAction(entityArray[0], levelController.getEngine()));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -134,6 +144,7 @@ public class AddActionPane implements GUINode {
 					currentEvent.addAction(new AddComponentAction(entityArray[0],
 							new ComponentFactory().createComponent(compBox.getValue(),
 									numberElements.get(0).getValue())));
+					createAlert();
 				});
 				comboBoxView.getChildren().add(createButton);
 				break;
@@ -145,8 +156,10 @@ public class AddActionPane implements GUINode {
 					try {
 						currentEvent.addAction(new RemoveComponentAction(entityArray[0],
 								(Class<? extends Component<?>>)	Class.forName(components.getString(compBox.getValue()))));
+						createAlert();
 					}
 					catch (Exception a) {
+						createError();
 						System.out.println(a.getCause());
 						System.out.println("Sorry, Class machine broke");
 					}
@@ -168,7 +181,9 @@ public class AddActionPane implements GUINode {
 									expressionBox.getValue(),
 									Double.parseDouble(numberElements.get(0).getValue())
 						));
+						createAlert();
 					} catch (Exception a){
+						createError();
 						System.out.println("Sorry, class machine broke");
 					}
 				});
@@ -183,8 +198,9 @@ public class AddActionPane implements GUINode {
 								entityArray[0],
 								(Class<? extends Component<Boolean>>) 
 								Class.forName(components.getString(compBox.getValue()))));
-							
+						createAlert();	
 					} catch (Exception a){
+						createError();
 //						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
@@ -203,8 +219,9 @@ public class AddActionPane implements GUINode {
 								(Class<? extends Component<Double>>) 
 								Class.forName(components.getString(compBox.getValue())),
 								Double.parseDouble(numberElements.get(0).getValue())));
-							
+						createAlert();	
 					} catch (Exception a){
+						createError();
 //						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 					}
@@ -214,6 +231,16 @@ public class AddActionPane implements GUINode {
 		}
 		
 
+	}
+	
+	private void createAlert(){
+		Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddActionHeader"), AuthRes.getString("AddActionContent"), stage);
+		a.showAndWait();
+	}
+	
+	private void createError(){
+		Alert a = UserFeedback.getErrorMessage(AuthRes.getString("ActionErrorHeader"), AuthRes.getString("ActionErrorContent"), stage);
+		a.showAndWait();
 	}
 
 	public void newAction(){

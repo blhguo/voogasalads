@@ -3,7 +3,6 @@ package authoring.right_components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import authoring.AddActionPane;
 import authoring.AddConditionPane;
@@ -11,17 +10,18 @@ import authoring.controllers.EntityController;
 import authoring.controllers.LevelController;
 import authoring.right_components.EntityComponent.EntityWrapper;
 import frontend_utilities.ButtonFactory;
+import frontend_utilities.UserFeedback;
 import game_engine.event.Action;
 import game_engine.event.Condition;
 import game_engine.event.Event;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
 /**
@@ -49,12 +49,14 @@ public class EventPane extends BasePane {
 	private LevelController levelController;
 	private AddActionPane addActionPane;
 	private AddConditionPane addConditionPane;
+	private Stage stage;
 
-	public EventPane(EntityController e){
-		this();
+	public EventPane(EntityController e, Stage s){
+		this(s);
 		myController = e;
 	}
-	public EventPane(){
+	public EventPane(Stage stage){
+		this.stage = stage;
 		eventList = new ArrayList<>();
 		components = ResourceBundle.getBundle("Component");
 		bundle = ResourceBundle.getBundle("resources.keys/Conditions");
@@ -83,7 +85,7 @@ public class EventPane extends BasePane {
 	}
 
 	private void initAddAction() {
-		addActionPane = new AddActionPane(currentEvent);
+		addActionPane = new AddActionPane(currentEvent, stage);
 		addAction = addActionPane.getView();
 		Button back = ButtonFactory.makeButton(e -> {
 			clearAndAdd(newEvent);
@@ -137,7 +139,7 @@ public class EventPane extends BasePane {
 		return labelList;
 	}
 	private void initAddCondition() {
-		addConditionPane = new AddConditionPane(currentEvent, levelController);
+		addConditionPane = new AddConditionPane(currentEvent, levelController, stage);
 		addCondition = addConditionPane.getView();
 
 		Button back = ButtonFactory.makeButton(e -> {
@@ -180,7 +182,8 @@ public class EventPane extends BasePane {
 			eventList.add(currentEvent);
 			currentEvent = new Event();
 			initViewEvents();
-
+			Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddEventHeader"), AuthRes.getString("AddEventContent"), stage);
+			a.showAndWait();
 		});
 		startBox.getChildren().add(ButtonFactory.makeHBox("Add this event to the level",
 				null,
