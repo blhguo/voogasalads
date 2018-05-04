@@ -40,6 +40,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 
 	private NavigationPane np;
 	private EntityController controller;
+	private PaneController pcontroller;
+	private LevelController lcontroller;
+	private MetaController mcontroller;
+	private Loader loader;
 	private BasePane base;
 	private EntityPane entity;
 	private EventPane event;
@@ -61,7 +65,7 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		this.stage = stage;
 		base = new BasePane();
 		entity = new EntityPane(stage);
-		event = new EventPane();
+		event = new EventPane(stage);
 		level = new LevelPane(stage);
 		story = new StoryBoardPane();
 		np = new NavigationPane(stage);
@@ -70,10 +74,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		canvas = new Canvas();
 
 		controller = new EntityController(entity, canvas, event);
-		PaneController pcontroller = new PaneController(level, canvas);
-		LevelController lcontroller = new LevelController(pcontroller);
-		MetaController mcontroller = new MetaController(lcontroller);
-		Loader loader = new Loader(lcontroller, canvas, level);
+		pcontroller = new PaneController(level, canvas);
+		lcontroller = new LevelController(pcontroller);
+		mcontroller = new MetaController(lcontroller);
+		loader = new Loader(level, story, entity);
 		
 		canvas.setController(controller);
 		event.setController(controller);
@@ -86,10 +90,20 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		story.setMetaController(mcontroller);
 		story.setPaneController(pcontroller);
 		pcontroller.setEntityController(controller);
+		loader.setLevelController(lcontroller);
+		loader.setMetaController(mcontroller);
 		np.addListener(this);
 		np.addMetaController(mcontroller);
 		np.setLoader(loader);
 	}
+	
+//	public AuthoringEnvironment(Stage stage, Loader l){
+//		this.stage = stage;
+//		Loader loader = l;
+//		entity = l.getEntityPane();
+//		level = l.getLevelPane();
+//		story = l.getStoryPane();
+//	}
 
 	/**
 	 * Abstract method inherited from the GUIBuilder super class. Returns a Pane that
@@ -134,9 +148,11 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 				bp.setRight(event.getView());
 				break;
 			case "Level Preferences": ;
+				controller.updateDummies();
 				bp.setRight(level.getView());
 				break;
 			case "Storyboard": ;
+				controller.updateDummies();
 				bp.setRight(story.getView());
 				break;
 			default:
@@ -144,6 +160,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 				break;
 
 		}
+	}
+	
+	public Loader getLoader(){
+		return loader;
 	}
 
 }

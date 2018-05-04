@@ -21,7 +21,14 @@
     -fx-font-size: 14px;
     -fx-font-family: segoeuil;
 }
-
+.button-remove {
+    -fx-background-radius: 5em;
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+    -fx-background-color: red;
+}
 .button-splash {
     -fx-background-radius: 50%;
     -fx-background-color: rgba(128, 128, 128, 0.7);
@@ -40,6 +47,13 @@
     -fx-font-family:segoeui;
     -fx-font-size: 14px;
     -fx-fill: #b3b3b3;
+}
+
+.button-thumb {
+	-fx-background-color: rgba(0, 0, 0, 0);
+	-fx-font-family: segoeui;
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
 }
 
 .canvas {
@@ -107,8 +121,8 @@
 
 .game-chooser {
     -fx-font-family: segoeuil;
-    -fx-font-size: 15px;
-    -fx-fill: rgba(255, 255, 255, 0.7);
+    -fx-font-size: 20px;
+    -fx-fill: white;
     -fx-font-weight: lighter;
 }
 

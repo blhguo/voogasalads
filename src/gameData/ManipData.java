@@ -56,7 +56,7 @@ public class ManipData {
 	public void saveData(Engine engine, String gameFolderName, String saveFileName, Map<String, String> metaMap, Map<String, String> ConfigMap) {
 		saveData(engine, gameFolderName, saveFileName, false);
 
-		saveConfig(gameFolderName, ConfigMap);
+		saveConfig(gameFolderName, ConfigMap, saveFileName);
 		
 		saveMeta(gameFolderName, metaMap);
 	}
@@ -131,12 +131,19 @@ public class ManipData {
 				doc = dBuilder.parse(file);
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("stuff");
+				NodeList actualList = nList.item(0).getChildNodes();
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;
-				String keys = eElement.getElementsByTagName("key0").item(0).getTextContent();
-				String vals = eElement.getElementsByTagName("value0").item(0).getTextContent();
-				String[] keyArr = keys.split(",");
-				String[] valArr = vals.split(",");
+				String[] keyArr = new String[actualList.getLength() / 2];
+				String[] valArr = new String[actualList.getLength() / 2];
+				for (int i = 0; i < actualList.getLength() / 2; i++){
+					String kTagName = "key" + i;
+					String vTagName = "value" + i;
+					String key = eElement.getElementsByTagName(kTagName).item(0).getTextContent();
+					String value = eElement.getElementsByTagName(vTagName).item(0).getTextContent();
+					keyArr[i] = key;
+					valArr[i] = value;
+				}
 				for (int i = 0; i < keyArr.length; i++) {
 					metaMap.put(keyArr[i], valArr[i]);
 				}
@@ -191,7 +198,7 @@ public class ManipData {
 		} 
 	}
 
-	public void saveConfig(String configLoc, Map<String, String> configMap) {
+	public void saveConfig(String configLoc, Map<String, String> configMap, String configName) {
 		
 		File file = new File("games/"+configLoc);
 		if(!file.exists()) {
@@ -204,7 +211,7 @@ public class ManipData {
 				param.setProperty(AuthRes.getStringKeys("key" + i), configMap.get(AuthRes.getStringKeys("key" + i)));
 			}
 			
-			file = new File("games/" + configLoc + "/config.properties");
+			file = new File("games/" + configLoc + "/" + configName + "config.properties");
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
@@ -264,7 +271,7 @@ public class ManipData {
 	}
 
 	private Engine openFile(File file) throws ParserConfigurationException{
-		//System.out.println(file);
+		System.out.println("FILE: " + file);
 		Engine lilGuy = new Engine();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -284,6 +291,7 @@ public class ManipData {
 
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("higher");
+				System.out.println();
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;			
 				String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());

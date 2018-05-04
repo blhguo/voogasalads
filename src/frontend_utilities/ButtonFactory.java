@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -155,11 +156,13 @@ public class ButtonFactory {
 		return box;
 	}
 	
-	public static Button makeLevelThumbnail(String imagePath, String name, EventHandler<ActionEvent> handler){
-		ImageView iv = ImageBuilder.getImageView(imagePath, 90, 60);
+	public static Button makeThumbnail(String imagePath, String name, EventHandler<ActionEvent> handler, int width, int height){
+		ImageView iv = ImageBuilder.getImageView(imagePath, width, height);
 		Button b = new Button(name, iv);
 		b.setContentDisplay(ContentDisplay.TOP);
 		b.setOnAction(handler);
 		return b;
 	}
+	
+
 }

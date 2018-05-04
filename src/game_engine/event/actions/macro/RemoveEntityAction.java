@@ -14,19 +14,16 @@ import game_engine.event.Action;
 public class RemoveEntityAction implements Action{
 	private Entity myEntity;
 	private Engine myEngine;
-	private int myLevelId;
 	
 	/**
 	 * instantiates a new RemoveEntityAction with a reference to the entity to be removed, the engine, and the level number the entity
 	 * will be removed from
 	 * @param entity
 	 * @param engine
-	 * @param levelId
 	 */
-	public RemoveEntityAction(Entity entity, Engine engine, int levelId){
+	public RemoveEntityAction(Entity entity, Engine engine){
 		myEntity = entity;
 		myEngine = engine;
-		myLevelId = levelId;
 	}
 	
 	/**
@@ -34,6 +31,6 @@ public class RemoveEntityAction implements Action{
 	 */
 	@Override
 	public void execute() {
-		myEngine.getLevel(myLevelId).removeEntity(myEntity);
+		myEngine.getLevel().removeEntity(myEntity);
 	}
 }

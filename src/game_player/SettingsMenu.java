@@ -15,7 +15,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
+/**
+ * 
+ * @author Brandon Dalla Rosa, Dana Park
+ *
+ *
+ * Creates the settings menu and all desired functions within.
+ */
 public class SettingsMenu {
 	
 	private Button settingsButton;
@@ -26,13 +32,19 @@ public class SettingsMenu {
 	private Label volumeLabel;
 	private Label brightnessLabel;
 	private Stage gameStage;
-	
+	/**
+	 * Constructor for the settings menu.
+	 * @param stage
+	 */
 	public SettingsMenu(Stage stage) {
 		brightnessSlider = makeBrightnessSlider();
 		volumeSlider = makeVolumeSlider();
 		gameStage = stage;
 	}
-	
+	/**
+	 * Initializes the settings menu in the desired location.
+	 * @param pane
+	 */
 	protected void makeSettingsMenu(HBox pane) {
 		ImageView settingsImageView = new ImageView( getClass().getResource( "/game_player_resources/settings.png").toExternalForm());
 		settingsImageView.setFitHeight(30);
@@ -47,6 +59,9 @@ public class SettingsMenu {
 		settingsMenu.setBackground(new Background(back));
 		settingsButton.setOnAction(click->{showSettingsMenu();});	
 	}
+	/**
+	 * Creates the stage for the menu.
+	 */
 	protected void makeSettingsStage() {
 		settingsStage = new Stage();
 		settingsStage.initOwner(gameStage);
@@ -65,6 +80,10 @@ public class SettingsMenu {
 		settingsStage.setScene(scene);
 	}
 	
+	/**
+	 * Returns the brightness slider for use.
+	 * @return
+	 */
 	private Slider makeBrightnessSlider() {
 		brightnessSlider = new Slider();
 		brightnessSlider.getStyleClass().add("slider");
@@ -74,28 +93,37 @@ public class SettingsMenu {
 		return brightnessSlider;
 		
 	}
-	
+	/**
+	 * Returns the volume slider for use.
+	 * @return
+	 */
 	private Slider makeVolumeSlider() {
 		volumeSlider = new Slider();
 		volumeSlider.getStyleClass().add("slider");
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
-		volumeSlider.setValue(0);
+		volumeSlider.setValue(1);
 		return volumeSlider;
 	}
 	
+	/**
+	 * Creates the label for the brightness slider.
+	 */
 	private void makeBrightnessLabel() {
 		brightnessLabel = new Label("Change Brightness:");
 		brightnessLabel.getStyleClass().add("button-nav");
 	}
 	
+	/**
+	 * Creates the label for the volume slider.
+	 */
 	private void makeVolumeLabel() {
-		volumeLabel = new Label("Change Volume:");
+		volumeLabel = new Label("Change Volume for Default Song:");
 		volumeLabel.getStyleClass().add("button-nav");
 		
 	}
 	/**
-	 * method to show settings Menu
+	 * method to show settings Menu.
 	 * 
 	 */
 	protected void showSettingsMenu() {
@@ -103,14 +131,14 @@ public class SettingsMenu {
 		
 	}
 	/**
-	 * getter method for the Brightness Slider on the Settings Stage
+	 * Getter method for the Brightness Slider on the Settings Stage.
 	 * 
 	 */
 	public Slider getBrightnessSlider() {
 		return brightnessSlider;
 	}
 	/**
-	 * getter method for the Volume Slider on the Settings Stage
+	 * Getter method for the Volume Slider on the Settings Stage.
 	 * 
 	 */
 	public Slider getVolumeSlider() {

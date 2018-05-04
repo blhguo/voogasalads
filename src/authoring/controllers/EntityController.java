@@ -209,8 +209,6 @@ public class EntityController {
 		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
 				sceneY - wrap.getImageView().getFitHeight() / 2);
 		if (!entityList.contains(wrap)){
-			System.out.println("Added entity"	);
-			//entityList.add(wrap);
 			add(wrap);
 		}
 		canvas.update(entityList);
@@ -225,6 +223,10 @@ public class EntityController {
 
 	public void updateCanvas() {
 		canvas.update(entityList);
+	}
+	
+	public void updateCanvas(List<EntityWrapper> entList){
+		canvas.update(entList);
 	}
 
 	public void addToEventPaneBox(EntityWrapper e) {

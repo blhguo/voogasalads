@@ -56,7 +56,7 @@ public class LevelController {
 		engine = e;
 	}
 	
-	public <T> ArrayList<Object> getSingleCompList(Class<? extends Component<T>> comp){
+	public <T> List<Object> getSingleCompList(Class<? extends Component<T>> comp){
 		ArrayList<Object> ret = new ArrayList<Object>();
 		Map<Integer, List<Component<T>>> map = engine.getLevelPreviews(Arrays.asList(comp));
 		for (List<Component<T>> list: map.values()){
@@ -74,9 +74,9 @@ public class LevelController {
 	public void addEntity(Entity e){
 		System.out.println("Entity: " + e);
 		engine.getLevel().addEntity(e);
-		System.out.println("------ Entities in the level ------");
-		engine.getLevel().getEntities().stream().forEach(a -> 
-			System.out.println(a));
+//		System.out.println("------ Entities in the level ------");
+//		engine.getLevel().getEntities().stream().forEach(a ->
+//			System.out.println(a));
 	}
 
 	public void addEvent(Event event){
