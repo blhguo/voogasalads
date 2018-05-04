@@ -1,7 +1,7 @@
 package game_player;
 
+import authoring.Toolbar;
 import authoring.GUI_Heirarchy.GUIBuilder;
-import authoring.loadingviews.PlayerLoader;
 import game_engine.level.LevelBackgroundComponent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +26,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import resources.keys.AuthRes;
 
 /**
  * This class initializes the layout for the game player, and manages the
@@ -63,7 +62,6 @@ public class ViewManager extends GUIBuilder{
 	 * @param pdf: The active pull down factory.
 	 */ 
 	public ViewManager() {
-		//TODO something
 	}
 	/**
 	 * Method called to initialize the class after creation.
@@ -86,7 +84,7 @@ public class ViewManager extends GUIBuilder{
 	 */
 	private void setScene() {
 		Pane pane = setObjects();
-		gameScene = new Scene(pane,sceneWidth,sceneHeight);
+		gameScene = new Scene(new Toolbar(gameStage).integrateToolbar(pane), sceneWidth, sceneHeight);
 		gameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 		gameStage.setScene(gameScene);
 		mainHBox = pane;
@@ -191,15 +189,6 @@ public class ViewManager extends GUIBuilder{
 		});
 	}
 
-
-
-	/**
-	 * Display the stage for game selection.
-	 */ 
-	public void showGameSelectionMenu() {
-		gameStage.getScene().setRoot(new PlayerLoader(gameStage).display());
-		gameStage.show();
-	}
 
 	/**
 	 * Return the root node of the view manager.
