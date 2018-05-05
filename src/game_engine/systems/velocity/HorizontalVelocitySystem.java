@@ -6,7 +6,7 @@ import game_engine.components.physics.XVelComponent;
 
 /**
  * 
- * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * @author Kevin Deng
  * The purpose of this class is to handle velocity changes (acceleration) in the horizontal direction
  *
  */

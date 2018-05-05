@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -35,15 +36,28 @@ public class Toolbar implements GUINode {
 	public Toolbar(Stage stage) {
 		this.stage = stage;
 		myNode = new BorderPane();
-		myNode.setRight(makeBackButton());
+		myNode.setRight(new HBox(
+				makeFullScreenButton(), 
+				makeBackButton()));
 		myNode.getStyleClass().add("toolbar");
 	}
 
+	private Button makeFullScreenButton() {
+		return ButtonFactory.makeButton(null,
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("full"))), 
+						AuthRes.getInt("ToolbarButton")),
+				e -> {
+					stage.setFullScreen(!stage.isFullScreen());
+				}, "button-nav");
+	}
+	
 	private Button makeBackButton() {
 		return ButtonFactory.makeButton(null, 
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 25),
-				e -> stage.getScene().setRoot(new SplashScreen(stage).display()),
-				"button-nav");
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 
+						AuthRes.getInt("ToolbarButton")),
+				e -> {
+					stage.getScene().setRoot(new SplashScreen(stage).display());
+				}, "button-nav");
 	}
 
 	/**

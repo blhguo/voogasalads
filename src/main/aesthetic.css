@@ -15,18 +15,38 @@
     -fx-font-family: segoeuil;
 }
 
+.button-event {
+	 -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: segoeuil;
+}
+
 .button-keypref {
     -fx-background-color: rgba(141, 143, 143, 1);
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-family: segoeuil;
 }
-
+.button-remove {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: segoeuil;
+    -fx-border-color: white;
+    -fx-background-radius: 50%;
+}
 .button-splash {
     -fx-background-radius: 50%;
     -fx-background-color: rgba(128, 128, 128, 0.7);
     -fx-text-fill: white;
     -fx-font-size: 20px;
+}
+
+.button-entity {
+    -fx-background-color: rgba(128, 128, 128, 0.7);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
 }
 
 .button-story {
@@ -40,6 +60,13 @@
     -fx-font-family:segoeui;
     -fx-font-size: 14px;
     -fx-fill: #b3b3b3;
+}
+
+.button-thumb {
+	-fx-background-color: rgba(0, 0, 0, 0);
+	-fx-font-family: segoeui;
+	-fx-text-fill: white;
+	-fx-font-size: 20px;
 }
 
 .canvas {
@@ -64,11 +91,24 @@
     -fx-fill: rgba(0, 0, 0, 0.5);
 }
 
+.combo-box-event {
+
+}
+
+.combo-box-popup {
+	-fx-font-size: 14px;
+}
+
+.combo-box-base .text{
+	-fx-font-size: 14px;
+}
+
 .combo-box-base{
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-font-family: segoeuil;
     -fx-prompt-text-fill: white;
     -fx-fill: white;
+    -fx-font-size: 14px;
 }
 
 .combo-box > .list-cell{
@@ -92,84 +132,6 @@
     -fx-prompt-text-fill: white ;
 }
 
-.comp-back {
-    -fx-background-color: black;
-}
-
-.comp-label {
-    /*-fx-text-fill: rgb(230, 230, 230);*/
-    -fx-text-fill: lightgray;
-}
-
-.comp-label:hover {
-    -fx-effect: dropshadow(gaussian, #338099, 10, 0.5, 0, 0);
-}
-
-.game-chooser {
-    -fx-font-family: segoeuil;
-    -fx-font-size: 15px;
-    -fx-fill: rgba(255, 255, 255, 0.7);
-    -fx-font-weight: lighter;
-}
-
-.pane-back {
-    -fx-background-color: rgba(0, 0, 0, 0.5);
-}
-
-.pane-title {
-    -fx-font: 20px segoeuil;
-    -fx-fill: white;
-    -fx-text-fill: white;
-}
-
-.title {
-    -fx-font-family: segoeuil;
-    -fx-font-size: 100px;
-    -fx-fill: white;
-    -fx-font-weight: lighter;
-}
-
-.title2 {
-    -fx-font-family: segoeuil;
-    -fx-font-size: 24px;
-    -fx-font-weight: lighter;
-    -fx-fill: rgba(255, 255, 255, 0.7);
-}
-
-.title3 {
-    -fx-font-family: segoeuil;
-    -fx-font-size: 14px;
-    -fx-fill: white;
-}
-
-
-.titled-pane > .title {
-    -fx-font-size: 14px;
-    -fx-font-family: segoeuil;
-    /*-fx-text-fill: white;*/
-    -fx-background-color: rgba(0,0,0,0);
-}
-
-.titled-pane > .title > .text{
-    -fx-fill: white;
-}
-
-.titled-pane > *.content {
-    -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-stroke: rgba(0,0,0,0.5);
-    -fx-border-color: rgba(0, 0, 0, 0);
-}
-
-.titled-pane > .title > .arrow-button{
-    -fx-fill: white;
-}
-.text-keypref {
-    -fx-font-family: segoeuil;
-    -fx-font-size: 20px;
-    -fx-text-fill: white;
-
-}
-
 .combo-box
 {
     -fx-font-family: segoeui;
@@ -191,6 +153,48 @@
     -fx-font-size: 14px;
     -fx-min-height: 28;
 }
+
+
+.comp-back {
+    -fx-background-color: black;
+}
+
+.comp-label {
+    /*-fx-text-fill: rgb(230, 230, 230);*/
+    -fx-text-fill: lightgray;
+}
+
+.comp-label:hover {
+    -fx-effect: dropshadow(gaussian, #338099, 10, 0.5, 0, 0);
+}
+
+.event-label {
+	-fx-text-fill: white;
+	-fx-font-size: 16px;
+}
+
+.event-label2 {
+	-fx-text-fill: lightgray;
+}
+
+.game-chooser {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 20px;
+    -fx-fill: white;
+    -fx-font-weight: lighter;
+}
+
+.pane-back {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-text-fill: white;
+}
+
+.pane-title {
+    -fx-font: 20px segoeuil;
+    -fx-fill: white;
+    -fx-text-fill: white;
+}
+
 
 .slider {
     -fx-border-color: white;
@@ -235,3 +239,49 @@
 	-fx-background-color: rgba(128, 128, 128, 0.7)
 }
 
+.text-keypref {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
+.title {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 100px;
+    -fx-fill: white;
+    -fx-font-weight: lighter;
+}
+
+.title2 {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 24px;
+    -fx-font-weight: lighter;
+    -fx-fill: rgba(255, 255, 255, 0.7);
+}
+
+.title3 {
+    -fx-font-family: segoeuil;
+    -fx-font-size: 14px;
+    -fx-fill: white;
+}
+
+.titled-pane > .title {
+    -fx-font-size: 14px;
+    -fx-font-family: segoeuil;
+    /*-fx-text-fill: white;*/
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.titled-pane > .title > .text{
+    -fx-fill: white;
+}
+
+.titled-pane > *.content {
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-stroke: rgba(0,0,0,0.5);
+    -fx-border-color: rgba(0, 0, 0, 0);
+}
+
+.titled-pane > .title > .arrow-button{
+    -fx-fill: white;
+}

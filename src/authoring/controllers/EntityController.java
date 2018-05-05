@@ -33,7 +33,6 @@ public class EntityController {
 	Map<Entity, List<ComponentMenu>> menuMap;
 	private EntityPane entityPane;
 	private Canvas canvas;
-	private ImageView view;
 	private LevelController lcontroller;
 	private Button button;
 	private EventPane eventPane;
@@ -58,8 +57,9 @@ public class EntityController {
 	public void add(EntityWrapper wrapper){
 		//entityList.add(entity);
 		map.put(wrapper.getImageView(), wrapper.getEntity());
-		if (!entityList.contains(wrapper))
+		if (!entityList.contains(wrapper)) {
 			entityList.add(wrapper);
+		}
 		//System.out.println("Wrapper Added: " + wrapper);
 		//System.out.println("\tWrapper's Entity: " + wrapper.getEntity());
 		//System.out.println("Wrapper added: " + entityList.size());
@@ -209,8 +209,6 @@ public class EntityController {
 		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
 				sceneY - wrap.getImageView().getFitHeight() / 2);
 		if (!entityList.contains(wrap)){
-			System.out.println("Added entity"	);
-			//entityList.add(wrap);
 			add(wrap);
 		}
 		canvas.update(entityList);

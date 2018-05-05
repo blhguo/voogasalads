@@ -10,6 +10,13 @@ import game_engine.Entity;
 import game_engine.event.ComponentNotPresentException;
 import game_engine.event.Condition;
 
+/**
+ * The purpose of this Condition is to check if an entity has a specific component data that is equivalent
+ * to the passed data
+ * @author Andy Nguyen, Ben Hubsch, Kevin Deng, Jeremy Chen
+ *
+ * @param <T>
+ */
 public class DataCondition<T> implements Condition {
 	private Entity myEntity;
 	private Class<? extends Component<T>> myComponentClass;

@@ -46,6 +46,10 @@ public class StoryBoardPane extends BasePane {
 	private TextField author = new TextField();
 	private TextArea rules = new TextArea();
 
+	public StoryBoardPane() {
+		super();
+	}
+	
 	/**
 	 * GUINode method that returns the view of this Pane
 	 * @return Pane
@@ -138,12 +142,13 @@ public class StoryBoardPane extends BasePane {
 				}
 			}
 			String name = l.get(1).getValue();
-			Button b = ButtonFactory.makeLevelThumbnail(backPath, name, e -> {
+			Button b = ButtonFactory.makeThumbnail(backPath, name, e -> {
 				lcontroller.getEngine().setLevel(ent.getKey());
 				activeLevel.setText(lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue());
 				pcontroller.setBackground(l.get(0).getValue());
 				pcontroller.updateCanvas(lcontroller.getEngine().getLevel().getId());
-			});
+			}, 	AuthRes.getInt("StoryboardThumbWidth"), 
+				AuthRes.getInt("StoryboardThumbHeight"));
 			b.getStyleClass().add("button-story");
 			row.getChildren().add(b);
 			levels.getChildren().add(row);

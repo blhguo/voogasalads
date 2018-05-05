@@ -5,12 +5,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class GameSelectionMenu {
-	
+
 	private Button gameSelectionButton;
-	private PulldownFactory pullDownFactory;
+	private DataConnect dataConnect;
 	
-	protected void makeGameSelectionMenu(HBox pane, PulldownFactory pdf) {
-		this.pullDownFactory = pdf;
+	protected void makeGameSelectionMenu(HBox pane, DataConnect dc) {
+		this.dataConnect = dc;
 		ImageView gameImageView = new ImageView( getClass().getResource( "/game_player_resources/game.png").toExternalForm());
 		gameImageView.setFitHeight(30);
 		gameImageView.setFitWidth(30);
@@ -18,14 +18,14 @@ public class GameSelectionMenu {
 		gameSelectionButton.getStyleClass().add("button-nav");
 		gameSelectionButton.setOnAction(click->{showGameSelectionMenu();});
 		pane.getChildren().add(gameSelectionButton);
-		
+
 	}
-	
-	
-	
+
+
+
 	protected void showGameSelectionMenu() {
-		pullDownFactory.importGame();
-	}	
+		dataConnect.importGame();
+	}
 
 
 }

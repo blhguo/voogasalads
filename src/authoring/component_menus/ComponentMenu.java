@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import authoring.right_components.EntityComponent.EntityPane;
+import frontend_utilities.ButtonFactory;
 import game_engine.Component;
-import javafx.scene.control.TitledPane;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 
 /**
  * @author liampulsifer
@@ -22,12 +29,8 @@ public class ComponentMenu extends VBox implements Comparable{
 	private List<MenuElement> elements;
 	private String myType;
 	private boolean included;
-
-	public void setMyPane(EntityPane myPane) {
-		this.myPane = myPane;
-	}
-
 	private EntityPane myPane;
+
 	public ComponentMenu(String type){
 		myType = type;
 		elements = new ArrayList<>();
@@ -39,6 +42,11 @@ public class ComponentMenu extends VBox implements Comparable{
 		}
 		//this.setOnMousePressed(e -> Include());
 	}
+	
+	public void setMyPane(EntityPane myPane) {
+		this.myPane = myPane;
+	}
+	
 	public String getMyType() {
 		return myType;
 	}
@@ -109,7 +117,47 @@ public class ComponentMenu extends VBox implements Comparable{
 	public TitledPane getTitledPane() {
 		//this.getChildren().stream().forEach(item -> System.out.println(item));
 		TitledPane pane = new TitledPane(myType, this);
-		pane.setOnMouseClicked(e -> Include());
+		pane.setExpanded(false);
+//		Button button = ButtonFactory.makeButton(e -> {
+//			
+//		});
+		Button button = ButtonFactory.makeRemoveButton("x", e -> {
+			this.unInclude();
+//			System.out.println(myPane.getPureCurrent());
+//			System.out.println(myPane.getPureCurrent().getEntity());
+			myPane.getPureCurrent().addAllComponents(myPane.getPureCurrent().getEntity());
+			myPane.refresh();
+		});
+//		Label minus = new Label("X");
+//		minus.setStyle("-fx-text-fill: black; -fx-font-size: 20");
+//		button.setGraphic(minus);
+
+		//button.setShape(new Circle());
+//		button.setText("X");
+//		button.getStyleClass().add("button-remove");
+		
+		BorderPane bpane = new BorderPane();
+		if (!myType.equals("Sprite") && !myType.equals("Position"))
+			bpane.setRight(button);
+		pane.setGraphic(bpane);
+		pane.setContentDisplay(ContentDisplay.RIGHT);
+		pane.applyCss();
+        pane.layout();
+		// title region
+//		Node titleRegion= pane.lookup(".title");
+//		// padding
+//		//Insets padding=((StackPane)titleRegion).getPadding();
+//		// image width
+//		double graphicWidth=button.getLayoutBounds().getWidth();
+//		// arrow
+//		double arrowWidth=titleRegion.lookup(".arrow-button").getLayoutBounds().getWidth();
+//		// text
+//		double labelWidth=titleRegion.lookup(".text").getLayoutBounds().getWidth();
+//
+//		double nodesWidth = graphicWidth+arrowWidth+labelWidth;
+        //bpane.setPrefWidth(150);
+		//bpane.prefWidthProperty().bind();
+		//pane.setOnMouseClicked(e -> Include());
 		return pane;
 	}
 

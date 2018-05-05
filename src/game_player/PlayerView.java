@@ -9,7 +9,9 @@ import game_engine.Component;
 import game_engine.Engine;
 import game_engine.Entity;
 import game_engine.Vector;
+import game_engine.components.HealthComponent;
 import game_engine.components.PrimeComponent;
+import game_engine.components.collect.ScoreComponent;
 import game_engine.components.position.XPosComponent;
 import game_engine.components.position.YPosComponent;
 import game_engine.components.sprite.FilenameComponent;
@@ -26,12 +28,14 @@ import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 /**
+ *
+ * @author Dana Park, Brandon Dalla Rosa
  * 
- * @author Dana Park Class that handles animations and updating of animations in game
+ *         Class that handles animations and updating of animations in game. Holds the game scene
+ *         which is visible to the user.
  *
  */
 public class PlayerView {
@@ -41,9 +45,11 @@ public class PlayerView {
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private static final double DOUBLE_RATE = 1.05;
 	private static final double HALF_RATE = 0.93;
+	private static final int[] SCORE_POS = { 500, 40 };
+	private static final int[] HEALTH_POS = { 500, 15 };
 
 	private Timeline animation;
-	private PulldownFactory pullDownFactory;
+	private DataConnect dataConnect;
 	private Engine myEngine;
 	private Map<Entity, Map<String, ImageView>> spriteMap;
 	private Group root;
@@ -52,38 +58,48 @@ public class PlayerView {
 	private ParallelCamera cam;
 	private DataManager dataManager;
 	private boolean notSet;
-	private Text score;
-	private Text health;
-	private Text highScore;
-	private Integer scoreData = 0;
-	private Integer healthData = 0;
-	private int highScoreData = 0;
+	private double scoreData = 0;
+	private double healthData = 0;
+	private double camInX;
+	private double camInY;
 
 	private Entity primary;
 
 	/**
 	 * @param pdf
 	 * @param engine
-	 * @param view constructor for PlayerView
+	 * @param view
+	 * 
+	 *        Constructor for PlayerView prior to initialization.
 	 *
 	 */
 	public PlayerView() {
 		// TODO something
 	}
 
+	/**
+	 * Method to initialize the class after creation.
+	 * 
+	 * @param storage
+	 */
 	public void initialize(InstanceStorage storage) {
-		pullDownFactory = storage.getPullDownFactory();
+		dataConnect = storage.getDataConnect();
 		viewManager = storage.getViewManager();
 		dataManager = storage.getDataManager();
 		notSet = true;
 	}
 
+	/**
+	 * Method called to set the current engine of the game level.
+	 * 
+	 * @param e
+	 */
 	public void setEngine(Engine e) {
 		this.myEngine = e;
 	}
 
 	/**
-	 * method that instantiates the scene with the camera for the game with all necessary sprites
+	 * method that instantiates the scene with the camera for the game with all necessary sprites.
 	 *
 	 */
 	public void instantiate() {
@@ -94,6 +110,8 @@ public class PlayerView {
 		scene.setOnKeyPressed(event -> myEngine.receiveKeyInput(event));
 		cam = new ParallelCamera();
 		subScene.setCamera(cam);
+		camInX = cam.getLayoutX();
+		camInY = cam.getLayoutY();
 		Level level = myEngine.getLevel();
 
 		spriteMap = new HashMap<>();
@@ -107,12 +125,15 @@ public class PlayerView {
 	}
 
 	/**
-	 * @param vm method that sets viewManager as the param
+	 * @param vm Method that sets viewManager as the parameter.
 	 */
 	public void setViewManager(ViewManager vm) {
 		viewManager = vm;
 	}
 
+	/**
+	 * Sets up the animation for the scene.
+	 */
 	private void animationFrame() {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		animation = new Timeline();
@@ -121,19 +142,32 @@ public class PlayerView {
 		animation.play();
 	}
 
+	/**
+	 * Called once per frame to update the scene.
+	 * 
+	 * @param delay
+	 */
 	private void step(double delay) {
 		primary = myEngine.getLevel().getEntitiesContaining(Arrays.asList(PrimeComponent.class)).get(0);
 		setGamePlayerOnce();
 		myEngine.update(delay);
 		render();
-		// scoreData = myEngine.getScore();
-		// healthData = myEngine.getHealth();
-		// highScoreData = myEngine.getHighScore();
-		score = viewManager.createText(5, 15, "Score: " + scoreData);
-		health = viewManager.createText(150, 15, "Health: " + healthData);
-		highScore = viewManager.createText(150, 40, "HighScore: " + highScoreData);
+		double x = cam.getLayoutX();
+		double y = cam.getLayoutY();
+		if(primary.getComponent(ScoreComponent.class)!=null) {
+			scoreData = primary.getComponent(ScoreComponent.class).getValue();
+			viewManager.createText(x + SCORE_POS[0] - camInX, y + SCORE_POS[1] - camInY, "Score: " + scoreData);
+		}
+		if(primary.getComponent(HealthComponent.class)!=null) {
+			healthData = primary.getComponent(HealthComponent.class).getValue();
+			viewManager.createText(x + HEALTH_POS[0] - camInX, y + HEALTH_POS[1] - camInY, "Health: " + healthData);
+		}
+		//viewManager.changeBackground();
 	}
 
+	/**
+	 * Method called to render the correct sprites onto the scene from the engine.
+	 */
 	private void render() {
 		root.getChildren().clear();
 
@@ -141,10 +175,16 @@ public class PlayerView {
 		Double yPos = primary.getComponent(YPosComponent.class).getValue();
 		cam.relocate(xPos - ViewManager.SUBSCENE_WIDTH / 2, yPos - ViewManager.SUBSCENE_HEIGHT / 2);
 
-		myEngine.getLevel().getEntities().stream().sorted(this::compareZ)
-				.forEach(this::display);
+		myEngine.getLevel().getEntities().stream().sorted(this::compareZ).forEach(this::display);
 	}
 
+	/**
+	 * Compares the layer of the entities for display.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	private int compareZ(Entity a, Entity b) {
 		Component<Double> zCompA = a.getComponent(ZHeightComponent.class);
 		Component<Double> zCompB = b.getComponent(ZHeightComponent.class);
@@ -153,6 +193,9 @@ public class PlayerView {
 		return zHeightA.compareTo(zHeightB);
 	}
 
+	/**
+	 * Used to provide the game player entity to the data manager.
+	 */
 	private void setGamePlayerOnce() {
 		if (notSet) {
 			notSet = false;
@@ -160,6 +203,11 @@ public class PlayerView {
 		}
 	}
 
+	/**
+	 * Method to recieve the mouse input from the scene.
+	 * 
+	 * @param imageView
+	 */
 	private void clickInput(ImageView imageView) {
 		double middleX = imageView.getX() + imageView.getFitWidth() / 2;
 		double middleY = imageView.getY() + imageView.getFitHeight() / 2;
@@ -167,6 +215,12 @@ public class PlayerView {
 		myEngine.receiveMouseInput(click);
 	}
 
+	/**
+	 * Method called to obtain the imageviews for the scene.
+	 * 
+	 * @param entity
+	 * @return
+	 */
 	private ImageView getImageView(Entity entity) {
 		String filename = entity.getComponent(FilenameComponent.class).getValue();
 		if (!spriteMap.containsKey(entity)) {
@@ -184,6 +238,11 @@ public class PlayerView {
 		return imageView;
 	}
 
+	/**
+	 * Method called to display the image of an entity correctly.
+	 * 
+	 * @param entity
+	 */
 	private void display(Entity entity) {
 		Double xPos = entity.getComponent(XPosComponent.class).getValue();
 		Double yPos = entity.getComponent(YPosComponent.class).getValue();
@@ -203,36 +262,32 @@ public class PlayerView {
 		if (polarity != null) {
 			imageView.setScaleX(Math.signum(polarity.getValue()));
 		}
-		root.getChildren().add(imageView);
+		if (! root.getChildren().contains(imageView))
+			root.getChildren().add(imageView);
 	}
 
 	/**
-	 * method that handles reactions when buttons are pressed on Menu. Ex: When Play button is pressed,
+	 * Method that handles reactions when buttons are pressed on Menu. Ex: When Play button is pressed,
 	 * the method will make the game play
 	 *
 	 */
 	public void handleUI(int index) {
+		// TODO Refactor and improve this code
 
 		if (index == 0) {
 			animation.stop();
-		}
-		if (index == 1) {
+		} else if (index == 1) {
 			animation.play();
-		}
-		if (index == 2) {
+		} else if (index == 2) {
 			animation.setRate(animation.getRate() * HALF_RATE);
-		}
-		if (index == 3) {
+		} else if (index == 3) {
 			animation.setRate(animation.getRate() * DOUBLE_RATE);
-		}
-		if (index == 4) {
-			pullDownFactory.handleReplay();
-		}
-		if (index == 5) {
-			pullDownFactory.handleSave();
-		}
-		if (index == 6) {
-			pullDownFactory.aboutGame();
+		} else if (index == 4) {
+			dataConnect.handleReplay();
+		} else if (index == 5) {
+			dataConnect.handleSave();
+		} else if (index == 6) {
+			dataConnect.aboutGame();
 		}
 	}
 

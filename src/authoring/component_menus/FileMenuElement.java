@@ -1,6 +1,7 @@
 package authoring.component_menus;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 import authoring.voogle.VoogleApp;
 import frontend_utilities.ButtonFactory;
@@ -25,6 +26,9 @@ public class FileMenuElement extends MenuElement<String>{
 	private VBox view;
 	private FileChooser fileChooser;
 	private TextField field;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public FileMenuElement(String s, Component component) {
 		super.setMyComponent(component);
 		this.title = s;
@@ -32,16 +36,24 @@ public class FileMenuElement extends MenuElement<String>{
 		field.setStyle("-fx-cursor: hand;");
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
-		field.setPrefHeight(10);
-		field.setPrefWidth(field.getText().length() * 10 + 20 );
+		field.setPrefHeight(AuthRes.getInt("FieldHSpacing"));
+		field.setPrefWidth(field.getText().length() 
+				* AuthRes.getInt("FieldMultiplier") 
+				+ AuthRes.getInt("FieldWSpacing"));
 		fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = new VBox();
-		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth")));
-		image = ImageBuilder.getImageView(field.getText(), 10, 10);
+		view.getChildren().add(ButtonFactory.makeReverseHBox(userNames.getString(title),
+				null, field, AuthRes.getInt("MenuElementWidth")));
+		image = ImageBuilder.getImageView(field.getText(), 
+				AuthRes.getInt("FMEImageSize"), 
+				AuthRes.getInt("FMEImageSize"));
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());
+		Tooltip tip = new Tooltip(tooltips.getString(title));
+		Tooltip.install(view, tip);
+
 	}
 
 	@Override
@@ -56,7 +68,7 @@ public class FileMenuElement extends MenuElement<String>{
 
 	@Override
 	public void setValue(Object o) {
-		field.setText("Hello");
+		field.setText(o.toString());
 	}
 
 	@Override
@@ -70,7 +82,9 @@ public class FileMenuElement extends MenuElement<String>{
 		field.setText(file.getName());
 		myComponent.setValue(field.getText());
 		//image = ImageBuilder.getImageView(field.getText(), 10, 10);
-		if (alert) myMenu.alert();
+		if (alert) {
+			myMenu.alert();
+		}
 	}
 	public void voogle(){
 		VoogleApp app = new VoogleApp(this);
@@ -106,8 +120,7 @@ public class FileMenuElement extends MenuElement<String>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue());
 		}
-		FileMenuElement element = new FileMenuElement(title, comp);
-		return element;
+		return new FileMenuElement(title, comp);
 	}
 
 }

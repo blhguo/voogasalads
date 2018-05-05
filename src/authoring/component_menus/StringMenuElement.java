@@ -5,8 +5,11 @@ import game_engine.Component;
 import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
+
+import java.util.ResourceBundle;
 
 /**
  * @author liampulsifer
@@ -16,6 +19,9 @@ public class StringMenuElement extends MenuElement<String>{
 	private TextField field;
 	private Node view;
 	private String title;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public StringMenuElement(String title, Component<String> component){
 		setMyComponent(component);
 		field = new TextField();
@@ -35,7 +41,21 @@ public class StringMenuElement extends MenuElement<String>{
 						updateComponent(KeyCode.ENTER, field.getText(), false);
 					}
 		});
-		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
+		try {
+			view = ButtonFactory.makeReverseHBox(userNames.getString(title), null, field,
+				AuthRes.getInt("MenuElementWidth"));
+		}
+		catch (Exception e){
+			view = ButtonFactory.makeReverseHBox(title, null, field,
+				AuthRes.getInt("MenuElementWidth"));
+		}
+		try {
+			Tooltip tip = new Tooltip(tooltips.getString(title));
+			Tooltip.install(view, tip);
+		}catch (Exception c){
+			
+		}
+		
 	}
 
 	/**
@@ -72,21 +92,21 @@ public class StringMenuElement extends MenuElement<String>{
 
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
-		if (code.equals(KeyCode.ENTER)) {
-			if (!text.equals("IMMUTABLE")) {
+		if (code.equals(KeyCode.ENTER) && !text.equals("IMMUTABLE")) {
 				myComponent.setValue(text);
-				if (alert) myMenu.alert();
+				if (alert) {
+					myMenu.alert();
+				}
 				System.out.println("Nice work, here's the new component value: " + myComponent.getValue());
 
 			}
-
-		}
 	}
 
 	@Override
 	public void setComponentValue() {
-		if (!field.getText().equals("IMMUTABLE"))
+		if (!field.getText().equals("IMMUTABLE")) {
 			myComponent.setValue(field.getText());
+		}
 	}
 	@Override
 	public StringMenuElement copy(){
@@ -99,7 +119,6 @@ public class StringMenuElement extends MenuElement<String>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue());
 		}
-		StringMenuElement element = new StringMenuElement(title, comp);
-		return element;
+		return new StringMenuElement(title, comp);
 	}
 }

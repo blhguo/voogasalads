@@ -36,7 +36,7 @@ public class CollidableMenu extends VBox  {
 		list.add(Boolean.toString(intersectable.isSelected()));
 		list.add(Boolean.toString(passable.isSelected()));
 		list.add(Boolean.toString(pushable.isSelected()));
-		return new CollidableComponent(new String());
+		return new CollidableComponent("");
 	}
 
 	public Node getNode(){

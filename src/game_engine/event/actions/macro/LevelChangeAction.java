@@ -24,6 +24,10 @@ public class LevelChangeAction implements Action{
 		myEngine = engine;
 		myChangeTo = levelNum;
 	}
+	public LevelChangeAction(Engine engine, double levelNum){
+		myEngine = engine;
+		myChangeTo = (int) levelNum;
+	}
 	
 	/**
 	 * sets the engine's level to that of the given level number

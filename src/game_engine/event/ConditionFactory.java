@@ -12,6 +12,7 @@ import game_engine.event.conditions.KeyboardInputCondition;
 import game_engine.event.conditions.MouseInputCondition;
 
 /**
+ * The purpose of this class is to provide the Authoring environment a way to create Conditions
  * @author Andy Nguyen, Kevin Deng, Jeremy Chen, Ben Hubsch
  *
  */

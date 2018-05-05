@@ -5,23 +5,34 @@ import game_engine.Component;
 import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
+
+import java.util.ResourceBundle;
 
 public class KeyMenuElement extends MenuElement<KeyCode>{
 	private Node view;
 	private String title;
 	private TextField field;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public KeyMenuElement(String title, Component<KeyCode> component){
 		setMyComponent(component);
 		field = new TextField();
 		field.setEditable(false);
 		field.setText(component.getValue().toString());
-		field.setPrefHeight(10);
-		field.setPrefWidth(field.getText().length() * 10 + 20 );
+		field.setPrefHeight(AuthRes.getInt("FieldHSpacing"));
+		field.setPrefWidth(field.getText().length() 
+				* AuthRes.getInt("FieldMultiplier") 
+				+ AuthRes.getInt("FieldWSpacing"));
 		this.title = title;
 		field.setOnKeyPressed(e -> updateComponent(e.getCode(), field.getText(), true));
-		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
+		view = ButtonFactory.makeReverseHBox(userNames.getString(title),
+				null, field, AuthRes.getInt("MenuElementWidth"));
+		Tooltip tip = new Tooltip(tooltips.getString(title));
+		Tooltip.install(view, tip);
 	}
 
 	@Override
@@ -47,7 +58,9 @@ public class KeyMenuElement extends MenuElement<KeyCode>{
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
 		field.setText(code.toString());
-		field.setPrefWidth(field.getText().length() * 10 + 20 );
+		field.setPrefWidth(field.getText().length() 
+				* AuthRes.getInt("FieldMultiplier") 
+				+ AuthRes.getInt("FieldWSpacing"));
 		myComponent.setValue(code);
 	}
 
@@ -67,7 +80,6 @@ public class KeyMenuElement extends MenuElement<KeyCode>{
 			comp = new ComponentFactory().createComponent(title, 
 					myComponent.getValue().toString());
 		}
-		KeyMenuElement element = new KeyMenuElement(title, comp);
-		return element;
+		return new KeyMenuElement(title, comp);
 	}
 }

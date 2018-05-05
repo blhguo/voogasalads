@@ -5,10 +5,7 @@ import java.util.List;
 import game_engine.Component;
 import game_engine.event.Condition;
 
-/**
- * @author Jeremy Chen
- *
- */
+
 public class ConditionFactory {
 
 	private ConditionFactory() {

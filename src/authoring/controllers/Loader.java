@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import authoring.Canvas;
 import authoring.right_components.LevelPane;
 import authoring.right_components.StoryBoardPane;
 import authoring.right_components.EntityComponent.EntityPane;
@@ -16,15 +15,13 @@ import game_engine.Entity;
 public class Loader {
 
 	private LevelController lcontroller;
-	private Canvas canvas;
 	private ManipData data;
 	private LevelPane levelp;
 	private MetaController mcontroller;
 	private StoryBoardPane storyp;
 	private EntityPane entityp;
 	
-	public Loader(Canvas c, LevelPane lp, StoryBoardPane story, EntityPane entity){
-		canvas = c;
+	public Loader(LevelPane lp, StoryBoardPane story, EntityPane entity){
 		data = new ManipData();
 		levelp = lp;
 		storyp = story;
@@ -60,6 +57,18 @@ public class Loader {
 	
 	public void setMetaController(MetaController mc){
 		mcontroller = mc;
+	}
+	
+	public EntityPane getEntityPane(){
+		return entityp;
+	}
+	
+	public LevelPane getLevelPane(){
+		return levelp;
+	}
+	
+	public StoryBoardPane getStoryPane(){
+		return storyp;
 	}
 	
 }
