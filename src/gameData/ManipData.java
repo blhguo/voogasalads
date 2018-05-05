@@ -84,23 +84,18 @@ public class ManipData {
 				file.createNewFile();
 			} catch (IOException e) {
 				throw new SaveDataException(e);
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
 			}
 		}
 		if (file.exists()) {
 			try {
 				FileOutputStream writer = new FileOutputStream(file);
-				//String saveData = serializer.toXML(engine);
 				writer.write("<?xml version=\"1.0\"?>".getBytes("UTF-8"));
 				writer.write(("<higher>").getBytes("UTF-8"));
 				saveEngine(engine, writer);
-				//saveSingleEntry(saveData, "", 0, false, writer);
 				writer.write(("</higher>").getBytes("UTF-8"));
 
 			} catch (IOException e) {
 				throw new SaveDataException(e);
-				//System.out.println("error creating file");
 			}
 		}
 	}
@@ -114,8 +109,6 @@ public class ManipData {
 			return openFile(load);
 		} catch (ParserConfigurationException e) {
 			throw new LoadDataException(e);
-			// TODO Auto-generated catch block
-//			e.printStackTrace(); //TODO
 		}
 		}
 	
@@ -152,17 +145,11 @@ public class ManipData {
 				}
 			} catch (SAXException e) {
 				throw new LoadDataException(e);
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
 			} catch (IOException e) {
 				throw new LoadDataException(e);
-				// TODO Auto-generated catch block
-//				e.printStackTrace();
 			}
 		} catch (ParserConfigurationException e) {
 			throw new LoadDataException(e);
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
 		}
 		
 		return metaMap;
@@ -201,7 +188,6 @@ public class ManipData {
 			writer.write(("</value"+Integer.toString(counter)+">").getBytes("UTF-8"));
 		} catch (Exception e) {
 			throw new SaveDataException(e);
-			//System.out.println("ERROR");
 		} 
 	}
 
@@ -232,17 +218,14 @@ public class ManipData {
 		}
 		catch(FileNotFoundException e) {
 			throw new SaveDataException(e);
-//			e.printStackTrace();
 		}
 		catch(IOException e) {
 			throw new SaveDataException(e);
-//			e.printStackTrace();
 		}
 		
 	}
 
 	private void saveEngine(Engine engine, FileOutputStream fos) throws SaveDataException {
-		//System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
 		try {
 			String xml = serializer.toXML(engine);
 			fos.write("<data>".getBytes("UTF-8"));
@@ -251,7 +234,6 @@ public class ManipData {
 		}
 		catch (IOException e) {
 			throw new SaveDataException(e);
-			//System.out.println("u dun goofed"); //TODO
 		}
 
 	}
@@ -264,7 +246,6 @@ public class ManipData {
 			}
 			catch (IOException e) {
 				throw new SaveDataException(e);
-//				e.printStackTrace();
 			}
 		}
 		try {
@@ -279,12 +260,10 @@ public class ManipData {
 			writer.write("</stuff>".getBytes("UTF-8"));
 		} catch (IOException e) {
 			throw new SaveDataException(e);
-			//System.out.println("error creating file");
 		}
 	}
 
 	private Engine openFile(File file) throws ParserConfigurationException, LoadDataException{
-		//System.out.println(file);
 		Engine lilGuy = new Engine();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -294,7 +273,6 @@ public class ManipData {
 		if (!fileType.equals(".xml")) {
 			System.out.println("You dun goofed");
 		};
-		//maybe a func to check that the file is an xml extension
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc;
@@ -308,20 +286,13 @@ public class ManipData {
 				Node nNode = nList.item(0);
 				Element eElement = (Element) nNode;			
 				String s = nodeToString(eElement.getElementsByTagName("data").item(0).getFirstChild());
-				//System.out.println(s);
 				lilGuy = (Engine) deserializer.fromXML(s);
-				//System.out.println(lilGuy);
 				return lilGuy;
 				
-				//System.out.println(output);
-
 			} catch (SAXException e) {
 				throw new LoadDataException(e);
-				//System.out.println("here1");
 			}
 		} catch (IOException e) {
-			//System.out.println("here2");
-
 			throw new LoadDataException(e);
 		}
 		
@@ -338,7 +309,6 @@ public class ManipData {
 			t.transform(new DOMSource(node), new StreamResult(sw));
 		} catch (TransformerException te) {
 			throw new LoadDataException(te);
-			//System.out.println("exception");
 		}
 		return sw.toString();
 	}
