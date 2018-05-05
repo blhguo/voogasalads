@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -53,7 +54,7 @@ public class ManipData {
 	 * This method will be the main method that the backend (Authoring) will call to save data
 	 * This method saves a "clean" game, not a game state. the other method signature represents the "game version", like a save file or a checkpoint to be reloaded
 	 */
-	public void saveData(Engine engine, String gameFolderName, String saveFileName, Map<String, String> metaMap, Map<String, String> ConfigMap) {
+	public void saveData(Engine engine, String gameFolderName, String saveFileName, Map<String, String> metaMap, Map<String, String> ConfigMap) throws SaveDataException {
 		saveData(engine, gameFolderName, saveFileName, false);
 
 		saveConfig(gameFolderName, ConfigMap, saveFileName);
@@ -64,7 +65,7 @@ public class ManipData {
 	 * This method will be the main method that the frontend (player) will call to save data
 	 * This method saves a "dirty" game, aka a game state or a game save file. 
 	 */
-	public void saveData(Engine engine, String gameName, String saveFileName, boolean isPlayer) {
+	public void saveData(Engine engine, String gameName, String saveFileName, boolean isPlayer) throws SaveDataException {
 		File file = new File("games/"+gameName);
 		if(!file.exists()) {
 			file.mkdirs();
@@ -82,6 +83,7 @@ public class ManipData {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
+				throw new SaveDataException(e);
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 			}
@@ -97,6 +99,7 @@ public class ManipData {
 				writer.write(("</higher>").getBytes("UTF-8"));
 
 			} catch (IOException e) {
+				throw new SaveDataException(e);
 				//System.out.println("error creating file");
 			}
 		}
@@ -105,18 +108,18 @@ public class ManipData {
 	 * This method will be the main method that the frontend (player) will call to save data
 	 * This method saves a "dirty" game, aka a game state or a game save file. 
 	 */
-	public Engine loadData(String filePath) {
+	public Engine loadData(String filePath) throws LoadDataException {
 		try {
 			File load = new File(filePath);
 			return openFile(load);
 		} catch (ParserConfigurationException e) {
+			throw new LoadDataException(e);
 			// TODO Auto-generated catch block
 //			e.printStackTrace(); //TODO
 		}
-		return null;
 		}
 	
-	public Map<String, String> openMeta(String filePath) {
+	public Map<String, String> openMeta(String filePath) throws LoadDataException {
 		
 		File file = new File(filePath);
 		
@@ -148,13 +151,16 @@ public class ManipData {
 					metaMap.put(keyArr[i], valArr[i]);
 				}
 			} catch (SAXException e) {
+				throw new LoadDataException(e);
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 			} catch (IOException e) {
+				throw new LoadDataException(e);
 				// TODO Auto-generated catch block
 //				e.printStackTrace();
 			}
 		} catch (ParserConfigurationException e) {
+			throw new LoadDataException(e);
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
 		}
@@ -181,7 +187,7 @@ public class ManipData {
 	 * no longer would need fos or xml
 	 * 
 	 */ 
-	private void saveSingleEntry(String input, String key, int counter, boolean meta, FileOutputStream writer) {
+	private void saveSingleEntry(String input, String key, int counter, boolean meta, FileOutputStream writer) throws SaveDataException {
 		try {
 			//if it is metadata, we need the key to map the values
 			if(meta) {
@@ -194,11 +200,12 @@ public class ManipData {
 			writer.write(input.getBytes("UTF-8"));
 			writer.write(("</value"+Integer.toString(counter)+">").getBytes("UTF-8"));
 		} catch (Exception e) {
+			throw new SaveDataException(e);
 			//System.out.println("ERROR");
 		} 
 	}
 
-	public void saveConfig(String configLoc, Map<String, String> configMap, String configName) {
+	public void saveConfig(String configLoc, Map<String, String> configMap, String configName) throws SaveDataException {
 		
 		File file = new File("games/"+configLoc);
 		if(!file.exists()) {
@@ -215,6 +222,7 @@ public class ManipData {
 			if (!file.exists()) {
 				try {file.createNewFile();}
 				catch (IOException e) {
+					throw new SaveDataException(e);
 				}
 				
 			}
@@ -223,15 +231,17 @@ public class ManipData {
 			fos.close();
 		}
 		catch(FileNotFoundException e) {
+			throw new SaveDataException(e);
 //			e.printStackTrace();
 		}
 		catch(IOException e) {
+			throw new SaveDataException(e);
 //			e.printStackTrace();
 		}
 		
 	}
 
-	private void saveEngine(Engine engine, FileOutputStream fos) {
+	private void saveEngine(Engine engine, FileOutputStream fos) throws SaveDataException {
 		//System.out.println("Beginning of serialization-engine");//println includes new line ya sily my bad
 		try {
 			String xml = serializer.toXML(engine);
@@ -239,19 +249,21 @@ public class ManipData {
 			fos.write(xml.getBytes("UTF-8"));
 			fos.write("</data>".getBytes("UTF-8"));
 		}
-		catch (Exception e) {
+		catch (IOException e) {
+			throw new SaveDataException(e);
 			//System.out.println("u dun goofed"); //TODO
 		}
 
 	}
 
-	private void saveMeta(String gameName, Map<String, String> metaMap) {
+	private void saveMeta(String gameName, Map<String, String> metaMap) throws SaveDataException {
 		File file = new File("games/" + gameName + "/metaData.xml");
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
 			}
 			catch (IOException e) {
+				throw new SaveDataException(e);
 //				e.printStackTrace();
 			}
 		}
@@ -266,12 +278,13 @@ public class ManipData {
 			}
 			writer.write("</stuff>".getBytes("UTF-8"));
 		} catch (IOException e) {
+			throw new SaveDataException(e);
 			//System.out.println("error creating file");
 		}
 	}
 
-	private Engine openFile(File file) throws ParserConfigurationException{
-		System.out.println("FILE: " + file);
+	private Engine openFile(File file) throws ParserConfigurationException, LoadDataException{
+		//System.out.println(file);
 		Engine lilGuy = new Engine();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -303,20 +316,20 @@ public class ManipData {
 				//System.out.println(output);
 
 			} catch (SAXException e) {
+				throw new LoadDataException(e);
 				//System.out.println("here1");
-				return lilGuy; //TODO
 			}
 		} catch (IOException e) {
 			//System.out.println("here2");
 
-			return lilGuy; //TODO
+			throw new LoadDataException(e);
 		}
 		
 	}
 
 	
 	
-	private String nodeToString(Node node) {
+	private String nodeToString(Node node) throws LoadDataException {
 		StringWriter sw = new StringWriter();
 		try {
 			Transformer t = TransformerFactory.newInstance().newTransformer();
@@ -324,6 +337,7 @@ public class ManipData {
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 			t.transform(new DOMSource(node), new StreamResult(sw));
 		} catch (TransformerException te) {
+			throw new LoadDataException(te);
 			//System.out.println("exception");
 		}
 		return sw.toString();
