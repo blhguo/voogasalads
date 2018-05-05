@@ -19,12 +19,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-<<<<<<< HEAD
 import javafx.scene.control.ScrollPane;
-=======
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
->>>>>>> 7211f18c759f09b01fb4cf624b4b4db9bb05e59f
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
