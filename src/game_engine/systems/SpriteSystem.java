@@ -11,7 +11,7 @@ import game_engine.components.sprite.SpritePolarityComponent;
 import game_engine.level.Level;
 
 /**
- * @author Jeremy Chen
+ * @author Jeremy Chen, Kevin Deng
  * The purpose of this class is to change the polarity (direction that the sprite is facing) of a given entity
  * depending on the sign of its x-velocity.
  */

@@ -10,7 +10,7 @@ import game_engine.level.Level;
 
 /**
  * 
- * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * @author Kevin Deng
  * The purpose of this system is to handle velocity changes in a particular direction. This allows
  * entities containing the respective velocity and acceleration components to be able to be accelerated.
  *
