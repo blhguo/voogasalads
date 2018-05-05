@@ -5,8 +5,11 @@ import game_engine.Component;
 import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
+
+import java.util.ResourceBundle;
 
 /**
  * @author liampulsifer
@@ -16,6 +19,10 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 	private CheckBox box;
 	private Node view;
 	private String title;
+	
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public BooleanMenuElement(String title, Component component) {
 		setMyComponent(component);
 		box = new CheckBox();
@@ -31,6 +38,10 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 		});
 		this.title = title;
 		view = ButtonFactory.makeReverseHBox(title, null, box, AuthRes.getInt("MenuElementWidth"));
+		view = ButtonFactory.makeReverseHBox(userNames.getString(title),
+				null, box, AuthRes.getInt("MenuElementWidth"));
+		Tooltip tip = new Tooltip(tooltips.getString(title));
+		Tooltip.install(view, tip);
 	}
 
 	/**

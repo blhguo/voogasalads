@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -100,13 +101,24 @@ public class EventPane extends BasePane {
 		viewEvents = new Pane();
 		VBox events = new VBox();
 		events.setSpacing(20);
-		events.getChildren().addAll(getPrettyList(eventList));
+
+		VBox box = new VBox();
+		box.getChildren().addAll(getPrettyList(eventList));
+		ScrollPane pane = new ScrollPane(box);
+		events.getChildren().add(pane);
 		System.out.println("Events + " + events.getChildren());
 		Button button = ButtonFactory.makeButton(e ->{
 			initStart();
 		});
 		HBox buttonBox = ButtonFactory.makeHBox("Back", null, button);
 		events.getChildren().add(buttonBox);
+
+		Button button2 = ButtonFactory.makeButton(e -> {
+			levelController.getEngine().getLevel().removeLastEvent();
+			eventList.remove(eventList.size() - 1);
+			initViewEvents();
+		});
+		events.getChildren().add(button2);
 		viewEvents.getChildren().add(events);
 	}
 	private VBox getPrettyList(List<Event> list){
