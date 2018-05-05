@@ -118,7 +118,10 @@ public class ComponentMenu extends VBox implements Comparable{
 		//this.getChildren().stream().forEach(item -> System.out.println(item));
 		TitledPane pane = new TitledPane(myType, this);
 		pane.setExpanded(false);
-		Button button = ButtonFactory.makeButton(e -> {
+//		Button button = ButtonFactory.makeButton(e -> {
+//			
+//		});
+		Button button = ButtonFactory.makeRemoveButton("x", e -> {
 			this.unInclude();
 //			System.out.println(myPane.getPureCurrent());
 //			System.out.println(myPane.getPureCurrent().getEntity());
@@ -130,8 +133,9 @@ public class ComponentMenu extends VBox implements Comparable{
 //		button.setGraphic(minus);
 
 		//button.setShape(new Circle());
-		button.getStyleClass().add("button-remove");
-		button.setText("X");
+//		button.setText("X");
+//		button.getStyleClass().add("button-remove");
+		
 		BorderPane bpane = new BorderPane();
 		if (!myType.equals("Sprite") && !myType.equals("Position"))
 			bpane.setRight(button);

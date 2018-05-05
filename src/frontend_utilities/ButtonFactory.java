@@ -102,6 +102,20 @@ public class ButtonFactory {
 		Button button = new Button("+");
 		return makeHBox(title, subtitle, button);
 	}
+	
+	public static Button makeIconButton(String title, ImageView iv, EventHandler<ActionEvent> handler){
+		Button b = new Button(title, iv);
+		b.setOnAction(handler);
+		b.getStyleClass().add("button-event");
+		return b;
+	}
+	
+	public static Button makeRemoveButton(String title, EventHandler<ActionEvent> handler){
+		Button b = new Button(title);
+		b.getStyleClass().add("button-remove");
+		b.setOnAction(handler);
+		return b;
+	}
 
 	/**
 	 * Defines a new button with a specified on-action behavior

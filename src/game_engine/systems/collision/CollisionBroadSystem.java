@@ -60,11 +60,7 @@ public class CollisionBroadSystem extends CollisionSystem {
 	@Override
 	public void act(double elapsedTime, Level level) {
 		List<Entity> collideableEntities = level.getEntitiesContaining(TARGET_COMPONENTS);
-		collideableEntities.forEach(entity -> entity.removeComponent(TopCollidedComponent.class));
-		collideableEntities.forEach(entity -> entity.removeComponent(LeftCollidedComponent.class));
-		collideableEntities.forEach(entity -> entity.removeComponent(BottomCollidedComponent.class));
-		collideableEntities.forEach(entity -> entity.removeComponent(RightCollidedComponent.class));
-
+		purgeCollidedComponents(collideableEntities);
 		for (int i = 0; i < collideableEntities.size(); i++) {
 			for (int j = 0; j < collideableEntities.size(); j++) {
 				if (i != j) {
@@ -74,7 +70,13 @@ public class CollisionBroadSystem extends CollisionSystem {
 				}
 			}
 		}
+	}
 
+	private void purgeCollidedComponents(List<Entity> collideableEntities){
+		collideableEntities.forEach(entity -> entity.removeComponent(TopCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(LeftCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(BottomCollidedComponent.class));
+		collideableEntities.forEach(entity -> entity.removeComponent(RightCollidedComponent.class));
 	}
 
 	/**
@@ -156,7 +158,7 @@ public class CollisionBroadSystem extends CollisionSystem {
 					collidedToAdd.add(l);
 				} else {
 					collidedToAdd.add(t);
-					collidedToAdd.add(t);
+					collidedToAdd.add(l);
 				}
 			} else if (top && right) {
 				double dx = Math.abs(xMin2 - xMax1);
