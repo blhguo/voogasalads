@@ -15,6 +15,11 @@ import game_engine.event.Condition;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
+/**
+ * This condition checks if a mouse click is located at the same spot as a specified coordinates
+ * @author Kevin D
+ *
+ */
 public class MouseInputCondition implements Condition {
 	
 	private static final Class<? extends Component<Double>> X_POS = XPosComponent.class;
