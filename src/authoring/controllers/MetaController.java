@@ -3,19 +3,21 @@ package authoring.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import gameData.Firebase;
 import gameData.ManipData;
 import resources.keys.AuthRes;
 
 public class MetaController {
 	
-	private ManipData data;
+	private Firebase data;
 	private LevelController lcontroller;
 	private String gameName;
 	private Map<String, String> printMap;
 	private Map<String, String> configMap;
 	
 	public MetaController(LevelController lc){
-		data = new ManipData();
+		data = new Firebase();
+		data.initListeners();
 		lcontroller = lc;
 		initMaps();
 	}
@@ -27,7 +29,7 @@ public class MetaController {
 		lcontroller.getEngine().getLevel().getEntities().stream().forEach(e -> System.out.println(e.getComponents()));
 		lcontroller.getEngine().setLevel(0);
 		//data.saveData(lcontroller.getEngine(), gameName, printMap);
-		data.saveData(lcontroller.getEngine(), gameName, gameName, printMap, configMap);
+		data.updateFirebase(lcontroller.getEngine(), gameName, gameName, printMap, configMap);
 	}
 	
 	public void setGameName(String name){

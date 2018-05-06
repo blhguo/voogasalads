@@ -24,6 +24,25 @@
                 <target>1.8</target>
             </configuration>
         </plugin>
+        <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <release>9</release>
+        </configuration>
+      </plugin>
     </plugins>
 </build>
+<dependencies>
+  	<dependency>
+  		<groupId>com.google.firebase</groupId>
+  		<artifactId>firebase-admin</artifactId>
+  		<version>5.11.0</version>
+  	</dependency>
+  	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-jdk14</artifactId>
+	    <version>1.7.25</version>
+	</dependency>
+  </dependencies>
 </project>

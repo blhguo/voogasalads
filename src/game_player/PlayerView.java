@@ -135,6 +135,9 @@ public class PlayerView {
 	 * Sets up the animation for the scene.
 	 */
 	private void animationFrame() {
+		if(animation != null){
+			animation.stop();
+		}
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
