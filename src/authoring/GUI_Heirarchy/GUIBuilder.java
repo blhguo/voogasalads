@@ -43,6 +43,10 @@ public abstract class GUIBuilder {
 		return scene;
 	}
 	
+	/**
+	 * Sets the background of a Pane to be the chosen background for the application
+	 * @param pane
+	 */
 	public void setBackground(Pane pane){
 		BackgroundImage back = new BackgroundImage(new Image("background.png"), BackgroundRepeat.NO_REPEAT, 
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);

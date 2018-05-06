@@ -32,7 +32,7 @@ import javafx.stage.FileChooser;
 import resources.keys.AuthRes;
 
 /**
- * @author Elizabeth Shulman
+ * @author Jennifer Chin
  * StoryboardPane that extends BasePane, which implements GUINode. This class allows 
  * users to rearrange levels and toggle overall game preferences
  */
@@ -46,6 +46,9 @@ public class StoryBoardPane extends BasePane {
 	private TextField author = new TextField();
 	private TextArea rules = new TextArea();
 
+	/**
+	 * Constructor that uses the BasePane constructor
+	 */
 	public StoryBoardPane() {
 		super();
 	}
@@ -101,6 +104,9 @@ public class StoryBoardPane extends BasePane {
 		return list;
 	}
 	
+	/**
+	 * Update method called by Loader to update visual aspects of Pane when a new game is loaded
+	 */
 	public void update(){
 		gameName.setText(mcontroller.getGameName());
 		author.setText(mcontroller.getPrintMap().get(AuthRes.getString("Author")));
@@ -159,14 +165,26 @@ public class StoryBoardPane extends BasePane {
 		return tp;
 	}
 	
+	/**
+	 * Sets LevelController of the class
+	 * @param lc
+	 */
 	public void setLevelController(LevelController lc){
 		lcontroller = lc;
 	}
 	
+	/**
+	 * Sets MetaController of the class
+	 * @param mc
+	 */
 	public void setMetaController(MetaController mc){
 		mcontroller = mc;
 	}
-	
+	 
+	/**
+	 * Sets PaneController of the class
+	 * @param pc
+	 */
 	public void setPaneController(PaneController pc){
 		pcontroller = pc;
 	}

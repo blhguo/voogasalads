@@ -34,7 +34,6 @@ import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
 /**
- * @author Elizabeth Shulman
  * @author Jennifer Chin
  * Level menu that extends BasePane, which implements GUINode. Gives the user the ability
  * to create a new Level and set properties for that level such as background image. 
@@ -49,6 +48,10 @@ public class LevelPane extends BasePane {
 	private CheckBox hscroll = new CheckBox();
 	private CheckBox vscroll = new CheckBox();
 	
+	/**
+	 * Constructor that takes in a stage to allow for Alerts to let the user remain in full screen
+	 * @param s
+	 */
 	public LevelPane(Stage s){
 		stage = s;
 	}
@@ -65,7 +68,7 @@ public class LevelPane extends BasePane {
 	}
 
 	/**
-	 * BasePane method that returns the buttons on this Pane
+	 * BasePane method that returns the buttons on this Pane. Calls controllers to update the proper panes accordingly
 	 * @return List<Node>
 	 */
 	@Override
@@ -83,7 +86,6 @@ public class LevelPane extends BasePane {
 			File file = initFileChooser("Choose Background Image");
 			String fname = file.getName();
 			controller.setBackground(fname);
-			// may need to add /images in front of image name
 			lcontroller.addComp(new LevelBackgroundComponent(fname));
 		});
 		list.add(ButtonFactory.makeHBox("Select Background", null, backButton));
@@ -111,6 +113,10 @@ public class LevelPane extends BasePane {
 
 	}
 	
+	/**
+	 * Update method called by buttons on LevelPane so that the other visual aspects of the Pane update in response. Also called by Loader to update the
+	 * LevelPane once a new game is chosen.
+	 */
 	@SuppressWarnings("unchecked")
 	public void update(){
 		String name = lcontroller.getEngine().getLevel().getComponent(LevelNameComponent.class).getValue();
@@ -177,12 +183,8 @@ public class LevelPane extends BasePane {
 		tp.setText("Choose Scrolling Direction");
 		
 		VBox checkBoxes = new VBox(AuthRes.getInt("Padding"));
-//		hscroll.setText("Toggle Horizontal Scrolling");
-//		hscroll.setAllowIndeterminate(false);
 		hscroll.setSelected(lcontroller.getEngine().getLevel().getComponent(LevelHScrollComponent.class).getValue());
 		scrollHelper(hscroll, "Toggle Horizontal Scrolling");
-//		vscroll.setText("Toggle Vertical Scrolling");
-//		vscroll.setAllowIndeterminate(false);
 		vscroll.setSelected(lcontroller.getEngine().getLevel().getComponent(LevelVScrollComponent.class).getValue());
 		scrollHelper(vscroll, "Toggle Vertical Scrolling");
 		hscroll.setOnMouseClicked(event -> {

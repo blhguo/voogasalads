@@ -285,3 +285,17 @@
 .titled-pane > .title > .arrow-button{
     -fx-fill: white;
 }
+
+.text-area {
+   -fx-font-family: segoeuil;
+   -fx-font-size: 20px;
+   -fx-text-fill: white;
+
+}
+
+.text-area .content {
+    -fx-text-alignment: center;
+    
+   -fx-background-image: url("background.png");
+   
+}

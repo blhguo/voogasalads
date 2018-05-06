@@ -54,6 +54,7 @@ public class ViewManager extends GUIBuilder{
 	private Pane mainHBox;
 	private AudioClip sound;
 	private DataConnect dataConnect;
+	private VBox order;
 	/**
 	 * Constructor for the view manager. Does not initialize immediately.
 	 * seen in the game player and organizes them efficiently.
@@ -112,7 +113,7 @@ public class ViewManager extends GUIBuilder{
 				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		center.setBackground(new Background(back));
 
-		VBox order = new VBox(20);
+		order = new VBox(20);
 
 		order.setAlignment(Pos.CENTER);
 		center.getChildren().add(order);
@@ -160,9 +161,9 @@ public class ViewManager extends GUIBuilder{
 		} catch ( Exception e){
 			im = new Image("mountain.png");
 		}
-			BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.REPEAT,
-				BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-		view.setBackground(new Background(back));
+			BackgroundImage back = new BackgroundImage(im, BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+		order.setBackground(new Background(back));
 	}
 
 

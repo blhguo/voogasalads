@@ -125,10 +125,8 @@ public class NavigationPane implements Subject, GUINode {
 					DirectoryChooser dc = new DirectoryChooser();
 					dc.setTitle("Choose Game to Load");
 					File file = dc.showDialog(null);
-					//File[] files = file.listFiles();
 					File gameFile = new File("games");
 					File metaFile = new File("games");
-
 						for (File f : file.listFiles()) {
 							if (!f.getName().contains("config.properties") && !f.getName().contains("metaData")) {
 								gameFile = f;
@@ -136,8 +134,6 @@ public class NavigationPane implements Subject, GUINode {
 								metaFile = f;
 							}
 						}
-
-
 					loader.loadGame(gameFile.getPath(), metaFile.getPath());
 				}, "button-nav");
 			}
@@ -151,7 +147,6 @@ public class NavigationPane implements Subject, GUINode {
 				}, "button-nav");
 			}
 			prefButtons.getChildren().add(b);
-			
 		}
 		prefButtons.setLayoutY(stage.getHeight()*4/5);
 		pane.getChildren().addAll(navOptions, prefButtons);

@@ -13,7 +13,7 @@ import java.util.List;
  * One example of a simple Event that a user could define is having a level change occur (Action) once Mario reaches a checkpoint (Condition).
  *
  */
-public class Event implements AuthorableEvent, PlayableEvent{
+public class Event implements AuthorableEvent, PlayableEvent {
 	private List<Action> myActions;
 	private List<Condition> myConditions;
 	/**
@@ -21,7 +21,7 @@ public class Event implements AuthorableEvent, PlayableEvent{
 	 * @param actions
 	 * @param conditions
 	 */
-	public Event(List<Action> actions, List<Condition> conditions){
+	public Event(List<Action> actions, List<Condition> conditions) {
 		myActions = actions;
 		myConditions = conditions;
 	}
@@ -29,7 +29,7 @@ public class Event implements AuthorableEvent, PlayableEvent{
 	/**
 	 * Instantiates an empty Event under the assumption that actions and conditions will get added dynamically during authoring
 	 */
-	public Event(){
+	public Event() {
 		myActions = new ArrayList<>();
 		myConditions = new ArrayList<>();
 	}

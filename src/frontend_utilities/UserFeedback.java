@@ -7,20 +7,41 @@ import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
 /**
- * @author jennychin
- * for alerts
+ * Used to standardize alerts across the front end. Methods take in a stage in order to display the alerts on the same stage and keep the user in fullscreen
+ * @author Jennifer Chin
  */
 
 public class UserFeedback {
 
+	/**
+	 * Creates an error Alert with given header and content
+	 * @param header
+	 * @param content
+	 * @param stage
+	 * @return
+	 */
 	public static Alert getErrorMessage(String header, String content, Stage stage){
 		return makeAlert(AlertType.ERROR, AuthRes.getString("ErrorTitle"), header, content, stage);
 	}
 	
+	/**
+	 * Creates an information Alert with given header and content
+	 * @param header
+	 * @param content
+	 * @param stage
+	 * @return
+	 */
 	public static Alert getInfoMessage(String header, String content, Stage stage){
 		return makeAlert(AlertType.INFORMATION, AuthRes.getString("InfoTitle"), header, content, stage);
 	}
 	
+	/**
+	 * Creates a warning Alert with given header and content
+	 * @param header
+	 * @param content
+	 * @param stage
+	 * @return
+	 */
 	public static Alert getWarningMessage(String header, String content, Stage stage){
 		Alert a = new Alert(AlertType.WARNING, content, ButtonType.CANCEL, ButtonType.OK);
 		a.setTitle(AuthRes.getString("WarningTitle"));
