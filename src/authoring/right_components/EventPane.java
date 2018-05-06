@@ -96,7 +96,7 @@ public class EventPane extends BasePane {
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-		addActionPane.add(buttonBox);
+//		addActionPane.add(buttonBox);
 	}
 
 	private void initViewEvents() {
@@ -150,7 +150,7 @@ public class EventPane extends BasePane {
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-		addConditionPane.add(buttonBox);
+//		addConditionPane.add(buttonBox);
 	}
 
 
@@ -236,7 +236,7 @@ public class EventPane extends BasePane {
 	
 		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
 		Button backBox = ButtonFactory.makeIconButton("Back", iv, e -> {
-			clearAndAdd(newEvent);
+			initStart();
 		});
 		eventBox.getChildren().add(backBox);
 		newEvent.getChildren().add(eventBox);
