@@ -90,9 +90,20 @@ public class AddConditionPane extends Pane implements GUINode {
 		actionBox.getChildren().add(comboBoxView);
 		myPane.getChildren().add(actionBox);
 	}
+
+	/**
+	 * Sets the level controller
+	 * @param controller - level controller
+	 */
 	public void setLevelController(LevelController controller){
 		this.levelController = controller;
 	}
+
+	/**
+	 * Updates the comboBox indicating which condition to select with all the
+	 * new input fields required
+	 * @param newValue
+	 */
 	private void updateComboBoxView(String newValue) {
 		compList = new ArrayList<>();
 		comboBoxView.getChildren().clear();
@@ -153,24 +164,21 @@ public class AddConditionPane extends Pane implements GUINode {
 		comboBoxView.getChildren().add(reset);
 		System.out.println("Level Controller is " + levelController);
 		Button addComponent = ButtonFactory.makeIconButton("+ Add Condition to Event", null, e -> {
-//			System.out.println("Current event: " + eventPane.getCurrentEvent());
-//			System.out.println("New Value: " + newValue);
-//			System.out.println("EntityArray: " + entityArray);
-//			System.out.println("MenuElements: " + menuElements);
 			eventPane.getCurrentEvent().addCondition(newCondition(
 				newValue, Arrays.asList(entityArray),
 				compList,
 				menuElements.stream().map(c -> c.getValue()).distinct().collect(Collectors.toList()),
 				levelController.getEngine()));
-			eventPane.getCurrentEvent().getConditions().stream().forEach(a -> System.out.println("Conditions: " + a));
 			Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddCondHeader"), AuthRes.getString("AddCondContent"), stage);
 			a.showAndWait();
 		});
-//		HBox addCompBox = ButtonFactory.makeHBox("Add Condition to Event",
-//				null,
-//				addComponent);
 		comboBoxView.getChildren().add(addComponent);
 	}
+
+	/**
+	 * Adds an entity icon to the entityBox to display which entities are selected to add conditions to
+	 * @param wrapper
+	 */
 	public void addToEntityBox(EntityWrapper wrapper){
 		if (selected) {
 			entityBox.getChildren().stream().forEach(e -> System.out.println(e));
@@ -178,7 +186,7 @@ public class AddConditionPane extends Pane implements GUINode {
 				if (entityArray[i] == null) {
 					entityArray[i] = wrapper.getEntity();
 					if (!entityBox.getChildren().contains(wrapper.getDummy())) {
-						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
+						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resize(new ImageView(wrapper.getDummy().
 								getImage()), 50));
 					}
 					entityBox.getChildren().get(2 * i + 1).resize(50, 50);
@@ -190,6 +198,12 @@ public class AddConditionPane extends Pane implements GUINode {
 			System.out.println("No focus -- Add Condition Pane");
 		}
 	}
+
+	/**
+	 * attempts to add a component class to the class list
+	 * Prints the string it tried if it fails
+	 * @param s
+	 */
 	private void tryAdd(String s){
 		String actual = translateFriendly(s);
 		if (s != null) {
@@ -205,7 +219,12 @@ public class AddConditionPane extends Pane implements GUINode {
 			}
 		}
 	}
-	
+
+	/**
+	 *
+	 * @param s a user-friendly component string
+	 * @return the original string
+	 */
 	private String translateFriendly(String s) {
 		ResourceBundle friendly = ResourceBundle.getBundle("UserFriendlyNames");
 		for (String current : friendly.keySet()) {
@@ -215,7 +234,16 @@ public class AddConditionPane extends Pane implements GUINode {
 		}
 		return "";
 	}
-	
+
+	/**
+	 * Gets a new condition from the condition factory
+	 * @param s -- name of the condition
+	 * @param entities -- list of entities to be used
+	 * @param components -- list of component classes to be used
+	 * @param args -- list of string arguments
+	 * @param engine -- Engine
+	 * @return
+	 */
 	private Condition newCondition(String s, List<Entity> entities, List<Class<Component<?>>> components,
 	                               List<String> args, Engine engine ) {
 		System.out.println("String: " + s);
@@ -234,10 +262,19 @@ public class AddConditionPane extends Pane implements GUINode {
 		return myPane;
 	}
 
+	/**
+	 * Adds a node to the main VBox of this class
+	 * @param node
+	 */
 	public void add(Node node){
 		actionBox.getChildren().add(node);
 	}
 
+	/**
+	 * Sets the selected variable (which decides if this pane is selected for the purpose
+	 * of user clicks on the Event Pane
+	 * @param selected
+	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}

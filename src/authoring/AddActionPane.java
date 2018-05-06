@@ -101,9 +101,19 @@ public class AddActionPane extends Pane implements GUINode {
 		actionBox.getChildren().add(comboBoxView);
 		myPane.getChildren().add(actionBox);	
 	}
+
+	/**
+	 * Sets the level controller
+	 * @param controller -- Level Controller
+	 */
 	public void setLevelController(LevelController controller){
 		this.levelController = controller;
 	}
+
+	/**
+	 * Updates all of the input fields for the chosen new type of action to be added
+	 * @param newValue -- The new value for the desired type of action to be added
+	 */
 	private void updateComboBoxView(String newValue) {
 		comboBoxView.getChildren().clear();
 		numberElements.clear();
@@ -231,7 +241,6 @@ public class AddActionPane extends Pane implements GUINode {
 						createAlert();	
 					} catch (Exception a){
 						createError();
-//						a.printStackTrace();
 						System.out.println("Sorry, class machine broke");
 
 					}
@@ -239,30 +248,36 @@ public class AddActionPane extends Pane implements GUINode {
 				comboBoxView.getChildren().add(createButton);
 				break;
 		}
-//		Button reset = ButtonFactory.makeButton(e -> updateComboBoxView(newValue));
-//		reset.setText("Reset");
-//		reset.setAlignment(Pos.CENTER);
 		ImageView iv = ImageBuilder.resize(new ImageView(new Image("game_player_resources/replay.png")), 20);
 		Button reset = ButtonFactory.makeIconButton("Reset", iv, e -> updateComboBoxView(newValue));
 		comboBoxView.getChildren().add(reset);
 
 	}
-	
+
+	/**
+	 * Alerts the user that they've successfully added an action
+	 */
 	private void createAlert(){
 		Alert a = UserFeedback.getInfoMessage(AuthRes.getString("AddActionHeader"), AuthRes.getString("AddActionContent"), stage);
 		a.showAndWait();
 	}
-	
+
+	/**
+	 * Creates a user error message
+	 */
 	private void createError(){
 		Alert a = UserFeedback.getErrorMessage(AuthRes.getString("ActionErrorHeader"), AuthRes.getString("ActionErrorContent"), stage);
 		a.showAndWait();
 	}
-
+	@Deprecated
 	public void newAction(){
 
 	}
 
-
+	/**
+	 * Allows the user to click on an entity and select it for use in the action
+	 * @return an HBox with an entity input field
+	 */
 	public Node getEntityInput(){
 		System.out.println("Got entity input");
 		numEntities = 1;
@@ -281,6 +296,11 @@ public class AddActionPane extends Pane implements GUINode {
 		}
 		return entityBox;
 	}
+
+	/**
+	 * Allows a user to select a class name for use in the action
+	 * @return a new VBox with a class input comboBox
+	 */
 	public Node getClassInput(){
 		int numComponents = 1;
 		VBox box = new VBox();
@@ -294,6 +314,11 @@ public class AddActionPane extends Pane implements GUINode {
 		}
 		return box;
 	}
+
+	/**
+	 * Gets user expression input (i.e. +, -, *, etc)
+	 * @return a ComboBox with the desired expressions
+	 */
 	public Node getExpressionInput(){
 		VBox box = new VBox();
 		ObservableList<String> data = FXCollections.observableArrayList("+", "-", "*", "/", "%");
@@ -306,6 +331,11 @@ public class AddActionPane extends Pane implements GUINode {
 		
 		return box;
 	}
+
+	/**
+	 * Gets user string input
+	 * @return a VBox with a string menu element
+	 */
 	public Node getStringInput(){
 		numExpressions = 1;
 		VBox box = new VBox();
@@ -316,6 +346,11 @@ public class AddActionPane extends Pane implements GUINode {
 		}
 		return box;
 	}
+
+	/**
+	 * Gets user Double input
+	 * @return - a VBox with a double input field
+	 */
 	public Node getDoubleInput(){
 		numExpressions = 1;
 		VBox box = new VBox();
@@ -336,7 +371,7 @@ public class AddActionPane extends Pane implements GUINode {
 				if (entityArray[i] == null) {
 					entityArray[i] = wrapper.getEntity();
 					if (!entityBox.getChildren().contains(wrapper.getDummy())) {
-						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resizeReturn(new ImageView(wrapper.getDummy().
+						entityBox.getChildren().set(2 * i + 1, ImageBuilder.resize(new ImageView(wrapper.getDummy().
 								getImage()), 50));
 					}
 					entityBox.getChildren().get(2 * i + 1).resize(50, 50);
@@ -348,15 +383,26 @@ public class AddActionPane extends Pane implements GUINode {
 			System.out.println("No focus -- Add Action Pane");
 		}
 	}
+
+	/**
+	 * @return the pane view
+	 */
 	@Override
 	public Pane getView() {
 		return myPane;
 	}
 
+	/**
+	 * @param node -- a node to be added to this pane's main VBox
+	 */
 	public void add(Node node){
 		actionBox.getChildren().add(node);
 	}
 
+	/**
+	 * Sets selected (for use in the addEvent pane)
+	 * @param selected
+	 */
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
