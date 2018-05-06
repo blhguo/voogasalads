@@ -17,9 +17,7 @@ import resources.keys.AuthRes;
 
 /**
  * @author Elizabeth Shulman
- * @author Jennifer Chin
- * Top toolbar class that contains a back button to allow the user to get back to the 
- * splash screen 
+ * Top toolbar class that allows for changes to the view of the JavaFX stage
  */
 
 public class Toolbar implements GUINode {
@@ -42,24 +40,6 @@ public class Toolbar implements GUINode {
 		myNode.getStyleClass().add("toolbar");
 	}
 
-	private Button makeFullScreenButton() {
-		return ButtonFactory.makeButton(null,
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("full"))), 
-						AuthRes.getInt("ToolbarButton")),
-				e -> {
-					stage.setFullScreen(!stage.isFullScreen());
-				}, "button-nav");
-	}
-	
-	private Button makeBackButton() {
-		return ButtonFactory.makeButton(null, 
-				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 
-						AuthRes.getInt("ToolbarButton")),
-				e -> {
-					stage.getScene().setRoot(new SplashScreen(stage).display());
-				}, "button-nav");
-	}
-
 	/**
 	 * Method inherited from GUINode; returns myNode, the core Toolbar node.
 	 * Note the method integrateToolbar(Pane basepane), which allows a user
@@ -79,6 +59,30 @@ public class Toolbar implements GUINode {
 		myNode.setPickOnBounds(false);
 		return new StackPane(basepane, myNode);
 	}
+	
+	/**
+	 * Calls ButtonFactory to instantiate a button enabling the stage to enter 
+	 * and exit fullscreen
+	 */
+	private Button makeFullScreenButton() {
+		return ButtonFactory.makeButton(null,
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("full"))), 
+						AuthRes.getInt("ToolbarButton")),
+				e -> {
+					stage.setFullScreen(!stage.isFullScreen());
+				}, "button-nav");
+	}
+	
+	/**
+	 * Calls ButtonFactory to instantiate a button enabling the user to move
+	 * back to the SplashScreen
+	 */
+	private Button makeBackButton() {
+		return ButtonFactory.makeButton(null, 
+				ImageBuilder.resize(new ImageView(new Image(AuthRes.getString("back"))), 
+						AuthRes.getInt("ToolbarButton")),
+				e -> {
+					stage.getScene().setRoot(new SplashScreen(stage).display());
+				}, "button-nav");
+	}
 }
-
-
