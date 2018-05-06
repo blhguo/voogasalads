@@ -32,10 +32,7 @@ public class PaneController {
 			canvas.updateBackground(im);
 		}
 	}
-	
-//	private void setCanvasLevel(int id){
-//		canvas.setLevel(id);
-//	}
+
 	
 	public void updateCanvas(){
 		canvas.update(econtroller.getEntities());

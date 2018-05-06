@@ -19,7 +19,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
-
+/**
+ * @author Liam Pulsifer
+ * A menu element for getting file input
+ */
 public class FileMenuElement extends MenuElement<String>{
 	private final String title;
 	private ImageView image;

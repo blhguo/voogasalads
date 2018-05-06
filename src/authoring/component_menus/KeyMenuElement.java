@@ -11,6 +11,10 @@ import resources.keys.AuthRes;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Liam Pulsifer
+ * A menu element for getting KeyCode input
+ */
 public class KeyMenuElement extends MenuElement<KeyCode>{
 	private Node view;
 	private String title;

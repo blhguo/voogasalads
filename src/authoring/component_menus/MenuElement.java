@@ -9,6 +9,8 @@ import javafx.scene.input.KeyCode;
  * @author liampulsifer
  * Defines an Element of a ComponentMenu
  * Which creates an input field of the correct type based on a Component's parameters
+ * Also maps to a Component
+ * and updates that Component's values
  */
 public abstract class MenuElement<T>{
 	protected ComponentMenu myMenu;

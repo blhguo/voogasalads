@@ -42,6 +42,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
+/**
+ * @author Liam Pulsifer
+ * A pane for adding conditions to an event
+ */
+
 public class AddConditionPane extends Pane implements GUINode {
 	private static final ResourceBundle conditions = ResourceBundle.getBundle("resources.keys/Conditions");
 	private LevelController levelController;

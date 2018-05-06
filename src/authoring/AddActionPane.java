@@ -50,6 +50,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
+/**
+ * @author Liam Pulsifer
+ * A pane for adding actions to an event
+ *
+ */
 public class AddActionPane extends Pane implements GUINode {
 	private static final ResourceBundle actions = ResourceBundle.getBundle("resources.keys/Actions");
 	private static final ResourceBundle components = ResourceBundle.getBundle("Component");
@@ -104,11 +109,7 @@ public class AddActionPane extends Pane implements GUINode {
 		numberElements.clear();
 		stringElements.clear();
 
-//		String[] array = actions.getString(newValue).split(",");
-//		numEntities = Integer.parseInt(array[0]);
-//		numComponents = Integer.parseInt(array[1]);
-//		numExpressions = Integer.parseInt(array[2]);
-//		numValue = Integer.parseInt(array[3]);
+
 		Button createButton;
 		switch(newValue){
 

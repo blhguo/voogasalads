@@ -118,23 +118,11 @@ public class ComponentMenu extends VBox implements Comparable{
 		//this.getChildren().stream().forEach(item -> System.out.println(item));
 		TitledPane pane = new TitledPane(myType, this);
 		pane.setExpanded(false);
-//		Button button = ButtonFactory.makeButton(e -> {
-//			
-//		});
 		Button button = ButtonFactory.makeRemoveButton("x", e -> {
 			this.unInclude();
-//			System.out.println(myPane.getPureCurrent());
-//			System.out.println(myPane.getPureCurrent().getEntity());
 			myPane.getPureCurrent().addAllComponents(myPane.getPureCurrent().getEntity());
 			myPane.refresh();
 		});
-//		Label minus = new Label("X");
-//		minus.setStyle("-fx-text-fill: black; -fx-font-size: 20");
-//		button.setGraphic(minus);
-
-		//button.setShape(new Circle());
-//		button.setText("X");
-//		button.getStyleClass().add("button-remove");
 		
 		BorderPane bpane = new BorderPane();
 		if (!myType.equals("Sprite") && !myType.equals("Position"))
@@ -143,21 +131,6 @@ public class ComponentMenu extends VBox implements Comparable{
 		pane.setContentDisplay(ContentDisplay.RIGHT);
 		pane.applyCss();
         pane.layout();
-		// title region
-//		Node titleRegion= pane.lookup(".title");
-//		// padding
-//		//Insets padding=((StackPane)titleRegion).getPadding();
-//		// image width
-//		double graphicWidth=button.getLayoutBounds().getWidth();
-//		// arrow
-//		double arrowWidth=titleRegion.lookup(".arrow-button").getLayoutBounds().getWidth();
-//		// text
-//		double labelWidth=titleRegion.lookup(".text").getLayoutBounds().getWidth();
-//
-//		double nodesWidth = graphicWidth+arrowWidth+labelWidth;
-        //bpane.setPrefWidth(150);
-		//bpane.prefWidthProperty().bind();
-		//pane.setOnMouseClicked(e -> Include());
 		return pane;
 	}
 

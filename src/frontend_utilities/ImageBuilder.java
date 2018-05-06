@@ -71,10 +71,5 @@ public class ImageBuilder {
         view.setFitWidth(size);
         return view;
     }
-
-	public static ImageView resizeReturn(ImageView imageView, int size) {
-		ImageView view = resize(imageView, size);
-		return view;
-	}
     
 }

@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 /**
  * @author liampulsifer
- * Boolean checkbox input element
+ * Boolean checkbox input element. This element contains a box
  */
 public class BooleanMenuElement extends MenuElement<Boolean>{
 	private CheckBox box;
@@ -62,6 +62,10 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 		return Boolean.toString(box.isSelected())   ;
 	}
 
+	/**
+	 * Sets the value of the checkbox to the boolean value of the object passed
+	 * @param o
+	 */
 	@Override
 	public void setValue(Object o) {
 		box.setSelected(Boolean.parseBoolean(o.toString()));
@@ -76,6 +80,13 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 		return title;
 	}
 
+	/**
+	 * Updates the value of the component
+	 *
+	 * @param code -- takes in KeyCode input from user, enter triggers method behavior
+	 * @param text -- the new value of the component
+	 * @param alert -- whether the update should alert the EventPane to refresh
+	 */
 	@Override
 	public void updateComponent(KeyCode code, String text, boolean alert) {
 		if (code.equals(KeyCode.ENTER)) {
@@ -91,11 +102,18 @@ public class BooleanMenuElement extends MenuElement<Boolean>{
 		}
 	}
 
+	/**
+	 * maintains consistency between the checkbox and the component values
+	 */
 	@Override
 	public void setComponentValue() {
 		myComponent.setValue(box.isSelected());
 	}
 
+	/**
+	 *
+	 * @return a deep copy of this Menu Element
+	 */
 	@Override
 	public BooleanMenuElement copy(){
 		Component comp;

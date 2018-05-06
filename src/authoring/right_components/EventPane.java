@@ -19,12 +19,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-<<<<<<< HEAD
 import javafx.scene.control.ScrollPane;
-=======
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
->>>>>>> 7211f18c759f09b01fb4cf624b4b4db9bb05e59f
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -100,7 +97,6 @@ public class EventPane extends BasePane {
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-		//addActionPane.add(buttonBox);
 	}
 
 	private void initViewEvents() {
@@ -129,18 +125,10 @@ public class EventPane extends BasePane {
 	}
 	private VBox getPrettyList(List<Event> list){
 		VBox labelList = new VBox();
-		//box.setSpacing(10);
 		for (Event element : list){
 			VBox box = new VBox(AuthRes.getInt("Padding"));
 			box.setPrefWidth(300);
-			//box.setStyle("-fx-border-width: 2px; -fx-border-color: blue");
-			//Label eventLabel = new Label("Event:");
-			//eventLabel.setStyle("-fx-background-color: blue;");
-//			eventLabel.getStyleClass().add("event-label");
-//			box.getChildren().add(eventLabel);
-
 			Label conditionLabel = new Label("Conditions:");
-			//conditionLabel.setStyle("-fx-background-color: lightblue");
 			conditionLabel.getStyleClass().add("event-label");
 			box.getChildren().add(conditionLabel);
 
@@ -151,7 +139,6 @@ public class EventPane extends BasePane {
 			}
 
 			Label actionLabel = new Label("Actions:");
-			//actionLabel.setStyle("-fx-background-color: lightblue;");
 			actionLabel.getStyleClass().add("event-label");
 			box.getChildren().add(actionLabel);
 
@@ -171,7 +158,6 @@ public class EventPane extends BasePane {
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-		//addConditionPane.add(buttonBox);
 	}
 
 
@@ -235,9 +221,6 @@ public class EventPane extends BasePane {
 				null, condition);
 		HBox actionBox = ButtonFactory.makeHBox("Add a new Action", 
 				null, action);
-		//eventBox.getChildren().addAll(conditionBox, actionBox);
-		//initAddAction();
-		//initAddCondition();
 		addConditionPane.setLevelController(levelController);
 		addActionPane.setLevelController(levelController);
 		eventBox.getChildren().add(addCondition);
