@@ -12,18 +12,36 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
+/**
+ * Extends BaseLoader. Creates the Pane that allows the user to visually select a game to load into the Authoring Environment (instead of choosing from a 
+ * FileChooser. 
+ * @author Jennifer Chin
+ *
+ */
+
 public class AuthoringLoader extends BaseLoader {
 
+	/**
+	 * Constructor that takes in a stage.
+	 * @param stage
+	 */
 	public AuthoringLoader(Stage stage) {
 		super(stage);
 	}
 
+	/**
+	 * GUIGridPane Super method. Adds a specific title to the Pane and calles BaseLoader methods.
+	 */
 	@Override
 	public Pane finishScene(GridPane gridpane) {
 		addTitle(gridpane, AuthRes.getString("Edit"));
 		return addCoreFinishingElements(gridpane);
 	}
 
+	/**
+	 * BaseLaoder method. Updates the pane with a gallery view of created games. When one of the thumbnail buttons is clicked, the Authoring Environment
+	 * is loaded with that particular game. Each button calls ManipData method loadGame and updates the Authoring Environment
+	 */
 	@Override
 	public void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo) {
 		int gameCount = 0;
@@ -46,7 +64,6 @@ public class AuthoringLoader extends BaseLoader {
 			vb.getChildren().add(row);
 			gameCount++;
 		}
-		//System.out.println("HEIGHT: " + myStage.getHeight());
 	}
 	
 }

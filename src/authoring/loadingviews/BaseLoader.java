@@ -35,6 +35,7 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 	/**
 	 * Constructor that takes in a Stage in order to change the scene of the stage to 
 	 * the GameChooserScreen
+	 * Instantiates an Authoring Environment object and a ManipData object to load the game and properly update the Authoring Environment
 	 * @param stage
 	 */
 	public BaseLoader(Stage stage){
@@ -46,7 +47,8 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 
 	/**
 	 * Builds the basic view for the GameChooser screen, factoring out all the common elements
-	 * between the Load Game for Play view and the Load Game for Edit view
+	 * between the Load Game for Play view and the Load Game for Edit view. 
+	 * Creates an ArrayList<Map<String, String>> where each Map has the name, thumbnail image path, game file path, and meta data file path for a game. 
 	 * @param gridpane
 	 */
 	public Pane addCoreFinishingElements(GridPane gridpane) {
@@ -109,6 +111,15 @@ public abstract class BaseLoader extends GUIGridPaneSuper {
 		}
 	}
 	
+	/**
+	 * Called by addCoreFinishingElements() to create thumbnail buttons. Abstract because ideally BaseLoader would have been extended by 2 classes:
+	 * AuthoringLoader and PlayerLoader. Therefore, this method would have had to create 2 different types of buttons. For AuthoringLoder, each 
+	 * thumbnail button would have loaded the authoring environment with an existing game, and for PlayerLoader, each thumbnail button would have loaded
+	 * Player with an existing. Unfortunately, we did not get around to implementing PlayerLoader, but keeping this method abstract allows us to add
+	 * that class/feature in the future easily.
+	 * @param vb
+	 * @param gameInfo
+	 */
 	public abstract void buildThumbnails(VBox vb, List<Map<String, String>> gameInfo);
 
 }
