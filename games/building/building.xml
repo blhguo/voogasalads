@@ -5,6 +5,18 @@
       <game__engine.level.Level>
         <myComponents>
           <entry>
+            <java-class>game_engine.level.LevelThumbComponent</java-class>
+            <game__engine.level.LevelThumbComponent>
+              <myValue class="string">cat.jpg</myValue>
+            </game__engine.level.LevelThumbComponent>
+          </entry>
+          <entry>
+            <java-class>game_engine.level.LevelVScrollComponent</java-class>
+            <game__engine.level.LevelVScrollComponent>
+              <myValue class="boolean">true</myValue>
+            </game__engine.level.LevelVScrollComponent>
+          </entry>
+          <entry>
             <java-class>game_engine.level.LevelHScrollComponent</java-class>
             <game__engine.level.LevelHScrollComponent>
               <myValue class="boolean">true</myValue>
@@ -17,22 +29,10 @@
             </game__engine.level.LevelNameComponent>
           </entry>
           <entry>
-            <java-class>game_engine.level.LevelVScrollComponent</java-class>
-            <game__engine.level.LevelVScrollComponent>
-              <myValue class="boolean">true</myValue>
-            </game__engine.level.LevelVScrollComponent>
-          </entry>
-          <entry>
             <java-class>game_engine.level.LevelBackgroundComponent</java-class>
             <game__engine.level.LevelBackgroundComponent>
               <myValue class="string">cat.jpg</myValue>
             </game__engine.level.LevelBackgroundComponent>
-          </entry>
-          <entry>
-            <java-class>game_engine.level.LevelThumbComponent</java-class>
-            <game__engine.level.LevelThumbComponent>
-              <myValue class="string">cat.jpg</myValue>
-            </game__engine.level.LevelThumbComponent>
           </entry>
         </myComponents>
         <myEntities/>

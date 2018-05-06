@@ -74,6 +74,7 @@ public class EntityPane extends BasePane{
 		HBox box = new HBox();
 		box.setSpacing(AuthRes.getInt("HBPadding"));
 		for (String key : bundle.keySet()){
+			System.out.println("KEY: " + key);
 			Button def = ButtonFactory.makeButton(e -> {
 				//newWrapper();
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));

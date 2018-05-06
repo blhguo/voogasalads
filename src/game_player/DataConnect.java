@@ -88,9 +88,10 @@ public class DataConnect implements ImportData {
 		if(file==null) {
 			return;
 		}
-		replayPath = file;
-		gameEngine = manipData.loadData(file.getAbsolutePath());
+		replayPath = file;		
 		viewManager.changeBackground();
+
+		gameEngine = manipData.loadData(file.getAbsolutePath());
 		playerView.setEngine(gameEngine);
 		dataManager.setGameEngine(gameEngine);
 		playerView.instantiate();
@@ -102,7 +103,7 @@ public class DataConnect implements ImportData {
 	 */
 	public void aboutGame() {
 		test.put("Vooga", "Salad");
-		test.put("Year", "2019");
+		test.put("Year", "2018");
 		test.put("Call Us", "Salad");
 		TextArea text = new TextArea();
 		String string = new String();
@@ -110,7 +111,6 @@ public class DataConnect implements ImportData {
 		aboutGameStage = new Stage();
 		aboutGameScene = new Scene(aboutGameBox);
 
-		aboutGameScene.getStylesheets().add(getClass().getResource("/main/aesthetic.css").toString());
 
 		aboutGameStage.setScene(aboutGameScene);
 		aboutGameStage.setTitle("About Game");
