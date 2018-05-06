@@ -5,8 +5,11 @@ import game_engine.Component;
 import game_engine.ComponentFactory;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import resources.keys.AuthRes;
+
+import java.util.ResourceBundle;
 
 /**
  * @author liampulsifer
@@ -16,6 +19,9 @@ public class DoubleMenuElement extends MenuElement<Double>{
 	TextField field;
 	private Node view;
 	private String title;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public DoubleMenuElement(String title, Component<Double> component){
 		setMyComponent(component);
 		field = new TextField();
@@ -42,7 +48,20 @@ public class DoubleMenuElement extends MenuElement<Double>{
 		}
 		);
 		this.title = title;
-		view = ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth"));
+		try {
+			view = ButtonFactory.makeReverseHBox(userNames.getString(title),
+					null, field, AuthRes.getInt("MenuElementWidth"));
+		}
+		catch (Exception e){
+			view = ButtonFactory.makeReverseHBox(title,
+					null, field, AuthRes.getInt("MenuElementWidth"));
+		}
+		try {
+			Tooltip tip = new Tooltip(tooltips.getString(title));
+			Tooltip.install(view, tip);
+		} catch (Exception a){
+
+		}
 	}
 
 	/**

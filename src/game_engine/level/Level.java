@@ -37,7 +37,9 @@ public class Level extends Entity {
 	public List<Entity> getEntitiesContaining(List<Class<? extends Component<?>>> args) {
 		return myEntities.stream().filter(e -> e.hasAll(args)).collect(Collectors.toList());
 	}
-
+	public void removeLastEvent(){
+		myEvents.remove(myEvents.size() - 1);
+	}
 	/**
 	 * @param entities
 	 * @param args

@@ -3,11 +3,7 @@ package game_engine.systems.collision;
 import game_engine.Entity;
 import game_engine.level.Level;
 
-/**
- * @author Jeremy Chen Yet to be implemented. Meant to describe bounds of a circular hitbox when
- *         Narrow-phase collisions are implemented
- *
- */
+@Deprecated
 public class CollisionCircleSystem extends CollisionNarrowSystem {
 
 	// @Override
@@ -24,6 +20,5 @@ public class CollisionCircleSystem extends CollisionNarrowSystem {
 	@Override
 	protected void checkIntersect(Entity e1, Entity e2, double elapsedTime) {
 		// TODO Auto-generated method stub
-
 	}
 }

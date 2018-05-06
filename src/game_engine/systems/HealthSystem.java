@@ -16,7 +16,7 @@ import game_engine.systems.collision.CollisionResponseSystem;
  * This system manages each entity's health status 
  * It checks the collisions of an entity and health is decreased based on the DamageComponent of the 
  * entity it collided with
- * @author Kevin Deng, Andy Nguyen, Jeremy Chen, Ben Hubsch
+ * @author Kevin Deng
  *
  */
 

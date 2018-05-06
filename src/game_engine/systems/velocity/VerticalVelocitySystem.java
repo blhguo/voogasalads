@@ -6,7 +6,7 @@ import game_engine.components.physics.YVelComponent;
 
 /**
  * 
- * @author Jeremy Chen, Kevin Deng, Ben Hubsch, Andy Nguyen
+ * @author Kevin Deng
  * The purpose of this class is to handle velocity changes (acceleration) in the vertical direction
  *
  */

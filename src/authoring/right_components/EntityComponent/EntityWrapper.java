@@ -184,9 +184,9 @@ public class EntityWrapper {
 			imageView.setFitWidth(entity.getComponent(WidthComponent.class).getValue());
 			imageView.setFitHeight(entity.getComponent(HeightComponent.class).getValue());
 			if (!entity.getComponent(VisibilityComponent.class).getValue()) {
-				imageView.setOpacity(AuthRes.getInt("FadedOpacity"));
+				imageView.setOpacity(.2);
 			} else {
-				imageView.setOpacity(AuthRes.getInt("ActiveOpacity"));
+				imageView.setOpacity(1);
 			}
 		}
 
