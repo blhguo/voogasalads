@@ -1,6 +1,7 @@
 package authoring.component_menus;
 
 import java.io.File;
+import java.util.ResourceBundle;
 
 import authoring.voogle.VoogleApp;
 import frontend_utilities.ButtonFactory;
@@ -25,6 +26,9 @@ public class FileMenuElement extends MenuElement<String>{
 	private VBox view;
 	private FileChooser fileChooser;
 	private TextField field;
+	private static final ResourceBundle userNames = ResourceBundle.getBundle("UserFriendlyNames");
+	private static final ResourceBundle tooltips = ResourceBundle.getBundle("Tooltips");
+
 	public FileMenuElement(String s, Component component) {
 		super.setMyComponent(component);
 		this.title = s;
@@ -40,12 +44,16 @@ public class FileMenuElement extends MenuElement<String>{
 		fileChooser.setInitialDirectory(new File("./images"));
 		field.setOnMousePressed(e -> updateComponent(KeyCode.SPACE, title, true));
 		view = new VBox();
-		view.getChildren().add(ButtonFactory.makeReverseHBox(title, null, field, AuthRes.getInt("MenuElementWidth")));
+		view.getChildren().add(ButtonFactory.makeReverseHBox(userNames.getString(title),
+				null, field, AuthRes.getInt("MenuElementWidth")));
 		image = ImageBuilder.getImageView(field.getText(), 
 				AuthRes.getInt("FMEImageSize"), 
 				AuthRes.getInt("FMEImageSize"));
 		//view.getChildren().add(image);
 		view.getChildren().add(getVoogleButton());
+		Tooltip tip = new Tooltip(tooltips.getString(title));
+		Tooltip.install(view, tip);
+
 	}
 
 	@Override

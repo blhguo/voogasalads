@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -96,47 +97,63 @@ public class EventPane extends BasePane {
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-//		addActionPane.add(buttonBox);
 	}
 
 	private void initViewEvents() {
 		viewEvents = new Pane();
 		VBox events = new VBox();
 		events.setSpacing(20);
-		events.getChildren().addAll(getPrettyList(eventList));
+
+		VBox box = new VBox();
+		box.getChildren().addAll(getPrettyList(eventList));
+		ScrollPane pane = new ScrollPane(box);
+		events.getChildren().add(pane);
 		System.out.println("Events + " + events.getChildren());
 		ImageView iv = ImageBuilder.resize(new ImageView(new Image("back.png")), 20);
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			initStart();
 		});
 		events.getChildren().add(buttonBox);
+
+		Button button2 = ButtonFactory.makeButton(e -> {
+			levelController.getEngine().getLevel().removeLastEvent();
+			eventList.remove(eventList.size() - 1);
+			initViewEvents();
+		});
+		events.getChildren().add(button2);
 		viewEvents.getChildren().add(events);
 	}
 	private VBox getPrettyList(List<Event> list){
 		VBox labelList = new VBox();
 		//box.setSpacing(10);
 		for (Event element : list){
-			VBox box = new VBox();
-			box.setStyle("-fx-border-width: 2px; -fx-border-color: blue");
-			Label eventLabel = new Label("Event:");
-			eventLabel.setStyle("-fx-background-color: blue;");
-			box.getChildren().add(eventLabel);
+			VBox box = new VBox(AuthRes.getInt("Padding"));
+			box.setPrefWidth(300);
+			//box.setStyle("-fx-border-width: 2px; -fx-border-color: blue");
+			//Label eventLabel = new Label("Event:");
+			//eventLabel.setStyle("-fx-background-color: blue;");
+//			eventLabel.getStyleClass().add("event-label");
+//			box.getChildren().add(eventLabel);
 
-			Label conditionLabel = new Label("Conditions");
-			conditionLabel.setStyle("-fx-background-color: lightblue");
+			Label conditionLabel = new Label("Conditions:");
+			//conditionLabel.setStyle("-fx-background-color: lightblue");
+			conditionLabel.getStyleClass().add("event-label");
 			box.getChildren().add(conditionLabel);
 
 			for (Condition condition : element.getConditions()){
 				Label label = new Label(condition.toString());
+				label.getStyleClass().add("event-label2");
 				box.getChildren().add(label);
 			}
 
 			Label actionLabel = new Label("Actions:");
-			actionLabel.setStyle("-fx-background-color: lightblue;");
+			//actionLabel.setStyle("-fx-background-color: lightblue;");
+			actionLabel.getStyleClass().add("event-label");
 			box.getChildren().add(actionLabel);
 
 			for (Action action : element.getActions()){
 				Label label = new Label(action.toString());
+				label.getStyleClass().add("event-label2");
 				box.getChildren().add(label);
 			}
 			labelList.getChildren().add(box);
@@ -150,7 +167,6 @@ public class EventPane extends BasePane {
 		Button buttonBox = ButtonFactory.makeIconButton("Back", iv, e -> {
 			clearAndAdd(newEvent);
 		});
-//		addConditionPane.add(buttonBox);
 	}
 
 

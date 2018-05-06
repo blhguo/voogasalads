@@ -298,7 +298,7 @@ public class AddActionPane extends Pane implements GUINode {
 		ObservableList<String> data = FXCollections.observableArrayList("+", "-", "*", "/", "%");
 		expressionBox  = new ComboBox<>(data);
 		expressionBox.getStyleClass().add("combo-box-auth");
-		Label label = new Label("Enter an expression to evaluate on this component");
+		Label label = new Label("Enter expression to evaluate on component");
 		label.getStyleClass().add("event-label2");
 		box.getChildren().add(label);
 		box.getChildren().add(expressionBox);

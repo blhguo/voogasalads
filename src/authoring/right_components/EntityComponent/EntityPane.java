@@ -68,10 +68,13 @@ public class EntityPane extends BasePane{
 		ResourceBundle bundle = ResourceBundle.getBundle("Defaults");
 		VBox vbox = new VBox();
 		vbox.setSpacing(AuthRes.getInt("VBPadding"));
-		vbox.getChildren().add(new Label("Default Entities"));
+		Label l = new Label("Default Entities");
+		l.getStyleClass().add("event-label");
+		vbox.getChildren().add(l);
 		HBox box = new HBox();
 		box.setSpacing(AuthRes.getInt("HBPadding"));
 		for (String key : bundle.keySet()){
+			System.out.println("KEY: " + key);
 			Button def = ButtonFactory.makeButton(e -> {
 				//newWrapper();
 				includeAll(Arrays.asList(bundle.getString(key).split(",")));
@@ -80,9 +83,11 @@ public class EntityPane extends BasePane{
 				refresh();
 			});
 			def.setText(key);
+			def.getStyleClass().add("button-entity");
 			box.getChildren().add(def);
 			box.getChildren().add(new Separator(Orientation.VERTICAL));
 		}
+		box.getChildren().remove(box.getChildren().size() - 1);
 		vbox.getChildren().add(box);
 		return vbox;
 	}
@@ -98,7 +103,9 @@ public class EntityPane extends BasePane{
 	private List<HBox> instantiateCreateButtonArray() {
 		List<HBox> list = new ArrayList<>();
 		HBox newBox = new HBox();
-		newBox.getChildren().add(new Label("Click the screen \nto create a new entity!"));
+		Label l = new Label("Click the screen \nto create a new entity!");
+		l.getStyleClass().add("event-label2");
+		newBox.getChildren().add(l);
 		list.add(newBox);
 		return list;
 	}

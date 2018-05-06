@@ -19,21 +19,23 @@ import resources.keys.AuthRes;
 
 /**
  * @author Jennifer Chin
- * Maintains control of all active entities and the levels in which they reside, passes data to Data
+ * Contains Engine object - works with LevelPane, StoryBoardPane, and EntityController to update Engine object
  */
 public class LevelController {
 
 	private Engine engine;
-	
+	  
+	/**
+	 * Public constructor. Creates an engine object and adds an initial level to the engine.
+	 */
 	public LevelController() {
 		engine = new Engine();
 		addLevel();
 	}
 	/**
-	 * Adds a new level to the engine
+	 * Adds a new level to the engine. Sets default components for level to avoid null pointer
 	 */
 	public void addLevel() {
-		// need to have splash screen also
 		Level newLevel = engine.createLevel();
 		// add defaults to level
 		int levelNum = newLevel.getId() + 1;
@@ -43,17 +45,29 @@ public class LevelController {
 		newLevel.addComponent(new LevelHScrollComponent(true));
 		newLevel.addComponent(new LevelVScrollComponent(true));
 		engine.setLevel(newLevel.getId());
-		System.out.println("BEFORE SAVE: " + engine.getLevel());
 	}
 	
+	/**
+	 * Returns engine object
+	 * @return Engine
+	 */
 	public Engine getEngine(){
 		return engine;
 	}
 	
+	/**
+	 * Sets engine object - used when loading game from a file
+	 * @param e
+	 */
 	public void setEngine(Engine e){
 		engine = e;
 	}
 	
+	/**
+	 * Special case of engine.getLevelPreviews() with only one component. Method simplifies LevelPane code
+	 * @param comp
+	 * @return <T> List<Object>
+	 */
 	public <T> List<Object> getSingleCompList(Class<? extends Component<T>> comp){
 		List<Object> ret = new ArrayList<Object>();
 		Map<Integer, List<Component<T>>> map = engine.getLevelPreviews(Arrays.asList(comp));
@@ -65,22 +79,28 @@ public class LevelController {
 		return ret;
 	}
 	
+	/**
+	 * Calls engine addComponent method. Simplifies LevelPane/StoryBoardPane code
+	 * @param c
+	 */
 	public void addComp(Component<?> c){
 		engine.getLevel().addComponent(c);
 	}
 	
+	/**
+	 * Adds entity to current Level
+	 * @param e
+	 */
 	public void addEntity(Entity e){
-		System.out.println("Entity: " + e);
 		engine.getLevel().addEntity(e);
-//		System.out.println("------ Entities in the level ------");
-//		engine.getLevel().getEntities().stream().forEach(a ->
-//			System.out.println(a));
 	}
 
+	/**
+	 * Adds event to current Level
+	 * @param event
+	 */
 	public void addEvent(Event event){
 		engine.getLevel().addEvent(event);
-		System.out.println(event.getActions());
-		System.out.println(event.getConditions());
 	}
 	
 }

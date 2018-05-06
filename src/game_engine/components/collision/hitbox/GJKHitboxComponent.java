@@ -11,6 +11,7 @@ import game_engine.Component;
  * A list of tuples, representing 2D points, defined by relative position from center of hitbox
  *
  */
+@Deprecated
 public class GJKHitboxComponent extends Component<List<Double[]>> {
 
 	public GJKHitboxComponent(List<Double[]> val) {

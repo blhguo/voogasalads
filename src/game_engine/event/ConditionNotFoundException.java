@@ -3,7 +3,7 @@ package game_engine.event;
 public class ConditionNotFoundException extends RuntimeException{
 
 	/**
-	 * 
+	 * The purpose of this class is to throw an exception when a condition is not found
 	 */
 	private static final long serialVersionUID = 1L;
 	
