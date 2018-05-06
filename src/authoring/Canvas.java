@@ -29,6 +29,10 @@ import javafx.scene.paint.Color;
  * Canvas class for the middle portion of the Authoring Environment. Displays the current
  * level and all Entities in that level. Allows the user to drag and drop images around
  * the view.
+ * 
+ * Functions by initializing a larger pane (myInfinitePane) within a smaller ScrollPane of
+ * fixed-dimensions (myNode). myNode functions similarly to a JavaFX camera, allowing the user
+ * to navigate a larger view through a smaller, mobile lens.
  */
 public class Canvas implements GUINode {
 	private Pane myInfinitePane;
@@ -39,7 +43,8 @@ public class Canvas implements GUINode {
 	private int currLevel;
 
 	/**
-	 * Constructor that creates new internal canvas and initializes outer ScrollPane
+	 * Constructor that creates new internal canvas, initializes outer ScrollPane,
+	 * and sets the view to the level of index 0.
 	 */
 	public Canvas() {
 		myInfinitePane = initializeInfinitePane(4000, 4000);
@@ -56,6 +61,7 @@ public class Canvas implements GUINode {
 	
 	/**
 	 * Allows the canvas to be updated according to the current EntityWrappers in the list.
+	 * Adds these new Entities to the Canvas view.
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
@@ -68,7 +74,8 @@ public class Canvas implements GUINode {
 	}
 	
 	/**
-	 * Allows the canvas the be updated when entities cannot be edited (ie. the user is not on EntityPane, but one of the other right components)
+	 * Allows the canvas the be updated when entities cannot be edited (ie. when the 
+	 * user is not on EntityPane, but one of the other right components)
 	 * @param entityList
 	 */
 	public void updateDummies(List<EntityWrapper> entityList){
@@ -103,16 +110,26 @@ public class Canvas implements GUINode {
 		myController = controller;
 	}
 	
+	/**
+	 * Initializes communication between myController, EntityPane, and myInfinitePane
+	 */ 
 	public void listen() {
 		myInfinitePane.setOnMousePressed(e -> {
 			myController.alertEntityPane(e.getX(), e.getY());
 		});
 	}
 	
+	/**
+	 * Discontinues communication between myController, EntityPane, and myInfinitePane
+	 */
 	public void stopListen() {
 		myInfinitePane.setOnMousePressed(e -> {});
 	}
 	
+	/**
+	 * Initializes myInfinitePane, the larger sub-canvas. Sets internal dimensions to
+	 * @prefX by @prefY
+	 */
 	private Pane initializeInfinitePane(double prefX, double prefY) {
 		myInfinitePane = new Pane();
 		myInfinitePane.setPrefSize(prefX,prefY);
@@ -122,11 +139,10 @@ public class Canvas implements GUINode {
 	}
 	
 	/**
-	 * Method to initialize scrolling window
-	 * Always show scrolling bars.
-	 * Sets view to the center of internal canvas,
-	 * as turtle is initialized in center
-	 * 
+	 * Method to initialize scrolling window, which provides a view of myInfinitePane
+	 * with restricted fixed-dimensions.
+	 * Sets ScrollPane to always display scrolling bars.
+	 * Sets view to the top left corner of internal canvas.
 	 */
 	private ScrollPane initializeScrollingPane() {
 		myNode = new ScrollPane();
@@ -136,12 +152,12 @@ public class Canvas implements GUINode {
 		myInfinitePane.setManaged(false);
 		myNode.setHvalue(0);
 		myNode.setVvalue(0);
-//		myNode.setPrefSize(400, 800);
 		return myNode;
 	}
 
 	/**
-	 * GUINode method 
+	 * GUINode method; returns myNode, the ScrollPane that wraps myInfinitePane,
+	 * which holds each of the visible game entities.
 	 */
 	@Override
 	public Node getView() {
@@ -157,9 +173,9 @@ public class Canvas implements GUINode {
 	}
 	
 	/**
-	 * Meant to restrict canvas the horizontal or vertical scrolling (or both). Doesn't work
-	 * @param hscroll
-	 * @param vscroll
+	 * Meant to restrict the canvas' horizontal or vertical scrolling (or both). Does not work.
+	 * @param hscroll true if horizontal scrolling enabled; false if not
+	 * @param vscroll true if vertical scrolling enabled; false if not
 	 */
 	public void changeScrolling(boolean hscroll, boolean vscroll){
 		if (! hscroll){
