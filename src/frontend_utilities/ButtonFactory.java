@@ -72,6 +72,13 @@ public class ButtonFactory {
 		return vb;
 	}
 	
+	/**
+	 * Creates a HBox with title on the left side and Node on the right side
+	 * @param title
+	 * @param subtitle
+	 * @param node
+	 * @return
+	 */
 	public static HBox makeReverseHBox(String title, String subtitle, Node node){
 		if (node instanceof Button)
 			node.getStyleClass().add("button-splash");
@@ -81,6 +88,15 @@ public class ButtonFactory {
 		hb.getChildren().addAll(vb, node);
 		return hb;
 	}
+	
+	/**
+	 * Creates HBox with title on left side and Node on the right side. Specifies a width for the HBox
+	 * @param title
+	 * @param subtitle
+	 * @param node
+	 * @param wrapWidth
+	 * @return
+	 */
 	public static HBox makeReverseHBox(String title, String subtitle, Node node, double wrapWidth){
 		if (node instanceof Button)
 			node.getStyleClass().add("button-splash");
@@ -103,6 +119,13 @@ public class ButtonFactory {
 		return makeHBox(title, subtitle, button);
 	}
 	
+	/**
+	 * Used to make an Icon button where the css is "button-event"
+	 * @param title
+	 * @param iv
+	 * @param handler
+	 * @return
+	 */
 	public static Button makeIconButton(String title, ImageView iv, EventHandler<ActionEvent> handler){
 		Button b = new Button(title, iv);
 		b.setOnAction(handler);
@@ -110,6 +133,12 @@ public class ButtonFactory {
 		return b;
 	}
 	
+	/**
+	 * Used to make remove buttons for entity components
+	 * @param title
+	 * @param handler
+	 * @return
+	 */
 	public static Button makeRemoveButton(String title, EventHandler<ActionEvent> handler){
 		Button b = new Button(title);
 		b.getStyleClass().add("button-remove");
@@ -157,6 +186,13 @@ public class ButtonFactory {
 		return retButton;
 	}
 
+	/**
+	 * Calls makeHBox method from above, but restricts the size of the Node
+	 * @param delete_entity
+	 * @param o
+	 * @param removeButton
+	 * @return
+	 */
 	public static HBox makeLittleHBox(String delete_entity, Object o, Button removeButton) {
 		removeButton.setMaxHeight(10);
 		HBox ret = makeHBox(delete_entity, (String) o, removeButton);
@@ -164,12 +200,29 @@ public class ButtonFactory {
 		return ret;
 	}
 
+	/**
+	 * Calls makeHBox method from above, but centers the HBox
+	 * @param create_entity
+	 * @param o
+	 * @param button
+	 * @param center
+	 * @return
+	 */
 	public static HBox makeHBox(String create_entity, Object o, Button button, Pos center) {
 		HBox box = makeHBox(create_entity, (String) o, button);
 		box.setAlignment(center);
 		return box;
 	}
 	
+	/**
+	 * Makes thumbnail button with ImageView on top and text underneath
+	 * @param imagePath
+	 * @param name
+	 * @param handler
+	 * @param width
+	 * @param height
+	 * @return
+	 */
 	public static Button makeThumbnail(String imagePath, String name, EventHandler<ActionEvent> handler, int width, int height){
 		ImageView iv = ImageBuilder.getImageView(imagePath, width, height);
 		Button b = new Button(name, iv);

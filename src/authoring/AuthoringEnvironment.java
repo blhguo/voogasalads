@@ -96,14 +96,6 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		np.addMetaController(mcontroller);
 		np.setLoader(loader);
 	}
-	
-//	public AuthoringEnvironment(Stage stage, Loader l){
-//		this.stage = stage;
-//		Loader loader = l;
-//		entity = l.getEntityPane();
-//		level = l.getLevelPane();
-//		story = l.getStoryPane();
-//	}
 
 	/**
 	 * Abstract method inherited from the GUIBuilder super class. Returns a Pane that
@@ -162,6 +154,10 @@ public class AuthoringEnvironment extends GUIBuilder implements Listener {
 		}
 	}
 	
+	/**
+	 * Returns loader of the AuthoringEnvironment. Used by AuthoringLoader to load game and create appropriate thumbnail buttons
+	 * @return
+	 */
 	public Loader getLoader(){
 		return loader;
 	}

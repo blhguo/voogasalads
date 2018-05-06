@@ -1,5 +1,10 @@
 package authoring.controllers;
 
+/**
+ * @author Jennifer Chin
+ * MetaController communicates with Firebase to save a game. It creates the maps that saveData takes as parameters.
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +20,11 @@ public class MetaController {
 	private Map<String, String> printMap;
 	private Map<String, String> configMap;
 	
+	/**
+	 * Public MetaController Constructor. Takes in a LevelController to get the Engine to pass to Firebase. Instantiates a new Firebase object to call
+	 * updateFirebase(). Initializes map parameters.
+	 * @param lc
+	 */
 	public MetaController(LevelController lc){
 		data = new Firebase();
 		data.initListeners();
@@ -23,35 +33,48 @@ public class MetaController {
 	}
 	
 	/**
-	 * Passes the current levels array to data
+	 * Resets current level in engine to the first level. Calls updateFirebase() to save game
 	 */
 	public void saveGame() {
-		lcontroller.getEngine().getLevel().getEntities().stream().forEach(e -> System.out.println(e.getComponents()));
 		lcontroller.getEngine().setLevel(0);
-		//data.saveData(lcontroller.getEngine(), gameName, printMap);
 		data.updateFirebase(lcontroller.getEngine(), gameName, gameName, printMap, configMap);
 	}
 	
+	/**
+	 * Sets the game name. Updates both maps with new name.
+	 * @param name
+	 */
 	public void setGameName(String name){
 		gameName = name;
 		printMap.put(AuthRes.getString("Name"), name);
 		configMap.put(AuthRes.getStringKeys("key0"), name);
 	}
 	
+	/**
+	 * Returns the current game name.
+	 * @return String
+	 */
 	public String getGameName(){
 		return gameName;
 	}
 	
+	/**
+	 * Returns the meta data map of Strings to be printed in Player
+	 * @return Map<String, String>
+	 */
 	public Map<String, String> getPrintMap(){
 		return printMap;
 	}
 	
-	public void setPrintMap(Map<String, String> newMap){
-		printMap = newMap;
-		System.out.println("MAP NAME: " + printMap.get(AuthRes.getString("Name")));
-		setGameName(printMap.get(AuthRes.getString("Name")));
-	}
+//	public void setPrintMap(Map<String, String> newMap){
+//		printMap = newMap;
+//		setGameName(printMap.get(AuthRes.getString("Name")));
+//	}
 	
+	/**
+	 * Returns the meta data map that is the basis for the config.properties file of a game
+	 * @return Map<String, String>
+	 */
 	public Map<String, String> getConfigMap(){
 		return configMap;
 	}

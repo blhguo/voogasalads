@@ -47,38 +47,30 @@ public class Canvas implements GUINode {
 		currLevel = 0;
 	}
 	
-	
+	/**
+	 * Sets a default background to a plain color
+	 */
 	public void setDefaultBackground(){
 		myInfinitePane.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 	
 	/**
-	 * Allows the canvas to be updated according to the current entities in the map.
-	 * The map is created in EntityController and EntityController calls this method in
-	 * order to update the canvas. 
+	 * Allows the canvas to be updated according to the current EntityWrappers in the list.
 	 * @param entityList
 	 */
 	public void update(List<EntityWrapper> entityList){
-		//myInfinitePane = initializeInfinitePane(myInfinitePane.getMaxWidth(), myInfinitePane.getMaxHeight());
 		myInfinitePane.getChildren().clear();
-//		System.out.println("-----Updating Canvas------");
-//		entityList.stream().forEach(e -> System.out.println("Entity " + e));
-//		entityList.stream().forEach(a -> System.out.println("Entity " + a.getEntity()));
-//		entityList.stream().forEach(b -> System.out.println("Image" + b.getImageView()));
 		for (EntityWrapper e: entityList){
 			if (e.getLevel() == currLevel && !myInfinitePane.getChildren().contains(e.getImageView())){
 				myInfinitePane.getChildren().add(e.getImageView());
-				//System.out.println("ADDED TO CANVAS: " + e.getImageView().toString());
 			}
 		}
-		
-//		for (ImageView view : entityList.stream().map(e -> e.getImageView()).collect(Collectors.toList())){
-//			if (!myInfinitePane.getChildren().contains(view))
-//				myInfinitePane.getChildren().add(view);
-//		}
-		//entityList.stream().forEach(e -> {pane.getChildren().add(e.getImageView());});
-		System.out.println("Canvas updated");
 	}
+	
+	/**
+	 * Allows the canvas the be updated when entities cannot be edited (ie. the user is not on EntityPane, but one of the other right components)
+	 * @param entityList
+	 */
 	public void updateDummies(List<EntityWrapper> entityList){
 		myInfinitePane.getChildren().clear();
 		entityList.stream().forEach(e -> System.out.println(e.getDummy()));
@@ -91,9 +83,6 @@ public class Canvas implements GUINode {
 		        });
 			}
 		}
-		
-	
-
 	}
 	
 	/**
@@ -115,15 +104,12 @@ public class Canvas implements GUINode {
 	}
 	
 	public void listen() {
-
 		myInfinitePane.setOnMousePressed(e -> {
 			myController.alertEntityPane(e.getX(), e.getY());
-			System.out.println("Clicked -- Canvas line 100");
 		});
 	}
 	
 	public void stopListen() {
-//		System.out.println("Stopped listening");
 		myInfinitePane.setOnMousePressed(e -> {});
 	}
 	
@@ -154,25 +140,32 @@ public class Canvas implements GUINode {
 		return myNode;
 	}
 
+	/**
+	 * GUINode method 
+	 */
 	@Override
 	public Node getView() {
 		return myNode;
 	}
 	
+	/**
+	 * Sets the current Level of the canvas so that the correct entities are displayed according to level
+	 * @param id
+	 */
 	public void setLevel(int id){
 		currLevel = id;
 	}
 	
+	/**
+	 * Meant to restrict canvas the horizontal or vertical scrolling (or both). Doesn't work
+	 * @param hscroll
+	 * @param vscroll
+	 */
 	public void changeScrolling(boolean hscroll, boolean vscroll){
 		if (! hscroll){
 			myInfinitePane.setPrefWidth(myNode.getWidth());
 			myNode.setHbarPolicy(ScrollBarPolicy.NEVER);
 			myNode.setContent(myInfinitePane);
-//			bp.setCenter(this.getView());
-			System.out.println("limited horizontal");
-			System.out.println(myInfinitePane.getMaxWidth());
-			System.out.println(myInfinitePane.getWidth());
-			System.out.println();
 		}
 		else {
 			myInfinitePane.setPrefWidth(Double.POSITIVE_INFINITY);
