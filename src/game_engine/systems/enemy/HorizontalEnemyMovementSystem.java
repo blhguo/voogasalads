@@ -8,7 +8,7 @@ import game_engine.components.physics.XVelComponent;
 /**
  * 
  * @author Ben Hubsch
- * The purpose of this class is to allow for the feature of having enemy entities that pack back and forth horizontally
+ * The purpose of this class is to allow for the feature of having enemy entities that pace back and forth horizontally
  *
  */
 public class HorizontalEnemyMovementSystem extends EnemyMovementSystem {

@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 
 /**
  * @author liampulsifer
- * A menu element for String input (i.e. file names, etc.)
+ * A menu element for String input
  */
 public class StringMenuElement extends MenuElement<String>{
 	private TextField field;

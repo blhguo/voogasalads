@@ -12,13 +12,13 @@ import resources.keys.AuthRes;
 
 /**
  * @author Jennifer Chin
- * Abstract super class called GUIBuilder. This class is extended by all classes that 
- * initialize scenes. This class is intended to provide hierarchy to the front end GUI
- * elements. GUIBuilder classes are made up of GUINode classes. Because all GUINode classes
- * implement the same method, it is easy for the GUIBuilder class the use the GUINode
- * classes interchangeably.
+ * @author Elizabeth Shulman
+ * Abstract super class to be extended by all classes that initialize scenes or
+ * serve as scene roots. This class is intended to provide hierarchy to the front end GUI
+ * elements. GUIBuilder views are made up of GUINode objects. Because all GUINode classes
+ * implement the same method (.getView() to return the highest-level of that object's view), 
+ * it is easy for the GUIBuilder class the use the GUINode classes interchangeably.
  */
-
 public abstract class GUIBuilder {
 	
 	/**
@@ -30,9 +30,9 @@ public abstract class GUIBuilder {
 	public abstract Pane display();
 	
 	/**
-	 * Initializes the scene of the GUIBuilder objects. There is a constant background 
-	 * and size of the scenes and those elements are established here. In order to change
-	 * one of these values for the entire program, only this one method needs to be updated. 
+	 * Initializes the scene of the GUIBuilder objects. The background and stylesheets
+	 * are standardized and set here. In order to change one of these values for the entire 
+	 * program, only this method needs to be updated. 
 	 * @param pane
 	 * @return Scene
 	 */
@@ -44,7 +44,7 @@ public abstract class GUIBuilder {
 	}
 	
 	/**
-	 * Sets the background of a Pane to be the chosen background for the application
+	 * Sets the background of the highest-level pane for the view.
 	 * @param pane
 	 */
 	public void setBackground(Pane pane){

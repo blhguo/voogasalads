@@ -8,7 +8,7 @@ import game_engine.components.physics.YVelComponent;
 /**
  * 
  * @author Ben Hubsch
- * The purpose of this class is to allow for the feature of having enemy entities that pack back and forth vertically
+ * The purpose of this class is to allow for the feature of having enemy entities that pace back and forth vertically
  */
 public class VerticalEnemyMovementSystem extends EnemyMovementSystem {
 

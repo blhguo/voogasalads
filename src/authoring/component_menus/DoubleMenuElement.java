@@ -25,13 +25,6 @@ public class DoubleMenuElement extends MenuElement<Double>{
 	public DoubleMenuElement(String title, Component<Double> component){
 		setMyComponent(component);
 		field = new TextField();
-//		if (!(component.getValue() instanceof Double)) {
-//			System.out.println("That " + title + "'s not a Double! -- from NumberMenuElement");
-//			System.out.println(component.getValue());
-//			if (component.getValue() instanceof Integer){
-//				component.setValue(((Integer) component.getValue()).doubleValue());
-//			}
-//		}
 
 		if (component.getValue() == null) {
 			field.setText("IMMUTABLE");
@@ -60,7 +53,9 @@ public class DoubleMenuElement extends MenuElement<Double>{
 			Tooltip tip = new Tooltip(tooltips.getString(title));
 			Tooltip.install(view, tip);
 		} catch (Exception a){
-
+			System.out.println("No tooltip found for: " + title);
+			//In this instance, it's not that important that the tooltip actually throw
+			//an exception -- we'd rather the program run well
 		}
 	}
 

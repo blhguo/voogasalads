@@ -25,7 +25,7 @@ import javafx.scene.image.ImageView;
 /**
  * @author liampulsifer
  * manages interaction between EntityPane and Canvas
- * maintains a map of ImageView to Entity and defines on-click behavior of ImageViews
+ * maintains a list of Entity Wrappers and defines on-click behavior of ImageViews
  */
 public class EntityController {
 	Map<ImageView, Entity> map;
@@ -49,29 +49,19 @@ public class EntityController {
 	}
 
 	/**
-	 * Adds the passed Entity to the local map of imageviews to entities
+	 * Adds the passed Entity to the local list of entity wrappers
 	 * calls setUpImageView to make the imageview of the entity
 	 * adds the entity to the levelController
 	 * @param wrapper the entityWrapper to be added to the map
 	 */
 	public void add(EntityWrapper wrapper){
-		//entityList.add(entity);
 		map.put(wrapper.getImageView(), wrapper.getEntity());
 		if (!entityList.contains(wrapper)) {
 			entityList.add(wrapper);
 		}
-		//System.out.println("Wrapper Added: " + wrapper);
-		//System.out.println("\tWrapper's Entity: " + wrapper.getEntity());
-		//System.out.println("Wrapper added: " + entityList.size());
-		//menuMap.put(entity, new ArrayList<>(entityPane.getMenuList().
-			//stream().filter(e -> e.isIncluded()).collect(Collectors.toList())));
-		//iv.setClick(entityPane.showMenu(entity.getMenu()));
-		//canvas.update(entityList);
 		addToLevel(wrapper.getEntity());
 		int currLevel = lcontroller.getEngine().getLevel().getId();
 		wrapper.setLevel(currLevel);
-		//System.out.println("Entity Components at Add");
-		//wrapper.getEntity().getComponents().stream().forEach((b -> System.out.println(b)));
 	}
 
 	/**
@@ -134,10 +124,8 @@ public class EntityController {
 	 *
 	 * @return the default sprite for display at the top of the EntityPane
 	 */
+	@Deprecated
 	public ImageView getSprite(){
-//		ImageView iv = ImageBuilder.getImageView(entityPane.getEntity().getComponent(FilenameComponent.class)
-//				.getValue(), 135, 135);
-//		return iv;
 		return new ImageView();
 	}
 	@Deprecated
@@ -154,6 +142,7 @@ public class EntityController {
 	 *
 	 * @return ImageView to Entity map
 	 */
+	@Deprecated
 	public Map<ImageView, Entity> getMap(){
 		return map;
 	}
@@ -194,16 +183,33 @@ public class EntityController {
 		});
 	}
 
+	/**
+	 * Updates the dummy image views used in all other panes except the entity pane
+	 * (These image views have less robust on-click behavior)
+	 */
 	public void updateDummies(){
 		canvas.updateDummies(entityList);
 	}
+
+	/**
+	 * Calls the canvas' listen function so that it can listen for clicks to add new entities
+	 */
 	public void listenCanvas() {
 		canvas.listen();
 	}
+
+	/**
+	 * Turns off the canvas' listen function
+	 */
 	public void stopListenCanvas(){
 		canvas.stopListen();
 	}
 
+	/**
+	 * Creates a new entity at the user-clicked location
+	 * @param sceneX -- X position of a user click on the canvas
+	 * @param sceneY -- Y position of a user click on the canvas
+	 */
 	public void alertEntityPane(double sceneX, double sceneY) {
 		EntityWrapper wrap = new EntityWrapper(entityPane.getPureCurrent(), entityPane);
 		wrap.setPos(sceneX - wrap.getImageView().getFitWidth() / 2,
@@ -212,27 +218,36 @@ public class EntityController {
 			add(wrap);
 		}
 		canvas.update(entityList);
-		//System.out.println("# of Entities " + entityList.size());
-		//entityPane.newWrapper();
-		//System.out.println("About to hit it");
 		entityPane.newDuplicateEntity();
-		//entityPane.refresh();
 		this.resetImageViews();
-		//entityPane.setActiveWrapper(wrap);
 	}
 
+	/**
+	 * Updates the canvas display with the new list of entities
+	 */
 	public void updateCanvas() {
 		canvas.update(entityList);
 	}
-	
+
+	/**
+	 * Updates the canvas with the entity-wrapper list provided
+	 * @param entList
+	 */
 	public void updateCanvas(List<EntityWrapper> entList){
 		canvas.update(entList);
 	}
 
+	/**
+	 * Adds the entity wrapper to the event pane box
+	 * @param e -- an entity wrapper
+	 */
 	public void addToEventPaneBox(EntityWrapper e) {
 		eventPane.addToEntityBox(e);
 	}
-	
+
+	/**
+	 * @return -- list of active entities
+	 */
 	public List<EntityWrapper> getEntities(){
 		return entityList;
 	}
