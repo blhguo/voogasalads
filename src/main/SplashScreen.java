@@ -17,15 +17,24 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import resources.keys.AuthRes;
 
+/**
+ * Creates the splash screen for the game. Extends GUIGridPaneSuper which extends GUIBuilder
+ * @author Jennifer Chin
+ *
+ */
+
 public class SplashScreen extends GUIGridPaneSuper{
 
 	private Stage myStage;
 
-	
 	public SplashScreen(Stage stage){
 		myStage = stage;
 	}
 	
+	/**
+	 * Creates the scene for the stage
+	 * @return
+	 */
 	public Scene getScene(){
 		GridPane gridpane = new GridPane();
 		gridpane.setHgap(AuthRes.getInt("Padding"));
@@ -63,6 +72,11 @@ public class SplashScreen extends GUIGridPaneSuper{
 		return myVBox;
 	}
 
+	/**
+	 * GUIGridPaneSuper method to finish the scene
+	 * @param gridpane
+	 * @return Pane
+	 */
 	@Override
 	public Pane finishScene(GridPane gridpane) {
 
