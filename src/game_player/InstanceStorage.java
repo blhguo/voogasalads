@@ -3,7 +3,7 @@ package game_player;
 import javafx.stage.Stage;
 /**
  * 
- * @author Brandon Dalla Rosa
+ * @author Brandon Dalla Rosa, Dana Park
  * 
  * Holds the instances of the game player that need to
  * communicate in order to lessen dependency issues.
